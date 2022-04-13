@@ -1,0 +1,25 @@
+{
+    "content": {
+        "type": "container",
+        "backgroundColor": "red",
+        "child": {
+            "type": "column",
+            "children": [
+                {
+                    "type": "button",
+                    "onClick": "onClickButton()",
+                    "text": "Test Button From JSON"
+                },
+                {
+                    "type": "container",
+                    "backgroundColor": "blue",
+                    "child": {
+                        "type": "button",
+                        "onClick": "setState({abcd: Date.now()})",
+                        "text": "Call setState({abcd: Date.now()})"
+                    }
+                }
+            ]
+        }
+    }
+}

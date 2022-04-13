@@ -1,53 +1,35 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
-import 'dart:io';
 
-import 'package:hive/hive.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_js/flutter_js.dart';
-import 'package:the_tool/tool_components/t_test_widget.dart';
+import 'package:the_tool/tool_components/t_widgets.dart';
 
-class TBaseWidget extends StatefulWidget {
-  const TBaseWidget({Key? key}) : super(key: key);
+class T_BaseWidget extends StatefulWidget {
+  const T_BaseWidget({Key? key}) : super(key: key);
 
   @override
-  State<TBaseWidget> createState() => _TBaseWidgetState();
+  State<T_BaseWidget> createState() => _T_BaseWidgetState();
 }
 
-class _TBaseWidgetState extends State<TBaseWidget> {
+class _T_BaseWidgetState extends State<T_BaseWidget> {
   String _jsResult = '';
-  String _baseJS = "";
-  String _libJS = "";
   var _pageState = {};
   var _prevPageState = {};
 
+  String _baseJS = "";
+  String _libJS = "";
+  String _pageCode = "";
+  Map<String, dynamic> _pageLayout = {};
+
   String _executedJS = "";
-  final String _pageCode = """
-  function testFunc(data) {
-    return data
-  }
-
-  useStateEffect(
-    (state) => {
-      console.log("abcd useStateEffect abcd", state.abcd);
-    },
-    ["abcd"]
-  );
-
-  useStateEffect(
-    (state) => {
-      console.log("abcd useStateEffect testData", state.testData);
-    },
-    ["testData"]
-  );
-
-  """;
   late JavascriptRuntime flutterJs;
+
   @override
   void initState() {
     super.initState();
     _loadLibs();
+    _loadPage("");
     flutterJs = getJavascriptRuntime();
   }
 
@@ -59,10 +41,19 @@ class _TBaseWidgetState extends State<TBaseWidget> {
 
   Future<void> _loadLibs() async {
     String lodash = await rootBundle.loadString('js/libs/lodash.js');
-    String react = await rootBundle.loadString('js/libs/react.js');
 
     _baseJS = await rootBundle.loadString('js/base.js');
-    _libJS = lodash + react;
+    _libJS = lodash;
+  }
+
+  Future<void> _loadPage(String pageName) async {
+    String pageCode = await rootBundle.loadString('js/test_js.js');
+    String pageLayout = await rootBundle.loadString('js/test_json.json');
+
+    setState(() {
+      _pageCode = pageCode;
+      _pageLayout.addAll(jsonDecode(pageLayout));
+    });
   }
 
   Future<JsEvalResult> _evaluateJsCode(String evalString) async {
@@ -103,12 +94,13 @@ class _TBaseWidgetState extends State<TBaseWidget> {
 
   @override
   Widget build(BuildContext context) {
+    print("Rerender");
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
             title: const Text('FlutterJS Example'),
           ),
-          body: Center(
+          body: Container(
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -117,46 +109,7 @@ class _TBaseWidgetState extends State<TBaseWidget> {
                     height: 20,
                   ),
                   Text('Dart State: $_pageState\n'),
-                  TTest(
-                    executeJS: _evaluateJsCode,
-                    widgetProps: const {
-                      "onClick": "setState(_state)",
-                      "text": "TTest Widget"
-                    },
-                  ),
-                  TextButton(
-                    child: const Text("Call testFunc(123)"),
-                    onPressed: () async {
-                      JsEvalResult? jsResult =
-                          await _evaluateJsCode("testFunc(123)");
-
-                      setState(() {
-                        _jsResult = jsResult.stringResult;
-                      });
-                    },
-                  ),
-                  TextButton(
-                    child: const Text("Call setState({abcd: Date.now()})"),
-                    onPressed: () async {
-                      JsEvalResult? jsResult =
-                          await _evaluateJsCode("setState({abcd: Date.now()})");
-
-                      setState(() {
-                        _jsResult = jsResult.stringResult;
-                      });
-                    },
-                  ),
-                  TextButton(
-                    child: const Text("Call setState({testData: Date.now()})"),
-                    onPressed: () async {
-                      JsEvalResult? jsResult = await _evaluateJsCode(
-                          "setState({testData: Date.now()})");
-
-                      setState(() {
-                        _jsResult = jsResult.stringResult;
-                      });
-                    },
-                  ),
+                  T_Widgets(layout: _pageLayout, executeJS: _evaluateJsCode),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(

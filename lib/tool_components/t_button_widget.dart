@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_js/flutter_js.dart';
 
-class TTest extends StatelessWidget {
+class T_Button extends StatelessWidget {
   Future<JsEvalResult> Function(String js) executeJS;
   Map<String, dynamic> widgetProps;
 
-  TTest({
+  T_Button({
     Key? key,
     required this.executeJS,
     required this.widgetProps,
@@ -13,16 +13,14 @@ class TTest extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: TextButton(
-        child: Text(widgetProps["text"]),
-        onPressed: () async {
-          var onClick = widgetProps["onClick"];
-          if (onClick is String) {
-            await executeJS(onClick);
-          }
-        },
-      ),
+    return TextButton(
+      child: Text(widgetProps["text"]),
+      onPressed: () async {
+        var onClick = widgetProps["onClick"];
+        if (onClick is String) {
+          await executeJS(onClick);
+        }
+      },
     );
   }
 }

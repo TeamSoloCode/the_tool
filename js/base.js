@@ -23,7 +23,6 @@ const useStateEffect = (fn, deps = []) => {
     return _.isEqual(_.get(_state, dep, undefined), _.get(_prevState, dep, undefined));
   });
 
-  console.log("abcd processEffect", checks, _state, _prevState);
   changed = checks.includes(false);
 
   if (changed) {
