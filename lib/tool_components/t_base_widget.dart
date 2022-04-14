@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'dart:convert';
 
@@ -14,8 +16,11 @@ class T_BaseWidget extends StatefulWidget {
 
 class _T_BaseWidgetState extends State<T_BaseWidget> {
   String _jsResult = '';
-  var _pageState = {};
-  var _prevPageState = {};
+  Map<String, dynamic> _nextPageState = {};
+  Map<String, dynamic> _prevPageState = {};
+  Map<String, dynamic> _initPageState = {};
+  bool _didMount = false;
+  String _execCodeWithouLibs = "";
 
   String _baseJS = "";
   String _libJS = "";
@@ -23,19 +28,25 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
   Map<String, dynamic> _pageLayout = {};
 
   String _executedJS = "";
-  late JavascriptRuntime flutterJs;
+  late JavascriptRuntime flutterJs = getJavascriptRuntime();
 
   @override
   void initState() {
+    (() async {
+      await _loadLibs();
+      await _loadPage("");
+      await _evaluateJSContext();
+      // eval js for the first time
+      await _evaluateJsCode("");
+      _didMount = true;
+    })();
     super.initState();
-    _loadLibs();
-    _loadPage("");
-    flutterJs = getJavascriptRuntime();
   }
 
   @override
   void dispose() {
     flutterJs.dispose();
+
     super.dispose();
   }
 
@@ -44,6 +55,40 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
 
     _baseJS = await rootBundle.loadString('js/base.js');
     _libJS = lodash;
+  }
+
+  Future<void> _evaluateJSContext() async {
+    flutterJs.onMessage('__set_state__', (dynamic args) {
+      _prevPageState.addAll(_nextPageState);
+      _nextPageState.addAll(args);
+    });
+
+    flutterJs.onMessage("__init_state__", (dynamic args) {
+      _initPageState.addAll(args);
+      _prevPageState.addAll(args);
+      _nextPageState.addAll(args);
+    });
+
+    flutterJs.onMessage("__set_interval__", (dynamic args) {
+      print(args);
+      var timer;
+      timer = Timer(new Duration(seconds: args["duration"]), () async {
+        await _evaluateJsCode(args["fnName"]);
+        timer.cancel();
+      });
+    });
+
+    String contextJS = """
+var _didMount = $_didMount;
+var _prevState = JSON.parse('${jsonEncode(_prevPageState)}');
+var _state = JSON.parse('${jsonEncode(_nextPageState)}');
+var _initState = JSON.parse('${jsonEncode(_initPageState)}');
+          """;
+
+    flutterJs.evaluate(_libJS);
+    flutterJs.evaluate(contextJS + _baseJS);
+
+    await flutterJs.evaluateAsync(contextJS + _pageCode);
   }
 
   Future<void> _loadPage(String pageName) async {
@@ -58,43 +103,37 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
 
   Future<JsEvalResult> _evaluateJsCode(String evalString) async {
     try {
-      flutterJs.localContext = {"localContext": 123};
-      flutterJs = getJavascriptRuntime();
+      // flutterJs = getJavascriptRuntime();
 
-      flutterJs.onMessage('__set_state__', (dynamic args) {
-        setState(() {
-          _prevPageState.addAll(_pageState);
-          _pageState.addAll(args);
-        });
-      });
+      String contextJS = """
+var _didMount = $_didMount;
+var _prevState = JSON.parse('${jsonEncode(_prevPageState)}');
+var _state = JSON.parse('${jsonEncode(_nextPageState)}');
+var _initState = JSON.parse('${jsonEncode(_initPageState)}');
+          """;
+      _execCodeWithouLibs = contextJS + _pageCode + evalString;
+      JsEvalResult jsResult =
+          await flutterJs.evaluateAsync(_execCodeWithouLibs);
 
-      _executedJS = _libJS +
-          "let _prevState = JSON.parse('${jsonEncode(_prevPageState)}');\nlet _state = JSON.parse('${jsonEncode(_pageState)}');" +
-          _baseJS +
-          _pageCode +
-          evalString;
-      JsEvalResult jsResult = await flutterJs.evaluateAsync(_executedJS);
-
-      if (evalString != "") {
-        await _evaluateJsCode("");
-      }
-
-      flutterJs.dispose();
+      await flutterJs.evaluateAsync(
+          "onDidUpdate(JSON.parse('${jsonEncode(_nextPageState)}'), JSON.parse('${jsonEncode(_prevPageState)}'))");
+      // if (evalString != "") {
+      //   await flutterJs.evaluateAsync(contextJS + _pageCode);
+      // }
 
       setState(() {
-        _prevPageState.addAll(_pageState);
+        _prevPageState.addAll(_nextPageState);
       });
 
       return Future.value(jsResult);
     } on PlatformException catch (e) {
-      print('ERRO: ${e.details}');
-      return Future.value(null);
+      print('ERRO: ${e}');
+      return Future.value(e.details);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    print("Rerender");
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
@@ -108,12 +147,13 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Text('Dart State: $_pageState\n'),
+                  Text('Prev State: $_prevPageState\n'),
+                  Text('Next State: $_nextPageState\n'),
                   T_Widgets(layout: _pageLayout, executeJS: _evaluateJsCode),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      _baseJS + _pageCode,
+                      _execCodeWithouLibs,
                       style: const TextStyle(
                           fontSize: 12,
                           fontStyle: FontStyle.italic,
