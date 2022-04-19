@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_js/flutter_js.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 
 class T_Column extends StatelessWidget {
   Map<String, dynamic> widgetProps;
-  Future<JsEvalResult> Function(String js) executeJS;
+  Future<void> Function(String js) executeJS;
 
   T_Column({
     Key? key,

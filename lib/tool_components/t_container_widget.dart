@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_js/flutter_js.dart';
 import 'package:from_css_color/from_css_color.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 
 class T_Container extends StatelessWidget {
   Map<String, dynamic> widgetProps;
-  Future<JsEvalResult> Function(String js) executeJS;
+  Future<void> Function(String js) executeJS;
 
   T_Container({
     Key? key,

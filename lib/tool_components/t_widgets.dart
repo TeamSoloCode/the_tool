@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_js/flutter_js.dart';
 import 'package:the_tool/tool_components/t_button_widget.dart';
 import 'package:the_tool/tool_components/t_column_widget.dart';
 import 'package:the_tool/tool_components/t_container_widget.dart';
 
 class T_Widgets extends StatelessWidget {
   final Map<String, dynamic> layout;
-  Future<JsEvalResult> Function(String js) executeJS;
+  Future<void> Function(String js) executeJS;
 
   T_Widgets({
     Key? key,

@@ -7,7 +7,7 @@
             "children": [
                 {
                     "type": "button",
-                    "onClick": "onClickButton()",
+                    "onClick": "testFunction()",
                     "text": "Test Button From JSON"
                 },
                 {

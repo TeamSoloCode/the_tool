@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_js/flutter_js.dart';
 
 class T_Button extends StatelessWidget {
-  Future<JsEvalResult> Function(String js) executeJS;
+  Future<void> Function(String js) executeJS;
   Map<String, dynamic> widgetProps;
 
   T_Button({
