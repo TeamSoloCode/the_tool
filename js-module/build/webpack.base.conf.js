@@ -26,10 +26,6 @@ module.exports = {
   },
   output: {
     path: PATHS.dist,
-    libraryTarget: "var",
-    library: "root",
-    globalObject: "this",
-    libraryExport: "default",
   },
   optimization: {
     splitChunks: {

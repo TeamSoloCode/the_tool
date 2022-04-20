@@ -78,13 +78,28 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
                       setState(() {
                         isWebViewReady = true;
                       });
+                      String vendorContent = await rootBundle
+                          .loadString('js-module/dist/vendors.js');
+                      String appContent =
+                          await rootBundle.loadString('js-module/dist/app.js');
                       String fileContent = await rootBundle
-                          .loadString('js-module/src/index.html');
+                          .loadString('js-module/dist/index.html');
 
                       String replacedContent = fileContent.replaceAll(
-                        "// <Client Code>",
+                        "// <client_code>",
                         _pageCode,
                       );
+
+                      replacedContent = replacedContent.replaceAll(
+                        "// <vendor_code>",
+                        vendorContent,
+                      );
+
+                      replacedContent = replacedContent.replaceAll(
+                        "// <app_code>",
+                        appContent,
+                      );
+
                       _webViewController?.loadUrl(Uri.dataFromString(
                               replacedContent,
                               mimeType: 'text/html',
