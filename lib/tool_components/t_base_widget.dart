@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:the_tool/pageUtils/context_state_provider.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
+import 'package:the_tool/utils.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:provider/provider.dart';
 
 class T_BaseWidget extends StatefulWidget {
   const T_BaseWidget({Key? key}) : super(key: key);
@@ -15,7 +18,7 @@ class T_BaseWidget extends StatefulWidget {
 }
 
 class _T_BaseWidgetState extends State<T_BaseWidget> {
-  Map<String, dynamic> _nextPageState = {};
+  Map<String, dynamic> _contextData = {};
   Map<String, dynamic> _prevPageState = {};
   Map<String, dynamic> _initPageState = {};
 
@@ -24,12 +27,14 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
 
   WebViewController? _webViewController;
   bool isWebViewReady = false;
+  late UtilsManager utils;
 
   @override
   void initState() {
     (() async {
       await _loadPage("");
     })();
+    utils = getIt<UtilsManager>();
     super.initState();
   }
 
@@ -39,8 +44,10 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
   }
 
   Future<void> _loadPage(String pageName) async {
-    String pageCode = await rootBundle.loadString('js-module/test_js.js');
-    String pageLayout = await rootBundle.loadString('js-module/test_json.json');
+    String pageCode =
+        await rootBundle.loadString('js-module/test_data/test_js.js');
+    String pageLayout =
+        await rootBundle.loadString('js-module/test_data/test_json.json');
 
     setState(() {
       _pageCode = pageCode;
@@ -78,49 +85,33 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
                       setState(() {
                         isWebViewReady = true;
                       });
-                      String vendorContent = await rootBundle
-                          .loadString('js-module/dist/vendors.js');
-                      String appContent =
-                          await rootBundle.loadString('js-module/dist/app.js');
-                      String fileContent = await rootBundle
-                          .loadString('js-module/dist/index.html');
 
-                      String replacedContent = fileContent.replaceAll(
-                        "// <client_code>",
-                        _pageCode,
+                      // TODO: If not have this line, it won't work
+                      await Future.delayed(const Duration(milliseconds: 1));
+
+                      String htmlContent =
+                          (await utils.composeIndexHTML(_pageCode));
+                      _webViewController?.loadUrl(
+                        Uri.dataFromString(
+                          htmlContent,
+                          mimeType: 'text/html',
+                          encoding: Encoding.getByName('utf-8'),
+                        ).toString(),
                       );
-
-                      replacedContent = replacedContent.replaceAll(
-                        "// <vendor_code>",
-                        vendorContent,
-                      );
-
-                      replacedContent = replacedContent.replaceAll(
-                        "// <app_code>",
-                        appContent,
-                      );
-
-                      _webViewController?.loadUrl(Uri.dataFromString(
-                              replacedContent,
-                              mimeType: 'text/html',
-                              encoding: Encoding.getByName('utf-8'))
-                          .toString());
                     },
-                    javascriptChannels: <JavascriptChannel>{
-                      JavascriptChannel(
-                        name: 'messageHandler',
-                        onMessageReceived: (JavascriptMessage message) {
-                          print(
-                              "message from the web view=\"${message.message}\"");
-                        },
-                      )
-                    },
+                    javascriptChannels: utils.registerJavascriptChannel(
+                      setState,
+                      _contextData,
+                      context.read<ContextStateProvider>(),
+                    ),
                   ),
                 ),
+                Text("$_contextData"),
                 if (isWebViewReady)
                   T_Widgets(
                     layout: _pageLayout,
                     executeJS: _executeJS,
+                    contextData: _contextData,
                   )
               ],
             ),

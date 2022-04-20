@@ -1,9 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/services.dart';
+import 'package:get_it/get_it.dart';
+import 'package:the_tool/pageUtils/context_state_provider.dart';
+import 'package:webview_flutter/platform_interface.dart';
+
+GetIt getIt = GetIt.instance;
 
 class UtilsManager {
   const UtilsManager();
 
-  Future<String> _loadJSBundleIntoIndexHTML() async {
+  Future<String> composeIndexHTML(String clientPageCode) async {
     String vendorContent =
         await rootBundle.loadString('js-module/dist/vendors.js');
     String appContent = await rootBundle.loadString('js-module/dist/app.js');
@@ -20,15 +27,42 @@ class UtilsManager {
       appContent,
     );
 
+    replacedContent = replacedContent.replaceAll(
+      "// <client_code>",
+      clientPageCode,
+    );
+
     return replacedContent;
   }
 
-  Future<String> composeIndexHTML(String clientPageCode) async {
-    String indexHTML = await _loadJSBundleIntoIndexHTML();
-
-    return indexHTML.replaceAll(
-      "// <app_code>",
-      clientPageCode,
+  Set<JavascriptChannel>? registerJavascriptChannel(
+      void Function(void Function() fn) setState,
+      Map<String, dynamic> contextData,
+      ContextStateProvider contextStateProvider) {
+    Set<JavascriptChannel> channels = Set<JavascriptChannel>();
+    JavascriptChannel message = JavascriptChannel(
+      name: 'messageHandler',
+      onMessageReceived: (JavascriptMessage message) {
+        print(
+          "\"${message.message}\"",
+        );
+      },
     );
+
+    JavascriptChannel updateState = JavascriptChannel(
+      name: 'setState',
+      onMessageReceived: (JavascriptMessage message) {
+        Map<String, dynamic> data = json.decode(message.message);
+        setState(
+          () {
+            contextData.addAll(data);
+            contextStateProvider.updateContextData(data);
+          },
+        );
+      },
+    );
+
+    channels.addAll([message, updateState]);
+    return channels;
   }
 }

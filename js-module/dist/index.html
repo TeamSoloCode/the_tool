@@ -1,18 +1,24 @@
-<!doctype html><html><head></head><body><div id="app"></div><script>// <vendor_code>
-      // <app_code>
-      const context = {};
+<!doctype html><html><body><div id="app"></div><script>const context = { _data: {} };
       try {
-        const Main = React.memo(() => {
+        // <vendor_code>
+        // <app_code>
+
+        const Main = React.memo((props) => {
+          const [_contextData, _setContextData] = React.useState(context._data);
+          const _prevContextData = context.usePrevious(_contextData);
+
+          context._updateContextData = _setContextData;
+          context._data._prevContextData = _prevContextData;
+
           // <client_code>
+
           return null;
         });
 
         ReactDOM.render(
-          React.createElement(Main),
+          React.createElement(Main, context._data),
           document.getElementById("app")
         );
       } catch (err) {
-        if (messageHandler) {
-          messageHandler.postMessage(err.message);
-        }
+        messageHandler.postMessage(err.message);
       }</script><script src="vendors.js"></script><script src="app.js"></script></body></html>

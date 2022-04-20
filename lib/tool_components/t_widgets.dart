@@ -6,11 +6,13 @@ import 'package:the_tool/tool_components/t_container_widget.dart';
 class T_Widgets extends StatelessWidget {
   final Map<String, dynamic> layout;
   Future<void> Function(String js) executeJS;
+  Map<String, dynamic> contextData = {};
 
   T_Widgets({
     Key? key,
     required this.layout,
     required this.executeJS,
+    this.contextData = const {},
   }) : super(key: key);
 
   Widget _getWidget() {
@@ -21,6 +23,7 @@ class T_Widgets extends StatelessWidget {
         return T_Button(
           executeJS: executeJS,
           widgetProps: content,
+          contextData: contextData,
         );
       case "container":
         return T_Container(

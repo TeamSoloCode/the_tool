@@ -12,11 +12,11 @@
                 },
                 {
                     "type": "container",
-                    "backgroundColor": "blue",
+                    "backgroundColor": "yellow",
                     "child": {
                         "type": "button",
-                        "onClick": "setState({abcd: Date.now()})",
-                        "text": "Call setState({abcd: Date.now()})"
+                        "onClick": "setContextData({abcd: Date.now()})",
+                        "text": "Call setContextData: {{ abcd }}"
                     }
                 }
             ]
