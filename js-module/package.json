@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --open --config ./build/webpack.dev.conf.js",
-    "build": "webpack --watch --config ./build/webpack.build.conf.js"
+    "build": "webpack --config ./build/webpack.build.conf.js && node end-build-script"
   },
   "browserslist": [
     "> 1%",
@@ -42,6 +42,7 @@
     "babel-loader": "^8.1.0",
     "html-webpack-plugin": "^4.3.0",
     "webpack": "^4.44.1",
+    "copy-webpack-plugin": "^6.0.3",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0",
     "webpack-merge": "^5.0.9"

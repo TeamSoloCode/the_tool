@@ -1,3 +1,5 @@
+const context = { _data: {} };
+
 const setContextData = (data, callback) => {
   const dataAsString = JSON.stringify(data);
   setState.postMessage(dataAsString);
@@ -17,5 +19,13 @@ function usePrevious(value) {
   return ref.current;
 }
 
+function testForWeb(abcd) {
+  console.log("abcd", abcd);
+}
+
+testForWeb();
+
 context.setContextData = setContextData;
 context.usePrevious = usePrevious;
+context.testForWeb = testForWeb;
+window.context = context;

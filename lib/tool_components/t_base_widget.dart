@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 
@@ -9,6 +10,7 @@ import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:provider/provider.dart';
+import 'dart:js' as js;
 
 class T_BaseWidget extends StatefulWidget {
   const T_BaseWidget({Key? key}) : super(key: key);
@@ -34,6 +36,7 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
     (() async {
       await _loadPage("");
     })();
+
     utils = getIt<UtilsManager>();
     super.initState();
   }
@@ -55,12 +58,16 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
     });
   }
 
-  Future<void> _executeJS(String js) async {
-    if (!isWebViewReady) {
-      throw Exception("Web View is not ready yet");
+  Future<void> _executeJS(String jsCode) async {
+    if (kIsWeb) {
+      js.context['context']
+          .callMethod('testForWeb', ['Flutter is calling upon JavaScript!']);
+    } else {
+      if (!isWebViewReady) {
+        throw Exception("Web View is not ready yet");
+      }
+      _webViewController?.runJavascript("context.$jsCode");
     }
-
-    _webViewController?.runJavascript("context.$js");
   }
 
   @override
@@ -74,40 +81,41 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(
-                  width: 0,
-                  height: 0,
-                  child: WebView(
-                    javascriptMode: JavascriptMode.unrestricted,
-                    onWebViewCreated:
-                        (WebViewController webViewController) async {
-                      _webViewController = webViewController;
-                      setState(() {
-                        isWebViewReady = true;
-                      });
+                if (!kIsWeb)
+                  SizedBox(
+                    width: 0,
+                    height: 0,
+                    child: WebView(
+                      javascriptMode: JavascriptMode.unrestricted,
+                      onWebViewCreated:
+                          (WebViewController webViewController) async {
+                        _webViewController = webViewController;
+                        setState(() {
+                          isWebViewReady = true;
+                        });
 
-                      // TODO: If not have this line, it won't work
-                      await Future.delayed(const Duration(milliseconds: 1));
+                        // TODO: If not have this line, it won't work
+                        await Future.delayed(const Duration(milliseconds: 1));
 
-                      String htmlContent =
-                          (await utils.composeIndexHTML(_pageCode));
-                      _webViewController?.loadUrl(
-                        Uri.dataFromString(
-                          htmlContent,
-                          mimeType: 'text/html',
-                          encoding: Encoding.getByName('utf-8'),
-                        ).toString(),
-                      );
-                    },
-                    javascriptChannels: utils.registerJavascriptChannel(
-                      setState,
-                      _contextData,
-                      context.read<ContextStateProvider>(),
+                        String htmlContent =
+                            (await utils.composeIndexHTML(_pageCode));
+                        _webViewController?.loadUrl(
+                          Uri.dataFromString(
+                            htmlContent,
+                            mimeType: 'text/html',
+                            encoding: Encoding.getByName('utf-8'),
+                          ).toString(),
+                        );
+                      },
+                      javascriptChannels: utils.registerJavascriptChannel(
+                        setState,
+                        _contextData,
+                        context.read<ContextStateProvider>(),
+                      ),
                     ),
                   ),
-                ),
-                Text("$_contextData"),
-                if (isWebViewReady)
+                Text(" $_contextData"),
+                if (isWebViewReady || kIsWeb)
                   T_Widgets(
                     layout: _pageLayout,
                     executeJS: _executeJS,

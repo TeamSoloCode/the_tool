@@ -5,6 +5,7 @@ const path = require("path");
 const fs = require("fs");
 var webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 // Main const
 const PATHS = {
@@ -51,14 +52,18 @@ module.exports = {
   },
   resolve: {
     extensions: [".js"],
-    alias: {
-      coreJS: "core-js",
-    },
   },
   plugins: [
-    new webpack.ProvidePlugin({
-      coreJS: "core-js",
-    }),
+    new webpack.ProvidePlugin({}),
+    // new CopyWebpackPlugin({
+    //   patterns: [
+    //     // Static (copy to '/'):
+    //     {
+    //       from: `dist`,
+    //       to: "../../web/js",
+    //     },
+    //   ],
+    // }),
     ...PAGES.map(
       (page) =>
         new HtmlWebpackPlugin({
