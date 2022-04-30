@@ -80,7 +80,7 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('FlutterJS Example'),
+          title: const Text('The Tool'),
         ),
         body: Container(
           child: SingleChildScrollView(
