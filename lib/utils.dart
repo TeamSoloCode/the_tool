@@ -8,7 +8,7 @@ import 'package:webview_flutter/platform_interface.dart';
 GetIt getIt = GetIt.instance;
 
 class UtilsManager {
-  const UtilsManager();
+  UtilsManager() : super() {}
 
   Future<String> composeIndexHTML(String clientPageCode) async {
     String vendorContent =

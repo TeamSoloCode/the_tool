@@ -1,4 +1,4 @@
-const context = { _data: {}, _platform: "mobile" };
+export const context = { _data: {}, _platform: "mobile" };
 
 const setContextData = (data, callback = () => {}) => {
   const dataAsString = JSON.stringify(data);

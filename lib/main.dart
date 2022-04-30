@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 void main() {
   getIt.registerSingleton<UtilsManager>(
-    const UtilsManager(),
+    UtilsManager(),
     signalsReady: true,
   );
 

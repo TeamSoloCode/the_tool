@@ -24,7 +24,6 @@ external void setState();
 
 void _setState(String dataAsString, Function? callback) {
   Map<String, dynamic> data = json.decode(dataAsString);
-  print(data);
   _contextStateProvider.updateContextData(data);
 }
 

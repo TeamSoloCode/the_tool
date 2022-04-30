@@ -10,7 +10,6 @@
         const Main = React.memo((props) => {
           const [_contextData, _setContextData] = React.useState(context._data);
           const _prevContextData = context.usePrevious(_contextData);
-
           context._updateContextData = _setContextData;
           context._data._prevContextData = _prevContextData;
 
@@ -24,7 +23,7 @@
           document.getElementById("app")
         );
       } catch (err) {
-        messageHandler.postMessage(err.message);
+        messageHandler.postMessage(err);
       }
     </script>
   </body>

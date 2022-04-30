@@ -39,10 +39,10 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
       await _loadPage(" ");
     })();
     if (kIsWeb) {
-      _evalJS =
-          EvalJS(contextStateProvider: context.read<ContextStateProvider>());
+      _evalJS = EvalJS(
+        contextStateProvider: context.read<ContextStateProvider>(),
+      );
     }
-
     utils = getIt<UtilsManager>();
     super.initState();
   }
