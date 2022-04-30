@@ -5,12 +5,13 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:the_tool/pageUtils/context_state_provider.dart';
+import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:provider/provider.dart';
-import 'dart:js' as js;
+import 'package:the_tool/eval_js_utils/mobile_eval_js.dart'
+    if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_js.dart';
 
 class T_BaseWidget extends StatefulWidget {
   const T_BaseWidget({Key? key}) : super(key: key);
@@ -30,12 +31,17 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
   WebViewController? _webViewController;
   bool isWebViewReady = false;
   late UtilsManager utils;
+  late EvalJS _evalJS;
 
   @override
   void initState() {
     (() async {
-      await _loadPage("");
+      await _loadPage(" ");
     })();
+    if (kIsWeb) {
+      _evalJS =
+          EvalJS(contextStateProvider: context.read<ContextStateProvider>());
+    }
 
     utils = getIt<UtilsManager>();
     super.initState();
@@ -60,13 +66,12 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
 
   Future<void> _executeJS(String jsCode) async {
     if (kIsWeb) {
-      js.context['context']
-          .callMethod('testForWeb', ['Flutter is calling upon JavaScript!']);
+      _evalJS.executeJS(jsCode);
     } else {
       if (!isWebViewReady) {
         throw Exception("Web View is not ready yet");
       }
-      _webViewController?.runJavascript("context.$jsCode");
+      _evalJS.executeJS(jsCode);
     }
   }
 
@@ -90,6 +95,10 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
                       onWebViewCreated:
                           (WebViewController webViewController) async {
                         _webViewController = webViewController;
+                        _evalJS = EvalJS(
+                            webViewController: webViewController,
+                            contextStateProvider:
+                                context.read<ContextStateProvider>());
                         setState(() {
                           isWebViewReady = true;
                         });

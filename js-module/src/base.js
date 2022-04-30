@@ -1,8 +1,13 @@
-const context = { _data: {} };
+const context = { _data: {}, _platform: "mobile" };
 
-const setContextData = (data, callback) => {
+const setContextData = (data, callback = () => {}) => {
   const dataAsString = JSON.stringify(data);
-  setState.postMessage(dataAsString);
+  if (context._platform == "mobile") {
+    setState.postMessage(dataAsString);
+  } else if (context._platform == "web") {
+    setState(dataAsString, callback);
+  }
+
   Object.assign({}, context._data, { data });
   context._updateContextData({ ...context._data, ...data });
 };
@@ -19,13 +24,9 @@ function usePrevious(value) {
   return ref.current;
 }
 
-function testForWeb(abcd) {
-  console.log("abcd", abcd);
-}
+const setPlatform = (platform) => {
+  Object.assign(context, { _platform: platform });
+};
 
-testForWeb();
-
-context.setContextData = setContextData;
-context.usePrevious = usePrevious;
-context.testForWeb = testForWeb;
+Object.assign(context, { setContextData, usePrevious, setPlatform });
 window.context = context;
