@@ -1,23 +1,7 @@
 <!doctype html><html><body><div id="app"></div><script>try {
         // <vendor_code>
         // <app_code>
-
-        const Main = React.memo((props) => {
-          const [_contextData, _setContextData] = React.useState(context._data);
-          const _prevContextData = context.usePrevious(_contextData);
-          context._updateContextData = _setContextData;
-          context._prevData = Object.assign({}, _prevContextData);
-          context._data = Object.assign({}, context._data, _contextData);
-
-          // <client_code>
-
-          return null;
-        });
-
-        ReactDOM.render(
-          React.createElement(Main, context._data),
-          document.getElementById("app")
-        );
+        // <client_code>
       } catch (err) {
         if (context._platform != "web") {
           messageHandler.postMessage(err);

@@ -4,6 +4,7 @@ import _ReactDOM from "react-dom";
 import * as _moment from "moment";
 
 import "./base";
+import "./logger";
 
 window.React = _React;
 window.ReactDOM = _ReactDOM;

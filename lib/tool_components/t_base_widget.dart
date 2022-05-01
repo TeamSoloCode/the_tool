@@ -77,14 +77,53 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
     }
   }
 
+  Widget _initWebViewForMobile() {
+    if (kIsWeb) {
+      return const SizedBox(
+        width: 0,
+        height: 0,
+      );
+    }
+
+    return SizedBox(
+      width: 0,
+      height: 0,
+      child: WebView(
+        javascriptMode: JavascriptMode.unrestricted,
+        onWebViewCreated: (WebViewController webViewController) async {
+          _webViewController = webViewController;
+
+          _evalJS = EvalJS(
+            webViewController: webViewController,
+            contextStateProvider: context.read<ContextStateProvider>(),
+          );
+
+          setState(() {
+            isWebViewReady = true;
+          });
+
+          // TODO: If not have this line, it won't work
+          await Future.delayed(const Duration(milliseconds: 1));
+
+          String htmlContent = (await _evalJS.composeIndexHTML(_pageCode));
+          _webViewController?.loadUrl(
+            Uri.dataFromString(
+              htmlContent,
+              mimeType: 'text/html',
+              encoding: Encoding.getByName('utf-8'),
+            ).toString(),
+          );
+        },
+        javascriptChannels: utils.registerJavascriptChannel(
+          context.read<ContextStateProvider>(),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    // var contextData = context.watch<ContextStateProvider>().contextData;
-    var contextData = context.select<ContextStateProvider, String>(
-      (value) => value.contextData.toString(),
-    );
-
-    print(contextData);
+    var contextData = context.watch<ContextStateProvider>().contextData;
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -94,41 +133,7 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                if (!kIsWeb)
-                  SizedBox(
-                    width: 0,
-                    height: 0,
-                    child: WebView(
-                      javascriptMode: JavascriptMode.unrestricted,
-                      onWebViewCreated:
-                          (WebViewController webViewController) async {
-                        _webViewController = webViewController;
-                        _evalJS = EvalJS(
-                            webViewController: webViewController,
-                            contextStateProvider:
-                                context.read<ContextStateProvider>());
-                        setState(() {
-                          isWebViewReady = true;
-                        });
-
-                        // TODO: If not have this line, it won't work
-                        await Future.delayed(const Duration(milliseconds: 1));
-
-                        String htmlContent =
-                            (await utils.composeIndexHTML(_pageCode));
-                        _webViewController?.loadUrl(
-                          Uri.dataFromString(
-                            htmlContent,
-                            mimeType: 'text/html',
-                            encoding: Encoding.getByName('utf-8'),
-                          ).toString(),
-                        );
-                      },
-                      javascriptChannels: utils.registerJavascriptChannel(
-                        context.read<ContextStateProvider>(),
-                      ),
-                    ),
-                  ),
+                _initWebViewForMobile(),
                 Text(" $contextData"),
                 if (isWebViewReady || kIsWeb)
                   T_Widgets(
