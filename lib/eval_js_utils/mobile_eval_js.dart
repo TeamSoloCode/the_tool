@@ -1,5 +1,4 @@
-import 'dart:convert';
-
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:the_tool/eval_js_utils/base_eval_js.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
@@ -8,13 +7,15 @@ import 'package:webview_flutter/webview_flutter.dart';
 class EvalJS extends BaseEvalJS {
   WebViewController? webViewController;
   ContextStateProvider contextStateProvider;
-
+  BuildContext context;
   EvalJS({
     required this.contextStateProvider,
     this.webViewController,
+    required this.context,
   }) : super(
           contextStateProvider: contextStateProvider,
-        ) {}
+          context: context,
+        );
 
   @override
   Future<void> executeJS(String jsCode) async {

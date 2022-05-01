@@ -40,6 +40,7 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
     (() async {
       if (kIsWeb) {
         _evalJS = EvalJS(
+          context: context,
           contextStateProvider: context.read<ContextStateProvider>(),
         );
         APIClientManager apiClient = getIt<APIClientManager>();
@@ -102,6 +103,7 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
           _webViewController = webViewController;
 
           _evalJS = EvalJS(
+            context: context,
             webViewController: webViewController,
             contextStateProvider: context.read<ContextStateProvider>(),
           );
@@ -132,6 +134,7 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
           );
         },
         javascriptChannels: utils.registerJavascriptChannel(
+          context,
           context.read<ContextStateProvider>(),
         ),
       ),

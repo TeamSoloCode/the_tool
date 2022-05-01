@@ -12,6 +12,15 @@ const setContextData = (data, callback = () => {}) => {
   context._updateContextData(nextData);
 };
 
+const navigateTo = (routeName) => {
+  if (context._platform == "mobile") {
+    navigate.postMessage(routeName);
+  } else if (context._platform == "web") {
+    navigate(routeName);
+  }
+
+}
+
 function usePrevious(value) {
   // The ref object is a generic container whose current property is mutable ...
   // ... and can hold any value, similar to an instance property on a class
@@ -28,5 +37,5 @@ const setPlatform = (platform) => {
   Object.assign(context, { _platform: platform });
 };
 
-Object.assign(context, { setContextData, usePrevious, setPlatform });
+Object.assign(context, { setContextData, usePrevious, setPlatform, navigateTo });
 window.context = context;

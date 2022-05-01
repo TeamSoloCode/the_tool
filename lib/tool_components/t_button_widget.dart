@@ -19,17 +19,20 @@ class T_Button extends StatelessWidget {
     String? text = context.select<ContextStateProvider, String?>(
         (state) => state.contextData["abcd"]?.toString());
     print("Re-render $text");
-    return TextButton(
-      // child: Text(widgetProps["text"]),
-      child: Text(
-        text ?? "btn",
+    return Container(
+      margin: EdgeInsets.only(),
+      child: TextButton(
+        // child: Text(widgetProps["text"]),
+        child: Text(
+          text ?? "btn",
+        ),
+        onPressed: () async {
+          var onClick = widgetProps["onClick"];
+          if (onClick is String) {
+            await executeJS(onClick);
+          }
+        },
       ),
-      onPressed: () async {
-        var onClick = widgetProps["onClick"];
-        if (onClick is String) {
-          await executeJS(onClick);
-        }
-      },
     );
   }
 }

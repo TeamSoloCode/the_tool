@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:the_tool/eval_js_utils/base_eval_js.dart';
 import 'dart:js' as js;
 import 'package:the_tool/eval_js_utils/web_js_invoke.dart' as webjs;
@@ -8,11 +9,13 @@ import 'package:webview_flutter/webview_flutter.dart';
 class EvalJS extends BaseEvalJS {
   WebViewController? webViewController;
   ContextStateProvider contextStateProvider;
-
-  EvalJS({required this.contextStateProvider, this.webViewController})
-      : super(
-          contextStateProvider: contextStateProvider,
-        ) {
+  BuildContext context;
+  EvalJS(
+      {required this.contextStateProvider,
+      this.webViewController,
+      required this.context})
+      : super(contextStateProvider: contextStateProvider, context: context) {
+    webjs.setContextBuilder(context);
     webjs.setContextStateProvider(contextStateProvider);
     webjs.main();
     js.context['context'].callMethod('setPlatform', ['web']);
