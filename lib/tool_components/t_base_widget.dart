@@ -37,12 +37,14 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
   void initState() {
     (() async {
       await _loadPage(" ");
+      if (kIsWeb) {
+        _evalJS = EvalJS(
+          contextStateProvider: context.read<ContextStateProvider>(),
+        );
+      }
+      _evalJS.setupReactForClientCode(_pageCode);
     })();
-    if (kIsWeb) {
-      _evalJS = EvalJS(
-        contextStateProvider: context.read<ContextStateProvider>(),
-      );
-    }
+
     utils = getIt<UtilsManager>();
     super.initState();
   }
@@ -77,6 +79,12 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
 
   @override
   Widget build(BuildContext context) {
+    // var contextData = context.watch<ContextStateProvider>().contextData;
+    var contextData = context.select<ContextStateProvider, String>(
+      (value) => value.contextData.toString(),
+    );
+
+    print(contextData);
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -117,13 +125,11 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
                         );
                       },
                       javascriptChannels: utils.registerJavascriptChannel(
-                        setState,
-                        _contextData,
                         context.read<ContextStateProvider>(),
                       ),
                     ),
                   ),
-                Text(" $_contextData"),
+                Text(" $contextData"),
                 if (isWebViewReady || kIsWeb)
                   T_Widgets(
                     layout: _pageLayout,

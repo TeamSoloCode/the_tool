@@ -16,8 +16,8 @@ class T_Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String? text =
-        context.watch<ContextStateProvider>().contextData["abcd"]?.toString();
+    String? text = context.select<ContextStateProvider, String?>(
+        (state) => state.contextData["abcd"]?.toString());
     print("Re-render $text");
     return TextButton(
       // child: Text(widgetProps["text"]),

@@ -36,8 +36,6 @@ class UtilsManager {
   }
 
   Set<JavascriptChannel>? registerJavascriptChannel(
-      void Function(void Function() fn) setState,
-      Map<String, dynamic> contextData,
       ContextStateProvider contextStateProvider) {
     Set<JavascriptChannel> channels = Set<JavascriptChannel>();
     JavascriptChannel message = JavascriptChannel(
@@ -53,12 +51,7 @@ class UtilsManager {
       name: 'setState',
       onMessageReceived: (JavascriptMessage message) {
         Map<String, dynamic> data = json.decode(message.message);
-        setState(
-          () {
-            contextData.addAll(data);
-            contextStateProvider.updateContextData(data);
-          },
-        );
+        contextStateProvider.updateContextData(data);
       },
     );
 

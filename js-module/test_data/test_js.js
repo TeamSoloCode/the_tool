@@ -5,15 +5,18 @@ const test = React.useMemo(() => {
 }, [testState]);
 
 React.useEffect(() => {
-  messageHandler.postMessage(`Test Effect ${testState}`);
+  // messageHandler.postMessage(`Test Effect ${testState}`);
+  console.log(`Test Effect ${testState}`);
 }, [testState]);
 
 React.useEffect(() => {
-  messageHandler.postMessage(`Context data ${_contextData.abcd}`);
+  // messageHandler.postMessage(`Context data ${_contextData.abcd}`);
+  console.log(`Context data ${_contextData.abcd}`);
 }, [_contextData]);
 
 React.useEffect(() => {
-  messageHandler.postMessage(`Context previous data ${_prevContextData?.abcd}`);
+  // messageHandler.postMessage(`Context previous data ${_prevContextData?.abcd}`);
+  console.log(`Context previous data ${_prevContextData?.abcd}`);
 }, [_prevContextData]);
 
 context.testFunction = () => {

@@ -1,15 +1,15 @@
-export const context = { _data: {}, _platform: "mobile" };
+export const context = { _data: {}, _prevData: {}, _platform: "mobile" };
 
 const setContextData = (data, callback = () => {}) => {
-  const dataAsString = JSON.stringify(data);
+  const nextData = Object.assign({}, context._data, data);
+  const dataAsString = JSON.stringify(nextData);
   if (context._platform == "mobile") {
     setState.postMessage(dataAsString);
   } else if (context._platform == "web") {
     setState(dataAsString, callback);
   }
 
-  Object.assign({}, context._data, { data });
-  context._updateContextData({ ...context._data, ...data });
+  context._updateContextData(nextData);
 };
 
 function usePrevious(value) {

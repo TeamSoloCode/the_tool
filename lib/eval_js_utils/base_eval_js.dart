@@ -5,4 +5,6 @@ abstract class BaseEvalJS {
   BaseEvalJS({required this.contextStateProvider});
 
   Future<void> executeJS(String jsCode);
+  void setupReactForClientCode(String clientCode);
+  void unmountClientCode();
 }

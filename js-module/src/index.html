@@ -11,7 +11,8 @@
           const [_contextData, _setContextData] = React.useState(context._data);
           const _prevContextData = context.usePrevious(_contextData);
           context._updateContextData = _setContextData;
-          context._data._prevContextData = _prevContextData;
+          context._prevData = Object.assign({}, _prevContextData);
+          context._data = Object.assign({}, context._data, _contextData);
 
           // <client_code>
 
@@ -23,7 +24,11 @@
           document.getElementById("app")
         );
       } catch (err) {
-        messageHandler.postMessage(err);
+        if (context._platform != "web") {
+          messageHandler.postMessage(err);
+        } else {
+          console.log(err);
+        }
       }
     </script>
   </body>
