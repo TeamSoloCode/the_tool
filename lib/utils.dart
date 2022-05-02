@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
@@ -11,7 +13,7 @@ class UtilsManager {
   UtilsManager() : super() {}
 
   Set<JavascriptChannel>? registerJavascriptChannel(
-      ContextStateProvider contextStateProvider) {
+      BuildContext context, ContextStateProvider contextStateProvider) {
     Set<JavascriptChannel> channels = Set<JavascriptChannel>();
     JavascriptChannel message = JavascriptChannel(
       name: 'messageHandler',
@@ -30,7 +32,17 @@ class UtilsManager {
       },
     );
 
-    channels.addAll([message, updateState]);
+    JavascriptChannel navigator = JavascriptChannel(
+      name: 'navigate',
+      onMessageReceived: (JavascriptMessage message) {
+        log(message.message);
+        // contextStateProvider.updateContextData(data);
+        // Navigator.of(context).push(RouteName.homePage);
+      },
+    );
+
+    channels.addAll([message, updateState, navigator]);
+
     return channels;
   }
 }

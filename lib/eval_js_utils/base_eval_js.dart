@@ -1,10 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 
 abstract class BaseEvalJS {
   ContextStateProvider contextStateProvider;
-  BaseEvalJS({required this.contextStateProvider}) : super() {
-    initialized = true;
-  }
+  BuildContext context;
+  BaseEvalJS({required this.contextStateProvider, required this.context});
 
   Future<void> executeJS(String jsCode);
   Future<String> setupReactForClientCode(
