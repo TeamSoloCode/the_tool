@@ -12,6 +12,22 @@ GetIt getIt = GetIt.instance;
 class UtilsManager {
   UtilsManager() : super() {}
 
+  String bindingValueToString(Map<String, dynamic> contextData, String text) {
+    if (text.contains("@")) {
+      String result = text.split(" ").map((element) {
+        if (element.startsWith("@")) {
+          String dataName = element.substring(1);
+          return contextData[dataName];
+        }
+
+        return element;
+      }).join(" ");
+      return result;
+    }
+
+    return text;
+  }
+
   Set<JavascriptChannel>? registerJavascriptChannel(
       BuildContext context, ContextStateProvider contextStateProvider) {
     Set<JavascriptChannel> channels = Set<JavascriptChannel>();

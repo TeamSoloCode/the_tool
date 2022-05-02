@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:the_tool/utils.dart';
 
 class T_Button extends StatelessWidget {
   Future<void> Function(String js) executeJS;
@@ -16,15 +17,17 @@ class T_Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String? text = context.select<ContextStateProvider, String?>(
-        (state) => state.contextData["abcd"]?.toString());
-    print("Re-render $text");
+    UtilsManager utils = getIt<UtilsManager>();
+    var contextData = context.watch<ContextStateProvider>().contextData;
+
     return Container(
       margin: EdgeInsets.only(),
       child: TextButton(
-        // child: Text(widgetProps["text"]),
         child: Text(
-          text ?? "btn",
+          utils.bindingValueToString(
+            contextData,
+            widgetProps["text"],
+          ),
         ),
         onPressed: () async {
           var onClick = widgetProps["onClick"];

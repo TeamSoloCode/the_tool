@@ -11,7 +11,7 @@ import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:the_tool/eval_js_utils/mobile_eval_js.dart'
+import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
     if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_js.dart';
 
 class T_BaseWidget extends StatefulWidget {
@@ -61,21 +61,6 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
   @override
   void dispose() {
     super.dispose();
-  }
-
-  Future<void> _loadPage(String pageName) async {
-    if (_evalJS != null) {
-      _evalJS?.unmountClientCode();
-    }
-    String pageCode =
-        await rootBundle.loadString('js-module/test_data/test_js.js');
-    String pageLayout =
-        await rootBundle.loadString('js-module/test_data/test_json.json');
-
-    setState(() {
-      _pageCode = pageCode;
-      _pageLayout.addAll(jsonDecode(pageLayout));
-    });
   }
 
   Future<void> _executeJS(String jsCode) async {

@@ -18,8 +18,7 @@ const navigateTo = (routeName) => {
   } else if (context._platform == "web") {
     navigate(routeName);
   }
-
-}
+};
 
 function usePrevious(value) {
   // The ref object is a generic container whose current property is mutable ...
@@ -37,5 +36,10 @@ const setPlatform = (platform) => {
   Object.assign(context, { _platform: platform });
 };
 
-Object.assign(context, { setContextData, usePrevious, setPlatform, navigateTo });
+Object.assign(context, {
+  setContextData,
+  usePrevious,
+  setPlatform,
+  navigateTo,
+});
 window.context = context;
