@@ -10,31 +10,6 @@ GetIt getIt = GetIt.instance;
 class UtilsManager {
   UtilsManager() : super() {}
 
-  Future<String> composeIndexHTML(String clientPageCode) async {
-    String vendorContent =
-        await rootBundle.loadString('js-module/dist/vendors.js');
-    String appContent = await rootBundle.loadString('js-module/dist/app.js');
-    String fileContent =
-        await rootBundle.loadString('js-module/dist/index.html');
-
-    String replacedContent = fileContent.replaceAll(
-      "// <vendor_code>",
-      vendorContent,
-    );
-
-    replacedContent = replacedContent.replaceAll(
-      "// <app_code>",
-      appContent,
-    );
-
-    replacedContent = replacedContent.replaceAll(
-      "// <client_code>",
-      clientPageCode,
-    );
-
-    return replacedContent;
-  }
-
   Set<JavascriptChannel>? registerJavascriptChannel(
       ContextStateProvider contextStateProvider) {
     Set<JavascriptChannel> channels = Set<JavascriptChannel>();

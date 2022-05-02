@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/services.dart';
 import 'package:the_tool/eval_js_utils/base_eval_js.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
@@ -12,7 +14,7 @@ class EvalJS extends BaseEvalJS {
     this.webViewController,
   }) : super(
           contextStateProvider: contextStateProvider,
-        );
+        ) {}
 
   @override
   Future<void> executeJS(String jsCode) async {
@@ -20,19 +22,10 @@ class EvalJS extends BaseEvalJS {
   }
 
   @override
-  void setupReactForClientCode(String clientCode) {}
-
-  @override
-  void unmountClientCode() {
-    String unmountClientCodeJS = """
-      const rootEl = document.getElementById("app")
-      ReactDOM.unmountComponentAtNode(rootEl);
-    """;
-
-    webViewController?.runJavascript("eval($unmountClientCodeJS)");
-  }
-
-  Future<String> composeIndexHTML(String clientPageCode) async {
+  Future<String> setupReactForClientCode(
+    String clientCode,
+    String clientCoreCode,
+  ) async {
     String vendorContent =
         await rootBundle.loadString('js-module/dist/vendors.js');
     String appContent = await rootBundle.loadString('js-module/dist/app.js');
@@ -50,15 +43,30 @@ class EvalJS extends BaseEvalJS {
     );
 
     replacedContent = replacedContent.replaceAll(
+      "// <client_core_code>",
+      clientCoreCode,
+    );
+
+    replacedContent = replacedContent.replaceAll(
       "// <client_code>",
       baseComponentContent,
     );
 
     replacedContent = replacedContent.replaceAll(
       "// <client_code>",
-      clientPageCode,
+      clientCode,
     );
 
     return replacedContent;
+  }
+
+  @override
+  void unmountClientCode() {
+    String unmountClientCodeJS = """
+      const rootEl = document.getElementById("app")
+      ReactDOM.unmountComponentAtNode(rootEl);
+    """;
+
+    webViewController?.runJavascript("eval($unmountClientCodeJS)");
   }
 }

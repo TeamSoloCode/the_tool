@@ -1,17 +1,12 @@
-class Logger {
-  platform = "mobile";
-  constructor() {
-    this.platform = context._platform;
-  }
-
+class TLogger {
   log(args) {
-    if (this.platform == "mobile") {
-      messageHandler.postMessage(args);
+    if (context._platform === "mobile") {
+      window["messageHandler"]?.postMessage?.(args);
     } else {
       console.log(args);
     }
   }
 }
 
-const logger = new Logger();
+const logger = new TLogger();
 window.logger = logger;

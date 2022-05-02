@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
@@ -26,23 +27,30 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
   Map<String, dynamic> _initPageState = {};
 
   String _pageCode = "";
+  String _clientCore = "";
   Map<String, dynamic> _pageLayout = {};
 
   WebViewController? _webViewController;
   bool isWebViewReady = false;
   late UtilsManager utils;
-  late EvalJS _evalJS;
+  EvalJS? _evalJS;
 
   @override
   void initState() {
     (() async {
-      await _loadPage(" ");
       if (kIsWeb) {
         _evalJS = EvalJS(
           contextStateProvider: context.read<ContextStateProvider>(),
         );
+        APIClientManager apiClient = getIt<APIClientManager>();
+        String clientCore = await apiClient.getClientCore();
+        Map<String, dynamic> pageInfo = await apiClient.getClientPageInfo();
+
+        _evalJS?.setupReactForClientCode(pageInfo["code"], clientCore);
+        setState(() {
+          _pageLayout.addAll(jsonDecode(pageInfo["layout"]));
+        });
       }
-      _evalJS.setupReactForClientCode(_pageCode);
     })();
 
     utils = getIt<UtilsManager>();
@@ -55,6 +63,9 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
   }
 
   Future<void> _loadPage(String pageName) async {
+    if (_evalJS != null) {
+      _evalJS?.unmountClientCode();
+    }
     String pageCode =
         await rootBundle.loadString('js-module/test_data/test_js.js');
     String pageLayout =
@@ -68,21 +79,18 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
 
   Future<void> _executeJS(String jsCode) async {
     if (kIsWeb) {
-      _evalJS.executeJS(jsCode);
+      _evalJS?.executeJS(jsCode);
     } else {
       if (!isWebViewReady) {
         throw Exception("Web View is not ready yet");
       }
-      _evalJS.executeJS(jsCode);
+      _evalJS?.executeJS(jsCode);
     }
   }
 
   Widget _initWebViewForMobile() {
     if (kIsWeb) {
-      return const SizedBox(
-        width: 0,
-        height: 0,
-      );
+      return const SizedBox();
     }
 
     return SizedBox(
@@ -98,14 +106,23 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
             contextStateProvider: context.read<ContextStateProvider>(),
           );
 
+          APIClientManager apiClient = getIt<APIClientManager>();
+          String clientCore = await apiClient.getClientCore();
+          Map<String, dynamic> pageInfo = await apiClient.getClientPageInfo();
           setState(() {
             isWebViewReady = true;
+            _pageLayout.addAll(jsonDecode(pageInfo["layout"]));
           });
 
           // TODO: If not have this line, it won't work
           await Future.delayed(const Duration(milliseconds: 1));
 
-          String htmlContent = (await _evalJS.composeIndexHTML(_pageCode));
+          String htmlContent = (await _evalJS?.setupReactForClientCode(
+                pageInfo["code"],
+                clientCore,
+              )) ??
+              "";
+
           _webViewController?.loadUrl(
             Uri.dataFromString(
               htmlContent,

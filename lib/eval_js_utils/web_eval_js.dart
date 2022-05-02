@@ -29,8 +29,12 @@ class EvalJS extends BaseEvalJS {
   }
 
   @override
-  void setupReactForClientCode(String clientCode) {
+  Future<String> setupReactForClientCode(
+    String clientCode,
+    String clientCoreCode,
+  ) {
     String componentContent = """
+    // <client_core_code>
     (() => {
       $baseComponentContent
     })()
@@ -41,17 +45,19 @@ class EvalJS extends BaseEvalJS {
       clientCode,
     );
 
+    componentContent = componentContent.replaceAll(
+      "// <client_core_code>",
+      clientCoreCode,
+    );
+
     js.context.callMethod("eval", [componentContent]);
+
+    return Future.value("");
   }
 
   @override
   Future<void> executeJS(String jsCode) async {
     // TODO: implement executeJS
     js.context.callMethod("eval", ["context.$jsCode"]);
-  }
-
-  @override
-  Future<String> composeIndexHTML(String clientPageCode) {
-    throw UnimplementedError();
   }
 }

@@ -2,13 +2,18 @@ import 'package:the_tool/page_utils/context_state_provider.dart';
 
 abstract class BaseEvalJS {
   ContextStateProvider contextStateProvider;
-  BaseEvalJS({required this.contextStateProvider});
+  BaseEvalJS({required this.contextStateProvider}) : super() {
+    initialized = true;
+  }
 
   Future<void> executeJS(String jsCode);
-  void setupReactForClientCode(String clientCode);
+  Future<String> setupReactForClientCode(
+    String clientCode,
+    String clientCoreCode,
+  );
   void unmountClientCode();
-  Future<String> composeIndexHTML(String clientPageCode);
 
+  bool initialized = false;
   String baseComponentContent = """
     try {
       const Main = React.memo((props) => {

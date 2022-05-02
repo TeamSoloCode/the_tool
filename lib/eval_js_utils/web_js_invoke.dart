@@ -22,6 +22,11 @@ external set setContextData(
 @JS()
 external void setState();
 
+/// It takes a JSON string, decodes it into a Map, and then merges it with the existing context data
+///
+/// Args:
+///   dataAsString (String): The data to be set as a string.
+///   callback (Function?): This is the function that will be called when the state is set.
 void _setState(String dataAsString, Function? callback) {
   Map<String, dynamic> data = json.decode(dataAsString);
 
