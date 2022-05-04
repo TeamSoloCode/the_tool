@@ -14,7 +14,7 @@ class UtilsManager {
 
   String bindingValueToString(Map<String, dynamic> contextData, String text) {
     var computedText = text;
-    var regexPattern = RegExp(r"[^{\}]+(?=})");
+    var regexPattern = RegExp(r"[^{{\}}]+(?=}})");
 
     regexPattern.allMatches(text).forEach((element) {
       var match = regexPattern.firstMatch(computedText);
@@ -27,8 +27,8 @@ class UtilsManager {
             "";
 
         computedText = computedText.replaceRange(
-          match.start - 1,
-          match.end + 1,
+          match.start - 2,
+          match.end + 2,
           bindingData.toString(),
         );
       }
