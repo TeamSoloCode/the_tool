@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
+import 'package:gato/gato.dart' as gato;
 import 'package:get_it/get_it.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:webview_flutter/platform_interface.dart';
@@ -13,19 +13,28 @@ class UtilsManager {
   UtilsManager() : super() {}
 
   String bindingValueToString(Map<String, dynamic> contextData, String text) {
-    if (text.contains("@")) {
-      String result = text.split(" ").map((element) {
-        if (element.startsWith("@")) {
-          String dataName = element.substring(1);
-          return contextData[dataName];
-        }
+    var computedText = text;
+    var regexPattern = RegExp(r"[^{\}]+(?=})");
 
-        return element;
-      }).join(" ");
-      return result;
-    }
+    regexPattern.allMatches(text).forEach((element) {
+      var match = regexPattern.firstMatch(computedText);
 
-    return text;
+      if (match != null) {
+        var bindingData = gato.get(
+              contextData,
+              computedText.substring(match.start, match.end),
+            ) ??
+            "";
+
+        computedText = computedText.replaceRange(
+          match.start - 1,
+          match.end + 1,
+          bindingData.toString(),
+        );
+      }
+    });
+
+    return computedText;
   }
 
   Set<JavascriptChannel>? registerJavascriptChannel(

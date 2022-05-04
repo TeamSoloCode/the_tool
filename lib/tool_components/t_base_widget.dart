@@ -12,7 +12,7 @@ import 'package:the_tool/utils.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
-    if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_js.dart';
+    if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_utils/web_eval_js.dart';
 
 class T_BaseWidget extends StatefulWidget {
   const T_BaseWidget({Key? key}) : super(key: key);
