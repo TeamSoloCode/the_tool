@@ -8,13 +8,13 @@ abstract class BaseEvalJS {
 
   Future<void> executeJS(String jsCode);
   Future<String> setupReactForClientCode(
-    String clientCode,
-    String clientCoreCode,
-  );
-  void unmountClientCode();
+      String clientCode, String clientCoreCode, String pagePath);
+  void unmountClientCode(String pagePath);
 
   bool initialized = false;
-  String baseComponentContent = """
+
+  String getBaseComponentCode(String pagePath) {
+    return """
     try {
       const Main = React.memo((props) => {
         const [_contextData, _setContextData] = React.useState(context._data);
@@ -41,12 +41,20 @@ abstract class BaseEvalJS {
         return null;
       });
 
+      const appEl = document.getElementById("app")
+
+      const clientCodeHost = document.createElement('div');
+      clientCodeHost.setAttribute('id', '$pagePath')
+
+      appEl.appendChild(clientCodeHost)
+
       ReactDOM.render(
         React.createElement(Main, context._data),
-        document.getElementById("app")
+        document.getElementById("$pagePath")
       );
     } catch (err) {
       console.log(err);
     }
     """;
+  }
 }

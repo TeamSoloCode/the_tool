@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'dart:convert';
 
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:the_tool/tool_components/base_widget_container.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -22,164 +24,43 @@ class T_BaseWidget extends StatefulWidget {
 }
 
 class _T_BaseWidgetState extends State<T_BaseWidget> {
-  Map<String, dynamic> _prevPageState = {};
-  Map<String, dynamic> _initPageState = {};
-
-  String _pageCode = "";
-  String _clientCore = "";
-  Map<String, dynamic> _pageLayout = {};
-
-  WebViewController? _webViewController;
-  bool isWebViewReady = false;
-  late UtilsManager utils;
-  EvalJS? _evalJS;
+  Map<String, dynamic>? _config = {};
 
   @override
   void initState() {
     (() async {
-      if (kIsWeb) {
-        _evalJS = EvalJS(
-          context: context,
-          contextStateProvider: context.read<ContextStateProvider>(),
-        );
-        APIClientManager apiClient = getIt<APIClientManager>();
-        String clientCore = await apiClient.getClientCore();
-        Map<String, dynamic> pageInfo = await apiClient.getClientPageInfo();
-
-        _evalJS?.setupReactForClientCode(pageInfo["code"], clientCore);
-        setState(() {
-          _pageLayout.addAll(jsonDecode(pageInfo["layout"]));
-        });
-      }
+      APIClientManager apiClient = getIt<APIClientManager>();
+      Map<String, dynamic> config = await apiClient.getClientConfig();
+      setState(() {
+        _config = config;
+      });
     })();
 
-    utils = getIt<UtilsManager>();
     super.initState();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
+  Map<String, Widget Function(BuildContext)> _computeRoutes() {
+    if (_config == null || gato.get(_config, "routes") == null) return {};
 
-  Future<void> _executeJS(String jsCode) async {
-    if (kIsWeb) {
-      _evalJS?.executeJS(jsCode);
-    } else {
-      if (!isWebViewReady) {
-        throw Exception("Web View is not ready yet");
-      }
-      _evalJS?.executeJS(jsCode);
-    }
-  }
+    Map<String, Widget Function(BuildContext)> routes = {};
+    List<Map<String, dynamic>> routesConfig = gato.get(_config, "routes");
 
-  Widget _initWebViewForMobile() {
-    if (kIsWeb) {
-      return const SizedBox();
-    }
+    routesConfig.forEach((routeConfig) {
+      String path = routeConfig['path'];
+      routes.addAll({
+        path: (context) => T_BaseWidget_Container(pagePath: path),
+      });
+    });
 
-    return SizedBox(
-      width: 0,
-      height: 0,
-      child: WebView(
-        javascriptMode: JavascriptMode.unrestricted,
-        onWebViewCreated: (WebViewController webViewController) async {
-          _webViewController = webViewController;
-
-          _evalJS = EvalJS(
-            context: context,
-            webViewController: webViewController,
-            contextStateProvider: context.read<ContextStateProvider>(),
-          );
-
-          APIClientManager apiClient = getIt<APIClientManager>();
-          String clientCore = await apiClient.getClientCore();
-          Map<String, dynamic> pageInfo = await apiClient.getClientPageInfo();
-          setState(() {
-            isWebViewReady = true;
-            _pageLayout.addAll(jsonDecode(pageInfo["layout"]));
-          });
-
-          // TODO: If not have this line, it won't work
-          await Future.delayed(const Duration(milliseconds: 1));
-
-          String htmlContent = (await _evalJS?.setupReactForClientCode(
-                pageInfo["code"],
-                clientCore,
-              )) ??
-              "";
-
-          _webViewController?.loadUrl(
-            Uri.dataFromString(
-              htmlContent,
-              mimeType: 'text/html',
-              encoding: Encoding.getByName('utf-8'),
-            ).toString(),
-          );
-        },
-        javascriptChannels: utils.registerJavascriptChannel(
-          context,
-          context.read<ContextStateProvider>(),
-        ),
-      ),
-    );
-  }
-
-  PreferredSizeWidget _computeAppBar(
-    Map<String, dynamic> contextData,
-    Map<String, dynamic>? appBarConfig,
-  ) {
-    if (appBarConfig == null) {
-      return const PreferredSize(
-        preferredSize: Size.fromHeight(0),
-        child: SizedBox(),
-      );
-    }
-    var customContent = gato.get(appBarConfig, "content");
-    if (customContent == null) {
-      Widget title = T_Widgets(
-        layout: gato.get(appBarConfig, "title"),
-        executeJS: _executeJS,
-      );
-      return AppBar(title: title);
-    }
-
-    return PreferredSize(
-      preferredSize: Size.fromHeight(gato.get(customContent, "height") ?? 120),
-      child: T_Widgets(
-        layout: customContent,
-        executeJS: _executeJS,
-        contextData: contextData,
-      ),
-    );
+    return routes;
   }
 
   @override
   Widget build(BuildContext context) {
-    var contextData = context.watch<ContextStateProvider>().contextData;
-    var customAppBar = gato.get(_pageLayout, "appBar");
     return MaterialApp(
-      home: Scaffold(
-        appBar: _computeAppBar(
-          contextData,
-          customAppBar,
-        ),
-        body: Container(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                _initWebViewForMobile(),
-                if (isWebViewReady || kIsWeb)
-                  T_Widgets(
-                    layout: _pageLayout,
-                    executeJS: _executeJS,
-                    contextData: contextData,
-                  ),
-                Text(" $contextData"),
-              ],
-            ),
-          ),
-        ),
+      routes: _computeRoutes(),
+      home: T_BaseWidget_Container(
+        pagePath: "test_page",
       ),
     );
   }

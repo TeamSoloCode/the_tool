@@ -26,6 +26,7 @@ class EvalJS extends BaseEvalJS {
   Future<String> setupReactForClientCode(
     String clientCode,
     String clientCoreCode,
+    String pagePath,
   ) async {
     String vendorContent =
         await rootBundle.loadString('js-module/dist/vendors.js');
@@ -50,7 +51,7 @@ class EvalJS extends BaseEvalJS {
 
     replacedContent = replacedContent.replaceAll(
       "// <client_code>",
-      baseComponentContent,
+      getBaseComponentCode(pagePath),
     );
 
     replacedContent = replacedContent.replaceAll(
@@ -62,9 +63,9 @@ class EvalJS extends BaseEvalJS {
   }
 
   @override
-  void unmountClientCode() {
+  void unmountClientCode(String pagePath) {
     String unmountClientCodeJS = """
-      const rootEl = document.getElementById("app")
+      const rootEl = document.getElementById("$pagePath")
       ReactDOM.unmountComponentAtNode(rootEl);
     """;
 

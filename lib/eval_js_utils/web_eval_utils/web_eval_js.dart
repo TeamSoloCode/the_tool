@@ -23,9 +23,9 @@ class EvalJS extends BaseEvalJS {
   }
 
   @override
-  void unmountClientCode() {
+  void unmountClientCode(String pagePath) {
     String unmountClientCodeJS = """
-      const rootEl = document.getElementById("app")
+      const rootEl = document.getElementById("$pagePath")
       ReactDOM.unmountComponentAtNode(rootEl);
     """;
 
@@ -34,13 +34,11 @@ class EvalJS extends BaseEvalJS {
 
   @override
   Future<String> setupReactForClientCode(
-    String clientCode,
-    String clientCoreCode,
-  ) {
+      String clientCode, String clientCoreCode, String pagePath) {
     String componentContent = """
     // <client_core_code>
     (() => {
-      $baseComponentContent
+      ${getBaseComponentCode(pagePath)}
     })()
     """;
 

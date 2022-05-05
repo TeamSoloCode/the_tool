@@ -17,9 +17,9 @@ class APIClientManager {
     }
   }
 
-  Future<Map<String, dynamic>> getClientPageInfo() async {
+  Future<Map<String, dynamic>> getClientPageInfo(String pagePath) async {
     try {
-      var response = await Dio().get('http://$host:3000/pages/test_page');
+      var response = await Dio().get('http://$host:3000/pages/$pagePath');
       return Future.value(
         {
           "code": response.data["code"],
@@ -36,7 +36,8 @@ class APIClientManager {
       return Future.value(
         {
           "routes": [
-            {"name": "Home Page", "path": "home_page"}
+            {"name": "Home Page", "path": "home_page"},
+            {"name": "Test Page", "path": "test_page"}
           ]
         },
       );
