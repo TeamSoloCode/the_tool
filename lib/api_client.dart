@@ -30,4 +30,18 @@ class APIClientManager {
       rethrow;
     }
   }
+
+  Future<Map<String, dynamic>> getClientConfig() async {
+    try {
+      return Future.value(
+        {
+          "routes": [
+            {"name": "Home Page", "path": "home_page"}
+          ]
+        },
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

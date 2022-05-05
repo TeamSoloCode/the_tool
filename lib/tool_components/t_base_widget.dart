@@ -4,13 +4,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 
-import 'package:flutter/services.dart';
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:gato/gato.dart' as gato;
 import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
     if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_utils/web_eval_js.dart';
 
@@ -22,7 +22,6 @@ class T_BaseWidget extends StatefulWidget {
 }
 
 class _T_BaseWidgetState extends State<T_BaseWidget> {
-  Map<String, dynamic> _contextData = {};
   Map<String, dynamic> _prevPageState = {};
   Map<String, dynamic> _initPageState = {};
 
@@ -126,26 +125,57 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
     );
   }
 
+  PreferredSizeWidget _computeAppBar(
+    Map<String, dynamic> contextData,
+    Map<String, dynamic>? appBarConfig,
+  ) {
+    if (appBarConfig == null) {
+      return const PreferredSize(
+        preferredSize: Size.fromHeight(0),
+        child: SizedBox(),
+      );
+    }
+    var customContent = gato.get(appBarConfig, "content");
+    if (customContent == null) {
+      Widget title = T_Widgets(
+        layout: gato.get(appBarConfig, "title"),
+        executeJS: _executeJS,
+      );
+      return AppBar(title: title);
+    }
+
+    return PreferredSize(
+      preferredSize: Size.fromHeight(gato.get(customContent, "height") ?? 120),
+      child: T_Widgets(
+        layout: customContent,
+        executeJS: _executeJS,
+        contextData: contextData,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var contextData = context.watch<ContextStateProvider>().contextData;
+    var customAppBar = gato.get(_pageLayout, "appBar");
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('The Tool'),
+        appBar: _computeAppBar(
+          contextData,
+          customAppBar,
         ),
         body: Container(
           child: SingleChildScrollView(
             child: Column(
               children: [
                 _initWebViewForMobile(),
-                Text(" $contextData"),
                 if (isWebViewReady || kIsWeb)
                   T_Widgets(
                     layout: _pageLayout,
                     executeJS: _executeJS,
-                    contextData: _contextData,
-                  )
+                    contextData: contextData,
+                  ),
+                Text(" $contextData"),
               ],
             ),
           ),

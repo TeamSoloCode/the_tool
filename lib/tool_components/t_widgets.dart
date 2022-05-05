@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:the_tool/tool_components/t_button_widget.dart';
 import 'package:the_tool/tool_components/t_column_widget.dart';
 import 'package:the_tool/tool_components/t_container_widget.dart';
+import 'package:gato/gato.dart' as gato;
+import 'package:the_tool/tool_components/t_text_widget.dart';
 
 class T_Widgets extends StatelessWidget {
   final Map<String, dynamic> layout;
@@ -18,7 +20,13 @@ class T_Widgets extends StatelessWidget {
   Widget _getWidget() {
     Map<String, dynamic> content = layout["content"] ?? layout;
 
-    switch (content["type"]) {
+    switch (gato.get(content, "type")) {
+      case "text":
+        return T_Text(
+          executeJS: executeJS,
+          widgetProps: content,
+          contextData: contextData,
+        );
       case "button":
         return T_Button(
           executeJS: executeJS,
