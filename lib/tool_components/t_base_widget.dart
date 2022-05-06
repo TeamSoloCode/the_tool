@@ -58,10 +58,13 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: _computeRoutes(),
-      home: T_BaseWidget_Container(
-        pagePath: "test_page",
-      ),
-    );
+        routes: _computeRoutes(),
+        home: Stack(
+          children: [
+            T_BaseWidget_Container(
+              pagePath: "test_page",
+            ),
+          ],
+        ));
   }
 }

@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:the_tool/eval_js_utils/base_eval_js.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:the_tool/utils.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class EvalJS extends BaseEvalJS {
   WebViewController? webViewController;
   ContextStateProvider contextStateProvider;
   BuildContext context;
+
+  String _vendorContent = "";
+  String _appContent = "";
+  String _fileContent = "";
+
   EvalJS({
     required this.contextStateProvider,
     this.webViewController,
@@ -28,11 +34,11 @@ class EvalJS extends BaseEvalJS {
     String clientCoreCode,
     String pagePath,
   ) async {
-    String vendorContent =
-        await rootBundle.loadString('js-module/dist/vendors.js');
-    String appContent = await rootBundle.loadString('js-module/dist/app.js');
-    String fileContent =
-        await rootBundle.loadString('js-module/dist/index.html');
+    var staticContent = getIt<UtilsManager>().staticContent;
+
+    String vendorContent = staticContent["vendor"];
+    String appContent = staticContent["app"];
+    String fileContent = staticContent["htmlContent"];
 
     String replacedContent = fileContent.replaceAll(
       "// <vendor_code>",

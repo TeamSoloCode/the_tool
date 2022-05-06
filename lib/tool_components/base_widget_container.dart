@@ -58,6 +58,7 @@ class _T_BaseWidget_Container extends State<T_BaseWidget_Container> {
     })();
 
     utils = getIt<UtilsManager>();
+
     super.initState();
   }
 
