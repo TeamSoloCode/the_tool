@@ -34,21 +34,8 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
-  final Future<bool> _isReadyToRun = Future<bool>.microtask(() async {
-    if (!kIsWeb) {
-      await getIt<UtilsManager>().loadStaticContent();
-    }
-
-    return true;
-  });
-
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<bool>(
-      builder: (context, snapshot) {
-        return T_BaseWidget();
-      },
-      future: _isReadyToRun,
-    );
+    return T_BaseWidget();
   }
 }

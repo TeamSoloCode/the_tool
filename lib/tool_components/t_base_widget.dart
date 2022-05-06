@@ -55,16 +55,37 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
     return routes;
   }
 
+  final Future<bool> _isReadyToRun = Future<bool>.microtask(() async {
+    if (!kIsWeb) {
+      await getIt<UtilsManager>().loadStaticContent();
+    }
+
+    return true;
+  });
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        routes: _computeRoutes(),
-        home: Stack(
-          children: [
-            T_BaseWidget_Container(
-              pagePath: "test_page",
+      routes: _computeRoutes(),
+      home: FutureBuilder<bool>(
+        builder: (context, snapshot) {
+          if (snapshot.data == true) {
+            return Stack(
+              children: [
+                T_BaseWidget_Container(
+                  pagePath: "test_page",
+                ),
+              ],
+            );
+          }
+          return const Scaffold(
+            body: Center(
+              child: Text("Loading..."),
             ),
-          ],
-        ));
+          );
+        },
+        future: _isReadyToRun,
+      ),
+    );
   }
 }
