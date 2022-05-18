@@ -74,7 +74,6 @@ class EvalJS extends BaseEvalJS {
       const rootEl = document.getElementById("$pagePath")
       ReactDOM.unmountComponentAtNode(rootEl);
     """;
-
-    webViewController?.runJavascript("eval($unmountClientCodeJS)");
+    // webViewController?.runJavascript("eval($unmountClientCodeJS)");
   }
 }

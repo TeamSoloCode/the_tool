@@ -1,20 +1,12 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
 
 import 'package:the_tool/api_client.dart';
-import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/tool_components/base_widget_container.dart';
-import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
-import 'package:webview_flutter/webview_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:gato/gato.dart' as gato;
-import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
-    if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_utils/web_eval_js.dart';
 
 class T_BaseWidget extends StatefulWidget {
   const T_BaseWidget({Key? key}) : super(key: key);
@@ -28,6 +20,7 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
 
   @override
   void initState() {
+    print("initState");
     (() async {
       APIClientManager apiClient = getIt<APIClientManager>();
       Map<String, dynamic> config = await apiClient.getClientConfig();
@@ -37,6 +30,12 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
     })();
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    print("dispose");
+    super.dispose();
   }
 
   Map<String, Widget Function(BuildContext)> _computeRoutes() {
