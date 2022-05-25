@@ -16,10 +16,7 @@ class T_Container extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: fromCssColor(widgetProps["backgroundColor"]),
-      child: T_Widgets(
-        layout: widgetProps["child"] ?? {},
-        executeJS: executeJS,
-      ),
+      child: T_Widgets(layout: widgetProps["child"] ?? {}),
     );
   }
 }

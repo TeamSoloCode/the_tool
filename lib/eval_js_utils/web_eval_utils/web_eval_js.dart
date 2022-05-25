@@ -34,7 +34,10 @@ class EvalJS extends BaseEvalJS {
 
   @override
   Future<String> setupReactForClientCode(
-      String clientCode, String clientCoreCode, String pagePath) {
+    String clientCode,
+    String clientCoreCode,
+    String pagePath,
+  ) {
     String componentContent = """
     // <client_core_code>
     (() => {
@@ -59,6 +62,7 @@ class EvalJS extends BaseEvalJS {
 
   @override
   Future<void> executeJS(String jsCode) async {
+    print(js.context);
     // TODO: implement executeJS
     js.context.callMethod("eval", ["context.$jsCode"]);
   }

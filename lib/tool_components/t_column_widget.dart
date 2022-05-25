@@ -15,7 +15,7 @@ class T_Column extends StatelessWidget {
     List<dynamic> children = widgetProps["children"];
 
     return children.map((child) {
-      return T_Widgets(layout: child, executeJS: executeJS);
+      return T_Widgets(layout: child);
     }).toList();
   }
 

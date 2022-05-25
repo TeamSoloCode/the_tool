@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:the_tool/eval_js_utils/base_eval_js.dart';
@@ -28,6 +30,23 @@ class EvalJS extends BaseEvalJS {
     webViewController?.runJavascript("context.$jsCode");
   }
 
+  void executePageCode(
+    String clientCode,
+    String pagePath,
+  ) {
+    String pageCode = """
+      (() => {
+        ${getBaseComponentCode(pagePath)}
+      })()
+      """;
+    pageCode = pageCode.replaceAll(
+      "// <client_code>",
+      clientCode,
+    );
+
+    webViewController?.runJavascript(pageCode);
+  }
+
   @override
   Future<String> setupReactForClientCode(
     String clientCode,
@@ -55,15 +74,19 @@ class EvalJS extends BaseEvalJS {
       clientCoreCode,
     );
 
-    replacedContent = replacedContent.replaceAll(
-      "// <client_code>",
-      getBaseComponentCode(pagePath),
-    );
+    // replacedContent = replacedContent.replaceAll(
+    //   "// <client_code>",
+    //   """
+    //   (() => {
+    //     ${getBaseComponentCode(pagePath)}
+    //   })()
+    //   """,
+    // );
 
-    replacedContent = replacedContent.replaceAll(
-      "// <client_code>",
-      clientCode,
-    );
+    // replacedContent = replacedContent.replaceAll(
+    //   "// <client_code>",
+    //   clientCode,
+    // );
 
     return replacedContent;
   }

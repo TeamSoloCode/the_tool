@@ -1,12 +1,19 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:the_tool/api_client.dart';
+import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/tool_components/base_widget_container.dart';
 import 'package:the_tool/utils.dart';
+import 'package:provider/provider.dart';
 import 'package:gato/gato.dart' as gato;
+import 'package:webview_flutter/webview_flutter.dart';
+import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
+    if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_utils/web_eval_js.dart';
 
 class T_BaseWidget extends StatefulWidget {
   const T_BaseWidget({Key? key}) : super(key: key);
@@ -18,9 +25,13 @@ class T_BaseWidget extends StatefulWidget {
 class _T_BaseWidgetState extends State<T_BaseWidget> {
   Map<String, dynamic>? _config = {};
 
+  WebViewController? _webViewController;
+  bool isWebViewReady = false;
+  late UtilsManager utils;
+  late EvalJS _evalJS;
+
   @override
   void initState() {
-    print("initState");
     (() async {
       APIClientManager apiClient = getIt<APIClientManager>();
       Map<String, dynamic> config = await apiClient.getClientConfig();
@@ -29,13 +40,9 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
       });
     })();
 
-    super.initState();
-  }
+    utils = getIt<UtilsManager>();
 
-  @override
-  void dispose() {
-    print("dispose");
-    super.dispose();
+    super.initState();
   }
 
   Map<String, Widget Function(BuildContext)> _computeRoutes() {
@@ -62,6 +69,54 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
     return true;
   });
 
+  Widget _initWebViewForMobile() {
+    return SizedBox(
+      width: 0,
+      height: 0,
+      child: WebView(
+        javascriptMode: JavascriptMode.unrestricted,
+        onWebViewCreated: (WebViewController webViewController) async {
+          _webViewController = webViewController;
+          _evalJS = EvalJS(
+            context: context,
+            webViewController: webViewController,
+            contextStateProvider: context.read<ContextStateProvider>(),
+          );
+
+          APIClientManager apiClient = getIt<APIClientManager>();
+          String clientCore = await apiClient.getClientCore();
+
+          // TODO: If not have this line, it won't work
+          await Future.delayed(const Duration(milliseconds: 1));
+
+          String htmlContent = (await _evalJS.setupReactForClientCode(
+            "",
+            clientCore,
+            "",
+          ));
+
+          _webViewController?.loadUrl(
+            Uri.dataFromString(
+              htmlContent,
+              mimeType: 'text/html',
+              encoding: Encoding.getByName('utf-8'),
+            ).toString(),
+          );
+
+          utils.evalJS = _evalJS;
+          print("isWebViewReady");
+          setState(() {
+            isWebViewReady = true;
+          });
+        },
+        javascriptChannels: utils.registerJavascriptChannel(
+          context,
+          context.read<ContextStateProvider>(),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -71,9 +126,11 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
           if (snapshot.data == true) {
             return Stack(
               children: [
-                T_BaseWidget_Container(
-                  pagePath: "test_page",
-                ),
+                if (!kIsWeb) _initWebViewForMobile(),
+                if (isWebViewReady)
+                  T_BaseWidget_Container(
+                    pagePath: "test_page",
+                  ),
               ],
             );
           }
