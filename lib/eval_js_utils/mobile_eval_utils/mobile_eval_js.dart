@@ -39,6 +39,7 @@ class EvalJS extends BaseEvalJS {
         ${getBaseComponentCode(pagePath)}
       })()
       """;
+
     pageCode = pageCode.replaceAll(
       "// <client_code>",
       clientCode,
@@ -74,29 +75,18 @@ class EvalJS extends BaseEvalJS {
       clientCoreCode,
     );
 
-    // replacedContent = replacedContent.replaceAll(
-    //   "// <client_code>",
-    //   """
-    //   (() => {
-    //     ${getBaseComponentCode(pagePath)}
-    //   })()
-    //   """,
-    // );
-
-    // replacedContent = replacedContent.replaceAll(
-    //   "// <client_code>",
-    //   clientCode,
-    // );
-
     return replacedContent;
   }
 
   @override
   void unmountClientCode(String pagePath) {
+    print("unmountClientCode $pagePath");
     String unmountClientCodeJS = """
+    (() => {
       const rootEl = document.getElementById("$pagePath")
       ReactDOM.unmountComponentAtNode(rootEl);
+    })()
     """;
-    // webViewController?.runJavascript("eval($unmountClientCodeJS)");
+    webViewController?.runJavascript(unmountClientCodeJS);
   }
 }

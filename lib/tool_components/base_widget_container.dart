@@ -86,8 +86,6 @@ class _T_BaseWidget_Container extends State<T_BaseWidget_Container> {
 
   @override
   Widget build(BuildContext context) {
-    print("base widget container");
-
     var contextData = context.watch<ContextStateProvider>().contextData;
     var customAppBar = gato.get(_pageLayout, "appBar");
     return Scaffold(

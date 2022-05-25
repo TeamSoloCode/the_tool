@@ -69,7 +69,7 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
     return true;
   });
 
-  Widget _initWebViewForMobile() {
+  Widget _initWebViewForMobile(BuildContext context) {
     return SizedBox(
       width: 0,
       height: 0,
@@ -104,7 +104,6 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
           );
 
           utils.evalJS = _evalJS;
-          print("isWebViewReady");
           setState(() {
             isWebViewReady = true;
           });
@@ -126,7 +125,7 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
           if (snapshot.data == true) {
             return Stack(
               children: [
-                if (!kIsWeb) _initWebViewForMobile(),
+                if (!kIsWeb) _initWebViewForMobile(context),
                 if (isWebViewReady)
                   T_BaseWidget_Container(
                     pagePath: "test_page",
