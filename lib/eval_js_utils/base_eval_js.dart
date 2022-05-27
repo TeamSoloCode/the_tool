@@ -6,7 +6,7 @@ abstract class BaseEvalJS {
   BuildContext context;
   BaseEvalJS({required this.contextStateProvider, required this.context});
 
-  Future<void> executeJS(String jsCode);
+  Future<void> executeJS(String jsCode, String pageName);
   Future<String> setupReactForClientCode(
       String clientCode, String clientCoreCode, String pagePath);
   void unmountClientCode(String pagePath);
@@ -18,17 +18,27 @@ abstract class BaseEvalJS {
     try {
       const Main = React.memo((props) => {
         const [_contextData, _setContextData] = React.useState(context._data);
-        const _prevContextData = context.usePrevious(_contextData);
+        const _prevContextData = usePrevious(_contextData);
         context._updateContextData = _setContextData;
         context._prevData = Object.assign({}, _prevContextData);
         context._data = Object.assign({}, context._data, _contextData);
         
-        // React.useEffect(() => {
-        //   console.log("abcd _contextData" , _contextData)
-        //   console.log("abcd context._data" , context._data)
-        //   console.log("abcd _prevContextData" , _prevContextData)
-        //   console.log("abcd context._prevData" , context._prevData)
-        // }, [_contextData])
+        const [_pageData, _setPageData] = React.useState({})
+
+        // This will use to set data in layout code
+        const setPageData = React.useCallback((data) => {
+          const nextData = {..._pageData, ...data}
+          _setPageData(nextData)
+          setContextData({['$pagePath']: {...nextData}})
+        }, [_pageData])
+
+        // Export page context
+        const exportPageContext = React.useCallback((exportedContext = {}) => {
+          context['$pagePath'] = context['$pagePath'] || {}
+          Object.assign(context['$pagePath'], exportedContext)
+        }, [_pageData])
+
+        exportPageContext({ setPageData })
 
         React.useEffect(() => {
           logger.log(`Didmount $pagePath`)

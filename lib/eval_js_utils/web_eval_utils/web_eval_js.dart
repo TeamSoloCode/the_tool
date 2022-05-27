@@ -61,7 +61,7 @@ class EvalJS extends BaseEvalJS {
   }
 
   @override
-  Future<void> executeJS(String jsCode) async {
+  Future<void> executeJS(String jsCode, String pageName) async {
     print(js.context);
     // TODO: implement executeJS
     js.context.callMethod("eval", ["context.$jsCode"]);

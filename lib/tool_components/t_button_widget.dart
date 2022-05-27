@@ -7,16 +7,13 @@ import 'package:the_tool/utils.dart';
 class T_Button extends T_Widget {
   Future<void> Function(String js) executeJS;
   Map<String, dynamic> widgetProps;
-  Map<String, dynamic> contextData;
 
   T_Button({
     Key? key,
     required this.executeJS,
     required this.widgetProps,
-    required this.contextData,
   }) : super(
           key: key,
-          contextData: contextData,
           widgetProps: widgetProps,
           executeJS: executeJS,
         );

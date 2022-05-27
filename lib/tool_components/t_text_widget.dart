@@ -5,21 +5,16 @@ import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:gato/gato.dart' as gato;
 import 'package:the_tool/utils.dart';
 
-class T_Text extends T_Widget {
+class T_Text extends StatelessWidget {
   Future<void> Function(String js) executeJS;
   Map<String, dynamic> widgetProps;
-  Map<String, dynamic> contextData;
 
   T_Text({
     Key? key,
     required this.executeJS,
     required this.widgetProps,
-    required this.contextData,
   }) : super(
           key: key,
-          contextData: contextData,
-          widgetProps: widgetProps,
-          executeJS: executeJS,
         );
 
   @override

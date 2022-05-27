@@ -23,8 +23,19 @@ class EvalJS extends BaseEvalJS {
         );
 
   @override
-  Future<void> executeJS(String jsCode) async {
-    webViewController?.runJavascript("context.$jsCode");
+  Future<void> executeJS(String jsCode, String pageName) async {
+    var index = jsCode.indexOf('(');
+
+    var isFunctionInContext =
+        await webViewController?.runJavascriptReturningResult(
+      "isFunctionExistsOnContext('${jsCode.substring(0, index)}', '$pageName')",
+    );
+
+    if (isFunctionInContext == "1") {
+      webViewController?.runJavascript("context['$pageName'].$jsCode");
+    } else {
+      webViewController?.runJavascript(jsCode);
+    }
   }
 
   void executePageCode(

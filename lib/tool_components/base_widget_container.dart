@@ -70,6 +70,7 @@ class _T_BaseWidget_Container extends State<T_BaseWidget_Container> {
     if (customContent == null) {
       Widget title = T_Widgets(
         layout: gato.get(appBarConfig, "title"),
+        pagePath: widget.pagePath,
       );
       return AppBar(title: title);
     }
@@ -78,7 +79,7 @@ class _T_BaseWidget_Container extends State<T_BaseWidget_Container> {
       preferredSize: Size.fromHeight(gato.get(customContent, "height") ?? 120),
       child: T_Widgets(
         layout: customContent,
-        contextData: contextData,
+        pagePath: widget.pagePath,
       ),
     );
   }
@@ -98,9 +99,9 @@ class _T_BaseWidget_Container extends State<T_BaseWidget_Container> {
           children: [
             T_Widgets(
               layout: _pageLayout,
-              contextData: contextData,
+              pagePath: widget.pagePath,
             ),
-            Text(" $contextData"),
+            Text(" ${contextData}"),
           ],
         ),
       ),

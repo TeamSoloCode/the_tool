@@ -1,4 +1,7 @@
-export const context = { _data: {}, _prevData: {}, _platform: "mobile" };
+import _ from "lodash";
+
+const _initContext = { _data: {}, _prevData: {}, _platform: "mobile" };
+export const context = _initContext;
 
 const setContextData = (data, callback = () => {}) => {
   const nextData = Object.assign({}, context._data, data);
@@ -36,10 +39,19 @@ const setPlatform = (platform) => {
   Object.assign(context, { _platform: platform });
 };
 
-Object.assign(context, {
+const isFunctionExistsOnContext = (functionName, pagePath) => {
+  if (_.get(context, `${pagePath}.${functionName}`)) {
+    return 1;
+  }
+  return 0;
+};
+
+Object.assign(window, {
   setContextData,
   usePrevious,
   setPlatform,
   navigateTo,
+  isFunctionExistsOnContext,
 });
+
 window.context = context;
