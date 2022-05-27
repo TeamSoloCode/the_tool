@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +75,6 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
       child: WebView(
         javascriptMode: JavascriptMode.unrestricted,
         onWebViewCreated: (WebViewController webViewController) async {
-          _webViewController = webViewController;
           _evalJS = EvalJS(
             context: context,
             webViewController: webViewController,
@@ -86,16 +84,13 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
           APIClientManager apiClient = getIt<APIClientManager>();
           String clientCore = await apiClient.getClientCore();
 
-          // TODO: If not have this line, it won't work
-          await Future.delayed(const Duration(milliseconds: 1));
-
           String htmlContent = (await _evalJS.setupReactForClientCode(
             "",
             clientCore,
             "",
           ));
 
-          _webViewController?.loadUrl(
+          await webViewController.loadUrl(
             Uri.dataFromString(
               htmlContent,
               mimeType: 'text/html',
@@ -104,6 +99,8 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
           );
 
           utils.evalJS = _evalJS;
+        },
+        onPageFinished: (url) {
           setState(() {
             isWebViewReady = true;
           });
@@ -122,10 +119,17 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
       routes: _computeRoutes(),
       home: FutureBuilder<bool>(
         builder: (context, snapshot) {
+          const loadingPage = Scaffold(
+            body: Center(
+              child: Text("Loading..."),
+            ),
+          );
+
           if (snapshot.data == true) {
             return Stack(
               children: [
                 if (!kIsWeb) _initWebViewForMobile(context),
+                if (!isWebViewReady) loadingPage,
                 if (isWebViewReady)
                   T_BaseWidget_Container(
                     pagePath: "test_page",
@@ -133,11 +137,7 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
               ],
             );
           }
-          return const Scaffold(
-            body: Center(
-              child: Text("Loading..."),
-            ),
-          );
+          return loadingPage;
         },
         future: _isReadyToRun,
       ),

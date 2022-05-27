@@ -28,12 +28,11 @@ class _T_BaseWidget_Container extends State<T_BaseWidget_Container> {
   Map<String, dynamic> _pageLayout = {};
 
   late UtilsManager utils;
-  EvalJS? _evalJS;
 
   @override
   void initState() {
-    utils = getIt<UtilsManager>();
     (() async {
+      utils = getIt<UtilsManager>();
       APIClientManager apiClient = getIt<APIClientManager>();
       Map<String, dynamic> pageInfo =
           await apiClient.getClientPageInfo(widget.pagePath);
@@ -53,7 +52,7 @@ class _T_BaseWidget_Container extends State<T_BaseWidget_Container> {
 
   @override
   void dispose() {
-    _evalJS?.unmountClientCode(widget.pagePath);
+    utils.evalJS.unmountClientCode(widget.pagePath);
     super.dispose();
   }
 
@@ -87,6 +86,7 @@ class _T_BaseWidget_Container extends State<T_BaseWidget_Container> {
   @override
   Widget build(BuildContext context) {
     var contextData = context.watch<ContextStateProvider>().contextData;
+
     var customAppBar = gato.get(_pageLayout, "appBar");
     return Scaffold(
       appBar: _computeAppBar(
@@ -94,16 +94,14 @@ class _T_BaseWidget_Container extends State<T_BaseWidget_Container> {
         customAppBar,
       ),
       body: Container(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              T_Widgets(
-                layout: _pageLayout,
-                contextData: contextData,
-              ),
-              Text(" $contextData"),
-            ],
-          ),
+        child: Column(
+          children: [
+            T_Widgets(
+              layout: _pageLayout,
+              contextData: contextData,
+            ),
+            Text(" $contextData"),
+          ],
         ),
       ),
     );

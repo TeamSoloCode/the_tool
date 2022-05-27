@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:the_tool/eval_js_utils/base_eval_js.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/utils.dart';
@@ -80,7 +77,6 @@ class EvalJS extends BaseEvalJS {
 
   @override
   void unmountClientCode(String pagePath) {
-    print("unmountClientCode $pagePath");
     String unmountClientCodeJS = """
     (() => {
       const rootEl = document.getElementById("$pagePath")

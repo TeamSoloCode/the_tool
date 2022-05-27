@@ -30,11 +30,12 @@ abstract class BaseEvalJS {
         //   console.log("abcd context._prevData" , context._prevData)
         // }, [_contextData])
 
-        // React.useEffect(() => {
-        //   return () => {
-        //     console.log("abcd component unmounted")
-        //   }
-        // }, [])
+        React.useEffect(() => {
+          logger.log(`Didmount $pagePath`)
+          return () => {
+            logger.log(`Unmounted $pagePath`)
+          }
+        }, [])
 
         // <client_code>
 
