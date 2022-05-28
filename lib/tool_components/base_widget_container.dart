@@ -51,6 +51,13 @@ class _T_BaseWidget_Container extends State<T_BaseWidget_Container> {
   }
 
   @override
+  void didChangeDependencies() {
+    final args = ModalRoute.of(context)!.settings.arguments;
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+  }
+
+  @override
   void dispose() {
     utils.evalJS.unmountClientCode(widget.pagePath);
     super.dispose();
@@ -88,8 +95,8 @@ class _T_BaseWidget_Container extends State<T_BaseWidget_Container> {
   @override
   Widget build(BuildContext context) {
     var contextData = context.watch<ContextStateProvider>().contextData;
-
     var customAppBar = gato.get(_pageLayout, "appBar");
+
     return Scaffold(
       appBar: _computeAppBar(
         contextData,

@@ -89,7 +89,11 @@ class UtilsManager {
     JavascriptChannel navigator = JavascriptChannel(
       name: 'navigate',
       onMessageReceived: (JavascriptMessage message) {
-        Navigator.of(context).pushNamed(message.message);
+        Map<String, dynamic> navigateData = json.decode(message.message);
+        String routeName = navigateData["pagePath"];
+        Map<String, dynamic> pageArguments = navigateData["pageArguments"];
+
+        Navigator.of(context).pushNamed(routeName, arguments: pageArguments);
       },
     );
 

@@ -79,4 +79,7 @@ class EvalJS extends BaseEvalJS {
       js.context.callMethod("eval", [jsCode]);
     }
   }
+
+  @override
+  void setPageArguments(Map<String, dynamic> args, String pagePath) {}
 }

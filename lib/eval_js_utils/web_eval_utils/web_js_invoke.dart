@@ -24,7 +24,12 @@ external set setContextData(
     void Function(String dataAsString, Function? callback) f);
 
 @JS('navigate')
-external set navigator(void Function(String routeName));
+external set navigator(
+  void Function(
+    String routeName,
+    String pageArguments,
+  ),
+);
 
 /// Allows calling the assigned function from Dart as well.
 @JS()
@@ -46,8 +51,9 @@ void _setState(String dataAsString, Function? callback) {
   );
 }
 
-void _navigator(String routeName) {
-  Navigator.of(_context).pushNamed(routeName);
+void _navigator(String routeName, String pageArguments) {
+  Map<String, dynamic> arguments = json.decode(pageArguments);
+  Navigator.of(_context).pushNamed(routeName, arguments: arguments);
 }
 
 void main() {

@@ -15,11 +15,15 @@ const setContextData = (data, callback = () => {}) => {
   context._updateContextData(nextData);
 };
 
-const navigateTo = (routeName) => {
+const navigateTo = (pagePath, pageArguments = {}) => {
+  const navigateData = { pagePath, pageArguments };
+  context[pagePath] = context[pagePath] || {};
+  context[pagePath]._pageArguments = pageArguments;
+
   if (context._platform == "mobile") {
-    navigate.postMessage(routeName);
+    navigate.postMessage(JSON.stringify(navigateData));
   } else if (context._platform == "web") {
-    navigate(routeName);
+    navigate(pagePath, JSON.stringify(pageArguments));
   }
 };
 

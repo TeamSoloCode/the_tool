@@ -23,16 +23,16 @@ class EvalJS extends BaseEvalJS {
         );
 
   @override
-  Future<void> executeJS(String jsCode, String pageName) async {
+  Future<void> executeJS(String jsCode, String pagePath) async {
     var index = jsCode.indexOf('(');
 
     var isFunctionInContext =
         await webViewController?.runJavascriptReturningResult(
-      "isFunctionExistsOnContext('${jsCode.substring(0, index)}', '$pageName')",
+      "isFunctionExistsOnContext('${jsCode.substring(0, index)}', '$pagePath')",
     );
 
     if (isFunctionInContext == "1") {
-      webViewController?.runJavascript("context['$pageName'].$jsCode");
+      webViewController?.runJavascript("context['$pagePath'].$jsCode");
     } else {
       webViewController?.runJavascript(jsCode);
     }
@@ -96,5 +96,10 @@ class EvalJS extends BaseEvalJS {
     })()
     """;
     webViewController?.runJavascript(unmountClientCodeJS);
+  }
+
+  @override
+  void setPageArguments(Map<String, dynamic> args, String pagePath) {
+    // webViewController?.runJavascript("context['$pagePath']._ = args;");
   }
 }

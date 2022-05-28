@@ -11,6 +11,7 @@ abstract class BaseEvalJS {
       String clientCode, String clientCoreCode, String pagePath);
   void unmountClientCode(String pagePath);
   Future<void> executePageCode(String jsCode, String pagePath);
+  void setPageArguments(Map<String, dynamic> args, String pagePath);
 
   bool initialized = false;
 
@@ -42,6 +43,10 @@ abstract class BaseEvalJS {
           context['$pagePath'] = context['$pagePath'] || {}
           Object.assign(context['$pagePath'], exportedContext)
         }, [_pageData])
+
+        const getPageArguments = React.useCallback(() => {
+          return context['$pagePath']?._pageArguments || {};
+        }, [context['$pagePath']])
 
         React.useEffect(() => {
           exportPageContext({ setPageData, getPageData })
