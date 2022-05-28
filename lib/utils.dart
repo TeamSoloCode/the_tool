@@ -51,7 +51,7 @@ class UtilsManager {
       if (match != null) {
         var bindingData = gato.get(
               contextData,
-              computedText.substring(match.start, match.end),
+              computedText.substring(match.start, match.end).trim(),
             ) ??
             "";
 
