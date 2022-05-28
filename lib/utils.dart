@@ -24,16 +24,18 @@ class UtilsManager {
   }
 
   Future<void> loadStaticContent() async {
-    String vendorContent =
-        await rootBundle.loadString('js-module/dist/vendors.js');
-    String appContent = await rootBundle.loadString('js-module/dist/app.js');
-    String fileContent =
-        await rootBundle.loadString('js-module/dist/index.html');
+    List<String> content = await Future.wait<String>(
+      [
+        rootBundle.loadString('js-module/dist/vendors.js'),
+        rootBundle.loadString('js-module/dist/app.js'),
+        rootBundle.loadString('js-module/dist/index.html')
+      ],
+    );
 
     _staticContent = {
-      "vendor": vendorContent,
-      "app": appContent,
-      "htmlContent": fileContent
+      "vendor": content[0],
+      "app": content[1],
+      "htmlContent": content[2]
     };
   }
 

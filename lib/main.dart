@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 void main() async {
   getIt.registerSingleton<UtilsManager>(UtilsManager(), signalsReady: true);
   getIt.registerSingleton<APIClientManager>(
-    APIClientManager(),
+    const APIClientManager(),
     signalsReady: true,
   );
 
@@ -16,7 +16,7 @@ void main() async {
     providers: [
       ChangeNotifierProvider(create: (_) => ContextStateProvider()),
     ],
-    child: MyApp(),
+    child: const MyApp(),
   ));
 }
 

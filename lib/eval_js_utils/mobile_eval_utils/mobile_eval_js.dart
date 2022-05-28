@@ -59,9 +59,7 @@ class EvalJS extends BaseEvalJS {
 
   @override
   Future<String> setupReactForClientCode(
-    String clientCode,
     String clientCoreCode,
-    String pagePath,
   ) async {
     var staticContent = getIt<UtilsManager>().staticContent;
 

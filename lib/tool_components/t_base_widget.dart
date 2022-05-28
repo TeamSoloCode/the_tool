@@ -22,35 +22,25 @@ class T_BaseWidget extends StatefulWidget {
 }
 
 class _T_BaseWidgetState extends State<T_BaseWidget> {
-  Map<String, dynamic>? _config = {};
-
   WebViewController? _webViewController;
   bool isWebViewReady = false;
-  late UtilsManager utils;
+  UtilsManager utils = getIt<UtilsManager>();
   late EvalJS _evalJS;
 
   APIClientManager apiClient = getIt<APIClientManager>();
+  String? errorMessage;
 
   @override
   void initState() {
-    (() async {
-      Map<String, dynamic> config = await apiClient.getClientConfig();
-
-      setState(() {
-        _config = config;
-      });
-    })();
-
-    utils = getIt<UtilsManager>();
-
     super.initState();
   }
 
   Map<String, Widget Function(BuildContext)> _computeRoutes() {
-    if (_config == null || gato.get(_config, "routes") == null) return {};
+    var config = context.read<ContextStateProvider>().appConfig;
+    if (gato.get(config, "routes") == null) return {};
 
     Map<String, Widget Function(BuildContext)> routes = {};
-    List<Map<String, dynamic>> routesConfig = gato.get(_config, "routes");
+    List<Map<String, dynamic>> routesConfig = gato.get(config, "routes");
 
     routesConfig.forEach((routeConfig) {
       String path = routeConfig['path'];
@@ -62,13 +52,31 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
     return routes;
   }
 
-  final Future<bool> _isReadyToRun = Future<bool>.microtask(() async {
-    if (!kIsWeb) {
-      await getIt<UtilsManager>().loadStaticContent();
+  String _getInitialPage() {
+    var config = context.read<ContextStateProvider>().appConfig;
+    String? initialPage = gato.get(config, "initialPage");
+    if (initialPage == null || initialPage == "") {
+      setState(() {
+        errorMessage = "Missing initial page path in config";
+      });
+      return "";
     }
 
-    return true;
-  });
+    return initialPage;
+  }
+
+  Future<bool> _isReadyToRun() async {
+    return await Future<bool>.microtask(() async {
+      Map<String, dynamic> config = await apiClient.getClientConfig();
+      context.read<ContextStateProvider>().appConfig = config;
+
+      if (!kIsWeb) {
+        await getIt<UtilsManager>().loadStaticContent();
+      }
+
+      return true;
+    });
+  }
 
   Widget _loadWebCoreJSCode(BuildContext context) {
     if (isWebViewReady) return const SizedBox();
@@ -80,11 +88,9 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
     (() async {
       String clientCore = await apiClient.getClientCore();
 
-      String htmlContent = (await _evalJS.setupReactForClientCode(
-        "",
+      await _evalJS.setupReactForClientCode(
         clientCore,
-        "",
-      ));
+      );
 
       utils.evalJS = _evalJS;
 
@@ -109,14 +115,10 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
             contextStateProvider: context.read<ContextStateProvider>(),
           );
 
-          APIClientManager apiClient = getIt<APIClientManager>();
           String clientCore = await apiClient.getClientCore();
 
-          String htmlContent = (await _evalJS.setupReactForClientCode(
-            "",
-            clientCore,
-            "",
-          ));
+          String htmlContent =
+              (await _evalJS.setupReactForClientCode(clientCore));
 
           await webViewController.loadUrl(
             Uri.dataFromString(
@@ -148,12 +150,22 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
       home: FutureBuilder<bool>(
         builder: (context, snapshot) {
           const loadingPage = Scaffold(
-            body: Center(
-              child: Text("Loading..."),
-            ),
+            body: Center(child: Text("Loading...")),
           );
 
           if (snapshot.data == true) {
+            if (errorMessage != null) {
+              return Center(
+                child: Text(
+                  errorMessage ?? "",
+                  style: const TextStyle(
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              );
+            }
+
             return Stack(
               children: [
                 if (!kIsWeb) _initWebViewForMobile(context),
@@ -161,14 +173,14 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
                 if (!isWebViewReady) loadingPage,
                 if (isWebViewReady)
                   T_BaseWidget_Container(
-                    pagePath: "test_page",
+                    pagePath: _getInitialPage(),
                   ),
               ],
             );
           }
           return loadingPage;
         },
-        future: _isReadyToRun,
+        future: _isReadyToRun(),
       ),
     );
   }

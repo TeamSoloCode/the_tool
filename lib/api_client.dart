@@ -33,6 +33,7 @@ class APIClientManager {
     try {
       return Future.value(
         {
+          "initialPage": "test_page",
           "routes": [
             {"name": "Home Page", "path": "home_page"},
             {"name": "Test Page", "path": "test_page"}

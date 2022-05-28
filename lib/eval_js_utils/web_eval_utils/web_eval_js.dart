@@ -53,9 +53,7 @@ class EvalJS extends BaseEvalJS {
 
   @override
   Future<String> setupReactForClientCode(
-    String clientCode,
     String clientCoreCode,
-    String pagePath,
   ) async {
     js.context.callMethod("eval", [clientCoreCode]);
 

@@ -4,16 +4,19 @@ import 'package:the_tool/page_utils/context_state_provider.dart';
 abstract class BaseEvalJS {
   ContextStateProvider contextStateProvider;
   BuildContext context;
+  bool initialized = false;
+
   BaseEvalJS({required this.contextStateProvider, required this.context});
 
   Future<void> executeJS(String jsCode, String pageName);
-  Future<String> setupReactForClientCode(
-      String clientCode, String clientCoreCode, String pagePath);
-  void unmountClientCode(String pagePath);
-  Future<void> executePageCode(String jsCode, String pagePath);
-  void setPageArguments(Map<String, dynamic> args, String pagePath);
 
-  bool initialized = false;
+  Future<String> setupReactForClientCode(String clientCoreCode);
+
+  void unmountClientCode(String pagePath);
+
+  Future<void> executePageCode(String jsCode, String pagePath);
+
+  void setPageArguments(Map<String, dynamic> args, String pagePath);
 
   String getBaseComponentCode(String pagePath) {
     return """
