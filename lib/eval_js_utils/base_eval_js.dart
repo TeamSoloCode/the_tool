@@ -10,6 +10,7 @@ abstract class BaseEvalJS {
   Future<String> setupReactForClientCode(
       String clientCode, String clientCoreCode, String pagePath);
   void unmountClientCode(String pagePath);
+  Future<void> executePageCode(String jsCode, String pagePath);
 
   bool initialized = false;
 
@@ -32,18 +33,25 @@ abstract class BaseEvalJS {
           setContextData({['$pagePath']: {...nextData}})
         }, [_pageData])
 
+        const getPageData = React.useCallback(( ) => {
+          return _pageData;
+        }, [_pageData])
+
         // Export page context
         const exportPageContext = React.useCallback((exportedContext = {}) => {
           context['$pagePath'] = context['$pagePath'] || {}
           Object.assign(context['$pagePath'], exportedContext)
         }, [_pageData])
 
-        exportPageContext({ setPageData })
+        React.useEffect(() => {
+          exportPageContext({ setPageData, getPageData })
+        }, [_pageData, setPageData])
 
         React.useEffect(() => {
           logger.log(`Didmount $pagePath`)
           return () => {
             logger.log(`Unmounted $pagePath`)
+            context['$pagePath'] = {}
           }
         }, [])
 

@@ -38,10 +38,11 @@ class EvalJS extends BaseEvalJS {
     }
   }
 
-  void executePageCode(
+  @override
+  Future<void> executePageCode(
     String clientCode,
     String pagePath,
-  ) {
+  ) async {
     String pageCode = """
       (() => {
         ${getBaseComponentCode(pagePath)}

@@ -31,8 +31,8 @@ class _T_BaseWidget_Container extends State<T_BaseWidget_Container> {
 
   @override
   void initState() {
+    utils = getIt<UtilsManager>();
     (() async {
-      utils = getIt<UtilsManager>();
       APIClientManager apiClient = getIt<APIClientManager>();
       Map<String, dynamic> pageInfo =
           await apiClient.getClientPageInfo(widget.pagePath);

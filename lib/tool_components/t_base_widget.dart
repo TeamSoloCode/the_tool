@@ -29,11 +29,13 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
   late UtilsManager utils;
   late EvalJS _evalJS;
 
+  APIClientManager apiClient = getIt<APIClientManager>();
+
   @override
   void initState() {
     (() async {
-      APIClientManager apiClient = getIt<APIClientManager>();
       Map<String, dynamic> config = await apiClient.getClientConfig();
+
       setState(() {
         _config = config;
       });
@@ -67,6 +69,32 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
 
     return true;
   });
+
+  Widget _loadWebCoreJSCode(BuildContext context) {
+    if (isWebViewReady) return const SizedBox();
+
+    _evalJS = EvalJS(
+      contextStateProvider: context.read<ContextStateProvider>(),
+      context: context,
+    );
+    (() async {
+      String clientCore = await apiClient.getClientCore();
+
+      String htmlContent = (await _evalJS.setupReactForClientCode(
+        "",
+        clientCore,
+        "",
+      ));
+
+      utils.evalJS = _evalJS;
+
+      setState(() {
+        isWebViewReady = true;
+      });
+    })();
+
+    return const SizedBox();
+  }
 
   Widget _initWebViewForMobile(BuildContext context) {
     return SizedBox(
@@ -129,6 +157,7 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
             return Stack(
               children: [
                 if (!kIsWeb) _initWebViewForMobile(context),
+                if (kIsWeb) _loadWebCoreJSCode(context),
                 if (!isWebViewReady) loadingPage,
                 if (isWebViewReady)
                   T_BaseWidget_Container(

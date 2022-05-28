@@ -11,15 +11,15 @@ class EvalJS extends BaseEvalJS {
   WebViewController? webViewController;
   ContextStateProvider contextStateProvider;
   BuildContext context;
-  EvalJS(
-      {required this.contextStateProvider,
-      this.webViewController,
-      required this.context})
-      : super(contextStateProvider: contextStateProvider, context: context) {
+  EvalJS({
+    required this.contextStateProvider,
+    this.webViewController,
+    required this.context,
+  }) : super(contextStateProvider: contextStateProvider, context: context) {
     webjs.setContextBuilder(context);
     webjs.setContextStateProvider(contextStateProvider);
     webjs.main();
-    js.context['context'].callMethod('setPlatform', ['web']);
+    js.context.callMethod('setPlatform', ['web']);
   }
 
   @override
@@ -33,37 +33,50 @@ class EvalJS extends BaseEvalJS {
   }
 
   @override
-  Future<String> setupReactForClientCode(
+  Future<void> executePageCode(
     String clientCode,
-    String clientCoreCode,
     String pagePath,
-  ) {
-    String componentContent = """
-    // <client_core_code>
-    (() => {
-      ${getBaseComponentCode(pagePath)}
-    })()
-    """;
+  ) async {
+    String pageCode = """
+      (() => {
+        ${getBaseComponentCode(pagePath)}
+      })()
+      """;
 
-    componentContent = componentContent.replaceAll(
+    pageCode = pageCode.replaceAll(
       "// <client_code>",
       clientCode,
     );
 
-    componentContent = componentContent.replaceAll(
-      "// <client_core_code>",
-      clientCoreCode,
-    );
+    js.context.callMethod("eval", [pageCode]);
+  }
 
-    js.context.callMethod("eval", [componentContent]);
+  @override
+  Future<String> setupReactForClientCode(
+    String clientCode,
+    String clientCoreCode,
+    String pagePath,
+  ) async {
+    js.context.callMethod("eval", [clientCoreCode]);
 
     return Future.value("");
   }
 
   @override
   Future<void> executeJS(String jsCode, String pageName) async {
-    print(js.context);
-    // TODO: implement executeJS
-    js.context.callMethod("eval", ["context.$jsCode"]);
+    var index = jsCode.indexOf('(');
+
+    var isFunctionInContext = await js.context.callMethod(
+      "eval",
+      [
+        "isFunctionExistsOnContext('${jsCode.substring(0, index)}', '$pageName')"
+      ],
+    );
+
+    if (isFunctionInContext == 1) {
+      js.context.callMethod("eval", ["context['$pageName'].$jsCode"]);
+    } else {
+      js.context.callMethod("eval", [jsCode]);
+    }
   }
 }
