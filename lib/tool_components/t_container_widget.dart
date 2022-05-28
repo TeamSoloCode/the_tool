@@ -6,13 +6,15 @@ class T_Container extends StatelessWidget {
   Map<String, dynamic> widgetProps;
   Future<void> Function(String js) executeJS;
   final String pageName;
+  Map<String, dynamic> contextData;
 
-  T_Container({
-    Key? key,
-    required this.executeJS,
-    required this.widgetProps,
-    required this.pageName,
-  }) : super(key: key);
+  T_Container(
+      {Key? key,
+      required this.executeJS,
+      required this.widgetProps,
+      required this.pageName,
+      required this.contextData})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,7 @@ class T_Container extends StatelessWidget {
       child: T_Widgets(
         layout: widgetProps["child"] ?? {},
         pagePath: pageName,
+        contextData: contextData,
       ),
     );
   }

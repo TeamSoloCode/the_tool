@@ -7,22 +7,23 @@ import 'package:the_tool/utils.dart';
 class T_Button extends T_Widget {
   Future<void> Function(String js) executeJS;
   Map<String, dynamic> widgetProps;
+  Map<String, dynamic> contextData;
+  UtilsManager utils = getIt<UtilsManager>();
 
   T_Button({
     Key? key,
     required this.executeJS,
     required this.widgetProps,
+    required this.contextData,
   }) : super(
           key: key,
           widgetProps: widgetProps,
           executeJS: executeJS,
+          contextData: contextData,
         );
 
   @override
   Widget build(BuildContext context) {
-    UtilsManager utils = getIt<UtilsManager>();
-    var contextData = context.watch<ContextStateProvider>().contextData;
-
     return Container(
       margin: EdgeInsets.only(),
       child: TextButton(

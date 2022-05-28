@@ -8,20 +8,22 @@ import 'package:the_tool/utils.dart';
 class T_Text extends StatelessWidget {
   Future<void> Function(String js) executeJS;
   Map<String, dynamic> widgetProps;
+  Map<String, dynamic> contextData;
 
-  T_Text({
-    Key? key,
-    required this.executeJS,
-    required this.widgetProps,
-  }) : super(
+  T_Text(
+      {Key? key,
+      required this.executeJS,
+      required this.widgetProps,
+      required this.contextData})
+      : super(
           key: key,
         );
 
   @override
   Widget build(BuildContext context) {
     UtilsManager utils = getIt<UtilsManager>();
-    var contextData = context.watch<ContextStateProvider>().contextData;
     String text = gato.get(widgetProps, "text") ?? "";
+
     return Text(
       utils.bindingValueToString(contextData, text),
     );

@@ -5,11 +5,13 @@ class T_Column extends StatelessWidget {
   Map<String, dynamic> widgetProps;
   Future<void> Function(String js) executeJS;
   final String pageName;
+  Map<String, dynamic> contextData;
 
   T_Column({
     Key? key,
     required this.executeJS,
     required this.widgetProps,
+    required this.contextData,
     required this.pageName,
   }) : super(key: key);
 
@@ -20,6 +22,7 @@ class T_Column extends StatelessWidget {
       return T_Widgets(
         layout: child,
         pagePath: pageName,
+        contextData: contextData,
       );
     }).toList();
   }
