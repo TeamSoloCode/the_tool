@@ -9,10 +9,6 @@ class EvalJS extends BaseEvalJS {
   ContextStateProvider contextStateProvider;
   BuildContext context;
 
-  String _vendorContent = "";
-  String _appContent = "";
-  String _fileContent = "";
-
   EvalJS({
     required this.contextStateProvider,
     this.webViewController,

@@ -65,6 +65,48 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
     return initialPage;
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      routes: _computeRoutes(),
+      home: FutureBuilder<bool>(
+        builder: (context, snapshot) {
+          const loadingPage = Scaffold(
+            body: Center(child: Text("Loading...")),
+          );
+
+          if (snapshot.data == true) {
+            if (errorMessage != null) {
+              return Center(
+                child: Text(
+                  errorMessage ?? "",
+                  style: const TextStyle(
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              );
+            }
+
+            return Stack(
+              children: [
+                if (!kIsWeb) _initWebViewForMobile(context),
+                if (kIsWeb) _loadWebCoreJSCode(context),
+                if (!isWebViewReady) loadingPage,
+                if (isWebViewReady)
+                  T_BaseWidget_Container(
+                    pagePath: _getInitialPage(),
+                  ),
+              ],
+            );
+          }
+          return loadingPage;
+        },
+        future: _isReadyToRun(),
+      ),
+    );
+  }
+
   Future<bool> _isReadyToRun() async {
     return await Future<bool>.microtask(() async {
       Map<String, dynamic> config = await apiClient.getClientConfig();
@@ -139,48 +181,6 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
           context,
           context.read<ContextStateProvider>(),
         ),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      routes: _computeRoutes(),
-      home: FutureBuilder<bool>(
-        builder: (context, snapshot) {
-          const loadingPage = Scaffold(
-            body: Center(child: Text("Loading...")),
-          );
-
-          if (snapshot.data == true) {
-            if (errorMessage != null) {
-              return Center(
-                child: Text(
-                  errorMessage ?? "",
-                  style: const TextStyle(
-                    color: Colors.red,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              );
-            }
-
-            return Stack(
-              children: [
-                if (!kIsWeb) _initWebViewForMobile(context),
-                if (kIsWeb) _loadWebCoreJSCode(context),
-                if (!isWebViewReady) loadingPage,
-                if (isWebViewReady)
-                  T_BaseWidget_Container(
-                    pagePath: _getInitialPage(),
-                  ),
-              ],
-            );
-          }
-          return loadingPage;
-        },
-        future: _isReadyToRun(),
       ),
     );
   }

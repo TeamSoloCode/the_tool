@@ -1,6 +1,5 @@
-import 'dart:async';
+import 'dart:developer';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 
@@ -8,11 +7,8 @@ import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:gato/gato.dart' as gato;
-import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
-    if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_utils/web_eval_js.dart';
 
 class T_BaseWidget_Container extends StatefulWidget {
   String pagePath;
@@ -96,23 +92,17 @@ class _T_BaseWidget_Container extends State<T_BaseWidget_Container> {
   Widget build(BuildContext context) {
     var contextData = context.watch<ContextStateProvider>().contextData;
     var customAppBar = gato.get(_pageLayout, "appBar");
+    log("contextData $contextData");
 
     return Scaffold(
       appBar: _computeAppBar(
         contextData,
         customAppBar,
       ),
-      body: Container(
-        child: Column(
-          children: [
-            T_Widgets(
-              layout: _pageLayout,
-              pagePath: widget.pagePath,
-              contextData: contextData,
-            ),
-            Text(" ${contextData}"),
-          ],
-        ),
+      body: T_Widgets(
+        layout: _pageLayout,
+        pagePath: widget.pagePath,
+        contextData: contextData,
       ),
     );
   }
