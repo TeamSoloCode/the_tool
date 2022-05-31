@@ -7,7 +7,7 @@ const setContextData = (data, callback = () => {}) => {
   const nextData = Object.assign({}, context._data, data);
   const dataAsString = JSON.stringify(nextData);
   if (context._platform == "mobile") {
-    setState.postMessage(dataAsString);
+    window.flutter_inappwebview.callHandler("setState", nextData);
   } else if (context._platform == "web") {
     setState(dataAsString, callback);
   }
@@ -21,7 +21,8 @@ const navigateTo = (pagePath, pageArguments = {}) => {
   context[pagePath]._pageArguments = pageArguments;
 
   if (context._platform == "mobile") {
-    navigate.postMessage(JSON.stringify(navigateData));
+    // navigate.postMessage(JSON.stringify(navigateData));
+    window.flutter_inappwebview.callHandler("navigate", navigateData);
   } else if (context._platform == "web") {
     navigate(pagePath, JSON.stringify(pageArguments));
   }
@@ -81,6 +82,5 @@ Object.assign(window, {
   isFunctionExistsOnContext,
   setCookies,
   getCookies,
+  context,
 });
-
-window.context = context;

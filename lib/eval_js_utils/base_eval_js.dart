@@ -52,7 +52,7 @@ abstract class BaseEvalJS {
         }, [context['$pagePath']])
 
         React.useEffect(() => {
-          exportPageContext({ setPageData, getPageData })
+          exportPageContext({ setPageData, getPageData, abcd: "init" })
         }, [_pageData, setPageData])
 
         React.useEffect(() => {
@@ -76,7 +76,7 @@ abstract class BaseEvalJS {
       appEl.appendChild(clientCodeHost)
 
       ReactDOM.render(
-        React.createElement(Main, context._data),
+        React.createElement(Main, context),
         document.getElementById("$pagePath")
       );
     } catch (err) {

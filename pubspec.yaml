@@ -36,7 +36,7 @@ dependencies:
   hive: ^2.1.0
   hive_flutter: ^1.1.0
   from_css_color: ^2.0.0
-  webview_flutter: ^3.0.2
+  flutter_inappwebview: ^5.4.3+7
   get_it: ^7.2.0
   provider: ^6.0.2
   js: ^0.6.4

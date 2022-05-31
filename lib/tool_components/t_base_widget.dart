@@ -1,8 +1,10 @@
 import 'dart:async';
-import 'dart:convert';
+import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
@@ -11,7 +13,6 @@ import 'package:the_tool/tool_components/base_widget_container.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:gato/gato.dart' as gato;
-import 'package:webview_flutter/webview_flutter.dart';
 import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
     if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_utils/web_eval_js.dart';
 
@@ -23,10 +24,26 @@ class T_BaseWidget extends StatefulWidget {
 }
 
 class _T_BaseWidgetState extends State<T_BaseWidget> {
-  WebViewController? _webViewController;
   bool isWebViewReady = false;
   UtilsManager utils = getIt<UtilsManager>();
   late EvalJS _evalJS;
+
+  late PullToRefreshController pullToRefreshController;
+  final GlobalKey webViewKey = GlobalKey();
+
+  InAppWebViewController? webViewController;
+  InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
+    crossPlatform: InAppWebViewOptions(
+      useShouldOverrideUrlLoading: true,
+      mediaPlaybackRequiresUserGesture: false,
+    ),
+    android: AndroidInAppWebViewOptions(
+      useHybridComposition: true,
+    ),
+    ios: IOSInAppWebViewOptions(
+      allowsInlineMediaPlayback: true,
+    ),
+  );
 
   APIClientManager apiClient = getIt<APIClientManager>();
   String? errorMessage;
@@ -34,6 +51,20 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
   @override
   void initState() {
     super.initState();
+
+    pullToRefreshController = PullToRefreshController(
+      options: PullToRefreshOptions(
+        color: Colors.blue,
+      ),
+      onRefresh: () async {
+        if (Platform.isAndroid) {
+          webViewController?.reload();
+        } else if (Platform.isIOS) {
+          webViewController?.loadUrl(
+              urlRequest: URLRequest(url: await webViewController?.getUrl()));
+        }
+      },
+    );
   }
 
   @override
@@ -154,11 +185,10 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
 
   Widget _initWebViewForMobile(BuildContext context) {
     return SizedBox(
-      width: 0,
-      height: 0,
-      child: WebView(
-        javascriptMode: JavascriptMode.unrestricted,
-        onWebViewCreated: (WebViewController webViewController) async {
+      width: 1,
+      height: 1,
+      child: InAppWebView(
+        onWebViewCreated: (webViewController) async {
           _evalJS = EvalJS(
             context: context,
             webViewController: webViewController,
@@ -166,29 +196,32 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
           );
 
           String clientCore = await apiClient.getClientCore();
-
           String htmlContent =
               (await _evalJS.setupReactForClientCode(clientCore));
 
-          await webViewController.loadUrl(
-            Uri.dataFromString(
-              htmlContent,
-              mimeType: 'text/html',
-              encoding: Encoding.getByName('utf-8'),
-            ).toString(),
-          );
+          await webViewController.loadData(data: htmlContent);
 
           utils.evalJS = _evalJS;
         },
-        onPageFinished: (url) {
+        onLoadStart: (controller, url) {},
+        androidOnPermissionRequest: (controller, origin, resources) async {
+          return PermissionRequestResponse(
+            resources: resources,
+            action: PermissionRequestResponseAction.GRANT,
+          );
+        },
+        onLoadStop: (controller, url) async {
+          // pullToRefreshController.endRefreshing();
           setState(() {
             isWebViewReady = true;
           });
         },
-        javascriptChannels: utils.registerJavascriptChannel(
-          context,
-          context.read<ContextStateProvider>(),
-        ),
+        onLoadError: (controller, url, code, message) {
+          log(message);
+        },
+        onConsoleMessage: (controller, consoleMessage) {
+          log("Webview log: ${consoleMessage.message}");
+        },
       ),
     );
   }

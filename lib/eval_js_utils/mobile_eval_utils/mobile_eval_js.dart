@@ -1,11 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:the_tool/eval_js_utils/base_eval_js.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/utils.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_js_invoke.dart'
+    as mobilejs;
 
 class EvalJS extends BaseEvalJS {
-  WebViewController? webViewController;
+  InAppWebViewController? webViewController;
   ContextStateProvider contextStateProvider;
   BuildContext context;
 
@@ -16,21 +20,33 @@ class EvalJS extends BaseEvalJS {
   }) : super(
           contextStateProvider: contextStateProvider,
           context: context,
-        );
+        ) {
+    mobilejs.main();
+    mobilejs.registerJavascriptHandler(
+      context,
+      contextStateProvider,
+      webViewController,
+    );
+  }
 
   @override
   Future<void> executeJS(String jsCode, String pagePath) async {
     var index = jsCode.indexOf('(');
 
-    var isFunctionInContext =
-        await webViewController?.runJavascriptReturningResult(
-      "isFunctionExistsOnContext('${jsCode.substring(0, index)}', '$pagePath')",
+    var isFunctionInContext = await webViewController?.evaluateJavascript(
+      source:
+          "isFunctionExistsOnContext('${jsCode.substring(0, index)}', '$pagePath')",
     );
 
-    if (isFunctionInContext == "1") {
-      webViewController?.runJavascript("context['$pagePath'].$jsCode");
+    if (isFunctionInContext == 1) {
+      webViewController?.evaluateJavascript(
+        source: "context['$pagePath'].$jsCode",
+      );
     } else {
-      webViewController?.runJavascript(jsCode);
+      webViewController?.evaluateJavascript(
+        source: "console.log(`evaluateJavascript \${JSON.stringify(context)}`)",
+      );
+      webViewController?.evaluateJavascript(source: jsCode);
     }
   }
 
@@ -50,7 +66,7 @@ class EvalJS extends BaseEvalJS {
       clientCode,
     );
 
-    webViewController?.runJavascript(pageCode);
+    webViewController?.evaluateJavascript(source: pageCode);
   }
 
   @override
@@ -89,7 +105,7 @@ class EvalJS extends BaseEvalJS {
       ReactDOM.unmountComponentAtNode(rootEl);
     })()
     """;
-    webViewController?.runJavascript(unmountClientCodeJS);
+    webViewController?.evaluateJavascript(source: unmountClientCodeJS);
   }
 
   @override
