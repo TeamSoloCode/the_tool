@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:the_tool/page_utils/storage_utils.dart';
 import 'package:the_tool/tool_components/base_widget_container.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
@@ -33,6 +34,12 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    getIt<StorageManager>().closeStorageBox();
+    super.dispose();
   }
 
   Map<String, Widget Function(BuildContext)> _computeRoutes() {
@@ -111,6 +118,7 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
     return await Future<bool>.microtask(() async {
       Map<String, dynamic> config = await apiClient.getClientConfig();
       context.read<ContextStateProvider>().appConfig = config;
+      await getIt<StorageManager>().initStorageBox();
 
       if (!kIsWeb) {
         await getIt<UtilsManager>().loadStaticContent();

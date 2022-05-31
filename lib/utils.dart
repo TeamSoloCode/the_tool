@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:gato/gato.dart' as gato;
 import 'package:get_it/get_it.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:the_tool/page_utils/storage_utils.dart';
 import 'package:webview_flutter/platform_interface.dart';
 import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
     if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_utils/web_eval_js.dart';
@@ -99,7 +100,32 @@ class UtilsManager {
       },
     );
 
-    channels.addAll([message, updateState, navigator]);
+    JavascriptChannel setCookies = JavascriptChannel(
+      name: 'set_cookies',
+      onMessageReceived: (JavascriptMessage message) {
+        Map<String, dynamic> cookieInfo = json.decode(message.message);
+        String key = cookieInfo["key"];
+        dynamic value = cookieInfo["value"];
+        getIt<StorageManager>().setCookies(key, value);
+      },
+    );
+
+    JavascriptChannel getCookies = JavascriptChannel(
+      name: 'get_cookies',
+      onMessageReceived: (JavascriptMessage message) {
+        String key = message.message;
+        print("abcd ${getIt<StorageManager>().getCookies(key)}");
+        return getIt<StorageManager>().getCookies(key);
+      },
+    );
+
+    channels.addAll([
+      message,
+      updateState,
+      navigator,
+      setCookies,
+      getCookies,
+    ]);
 
     return channels;
   }

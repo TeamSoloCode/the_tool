@@ -50,12 +50,37 @@ const isFunctionExistsOnContext = (functionName, pagePath) => {
   return 0;
 };
 
+const setCookies = (key, value) => {
+  switch (context._platform) {
+    case "web":
+      break;
+
+    case "mobile":
+      set_cookies.postMessage(JSON.stringify({ key, value }));
+      break;
+  }
+};
+
+const getCookies = (key, defaultvalue) => {
+  switch (context._platform) {
+    case "web":
+      break;
+
+    case "mobile":
+      const cookieData = get_cookies.postMessage(key);
+      if (cookieData) return cookieData;
+      return defaultvalue;
+  }
+};
+
 Object.assign(window, {
   setContextData,
   usePrevious,
   setPlatform,
   navigateTo,
   isFunctionExistsOnContext,
+  setCookies,
+  getCookies,
 });
 
 window.context = context;
