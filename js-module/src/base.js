@@ -21,7 +21,6 @@ const navigateTo = (pagePath, pageArguments = {}) => {
   context[pagePath]._pageArguments = pageArguments;
 
   if (context._platform == "mobile") {
-    // navigate.postMessage(JSON.stringify(navigateData));
     window.flutter_inappwebview.callHandler("navigate", navigateData);
   } else if (context._platform == "web") {
     navigate(pagePath, JSON.stringify(pageArguments));
@@ -57,7 +56,7 @@ const setCookies = (key, value) => {
       break;
 
     case "mobile":
-      set_cookies.postMessage(JSON.stringify({ key, value }));
+      window.flutter_inappwebview.callHandler("set_cookies", key, value);
       break;
   }
 };
@@ -68,7 +67,10 @@ const getCookies = (key, defaultvalue) => {
       break;
 
     case "mobile":
-      const cookieData = get_cookies.postMessage(key);
+      const cookieData = window.flutter_inappwebview.callHandler(
+        "get_cookies",
+        key
+      );
       if (cookieData) return cookieData;
       return defaultvalue;
   }

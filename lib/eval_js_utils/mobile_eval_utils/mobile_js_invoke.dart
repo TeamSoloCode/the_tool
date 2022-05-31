@@ -5,6 +5,8 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:the_tool/page_utils/storage_utils.dart';
+import 'package:the_tool/utils.dart';
 
 external JavaScriptHandler updateState;
 
@@ -22,16 +24,6 @@ void registerJavascriptHandler(
     BuildContext context,
     ContextStateProvider contextStateProvider,
     InAppWebViewController? webViewController) {
-  // Set<JavascriptChannel> channels = Set<JavascriptChannel>();
-  // JavascriptChannel message = JavascriptChannel(
-  //   name: 'messageHandler',
-  //   onMessageReceived: (JavascriptMessage message) {
-  //     print(
-  //       "\"${message.message}\"",
-  //     );
-  //   },
-  // );
-
   webViewController?.addJavaScriptHandler(
     handlerName: "setState",
     callback: (args) {
@@ -50,26 +42,22 @@ void registerJavascriptHandler(
     },
   );
 
-  // JavascriptChannel navigator = JavascriptChannel(
-  //   name: 'navigate',
-  //   onMessageReceived: (JavascriptMessage message) {
-  //     Map<String, dynamic> navigateData = json.decode(message.message);
-  //     String routeName = navigateData["pagePath"];
-  //     Map<String, dynamic> pageArguments = navigateData["pageArguments"];
+  webViewController?.addJavaScriptHandler(
+    handlerName: "set_cookies",
+    callback: (args) {
+      String key = args[0];
+      dynamic value = args[1];
+      getIt<StorageManager>().setCookies(key, value);
+    },
+  );
 
-  //     Navigator.of(context).pushNamed(routeName, arguments: pageArguments);
-  //   },
-  // );
-
-  // JavascriptChannel setCookies = JavascriptChannel(
-  //   name: 'set_cookies',
-  //   onMessageReceived: (JavascriptMessage message) {
-  //     Map<String, dynamic> cookieInfo = json.decode(message.message);
-  //     String key = cookieInfo["key"];
-  //     dynamic value = cookieInfo["value"];
-  //     getIt<StorageManager>().setCookies(key, value);
-  //   },
-  // );
+  webViewController?.addJavaScriptHandler(
+    handlerName: "get_cookies",
+    callback: (args) {
+      String key = args[0];
+      return getIt<StorageManager>().getCookies(key);
+    },
+  );
 
   // JavascriptChannel getCookies = JavascriptChannel(
   //   name: 'get_cookies',

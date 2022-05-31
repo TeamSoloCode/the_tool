@@ -211,13 +211,12 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
           );
         },
         onLoadStop: (controller, url) async {
-          // pullToRefreshController.endRefreshing();
           setState(() {
             isWebViewReady = true;
           });
         },
         onLoadError: (controller, url, code, message) {
-          log(message);
+          log("\x1B[31m$message\x1B[31m");
         },
         onConsoleMessage: (controller, consoleMessage) {
           log("Webview log: ${consoleMessage.message}");
