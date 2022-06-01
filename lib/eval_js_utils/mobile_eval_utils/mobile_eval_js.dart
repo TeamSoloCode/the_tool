@@ -43,9 +43,6 @@ class EvalJS extends BaseEvalJS {
         source: "context['$pagePath'].$jsCode",
       );
     } else {
-      webViewController?.evaluateJavascript(
-        source: "console.log(`evaluateJavascript \${JSON.stringify(context)}`)",
-      );
       webViewController?.evaluateJavascript(source: jsCode);
     }
   }

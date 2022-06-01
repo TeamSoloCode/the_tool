@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/storage_utils.dart';
@@ -10,9 +11,10 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // if (Platform.isAndroid) {
-  //   await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
-  // }
+
+  if (Platform.isAndroid) {
+    await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
+  }
 
   getIt.registerSingleton<UtilsManager>(UtilsManager(), signalsReady: true);
   getIt.registerSingleton<StorageManager>(StorageManager(), signalsReady: true);

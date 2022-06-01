@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:from_css_color/from_css_color.dart';
 import 'dart:convert';
 
 import 'package:the_tool/api_client.dart';
@@ -9,6 +10,8 @@ import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:gato/gato.dart' as gato;
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class T_BaseWidget_Container extends StatefulWidget {
   String pagePath;
@@ -22,34 +25,26 @@ class _T_BaseWidget_Container extends State<T_BaseWidget_Container> {
   Map<String, dynamic> _prevPageState = {};
   Map<String, dynamic> _initPageState = {};
   Map<String, dynamic> _pageLayout = {};
+  bool _isReadyToRun = false;
 
   late UtilsManager utils;
+  late T_Widgets _selectedBottomPage;
+  late List<Widget> _pages;
+
+  int _selectedBottomNavIndex = 0;
+  var _customAppBar;
+  var _bottomNavBar;
 
   @override
   void initState() {
     utils = getIt<UtilsManager>();
-    (() async {
-      APIClientManager apiClient = getIt<APIClientManager>();
-      Map<String, dynamic> pageInfo =
-          await apiClient.getClientPageInfo(widget.pagePath);
-
-      utils.evalJS.executePageCode(
-        pageInfo["code"],
-        widget.pagePath,
-      );
-
-      setState(() {
-        _pageLayout.addAll(jsonDecode(pageInfo["layout"]));
-      });
-    })();
-
+    _startLoadingData();
     super.initState();
   }
 
   @override
   void didChangeDependencies() {
     final args = ModalRoute.of(context)!.settings.arguments;
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
   }
 
@@ -59,15 +54,136 @@ class _T_BaseWidget_Container extends State<T_BaseWidget_Container> {
     super.dispose();
   }
 
-  PreferredSizeWidget _computeAppBar(
+  @override
+  Widget build(BuildContext context) {
+    if (_isReadyToRun == false) {
+      return const Scaffold(
+        body: Center(
+          child: SpinKitRotatingPlain(
+            color: Colors.blue,
+            size: 50.0,
+          ),
+        ),
+      );
+    }
+
+    var contextData = context.watch<ContextStateProvider>().contextData;
+    log("contextData $contextData");
+
+    return Scaffold(
+      appBar: _computeAppBar(
+        contextData,
+        _customAppBar,
+      ),
+      bottomNavigationBar: _computeBottomNavigationBar(
+        contextData,
+        _bottomNavBar,
+      ),
+      body: _getSelectedPage(
+        contextData,
+        _selectedBottomNavIndex,
+      ),
+    );
+  }
+
+  Future<void> _startLoadingData() async {
+    await _loadPageInfo();
+    setState(() {
+      _isReadyToRun = true;
+    });
+  }
+
+  Future<void> _loadPageInfo() async {
+    APIClientManager apiClient = getIt<APIClientManager>();
+    Map<String, dynamic> pageInfo =
+        await apiClient.getClientPageInfo(widget.pagePath);
+
+    utils.evalJS.executePageCode(
+      pageInfo["code"],
+      widget.pagePath,
+    );
+    var layout = pageInfo["layout"];
+
+    _pageLayout.addAll(jsonDecode(layout));
+    _customAppBar = gato.get(_pageLayout, "appBar");
+    _bottomNavBar = gato.get(_pageLayout, "bottomNav");
+    _pages = _computeBottomNavigationPages(_bottomNavBar);
+  }
+
+  Widget _getSelectedPage(
+    Map<String, dynamic> contextData,
+    int selectedBottomNavIndex,
+  ) {
+    if (_bottomNavBar == null) {
+      return T_Widgets(
+        layout: _pageLayout,
+        pagePath: widget.pagePath,
+        contextData: contextData,
+      );
+    }
+    return _pages.elementAt(selectedBottomNavIndex);
+  }
+
+  List<Widget> _computeBottomNavigationPages(
+    Map<String, dynamic>? bottomNavConfig,
+  ) {
+    if (bottomNavConfig == null) {
+      return [];
+    }
+
+    var items = gato.get(bottomNavConfig, "items") as List<dynamic>;
+
+    List<Widget> pages = items.map((item) {
+      Key pageKey = Key(item['path']);
+
+      return T_BaseWidget_Container(
+        key: pageKey,
+        pagePath: item["path"],
+      );
+    }).toList();
+
+    return pages;
+  }
+
+  Widget? _computeBottomNavigationBar(
+    Map<String, dynamic> contextData,
+    Map<String, dynamic>? bottomNavConfig,
+  ) {
+    if (bottomNavConfig == null) {
+      return null;
+    }
+
+    var items = gato.get(bottomNavConfig, "items") as List<dynamic>;
+    String? cssColor = gato.get(bottomNavConfig, "selectedItemColor");
+    Color? color = cssColor != null ? fromCssColor(cssColor) : null;
+
+    List<BottomNavigationBarItem> bottomNavItems = items.map((item) {
+      return BottomNavigationBarItem(
+        label: item["label"],
+        icon: Icon(MdiIcons.fromString(item["icon"])),
+      );
+    }).toList();
+
+    return BottomNavigationBar(
+      items: bottomNavItems,
+      selectedItemColor: color,
+      currentIndex: _selectedBottomNavIndex,
+      onTap: _onBottomNavItemTapped,
+    );
+  }
+
+  void _onBottomNavItemTapped(int index) {
+    setState(() {
+      _selectedBottomNavIndex = index;
+    });
+  }
+
+  PreferredSizeWidget? _computeAppBar(
     Map<String, dynamic> contextData,
     Map<String, dynamic>? appBarConfig,
   ) {
     if (appBarConfig == null) {
-      return const PreferredSize(
-        preferredSize: Size.fromHeight(0),
-        child: SizedBox(),
-      );
+      return null;
     }
     var customContent = gato.get(appBarConfig, "content");
     if (customContent == null) {
@@ -82,25 +198,6 @@ class _T_BaseWidget_Container extends State<T_BaseWidget_Container> {
       preferredSize: Size.fromHeight(gato.get(customContent, "height") ?? 120),
       child: T_Widgets(
         layout: customContent,
-        pagePath: widget.pagePath,
-        contextData: contextData,
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    var contextData = context.watch<ContextStateProvider>().contextData;
-    var customAppBar = gato.get(_pageLayout, "appBar");
-    log("contextData $contextData");
-
-    return Scaffold(
-      appBar: _computeAppBar(
-        contextData,
-        customAppBar,
-      ),
-      body: T_Widgets(
-        layout: _pageLayout,
         pagePath: widget.pagePath,
         contextData: contextData,
       ),

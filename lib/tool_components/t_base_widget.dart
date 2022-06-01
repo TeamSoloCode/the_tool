@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -31,40 +30,12 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
   late PullToRefreshController pullToRefreshController;
   final GlobalKey webViewKey = GlobalKey();
 
-  InAppWebViewController? webViewController;
-  InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
-    crossPlatform: InAppWebViewOptions(
-      useShouldOverrideUrlLoading: true,
-      mediaPlaybackRequiresUserGesture: false,
-    ),
-    android: AndroidInAppWebViewOptions(
-      useHybridComposition: true,
-    ),
-    ios: IOSInAppWebViewOptions(
-      allowsInlineMediaPlayback: true,
-    ),
-  );
-
   APIClientManager apiClient = getIt<APIClientManager>();
   String? errorMessage;
 
   @override
   void initState() {
     super.initState();
-
-    pullToRefreshController = PullToRefreshController(
-      options: PullToRefreshOptions(
-        color: Colors.blue,
-      ),
-      onRefresh: () async {
-        if (Platform.isAndroid) {
-          webViewController?.reload();
-        } else if (Platform.isIOS) {
-          webViewController?.loadUrl(
-              urlRequest: URLRequest(url: await webViewController?.getUrl()));
-        }
-      },
-    );
   }
 
   @override
@@ -185,8 +156,8 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
 
   Widget _initWebViewForMobile(BuildContext context) {
     return SizedBox(
-      width: 1,
-      height: 1,
+      width: 0.5,
+      height: 0.5,
       child: InAppWebView(
         onWebViewCreated: (webViewController) async {
           _evalJS = EvalJS(
