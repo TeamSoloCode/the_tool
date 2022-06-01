@@ -32,6 +32,7 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
 
   APIClientManager apiClient = getIt<APIClientManager>();
   String? errorMessage;
+  HeadlessInAppWebView? headlessWebView;
 
   @override
   void initState() {
@@ -96,10 +97,16 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
                 ),
               );
             }
+            if (!kIsWeb) {
+              _initWebViewForMobile(context);
+              if (!isWebViewReady) {
+                headlessWebView?.dispose();
+                headlessWebView?.run();
+              }
+            }
 
             return Stack(
               children: [
-                if (!kIsWeb) _initWebViewForMobile(context),
                 if (kIsWeb) _loadWebCoreJSCode(context),
                 if (!isWebViewReady) loadingPage,
                 if (isWebViewReady)
@@ -154,45 +161,41 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
     return const SizedBox();
   }
 
-  Widget _initWebViewForMobile(BuildContext context) {
-    return SizedBox(
-      width: 0.5,
-      height: 0.5,
-      child: InAppWebView(
-        onWebViewCreated: (webViewController) async {
-          _evalJS = EvalJS(
-            context: context,
-            webViewController: webViewController,
-            contextStateProvider: context.read<ContextStateProvider>(),
-          );
+  void _initWebViewForMobile(BuildContext context) {
+    headlessWebView = HeadlessInAppWebView(
+      onWebViewCreated: (webViewController) async {
+        _evalJS = EvalJS(
+          context: context,
+          webViewController: webViewController,
+          contextStateProvider: context.read<ContextStateProvider>(),
+        );
 
-          String clientCore = await apiClient.getClientCore();
-          String htmlContent =
-              (await _evalJS.setupReactForClientCode(clientCore));
+        String clientCore = await apiClient.getClientCore();
+        String htmlContent =
+            (await _evalJS.setupReactForClientCode(clientCore));
 
-          await webViewController.loadData(data: htmlContent);
+        await webViewController.loadData(data: htmlContent);
 
-          utils.evalJS = _evalJS;
-        },
-        onLoadStart: (controller, url) {},
-        androidOnPermissionRequest: (controller, origin, resources) async {
-          return PermissionRequestResponse(
-            resources: resources,
-            action: PermissionRequestResponseAction.GRANT,
-          );
-        },
-        onLoadStop: (controller, url) async {
-          setState(() {
-            isWebViewReady = true;
-          });
-        },
-        onLoadError: (controller, url, code, message) {
-          log("\x1B[31m$message\x1B[31m");
-        },
-        onConsoleMessage: (controller, consoleMessage) {
-          log("Webview log: ${consoleMessage.message}");
-        },
-      ),
+        utils.evalJS = _evalJS;
+      },
+      onLoadStart: (controller, url) {},
+      androidOnPermissionRequest: (controller, origin, resources) async {
+        return PermissionRequestResponse(
+          resources: resources,
+          action: PermissionRequestResponseAction.GRANT,
+        );
+      },
+      onLoadStop: (controller, url) async {
+        setState(() {
+          isWebViewReady = true;
+        });
+      },
+      onLoadError: (controller, url, code, message) {
+        log("\x1B[31m$message\x1B[31m");
+      },
+      onConsoleMessage: (controller, consoleMessage) {
+        log("Webview log: ${consoleMessage.message}");
+      },
     );
   }
 }

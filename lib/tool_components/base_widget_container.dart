@@ -28,7 +28,6 @@ class _T_BaseWidget_Container extends State<T_BaseWidget_Container> {
   bool _isReadyToRun = false;
 
   late UtilsManager utils;
-  late T_Widgets _selectedBottomPage;
   late List<Widget> _pages;
 
   int _selectedBottomNavIndex = 0;
@@ -68,7 +67,7 @@ class _T_BaseWidget_Container extends State<T_BaseWidget_Container> {
     }
 
     var contextData = context.watch<ContextStateProvider>().contextData;
-    log("contextData $contextData");
+    log("contextData ${widget.pagePath} $contextData");
 
     return Scaffold(
       appBar: _computeAppBar(
