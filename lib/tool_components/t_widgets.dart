@@ -5,7 +5,7 @@ import 'package:the_tool/tool_components/t_button_widget.dart';
 import 'package:the_tool/tool_components/t_column_widget.dart';
 import 'package:the_tool/tool_components/t_container_widget.dart';
 import 'package:gato/gato.dart' as gato;
-import 'package:the_tool/tool_components/t_page_widget.dart';
+import 'package:the_tool/tool_components/t_block_widget.dart';
 import 'package:the_tool/tool_components/t_text_widget.dart';
 import 'package:the_tool/utils.dart';
 
@@ -42,8 +42,8 @@ class T_Widgets extends StatelessWidget {
           widgetProps: content,
           contextData: contextData,
         );
-      case "page":
-        return T_Page(
+      case "block":
+        return T_Block(
           executeJS: executeJSWithPagePath,
           widgetProps: content,
           contextData: contextData,

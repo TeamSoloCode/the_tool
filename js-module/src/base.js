@@ -1,4 +1,5 @@
 import _ from "lodash";
+import Cookies from "js-cookie";
 
 const _initContext = { _data: {}, _prevData: {}, _platform: "mobile" };
 export const context = _initContext;
@@ -53,6 +54,7 @@ const isFunctionExistsOnContext = (functionName, pagePath) => {
 const setCookies = (key, value) => {
   switch (context._platform) {
     case "web":
+      Cookies.set(key, value);
       break;
 
     case "mobile":
@@ -61,18 +63,17 @@ const setCookies = (key, value) => {
   }
 };
 
-const getCookies = (key, defaultvalue) => {
+const getCookies = async (key) => {
   switch (context._platform) {
     case "web":
-      break;
+      return Cookies.get(key);
 
     case "mobile":
-      const cookieData = window.flutter_inappwebview.callHandler(
+      const cookieData = await window.flutter_inappwebview.callHandler(
         "get_cookies",
         key
       );
-      if (cookieData) return cookieData;
-      return defaultvalue;
+      return cookieData;
   }
 };
 

@@ -26,7 +26,8 @@ external set navigator(
   void Function(
     String routeName,
     String pageArguments,
-  ),
+  )
+      f,
 );
 
 /// Allows calling the assigned function from Dart as well.

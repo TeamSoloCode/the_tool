@@ -5,13 +5,13 @@ import 'package:the_tool/tool_components/base_widget_container.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/utils.dart';
 
-class T_Page extends T_Widget {
+class T_Block extends T_Widget {
   Future<void> Function(String js) executeJS;
   Map<String, dynamic> widgetProps;
   Map<String, dynamic> contextData;
   UtilsManager utils = getIt<UtilsManager>();
 
-  T_Page({
+  T_Block({
     Key? key,
     required this.executeJS,
     required this.widgetProps,

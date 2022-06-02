@@ -21,7 +21,8 @@ class T_BaseWidget_Container extends StatefulWidget {
   State<T_BaseWidget_Container> createState() => _T_BaseWidget_Container();
 }
 
-class _T_BaseWidget_Container extends State<T_BaseWidget_Container> {
+class _T_BaseWidget_Container extends State<T_BaseWidget_Container>
+    with AutomaticKeepAliveClientMixin {
   Map<String, dynamic> _prevPageState = {};
   Map<String, dynamic> _initPageState = {};
   Map<String, dynamic> _pageLayout = {};
@@ -54,6 +55,10 @@ class _T_BaseWidget_Container extends State<T_BaseWidget_Container> {
   }
 
   @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
     if (_isReadyToRun == false) {
       return const Scaffold(
@@ -66,20 +71,25 @@ class _T_BaseWidget_Container extends State<T_BaseWidget_Container> {
       );
     }
 
-    var contextData = context.watch<ContextStateProvider>().contextData;
-    log("contextData ${widget.pagePath} $contextData");
+    var pageData = context.select((ContextStateProvider value) {
+      Map<String, dynamic> emptyData = {};
+      var data = value.contextData[widget.pagePath] ?? emptyData;
+      return data;
+    });
+
+    log("Update page: ${widget.pagePath} $pageData");
 
     return Scaffold(
       appBar: _computeAppBar(
-        contextData,
+        pageData,
         _customAppBar,
       ),
       bottomNavigationBar: _computeBottomNavigationBar(
-        contextData,
+        pageData,
         _bottomNavBar,
       ),
       body: _getSelectedPage(
-        contextData,
+        pageData,
         _selectedBottomNavIndex,
       ),
     );

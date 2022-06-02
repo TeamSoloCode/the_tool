@@ -7,6 +7,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:the_tool/page_utils/page_context_provider.dart';
 import 'package:the_tool/page_utils/storage_utils.dart';
 import 'package:the_tool/tool_components/base_widget_container.dart';
 import 'package:the_tool/utils.dart';
@@ -42,37 +43,8 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
   @override
   void dispose() {
     getIt<StorageManager>().closeStorageBox();
+    headlessWebView?.dispose();
     super.dispose();
-  }
-
-  Map<String, Widget Function(BuildContext)> _computeRoutes() {
-    var config = context.read<ContextStateProvider>().appConfig;
-    if (gato.get(config, "routes") == null) return {};
-
-    Map<String, Widget Function(BuildContext)> routes = {};
-    List<Map<String, dynamic>> routesConfig = gato.get(config, "routes");
-
-    routesConfig.forEach((routeConfig) {
-      String path = routeConfig['path'];
-      routes.addAll({
-        path: (context) => T_BaseWidget_Container(pagePath: path),
-      });
-    });
-
-    return routes;
-  }
-
-  String _getInitialPage() {
-    var config = context.read<ContextStateProvider>().appConfig;
-    String? initialPage = gato.get(config, "initialPage");
-    if (initialPage == null || initialPage == "") {
-      setState(() {
-        errorMessage = "Missing initial page path in config";
-      });
-      return "";
-    }
-
-    return initialPage;
   }
 
   @override
@@ -97,6 +69,7 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
                 ),
               );
             }
+
             if (!kIsWeb) {
               _initWebViewForMobile(context);
               if (!isWebViewReady) {
@@ -135,6 +108,36 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
 
       return true;
     });
+  }
+
+  Map<String, Widget Function(BuildContext)> _computeRoutes() {
+    var config = context.read<ContextStateProvider>().appConfig;
+    if (gato.get(config, "routes") == null) return {};
+
+    Map<String, Widget Function(BuildContext)> routes = {};
+    List<Map<String, dynamic>> routesConfig = gato.get(config, "routes");
+
+    routesConfig.forEach((routeConfig) {
+      String path = routeConfig['path'];
+      routes.addAll({
+        path: (context) => T_BaseWidget_Container(pagePath: path),
+      });
+    });
+
+    return routes;
+  }
+
+  String _getInitialPage() {
+    var config = context.read<ContextStateProvider>().appConfig;
+    String? initialPage = gato.get(config, "initialPage");
+    if (initialPage == null || initialPage == "") {
+      setState(() {
+        errorMessage = "Missing initial page path in config";
+      });
+      return "";
+    }
+
+    return initialPage;
   }
 
   Widget _loadWebCoreJSCode(BuildContext context) {
