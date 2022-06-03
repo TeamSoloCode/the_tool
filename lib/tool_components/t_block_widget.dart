@@ -26,6 +26,6 @@ class T_Block extends T_Widget {
   @override
   Widget build(BuildContext context) {
     var path = widgetProps["path"];
-    return T_BaseWidget_Container(pagePath: path);
+    return T_Page(pagePath: path);
   }
 }

@@ -13,16 +13,15 @@ import 'package:gato/gato.dart' as gato;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-class T_BaseWidget_Container extends StatefulWidget {
+class T_Page extends StatefulWidget {
   String pagePath;
-  T_BaseWidget_Container({Key? key, required this.pagePath}) : super(key: key);
+  T_Page({Key? key, required this.pagePath}) : super(key: key);
 
   @override
-  State<T_BaseWidget_Container> createState() => _T_BaseWidget_Container();
+  State<T_Page> createState() => _T_Page();
 }
 
-class _T_BaseWidget_Container extends State<T_BaseWidget_Container>
-    with AutomaticKeepAliveClientMixin {
+class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
   Map<String, dynamic> _prevPageState = {};
   Map<String, dynamic> _initPageState = {};
   Map<String, dynamic> _pageLayout = {};
@@ -55,7 +54,6 @@ class _T_BaseWidget_Container extends State<T_BaseWidget_Container>
   }
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 
   @override
@@ -130,7 +128,6 @@ class _T_BaseWidget_Container extends State<T_BaseWidget_Container>
         contextData: contextData,
       );
     }
-    log("_computeBottomNavigationPages ${widget.pagePath}");
     return _pages.elementAt(selectedBottomNavIndex);
   }
 
@@ -145,8 +142,7 @@ class _T_BaseWidget_Container extends State<T_BaseWidget_Container>
 
     List<Widget> pages = items.map((item) {
       Key pageKey = Key(item['path']);
-
-      return T_BaseWidget_Container(
+      return T_Page(
         key: pageKey,
         pagePath: item["path"],
       );
@@ -168,13 +164,19 @@ class _T_BaseWidget_Container extends State<T_BaseWidget_Container>
     Color? color = cssColor != null ? fromCssColor(cssColor) : null;
 
     List<BottomNavigationBarItem> bottomNavItems = items.map((item) {
+      String? cssColor = gato.get(item, "backgroundColor");
+      Color? color = cssColor != null ? fromCssColor(cssColor) : null;
+
+      log("$item  $cssColor $color");
       return BottomNavigationBarItem(
         label: item["label"],
         icon: Icon(MdiIcons.fromString(item["icon"])),
+        backgroundColor: color,
       );
     }).toList();
 
     return BottomNavigationBar(
+      type: BottomNavigationBarType.shifting,
       items: bottomNavItems,
       selectedItemColor: color,
       currentIndex: _selectedBottomNavIndex,

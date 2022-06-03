@@ -16,14 +16,14 @@ import 'package:gato/gato.dart' as gato;
 import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
     if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_utils/web_eval_js.dart';
 
-class T_BaseWidget extends StatefulWidget {
-  const T_BaseWidget({Key? key}) : super(key: key);
+class PageContainer extends StatefulWidget {
+  const PageContainer({Key? key}) : super(key: key);
 
   @override
-  State<T_BaseWidget> createState() => _T_BaseWidgetState();
+  State<PageContainer> createState() => _PageContainerState();
 }
 
-class _T_BaseWidgetState extends State<T_BaseWidget> {
+class _PageContainerState extends State<PageContainer> {
   bool isWebViewReady = false;
   UtilsManager utils = getIt<UtilsManager>();
   late EvalJS _evalJS;
@@ -83,7 +83,7 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
                 if (kIsWeb) _loadWebCoreJSCode(context),
                 if (!isWebViewReady) loadingPage,
                 if (isWebViewReady)
-                  T_BaseWidget_Container(
+                  T_Page(
                     pagePath: _getInitialPage(),
                   ),
               ],
@@ -97,7 +97,7 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
   }
 
   Future<bool> _isReadyToRun() async {
-    return await Future<bool>.microtask(() async {
+    return Future<bool>.microtask(() async {
       Map<String, dynamic> config = await apiClient.getClientConfig();
       context.read<ContextStateProvider>().appConfig = config;
       await getIt<StorageManager>().initStorageBox();
@@ -120,7 +120,7 @@ class _T_BaseWidgetState extends State<T_BaseWidget> {
     routesConfig.forEach((routeConfig) {
       String path = routeConfig['path'];
       routes.addAll({
-        path: (context) => T_BaseWidget_Container(pagePath: path),
+        path: (context) => T_Page(pagePath: path),
       });
     });
 
