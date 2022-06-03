@@ -63,7 +63,7 @@ class _T_BaseWidget_Container extends State<T_BaseWidget_Container>
     if (_isReadyToRun == false) {
       return const Scaffold(
         body: Center(
-          child: SpinKitRotatingPlain(
+          child: SpinKitFadingCircle(
             color: Colors.blue,
             size: 50.0,
           ),
@@ -130,6 +130,7 @@ class _T_BaseWidget_Container extends State<T_BaseWidget_Container>
         contextData: contextData,
       );
     }
+    log("_computeBottomNavigationPages ${widget.pagePath}");
     return _pages.elementAt(selectedBottomNavIndex);
   }
 
