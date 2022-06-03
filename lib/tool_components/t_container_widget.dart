@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:from_css_color/from_css_color.dart';
+import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 
 class T_Container extends StatelessWidget {
@@ -19,7 +19,7 @@ class T_Container extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cssColor = widgetProps["backgroundColor"];
-    Color? color = cssColor != null ? fromCssColor(cssColor) : null;
+    Color? color = cssColor != null ? ThemeDecoder.decodeColor(cssColor) : null;
 
     return Container(
       color: color,

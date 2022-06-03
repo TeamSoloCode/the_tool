@@ -7,8 +7,8 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
-import 'package:the_tool/page_utils/page_context_provider.dart';
 import 'package:the_tool/page_utils/storage_utils.dart';
+import 'package:the_tool/page_utils/theme_utils.dart';
 import 'package:the_tool/tool_components/page_widget.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
@@ -34,6 +34,7 @@ class _PageContainerState extends State<PageContainer> {
   APIClientManager apiClient = getIt<APIClientManager>();
   String? errorMessage;
   HeadlessInAppWebView? headlessWebView;
+  ThemeData? themeData;
 
   @override
   void initState() {
@@ -50,6 +51,7 @@ class _PageContainerState extends State<PageContainer> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: themeData,
       routes: _computeRoutes(),
       home: FutureBuilder<bool>(
         builder: (context, snapshot) {
@@ -78,9 +80,10 @@ class _PageContainerState extends State<PageContainer> {
               }
             }
 
+            if (kIsWeb) _loadWebCoreJSCode(context);
+
             return Stack(
               children: [
-                if (kIsWeb) _loadWebCoreJSCode(context),
                 if (!isWebViewReady) loadingPage,
                 if (isWebViewReady)
                   T_Page(
@@ -99,8 +102,11 @@ class _PageContainerState extends State<PageContainer> {
   Future<bool> _isReadyToRun() async {
     return Future<bool>.microtask(() async {
       Map<String, dynamic> config = await apiClient.getClientConfig();
+      Map<String, dynamic> theme = await apiClient.getAppTheme();
+
       context.read<ContextStateProvider>().appConfig = config;
       await getIt<StorageManager>().initStorageBox();
+      themeData = await getIt<ThemeManager>().computeThemeData(theme);
 
       if (!kIsWeb) {
         await getIt<UtilsManager>().loadStaticContent();

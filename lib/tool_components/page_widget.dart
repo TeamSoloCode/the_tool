@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:from_css_color/from_css_color.dart';
+import 'package:json_theme/json_theme.dart';
 import 'dart:convert';
 
 import 'package:the_tool/api_client.dart';
@@ -161,13 +161,13 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
 
     var items = gato.get(bottomNavConfig, "items") as List<dynamic>;
     String? cssColor = gato.get(bottomNavConfig, "selectedItemColor");
-    Color? color = cssColor != null ? fromCssColor(cssColor) : null;
+    Color? color = cssColor != null ? ThemeDecoder.decodeColor(cssColor) : null;
 
     List<BottomNavigationBarItem> bottomNavItems = items.map((item) {
       String? cssColor = gato.get(item, "backgroundColor");
-      Color? color = cssColor != null ? fromCssColor(cssColor) : null;
+      Color? color =
+          cssColor != null ? ThemeDecoder.decodeColor(cssColor) : null;
 
-      log("$item  $cssColor $color");
       return BottomNavigationBarItem(
         label: item["label"],
         icon: Icon(MdiIcons.fromString(item["icon"])),

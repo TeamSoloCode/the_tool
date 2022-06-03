@@ -44,4 +44,16 @@ class APIClientManager {
       rethrow;
     }
   }
+
+  Future<Map<String, dynamic>> getAppTheme() async {
+    try {
+      return Future.value(
+        {
+          "theme": {},
+        },
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
