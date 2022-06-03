@@ -8,7 +8,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/storage_utils.dart';
-import 'package:the_tool/page_utils/theme_utils.dart';
+import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/tool_components/page_widget.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
@@ -106,7 +106,7 @@ class _PageContainerState extends State<PageContainer> {
 
       context.read<ContextStateProvider>().appConfig = config;
       await getIt<StorageManager>().initStorageBox();
-      themeData = await getIt<ThemeManager>().computeThemeData(theme);
+      themeData = await context.read<ThemeProvider>().computeThemeData(theme);
 
       if (!kIsWeb) {
         await getIt<UtilsManager>().loadStaticContent();

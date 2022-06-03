@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:json_theme/json_theme.dart';
 
-class ThemeManager {
-  ThemeData? theme;
+class ThemeProvider with ChangeNotifier {
+  ThemeData? _themeData;
+  ThemeMode? _theme;
+  BuildContext context;
+
   Map<int, Color> color = {
     50: const Color.fromRGBO(136, 14, 79, .1),
     100: const Color.fromRGBO(136, 14, 79, .2),
@@ -16,7 +19,19 @@ class ThemeManager {
     900: const Color.fromRGBO(136, 14, 79, 1),
   };
 
-  ThemeManager();
+  ThemeProvider({required this.context});
+
+  ThemeMode get currentThemeMode => _theme ?? ThemeMode.light;
+  void toogleChangeThemeMode(ThemeMode? mode) {
+    if (mode == null) {
+      _theme = currentThemeMode == ThemeMode.light
+          ? ThemeMode.dark
+          : ThemeMode.light;
+    } else {
+      _theme = mode;
+    }
+    notifyListeners();
+  }
 
   Future<ThemeData?> computeThemeData(Map<String, dynamic> themeMap) async {
     return ThemeData(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/storage_utils.dart';
-import 'package:the_tool/page_utils/theme_utils.dart';
+import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/tool_components/page_container_widget.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +14,6 @@ void main() async {
   //   await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
   // }
 
-  getIt.registerSingleton<ThemeManager>(ThemeManager(), signalsReady: true);
   getIt.registerSingleton<UtilsManager>(UtilsManager(), signalsReady: true);
   getIt.registerSingleton<StorageManager>(StorageManager(), signalsReady: true);
   getIt.registerSingleton<APIClientManager>(
@@ -25,6 +24,9 @@ void main() async {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => ContextStateProvider()),
+      ChangeNotifierProvider(
+        create: (context) => ThemeProvider(context: context),
+      )
     ],
     child: const MyApp(),
   ));
