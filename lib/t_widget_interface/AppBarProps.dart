@@ -1,0 +1,3 @@
+class AppBarProps {
+  AppBarProps();
+}

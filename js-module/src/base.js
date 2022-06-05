@@ -77,6 +77,17 @@ const getCookies = async (key) => {
   }
 };
 
+const toggleChangeTheme = async () => {
+  switch (context._platform) {
+    case "web":
+      return;
+
+    case "mobile":
+      await window.flutter_inappwebview.callHandler("toggle_change_theme");
+      return;
+  }
+};
+
 Object.assign(window, {
   setContextData,
   usePrevious,
@@ -85,5 +96,6 @@ Object.assign(window, {
   isFunctionExistsOnContext,
   setCookies,
   getCookies,
+  toggleChangeTheme,
   context,
 });

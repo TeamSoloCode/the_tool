@@ -1,11 +1,13 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:from_css_color/from_css_color.dart';
 import 'package:json_theme/json_theme.dart';
 import 'dart:convert';
 
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:the_tool/t_widget_interface/BottomNavProps.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
@@ -159,26 +161,14 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
       return null;
     }
 
-    var items = gato.get(bottomNavConfig, "items") as List<dynamic>;
-    String? cssColor = gato.get(bottomNavConfig, "selectedItemColor");
-    Color? color = cssColor != null ? ThemeDecoder.decodeColor(cssColor) : null;
-
-    List<BottomNavigationBarItem> bottomNavItems = items.map((item) {
-      String? cssColor = gato.get(item, "backgroundColor");
-      Color? color =
-          cssColor != null ? ThemeDecoder.decodeColor(cssColor) : null;
-
-      return BottomNavigationBarItem(
-        label: item["label"],
-        icon: Icon(MdiIcons.fromString(item["icon"])),
-        backgroundColor: color,
-      );
-    }).toList();
+    var bottomNavProps = BottomNavigationProps(
+      bottomNavConfig: bottomNavConfig,
+    );
 
     return BottomNavigationBar(
-      type: BottomNavigationBarType.shifting,
-      items: bottomNavItems,
-      selectedItemColor: color,
+      type: bottomNavProps.type,
+      items: bottomNavProps.items,
+      selectedItemColor: bottomNavProps.selectedItemColor,
       currentIndex: _selectedBottomNavIndex,
       onTap: _onBottomNavItemTapped,
     );
@@ -197,15 +187,32 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     if (appBarConfig == null) {
       return null;
     }
-    var customContent = gato.get(appBarConfig, "content");
-    if (customContent == null) {
+
+    if (appBarConfig["content"] != null) {
       Widget title = T_Widgets(
-          layout: gato.get(appBarConfig, "title"),
-          pagePath: widget.pagePath,
-          contextData: contextData);
-      return AppBar(title: title);
+        layout: appBarConfig["content"],
+        pagePath: widget.pagePath,
+        contextData: contextData,
+      );
+
+      // List<Widget> actions = (appBarConfig["actions"] as List<dynamic>).map(
+      //   (e) {
+      //     return SizedBox();
+      //   },
+      // ).toList();
+
+      return AppBar(
+        title: title,
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.light_mode),
+          ),
+        ],
+      );
     }
 
+    var customContent = gato.get(appBarConfig, "custom");
     return PreferredSize(
       preferredSize: Size.fromHeight(gato.get(customContent, "height") ?? 120),
       child: T_Widgets(

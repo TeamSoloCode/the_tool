@@ -4,8 +4,10 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:provider/provider.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/storage_utils.dart';
+import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/utils.dart';
 
 external JavaScriptHandler updateState;
@@ -21,9 +23,10 @@ class JavaScriptHandler {
 }
 
 void registerJavascriptHandler(
-    BuildContext context,
-    ContextStateProvider contextStateProvider,
-    InAppWebViewController? webViewController) {
+  BuildContext context,
+  ContextStateProvider contextStateProvider,
+  InAppWebViewController? webViewController,
+) {
   webViewController?.addJavaScriptHandler(
     handlerName: "setState",
     callback: (args) {
@@ -59,14 +62,12 @@ void registerJavascriptHandler(
     },
   );
 
-  // JavascriptChannel getCookies = JavascriptChannel(
-  //   name: 'get_cookies',
-  //   onMessageReceived: (JavascriptMessage message) {
-  //     String key = message.message;
-  //     print("abcd ${getIt<StorageManager>().getCookies(key)}");
-  //     return getIt<StorageManager>().getCookies(key);
-  //   },
-  // );
+  webViewController?.addJavaScriptHandler(
+    handlerName: "toggle_change_theme",
+    callback: (args) {
+      context.read<ThemeProvider>().toogleChangeThemeMode(null);
+    },
+  );
 }
 
 void main() {}

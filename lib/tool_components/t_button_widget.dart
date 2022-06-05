@@ -22,24 +22,27 @@ class T_Button extends T_Widget {
           contextData: contextData,
         );
 
+  Widget _computeButton() {
+    return TextButton(
+      child: Text(
+        utils.bindingValueToString(
+          contextData,
+          widgetProps["text"],
+        ),
+      ),
+      onPressed: () async {
+        var onClick = widgetProps["onClick"];
+        if (onClick is String) {
+          await executeJS(onClick);
+        }
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(),
-      child: TextButton(
-        child: Text(
-          utils.bindingValueToString(
-            contextData,
-            widgetProps["text"],
-          ),
-        ),
-        onPressed: () async {
-          var onClick = widgetProps["onClick"];
-          if (onClick is String) {
-            await executeJS(onClick);
-          }
-        },
-      ),
+      child: _computeButton(),
     );
   }
 }

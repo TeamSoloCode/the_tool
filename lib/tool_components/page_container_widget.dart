@@ -50,8 +50,12 @@ class _PageContainerState extends State<PageContainer> {
 
   @override
   Widget build(BuildContext context) {
+    var currentThemeMode =
+        context.select((ThemeProvider theme) => theme.currentThemeMode);
+    log("abcd currentTheme $currentThemeMode");
     return MaterialApp(
       theme: themeData,
+      // themeMode: currentThemeMode,
       routes: _computeRoutes(),
       home: FutureBuilder<bool>(
         builder: (context, snapshot) {
@@ -107,12 +111,21 @@ class _PageContainerState extends State<PageContainer> {
       context.read<ContextStateProvider>().appConfig = config;
       await getIt<StorageManager>().initStorageBox();
       themeData = await context.read<ThemeProvider>().computeThemeData(theme);
-
+      // await _updateTheme();
       if (!kIsWeb) {
         await getIt<UtilsManager>().loadStaticContent();
       }
 
       return true;
+    });
+  }
+
+  Future<void> _updateTheme() async {
+    Map<String, dynamic> theme = await apiClient.getAppTheme();
+    var currentThemeData =
+        await context.read<ThemeProvider>().computeThemeData(theme);
+    setState(() {
+      themeData = currentThemeData;
     });
   }
 

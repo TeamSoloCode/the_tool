@@ -49,7 +49,18 @@ class APIClientManager {
     try {
       return Future.value(
         {
-          "theme": {},
+          "base": {
+            "#primaryColor": "green",
+            "#primaryWatchColor": "#0000ff",
+            "--dark": {
+              "#primaryColor": "black",
+            },
+          },
+          "theme": {
+            "primaryColor": "#primaryColor",
+            "scaffoldBackgroundColor": "#primaryColor",
+            "primarySwatch": "#primaryWatchColor"
+          },
         },
       );
     } catch (e) {
