@@ -133,7 +133,7 @@ class ThemeProvider with ChangeNotifier {
        * This because layout might have color value like 'red','blue','green', ...
        */
       classes = json.decode(classesJSON);
-      (classes).forEach((key, value) {
+      classes.forEach((key, value) {
         classes[key] = transformColorFromCSS(value);
       });
 
@@ -203,9 +203,21 @@ class ThemeProvider with ChangeNotifier {
         return widgetProps;
       }
 
-      if (className is String && classes?[className] != null) {
-        updatedWidgetProps = {...widgetProps, ...classes![className]};
-      } else if (className is List) {}
+      if (className is String) {
+        if (classes?[className] != null) {
+          updatedWidgetProps = {...updatedWidgetProps, ...classes![className]};
+        } else {
+          log("Warning: Class $className is not exist !");
+        }
+      } else if (className is List) {
+        className.forEach((cls) {
+          if (classes?[cls] != null) {
+            updatedWidgetProps = {...updatedWidgetProps, ...classes![cls]};
+          } else {
+            log("Warning: Class $cls is not exist !");
+          }
+        });
+      }
 
       return updatedWidgetProps;
     } catch (e) {

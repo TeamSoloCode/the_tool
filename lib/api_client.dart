@@ -70,7 +70,8 @@ class APIClientManager {
             }
           },
           "classes": {
-            "text-error": {"color": "red"}
+            "text-error": {"color": "red"},
+            "text-error--small": {"color": "violet", "fontSize": 17}
           }
         },
       );
