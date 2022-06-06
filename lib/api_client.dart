@@ -51,15 +51,19 @@ class APIClientManager {
         {
           "base": {
             "#primaryColor": "green",
-            "#primaryWatchColor": "#0000ff",
+            "#primaryWatchColor": "skyblue",
             "--dark": {
               "#primaryColor": "black",
+              "#primaryWatchColor": "black",
             },
           },
           "theme": {
             "primaryColor": "#primaryColor",
             "scaffoldBackgroundColor": "#primaryColor",
-            "primarySwatch": "#primaryWatchColor"
+            "primarySwatch": "#primaryWatchColor",
+            "textTheme": {
+              "bodyText2": {"color": "#primaryWatchColor"}
+            }
           },
         },
       );

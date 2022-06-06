@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
@@ -13,7 +15,6 @@ void main() async {
   // if (Platform.isAndroid) {
   //   await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
   // }
-
   getIt.registerSingleton<UtilsManager>(UtilsManager(), signalsReady: true);
   getIt.registerSingleton<StorageManager>(StorageManager(), signalsReady: true);
   getIt.registerSingleton<APIClientManager>(

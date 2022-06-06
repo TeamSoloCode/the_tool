@@ -27,6 +27,7 @@ class ThemeProvider with ChangeNotifier {
   ThemeProvider({required this.context});
 
   ThemeMode get currentThemeMode => _theme ?? ThemeMode.light;
+  ThemeData? get themeData => _themeData;
   void toogleChangeThemeMode(ThemeMode? mode) {
     if (mode == null) {
       _theme = currentThemeMode == ThemeMode.light
@@ -41,43 +42,40 @@ class ThemeProvider with ChangeNotifier {
   Future<ThemeData?> computeThemeData(Map<String, dynamic> themeMap) async {
     try {
       Map<String, dynamic> computedThemeMap = _mergeBaseColorToTheme(themeMap);
-      log("baseColor $computedThemeMap");
-      if (computedThemeMap.isEmpty) {
-        if (currentThemeMode == ThemeMode.dark) {
-          return ThemeData.dark();
-        }
-        return ThemeData.light();
-      }
-      var themeData = currentThemeMode == ThemeMode.light
-          ? ThemeData.light()
-          : ThemeData.dark();
 
-      return themeData.copyWith(
-        primaryColor: fromCssColor(computedThemeMap["primaryColor"]),
-        scaffoldBackgroundColor: fromCssColor(
-          computedThemeMap["scaffoldBackgroundColor"],
-        ),
-        colorScheme: ColorScheme.fromSwatch(
-          primarySwatch: MaterialColor(
-            fromCssColor(computedThemeMap["primarySwatch"]).hashCode,
-            color,
+      if (computedThemeMap.isEmpty) {
+        currentThemeMode == ThemeMode.dark
+            ? _themeData = ThemeData.dark()
+            : _themeData = ThemeData.light();
+      } else {
+        var themeData = currentThemeMode == ThemeMode.light
+            ? ThemeData.light()
+            : ThemeData.dark();
+
+        TextTheme? textTheme = ThemeDecoder.decodeTextTheme(
+          computedThemeMap["textTheme"],
+        );
+        TextTheme? defaultTextTheme = themeData.textTheme;
+
+        _themeData = themeData.copyWith(
+          primaryColor:
+              ThemeDecoder.decodeColor(computedThemeMap["primaryColor"]),
+          scaffoldBackgroundColor: ThemeDecoder.decodeColor(
+            computedThemeMap["scaffoldBackgroundColor"],
           ),
-        ),
-        textTheme: themeData.textTheme.copyWith(
-          bodyText1: themeData.textTheme.bodyText1!.copyWith(
-            color: Colors.green,
+          colorScheme: ColorScheme.fromSwatch(
+            primarySwatch: MaterialColor(
+              ThemeDecoder.decodeColor(
+                computedThemeMap["primarySwatch"],
+              ).hashCode,
+              color,
+            ),
           ),
-          bodyText2: themeData.textTheme.bodyText2!.copyWith(
-            color: Colors.green,
-          ),
-          overline: themeData.textTheme.overline!.copyWith(
-            color: Colors.red,
-          ),
-          caption: themeData.textTheme.caption!.copyWith(
-            color: Colors.red,
-          ),
-        ),
-      );
+          textTheme: defaultTextTheme.merge(textTheme),
+        );
+      }
+
+      return _themeData;
     } catch (e) {
       rethrow;
     }
@@ -109,9 +107,30 @@ class ThemeProvider with ChangeNotifier {
         }
       });
 
-      return json.decode(themeJSON);
+      theme = json.decode(themeJSON);
+      Map<String, dynamic> updateTheme = {};
+      (theme).forEach((key, value) {
+        updateTheme[key] = transformColorFromCSS(value);
+      });
+      log("updateTheme $updateTheme");
+      return updateTheme;
     } catch (e) {
       rethrow;
+    }
+  }
+
+  dynamic transformColorFromCSS(dynamic mapOrValue) {
+    if (mapOrValue is Map) {
+      var updateValue = {};
+      mapOrValue.forEach((key, value) {
+        updateValue[key] = transformColorFromCSS(value);
+      });
+      return updateValue;
+    } else {
+      if (isCssColor(mapOrValue)) {
+        return fromCssColor(mapOrValue).toCssString();
+      }
+      return mapOrValue;
     }
   }
 }

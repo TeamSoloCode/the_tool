@@ -24,17 +24,15 @@ class PageContainer extends StatefulWidget {
 }
 
 class _PageContainerState extends State<PageContainer> {
-  bool isWebViewReady = false;
-  UtilsManager utils = getIt<UtilsManager>();
+  bool _isWebViewReady = false;
+  UtilsManager _utils = getIt<UtilsManager>();
   late EvalJS _evalJS;
 
-  late PullToRefreshController pullToRefreshController;
-  final GlobalKey webViewKey = GlobalKey();
-
-  APIClientManager apiClient = getIt<APIClientManager>();
-  String? errorMessage;
-  HeadlessInAppWebView? headlessWebView;
-  ThemeData? themeData;
+  APIClientManager _apiClient = getIt<APIClientManager>();
+  String? _errorMessage;
+  HeadlessInAppWebView? _headlessWebView;
+  ThemeData? _themeData;
+  var currentThemeMode;
 
   @override
   void initState() {
@@ -44,18 +42,24 @@ class _PageContainerState extends State<PageContainer> {
   @override
   void dispose() {
     getIt<StorageManager>().closeStorageBox();
-    headlessWebView?.dispose();
+    _headlessWebView?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    var currentThemeMode =
-        context.select((ThemeProvider theme) => theme.currentThemeMode);
-    log("abcd currentTheme $currentThemeMode");
+    context.select(
+      (ThemeProvider theme) {
+        if (currentThemeMode != theme.currentThemeMode) {
+          _updateTheme();
+        }
+        currentThemeMode = theme.currentThemeMode;
+        return theme.currentThemeMode;
+      },
+    );
+
     return MaterialApp(
-      theme: themeData,
-      // themeMode: currentThemeMode,
+      theme: context.read<ThemeProvider>().themeData,
       routes: _computeRoutes(),
       home: FutureBuilder<bool>(
         builder: (context, snapshot) {
@@ -64,10 +68,10 @@ class _PageContainerState extends State<PageContainer> {
           );
 
           if (snapshot.data == true) {
-            if (errorMessage != null) {
+            if (_errorMessage != null) {
               return Center(
                 child: Text(
-                  errorMessage ?? "",
+                  _errorMessage ?? "",
                   style: const TextStyle(
                     color: Colors.red,
                     fontWeight: FontWeight.bold,
@@ -78,9 +82,9 @@ class _PageContainerState extends State<PageContainer> {
 
             if (!kIsWeb) {
               _initWebViewForMobile(context);
-              if (!isWebViewReady) {
-                headlessWebView?.dispose();
-                headlessWebView?.run();
+              if (!_isWebViewReady) {
+                _headlessWebView?.dispose();
+                _headlessWebView?.run();
               }
             }
 
@@ -88,8 +92,8 @@ class _PageContainerState extends State<PageContainer> {
 
             return Stack(
               children: [
-                if (!isWebViewReady) loadingPage,
-                if (isWebViewReady)
+                if (!_isWebViewReady) loadingPage,
+                if (_isWebViewReady)
                   T_Page(
                     pagePath: _getInitialPage(),
                   ),
@@ -105,13 +109,11 @@ class _PageContainerState extends State<PageContainer> {
 
   Future<bool> _isReadyToRun() async {
     return Future<bool>.microtask(() async {
-      Map<String, dynamic> config = await apiClient.getClientConfig();
-      Map<String, dynamic> theme = await apiClient.getAppTheme();
+      Map<String, dynamic> config = await _apiClient.getClientConfig();
 
       context.read<ContextStateProvider>().appConfig = config;
       await getIt<StorageManager>().initStorageBox();
-      themeData = await context.read<ThemeProvider>().computeThemeData(theme);
-      // await _updateTheme();
+
       if (!kIsWeb) {
         await getIt<UtilsManager>().loadStaticContent();
       }
@@ -121,11 +123,12 @@ class _PageContainerState extends State<PageContainer> {
   }
 
   Future<void> _updateTheme() async {
-    Map<String, dynamic> theme = await apiClient.getAppTheme();
+    Map<String, dynamic> theme = await _apiClient.getAppTheme();
     var currentThemeData =
         await context.read<ThemeProvider>().computeThemeData(theme);
+
     setState(() {
-      themeData = currentThemeData;
+      _themeData = currentThemeData;
     });
   }
 
@@ -151,7 +154,7 @@ class _PageContainerState extends State<PageContainer> {
     String? initialPage = gato.get(config, "initialPage");
     if (initialPage == null || initialPage == "") {
       setState(() {
-        errorMessage = "Missing initial page path in config";
+        _errorMessage = "Missing initial page path in config";
       });
       return "";
     }
@@ -160,23 +163,23 @@ class _PageContainerState extends State<PageContainer> {
   }
 
   Widget _loadWebCoreJSCode(BuildContext context) {
-    if (isWebViewReady) return const SizedBox();
+    if (_isWebViewReady) return const SizedBox();
 
     _evalJS = EvalJS(
       contextStateProvider: context.read<ContextStateProvider>(),
       context: context,
     );
     (() async {
-      String clientCore = await apiClient.getClientCore();
+      String clientCore = await _apiClient.getClientCore();
 
       await _evalJS.setupReactForClientCode(
         clientCore,
       );
 
-      utils.evalJS = _evalJS;
+      _utils.evalJS = _evalJS;
 
       setState(() {
-        isWebViewReady = true;
+        _isWebViewReady = true;
       });
     })();
 
@@ -184,7 +187,7 @@ class _PageContainerState extends State<PageContainer> {
   }
 
   void _initWebViewForMobile(BuildContext context) {
-    headlessWebView = HeadlessInAppWebView(
+    _headlessWebView = HeadlessInAppWebView(
       onWebViewCreated: (webViewController) async {
         _evalJS = EvalJS(
           context: context,
@@ -192,13 +195,13 @@ class _PageContainerState extends State<PageContainer> {
           contextStateProvider: context.read<ContextStateProvider>(),
         );
 
-        String clientCore = await apiClient.getClientCore();
+        String clientCore = await _apiClient.getClientCore();
         String htmlContent =
             (await _evalJS.setupReactForClientCode(clientCore));
 
         await webViewController.loadData(data: htmlContent);
 
-        utils.evalJS = _evalJS;
+        _utils.evalJS = _evalJS;
       },
       onLoadStart: (controller, url) {},
       androidOnPermissionRequest: (controller, origin, resources) async {
@@ -209,7 +212,7 @@ class _PageContainerState extends State<PageContainer> {
       },
       onLoadStop: (controller, url) async {
         setState(() {
-          isWebViewReady = true;
+          _isWebViewReady = true;
         });
       },
       onLoadError: (controller, url, code, message) {
