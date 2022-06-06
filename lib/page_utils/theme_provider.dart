@@ -9,6 +9,8 @@ import 'package:json_theme/json_theme_schemas.dart';
 class ThemeProvider with ChangeNotifier {
   ThemeData? _themeData;
   ThemeMode? _theme;
+  Map<String, dynamic>? _classes;
+  Map<String, dynamic>? _baseColor;
   BuildContext context;
 
   Map<int, Color> color = {
@@ -28,6 +30,9 @@ class ThemeProvider with ChangeNotifier {
 
   ThemeMode get currentThemeMode => _theme ?? ThemeMode.light;
   ThemeData? get themeData => _themeData;
+  Map<String, dynamic>? get classes => _classes;
+  Map<String, dynamic>? get baseColor => _baseColor;
+
   void toogleChangeThemeMode(ThemeMode? mode) {
     if (mode == null) {
       _theme = currentThemeMode == ThemeMode.light
@@ -41,7 +46,12 @@ class ThemeProvider with ChangeNotifier {
 
   Future<ThemeData?> computeThemeData(Map<String, dynamic> themeMap) async {
     try {
-      Map<String, dynamic> computedThemeMap = _mergeBaseColorToTheme(themeMap);
+      Map<String, dynamic> baseColor = _computeBaseColor(themeMap);
+      Map<String, dynamic> computedThemeMap = _mergeBaseColorToTheme(
+        themeMap,
+        baseColor,
+      );
+      _classes = _mergeBaseColorToClasses(themeMap, baseColor);
 
       if (computedThemeMap.isEmpty) {
         currentThemeMode == ThemeMode.dark
@@ -52,14 +62,15 @@ class ThemeProvider with ChangeNotifier {
             ? ThemeData.light()
             : ThemeData.dark();
 
+        TextTheme? defaultTextTheme = themeData.textTheme;
         TextTheme? textTheme = ThemeDecoder.decodeTextTheme(
           computedThemeMap["textTheme"],
         );
-        TextTheme? defaultTextTheme = themeData.textTheme;
 
         _themeData = themeData.copyWith(
-          primaryColor:
-              ThemeDecoder.decodeColor(computedThemeMap["primaryColor"]),
+          primaryColor: ThemeDecoder.decodeColor(
+            computedThemeMap["primaryColor"],
+          ),
           scaffoldBackgroundColor: ThemeDecoder.decodeColor(
             computedThemeMap["scaffoldBackgroundColor"],
           ),
@@ -81,23 +92,65 @@ class ThemeProvider with ChangeNotifier {
     }
   }
 
-  Map<String, dynamic> _mergeBaseColorToTheme(
+  Map<String, dynamic> _computeBaseColor(
     Map<String, dynamic> themeMap,
   ) {
     try {
-      Map<String, dynamic> theme = themeMap["theme"] ?? {};
-      if (theme.isEmpty) {
-        return {};
-      }
-
       Map<String, dynamic> baseColor = themeMap["base"] ?? {};
       if (baseColor.isEmpty) {
-        return themeMap;
+        return {};
       }
 
       Map<String, dynamic> darkBaseColor = baseColor["--dark"] ?? {};
       if (currentThemeMode == ThemeMode.dark && darkBaseColor.isNotEmpty) {
         baseColor = {...baseColor, ...darkBaseColor};
+      }
+      _baseColor = baseColor;
+      return baseColor;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Map<String, dynamic> _mergeBaseColorToClasses(
+    Map<String, dynamic> themeMap,
+    Map<String, dynamic> baseColor,
+  ) {
+    try {
+      Map<String, dynamic> classes = themeMap["classes"] ?? {};
+      if (classes.isEmpty) {
+        return {};
+      }
+
+      String classesJSON = json.encode(classes);
+      baseColor.forEach((key, value) {
+        if (!key.startsWith("--")) {
+          classesJSON = classesJSON.replaceAll(RegExp(key), value);
+        }
+      });
+
+      /**
+       * This because layout might have color value like 'red','blue','green', ...
+       */
+      classes = json.decode(classesJSON);
+      (classes).forEach((key, value) {
+        classes[key] = transformColorFromCSS(value);
+      });
+
+      return classes;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Map<String, dynamic> _mergeBaseColorToTheme(
+    Map<String, dynamic> themeMap,
+    Map<String, dynamic> baseColor,
+  ) {
+    try {
+      Map<String, dynamic> theme = themeMap["theme"] ?? {};
+      if (theme.isEmpty) {
+        return {};
       }
 
       String themeJSON = json.encode(theme);
@@ -107,30 +160,59 @@ class ThemeProvider with ChangeNotifier {
         }
       });
 
+      /**
+       * This because layout might have color value like 'red','blue','green', ...
+       */
       theme = json.decode(themeJSON);
-      Map<String, dynamic> updateTheme = {};
       (theme).forEach((key, value) {
-        updateTheme[key] = transformColorFromCSS(value);
+        theme[key] = transformColorFromCSS(value);
       });
-      log("updateTheme $updateTheme");
-      return updateTheme;
+
+      log("abcd $theme");
+      return theme;
     } catch (e) {
       rethrow;
     }
   }
 
-  dynamic transformColorFromCSS(dynamic mapOrValue) {
-    if (mapOrValue is Map) {
-      var updateValue = {};
-      mapOrValue.forEach((key, value) {
-        updateValue[key] = transformColorFromCSS(value);
+  Map<String, dynamic> mergeBaseColor(dynamic content) {
+    try {
+      var rawContent = json.encode(content);
+
+      baseColor?.forEach((key, value) {
+        if (!key.startsWith("--")) {
+          rawContent = rawContent.replaceAll(RegExp(key), value);
+        }
       });
-      return updateValue;
-    } else {
-      if (isCssColor(mapOrValue)) {
-        return fromCssColor(mapOrValue).toCssString();
+
+      return json.decode(rawContent);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static dynamic transformColorFromCSS(dynamic inputValue) {
+    try {
+      if (inputValue is Map) {
+        var updateValue = {};
+        inputValue.forEach((key, value) {
+          updateValue[key] = transformColorFromCSS(value);
+        });
+        return updateValue;
+      } else if (inputValue is List) {
+        var updateValue = [];
+        inputValue.forEach((value) {
+          updateValue.add(transformColorFromCSS(value));
+        });
+        return updateValue;
+      } else {
+        if (isCssColor(inputValue)) {
+          return fromCssColor(inputValue).toCssString();
+        }
+        return inputValue;
       }
-      return mapOrValue;
+    } catch (e) {
+      rethrow;
     }
   }
 }

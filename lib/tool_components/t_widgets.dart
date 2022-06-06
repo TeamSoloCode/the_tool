@@ -1,6 +1,10 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/tool_components/t_button_widget.dart';
 import 'package:the_tool/tool_components/t_column_widget.dart';
 import 'package:the_tool/tool_components/t_container_widget.dart';
@@ -26,39 +30,48 @@ class T_Widgets extends StatelessWidget {
     await utils.evalJS.executeJS(jsCode, pagePath);
   }
 
-  Widget _getWidget(Map<String, dynamic> contextData) {
+  Widget _getWidget(Map<String, dynamic> contextData, BuildContext context) {
     Map<String, dynamic> content = layout["content"] ?? layout;
+
+    Map<String, dynamic> widgetProps =
+        context.read<ThemeProvider>().mergeBaseColor(content);
+    // FIXME: xxxx
+    widgetProps = json.decode(
+      json.encode(ThemeProvider.transformColorFromCSS(
+        widgetProps,
+      )),
+    );
 
     switch (gato.get(content, "type")) {
       case "text":
         return T_Text(
           executeJS: executeJSWithPagePath,
-          widgetProps: content,
+          widgetProps: widgetProps,
           contextData: contextData,
         );
       case "button":
         return T_Button(
           executeJS: executeJSWithPagePath,
-          widgetProps: content,
+          widgetProps: widgetProps,
           contextData: contextData,
         );
       case "block":
         return T_Block(
           executeJS: executeJSWithPagePath,
-          widgetProps: content,
+          widgetProps: widgetProps,
           contextData: contextData,
         );
       case "container":
         return T_Container(
           executeJS: executeJSWithPagePath,
-          widgetProps: content,
+          widgetProps: widgetProps,
           pageName: pagePath,
           contextData: contextData,
         );
       case "column":
         return T_Column(
           executeJS: executeJSWithPagePath,
-          widgetProps: content,
+          widgetProps: widgetProps,
           pageName: pagePath,
           contextData: contextData,
         );
@@ -70,6 +83,6 @@ class T_Widgets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var contextData = context.watch<ContextStateProvider>().contextData;
-    return _getWidget(contextData[pagePath] ?? {});
+    return _getWidget(contextData[pagePath] ?? {}, context);
   }
 }

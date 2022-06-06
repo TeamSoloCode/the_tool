@@ -65,6 +65,9 @@ class APIClientManager {
               "bodyText2": {"color": "#primaryWatchColor"}
             }
           },
+          "classes": {
+            "text-error": {"color": "red"}
+          }
         },
       );
     } catch (e) {

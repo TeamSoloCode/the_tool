@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:json_theme/json_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:gato/gato.dart' as gato;
 import 'package:the_tool/utils.dart';
@@ -26,6 +28,11 @@ class T_Text extends StatelessWidget {
 
     return Text(
       utils.bindingValueToString(contextData, text),
+      style: ThemeDecoder.decodeTextStyle(
+        ThemeProvider.transformColorFromCSS(
+          widgetProps,
+        ),
+      ),
     );
   }
 }

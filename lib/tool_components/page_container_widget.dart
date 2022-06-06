@@ -13,6 +13,7 @@ import 'package:the_tool/tool_components/page_widget.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:gato/gato.dart' as gato;
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
     if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_utils/web_eval_js.dart';
 
@@ -32,7 +33,7 @@ class _PageContainerState extends State<PageContainer> {
   String? _errorMessage;
   HeadlessInAppWebView? _headlessWebView;
   ThemeData? _themeData;
-  var currentThemeMode;
+  var _currentThemeMode;
 
   @override
   void initState() {
@@ -50,16 +51,17 @@ class _PageContainerState extends State<PageContainer> {
   Widget build(BuildContext context) {
     context.select(
       (ThemeProvider theme) {
-        if (currentThemeMode != theme.currentThemeMode) {
+        if (_currentThemeMode != theme.currentThemeMode) {
           _updateTheme();
         }
-        currentThemeMode = theme.currentThemeMode;
+        _currentThemeMode = theme.currentThemeMode;
         return theme.currentThemeMode;
       },
     );
 
     return MaterialApp(
       theme: context.read<ThemeProvider>().themeData,
+      themeMode: _currentThemeMode,
       routes: _computeRoutes(),
       home: FutureBuilder<bool>(
         builder: (context, snapshot) {
