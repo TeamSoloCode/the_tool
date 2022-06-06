@@ -24,15 +24,15 @@ class T_Text extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UtilsManager utils = getIt<UtilsManager>();
-    String text = gato.get(widgetProps, "text") ?? "";
+    var finalWidgetProps = context.read<ThemeProvider>().mergeClasses(
+          widgetProps,
+          contextData,
+        );
+    String text = gato.get(finalWidgetProps, "text") ?? "";
 
     return Text(
       utils.bindingValueToString(contextData, text),
-      style: ThemeDecoder.decodeTextStyle(
-        ThemeProvider.transformColorFromCSS(
-          widgetProps,
-        ),
-      ),
+      style: ThemeDecoder.decodeTextStyle(finalWidgetProps),
     );
   }
 }

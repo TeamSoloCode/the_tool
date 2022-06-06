@@ -191,6 +191,28 @@ class ThemeProvider with ChangeNotifier {
     }
   }
 
+  Map<String, dynamic> mergeClasses(
+    dynamic widgetProps,
+    Map<String, dynamic> contextData,
+  ) {
+    try {
+      var className = widgetProps["className"];
+      Map<String, dynamic> updatedWidgetProps = widgetProps;
+
+      if (className == null) {
+        return widgetProps;
+      }
+
+      if (className is String && classes?[className] != null) {
+        updatedWidgetProps = {...widgetProps, ...classes![className]};
+      } else if (className is List) {}
+
+      return updatedWidgetProps;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   static dynamic transformColorFromCSS(dynamic inputValue) {
     try {
       if (inputValue is Map) {
@@ -205,10 +227,12 @@ class ThemeProvider with ChangeNotifier {
           updateValue.add(transformColorFromCSS(value));
         });
         return updateValue;
-      } else {
+      } else if (inputValue is String) {
         if (isCssColor(inputValue)) {
           return fromCssColor(inputValue).toCssString();
         }
+        return inputValue;
+      } else {
         return inputValue;
       }
     } catch (e) {

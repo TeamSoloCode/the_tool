@@ -62,7 +62,11 @@ class APIClientManager {
             "scaffoldBackgroundColor": "#primaryColor",
             "primarySwatch": "#primaryWatchColor",
             "textTheme": {
-              "bodyText2": {"color": "#primaryWatchColor"}
+              "bodyText2": {
+                "color": "#primaryWatchColor",
+                "fontSize": 15,
+                "fontWeight": "bold"
+              }
             }
           },
           "classes": {
