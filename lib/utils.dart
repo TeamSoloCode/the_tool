@@ -10,6 +10,7 @@ GetIt getIt = GetIt.instance;
 
 class UtilsManager {
   Map<String, String> _staticContent = {};
+  var regexPattern = RegExp(r"[^{{\}}]+(?=}})");
   late EvalJS _evalJS;
 
   UtilsManager() : super() {}
@@ -38,9 +39,18 @@ class UtilsManager {
 
   get staticContent => _staticContent;
 
+  bool isValueBinding(String value) {
+    var match = regexPattern.firstMatch(value);
+
+    if (match != null) {
+      return true;
+    }
+
+    return false;
+  }
+
   String bindingValueToString(Map<String, dynamic> contextData, String text) {
     var computedText = text;
-    var regexPattern = RegExp(r"[^{{\}}]+(?=}})");
 
     regexPattern.allMatches(text).forEach((element) {
       var match = regexPattern.firstMatch(computedText);
@@ -61,5 +71,19 @@ class UtilsManager {
     });
 
     return computedText;
+  }
+
+  bool bindingValueToBool(Map<String, dynamic> contextData, String text) {
+    var stringResult = bindingValueToString(contextData, text);
+    switch (stringResult) {
+      case "":
+      case "false":
+      case "null":
+      case "0":
+      case "undefined":
+        return false;
+      default:
+        return true;
+    }
   }
 }

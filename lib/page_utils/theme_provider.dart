@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:from_css_color/from_css_color.dart';
 import 'package:json_theme/json_theme.dart';
 import 'package:json_theme/json_theme_schemas.dart';
+import 'package:the_tool/utils.dart';
 
 class ThemeProvider with ChangeNotifier {
   ThemeData? _themeData;
@@ -12,6 +13,7 @@ class ThemeProvider with ChangeNotifier {
   Map<String, dynamic>? _classes;
   Map<String, dynamic>? _baseColor;
   BuildContext context;
+  static UtilsManager _utils = getIt<UtilsManager>();
 
   Map<int, Color> color = {
     50: const Color.fromRGBO(136, 14, 79, .1),
@@ -133,7 +135,7 @@ class ThemeProvider with ChangeNotifier {
        * This because layout might have color value like 'red','blue','green', ...
        */
       classes = json.decode(classesJSON);
-      classes.forEach((key, value) {
+      (classes).forEach((key, value) {
         classes[key] = transformColorFromCSS(value);
       });
 
@@ -195,60 +197,88 @@ class ThemeProvider with ChangeNotifier {
     dynamic widgetProps,
     Map<String, dynamic> contextData,
   ) {
-    try {
-      var className = widgetProps["className"];
-      Map<String, dynamic> updatedWidgetProps = widgetProps;
+    var className = widgetProps["className"];
+    Map<String, dynamic> updatedWidgetProps = widgetProps;
 
-      if (className == null) {
-        return widgetProps;
-      }
-
-      if (className is String) {
-        if (classes?[className] != null) {
-          updatedWidgetProps = {...updatedWidgetProps, ...classes![className]};
-        } else {
-          log("Warning: Class $className is not exist !");
-        }
-      } else if (className is List) {
-        className.forEach((cls) {
-          if (classes?[cls] != null) {
-            updatedWidgetProps = {...updatedWidgetProps, ...classes![cls]};
-          } else {
-            log("Warning: Class $cls is not exist !");
-          }
-        });
-      }
-
-      return updatedWidgetProps;
-    } catch (e) {
-      rethrow;
+    if (className == null) {
+      return widgetProps;
     }
+
+    var updateWidgetProps = (
+      Map<dynamic, dynamic> classData,
+      String className,
+    ) {
+      if (classData != null) {
+        updatedWidgetProps = {...updatedWidgetProps, ...classData};
+      } else {
+        log("Warning: Class $className is not exist !");
+      }
+    };
+
+    if (className is String) {
+      updateWidgetProps(classes?[className], className);
+    } else if (className is List) {
+      className.forEach((cls) {
+        if (cls is String) {
+          updateWidgetProps(classes?[cls], cls);
+        } else if (cls is Map) {
+          cls.forEach((classname, value) {
+            var result = (value is String)
+                ? _utils.bindingValueToBool(
+                    contextData,
+                    value,
+                  )
+                : value;
+            if (result != false && result != null) {
+              updateWidgetProps(classes?[classname], classname);
+            }
+          });
+        }
+      });
+    }
+
+    return updatedWidgetProps;
+  }
+
+  static Map<String, dynamic> transformBindingPropsToValue(
+    Map<String, dynamic> inputValue,
+    Map<String, dynamic> contextData,
+  ) {
+    Map<String, dynamic> results = {};
+    inputValue.forEach((key, value) {
+      if (value is String && _utils.isValueBinding(value)) {
+        results[key] = _utils.bindingValueToString(
+          contextData,
+          value,
+        );
+      } else {
+        results[key] = value;
+      }
+    });
+
+    return results;
   }
 
   static dynamic transformColorFromCSS(dynamic inputValue) {
-    try {
-      if (inputValue is Map) {
-        var updateValue = {};
-        inputValue.forEach((key, value) {
-          updateValue[key] = transformColorFromCSS(value);
-        });
-        return updateValue;
-      } else if (inputValue is List) {
-        var updateValue = [];
-        inputValue.forEach((value) {
-          updateValue.add(transformColorFromCSS(value));
-        });
-        return updateValue;
-      } else if (inputValue is String) {
-        if (isCssColor(inputValue)) {
-          return fromCssColor(inputValue).toCssString();
-        }
-        return inputValue;
-      } else {
-        return inputValue;
+    if (inputValue is Map) {
+      var updateValue = {};
+      inputValue.forEach((key, value) {
+        updateValue[key] = transformColorFromCSS(value);
+      });
+      return updateValue;
+    } else if (inputValue is List) {
+      var updateValue = [];
+      inputValue.forEach((value) {
+        updateValue.add(transformColorFromCSS(value));
+      });
+      return updateValue;
+    } else if (inputValue is String) {
+      if (isCssColor(inputValue)) {
+        return fromCssColor(inputValue).toCssString();
       }
-    } catch (e) {
-      rethrow;
+      return inputValue;
+    } else {
+      return inputValue;
     }
   }
 }

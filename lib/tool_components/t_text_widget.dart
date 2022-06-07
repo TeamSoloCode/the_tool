@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:from_css_color/from_css_color.dart';
 import 'package:json_theme/json_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:the_tool/page_utils/style_utils.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:gato/gato.dart' as gato;
@@ -24,10 +28,13 @@ class T_Text extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UtilsManager utils = getIt<UtilsManager>();
-    var finalWidgetProps = context.read<ThemeProvider>().mergeClasses(
-          widgetProps,
-          contextData,
-        );
+    var finalWidgetProps = widgetProps;
+    var rawColor = finalWidgetProps["color"];
+    if (rawColor != null && utils.isValueBinding(rawColor)) {
+      finalWidgetProps["color"] =
+          StyleUtils.getCssStringWithContextData(rawColor, contextData);
+    }
+
     String text = gato.get(finalWidgetProps, "text") ?? "";
 
     return Text(

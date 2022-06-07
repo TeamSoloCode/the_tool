@@ -42,6 +42,11 @@ class T_Widgets extends StatelessWidget {
       )),
     );
 
+    widgetProps = context.read<ThemeProvider>().mergeClasses(
+          widgetProps,
+          contextData,
+        );
+
     switch (gato.get(content, "type")) {
       case "text":
         return T_Text(
