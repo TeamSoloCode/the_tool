@@ -6,6 +6,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:js/js.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:the_tool/page_utils/theme_provider.dart';
 
 late ContextStateProvider _contextStateProvider;
 late BuildContext _context;
@@ -26,6 +28,14 @@ external set navigator(
   void Function(
     String routeName,
     String pageArguments,
+  )
+      f,
+);
+
+@JS('toggle_change_theme')
+external set toogleChangeTheme(
+  void Function(
+    String args,
   )
       f,
 );
@@ -55,7 +65,12 @@ void _navigator(String routeName, String pageArguments) {
   Navigator.of(_context).pushNamed(routeName, arguments: arguments);
 }
 
+void _toogleChangeTheme(String args) {
+  _context.read<ThemeProvider>().toogleChangeThemeMode(null);
+}
+
 void main() {
   setContextData = allowInterop(_setState);
   navigator = allowInterop(_navigator);
+  toogleChangeTheme = allowInterop(_toogleChangeTheme);
 }

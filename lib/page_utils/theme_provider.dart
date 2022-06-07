@@ -76,14 +76,14 @@ class ThemeProvider with ChangeNotifier {
           scaffoldBackgroundColor: ThemeDecoder.decodeColor(
             computedThemeMap["scaffoldBackgroundColor"],
           ),
-          colorScheme: ColorScheme.fromSwatch(
-            primarySwatch: MaterialColor(
-              ThemeDecoder.decodeColor(
-                computedThemeMap["primarySwatch"],
-              ).hashCode,
-              color,
-            ),
-          ),
+          // colorScheme: ColorScheme.fromSwatch(
+          //   primarySwatch: MaterialColor(
+          //     ThemeDecoder.decodeColor(
+          //       computedThemeMap["primarySwatch"],
+          //     ).hashCode,
+          //     color,
+          //   ),
+          // ),
           textTheme: defaultTextTheme.merge(textTheme),
         );
       }

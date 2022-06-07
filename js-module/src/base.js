@@ -80,6 +80,7 @@ const getCookies = async (key) => {
 const toggleChangeTheme = async () => {
   switch (context._platform) {
     case "web":
+      toggle_change_theme("");
       return;
 
     case "mobile":

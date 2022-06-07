@@ -59,7 +59,7 @@ class APIClientManager {
           },
           "theme": {
             "primaryColor": "#primaryColor",
-            "scaffoldBackgroundColor": "#primaryColor",
+            "scaffoldBackgroundColor": "#primaryWatchColor",
             "primarySwatch": "#primaryWatchColor",
             "textTheme": {
               "bodyText2": {
