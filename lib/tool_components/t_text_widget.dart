@@ -29,16 +29,13 @@ class T_Text extends StatelessWidget {
   Widget build(BuildContext context) {
     UtilsManager utils = getIt<UtilsManager>();
     var finalWidgetProps = widgetProps;
-    var rawColor = finalWidgetProps["color"];
-    if (rawColor != null && utils.isValueBinding(rawColor)) {
-      finalWidgetProps["color"] =
-          StyleUtils.getCssStringWithContextData(rawColor, contextData);
-    }
-
-    String text = gato.get(finalWidgetProps, "text") ?? "";
+    String text = utils.bindingValueToString(
+      contextData,
+      gato.get(finalWidgetProps, "text") ?? "",
+    );
 
     return Text(
-      utils.bindingValueToString(contextData, text),
+      text,
       style: ThemeDecoder.decodeTextStyle(finalWidgetProps),
     );
   }

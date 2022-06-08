@@ -67,6 +67,13 @@ class ThemeProvider with ChangeNotifier {
         TextTheme? defaultTextTheme = themeData.textTheme;
         TextTheme? textTheme = ThemeDecoder.decodeTextTheme(
           computedThemeMap["textTheme"],
+          validate: false,
+        );
+
+        AppBarTheme? defaultAppBarTheme = themeData.appBarTheme;
+        AppBarTheme? appBarTheme = ThemeDecoder.decodeAppBarTheme(
+          computedThemeMap["appBarTheme"],
+          validate: false,
         );
 
         _themeData = themeData.copyWith(
@@ -75,6 +82,10 @@ class ThemeProvider with ChangeNotifier {
           ),
           scaffoldBackgroundColor: ThemeDecoder.decodeColor(
             computedThemeMap["scaffoldBackgroundColor"],
+          ),
+          appBarTheme: defaultAppBarTheme.copyWith(
+            backgroundColor: appBarTheme?.backgroundColor,
+            shape: appBarTheme?.shape,
           ),
           // colorScheme: ColorScheme.fromSwatch(
           //   primarySwatch: MaterialColor(

@@ -49,7 +49,10 @@ class UtilsManager {
     return false;
   }
 
-  String bindingValueToString(Map<String, dynamic> contextData, String text) {
+  String bindingValueToString(
+    Map<String, dynamic> contextData,
+    String text,
+  ) {
     var computedText = text;
 
     regexPattern.allMatches(text).forEach((element) {
@@ -73,7 +76,10 @@ class UtilsManager {
     return computedText;
   }
 
-  bool bindingValueToBool(Map<String, dynamic> contextData, String text) {
+  bool bindingValueToBool(
+    Map<String, dynamic> contextData,
+    String text,
+  ) {
     var stringResult = bindingValueToString(contextData, text);
     switch (stringResult) {
       case "":
@@ -85,5 +91,18 @@ class UtilsManager {
       default:
         return true;
     }
+  }
+
+  bool isFalsyWithContextData(Map<String, dynamic> contextData, dynamic data) {
+    if (data == null) return true;
+    if (data == false) return true;
+    if (data is String) {
+      if (isValueBinding(data)) {
+        return bindingValueToBool(contextData, data) == false;
+      }
+      var isFalsy = ["", "false", "null", "0", "undefined"].contains(data);
+      return isFalsy;
+    }
+    return false;
   }
 }

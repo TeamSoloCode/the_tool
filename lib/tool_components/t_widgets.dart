@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:the_tool/page_utils/style_utils.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/tool_components/t_button_widget.dart';
 import 'package:the_tool/tool_components/t_column_widget.dart';
@@ -47,36 +48,58 @@ class T_Widgets extends StatelessWidget {
           contextData,
         );
 
+    var finalWidgetProps = widgetProps;
+
+    var hidden = !utils.isFalsyWithContextData(
+      contextData,
+      finalWidgetProps["hidden"],
+    );
+
+    var rawColor = finalWidgetProps["color"];
+    if (!utils.isFalsyWithContextData(
+      contextData,
+      rawColor,
+    )) {
+      finalWidgetProps["color"] = StyleUtils.getCssStringWithContextData(
+        rawColor,
+        contextData,
+      );
+    }
+
+    if (hidden) {
+      return const SizedBox.shrink();
+    }
+
     switch (gato.get(content, "type")) {
       case "text":
         return T_Text(
           executeJS: executeJSWithPagePath,
-          widgetProps: widgetProps,
+          widgetProps: finalWidgetProps,
           contextData: contextData,
         );
       case "button":
         return T_Button(
           executeJS: executeJSWithPagePath,
-          widgetProps: widgetProps,
+          widgetProps: finalWidgetProps,
           contextData: contextData,
         );
       case "block":
         return T_Block(
           executeJS: executeJSWithPagePath,
-          widgetProps: widgetProps,
+          widgetProps: finalWidgetProps,
           contextData: contextData,
         );
       case "container":
         return T_Container(
           executeJS: executeJSWithPagePath,
-          widgetProps: widgetProps,
+          widgetProps: finalWidgetProps,
           pageName: pagePath,
           contextData: contextData,
         );
       case "column":
         return T_Column(
           executeJS: executeJSWithPagePath,
-          widgetProps: widgetProps,
+          widgetProps: finalWidgetProps,
           pageName: pagePath,
           contextData: contextData,
         );

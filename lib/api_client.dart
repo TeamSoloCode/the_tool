@@ -53,13 +53,13 @@ class APIClientManager {
             "#primaryColor": "green",
             "#primaryWatchColor": "skyblue",
             "--dark": {
-              "#primaryColor": "black",
+              "#primaryColor": "purple",
               "#primaryWatchColor": "black",
             },
           },
           "theme": {
             "primaryColor": "#primaryColor",
-            "scaffoldBackgroundColor": "#primaryWatchColor",
+            "scaffoldBackgroundColor": "#primaryColor",
             "primarySwatch": "#primaryWatchColor",
             "textTheme": {
               "bodyText2": {
@@ -67,6 +67,16 @@ class APIClientManager {
                 "fontSize": 15,
                 "fontWeight": "bold"
               }
+            },
+            "appBarTheme": {
+              "backgroundColor": "#primaryWatchColor",
+              "shape": {
+                "type": "rounded",
+                "borderRadius": {
+                  "type": "vertical",
+                  "bottom": {"type": "circular", "radius": 25}
+                },
+              },
             }
           },
           "classes": {

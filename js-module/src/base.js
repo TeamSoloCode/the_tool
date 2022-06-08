@@ -41,7 +41,11 @@ function usePrevious(value) {
 }
 
 const setPlatform = (platform) => {
-  Object.assign(context, { _platform: platform });
+  Object.assign(context, {
+    _platform: platform,
+    _isMobile: platform == "mobile",
+    _isWeb: platform == "web",
+  });
 };
 
 const isFunctionExistsOnContext = (functionName, pagePath) => {
