@@ -181,7 +181,6 @@ class ThemeProvider with ChangeNotifier {
         theme[key] = transformColorFromCSS(value);
       });
 
-      log("abcd $theme");
       return theme;
     } catch (e) {
       rethrow;
@@ -234,12 +233,10 @@ class ThemeProvider with ChangeNotifier {
           updateWidgetProps(classes?[cls], cls);
         } else if (cls is Map) {
           cls.forEach((classname, value) {
-            var result = (value is String)
-                ? _utils.bindingValueToBool(
-                    contextData,
-                    value,
-                  )
-                : value;
+            var result = _utils.bindingValueToProp(
+              contextData,
+              value,
+            );
             if (result != false && result != null) {
               updateWidgetProps(classes?[classname], classname);
             }
@@ -258,7 +255,7 @@ class ThemeProvider with ChangeNotifier {
     Map<String, dynamic> results = {};
     inputValue.forEach((key, value) {
       if (value is String && _utils.isValueBinding(value)) {
-        results[key] = _utils.bindingValueToString(
+        results[key] = _utils.bindingValueToText(
           contextData,
           value,
         );

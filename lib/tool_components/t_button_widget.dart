@@ -23,12 +23,15 @@ class T_Button extends T_Widget {
         );
 
   Widget _computeButton() {
-    return TextButton(
-      child: Text(
-        utils.bindingValueToString(
+    String text = utils.bindingValueToText(
           contextData,
           widgetProps["text"],
-        ),
+        ) ??
+        "";
+
+    return TextButton(
+      child: Text(
+        text,
       ),
       onPressed: () async {
         var onClick = widgetProps["onClick"];

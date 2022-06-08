@@ -5,6 +5,7 @@ import 'package:gato/gato.dart' as gato;
 import 'package:get_it/get_it.dart';
 import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
     if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_utils/web_eval_js.dart';
+import 'package:the_tool/page_utils/context_state_provider.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -39,7 +40,8 @@ class UtilsManager {
 
   get staticContent => _staticContent;
 
-  bool isValueBinding(String value) {
+  bool isValueBinding(String? value) {
+    if (value == null) return false;
     var match = regexPattern.firstMatch(value);
 
     if (match != null) {
@@ -49,18 +51,23 @@ class UtilsManager {
     return false;
   }
 
-  String bindingValueToString(
-    Map<String, dynamic> contextData,
-    String text,
+  String? bindingValueToText(
+    Map<String, dynamic> pageContextData,
+    String? text,
   ) {
-    var computedText = text;
+    if (text is! String) return text;
+    if (text == null || !isValueBinding(text)) {
+      return text;
+    }
 
+    var computedText = text;
     regexPattern.allMatches(text).forEach((element) {
       var match = regexPattern.firstMatch(computedText);
 
       if (match != null) {
+        var contextData = getIt<ContextStateProvider>();
         var bindingData = gato.get(
-              contextData,
+              pageContextData,
               computedText.substring(match.start, match.end).trim(),
             ) ??
             "";
@@ -76,33 +83,31 @@ class UtilsManager {
     return computedText;
   }
 
-  bool bindingValueToBool(
-    Map<String, dynamic> contextData,
-    String text,
+  dynamic bindingValueToProp(
+    Map<String, dynamic> pageContextData,
+    dynamic propValue,
   ) {
-    var stringResult = bindingValueToString(contextData, text);
-    switch (stringResult) {
-      case "":
-      case "false":
-      case "null":
-      case "0":
-      case "undefined":
-        return false;
-      default:
-        return true;
-    }
+    if (propValue is! String) return propValue;
+    if (!isValueBinding(propValue)) return propValue;
+
+    dynamic computedText = propValue;
+    regexPattern.allMatches(propValue).forEach((element) {
+      var match = regexPattern.firstMatch(computedText);
+
+      if (match != null) {
+        var contextData = getIt<ContextStateProvider>();
+        var bindingData = gato.get(
+          pageContextData,
+          computedText.substring(match.start, match.end).trim(),
+        );
+
+        computedText = bindingData;
+      }
+    });
+
+    return computedText;
   }
 
-  bool isFalsyWithContextData(Map<String, dynamic> contextData, dynamic data) {
-    if (data == null) return true;
-    if (data == false) return true;
-    if (data is String) {
-      if (isValueBinding(data)) {
-        return bindingValueToBool(contextData, data) == false;
-      }
-      var isFalsy = ["", "false", "null", "0", "undefined"].contains(data);
-      return isFalsy;
-    }
-    return false;
-  }
+  static isFalsy(dynamic data) =>
+      ["", "false", "null", "0", "undefined", null, false].contains(data);
 }

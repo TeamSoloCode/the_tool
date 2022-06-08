@@ -21,10 +21,12 @@ void main() async {
     const APIClientManager(),
     signalsReady: true,
   );
+  getIt.registerSingleton<ContextStateProvider>(ContextStateProvider(),
+      signalsReady: true);
 
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (_) => ContextStateProvider()),
+      ChangeNotifierProvider(create: (_) => getIt<ContextStateProvider>()),
       ChangeNotifierProvider(
         create: (context) => ThemeProvider(context: context),
       )

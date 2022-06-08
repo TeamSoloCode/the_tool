@@ -9,15 +9,18 @@ class StyleUtils {
     String rawTextColor,
     Map<String, dynamic> contextData,
   ) {
-    var isBoundValue = _utils.bindingValueToBool(contextData, rawTextColor);
+    var isBoundValue = _utils.bindingValueToProp(contextData, rawTextColor);
 
-    if (isBoundValue) {
-      return fromCssColor(
-        _utils.bindingValueToString(
-          contextData,
-          rawTextColor,
-        ),
-      ).toCssString();
+    if (UtilsManager.isFalsy(isBoundValue)) {
+      var bindingValue = _utils.bindingValueToText(
+        contextData,
+        rawTextColor,
+      );
+      if (bindingValue is String && !UtilsManager.isFalsy(bindingValue)) {
+        return fromCssColor(
+          bindingValue,
+        ).toCssString();
+      }
     }
 
     return null;

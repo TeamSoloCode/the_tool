@@ -50,23 +50,20 @@ class T_Widgets extends StatelessWidget {
 
     var finalWidgetProps = widgetProps;
 
-    var hidden = !utils.isFalsyWithContextData(
+    var hidden = utils.bindingValueToProp(
       contextData,
       finalWidgetProps["hidden"],
     );
 
     var rawColor = finalWidgetProps["color"];
-    if (!utils.isFalsyWithContextData(
-      contextData,
-      rawColor,
-    )) {
+    if (utils.isValueBinding(rawColor)) {
       finalWidgetProps["color"] = StyleUtils.getCssStringWithContextData(
         rawColor,
         contextData,
       );
     }
 
-    if (hidden) {
+    if (!UtilsManager.isFalsy(hidden)) {
       return const SizedBox.shrink();
     }
 
