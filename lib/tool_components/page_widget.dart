@@ -60,7 +60,14 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (_isReadyToRun == false) {
+    var pageData = context.select((ContextStateProvider value) {
+      Map<String, dynamic> emptyData = {};
+      var data = value.contextData[widget.pagePath] ?? emptyData;
+      return data;
+    });
+
+    if (_isReadyToRun == false ||
+        UtilsManager.isFalsy(gato.get(pageData, "_tLoaded"))) {
       return const Scaffold(
         body: Center(
           child: SpinKitFadingCircle(
@@ -70,12 +77,6 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
         ),
       );
     }
-
-    var pageData = context.select((ContextStateProvider value) {
-      Map<String, dynamic> emptyData = {};
-      var data = value.contextData[widget.pagePath] ?? emptyData;
-      return data;
-    });
 
     log("Update page: ${widget.pagePath} $pageData");
 
