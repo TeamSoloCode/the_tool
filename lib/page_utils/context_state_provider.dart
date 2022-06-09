@@ -3,6 +3,11 @@ import 'package:flutter/foundation.dart';
 class ContextStateProvider with ChangeNotifier, DiagnosticableTreeMixin {
   Map<String, dynamic> _contextData = {};
   Map<String, dynamic> _appConfig = {};
+  Map<String, dynamic> initData;
+
+  ContextStateProvider({this.initData = const {}}) : super() {
+    _contextData.addAll(initData);
+  }
 
   Map<String, dynamic> get contextData => _contextData;
 

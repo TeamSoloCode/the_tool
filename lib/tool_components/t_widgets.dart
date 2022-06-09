@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/style_utils.dart';
@@ -107,7 +108,19 @@ class T_Widgets extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var contextData = context.watch<ContextStateProvider>().contextData;
-    return _getWidget(contextData[pagePath] ?? {}, context);
+    var contextData = context.select(
+          (ContextStateProvider contextState) =>
+              contextState.contextData[pagePath],
+        ) ??
+        {};
+
+    if (UtilsManager.isFalsy(contextData?["_tLoaded"])) {
+      return const SpinKitWave(
+        color: Colors.white38,
+        size: 15,
+      );
+    }
+
+    return _getWidget(contextData ?? {}, context);
   }
 }

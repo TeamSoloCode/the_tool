@@ -21,8 +21,10 @@ void main() async {
     const APIClientManager(),
     signalsReady: true,
   );
-  getIt.registerSingleton<ContextStateProvider>(ContextStateProvider(),
-      signalsReady: true);
+  getIt.registerSingleton<ContextStateProvider>(
+    ContextStateProvider(),
+    signalsReady: true,
+  );
 
   runApp(MultiProvider(
     providers: [

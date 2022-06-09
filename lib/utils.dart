@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/services.dart';
 import 'package:gato/gato.dart' as gato;
@@ -65,12 +66,19 @@ class UtilsManager {
       var match = regexPattern.firstMatch(computedText);
 
       if (match != null) {
-        var contextData = getIt<ContextStateProvider>();
-        var bindingData = gato.get(
-              pageContextData,
-              computedText.substring(match.start, match.end).trim(),
-            ) ??
-            "";
+        String bindingField = computedText
+            .substring(
+              match.start,
+              match.end,
+            )
+            .trim();
+
+        var bindingData = gato.get(pageContextData, bindingField) ?? "";
+
+        // if (bindingData == null) {
+        //   var contextData = getIt<ContextStateProvider>().contextData;
+        //   bindingData = gato.get(contextData, bindingField);
+        // }
 
         computedText = computedText.replaceRange(
           match.start - 2,
@@ -90,22 +98,33 @@ class UtilsManager {
     if (propValue is! String) return propValue;
     if (!isValueBinding(propValue)) return propValue;
 
-    dynamic computedText = propValue;
+    dynamic computedValue = propValue;
     regexPattern.allMatches(propValue).forEach((element) {
-      var match = regexPattern.firstMatch(computedText);
+      var match = regexPattern.firstMatch(computedValue);
 
       if (match != null) {
-        var contextData = getIt<ContextStateProvider>();
+        String bindingField = computedValue
+            .substring(
+              match.start,
+              match.end,
+            )
+            .trim();
+
         var bindingData = gato.get(
           pageContextData,
-          computedText.substring(match.start, match.end).trim(),
+          bindingField,
         );
 
-        computedText = bindingData;
+        // if (bindingData == null) {
+        //   var contextData = getIt<ContextStateProvider>().contextData;
+        //   bindingData = gato.get(contextData, bindingField);
+        // }
+
+        computedValue = bindingData;
       }
     });
 
-    return computedText;
+    return computedValue;
   }
 
   static isFalsy(dynamic data) =>
