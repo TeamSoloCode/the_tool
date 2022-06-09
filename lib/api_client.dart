@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
@@ -5,6 +8,27 @@ class APIClientManager {
   final String host = kIsWeb ? "localhost" : "10.0.2.2";
 
   const APIClientManager();
+
+  Future<dynamic> fetchData({required String path}) async {
+    if (path.contains("localhost")) {
+      path = path.replaceFirst("localhost", host);
+    }
+
+    RequestOptions requestOptions = RequestOptions(
+      path: path,
+    );
+
+    var response = await Dio().fetch(requestOptions);
+
+    return {
+      "data": response.data,
+      "headers": json.encode(response.headers.map),
+      "statusCode": response.statusCode,
+      "statusMessage": response.statusMessage,
+      "isRedirect": response.isRedirect,
+      "extra": response.extra
+    };
+  }
 
   Future<String> getClientCore() async {
     try {

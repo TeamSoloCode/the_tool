@@ -1,0 +1,6 @@
+Support call api from dart (web)
+-------------------------------------------------
+Fix bug cannot call api from mobile webview
+Fix bug setPageData clear data when call on multi place
+-------------------------------------------------
+# Support call api from dart (mobile)

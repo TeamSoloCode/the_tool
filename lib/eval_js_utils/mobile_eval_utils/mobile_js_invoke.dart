@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:provider/provider.dart';
+import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/storage_utils.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
@@ -66,6 +67,13 @@ void registerJavascriptHandler(
     handlerName: "toggle_change_theme",
     callback: (args) {
       context.read<ThemeProvider>().toogleChangeThemeMode(null);
+    },
+  );
+
+  webViewController?.addJavaScriptHandler(
+    handlerName: "fetch_data",
+    callback: (args) async {
+      return await getIt<APIClientManager>().fetchData(path: args[0]);
     },
   );
 }

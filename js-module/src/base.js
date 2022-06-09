@@ -91,6 +91,16 @@ const toggleChangeTheme = async () => {
   }
 };
 
+const fetchData = async (path) => {
+  switch (context._platform) {
+    case "web":
+      return;
+
+    case "mobile":
+      return await window.flutter_inappwebview.callHandler("fetch_data", path);
+  }
+};
+
 Object.assign(window, {
   setContextData,
   usePrevious,
@@ -100,5 +110,6 @@ Object.assign(window, {
   setCookies,
   getCookies,
   toggleChangeTheme,
+  fetchData,
   context,
 });

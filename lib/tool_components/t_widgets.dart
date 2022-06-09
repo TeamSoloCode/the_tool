@@ -13,6 +13,7 @@ import 'package:gato/gato.dart' as gato;
 import 'package:the_tool/tool_components/t_block_widget.dart';
 import 'package:the_tool/tool_components/t_icon_widget.dart';
 import 'package:the_tool/tool_components/t_row_widget.dart';
+import 'package:the_tool/tool_components/t_scrollview_widget.dart';
 import 'package:the_tool/tool_components/t_text_widget.dart';
 import 'package:the_tool/utils.dart';
 
@@ -113,6 +114,13 @@ class T_Widgets extends StatelessWidget {
         );
       case "column":
         return T_Column(
+          executeJS: executeJSWithPagePath,
+          widgetProps: finalWidgetProps,
+          pageName: pagePath,
+          contextData: contextData,
+        );
+      case "scroll-view":
+        return T_ScrollView(
           executeJS: executeJSWithPagePath,
           widgetProps: finalWidgetProps,
           pageName: pagePath,

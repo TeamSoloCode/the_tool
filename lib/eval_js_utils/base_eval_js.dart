@@ -42,7 +42,9 @@ abstract class BaseEvalJS {
           // To prevent multi call when _pageData not update yet
           _pageData = nextData;
           
-          setContextData({['$pagePath']: {...nextData}})
+          setContextData({
+            ['$pagePath']: {..._contextData['$pagePath'], ...nextData,}
+          })
         }, [_pageData, _contextData])
 
         const getPageData = React.useCallback(() => {
