@@ -28,7 +28,11 @@ abstract class BaseEvalJS {
         context._prevData = Object.assign({}, _prevContextData);
         context._data = Object.assign({}, context._data, _contextData);
         
-        let [_pageData, _setPageData] = React.useState({})
+        let [_pageData, _setPageData] = React.useState({ 
+            _tLoaded: true ,
+            _tIsWeb: context._platform == "web",
+            _tIsMobile: context._platform == "mobile",
+          })
 
         // This will use to set data in layout code
         const setPageData = React.useCallback((data) => {
@@ -62,12 +66,7 @@ abstract class BaseEvalJS {
         React.useEffect(() => {
           logger.log(`Didmount $pagePath`)
           // init data for page
-          
-          setPageData({ 
-            _tLoaded: true ,
-            _tIsWeb: context._platform == "web",
-            _tIsMobile: context._platform == "mobile",
-          })
+          setPageData({})
 
           return () => {
             logger.log(`Unmounted $pagePath`)

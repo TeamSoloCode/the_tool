@@ -8,12 +8,10 @@ import 'package:the_tool/page_utils/context_state_provider.dart';
 
 class EvalJS extends BaseEvalJS {
   InAppWebViewController? webViewController;
-  ContextStateProvider contextStateProvider;
-  BuildContext context;
   EvalJS({
-    required this.contextStateProvider,
+    required contextStateProvider,
     this.webViewController,
-    required this.context,
+    required context,
   }) : super(contextStateProvider: contextStateProvider, context: context) {
     webjs.setContextBuilder(context);
     webjs.setContextStateProvider(contextStateProvider);

@@ -52,11 +52,11 @@ class UtilsManager {
     return false;
   }
 
-  String? bindingValueToText(
+  String bindingValueToText(
     Map<String, dynamic> pageContextData,
     String? text,
   ) {
-    if (text is! String) return text;
+    if (text is! String) return text ?? "";
     if (text == null || !isValueBinding(text)) {
       return text;
     }

@@ -10,13 +10,11 @@ import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_js_invoke.dart'
 
 class EvalJS extends BaseEvalJS {
   InAppWebViewController? webViewController;
-  ContextStateProvider contextStateProvider;
-  BuildContext context;
 
   EvalJS({
-    required this.contextStateProvider,
+    required contextStateProvider,
     this.webViewController,
-    required this.context,
+    required context,
   }) : super(
           contextStateProvider: contextStateProvider,
           context: context,

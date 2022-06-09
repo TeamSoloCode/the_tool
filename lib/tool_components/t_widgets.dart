@@ -34,26 +34,20 @@ class T_Widgets extends StatelessWidget {
   Widget _getWidget(Map<String, dynamic> contextData, BuildContext context) {
     Map<String, dynamic> content = layout["content"] ?? layout;
 
-    Map<String, dynamic> widgetProps =
-        context.read<ThemeProvider>().mergeBaseColor(content);
-    // FIXME: xxxx
-    widgetProps = json.decode(
-      json.encode(ThemeProvider.transformColorFromCSS(
-        widgetProps,
-      )),
-    );
-
-    widgetProps = context.read<ThemeProvider>().mergeClasses(
-          widgetProps,
-          contextData,
-        );
-
-    var finalWidgetProps = widgetProps;
-
     var hidden = utils.bindingValueToProp(
       contextData,
-      finalWidgetProps["hidden"],
+      content["hidden"],
     );
+
+    if (!UtilsManager.isFalsy(hidden)) {
+      return const SizedBox.shrink();
+    }
+
+    var themeProvider = context.read<ThemeProvider>();
+    Map<String, dynamic> widgetProps =
+        themeProvider.mergeClasses(content, contextData);
+
+    var finalWidgetProps = widgetProps;
 
     var rawColor = finalWidgetProps["color"];
     if (utils.isValueBinding(rawColor)) {
@@ -63,9 +57,13 @@ class T_Widgets extends StatelessWidget {
       );
     }
 
-    if (!UtilsManager.isFalsy(hidden)) {
-      return const SizedBox.shrink();
-    }
+    finalWidgetProps = themeProvider.mergeBaseColor(finalWidgetProps);
+    // FIXME: xxxx
+    finalWidgetProps = json.decode(
+      json.encode(ThemeProvider.transformColorFromCSS(
+        finalWidgetProps,
+      )),
+    );
 
     switch (gato.get(content, "type")) {
       case "text":

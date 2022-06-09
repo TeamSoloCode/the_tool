@@ -30,10 +30,9 @@ class T_Text extends StatelessWidget {
     UtilsManager utils = getIt<UtilsManager>();
     var finalWidgetProps = widgetProps;
     String text = utils.bindingValueToText(
-          contextData,
-          gato.get(finalWidgetProps, "text"),
-        ) ??
-        "";
+      contextData,
+      gato.get(finalWidgetProps, "text"),
+    );
 
     return Text(
       text,
