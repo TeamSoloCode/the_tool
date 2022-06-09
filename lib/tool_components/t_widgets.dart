@@ -11,6 +11,8 @@ import 'package:the_tool/tool_components/t_column_widget.dart';
 import 'package:the_tool/tool_components/t_container_widget.dart';
 import 'package:gato/gato.dart' as gato;
 import 'package:the_tool/tool_components/t_block_widget.dart';
+import 'package:the_tool/tool_components/t_icon_widget.dart';
+import 'package:the_tool/tool_components/t_row_widget.dart';
 import 'package:the_tool/tool_components/t_text_widget.dart';
 import 'package:the_tool/utils.dart';
 
@@ -31,6 +33,16 @@ class T_Widgets extends StatelessWidget {
     await utils.evalJS.executeJS(jsCode, pagePath);
   }
 
+  String? parseColor(String? rawColor) {
+    if (rawColor != null && utils.isValueBinding(rawColor)) {
+      return StyleUtils.getCssStringWithContextData(
+        rawColor,
+        contextData,
+      );
+    }
+    return rawColor;
+  }
+
   Widget _getWidget(Map<String, dynamic> contextData, BuildContext context) {
     Map<String, dynamic> content = layout["content"] ?? layout;
 
@@ -49,14 +61,9 @@ class T_Widgets extends StatelessWidget {
 
     var finalWidgetProps = widgetProps;
 
-    var rawColor = finalWidgetProps["color"];
-    if (utils.isValueBinding(rawColor)) {
-      finalWidgetProps["color"] = StyleUtils.getCssStringWithContextData(
-        rawColor,
-        contextData,
-      );
-    }
-
+    finalWidgetProps["color"] = parseColor(finalWidgetProps["color"]);
+    finalWidgetProps["backgroundColor"] =
+        parseColor(finalWidgetProps["backgroundColor"]);
     finalWidgetProps = themeProvider.mergeBaseColor(finalWidgetProps);
     // FIXME: xxxx
     finalWidgetProps = json.decode(
@@ -76,6 +83,19 @@ class T_Widgets extends StatelessWidget {
         return T_Button(
           executeJS: executeJSWithPagePath,
           widgetProps: finalWidgetProps,
+          contextData: contextData,
+        );
+      case "icon":
+        return T_Icon(
+          executeJS: executeJSWithPagePath,
+          widgetProps: finalWidgetProps,
+          contextData: contextData,
+        );
+      case "row":
+        return T_Row(
+          executeJS: executeJSWithPagePath,
+          widgetProps: finalWidgetProps,
+          pageName: pagePath,
           contextData: contextData,
         );
       case "block":
@@ -98,9 +118,9 @@ class T_Widgets extends StatelessWidget {
           pageName: pagePath,
           contextData: contextData,
         );
+      default:
+        return const SizedBox.shrink();
     }
-
-    return Container();
   }
 
   @override
