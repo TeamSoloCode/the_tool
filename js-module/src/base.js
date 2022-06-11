@@ -1,5 +1,6 @@
 import _ from "lodash";
 import Cookies from "js-cookie";
+import webJSChannel from "./web_js_channel";
 
 const _initContext = { _data: {}, _prevData: {}, _platform: "mobile" };
 export const context = _initContext;
@@ -94,11 +95,34 @@ const toggleChangeTheme = async () => {
 const fetchData = async (path) => {
   switch (context._platform) {
     case "web":
-      return;
+      const returnDataPromise = new Promise((resolve, reject) => {
+        const checkTimeoutId = setTimeout(() => {
+          reject("Request timeout!");
+        }, 10000);
+
+        webJSChannel.addListener("__web_js_channel__", (data) => {
+          clearTimeout(checkTimeoutId);
+
+          const { err, message, response } = JSON.parse(data);
+          if (err || message) {
+            reject(err || message);
+          } else {
+            resolve(response);
+          }
+        });
+      });
+
+      fetch_data(path);
+
+      return returnDataPromise;
 
     case "mobile":
       return await window.flutter_inappwebview.callHandler("fetch_data", path);
   }
+};
+
+const __ondataresponse = (data) => {
+  webJSChannel.emit("__web_js_channel__", data);
 };
 
 Object.assign(window, {
@@ -112,4 +136,7 @@ Object.assign(window, {
   toggleChangeTheme,
   fetchData,
   context,
+
+  // this function only used on dart side
+  __ondataresponse,
 });

@@ -1,6 +1,13 @@
-Support call api from dart (web)
--------------------------------------------------
+Support call api from dart (web) (Cant return data to js side from dart side)
+
+#-------------------------------------------------
+
 Fix bug cannot call api from mobile webview
 Fix bug setPageData clear data when call on multi place
--------------------------------------------------
+Make sure can return data when call dart from js (web)
+
+Split widget with Deferred components
+
+#-------------------------------------------------
+
 # Support call api from dart (mobile)
