@@ -75,6 +75,7 @@ class APIClientManager {
           "initialPage": "init_page",
           "routes": [
             {"name": "Home Page", "path": "home_page"},
+            {"name": "Fields Page", "path": "fields_page"},
             {"name": "Test Page", "path": "test_page"}
           ]
         },

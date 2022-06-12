@@ -14,7 +14,7 @@ const setContextData = (data, callback = () => {}) => {
     setState(dataAsString, callback);
   }
 
-  context._updateContextData(nextData);
+  // context._updateContextData(nextData);
 };
 
 const navigateTo = (pagePath, pageArguments = {}) => {

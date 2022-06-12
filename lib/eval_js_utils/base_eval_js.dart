@@ -28,34 +28,37 @@ abstract class BaseEvalJS {
         context._prevData = Object.assign({}, _prevContextData);
         context._data = Object.assign({}, context._data, _contextData);
         
-        let [_pageData, _setPageData] = React.useState({ 
+        
+        let [pageData, _setPageData] = React.useState({ 
             _tLoaded: true ,
             _tIsWeb: context._platform == "web",
             _tIsMobile: context._platform == "mobile",
-          })
+          },
+        )
+        const prevPageData = usePrevious(pageData)
 
         // This will use to set data in layout code
         const setPageData = React.useCallback((data) => {
-          const nextData = {..._pageData, ...data}
+          const nextData = {...pageData, ...data}
           _setPageData(nextData)
 
-          // To prevent multi call when _pageData not update yet
-          _pageData = nextData;
-          
+          // To prevent multi call when pageData not update yet
+          pageData = nextData;
+          console.log(JSON.stringify({..._contextData['$pagePath'], ...nextData}))
           setContextData({
-            ['$pagePath']: {..._contextData['$pagePath'], ...nextData,}
+            ['$pagePath']: {..._contextData['$pagePath'], ...nextData}
           })
-        }, [_pageData, _contextData])
+        }, [pageData, _contextData])
 
         const getPageData = React.useCallback(() => {
-          return _pageData;
-        }, [_pageData])
+          return pageData;
+        }, [pageData])
 
         // Export page context
         const exportPageContext = React.useCallback((exportedContext = {}) => {
           context['$pagePath'] = context['$pagePath'] || {}
           Object.assign(context['$pagePath'], exportedContext)
-        }, [_pageData])
+        }, [pageData])
 
         const getPageArguments = React.useCallback(() => {
           return context['$pagePath']?._pageArguments || {};
@@ -63,7 +66,7 @@ abstract class BaseEvalJS {
 
         React.useEffect(() => {
           exportPageContext({ setPageData, getPageData })
-        }, [_pageData, setPageData, getPageData])
+        }, [pageData, setPageData, getPageData])
 
         React.useEffect(() => {
           logger.log(`Didmount $pagePath`)
@@ -73,6 +76,7 @@ abstract class BaseEvalJS {
           return () => {
             logger.log(`Unmounted $pagePath`)
             context['$pagePath'] = {}
+            setPageData({})
           }
         }, [])
 

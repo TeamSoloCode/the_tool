@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/style_utils.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
+import 'package:the_tool/tool_components/fields/t_input_widget.dart';
 import 'package:the_tool/tool_components/t_button_widget.dart';
 import 'package:the_tool/tool_components/t_column_widget.dart';
 import 'package:the_tool/tool_components/t_container_widget.dart';
@@ -119,11 +120,17 @@ class T_Widgets extends StatelessWidget {
           pageName: pagePath,
           contextData: contextData,
         );
-      case "scroll-view":
+      case "scroll_view":
         return T_ScrollView(
           executeJS: executeJSWithPagePath,
           widgetProps: finalWidgetProps,
           pageName: pagePath,
+          contextData: contextData,
+        );
+      case "field":
+        return T_Fields(
+          executeJS: executeJSWithPagePath,
+          widgetProps: widgetProps,
           contextData: contextData,
         );
       default:

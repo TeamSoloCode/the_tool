@@ -1,18 +1,21 @@
-Fix bug setPageData clear data when call on multi place
+Support for basic input field and form
 
 #-------------------------------------------------
 
-Make sure can return data when call dart from js (web)
 Support more dynamic props (RequestOptions) for fetchData function in api_client.dart
 Support set key and dynamic key for all t_widget
+Move theme json and config json to server
+Add refresh page button for development mode
 
 Split widget with Deferred components
 Move base react component , app.js, vender.js and js-module to server
 Support asking/granting permission
 Support for basic on LiverAppBar, LiverGrid
-Support for basic input field and form
 Support common json widget on layout.json
 Support get and merge layout.json from another layout.json
+Support config UI base on platform in layout.json
+Support config theme base on platform in theme.json
+Support build mode (development/production) in context page data
 
 #-------------------------------------------------
 
@@ -20,3 +23,5 @@ Support get and merge layout.json from another layout.json
 -Support call api from dart (web) (Cant return data to js side from dart side)
 -Fix bug cannot call api from mobile webview
 -Make sure the response data from dart to js have have all information about the req and res
+-Make sure can return data when call dart from js (web)
+-Fix bug setPageData clear data when call on multi place
