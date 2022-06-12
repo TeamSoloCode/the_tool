@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 abstract class T_Widget extends StatelessWidget {
@@ -11,4 +14,10 @@ abstract class T_Widget extends StatelessWidget {
     required this.widgetProps,
     required this.contextData,
   });
+
+  void setPageData(Map<String, dynamic> newData) {
+    executeJS(
+      "setPageData(JSON.parse('${json.encode(newData)}'));",
+    );
+  }
 }

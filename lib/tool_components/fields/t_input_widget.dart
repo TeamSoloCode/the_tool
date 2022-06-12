@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -8,6 +9,8 @@ import 'package:the_tool/utils.dart';
 
 class T_Fields extends T_Widget {
   UtilsManager utils = getIt<UtilsManager>();
+  Timer? _debounce;
+
   T_Fields({
     Key? key,
     required executeJS,
@@ -22,25 +25,36 @@ class T_Fields extends T_Widget {
 
   Widget _computeFields(Map<String, dynamic>? children, BuildContext context) {
     String? fieldType = widgetProps["fieldType"];
+    String? name = widgetProps["name"];
+    if (name == null) throw Exception("Field have to have'name' props");
+
+    void _debounceTextChanged(String? text) {
+      if (_debounce?.isActive ?? false) _debounce?.cancel();
+      _debounce = Timer(const Duration(milliseconds: 300), () {
+        setPageData({name: text});
+      });
+    }
+
     switch (fieldType) {
       case "text":
         return FormBuilderTextField(
-          name: 'age',
+          name: name,
           decoration: const InputDecoration(
             labelText: 'Required field number, with 10 chars max',
           ),
-          onChanged: (nextValue) {},
+          onChanged: (text) {
+            _debounceTextChanged(text);
+          },
           onEditingComplete: () {
             log("onEditingComplete");
           },
-
           // valueTransformer: (text) => num.tryParse(text),
           validator: FormBuilderValidators.compose([
             FormBuilderValidators.required(errorText: "Required field"),
             FormBuilderValidators.numeric(errorText: "Number field"),
             FormBuilderValidators.max(10, errorText: "Only 10 character!"),
           ]),
-          keyboardType: TextInputType.number,
+          keyboardType: TextInputType.text,
         );
       default:
         throw Exception("$fieldType field type is not supported!");

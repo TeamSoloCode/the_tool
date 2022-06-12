@@ -18,10 +18,9 @@ import 'package:the_tool/tool_components/t_scrollview_widget.dart';
 import 'package:the_tool/tool_components/t_text_widget.dart';
 import 'package:the_tool/utils.dart';
 
-class T_Widgets extends StatelessWidget {
+class T_Widgets extends StatefulWidget {
   final Map<String, dynamic> layout;
   final String pagePath;
-  UtilsManager utils = getIt<UtilsManager>();
   Map<String, dynamic> contextData;
 
   T_Widgets(
@@ -31,22 +30,29 @@ class T_Widgets extends StatelessWidget {
       required this.contextData})
       : super(key: key);
 
+  @override
+  State<T_Widgets> createState() => _T_WidgetsState();
+}
+
+class _T_WidgetsState extends State<T_Widgets> {
+  UtilsManager utils = getIt<UtilsManager>();
+
   Future<void> executeJSWithPagePath(String jsCode) async {
-    await utils.evalJS.executeJS(jsCode, pagePath);
+    await utils.evalJS.executeJS(jsCode, widget.pagePath);
   }
 
   String? parseColor(String? rawColor) {
     if (rawColor != null && utils.isValueBinding(rawColor)) {
       return StyleUtils.getCssStringWithContextData(
         rawColor,
-        contextData,
+        widget.contextData,
       );
     }
     return rawColor;
   }
 
   Widget _getWidget(Map<String, dynamic> contextData, BuildContext context) {
-    Map<String, dynamic> content = layout["content"] ?? layout;
+    Map<String, dynamic> content = widget.layout["content"] ?? widget.layout;
 
     var hidden = utils.bindingValueToProp(
       contextData,
@@ -97,7 +103,7 @@ class T_Widgets extends StatelessWidget {
         return T_Row(
           executeJS: executeJSWithPagePath,
           widgetProps: finalWidgetProps,
-          pageName: pagePath,
+          pageName: widget.pagePath,
           contextData: contextData,
         );
       case "block":
@@ -110,21 +116,21 @@ class T_Widgets extends StatelessWidget {
         return T_Container(
           executeJS: executeJSWithPagePath,
           widgetProps: finalWidgetProps,
-          pageName: pagePath,
+          pageName: widget.pagePath,
           contextData: contextData,
         );
       case "column":
         return T_Column(
           executeJS: executeJSWithPagePath,
           widgetProps: finalWidgetProps,
-          pageName: pagePath,
+          pageName: widget.pagePath,
           contextData: contextData,
         );
       case "scroll_view":
         return T_ScrollView(
           executeJS: executeJSWithPagePath,
           widgetProps: finalWidgetProps,
-          pageName: pagePath,
+          pageName: widget.pagePath,
           contextData: contextData,
         );
       case "field":
@@ -140,7 +146,7 @@ class T_Widgets extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var contextData = context.watch<ContextStateProvider>().contextData;
-    return _getWidget(contextData[pagePath] ?? {}, context);
+    var contextData = context.read<ContextStateProvider>().contextData;
+    return _getWidget(contextData[widget.pagePath] ?? {}, context);
   }
 }

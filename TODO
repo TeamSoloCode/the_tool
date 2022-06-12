@@ -2,11 +2,13 @@ Support for basic input field and form
 
 #-------------------------------------------------
 
+Reduce rerendering of all t_widgets
 Support more dynamic props (RequestOptions) for fetchData function in api_client.dart
 Support set key and dynamic key for all t_widget
 Move theme json and config json to server
 Add refresh page button for development mode
 
+Support get data from exportPageContext
 Split widget with Deferred components
 Move base react component , app.js, vender.js and js-module to server
 Support asking/granting permission
