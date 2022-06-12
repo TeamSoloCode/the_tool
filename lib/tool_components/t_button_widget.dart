@@ -27,14 +27,12 @@ class T_Button extends T_Widget {
       widgetProps["text"],
     );
 
-    var onClick = () {
-      return () async {
-        var rawOnClick = widgetProps["onClick"];
-        if (rawOnClick is String) {
-          await executeJS(rawOnClick);
-        }
-      };
-    }();
+    onClick() async {
+      var rawOnClick = widgetProps["onClick"];
+      if (rawOnClick is String) {
+        await executeJS(rawOnClick);
+      }
+    }
 
     if (buttonType == "icon_button") {
       return IconButton(
@@ -50,7 +48,6 @@ class T_Button extends T_Widget {
       );
     } else {
       return ElevatedButton(
-        key: Key("123"),
         child: Text(
           text,
         ),

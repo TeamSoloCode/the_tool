@@ -18,7 +18,7 @@ void main() async {
   getIt.registerSingleton<UtilsManager>(UtilsManager(), signalsReady: true);
   getIt.registerSingleton<StorageManager>(StorageManager(), signalsReady: true);
   getIt.registerSingleton<APIClientManager>(
-    const APIClientManager(),
+    APIClientManager(),
     signalsReady: true,
   );
   getIt.registerSingleton<ContextStateProvider>(

@@ -214,7 +214,7 @@ class ThemeProvider with ChangeNotifier {
       return widgetProps;
     }
 
-    var updateWidgetProps = (
+    updateWidgetProps(
       Map<dynamic, dynamic> classData,
       String className,
     ) {
@@ -223,7 +223,7 @@ class ThemeProvider with ChangeNotifier {
       } else {
         log("Warning: Class $className is not exist !");
       }
-    };
+    }
 
     if (className is String) {
       updateWidgetProps(classes?[className], className);

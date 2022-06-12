@@ -46,6 +46,7 @@ dependencies:
   flutter_spinkit: ^5.1.0
   json_theme: ^4.0.0+1
   flutter_form_builder: ^7.2.1
+  pretty_dio_logger: ^1.1.1
   # Use this to create healess chrome to run js on window/macos/linux
   puppeteer: ^2.9.0
 
