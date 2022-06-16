@@ -10,30 +10,28 @@ class APIClientManager {
   final Dio _dio = Dio();
 
   APIClientManager() : super() {
-    _dio.interceptors.add(PrettyDioLogger(
-      logPrint: (object) {
-        log("$object");
-      },
-      requestHeader: false,
-      requestBody: false,
-      responseBody: false,
-      responseHeader: false,
-      error: true,
-      compact: true,
-      maxWidth: 90,
-    ));
+    // _dio.interceptors.add(PrettyDioLogger(
+    //   logPrint: (object) {
+    //     log("$object");
+    //   },
+    //   requestHeader: false,
+    //   requestBody: false,
+    //   responseBody: false,
+    //   responseHeader: false,
+    //   error: true,
+    //   compact: true,
+    //   maxWidth: 90,
+    // ));
   }
 
-  Future<dynamic> fetchData({required String path}) async {
+  Future<dynamic> fetchData({required RequestOptions requestOptions}) async {
+    String path = requestOptions.path;
+
     if (path.contains("localhost")) {
       path = path.replaceFirst("localhost", host);
     }
 
-    RequestOptions requestOptions = RequestOptions(
-      path: path,
-    );
-
-    var response = await _dio.fetch(requestOptions);
+    var response = await _dio.fetch(requestOptions.copyWith(path: path));
 
     return {
       "data": response.data,

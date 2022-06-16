@@ -7,6 +7,7 @@ import 'dart:convert';
 
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/t_widget_interface/BottomNavProps.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
@@ -30,7 +31,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
   bool _isReadyToRun = false;
 
   late UtilsManager utils;
-  late List<Widget> _pages;
+  List<Widget> _pages = [];
 
   int _selectedBottomNavIndex = 0;
   var _customAppBar;
@@ -58,6 +59,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
+  ThemeMode? prevThemeMode;
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -79,6 +81,8 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
       );
     }
 
+    var currentThemeMode = context.read<ThemeProvider>().currentThemeMode;
+
     log("Update page: ${widget.pagePath} $pageData");
 
     return Scaffold(
@@ -90,9 +94,11 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
         pageData,
         _bottomNavBar,
       ),
-      body: _getSelectedPage(
-        pageData,
-        _selectedBottomNavIndex,
+      body: SafeArea(
+        child: _getSelectedPage(
+          pageData,
+          _selectedBottomNavIndex,
+        ),
       ),
     );
   }
@@ -115,10 +121,9 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     );
     var layout = pageInfo["layout"];
 
-    _pageLayout.addAll(jsonDecode(layout));
+    _pageLayout.addAll(layout);
     _customAppBar = gato.get(_pageLayout, "appBar");
     _bottomNavBar = gato.get(_pageLayout, "bottomNav");
-    _pages = _computeBottomNavigationPages(_bottomNavBar);
   }
 
   Widget _getSelectedPage(
@@ -132,6 +137,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
         contextData: contextData,
       );
     }
+    _pages = _computeBottomNavigationPages(_bottomNavBar);
     return _pages.elementAt(selectedBottomNavIndex);
   }
 

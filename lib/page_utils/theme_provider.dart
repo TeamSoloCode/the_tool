@@ -98,7 +98,6 @@ class ThemeProvider with ChangeNotifier {
           textTheme: defaultTextTheme.merge(textTheme),
         );
       }
-
       return _themeData;
     } catch (e) {
       rethrow;

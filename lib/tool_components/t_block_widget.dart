@@ -6,8 +6,6 @@ import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/utils.dart';
 
 class T_Block extends T_Widget {
-  UtilsManager utils = getIt<UtilsManager>();
-
   T_Block({
     Key? key,
     required executeJS,
@@ -21,8 +19,13 @@ class T_Block extends T_Widget {
         );
 
   @override
+  State<T_Block> createState() => _T_BlockState();
+}
+
+class _T_BlockState extends State<T_Block> {
+  @override
   Widget build(BuildContext context) {
-    var path = widgetProps["path"];
+    var path = widget.widgetProps["path"];
     return T_Page(pagePath: path);
   }
 }

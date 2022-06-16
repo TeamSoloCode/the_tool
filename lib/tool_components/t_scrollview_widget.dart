@@ -19,12 +19,17 @@ class T_ScrollView extends T_Widget {
           contextData: contextData,
         );
 
+  @override
+  State<T_ScrollView> createState() => _T_ScrollViewState();
+}
+
+class _T_ScrollViewState extends State<T_ScrollView> {
   List<Widget> _computeChildren(List<dynamic>? children) {
     return (children ?? []).map((child) {
       return T_Widgets(
         layout: child,
-        pagePath: pageName,
-        contextData: contextData,
+        pagePath: widget.pageName,
+        contextData: widget.contextData,
       );
     }).toList();
   }
@@ -32,7 +37,7 @@ class T_ScrollView extends T_Widget {
   @override
   Widget build(BuildContext context) {
     const Key centerKey = ValueKey<String>('bottom-sliver-list');
-    var items = _computeChildren(widgetProps["children"]);
+    var items = _computeChildren(widget.widgetProps["children"]);
 
     return CustomScrollView(
       slivers: [

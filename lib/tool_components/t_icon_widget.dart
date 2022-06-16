@@ -22,8 +22,13 @@ class T_Icon extends T_Widget {
         );
 
   @override
+  State<T_Icon> createState() => _T_IconState();
+}
+
+class _T_IconState extends State<T_Icon> {
+  @override
   Widget build(BuildContext context) {
-    var path = widgetProps["icon"];
+    var path = widget.widgetProps["icon"];
     return Icon(MdiIcons.fromString(path));
   }
 }

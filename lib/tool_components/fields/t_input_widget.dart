@@ -23,15 +23,22 @@ class T_Fields extends T_Widget {
           contextData: contextData,
         );
 
-  Widget _computeFields(Map<String, dynamic>? children, BuildContext context) {
-    String? fieldType = widgetProps["fieldType"];
+  @override
+  State<T_Fields> createState() => _T_FieldsState();
+}
+
+class _T_FieldsState extends State<T_Fields> {
+  Widget _computeFields(
+      Map<String, dynamic>? widgetProps, BuildContext context) {
+    String? fieldType = widgetProps!["fieldType"];
     String? name = widgetProps["name"];
     if (name == null) throw Exception("Field have to have'name' props");
+    Timer? _debounce = widget._debounce;
 
     void _debounceTextChanged(String? text) {
       if (_debounce?.isActive ?? false) _debounce?.cancel();
       _debounce = Timer(const Duration(milliseconds: 300), () {
-        setPageData({name: text});
+        widget.setPageData({name: text});
       });
     }
 
@@ -39,6 +46,7 @@ class T_Fields extends T_Widget {
       case "text":
         return FormBuilderTextField(
           name: name,
+
           decoration: const InputDecoration(
             labelText: 'Required field number, with 10 chars max',
           ),
@@ -63,6 +71,6 @@ class T_Fields extends T_Widget {
 
   @override
   Widget build(BuildContext context) {
-    return _computeFields(widgetProps, context);
+    return _computeFields(widget.widgetProps, context);
   }
 }

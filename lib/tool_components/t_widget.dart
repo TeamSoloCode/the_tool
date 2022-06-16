@@ -3,7 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
-abstract class T_Widget extends StatelessWidget {
+abstract class T_Widget extends StatefulWidget {
   Future<void> Function(String js) executeJS;
   Map<String, dynamic> widgetProps;
   Map<String, dynamic> contextData;

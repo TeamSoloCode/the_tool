@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
@@ -6,7 +8,7 @@ import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/utils.dart';
 
 class T_Button extends T_Widget {
-  UtilsManager utils = getIt<UtilsManager>();
+  final UtilsManager utils = getIt<UtilsManager>();
 
   T_Button({
     Key? key,
@@ -20,17 +22,24 @@ class T_Button extends T_Widget {
           contextData: contextData,
         );
 
+  @override
+  State<T_Button> createState() => _T_ButtonState();
+}
+
+class _T_ButtonState extends State<T_Button> {
   Widget _computeButton() {
+    var widgetProps = widget.widgetProps;
+
     String? buttonType = widgetProps["buttonType"];
-    String text = utils.bindingValueToText(
-      contextData,
+    String text = widget.utils.bindingValueToText(
+      widget.contextData,
       widgetProps["text"],
     );
 
     onClick() async {
       var rawOnClick = widgetProps["onClick"];
       if (rawOnClick is String) {
-        await executeJS(rawOnClick);
+        await widget.executeJS(rawOnClick);
       }
     }
 

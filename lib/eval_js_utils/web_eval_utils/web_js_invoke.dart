@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'dart:js' as js;
 import 'dart:js_util' as js_util;
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:js/js.dart';
 import 'package:the_tool/api_client.dart';
@@ -91,7 +92,11 @@ void _fetchData(String path) {
 }
 
 void _emitDataResponseEvent(String path) async {
-  var res = (await getIt<APIClientManager>().fetchData(path: path));
+  RequestOptions requestOptions = RequestOptions(path: path);
+  var res = await getIt<APIClientManager>().fetchData(
+    requestOptions: requestOptions,
+  );
+
   js.context.callMethod("__ondataresponse", [
     json.encode({"err": null, "message": "", "response": res})
   ]);

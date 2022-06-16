@@ -2,6 +2,7 @@ library mobile_js_invoke;
 
 import 'dart:developer';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:provider/provider.dart';
@@ -73,7 +74,10 @@ void registerJavascriptHandler(
   webViewController?.addJavaScriptHandler(
     handlerName: "fetch_data",
     callback: (args) async {
-      return await getIt<APIClientManager>().fetchData(path: args[0]);
+      RequestOptions requestOptions = RequestOptions(path: args[0]);
+      return await getIt<APIClientManager>().fetchData(
+        requestOptions: requestOptions,
+      );
     },
   );
 }

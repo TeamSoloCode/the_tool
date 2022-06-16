@@ -1,12 +1,12 @@
-Support for basic input field and form
+Reduce rerendering of all t_widgets
 
 #-------------------------------------------------
 
-Reduce rerendering of all t_widgets
 Support more dynamic props (RequestOptions) for fetchData function in api_client.dart
 Support set key and dynamic key for all t_widget
 Move theme json and config json to server
 Add refresh page button for development mode
+Support route (web)
 
 Support get data from exportPageContext
 Split widget with Deferred components
@@ -27,3 +27,4 @@ Support build mode (development/production) in context page data
 -Make sure the response data from dart to js have have all information about the req and res
 -Make sure can return data when call dart from js (web)
 -Fix bug setPageData clear data when call on multi place
+-Support for basic input field and form

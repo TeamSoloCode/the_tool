@@ -68,7 +68,6 @@ class _T_WidgetsState extends State<T_Widgets> {
         themeProvider.mergeClasses(content, contextData);
 
     var finalWidgetProps = widgetProps;
-
     finalWidgetProps["color"] = parseColor(finalWidgetProps["color"]);
     finalWidgetProps["backgroundColor"] =
         parseColor(finalWidgetProps["backgroundColor"]);

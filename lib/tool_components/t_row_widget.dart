@@ -19,12 +19,17 @@ class T_Row extends T_Widget {
           contextData: contextData,
         );
 
+  @override
+  State<T_Row> createState() => _T_RowState();
+}
+
+class _T_RowState extends State<T_Row> {
   List<Widget> _computeChildren(List<Map<String, dynamic>>? children) {
     return (children ?? []).map((child) {
       return T_Widgets(
         layout: child,
-        pagePath: pageName,
-        contextData: contextData,
+        pagePath: widget.pageName,
+        contextData: widget.contextData,
       );
     }).toList();
   }
@@ -32,7 +37,7 @@ class T_Row extends T_Widget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: _computeChildren(widgetProps["children"]),
+      children: _computeChildren(widget.widgetProps["children"]),
     );
   }
 }
