@@ -1,18 +1,10 @@
 import 'dart:developer';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:from_css_color/from_css_color.dart';
 import 'package:json_theme/json_theme.dart';
-import 'package:provider/provider.dart';
-import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/should_update.widget.dart';
-import 'package:the_tool/page_utils/style_utils.dart';
-import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
-import 'package:gato/gato.dart' as gato;
-import 'package:the_tool/utils.dart';
-import 'package:collection/collection.dart' as col;
+import 'package:collection/collection.dart' show DeepCollectionEquality;
 
 class T_Text extends T_Widget {
   T_Text({
@@ -35,31 +27,16 @@ class _T_TextState extends State<T_Text> {
   var oldText = "";
   var text = "";
 
-  Map<String, dynamic> prevFinalWidgetProps = {};
+  Map<String, dynamic> prevWidgetProps = {};
   Map<String, dynamic> finalWidgetProps = {};
 
   bool shouldWidgetUpdate() {
-    UtilsManager utils = getIt<UtilsManager>();
-
     finalWidgetProps = widget.widgetProps;
 
-    text = utils.bindingValueToText(
-      widget.contextData,
-      gato.get(finalWidgetProps, "text"),
+    var shouldUpdate = !const DeepCollectionEquality().equals(
+      prevWidgetProps,
+      finalWidgetProps,
     );
-
-    var shouldUpdate = text != oldText ||
-        !const col.DeepCollectionEquality().equals(
-          prevFinalWidgetProps,
-          finalWidgetProps,
-        );
-
-    if (shouldUpdate) {
-      log("ShouldWidgetUpdate $oldText => $text ${!const col.DeepCollectionEquality().equals(
-        prevFinalWidgetProps,
-        finalWidgetProps,
-      )}");
-    }
 
     return shouldUpdate;
   }
@@ -68,11 +45,14 @@ class _T_TextState extends State<T_Text> {
   Widget build(BuildContext context) {
     return ShouldWidgetUpdate(
       builder: (context) {
-        oldText = text;
-        prevFinalWidgetProps = finalWidgetProps;
+        prevWidgetProps = finalWidgetProps;
 
+        assert(
+          shouldWidgetUpdate() == false,
+          "shouldWidgetUpdate should be false after build new project",
+        );
         return Text(
-          text,
+          finalWidgetProps["text"],
           style: ThemeDecoder.decodeTextStyle(finalWidgetProps),
         );
       },

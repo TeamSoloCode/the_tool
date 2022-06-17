@@ -2,8 +2,10 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart'
+    show FormBuilderTextField;
+import 'package:form_builder_validators/form_builder_validators.dart'
+    show FormBuilderValidators;
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/utils.dart';
 

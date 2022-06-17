@@ -124,7 +124,7 @@ class APIClientManager {
         },
       );
     } catch (e) {
-      rethrow;
+      throw Exception(e.toString());
     }
   }
 }

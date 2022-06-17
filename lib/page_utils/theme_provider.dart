@@ -232,11 +232,16 @@ class ThemeProvider with ChangeNotifier {
           updateWidgetProps(classes?[cls], cls);
         } else if (cls is Map) {
           cls.forEach((classname, value) {
-            var result = _utils.bindingValueToProp(
-              contextData,
-              value,
-            );
-            if (result != false && result != null) {
+            var result = value;
+
+            if (_utils.isValueBinding(value)) {
+              result = _utils.bindingValueToProp(
+                contextData,
+                value,
+              );
+            }
+
+            if (!UtilsManager.isFalsy(result)) {
               updateWidgetProps(classes?[classname], classname);
             }
           });

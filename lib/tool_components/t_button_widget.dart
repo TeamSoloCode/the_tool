@@ -1,11 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:provider/provider.dart';
-import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:the_tool/page_utils/should_update.widget.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/utils.dart';
+import 'package:collection/collection.dart' show DeepCollectionEquality;
 
 class T_Button extends T_Widget {
   final UtilsManager utils = getIt<UtilsManager>();
@@ -27,13 +25,29 @@ class T_Button extends T_Widget {
 }
 
 class _T_ButtonState extends State<T_Button> {
-  Widget _computeButton() {
-    var widgetProps = widget.widgetProps;
+  Map<String, dynamic> prevWidgetProps = {};
+  Map<String, dynamic> widgetProps = {};
 
+  bool shouldWidgetUpdate() {
+    widgetProps = widget.widgetProps;
+
+    var shouldUpdate = !const DeepCollectionEquality().equals(
+      prevWidgetProps,
+      widgetProps,
+    );
+
+    return shouldUpdate;
+  }
+
+  Widget _computeButton() {
     String? buttonType = widgetProps["buttonType"];
-    String text = widget.utils.bindingValueToText(
-      widget.contextData,
-      widgetProps["text"],
+
+    String text = widgetProps["text"];
+    prevWidgetProps = widgetProps;
+
+    assert(
+      shouldWidgetUpdate() == false,
+      "shouldWidgetUpdate should be false after build new project",
     );
 
     onClick() async {
@@ -67,6 +81,11 @@ class _T_ButtonState extends State<T_Button> {
 
   @override
   Widget build(BuildContext context) {
-    return _computeButton();
+    return ShouldWidgetUpdate(
+      builder: (context) {
+        return _computeButton();
+      },
+      shouldWidgetUpdate: shouldWidgetUpdate(),
+    );
   }
 }

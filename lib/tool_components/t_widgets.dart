@@ -63,72 +63,61 @@ class _T_WidgetsState extends State<T_Widgets> {
       return const SizedBox.shrink();
     }
 
-    var themeProvider = context.read<ThemeProvider>();
-    Map<String, dynamic> widgetProps =
-        themeProvider.mergeClasses(content, contextData);
-
-    var finalWidgetProps = widgetProps;
-    finalWidgetProps["color"] = parseColor(finalWidgetProps["color"]);
-    finalWidgetProps["backgroundColor"] =
-        parseColor(finalWidgetProps["backgroundColor"]);
-    finalWidgetProps = themeProvider.mergeBaseColor(finalWidgetProps);
-    // FIXME: xxxx
-    finalWidgetProps = json.decode(
-      json.encode(ThemeProvider.transformColorFromCSS(
-        finalWidgetProps,
-      )),
+    Map<String, dynamic> widgetProps = _computeWidgetProps(
+      content,
+      contextData,
     );
 
     switch (gato.get(content, "type")) {
       case "text":
         return T_Text(
           executeJS: executeJSWithPagePath,
-          widgetProps: finalWidgetProps,
+          widgetProps: widgetProps,
           contextData: contextData,
         );
       case "button":
         return T_Button(
           executeJS: executeJSWithPagePath,
-          widgetProps: finalWidgetProps,
+          widgetProps: widgetProps,
           contextData: contextData,
         );
       case "icon":
         return T_Icon(
           executeJS: executeJSWithPagePath,
-          widgetProps: finalWidgetProps,
+          widgetProps: widgetProps,
           contextData: contextData,
         );
       case "row":
         return T_Row(
           executeJS: executeJSWithPagePath,
-          widgetProps: finalWidgetProps,
+          widgetProps: widgetProps,
           pageName: widget.pagePath,
           contextData: contextData,
         );
       case "block":
         return T_Block(
           executeJS: executeJSWithPagePath,
-          widgetProps: finalWidgetProps,
+          widgetProps: widgetProps,
           contextData: contextData,
         );
       case "container":
         return T_Container(
           executeJS: executeJSWithPagePath,
-          widgetProps: finalWidgetProps,
+          widgetProps: widgetProps,
           pageName: widget.pagePath,
           contextData: contextData,
         );
       case "column":
         return T_Column(
           executeJS: executeJSWithPagePath,
-          widgetProps: finalWidgetProps,
+          widgetProps: widgetProps,
           pageName: widget.pagePath,
           contextData: contextData,
         );
       case "scroll_view":
         return T_ScrollView(
           executeJS: executeJSWithPagePath,
-          widgetProps: finalWidgetProps,
+          widgetProps: widgetProps,
           pageName: widget.pagePath,
           contextData: contextData,
         );
@@ -147,5 +136,33 @@ class _T_WidgetsState extends State<T_Widgets> {
   Widget build(BuildContext context) {
     var contextData = context.read<ContextStateProvider>().contextData;
     return _getWidget(contextData[widget.pagePath] ?? {}, context);
+  }
+
+  Map<String, dynamic> _computeWidgetProps(
+    Map<String, dynamic> content,
+    Map<String, dynamic> contextData,
+  ) {
+    var themeProvider = context.read<ThemeProvider>();
+    Map<String, dynamic> widgetProps =
+        themeProvider.mergeClasses(content, contextData);
+
+    widgetProps["color"] = parseColor(widgetProps["color"]);
+    widgetProps["backgroundColor"] = parseColor(widgetProps["backgroundColor"]);
+    widgetProps = themeProvider.mergeBaseColor(widgetProps);
+    if (widgetProps["text"] != null) {
+      widgetProps["text"] = utils.bindingValueToText(
+        widget.contextData,
+        gato.get(widgetProps, "text"),
+      );
+    }
+
+    // FIXME: xxxx
+    widgetProps = json.decode(
+      json.encode(ThemeProvider.transformColorFromCSS(
+        widgetProps,
+      )),
+    );
+
+    return widgetProps;
   }
 }
