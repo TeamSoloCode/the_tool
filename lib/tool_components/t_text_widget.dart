@@ -12,6 +12,7 @@ import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:gato/gato.dart' as gato;
 import 'package:the_tool/utils.dart';
+import 'package:collection/collection.dart' as col;
 
 class T_Text extends T_Widget {
   T_Text({
@@ -48,16 +49,16 @@ class _T_TextState extends State<T_Text> {
     );
 
     var shouldUpdate = text != oldText ||
-        !mapEquals(
+        !const col.DeepCollectionEquality().equals(
           prevFinalWidgetProps,
           finalWidgetProps,
         );
 
     if (shouldUpdate) {
-      log("ShouldWidgetUpdate $oldText => $text ${!mapEquals(
+      log("ShouldWidgetUpdate $oldText => $text ${!const col.DeepCollectionEquality().equals(
         prevFinalWidgetProps,
         finalWidgetProps,
-      )}, $prevFinalWidgetProps $finalWidgetProps");
+      )}");
     }
 
     return shouldUpdate;

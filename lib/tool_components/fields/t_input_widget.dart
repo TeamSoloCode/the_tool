@@ -46,7 +46,6 @@ class _T_FieldsState extends State<T_Fields> {
       case "text":
         return FormBuilderTextField(
           name: name,
-
           decoration: const InputDecoration(
             labelText: 'Required field number, with 10 chars max',
           ),

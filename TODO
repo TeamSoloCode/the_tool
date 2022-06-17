@@ -1,5 +1,4 @@
-Reduce rerendering of all t_widgets
-
+The props when pass into t_widget still not totally binding
 #-------------------------------------------------
 
 Support more dynamic props (RequestOptions) for fetchData function in api_client.dart
@@ -12,12 +11,14 @@ Support get data from exportPageContext
 Split widget with Deferred components
 Move base react component , app.js, vender.js and js-module to server
 Support asking/granting permission
-Support for basic on LiverAppBar, LiverGrid
+Support for basic on SliverAppBar, SliverGrid
 Support common json widget on layout.json
 Support get and merge layout.json from another layout.json
 Support config UI base on platform in layout.json
 Support config theme base on platform in theme.json
 Support build mode (development/production) in context page data
+Exclude WebView from web build
+Use dart2js to support lazy loading for web
 
 #-------------------------------------------------
 
@@ -28,3 +29,5 @@ Support build mode (development/production) in context page data
 -Make sure can return data when call dart from js (web)
 -Fix bug setPageData clear data when call on multi place
 -Support for basic input field and form
+-Reduce rerendering of all t_widgets
+-Fix mapEqual in ShouldWidgetUpdate , it not compare to map properly
