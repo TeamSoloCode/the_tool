@@ -144,7 +144,7 @@ class _PageContainerState extends State<PageContainer> {
     routesConfig.forEach((routeConfig) {
       String path = routeConfig['path'];
       routes.addAll({
-        path: (context) => T_Page(pagePath: path),
+        "/$path": (context) => T_Page(pagePath: path),
       });
     });
 
@@ -154,6 +154,7 @@ class _PageContainerState extends State<PageContainer> {
   String _getInitialPage() {
     var config = context.read<ContextStateProvider>().appConfig;
     String? initialPage = gato.get(config, "initialPage");
+    print("initialPage $initialPage");
     if (initialPage == null || initialPage == "") {
       setState(() {
         _errorMessage = "Missing initial page path in config";

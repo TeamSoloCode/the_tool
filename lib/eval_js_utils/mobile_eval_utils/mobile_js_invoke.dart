@@ -43,7 +43,7 @@ void registerJavascriptHandler(
       String routeName = navigateData["pagePath"];
       Map<String, dynamic> pageArguments = navigateData["pageArguments"];
 
-      Navigator.of(context).pushNamed(routeName, arguments: pageArguments);
+      Navigator.of(context).pushNamed("/$routeName", arguments: pageArguments);
     },
   );
 

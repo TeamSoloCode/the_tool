@@ -30,9 +30,11 @@ class T_Container extends T_Widget {
 class _T_ContainerState extends State<T_Container> {
   @override
   Widget build(BuildContext context) {
+    var cssColor = widget.widgetProps["backgroundColor"];
+    Color? color = cssColor != null ? fromCssColor(cssColor) : null;
     return Container(
       key: widget.getBindingKey(),
-      color: fromCssColor(widget.widgetProps["backgroundColor"]),
+      color: color,
       child: T_Widgets(
         layout: widget.widgetProps["child"] ?? {},
         pagePath: widget.pageName,

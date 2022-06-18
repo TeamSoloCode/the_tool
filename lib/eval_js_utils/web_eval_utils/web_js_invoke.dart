@@ -80,7 +80,7 @@ void _setState(String dataAsString, Function? callback) {
 
 void _navigator(String routeName, String pageArguments) {
   Map<String, dynamic> arguments = json.decode(pageArguments);
-  Navigator.of(_context).pushNamed(routeName, arguments: arguments);
+  Navigator.of(_context).pushNamed("/$routeName", arguments: arguments);
 }
 
 void _toogleChangeTheme(String args) {

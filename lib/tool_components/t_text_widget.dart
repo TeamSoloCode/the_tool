@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/page_utils/should_update.widget.dart';
@@ -52,6 +53,13 @@ class _T_TextState extends State<T_Text> {
           shouldWidgetUpdate() == false,
           "shouldWidgetUpdate should be false after build new project",
         );
+
+        if (kIsWeb) {
+          return SelectableText(
+            finalWidgetProps["text"],
+            style: ThemeDecoder.decodeTextStyle(finalWidgetProps),
+          );
+        }
 
         return Text(
           finalWidgetProps["text"],
