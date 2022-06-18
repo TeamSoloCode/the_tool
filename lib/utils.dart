@@ -10,7 +10,7 @@ GetIt getIt = GetIt.instance;
 
 class UtilsManager {
   Map<String, String> _staticContent = {};
-  var regexPattern = RegExp(r"[^{{\}}]+(?=}})");
+  static final regexPattern = RegExp(r"[^{{\}}]+(?=}})");
   late EvalJS _evalJS;
 
   UtilsManager() : super() {}
@@ -39,9 +39,9 @@ class UtilsManager {
 
   get staticContent => _staticContent;
 
-  bool isValueBinding(String? value) {
+  static bool isValueBinding(String? value) {
     if (value == null) return false;
-    var match = regexPattern.firstMatch(value);
+    var match = UtilsManager.regexPattern.firstMatch(value);
 
     if (match != null) {
       return true;
@@ -50,7 +50,7 @@ class UtilsManager {
     return false;
   }
 
-  String bindingValueToText(
+  static String bindingValueToText(
     Map<String, dynamic> pageContextData,
     String? text,
   ) {
@@ -60,8 +60,8 @@ class UtilsManager {
     }
 
     var computedText = text;
-    regexPattern.allMatches(text).forEach((element) {
-      var match = regexPattern.firstMatch(computedText);
+    UtilsManager.regexPattern.allMatches(text).forEach((element) {
+      var match = UtilsManager.regexPattern.firstMatch(computedText);
 
       if (match != null) {
         String bindingField = computedText
@@ -89,7 +89,7 @@ class UtilsManager {
     return computedText;
   }
 
-  dynamic bindingValueToProp(
+  static dynamic bindingValueToProp(
     Map<String, dynamic> pageContextData,
     dynamic propValue,
   ) {
@@ -97,8 +97,8 @@ class UtilsManager {
     if (!isValueBinding(propValue)) return propValue;
 
     dynamic computedValue = propValue;
-    regexPattern.allMatches(propValue).forEach((element) {
-      var match = regexPattern.firstMatch(computedValue);
+    UtilsManager.regexPattern.allMatches(propValue).forEach((element) {
+      var match = UtilsManager.regexPattern.firstMatch(computedValue);
 
       if (match != null) {
         String bindingField = computedValue

@@ -44,7 +44,6 @@ abstract class BaseEvalJS {
 
           // To prevent multi call when pageData not update yet
           pageData = nextData;
-          console.log(JSON.stringify({..._contextData['$pagePath'], ...nextData}))
           setContextData({
             ['$pagePath']: {..._contextData['$pagePath'], ...nextData}
           })

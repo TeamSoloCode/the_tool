@@ -44,6 +44,7 @@ class _T_TextState extends State<T_Text> {
   @override
   Widget build(BuildContext context) {
     return ShouldWidgetUpdate(
+      key: widget.getBindingKey(),
       builder: (context) {
         prevWidgetProps = finalWidgetProps;
 
@@ -51,6 +52,7 @@ class _T_TextState extends State<T_Text> {
           shouldWidgetUpdate() == false,
           "shouldWidgetUpdate should be false after build new project",
         );
+
         return Text(
           finalWidgetProps["text"],
           style: ThemeDecoder.decodeTextStyle(finalWidgetProps),

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:json_theme/json_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/style_utils.dart';
@@ -42,7 +43,7 @@ class _T_WidgetsState extends State<T_Widgets> {
   }
 
   String? parseColor(String? rawColor) {
-    if (rawColor != null && utils.isValueBinding(rawColor)) {
+    if (rawColor != null && UtilsManager.isValueBinding(rawColor)) {
       return StyleUtils.getCssStringWithContextData(
         rawColor,
         widget.contextData,
@@ -54,7 +55,7 @@ class _T_WidgetsState extends State<T_Widgets> {
   Widget _getWidget(Map<String, dynamic> contextData, BuildContext context) {
     Map<String, dynamic> content = widget.layout["content"] ?? widget.layout;
 
-    var hidden = utils.bindingValueToProp(
+    var hidden = UtilsManager.bindingValueToProp(
       contextData,
       content["hidden"],
     );
@@ -146,11 +147,25 @@ class _T_WidgetsState extends State<T_Widgets> {
     Map<String, dynamic> widgetProps =
         themeProvider.mergeClasses(content, contextData);
 
-    widgetProps["color"] = parseColor(widgetProps["color"]);
-    widgetProps["backgroundColor"] = parseColor(widgetProps["backgroundColor"]);
+    if (widgetProps["color"] != null) {
+      widgetProps["color"] = parseColor(widgetProps["color"]);
+    }
+    if (widgetProps["backgroundColor"] != null) {
+      widgetProps["backgroundColor"] =
+          parseColor(widgetProps["backgroundColor"]);
+    }
     widgetProps = themeProvider.mergeBaseColor(widgetProps);
+
+    if (widgetProps["icon"] != null &&
+        UtilsManager.isValueBinding(widgetProps["icon"])) {
+      widgetProps["icon"] = UtilsManager.bindingValueToText(
+        contextData,
+        widgetProps["icon"],
+      );
+    }
+
     if (widgetProps["text"] != null) {
-      widgetProps["text"] = utils.bindingValueToText(
+      widgetProps["text"] = UtilsManager.bindingValueToText(
         widget.contextData,
         gato.get(widgetProps, "text"),
       );

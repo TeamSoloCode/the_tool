@@ -82,6 +82,7 @@ class _T_ButtonState extends State<T_Button> {
   @override
   Widget build(BuildContext context) {
     return ShouldWidgetUpdate(
+      key: widget.getBindingKey(),
       builder: (context) {
         return _computeButton();
       },
