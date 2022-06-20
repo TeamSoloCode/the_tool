@@ -9,19 +9,21 @@ abstract class T_Widget extends StatefulWidget {
   Map<String, dynamic> widgetProps;
   Map<String, dynamic> contextData;
   final String? pageName;
+  UtilsManager _utils = getIt<UtilsManager>();
 
-  T_Widget(
-      {Key? key,
-      required this.executeJS,
-      required this.widgetProps,
-      required this.contextData,
-      this.pageName});
+  T_Widget({
+    Key? key,
+    required this.executeJS,
+    required this.widgetProps,
+    required this.contextData,
+    this.pageName,
+  });
 
   Key? getBindingKey() {
     var rawKey = widgetProps["key"];
     if (rawKey == null) return null;
     if (UtilsManager.isValueBinding(rawKey)) {
-      var bindingValue = UtilsManager.bindingValueToText(contextData, rawKey);
+      var bindingValue = _utils.bindingValueToText(contextData, rawKey);
       return Key(bindingValue);
     } else if (rawKey is String) {
       return Key(rawKey);
@@ -30,8 +32,8 @@ abstract class T_Widget extends StatefulWidget {
     return null;
   }
 
-  void setPageData(Map<String, dynamic> newData) {
-    executeJS(
+  Future<void> setPageData(Map<String, dynamic> newData) async {
+    await executeJS(
       "setPageData(JSON.parse('${json.encode(newData)}'));",
     );
   }

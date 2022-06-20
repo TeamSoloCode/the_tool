@@ -50,7 +50,7 @@ class UtilsManager {
     return false;
   }
 
-  static String bindingValueToText(
+  String bindingValueToText(
     Map<String, dynamic> pageContextData,
     String? text,
   ) {
@@ -89,7 +89,7 @@ class UtilsManager {
     return computedText;
   }
 
-  static dynamic bindingValueToProp(
+  dynamic bindingValueToProp(
     Map<String, dynamic> pageContextData,
     dynamic propValue,
   ) {

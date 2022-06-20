@@ -1,7 +1,7 @@
-Support get data from exportPageContext
 
 #-------------------------------------------------
 
+Support get data from exportPageContext
 Support more dynamic props (RequestOptions) for fetchData function in api_client.dart
 Move theme json and config json to server
 Add refresh page button for development mode
@@ -17,6 +17,8 @@ Support config theme base on platform in theme.json
 Support build mode (development/production) in context page data
 Support child config for t_button type that has child property
 Support simple operator for binding data ( {{ !state.isGood | eq(state.isGood, "bad") }} )
+Support pages app bar custom actions
+Support theme for t_input
 Exclude WebView from web build (web)
 Use dart2js to support lazy loading for web (web)
 Fix bug #primaryColor have been replace even on the text property (issue from replace base color on widget props)
@@ -35,3 +37,4 @@ Fix bug #primaryColor have been replace even on the text property (issue from re
 -The props when pass into t_widget still not totally binding
 -Support set key and dynamic key for all t_widget
 -Support route (web)
+-Set page context data back to t_input base on name property

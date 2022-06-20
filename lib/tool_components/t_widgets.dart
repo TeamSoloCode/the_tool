@@ -55,7 +55,7 @@ class _T_WidgetsState extends State<T_Widgets> {
   Widget _getWidget(Map<String, dynamic> contextData, BuildContext context) {
     Map<String, dynamic> content = widget.layout["content"] ?? widget.layout;
 
-    var hidden = UtilsManager.bindingValueToProp(
+    var hidden = utils.bindingValueToProp(
       contextData,
       content["hidden"],
     );
@@ -158,14 +158,14 @@ class _T_WidgetsState extends State<T_Widgets> {
 
     if (widgetProps["icon"] != null &&
         UtilsManager.isValueBinding(widgetProps["icon"])) {
-      widgetProps["icon"] = UtilsManager.bindingValueToText(
+      widgetProps["icon"] = utils.bindingValueToText(
         contextData,
         widgetProps["icon"],
       );
     }
 
     if (widgetProps["text"] != null) {
-      widgetProps["text"] = UtilsManager.bindingValueToText(
+      widgetProps["text"] = utils.bindingValueToText(
         widget.contextData,
         gato.get(widgetProps, "text"),
       );

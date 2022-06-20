@@ -13,6 +13,7 @@ class ThemeProvider with ChangeNotifier {
   Map<String, dynamic>? _classes;
   Map<String, dynamic>? _baseColor;
   BuildContext context;
+  static UtilsManager _utils = getIt<UtilsManager>();
 
   Map<int, Color> color = {
     50: const Color.fromRGBO(136, 14, 79, .1),
@@ -86,6 +87,7 @@ class ThemeProvider with ChangeNotifier {
             backgroundColor: appBarTheme?.backgroundColor,
             shape: appBarTheme?.shape,
           ),
+
           // colorScheme: ColorScheme.fromSwatch(
           //   primarySwatch: MaterialColor(
           //     ThemeDecoder.decodeColor(
@@ -234,7 +236,7 @@ class ThemeProvider with ChangeNotifier {
             var result = value;
 
             if (UtilsManager.isValueBinding(value)) {
-              result = UtilsManager.bindingValueToProp(
+              result = _utils.bindingValueToProp(
                 contextData,
                 value,
               );
@@ -258,7 +260,7 @@ class ThemeProvider with ChangeNotifier {
     Map<String, dynamic> results = {};
     inputValue.forEach((key, value) {
       if (value is String && UtilsManager.isValueBinding(value)) {
-        results[key] = UtilsManager.bindingValueToText(
+        results[key] = _utils.bindingValueToText(
           contextData,
           value,
         );

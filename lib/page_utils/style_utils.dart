@@ -3,15 +3,21 @@ import 'package:from_css_color/from_css_color.dart';
 import 'package:the_tool/utils.dart';
 
 class StyleUtils {
+  static UtilsManager _utils = getIt<UtilsManager>();
+
   static String? getCssStringWithContextData(
     String rawTextColor,
     Map<String, dynamic> contextData,
   ) {
-    var isBoundValue =
-        UtilsManager.bindingValueToProp(contextData, rawTextColor);
+    if (!UtilsManager.isValueBinding(rawTextColor) &&
+        !isCssColor(rawTextColor)) {
+      return null;
+    }
+
+    var isBoundValue = _utils.bindingValueToProp(contextData, rawTextColor);
 
     if (!UtilsManager.isFalsy(isBoundValue)) {
-      var bindingValue = UtilsManager.bindingValueToText(
+      var bindingValue = _utils.bindingValueToText(
         contextData,
         rawTextColor,
       );
