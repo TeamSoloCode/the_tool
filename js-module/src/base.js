@@ -102,16 +102,14 @@ const fetchData = async (path) => {
           reject("Request timeout!");
         }, 10000);
 
-        webJSChannel.addListener("__web_js_channel__", (data) => {
-          const { id, err, message, response } = JSON.parse(data);
-          if (id == requestId) {
-            clearTimeout(checkTimeoutId);
+        webJSChannel.once(requestId, (data) => {
+          const { err, message, response } = JSON.parse(data);
+          clearTimeout(checkTimeoutId);
 
-            if (err || message) {
-              reject(response.response);
-            } else {
-              resolve(response);
-            }
+          if (err || message) {
+            reject(response.response);
+          } else {
+            resolve(response);
           }
         });
       });
@@ -125,8 +123,8 @@ const fetchData = async (path) => {
   }
 };
 
-const __ondataresponse = (data) => {
-  webJSChannel.emit("__web_js_channel__", data);
+const __ondataresponse = (requestId, data) => {
+  webJSChannel.emit(requestId, data);
 };
 
 Object.assign(window, {

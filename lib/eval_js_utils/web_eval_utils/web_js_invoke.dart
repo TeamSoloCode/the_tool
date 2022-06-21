@@ -102,7 +102,8 @@ void _emitDataResponseEvent(String id, String path) async {
     requestOptions: requestOptions,
   );
   js.context.callMethod("__ondataresponse", [
-    json.encode({"id": id, "err": res["err"], "message": "", "response": res})
+    id,
+    json.encode({"err": res["err"], "message": "", "response": res})
   ]);
 }
 
