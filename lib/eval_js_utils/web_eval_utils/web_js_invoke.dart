@@ -49,6 +49,7 @@ external set toogleChangeTheme(
 @JS('fetch_data')
 external set fetchData(
   void Function(
+    String id,
     String path,
   )
       f,
@@ -88,17 +89,20 @@ void _toogleChangeTheme(String args) {
   _context.read<ThemeProvider>().toogleChangeThemeMode(null);
 }
 
-void _fetchData(String path) {
-  _emitDataResponseEvent(path);
+void _fetchData(
+  String id,
+  String path,
+) {
+  _emitDataResponseEvent(id, path);
 }
 
-void _emitDataResponseEvent(String path) async {
+void _emitDataResponseEvent(String id, String path) async {
   RequestOptions requestOptions = RequestOptions(path: path);
   var res = await getIt<APIClientManager>().fetchData(
     requestOptions: requestOptions,
   );
   js.context.callMethod("__ondataresponse", [
-    json.encode({"err": res["err"], "message": "", "response": res})
+    json.encode({"id": id, "err": res["err"], "message": "", "response": res})
   ]);
 }
 

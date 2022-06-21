@@ -1,5 +1,6 @@
 import _ from "lodash";
 import Cookies from "js-cookie";
+import { v4 as uuidv4 } from "uuid";
 import webJSChannel from "./web_js_channel";
 
 const _initContext = { _data: {}, _prevData: {}, _platform: "mobile" };
@@ -95,24 +96,27 @@ const toggleChangeTheme = async () => {
 const fetchData = async (path) => {
   switch (context._platform) {
     case "web":
+      const requestId = uuidv4();
       const returnDataPromise = new Promise((resolve, reject) => {
         const checkTimeoutId = setTimeout(() => {
           reject("Request timeout!");
         }, 10000);
 
         webJSChannel.addListener("__web_js_channel__", (data) => {
-          clearTimeout(checkTimeoutId);
+          const { id, err, message, response } = JSON.parse(data);
+          if (id == requestId) {
+            clearTimeout(checkTimeoutId);
 
-          const { err, message, response } = JSON.parse(data);
-          if (err || message) {
-            reject(response.response);
-          } else {
-            resolve(response);
+            if (err || message) {
+              reject(response.response);
+            } else {
+              resolve(response);
+            }
           }
         });
       });
 
-      fetch_data(path);
+      fetch_data(requestId, path);
 
       return returnDataPromise;
 
