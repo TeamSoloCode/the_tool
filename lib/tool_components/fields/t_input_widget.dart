@@ -50,9 +50,8 @@ class _T_FieldsState extends State<T_Fields> {
     widgetProps = widget.widgetProps;
     String? name = widgetProps["name"];
     String newText = widget.contextData[name] ?? "";
-    log("_T_FieldsState _debounceTextChanged $newText $prevValue ${textFieldController.text}");
 
-    if (newText != prevValue) {
+    if (prevValue != newText) {
       textFieldController.text = newText;
       textFieldController.selection = TextSelection.collapsed(
         offset: newText.length,
@@ -73,7 +72,7 @@ class _T_FieldsState extends State<T_Fields> {
   ) {
     String? fieldType = widgetProps!["fieldType"];
     String? name = widgetProps["name"];
-    if (name == null) throw Exception("Field have to have'name' props");
+    if (name == null) throw Exception("Field have to have the 'name' props");
 
     void _debounceTextChanged(String? text) {
       if (_debounce?.isActive ?? false) _debounce?.cancel();
@@ -82,7 +81,7 @@ class _T_FieldsState extends State<T_Fields> {
         String newText = widget.contextData[name] ?? "";
         if (newText != text) {
           widget.setPageData({name: text});
-          prevValue = text;
+          prevValue = text == "" ? null : text;
         }
       });
     }
