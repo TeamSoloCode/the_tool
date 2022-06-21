@@ -1,8 +1,7 @@
-
+Support more dynamic props (RequestOptions) for fetchData function in api_client.dart
 #-------------------------------------------------
 
 Support get data from exportPageContext
-Support more dynamic props (RequestOptions) for fetchData function in api_client.dart
 Move theme json and config json to server
 Add refresh page button for development mode
 

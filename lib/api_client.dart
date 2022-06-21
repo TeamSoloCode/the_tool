@@ -25,22 +25,37 @@ class APIClientManager {
   }
 
   Future<dynamic> fetchData({required RequestOptions requestOptions}) async {
-    String path = requestOptions.path;
+    try {
+      String path = requestOptions.path;
 
-    if (path.contains("localhost")) {
-      path = path.replaceFirst("localhost", host);
+      if (path.contains("localhost")) {
+        path = path.replaceFirst("localhost", host);
+      }
+
+      var response = await _dio.fetch(requestOptions.copyWith(path: path));
+
+      return {
+        "data": response.data,
+        "headers": json.encode(response.headers.map),
+        "statusCode": response.statusCode,
+        "statusMessage": response.statusMessage,
+        "isRedirect": response.isRedirect,
+        "extra": response.extra
+      };
+    } on DioError catch (e) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx and is also not 304.
+      if (e.response != null) {
+        return {"err": true, "response": e.response?.data};
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        return {
+          "err": true,
+          "message": e.message,
+          "response": {"error": "Fail to fetch"}
+        };
+      }
     }
-
-    var response = await _dio.fetch(requestOptions.copyWith(path: path));
-
-    return {
-      "data": response.data,
-      "headers": json.encode(response.headers.map),
-      "statusCode": response.statusCode,
-      "statusMessage": response.statusMessage,
-      "isRedirect": response.isRedirect,
-      "extra": response.extra
-    };
   }
 
   Future<String> getClientCore() async {
@@ -74,7 +89,8 @@ class APIClientManager {
           "routes": [
             {"name": "Home Page", "path": "home_page"},
             {"name": "Fields Page", "path": "fields_page"},
-            {"name": "Test Page", "path": "test_page"}
+            {"name": "Test Page", "path": "test_page"},
+            {"name": "Test API", "path": "test_api"}
           ]
         },
       );

@@ -105,7 +105,7 @@ const fetchData = async (path) => {
 
           const { err, message, response } = JSON.parse(data);
           if (err || message) {
-            reject(err || message);
+            reject(response.response);
           } else {
             resolve(response);
           }

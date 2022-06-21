@@ -2,6 +2,7 @@
 library web_js_invoke;
 
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:js' as js;
 import 'dart:js_util' as js_util;
 
@@ -96,9 +97,8 @@ void _emitDataResponseEvent(String path) async {
   var res = await getIt<APIClientManager>().fetchData(
     requestOptions: requestOptions,
   );
-
   js.context.callMethod("__ondataresponse", [
-    json.encode({"err": null, "message": "", "response": res})
+    json.encode({"err": res["err"], "message": "", "response": res})
   ]);
 }
 
