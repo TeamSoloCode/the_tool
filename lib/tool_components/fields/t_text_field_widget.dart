@@ -11,10 +11,10 @@ import 'package:the_tool/page_utils/should_update.widget.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/utils.dart';
 
-class T_Fields extends T_Widget {
+class T_TextField extends T_Widget {
   UtilsManager utils = getIt<UtilsManager>();
 
-  T_Fields({
+  T_TextField({
     Key? key,
     required executeJS,
     required widgetProps,
@@ -27,12 +27,12 @@ class T_Fields extends T_Widget {
         );
 
   @override
-  State<T_Fields> createState() => _T_FieldsState();
+  State<T_TextField> createState() => _T_TextFieldState();
 }
 
 Timer? _debounce;
 
-class _T_FieldsState extends State<T_Fields> {
+class _T_TextFieldState extends State<T_TextField> {
   final textFieldController = TextEditingController();
   Map<String, dynamic> prevWidgetProps = {};
   Map<String, dynamic> widgetProps = {};
@@ -66,18 +66,17 @@ class _T_FieldsState extends State<T_Fields> {
     return shouldUpdate;
   }
 
-  Widget _computeFields(
+  Widget _computeTextField(
     Map<String, dynamic>? widgetProps,
     BuildContext context,
   ) {
-    String? fieldType = widgetProps!["fieldType"];
-    String? name = widgetProps["name"];
+    String? name = widgetProps?["name"];
     if (name == null) throw Exception("Field have to have the 'name' props");
 
     void _debounceTextChanged(String? text) {
       if (_debounce?.isActive ?? false) _debounce?.cancel();
 
-      _debounce = Timer(const Duration(milliseconds: 200), () {
+      _debounce = Timer(const Duration(milliseconds: 100), () {
         String newText = widget.contextData[name] ?? "";
         if (newText != text) {
           widget.setPageData({name: text});
@@ -86,33 +85,28 @@ class _T_FieldsState extends State<T_Fields> {
       });
     }
 
-    prevWidgetProps = widgetProps;
+    prevWidgetProps = widgetProps ?? {};
 
-    switch (fieldType) {
-      case "text":
-        return FormBuilderTextField(
-          controller: textFieldController,
-          name: name,
-          decoration: const InputDecoration(
-            labelText: 'Required field number, with 10 chars max',
-          ),
-          onChanged: (text) {
-            _debounceTextChanged(text);
-          },
-          onEditingComplete: () {
-            log("onEditingComplete");
-          },
-          // valueTransformer: (text) => num.tryParse(text),
-          validator: FormBuilderValidators.compose([
-            FormBuilderValidators.required(errorText: "Required field"),
-            FormBuilderValidators.numeric(errorText: "Number field"),
-            FormBuilderValidators.max(10, errorText: "Only 10 character!"),
-          ]),
-          keyboardType: TextInputType.text,
-        );
-      default:
-        throw Exception("$fieldType field type is not supported!");
-    }
+    return FormBuilderTextField(
+      controller: textFieldController,
+      name: name,
+      decoration: const InputDecoration(
+        labelText: 'Required field number, with 10 chars max',
+      ),
+      onChanged: (text) {
+        _debounceTextChanged(text);
+      },
+      onEditingComplete: () {
+        log("onEditingComplete");
+      },
+      // valueTransformer: (text) => num.tryParse(text),
+      validator: FormBuilderValidators.compose([
+        FormBuilderValidators.required(errorText: "Required field"),
+        FormBuilderValidators.numeric(errorText: "Number field"),
+        FormBuilderValidators.max(10, errorText: "Only 10 character!"),
+      ]),
+      keyboardType: TextInputType.text,
+    );
   }
 
   @override
@@ -120,8 +114,8 @@ class _T_FieldsState extends State<T_Fields> {
     return ShouldWidgetUpdate(
       key: widget.getBindingKey(),
       builder: (context) {
-        print("_computeFields");
-        return _computeFields(widget.widgetProps, context);
+        log("_computeTextField");
+        return _computeTextField(widget.widgetProps, context);
       },
       shouldWidgetUpdate: shouldWidgetUpdate(),
     );

@@ -1,11 +1,14 @@
-
 #-------------------------------------------------
 
 Support get data from exportPageContext
 Move theme json and config json to server
 Add refresh page button for development mode
+Fix bug reload page got redirected to initial page instead of current route
+Support basic submit action for t_form widget
+Support basic selection input field
 
 Split widget with Deferred components
+Use dart2js to support lazy loading for web (web)
 Move base react component , app.js, vendor.js and js-module to server
 Support asking/granting permission
 Support for basic on SliverAppBar, SliverGrid
@@ -19,7 +22,6 @@ Support simple operator for binding data ( {{ !state.isGood | eq(state.isGood, "
 Support pages app bar custom actions
 Support theme for t_input
 Exclude WebView from web build (web)
-Use dart2js to support lazy loading for web (web)
 Fix bug #primaryColor have been replace even on the text property (issue from replace base color on widget props)
 
 #-------------------------------------------------
