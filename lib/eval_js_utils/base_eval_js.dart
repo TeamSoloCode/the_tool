@@ -23,6 +23,7 @@ abstract class BaseEvalJS {
     try {
       const Main = React.memo((props) => {
         const [_contextData, _setContextData] = React.useState(context._data);
+        let [didInitState, setDidInitState] = React.useState(false)
         const _prevContextData = usePrevious(_contextData);
         context._updateContextData = _setContextData;
         context._prevData = Object.assign({}, _prevContextData);
@@ -30,7 +31,7 @@ abstract class BaseEvalJS {
         
         
         let [pageData, _setPageData] = React.useState({ 
-            _tLoaded: true ,
+            _tLoaded: true,
             _tIsWeb: context._platform == "web",
             _tIsMobile: context._platform == "mobile",
           },
@@ -63,6 +64,16 @@ abstract class BaseEvalJS {
           return context['$pagePath']?._pageArguments || {};
         }, [context['$pagePath']])
 
+
+        const useInitState = React.useCallback((initData = {}) => {
+          if(!didInitState) {
+            Object.assign(pageData, {...initData})
+            // setPageData(initData)
+            console.log("abcd useInitState", didInitState)
+            setDidInitState(true);
+          }
+        }, [setPageData, didInitState])
+
         React.useEffect(() => {
           exportPageContext({ setPageData, getPageData })
         }, [pageData, setPageData, getPageData])
@@ -70,7 +81,10 @@ abstract class BaseEvalJS {
         React.useEffect(() => {
           logger.log(`Didmount $pagePath`)
           // init data for page
-          setPageData({})
+          setTimeout(() => {
+            console.log("abcd _tLoaded")
+            setPageData({_tLoaded: true,})
+          }, 100)
 
           return () => {
             logger.log(`Unmounted $pagePath`)

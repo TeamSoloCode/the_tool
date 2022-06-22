@@ -8,6 +8,7 @@ import 'package:form_builder_validators/form_builder_validators.dart'
     show FormBuilderValidators;
 import 'package:collection/collection.dart' show DeepCollectionEquality;
 import 'package:the_tool/page_utils/should_update.widget.dart';
+import 'package:the_tool/tool_components/fields/t_select_field_widget.dart';
 import 'package:the_tool/tool_components/fields/t_text_field_widget.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/utils.dart';
@@ -50,7 +51,7 @@ class _T_FieldsState extends State<T_Fields> {
   bool shouldWidgetUpdate() {
     widgetProps = widget.widgetProps;
     String? name = widgetProps["name"];
-    prevValue = value;
+
     value = widget.contextData[name] ?? "";
     bool isSameValue = false;
 
@@ -77,11 +78,18 @@ class _T_FieldsState extends State<T_Fields> {
     String? name = widgetProps?["name"];
     if (name == null) throw Exception("Field have to have the 'name' props");
 
+    prevValue = value;
     prevWidgetProps = widgetProps ?? {};
 
     switch (fieldType) {
       case "text":
         return T_TextField(
+          executeJS: widget.executeJS,
+          widgetProps: widgetProps,
+          contextData: widget.contextData,
+        );
+      case "select":
+        return T_SelectField(
           executeJS: widget.executeJS,
           widgetProps: widgetProps,
           contextData: widget.contextData,

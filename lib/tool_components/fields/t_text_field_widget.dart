@@ -91,6 +91,7 @@ class _T_TextFieldState extends State<T_TextField> {
       controller: textFieldController,
       name: name,
       decoration: const InputDecoration(
+        hintText: "Placeholder",
         labelText: 'Required field number, with 10 chars max',
       ),
       onChanged: (text) {
@@ -114,7 +115,6 @@ class _T_TextFieldState extends State<T_TextField> {
     return ShouldWidgetUpdate(
       key: widget.getBindingKey(),
       builder: (context) {
-        log("_computeTextField");
         return _computeTextField(widget.widgetProps, context);
       },
       shouldWidgetUpdate: shouldWidgetUpdate(),
