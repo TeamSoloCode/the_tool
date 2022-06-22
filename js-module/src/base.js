@@ -93,7 +93,7 @@ const toggleChangeTheme = async () => {
   }
 };
 
-const fetchData = async (path) => {
+const fetchData = async (path, options = {}) => {
   switch (context._platform) {
     case "web":
       const requestId = uuidv4();
@@ -114,7 +114,8 @@ const fetchData = async (path) => {
         });
       });
 
-      fetch_data(requestId, path);
+      const optionAsJSON = JSON.stringify(options);
+      fetch_data(requestId, path, optionAsJSON);
 
       return returnDataPromise;
 

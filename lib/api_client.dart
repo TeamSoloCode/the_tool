@@ -32,7 +32,11 @@ class APIClientManager {
         path = path.replaceFirst("localhost", host);
       }
 
-      var response = await _dio.fetch(requestOptions.copyWith(path: path));
+      var response = await _dio.request(
+        requestOptions.path,
+        options: Options(method: requestOptions.method),
+        data: requestOptions.data,
+      );
 
       return {
         "data": response.data,
