@@ -94,6 +94,7 @@ const toggleChangeTheme = async () => {
 };
 
 const fetchData = async (path, options = {}) => {
+  const optionAsJSON = JSON.stringify(options);
   switch (context._platform) {
     case "web":
       const requestId = uuidv4();
@@ -114,13 +115,16 @@ const fetchData = async (path, options = {}) => {
         });
       });
 
-      const optionAsJSON = JSON.stringify(options);
       fetch_data(requestId, path, optionAsJSON);
 
       return returnDataPromise;
 
     case "mobile":
-      return await window.flutter_inappwebview.callHandler("fetch_data", path);
+      return await window.flutter_inappwebview.callHandler(
+        "fetch_data",
+        path,
+        optionAsJSON
+      );
   }
 };
 

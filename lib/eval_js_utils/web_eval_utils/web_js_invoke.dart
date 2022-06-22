@@ -94,7 +94,6 @@ void _emitDataResponseEvent(
   String path,
   Map<String, dynamic> options,
 ) async {
-  log("body ${options["method"]} ${options["body"]}");
   RequestOptions requestOptions = RequestOptions(
     path: path,
     method: options["method"],

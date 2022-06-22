@@ -1,5 +1,6 @@
 library mobile_js_invoke;
 
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
@@ -74,7 +75,12 @@ void registerJavascriptHandler(
   webViewController?.addJavaScriptHandler(
     handlerName: "fetch_data",
     callback: (args) async {
-      RequestOptions requestOptions = RequestOptions(path: args[0]);
+      var options = json.decode(args[1]);
+      RequestOptions requestOptions = RequestOptions(
+        path: args[0],
+        method: options["method"],
+        data: options["body"],
+      );
       return await getIt<APIClientManager>().fetchData(
         requestOptions: requestOptions,
       );
