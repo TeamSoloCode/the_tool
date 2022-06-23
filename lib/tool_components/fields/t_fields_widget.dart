@@ -2,10 +2,6 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart'
-    show FormBuilderTextField;
-import 'package:form_builder_validators/form_builder_validators.dart'
-    show FormBuilderValidators;
 import 'package:collection/collection.dart' show DeepCollectionEquality;
 import 'package:the_tool/page_utils/should_update.widget.dart';
 import 'package:the_tool/tool_components/fields/t_select_field_widget.dart';
@@ -38,8 +34,8 @@ class _T_FieldsState extends State<T_Fields> {
   final textFieldController = TextEditingController();
   Map<String, dynamic> prevWidgetProps = {};
   Map<String, dynamic> widgetProps = {};
-  String? value;
-  String? prevValue;
+  dynamic value;
+  dynamic prevValue;
 
   @override
   void dispose() {
@@ -55,7 +51,7 @@ class _T_FieldsState extends State<T_Fields> {
     value = widget.contextData[name] ?? "";
     bool isSameValue = false;
 
-    if (value is Map) {
+    if (value is Map || value is List) {
       isSameValue = const DeepCollectionEquality().equals(value, prevValue);
     } else {
       isSameValue = (value == prevValue);
