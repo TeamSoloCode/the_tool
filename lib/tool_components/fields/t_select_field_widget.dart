@@ -91,8 +91,7 @@ class _T_SelectFieldState extends State<T_SelectField> {
     String? name = widgetProps?["name"];
     value = widget.contextData[name];
     items = widgetProps?["items"] ?? [];
-
-    if (name == null) throw Exception("Field have to have the 'name' props");
+    assert(name != null, "Missing \"name\" in field widget");
 
     /** "items" property might be a string, that's mean it's a databinding */
     if (items is String) {
@@ -104,7 +103,7 @@ class _T_SelectFieldState extends State<T_SelectField> {
 
     return FormBuilderDropdown(
       key: value != null ? Key(value) : null,
-      name: name,
+      name: name ?? "",
       decoration: const InputDecoration(
         labelText: 'Gender',
       ),

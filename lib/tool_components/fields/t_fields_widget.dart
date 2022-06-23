@@ -71,8 +71,6 @@ class _T_FieldsState extends State<T_Fields> {
     BuildContext context,
   ) {
     String? fieldType = widgetProps?["fieldType"];
-    String? name = widgetProps?["name"];
-    if (name == null) throw Exception("Field have to have the 'name' props");
 
     prevValue = value;
     prevWidgetProps = widgetProps ?? {};

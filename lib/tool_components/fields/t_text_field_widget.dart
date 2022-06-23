@@ -71,14 +71,14 @@ class _T_TextFieldState extends State<T_TextField> {
     BuildContext context,
   ) {
     String? name = widgetProps?["name"];
-    if (name == null) throw Exception("Field have to have the 'name' props");
+    assert(name != null, "Missing \"name\" in field widget");
 
     void _debounceTextChanged(String? text) {
       if (_debounce?.isActive ?? false) _debounce?.cancel();
 
       _debounce = Timer(const Duration(milliseconds: 100), () {
         String newText = widget.contextData[name] ?? "";
-        if (newText != text) {
+        if (newText != text && name != null) {
           widget.setPageData({name: text});
           prevValue = text == "" ? null : text;
         }
@@ -89,7 +89,7 @@ class _T_TextFieldState extends State<T_TextField> {
 
     return FormBuilderTextField(
       controller: textFieldController,
-      name: name,
+      name: name ?? "",
       decoration: const InputDecoration(
         hintText: "Placeholder",
         labelText: 'Required field number, with 10 chars max',
