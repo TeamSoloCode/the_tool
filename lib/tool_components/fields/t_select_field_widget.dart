@@ -54,7 +54,8 @@ class _T_SelectFieldState extends State<T_SelectField> {
       assert(false, "Select field data should be List or null");
     }
 
-    var shouldUpdate = !isSameItems ||
+    var shouldUpdate = (selectedValue != selectedValueInContext) ||
+        !isSameItems ||
         !(selectedValueInContext == prevValue) ||
         !const DeepCollectionEquality().equals(
           prevWidgetProps,
@@ -100,8 +101,6 @@ class _T_SelectFieldState extends State<T_SelectField> {
 
     prevValue = value;
     prevItems = items;
-
-    log("_computeSelectField $value");
 
     return FormBuilderDropdown(
       key: value != null ? Key(value) : null,
