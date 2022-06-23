@@ -83,7 +83,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
 
     var currentThemeMode = context.read<ThemeProvider>().currentThemeMode;
 
-    log("Update page: ${widget.pagePath} $pageData");
+    print("Update page: ${widget.pagePath} $pageData");
 
     return Scaffold(
       appBar: _computeAppBar(

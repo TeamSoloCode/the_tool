@@ -64,12 +64,10 @@ abstract class BaseEvalJS {
           return context['$pagePath']?._pageArguments || {};
         }, [context['$pagePath']])
 
-
+        // Use to init state before render the widget
         const useInitState = React.useCallback((initData = {}) => {
           if(!didInitState) {
             Object.assign(pageData, {...initData})
-            // setPageData(initData)
-            console.log("abcd useInitState", didInitState)
             setDidInitState(true);
           }
         }, [setPageData, didInitState])
@@ -82,9 +80,8 @@ abstract class BaseEvalJS {
           logger.log(`Didmount $pagePath`)
           // init data for page
           setTimeout(() => {
-            console.log("abcd _tLoaded")
             setPageData({_tLoaded: true,})
-          }, 100)
+          })
 
           return () => {
             logger.log(`Unmounted $pagePath`)
