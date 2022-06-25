@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
@@ -15,6 +16,7 @@ import 'package:provider/provider.dart';
 import 'package:gato/gato.dart' as gato;
 import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
     if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_utils/web_eval_js.dart';
+import 'package:the_tool/t_widget_interface/client_config.dart';
 
 class PageContainer extends StatefulWidget {
   const PageContainer({Key? key}) : super(key: key);
@@ -110,7 +112,7 @@ class _PageContainerState extends State<PageContainer> {
 
   Future<bool> _isReadyToRun() async {
     return Future<bool>.microtask(() async {
-      Map<String, dynamic> config = await _apiClient.getClientConfig();
+      ClientConfig config = await _apiClient.getClientConfig();
 
       context.read<ContextStateProvider>().appConfig = config;
       await getIt<StorageManager>().initStorageBox();
@@ -135,10 +137,11 @@ class _PageContainerState extends State<PageContainer> {
 
   Map<String, Widget Function(BuildContext)> _computeRoutes() {
     var config = context.read<ContextStateProvider>().appConfig;
-    if (gato.get(config, "routes") == null) return {};
+    var routeConfig = config?.routes;
+    if (routeConfig == null) return {};
 
     Map<String, Widget Function(BuildContext)> routes = {};
-    List<Map<String, dynamic>> routesConfig = gato.get(config, "routes");
+    List<Map<String, dynamic>> routesConfig = routeConfig;
 
     routesConfig.forEach((routeConfig) {
       String path = routeConfig['path'];
@@ -152,8 +155,9 @@ class _PageContainerState extends State<PageContainer> {
 
   String _getInitialPage() {
     var config = context.read<ContextStateProvider>().appConfig;
-    String? initialPage = gato.get(config, "initialPage");
-    print("initialPage $initialPage");
+
+    String? initialPage = config?.initialPage;
+    log("initialPage $initialPage");
     if (initialPage == null || initialPage == "") {
       setState(() {
         _errorMessage = "Missing initial page path in config";

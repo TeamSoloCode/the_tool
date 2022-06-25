@@ -7,8 +7,9 @@ import 'dart:convert';
 
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:the_tool/page_utils/should_update.widget.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
-import 'package:the_tool/t_widget_interface/BottomNavProps.dart';
+import 'package:the_tool/t_widget_interface/bottom_nav_props.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';

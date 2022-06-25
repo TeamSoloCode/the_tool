@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
@@ -24,7 +25,7 @@ class T_Row extends T_Widget {
 }
 
 class _T_RowState extends State<T_Row> {
-  List<Widget> _computeChildren(List<Map<String, dynamic>>? children) {
+  List<Widget> _computeChildren(List<dynamic>? children) {
     return (children ?? []).map((child) {
       return T_Widgets(
         layout: child,
@@ -36,7 +37,12 @@ class _T_RowState extends State<T_Row> {
 
   @override
   Widget build(BuildContext context) {
+    var mainAxisAlignment = widget.widgetProps["mainAxisAlignment"];
+
     return Row(
+      mainAxisAlignment:
+          ThemeDecoder.decodeMainAxisAlignment(mainAxisAlignment) ??
+              MainAxisAlignment.start,
       children: _computeChildren(widget.widgetProps["children"]),
     );
   }

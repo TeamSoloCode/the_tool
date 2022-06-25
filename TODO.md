@@ -1,7 +1,9 @@
+Move config json to server
+Use Freeze to generate DTO class
 #-------------------------------------------------
 
 Support get data from exportPageContext
-Move theme json and config json to server
+Move theme json to server
 Add refresh page button for development mode
 Fix bug reload page got redirected to initial page instead of current route
 Support basic submit action for t_form widget

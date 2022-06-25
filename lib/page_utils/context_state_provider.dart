@@ -1,8 +1,10 @@
 import 'package:flutter/foundation.dart';
 
+import 'package:the_tool/t_widget_interface/client_config.dart';
+
 class ContextStateProvider with ChangeNotifier, DiagnosticableTreeMixin {
   Map<String, dynamic> _contextData = {};
-  Map<String, dynamic> _appConfig = {};
+  ClientConfig? _appConfig;
   Map<String, dynamic> initData;
 
   ContextStateProvider({this.initData = const {}}) : super() {
@@ -16,9 +18,9 @@ class ContextStateProvider with ChangeNotifier, DiagnosticableTreeMixin {
     notifyListeners();
   }
 
-  Map<String, dynamic> get appConfig => _appConfig;
+  ClientConfig? get appConfig => _appConfig;
 
-  set appConfig(Map<String, dynamic> contextConfig) {
+  set appConfig(ClientConfig? contextConfig) {
     _appConfig = contextConfig;
     notifyListeners();
   }

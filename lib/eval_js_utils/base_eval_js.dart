@@ -76,6 +76,9 @@ abstract class BaseEvalJS {
           exportPageContext({ setPageData, getPageData })
         }, [pageData, setPageData, getPageData])
 
+
+        // <client_code>
+
         React.useEffect(() => {
           logger.log(`Didmount $pagePath`)
           // init data for page
@@ -90,7 +93,6 @@ abstract class BaseEvalJS {
           }
         }, [])
 
-        // <client_code>
 
         return null;
       });

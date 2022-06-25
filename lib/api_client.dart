@@ -5,6 +5,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+import 'package:the_tool/t_widget_interface/client_config.dart';
+
 class APIClientManager {
   final String host = kIsWeb ? "localhost" : "10.0.2.2";
   final Dio _dio = Dio();
@@ -67,7 +69,7 @@ class APIClientManager {
       var response = await _dio.get('http://$host:3000/pages/core');
       return Future.value(response.data["code"]);
     } catch (e) {
-      rethrow;
+      throw Exception(e.toString());
     }
   }
 
@@ -80,24 +82,29 @@ class APIClientManager {
           "layout": response.data["layout"],
         },
       );
+    } on DioError catch (e) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx and is also not 304.
+      if (e.response != null) {
+        throw Exception(e.response?.data);
+      } else {
+        throw Exception(e.message);
+      }
     } catch (e) {
-      rethrow;
+      throw Exception(e.toString());
     }
   }
 
-  Future<Map<String, dynamic>> getClientConfig() async {
+  Future<ClientConfig> getClientConfig() async {
     try {
-      return Future.value(
-        {
-          "initialPage": "init_page",
-          "routes": [
-            {"name": "Home Page", "path": "home_page"},
-            {"name": "Fields Page", "path": "fields_page"},
-            {"name": "Test Page", "path": "test_page"},
-            {"name": "Test API", "path": "test_api"}
-          ]
-        },
-      );
+      var response = await _dio.get('http://$host:3000/pages/client-config');
+      return Future.value(ClientConfig.fromJson(json.decode(response.data)));
+    } on DioError catch (e) {
+      if (e.response != null) {
+        throw Exception(e.response?.data);
+      } else {
+        throw Exception(e.message);
+      }
     } catch (e) {
       rethrow;
     }
