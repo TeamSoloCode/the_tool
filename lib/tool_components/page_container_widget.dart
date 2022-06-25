@@ -16,7 +16,7 @@ import 'package:provider/provider.dart';
 import 'package:gato/gato.dart' as gato;
 import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
     if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_utils/web_eval_js.dart';
-import 'package:the_tool/t_widget_interface/client_config.dart';
+import 'package:the_tool/t_widget_interface/client_config/client_config.dart';
 
 class PageContainer extends StatefulWidget {
   const PageContainer({Key? key}) : super(key: key);
