@@ -11,13 +11,13 @@ GetIt getIt = GetIt.instance;
 class UtilsManager {
   Map<String, String> _staticContent = {};
   static final regexPattern = RegExp(r"[^{{\}}]+(?=}})");
-  late EvalJS _evalJS;
+  EvalJS? _evalJS;
 
   UtilsManager() : super() {}
 
-  EvalJS get evalJS => _evalJS;
+  EvalJS? get evalJS => _evalJS;
 
-  set evalJS(EvalJS evalJS) {
+  set evalJS(EvalJS? evalJS) {
     _evalJS = evalJS;
   }
 

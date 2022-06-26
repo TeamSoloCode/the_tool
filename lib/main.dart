@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
@@ -9,6 +8,9 @@ import 'package:the_tool/tool_components/page_container_widget.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
 import 't_widget_interface/client_config/client_config.dart';
+
+import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
+    if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_utils/web_eval_js.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,7 +53,26 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
+    if (kIsWeb) _loadWebCoreJSCode(context);
     super.initState();
+  }
+
+  Future<void> _loadWebCoreJSCode(BuildContext context) async {
+    UtilsManager utils = getIt<UtilsManager>();
+    EvalJS evalJS;
+    APIClientManager apiClient = getIt<APIClientManager>();
+
+    evalJS = EvalJS(
+      contextStateProvider: context.read<ContextStateProvider>(),
+      context: context,
+    );
+    String clientCore = await apiClient.getClientCore();
+
+    await evalJS.setupReactForClientCode(
+      clientCore,
+    );
+
+    utils.evalJS = evalJS;
   }
 
   @override

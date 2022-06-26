@@ -53,7 +53,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
 
   @override
   void dispose() {
-    utils.evalJS.unmountClientCode(widget.pagePath);
+    utils.evalJS?.unmountClientCode(widget.pagePath);
     super.dispose();
   }
 
@@ -116,7 +116,8 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     Map<String, dynamic> pageInfo =
         await apiClient.getClientPageInfo(widget.pagePath);
 
-    utils.evalJS.executePageCode(
+    print("abcd _loadPageInfo ${widget.pagePath}");
+    utils.evalJS?.executePageCode(
       pageInfo["code"],
       widget.pagePath,
     );

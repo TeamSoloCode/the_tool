@@ -59,7 +59,6 @@ class _PageContainerState extends State<PageContainer> {
         return theme.currentThemeMode;
       },
     );
-
     return MaterialApp(
       theme: context.read<ThemeProvider>().themeData,
       themeMode: _currentThemeMode,
@@ -91,12 +90,12 @@ class _PageContainerState extends State<PageContainer> {
               }
             }
 
-            if (kIsWeb) _loadWebCoreJSCode(context);
+            if (kIsWeb) _updateWebEvalContext(context);
 
             return Stack(
               children: [
                 if (!_isWebViewReady) loadingPage,
-                if (_isWebViewReady)
+                if (_isWebViewReady || kIsWeb)
                   T_Page(
                     pagePath: _getInitialPage(),
                   ),
@@ -155,9 +154,8 @@ class _PageContainerState extends State<PageContainer> {
 
   String _getInitialPage() {
     var config = context.read<ContextStateProvider>().appConfig;
-
     String? initialPage = config?.initialPage;
-    log("initialPage $initialPage");
+
     if (initialPage == null || initialPage == "") {
       setState(() {
         _errorMessage = "Missing initial page path in config";
@@ -168,28 +166,12 @@ class _PageContainerState extends State<PageContainer> {
     return initialPage;
   }
 
-  Widget _loadWebCoreJSCode(BuildContext context) {
-    if (_isWebViewReady) return const SizedBox();
-
+  void _updateWebEvalContext(BuildContext context) {
     _evalJS = EvalJS(
       contextStateProvider: context.read<ContextStateProvider>(),
       context: context,
     );
-    (() async {
-      String clientCore = await _apiClient.getClientCore();
-
-      await _evalJS.setupReactForClientCode(
-        clientCore,
-      );
-
-      _utils.evalJS = _evalJS;
-
-      setState(() {
-        _isWebViewReady = true;
-      });
-    })();
-
-    return const SizedBox();
+    _utils.evalJS = _evalJS;
   }
 
   void _initWebViewForMobile(BuildContext context) {

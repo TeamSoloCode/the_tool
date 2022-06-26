@@ -1,9 +1,8 @@
-Move theme json to server
+Fix bug reload page got redirected to initial page instead of current route
 #-------------------------------------------------
 
 Support get data from exportPageContext
 Add refresh page button for development mode
-Fix bug reload page got redirected to initial page instead of current route
 Support basic submit action for t_form widget
 
 Split widget with Deferred components
@@ -43,3 +42,4 @@ Fix bug #primaryColor have been replace even on the text property (issue from re
 -Support basic selection input field
 -Move config json to server
 -Use Freeze to generate DTO class
+-Move theme json to server

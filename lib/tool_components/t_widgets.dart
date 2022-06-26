@@ -39,7 +39,7 @@ class _T_WidgetsState extends State<T_Widgets> {
   UtilsManager utils = getIt<UtilsManager>();
 
   Future<void> executeJSWithPagePath(String jsCode) async {
-    await utils.evalJS.executeJS(jsCode, widget.pagePath);
+    await utils.evalJS?.executeJS(jsCode, widget.pagePath);
   }
 
   String? parseColor(String? rawColor) {
