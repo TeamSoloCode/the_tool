@@ -112,46 +112,16 @@ class APIClientManager {
 
   Future<Map<String, dynamic>> getAppTheme() async {
     try {
-      return Future.value(
-        {
-          "base": {
-            "#primaryColor": "green",
-            "#primaryWatchColor": "skyblue",
-            "--dark": {
-              "#primaryColor": "purple",
-              "#primaryWatchColor": "black",
-            },
-          },
-          "theme": {
-            "primaryColor": "#primaryColor",
-            "scaffoldBackgroundColor": "#primaryColor",
-            "primarySwatch": "#primaryWatchColor",
-            "textTheme": {
-              "bodyText2": {
-                "color": "#primaryWatchColor",
-                "fontSize": 15,
-                "fontWeight": "bold"
-              }
-            },
-            "appBarTheme": {
-              "backgroundColor": "#primaryWatchColor",
-              "shape": {
-                "type": "rounded",
-                "borderRadius": {
-                  "type": "vertical",
-                  "bottom": {"type": "circular", "radius": 25}
-                },
-              },
-            }
-          },
-          "classes": {
-            "text-error": {"color": "red"},
-            "text-error--small": {"color": "violet", "fontSize": 17}
-          }
-        },
-      );
+      var response = await _dio.get('http://$host:3000/pages/theme');
+      return Future.value(json.decode(response.data));
+    } on DioError catch (e) {
+      if (e.response != null) {
+        throw Exception(e.response?.data);
+      } else {
+        throw Exception(e.message);
+      }
     } catch (e) {
-      throw Exception(e.toString());
+      rethrow;
     }
   }
 }

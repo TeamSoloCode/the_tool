@@ -46,14 +46,15 @@ class ThemeProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<ThemeData?> computeThemeData(Map<String, dynamic> themeMap) async {
+  Future<ThemeData?> computeThemeData(Map<String, dynamic> clientTheme) async {
     try {
-      Map<String, dynamic> baseColor = _computeBaseColor(themeMap);
+      Map<String, dynamic> baseColor =
+          _computeBaseColor(clientTheme["base"] ?? {});
       Map<String, dynamic> computedThemeMap = _mergeBaseColorToTheme(
-        themeMap,
+        clientTheme,
         baseColor,
       );
-      _classes = _mergeBaseColorToClasses(themeMap, baseColor);
+      _classes = _mergeBaseColorToClasses(clientTheme, baseColor);
 
       if (computedThemeMap.isEmpty) {
         currentThemeMode == ThemeMode.dark
@@ -106,10 +107,9 @@ class ThemeProvider with ChangeNotifier {
   }
 
   Map<String, dynamic> _computeBaseColor(
-    Map<String, dynamic> themeMap,
+    Map<String, dynamic> baseColor,
   ) {
     try {
-      Map<String, dynamic> baseColor = themeMap["base"] ?? {};
       if (baseColor.isEmpty) {
         return {};
       }
