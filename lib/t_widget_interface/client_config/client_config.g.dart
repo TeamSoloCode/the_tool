@@ -13,6 +13,8 @@ _$_ClientConfig _$$_ClientConfigFromJson(Map<String, dynamic> json) =>
           ?.map((e) => e as Map<String, dynamic>)
           .toList(),
       themePath: json['themePath'] as String?,
+      pageAPI: json['pageAPI'] as String?,
+      beAPI: json['beAPI'] as String?,
     );
 
 Map<String, dynamic> _$$_ClientConfigToJson(_$_ClientConfig instance) =>
@@ -20,4 +22,6 @@ Map<String, dynamic> _$$_ClientConfigToJson(_$_ClientConfig instance) =>
       'initialPage': instance.initialPage,
       'routes': instance.routes,
       'themePath': instance.themePath,
+      'pageAPI': instance.pageAPI,
+      'beAPI': instance.beAPI,
     };

@@ -10,6 +10,8 @@ class ClientConfig with _$ClientConfig {
     String? initialPage,
     List<Map<String, dynamic>>? routes,
     String? themePath,
+    String? pageAPI,
+    String? beAPI,
   }) = _ClientConfig;
 
   factory ClientConfig.fromJson(Map<String, Object?> json) =>

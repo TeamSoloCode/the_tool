@@ -26,6 +26,9 @@ class APIClientManager {
     ));
   }
 
+  String? _beAPI = "http://localhost:3000";
+  String? _pageAPI;
+
   Future<dynamic> fetchData({required RequestOptions requestOptions}) async {
     try {
       String path = requestOptions.path;
@@ -66,7 +69,7 @@ class APIClientManager {
 
   Future<String> getClientCore() async {
     try {
-      var response = await _dio.get('http://$host:3000/pages/core');
+      var response = await _dio.get('$_pageAPI/pages/core');
       return Future.value(response.data["code"]);
     } catch (e) {
       throw Exception(e.toString());
@@ -75,7 +78,7 @@ class APIClientManager {
 
   Future<Map<String, dynamic>> getClientPageInfo(String pagePath) async {
     try {
-      var response = await _dio.get('http://$host:3000/pages/$pagePath');
+      var response = await _dio.get('$_pageAPI/pages/$pagePath');
       return Future.value(
         {
           "code": response.data["code"],
@@ -97,8 +100,18 @@ class APIClientManager {
 
   Future<ClientConfig> getClientConfig() async {
     try {
-      var response = await _dio.get('http://$host:3000/pages/client-config');
-      return Future.value(ClientConfig.fromJson(json.decode(response.data)));
+      if (_beAPI!.contains("localhost")) {
+        _beAPI = _beAPI!.replaceFirst("localhost", host);
+      }
+
+      var response = await _dio.get('$_beAPI/pages/client-config');
+      var clientConfig = ClientConfig.fromJson(json.decode(response.data));
+
+      _pageAPI = clientConfig.pageAPI ?? _beAPI;
+      if (_pageAPI!.contains("localhost")) {
+        _pageAPI = _pageAPI!.replaceFirst("localhost", host);
+      }
+      return Future.value(clientConfig);
     } on DioError catch (e) {
       if (e.response != null) {
         throw Exception(e.response?.data);
@@ -114,8 +127,7 @@ class APIClientManager {
     String? themePath = "theme",
   }) async {
     try {
-      var response =
-          await _dio.get('http://$host:3000/pages/${themePath ?? "theme"}');
+      var response = await _dio.get('$_pageAPI/${themePath ?? "theme"}');
       return Future.value(json.decode(response.data));
     } on DioError catch (e) {
       if (e.response != null) {

@@ -23,6 +23,8 @@ mixin _$ClientConfig {
   String? get initialPage => throw _privateConstructorUsedError;
   List<Map<String, dynamic>>? get routes => throw _privateConstructorUsedError;
   String? get themePath => throw _privateConstructorUsedError;
+  String? get pageAPI => throw _privateConstructorUsedError;
+  String? get beAPI => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -38,7 +40,9 @@ abstract class $ClientConfigCopyWith<$Res> {
   $Res call(
       {String? initialPage,
       List<Map<String, dynamic>>? routes,
-      String? themePath});
+      String? themePath,
+      String? pageAPI,
+      String? beAPI});
 }
 
 /// @nodoc
@@ -54,6 +58,8 @@ class _$ClientConfigCopyWithImpl<$Res> implements $ClientConfigCopyWith<$Res> {
     Object? initialPage = freezed,
     Object? routes = freezed,
     Object? themePath = freezed,
+    Object? pageAPI = freezed,
+    Object? beAPI = freezed,
   }) {
     return _then(_value.copyWith(
       initialPage: initialPage == freezed
@@ -67,6 +73,14 @@ class _$ClientConfigCopyWithImpl<$Res> implements $ClientConfigCopyWith<$Res> {
       themePath: themePath == freezed
           ? _value.themePath
           : themePath // ignore: cast_nullable_to_non_nullable
+              as String?,
+      pageAPI: pageAPI == freezed
+          ? _value.pageAPI
+          : pageAPI // ignore: cast_nullable_to_non_nullable
+              as String?,
+      beAPI: beAPI == freezed
+          ? _value.beAPI
+          : beAPI // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -82,7 +96,9 @@ abstract class _$$_ClientConfigCopyWith<$Res>
   $Res call(
       {String? initialPage,
       List<Map<String, dynamic>>? routes,
-      String? themePath});
+      String? themePath,
+      String? pageAPI,
+      String? beAPI});
 }
 
 /// @nodoc
@@ -101,6 +117,8 @@ class __$$_ClientConfigCopyWithImpl<$Res>
     Object? initialPage = freezed,
     Object? routes = freezed,
     Object? themePath = freezed,
+    Object? pageAPI = freezed,
+    Object? beAPI = freezed,
   }) {
     return _then(_$_ClientConfig(
       initialPage: initialPage == freezed
@@ -115,6 +133,14 @@ class __$$_ClientConfigCopyWithImpl<$Res>
           ? _value.themePath
           : themePath // ignore: cast_nullable_to_non_nullable
               as String?,
+      pageAPI: pageAPI == freezed
+          ? _value.pageAPI
+          : pageAPI // ignore: cast_nullable_to_non_nullable
+              as String?,
+      beAPI: beAPI == freezed
+          ? _value.beAPI
+          : beAPI // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -125,7 +151,9 @@ class _$_ClientConfig with DiagnosticableTreeMixin implements _ClientConfig {
   const _$_ClientConfig(
       {this.initialPage,
       final List<Map<String, dynamic>>? routes,
-      this.themePath})
+      this.themePath,
+      this.pageAPI,
+      this.beAPI})
       : _routes = routes;
 
   factory _$_ClientConfig.fromJson(Map<String, dynamic> json) =>
@@ -144,10 +172,14 @@ class _$_ClientConfig with DiagnosticableTreeMixin implements _ClientConfig {
 
   @override
   final String? themePath;
+  @override
+  final String? pageAPI;
+  @override
+  final String? beAPI;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ClientConfig(initialPage: $initialPage, routes: $routes, themePath: $themePath)';
+    return 'ClientConfig(initialPage: $initialPage, routes: $routes, themePath: $themePath, pageAPI: $pageAPI, beAPI: $beAPI)';
   }
 
   @override
@@ -157,7 +189,9 @@ class _$_ClientConfig with DiagnosticableTreeMixin implements _ClientConfig {
       ..add(DiagnosticsProperty('type', 'ClientConfig'))
       ..add(DiagnosticsProperty('initialPage', initialPage))
       ..add(DiagnosticsProperty('routes', routes))
-      ..add(DiagnosticsProperty('themePath', themePath));
+      ..add(DiagnosticsProperty('themePath', themePath))
+      ..add(DiagnosticsProperty('pageAPI', pageAPI))
+      ..add(DiagnosticsProperty('beAPI', beAPI));
   }
 
   @override
@@ -168,7 +202,9 @@ class _$_ClientConfig with DiagnosticableTreeMixin implements _ClientConfig {
             const DeepCollectionEquality()
                 .equals(other.initialPage, initialPage) &&
             const DeepCollectionEquality().equals(other._routes, _routes) &&
-            const DeepCollectionEquality().equals(other.themePath, themePath));
+            const DeepCollectionEquality().equals(other.themePath, themePath) &&
+            const DeepCollectionEquality().equals(other.pageAPI, pageAPI) &&
+            const DeepCollectionEquality().equals(other.beAPI, beAPI));
   }
 
   @JsonKey(ignore: true)
@@ -177,7 +213,9 @@ class _$_ClientConfig with DiagnosticableTreeMixin implements _ClientConfig {
       runtimeType,
       const DeepCollectionEquality().hash(initialPage),
       const DeepCollectionEquality().hash(_routes),
-      const DeepCollectionEquality().hash(themePath));
+      const DeepCollectionEquality().hash(themePath),
+      const DeepCollectionEquality().hash(pageAPI),
+      const DeepCollectionEquality().hash(beAPI));
 
   @JsonKey(ignore: true)
   @override
@@ -194,7 +232,9 @@ abstract class _ClientConfig implements ClientConfig {
   const factory _ClientConfig(
       {final String? initialPage,
       final List<Map<String, dynamic>>? routes,
-      final String? themePath}) = _$_ClientConfig;
+      final String? themePath,
+      final String? pageAPI,
+      final String? beAPI}) = _$_ClientConfig;
 
   factory _ClientConfig.fromJson(Map<String, dynamic> json) =
       _$_ClientConfig.fromJson;
@@ -205,6 +245,10 @@ abstract class _ClientConfig implements ClientConfig {
   List<Map<String, dynamic>>? get routes => throw _privateConstructorUsedError;
   @override
   String? get themePath => throw _privateConstructorUsedError;
+  @override
+  String? get pageAPI => throw _privateConstructorUsedError;
+  @override
+  String? get beAPI => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_ClientConfigCopyWith<_$_ClientConfig> get copyWith =>
