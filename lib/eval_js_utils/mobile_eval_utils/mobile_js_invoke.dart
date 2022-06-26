@@ -73,6 +73,13 @@ void registerJavascriptHandler(
   );
 
   webViewController?.addJavaScriptHandler(
+    handlerName: "dispatch_form_action",
+    callback: (args) async {
+      getIt<UtilsManager>().emitter.emit(args[0], context, args[1]);
+    },
+  );
+
+  webViewController?.addJavaScriptHandler(
     handlerName: "fetch_data",
     callback: (args) async {
       var options = json.decode(args[1]);

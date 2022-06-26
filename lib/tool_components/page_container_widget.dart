@@ -5,7 +5,6 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/storage_utils.dart';
@@ -13,10 +12,8 @@ import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/tool_components/page_widget.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
-import 'package:gato/gato.dart' as gato;
 import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
     if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_utils/web_eval_js.dart';
-import 'package:the_tool/t_widget_interface/client_config/client_config.dart';
 
 class PageContainer extends StatefulWidget {
   const PageContainer({Key? key}) : super(key: key);

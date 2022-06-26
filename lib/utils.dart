@@ -5,16 +5,19 @@ import 'package:gato/gato.dart' as gato;
 import 'package:get_it/get_it.dart';
 import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
     if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_utils/web_eval_js.dart';
+import 'package:eventify/eventify.dart' as eventify;
 
 GetIt getIt = GetIt.instance;
 
 class UtilsManager {
+  UtilsManager() : super() {}
   Map<String, String> _staticContent = {};
   static final regexPattern = RegExp(r"[^{{\}}]+(?=}})");
+
+  final eventify.EventEmitter _emitter = eventify.EventEmitter();
+  eventify.EventEmitter get emitter => _emitter;
+
   EvalJS? _evalJS;
-
-  UtilsManager() : super() {}
-
   EvalJS? get evalJS => _evalJS;
 
   set evalJS(EvalJS? evalJS) {

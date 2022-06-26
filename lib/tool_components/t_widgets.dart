@@ -8,6 +8,7 @@ import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/style_utils.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/tool_components/fields/t_fields_widget.dart';
+import 'package:the_tool/tool_components/fields/t_form_widget.dart';
 import 'package:the_tool/tool_components/t_button_widget.dart';
 import 'package:the_tool/tool_components/t_column_widget.dart';
 import 'package:the_tool/tool_components/t_container_widget.dart';
@@ -90,6 +91,13 @@ class _T_WidgetsState extends State<T_Widgets> {
         );
       case "row":
         return T_Row(
+          executeJS: executeJSWithPagePath,
+          widgetProps: widgetProps,
+          pageName: widget.pagePath,
+          contextData: contextData,
+        );
+      case "form":
+        return T_Form(
           executeJS: executeJSWithPagePath,
           widgetProps: widgetProps,
           pageName: widget.pagePath,

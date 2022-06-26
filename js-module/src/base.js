@@ -132,6 +132,21 @@ const __ondataresponse = (requestId, data) => {
   webJSChannel.emit(requestId, data);
 };
 
+const dispatchFormAction = async (name, action = "submit") => {
+  switch (context._platform) {
+    case "web":
+      return;
+
+    case "mobile":
+      await window.flutter_inappwebview.callHandler(
+        "dispatch_form_action",
+        name,
+        action
+      );
+      return;
+  }
+};
+
 Object.assign(window, {
   setContextData,
   usePrevious,
@@ -142,6 +157,7 @@ Object.assign(window, {
   getCookies,
   toggleChangeTheme,
   fetchData,
+  dispatchFormAction,
   context,
 
   // this function only used on dart side
