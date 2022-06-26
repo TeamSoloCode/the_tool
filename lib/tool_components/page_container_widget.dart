@@ -112,9 +112,6 @@ class _PageContainerState extends State<PageContainer> {
 
   Future<bool> _isReadyToRun() async {
     return Future<bool>.microtask(() async {
-      ClientConfig config = await _apiClient.getClientConfig();
-
-      context.read<ContextStateProvider>().appConfig = config;
       await getIt<StorageManager>().initStorageBox();
 
       if (!kIsWeb) {
@@ -126,7 +123,10 @@ class _PageContainerState extends State<PageContainer> {
   }
 
   Future<void> _updateTheme() async {
-    Map<String, dynamic> theme = await _apiClient.getAppTheme();
+    var themePath = getIt<ContextStateProvider>().appConfig?.themePath;
+    Map<String, dynamic> theme = await _apiClient.getAppTheme(
+      themePath: themePath,
+    );
     var currentThemeData =
         await context.read<ThemeProvider>().computeThemeData(theme);
 

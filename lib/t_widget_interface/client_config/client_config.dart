@@ -9,6 +9,7 @@ class ClientConfig with _$ClientConfig {
   const factory ClientConfig({
     String? initialPage,
     List<Map<String, dynamic>>? routes,
+    String? themePath,
   }) = _ClientConfig;
 
   factory ClientConfig.fromJson(Map<String, Object?> json) =>

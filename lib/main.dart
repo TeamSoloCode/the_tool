@@ -8,6 +8,7 @@ import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/tool_components/page_container_widget.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
+import 't_widget_interface/client_config/client_config.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +26,9 @@ void main() async {
     ContextStateProvider(),
     signalsReady: true,
   );
+
+  ClientConfig config = await getIt<APIClientManager>().getClientConfig();
+  getIt<ContextStateProvider>().appConfig = config;
 
   runApp(MultiProvider(
     providers: [

@@ -22,6 +22,7 @@ ClientConfig _$ClientConfigFromJson(Map<String, dynamic> json) {
 mixin _$ClientConfig {
   String? get initialPage => throw _privateConstructorUsedError;
   List<Map<String, dynamic>>? get routes => throw _privateConstructorUsedError;
+  String? get themePath => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +35,10 @@ abstract class $ClientConfigCopyWith<$Res> {
   factory $ClientConfigCopyWith(
           ClientConfig value, $Res Function(ClientConfig) then) =
       _$ClientConfigCopyWithImpl<$Res>;
-  $Res call({String? initialPage, List<Map<String, dynamic>>? routes});
+  $Res call(
+      {String? initialPage,
+      List<Map<String, dynamic>>? routes,
+      String? themePath});
 }
 
 /// @nodoc
@@ -49,6 +53,7 @@ class _$ClientConfigCopyWithImpl<$Res> implements $ClientConfigCopyWith<$Res> {
   $Res call({
     Object? initialPage = freezed,
     Object? routes = freezed,
+    Object? themePath = freezed,
   }) {
     return _then(_value.copyWith(
       initialPage: initialPage == freezed
@@ -59,6 +64,10 @@ class _$ClientConfigCopyWithImpl<$Res> implements $ClientConfigCopyWith<$Res> {
           ? _value.routes
           : routes // ignore: cast_nullable_to_non_nullable
               as List<Map<String, dynamic>>?,
+      themePath: themePath == freezed
+          ? _value.themePath
+          : themePath // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -70,7 +79,10 @@ abstract class _$$_ClientConfigCopyWith<$Res>
           _$_ClientConfig value, $Res Function(_$_ClientConfig) then) =
       __$$_ClientConfigCopyWithImpl<$Res>;
   @override
-  $Res call({String? initialPage, List<Map<String, dynamic>>? routes});
+  $Res call(
+      {String? initialPage,
+      List<Map<String, dynamic>>? routes,
+      String? themePath});
 }
 
 /// @nodoc
@@ -88,6 +100,7 @@ class __$$_ClientConfigCopyWithImpl<$Res>
   $Res call({
     Object? initialPage = freezed,
     Object? routes = freezed,
+    Object? themePath = freezed,
   }) {
     return _then(_$_ClientConfig(
       initialPage: initialPage == freezed
@@ -98,6 +111,10 @@ class __$$_ClientConfigCopyWithImpl<$Res>
           ? _value._routes
           : routes // ignore: cast_nullable_to_non_nullable
               as List<Map<String, dynamic>>?,
+      themePath: themePath == freezed
+          ? _value.themePath
+          : themePath // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -106,7 +123,9 @@ class __$$_ClientConfigCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ClientConfig with DiagnosticableTreeMixin implements _ClientConfig {
   const _$_ClientConfig(
-      {this.initialPage, final List<Map<String, dynamic>>? routes})
+      {this.initialPage,
+      final List<Map<String, dynamic>>? routes,
+      this.themePath})
       : _routes = routes;
 
   factory _$_ClientConfig.fromJson(Map<String, dynamic> json) =>
@@ -124,8 +143,11 @@ class _$_ClientConfig with DiagnosticableTreeMixin implements _ClientConfig {
   }
 
   @override
+  final String? themePath;
+
+  @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ClientConfig(initialPage: $initialPage, routes: $routes)';
+    return 'ClientConfig(initialPage: $initialPage, routes: $routes, themePath: $themePath)';
   }
 
   @override
@@ -134,7 +156,8 @@ class _$_ClientConfig with DiagnosticableTreeMixin implements _ClientConfig {
     properties
       ..add(DiagnosticsProperty('type', 'ClientConfig'))
       ..add(DiagnosticsProperty('initialPage', initialPage))
-      ..add(DiagnosticsProperty('routes', routes));
+      ..add(DiagnosticsProperty('routes', routes))
+      ..add(DiagnosticsProperty('themePath', themePath));
   }
 
   @override
@@ -144,7 +167,8 @@ class _$_ClientConfig with DiagnosticableTreeMixin implements _ClientConfig {
             other is _$_ClientConfig &&
             const DeepCollectionEquality()
                 .equals(other.initialPage, initialPage) &&
-            const DeepCollectionEquality().equals(other._routes, _routes));
+            const DeepCollectionEquality().equals(other._routes, _routes) &&
+            const DeepCollectionEquality().equals(other.themePath, themePath));
   }
 
   @JsonKey(ignore: true)
@@ -152,7 +176,8 @@ class _$_ClientConfig with DiagnosticableTreeMixin implements _ClientConfig {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(initialPage),
-      const DeepCollectionEquality().hash(_routes));
+      const DeepCollectionEquality().hash(_routes),
+      const DeepCollectionEquality().hash(themePath));
 
   @JsonKey(ignore: true)
   @override
@@ -168,7 +193,8 @@ class _$_ClientConfig with DiagnosticableTreeMixin implements _ClientConfig {
 abstract class _ClientConfig implements ClientConfig {
   const factory _ClientConfig(
       {final String? initialPage,
-      final List<Map<String, dynamic>>? routes}) = _$_ClientConfig;
+      final List<Map<String, dynamic>>? routes,
+      final String? themePath}) = _$_ClientConfig;
 
   factory _ClientConfig.fromJson(Map<String, dynamic> json) =
       _$_ClientConfig.fromJson;
@@ -177,6 +203,8 @@ abstract class _ClientConfig implements ClientConfig {
   String? get initialPage => throw _privateConstructorUsedError;
   @override
   List<Map<String, dynamic>>? get routes => throw _privateConstructorUsedError;
+  @override
+  String? get themePath => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_ClientConfigCopyWith<_$_ClientConfig> get copyWith =>

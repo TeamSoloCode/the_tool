@@ -110,9 +110,12 @@ class APIClientManager {
     }
   }
 
-  Future<Map<String, dynamic>> getAppTheme() async {
+  Future<Map<String, dynamic>> getAppTheme({
+    String? themePath = "theme",
+  }) async {
     try {
-      var response = await _dio.get('http://$host:3000/pages/theme');
+      var response =
+          await _dio.get('http://$host:3000/pages/${themePath ?? "theme"}');
       return Future.value(json.decode(response.data));
     } on DioError catch (e) {
       if (e.response != null) {
