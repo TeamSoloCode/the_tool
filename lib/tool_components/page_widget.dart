@@ -82,8 +82,6 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
       );
     }
 
-    var currentThemeMode = context.read<ThemeProvider>().currentThemeMode;
-
     log("Update page: ${widget.pagePath} $pageData");
 
     return Scaffold(
@@ -116,7 +114,6 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     Map<String, dynamic> pageInfo =
         await apiClient.getClientPageInfo(widget.pagePath);
 
-    print("abcd _loadPageInfo ${widget.pagePath}");
     utils.evalJS?.executePageCode(
       pageInfo["code"],
       widget.pagePath,

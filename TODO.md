@@ -1,4 +1,3 @@
-Fix bug reload page got redirected to initial page instead of current route
 #-------------------------------------------------
 
 Support get data from exportPageContext
@@ -43,3 +42,4 @@ Fix bug #primaryColor have been replace even on the text property (issue from re
 -Move config json to server
 -Use Freeze to generate DTO class
 -Move theme json to server
+-Fix bug reload page got redirected to initial page instead of current route
