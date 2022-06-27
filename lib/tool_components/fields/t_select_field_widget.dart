@@ -115,7 +115,7 @@ class _T_SelectFieldState extends State<T_SelectField> {
       hint: const Text('Select Gender'),
       validator: FormBuilderValidators.compose(
         [
-          FormBuilderValidators.required(errorText: "Required field"),
+          FormBuilderValidators.required(),
         ],
       ),
       items: _computeDropdownItems(items),
