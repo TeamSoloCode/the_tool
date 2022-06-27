@@ -92,7 +92,7 @@ class _T_TextFieldState extends State<T_TextField> {
       name: name ?? "",
       decoration: const InputDecoration(
         hintText: "Placeholder",
-        labelText: 'Required field number, with 10 chars max',
+        labelText: 'Required field number and below than 10',
       ),
       onChanged: (text) {
         _debounceTextChanged(text);
@@ -104,7 +104,7 @@ class _T_TextFieldState extends State<T_TextField> {
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(errorText: "Required field"),
         FormBuilderValidators.numeric(errorText: "Number field"),
-        FormBuilderValidators.max(10, errorText: "Only 10 character!"),
+        FormBuilderValidators.max(10, errorText: "Must below than 10"),
       ]),
       keyboardType: TextInputType.text,
     );

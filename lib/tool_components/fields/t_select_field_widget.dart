@@ -93,6 +93,8 @@ class _T_SelectFieldState extends State<T_SelectField> {
     items = widgetProps?["items"] ?? [];
     assert(name != null, "Missing \"name\" in field widget");
 
+    prevWidgetProps = widgetProps ?? {};
+
     /** "items" property might be a string, that's mean it's a databinding */
     if (items is String) {
       items = widget.contextData[items] ?? [];
@@ -113,7 +115,7 @@ class _T_SelectFieldState extends State<T_SelectField> {
       hint: const Text('Select Gender'),
       validator: FormBuilderValidators.compose(
         [
-          FormBuilderValidators.required(),
+          FormBuilderValidators.required(errorText: "Required field"),
         ],
       ),
       items: _computeDropdownItems(items),
