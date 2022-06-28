@@ -76,51 +76,43 @@ class _T_FormState extends State<T_Form> {
       "Form need to have name property",
     );
 
-    return ShouldWidgetUpdate(
-      builder: (context) {
-        prevWidgetProps = widgetProps;
-        prevFields = _formKey.currentState?.fields;
-        return FormBuilder(
-          key: _formKey,
-          autoFocusOnValidationFailure: true,
-          autovalidateMode: AutovalidateMode.disabled,
-          child: T_Widgets(
-            layout: widget.widgetProps["child"] ?? {},
-            pagePath: widget.pageName,
-            contextData: widget.contextData,
-          ),
-        );
-      },
-      shouldWidgetUpdate: shouldUpdate(),
+    return FormBuilder(
+      key: _formKey,
+      autoFocusOnValidationFailure: true,
+      autovalidateMode: AutovalidateMode.disabled,
+      child: T_Widgets(
+        layout: widget.widgetProps["child"] ?? {},
+        pagePath: widget.pageName,
+        contextData: widget.contextData,
+      ),
     );
   }
 
-  bool shouldUpdate() {
-    var isFieldChanged = false;
-    var fields = _formKey.currentState?.fields;
-    fields?.forEach((key, field) {
-      var isEqual = false;
-      var value = field.value;
-      log("abcd _formKey.currentState $key ${value}");
-      if (value is Map || value is List) {
-        isEqual = const DeepCollectionEquality().equals(
-          value,
-          prevFields?[key]?.value,
-        );
-      } else {
-        isEqual = value == prevFields?[key]?.value;
-      }
+  bool shouldWidgetUpdate() {
+    // var isFieldChanged = false;
+    // var fields = _formKey.currentState?.fields;
+    // fields?.forEach((key, field) {
+    //   var isEqual = false;
+    //   var value = field.value;
+    //   if (value is Map || value is List) {
+    //     isEqual = const DeepCollectionEquality().equals(
+    //       value,
+    //       widget.contextData[key],
+    //     );
+    //   } else {
+    //     isEqual = value == widget.contextData[key];
+    //   }
 
-      if (!isEqual) {
-        isFieldChanged = true;
-      }
-    });
+    //   if (!isEqual) {
+    //     log("abcd _formKey.currentState $key ${value}");
+    //     isFieldChanged = true;
+    //   }
+    // });
 
-    var shouldUpdate = isFieldChanged ||
-        !const DeepCollectionEquality().equals(
-          prevWidgetProps,
-          widgetProps,
-        );
+    var shouldUpdate = !const DeepCollectionEquality().equals(
+      prevWidgetProps,
+      widgetProps,
+    );
 
     return shouldUpdate;
   }

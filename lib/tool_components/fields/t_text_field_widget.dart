@@ -52,10 +52,13 @@ class _T_TextFieldState extends State<T_TextField> {
     String newText = widget.contextData[name] ?? "";
 
     if (prevValue != newText) {
-      textFieldController.text = newText;
-      textFieldController.selection = TextSelection.collapsed(
-        offset: newText.length,
-      );
+      // To fix bug setState during build
+      Future.delayed(Duration.zero, () async {
+        textFieldController.text = newText;
+        textFieldController.selection = TextSelection.collapsed(
+          offset: newText.length,
+        );
+      });
     }
 
     var shouldUpdate = !const DeepCollectionEquality().equals(
