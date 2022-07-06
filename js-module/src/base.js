@@ -135,6 +135,7 @@ const __ondataresponse = (requestId, data) => {
 const dispatchFormAction = async (name, action = "submit") => {
   switch (context._platform) {
     case "web":
+      dispatch_form_action(name, action);
       return;
 
     case "mobile":
