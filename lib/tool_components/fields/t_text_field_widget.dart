@@ -61,6 +61,8 @@ class _T_TextFieldState extends State<T_TextField> {
       });
     }
 
+    assert(name != null, "Missing \"name\" in field widget");
+
     var shouldUpdate = !const DeepCollectionEquality().equals(
       prevWidgetProps,
       widgetProps,
@@ -69,24 +71,25 @@ class _T_TextFieldState extends State<T_TextField> {
     return shouldUpdate;
   }
 
+  void _debounceTextChanged(String? text) {
+    String? name = widgetProps?["name"];
+    if (_debounce?.isActive ?? false) _debounce?.cancel();
+
+    _debounce = Timer(const Duration(milliseconds: 200), () {
+      String newText = widget.contextData[name] ?? "";
+      if (newText != text && name != null) {
+        widget.setPageData({name: text});
+        prevValue = text == "" ? null : text;
+      }
+    });
+  }
+
   Widget _computeTextField(
     Map<String, dynamic>? widgetProps,
     BuildContext context,
   ) {
     String? name = widgetProps?["name"];
     assert(name != null, "Missing \"name\" in field widget");
-
-    void _debounceTextChanged(String? text) {
-      if (_debounce?.isActive ?? false) _debounce?.cancel();
-
-      _debounce = Timer(const Duration(milliseconds: 50), () {
-        String newText = widget.contextData[name] ?? "";
-        if (newText != text && name != null) {
-          widget.setPageData({name: text});
-          prevValue = text == "" ? null : text;
-        }
-      });
-    }
 
     prevWidgetProps = widgetProps ?? {};
 
