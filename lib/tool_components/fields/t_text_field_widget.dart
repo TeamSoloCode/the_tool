@@ -79,7 +79,7 @@ class _T_TextFieldState extends State<T_TextField> {
     void _debounceTextChanged(String? text) {
       if (_debounce?.isActive ?? false) _debounce?.cancel();
 
-      _debounce = Timer(const Duration(milliseconds: 100), () {
+      _debounce = Timer(const Duration(milliseconds: 50), () {
         String newText = widget.contextData[name] ?? "";
         if (newText != text && name != null) {
           widget.setPageData({name: text});
