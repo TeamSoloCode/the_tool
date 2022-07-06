@@ -63,7 +63,10 @@ class _T_FormState extends State<T_Form> {
           _formKey.currentState?.validate();
           return;
         case "reset":
-          _formKey.currentState?.reset();
+          var fields = _formKey.currentState?.fields;
+          fields?.forEach((key, field) {
+            field.reset();
+          });
           return;
       }
     };
@@ -76,38 +79,44 @@ class _T_FormState extends State<T_Form> {
       "Form need to have name property",
     );
 
-    return FormBuilder(
-      key: _formKey,
-      autoFocusOnValidationFailure: true,
-      autovalidateMode: AutovalidateMode.disabled,
-      child: T_Widgets(
-        layout: widget.widgetProps["child"] ?? {},
-        pagePath: widget.pageName,
-        contextData: widget.contextData,
-      ),
+    return ShouldWidgetUpdate(
+      builder: (context) {
+        log("abcd _form ${_formKey.currentState?.fields["gender"]?.value}");
+        return FormBuilder(
+          key: _formKey,
+          autoFocusOnValidationFailure: true,
+          autovalidateMode: AutovalidateMode.disabled,
+          child: T_Widgets(
+            layout: widget.widgetProps["child"] ?? {},
+            pagePath: widget.pageName,
+            contextData: widget.contextData,
+          ),
+        );
+      },
+      shouldWidgetUpdate: shouldWidgetUpdate(),
     );
   }
 
   bool shouldWidgetUpdate() {
-    // var isFieldChanged = false;
-    // var fields = _formKey.currentState?.fields;
-    // fields?.forEach((key, field) {
-    //   var isEqual = false;
-    //   var value = field.value;
-    //   if (value is Map || value is List) {
-    //     isEqual = const DeepCollectionEquality().equals(
-    //       value,
-    //       widget.contextData[key],
-    //     );
-    //   } else {
-    //     isEqual = value == widget.contextData[key];
-    //   }
+    var isFieldChanged = false;
+    var fields = _formKey.currentState?.fields;
+    fields?.forEach((key, field) {
+      var isEqual = false;
+      var value = field.value;
+      if (value is Map || value is List) {
+        isEqual = const DeepCollectionEquality().equals(
+          value,
+          widget.contextData[key],
+        );
+      } else {
+        isEqual = value == widget.contextData[key];
+      }
 
-    //   if (!isEqual) {
-    //     log("abcd _formKey.currentState $key ${value}");
-    //     isFieldChanged = true;
-    //   }
-    // });
+      if (!isEqual) {
+        isFieldChanged = true;
+        field.setValue(widget.contextData[key]);
+      }
+    });
 
     var shouldUpdate = !const DeepCollectionEquality().equals(
       prevWidgetProps,

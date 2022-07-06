@@ -51,14 +51,10 @@ external set fetchData(
   void Function(String id, String path, String optionJSON) f,
 );
 
-// @JS('fetch_data')
-// external String fetchData(String path);
-
-/// Allows calling the assigned function from Dart as well.
-@JS()
-external void setState();
-
-typedef Callback<T> = void Function(T arg);
+@JS('dispatch_form_action')
+external set dispathFormAction(
+  void Function(String eventName, String eventData) f,
+);
 
 /// It takes a JSON string, decodes it into a Map, and then merges it with the existing context data
 ///
@@ -89,6 +85,10 @@ void _fetchData(String id, String path, String optionJSON) {
   _emitDataResponseEvent(id, path, json.decode(optionJSON));
 }
 
+void _dispatchFormAction(String eventName, String eventData) {
+  getIt<UtilsManager>().emitter.emit(eventName, _context, eventData);
+}
+
 void _emitDataResponseEvent(
   String id,
   String path,
@@ -113,4 +113,5 @@ void main() {
   navigator = allowInterop(_navigator);
   toogleChangeTheme = allowInterop(_toogleChangeTheme);
   fetchData = allowInterop(_fetchData);
+  dispathFormAction = allowInterop(_dispatchFormAction);
 }
