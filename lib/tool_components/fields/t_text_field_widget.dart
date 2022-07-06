@@ -72,7 +72,7 @@ class _T_TextFieldState extends State<T_TextField> {
   }
 
   void _debounceTextChanged(String? text) {
-    String? name = widgetProps?["name"];
+    String? name = widgetProps["name"];
     if (_debounce?.isActive ?? false) _debounce?.cancel();
 
     _debounce = Timer(const Duration(milliseconds: 200), () {

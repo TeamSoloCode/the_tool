@@ -37,12 +37,13 @@ class _T_RowState extends State<T_Row> {
 
   @override
   Widget build(BuildContext context) {
-    var mainAxisAlignment = widget.widgetProps["mainAxisAlignment"];
+    var mainAxisAlignment = ThemeDecoder.decodeMainAxisAlignment(
+          widget.widgetProps["mainAxisAlignment"],
+        ) ??
+        MainAxisAlignment.start;
 
     return Row(
-      mainAxisAlignment:
-          ThemeDecoder.decodeMainAxisAlignment(mainAxisAlignment) ??
-              MainAxisAlignment.start,
+      mainAxisAlignment: mainAxisAlignment,
       children: _computeChildren(widget.widgetProps["children"]),
     );
   }
