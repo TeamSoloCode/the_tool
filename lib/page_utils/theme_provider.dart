@@ -193,7 +193,7 @@ class ThemeProvider with ChangeNotifier {
 
       baseColor?.forEach((key, value) {
         if (!key.startsWith("--")) {
-          rawContent = rawContent.replaceAll(RegExp(key), value);
+          rawContent = rawContent.replaceAll(RegExp("\"$key\""), "\"$value\"");
         }
       });
 

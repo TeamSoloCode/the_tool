@@ -25,15 +25,14 @@ class PageContainer extends StatefulWidget {
 
 class _PageContainerState extends State<PageContainer> {
   bool _isWebViewReady = false;
-  UtilsManager _utils = getIt<UtilsManager>();
-  late EvalJS _evalJS;
-
-  APIClientManager _apiClient = getIt<APIClientManager>();
+  final UtilsManager _utils = getIt<UtilsManager>();
+  final APIClientManager _apiClient = getIt<APIClientManager>();
   String? _errorMessage;
   HeadlessInAppWebView? _headlessWebView;
   ThemeData? _themeData;
-  var _currentThemeMode;
+  ThemeMode? _currentThemeMode;
 
+  late EvalJS _evalJS;
   @override
   void initState() {
     super.initState();
@@ -58,7 +57,7 @@ class _PageContainerState extends State<PageContainer> {
       },
     );
     return MaterialApp(
-      theme: context.read<ThemeProvider>().themeData,
+      theme: _themeData,
       themeMode: _currentThemeMode,
       routes: _computeRoutes(),
       home: FutureBuilder<bool>(
@@ -105,11 +104,7 @@ class _PageContainerState extends State<PageContainer> {
         future: _isReadyToRun(),
       ),
       supportedLocales: const [
-        Locale('de'),
         Locale('en'),
-        Locale('es'),
-        Locale('fr'),
-        Locale('it'),
       ],
       localizationsDelegates: const [
         // GlobalMaterialLocalizations.delegate,

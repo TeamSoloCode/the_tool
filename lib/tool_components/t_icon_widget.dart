@@ -44,6 +44,7 @@ class _T_IconState extends State<T_Icon> {
     return ShouldWidgetUpdate(
       key: widget.getBindingKey(),
       builder: (context) {
+        prevWidgetProps = widget.widgetProps;
         return Icon(MdiIcons.fromString(path));
       },
       shouldWidgetUpdate: shouldWidgetUpdate(),
