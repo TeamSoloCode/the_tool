@@ -9,6 +9,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:provider/provider.dart';
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:the_tool/page_utils/permission_manager.dart';
 import 'package:the_tool/page_utils/storage_utils.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/utils.dart';
@@ -91,6 +92,23 @@ void registerJavascriptHandler(
       return await getIt<APIClientManager>().fetchData(
         requestOptions: requestOptions,
       );
+    },
+  );
+
+  webViewController?.addJavaScriptHandler(
+    handlerName: "permission_action",
+    callback: (args) async {
+      var permissionManager = getIt<PermissionManager>();
+      var permissionStatus;
+      switch (args[0]) {
+        case "request":
+          permissionStatus = await permissionManager.requestPermission(args[1]);
+          return permissionManager.permissionStatusToMap(permissionStatus);
+        case "status":
+          permissionStatus =
+              await permissionManager.getPermissionStatus(args[1]);
+      }
+      return permissionManager.permissionStatusToMap(permissionStatus);
     },
   );
 }

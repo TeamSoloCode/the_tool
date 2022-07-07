@@ -45,6 +45,19 @@ class PermissionManager {
     return Future.value(permission?.status);
   }
 
+  Map<String, bool> permissionStatusToMap(PermissionStatus? permissionStatus) {
+    if (permissionStatus == null) {
+      return {};
+    }
+    return {
+      "isGranted": permissionStatus.isGranted,
+      "isDenied": permissionStatus.isDenied,
+      "isLimited": permissionStatus.isLimited,
+      "isPermanentlyDenied": permissionStatus.isPermanentlyDenied,
+      "isRestricted": permissionStatus.isRestricted
+    };
+  }
+
   Permission? _getPermissionByName(String permissionName) {
     if (permissionValue.containsKey(permissionName)) {
       return Permission.byValue(permissionValue[permissionName]!);

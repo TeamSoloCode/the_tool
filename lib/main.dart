@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:the_tool/page_utils/permission_manager.dart';
 import 'package:the_tool/page_utils/storage_utils.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/tool_components/page_container_widget.dart';
@@ -26,6 +27,10 @@ void main() async {
   );
   getIt.registerSingleton<ContextStateProvider>(
     ContextStateProvider(),
+    signalsReady: true,
+  );
+  getIt.registerSingleton<PermissionManager>(
+    PermissionManager(),
     signalsReady: true,
   );
 
