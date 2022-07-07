@@ -4,7 +4,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:from_css_color/from_css_color.dart';
 import 'package:json_theme/json_theme.dart';
-import 'package:json_theme/json_theme_schemas.dart';
 import 'package:the_tool/utils.dart';
 
 class ThemeProvider with ChangeNotifier {
@@ -13,7 +12,7 @@ class ThemeProvider with ChangeNotifier {
   Map<String, dynamic>? _classes;
   Map<String, dynamic>? _baseColor;
   BuildContext context;
-  static UtilsManager _utils = getIt<UtilsManager>();
+  static final UtilsManager _utils = getIt<UtilsManager>();
 
   Map<int, Color> color = {
     50: const Color.fromRGBO(136, 14, 79, .1),

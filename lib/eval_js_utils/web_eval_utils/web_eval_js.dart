@@ -1,11 +1,10 @@
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:the_tool/eval_js_utils/base_eval_js.dart';
 import 'dart:js' as js;
 import 'package:the_tool/eval_js_utils/web_eval_utils/web_js_invoke.dart'
     as webjs;
 
 class EvalJS extends BaseEvalJS {
-  InAppWebViewController? webViewController;
+  var webViewController;
   EvalJS({
     required contextStateProvider,
     this.webViewController,

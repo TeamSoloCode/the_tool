@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart'
+    deferred as webview;
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
@@ -28,7 +28,7 @@ class _PageContainerState extends State<PageContainer> {
   final UtilsManager _utils = getIt<UtilsManager>();
   final APIClientManager _apiClient = getIt<APIClientManager>();
   String? _errorMessage;
-  HeadlessInAppWebView? _headlessWebView;
+  var _headlessWebView;
   ThemeData? _themeData;
   ThemeMode? _currentThemeMode;
 
@@ -119,6 +119,7 @@ class _PageContainerState extends State<PageContainer> {
       await getIt<StorageManager>().initStorageBox();
 
       if (!kIsWeb) {
+        await webview.loadLibrary();
         await getIt<UtilsManager>().loadStaticContent();
       }
 
@@ -180,7 +181,7 @@ class _PageContainerState extends State<PageContainer> {
   }
 
   void _initWebViewForMobile(BuildContext context) {
-    _headlessWebView = HeadlessInAppWebView(
+    _headlessWebView = webview.HeadlessInAppWebView(
       onWebViewCreated: (webViewController) async {
         _evalJS = EvalJS(
           context: context,
@@ -198,9 +199,9 @@ class _PageContainerState extends State<PageContainer> {
       },
       onLoadStart: (controller, url) {},
       androidOnPermissionRequest: (controller, origin, resources) async {
-        return PermissionRequestResponse(
+        return webview.PermissionRequestResponse(
           resources: resources,
-          action: PermissionRequestResponseAction.GRANT,
+          action: webview.PermissionRequestResponseAction.GRANT,
         );
       },
       onLoadStop: (controller, url) async {
