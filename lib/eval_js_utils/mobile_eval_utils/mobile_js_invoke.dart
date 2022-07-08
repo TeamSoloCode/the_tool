@@ -96,7 +96,7 @@ void registerJavascriptHandler(
   );
 
   webViewController?.addJavaScriptHandler(
-    handlerName: "permission_action",
+    handlerName: "permission_event",
     callback: (args) async {
       var permissionManager = getIt<PermissionManager>();
       var permissionStatus;

@@ -148,6 +148,34 @@ const dispatchFormAction = async (name, action = "submit") => {
   }
 };
 
+const requestPermission = async (permissionName) => {
+  switch (context._platform) {
+    case "web":
+      return null;
+
+    case "mobile":
+      return await permissionEvent("request", permissionName);
+  }
+};
+
+const getPermissionStatus = async () => {
+  switch (context._platform) {
+    case "web":
+      return null;
+
+    case "mobile":
+      return await permissionEvent("status", permissionName);
+  }
+};
+
+const permissionEvent = async (action, permissionName) => {
+  return await window.flutter_inappwebview.callHandler(
+    "permission_event",
+    action,
+    permissionName
+  );
+};
+
 Object.assign(window, {
   setContextData,
   usePrevious,
@@ -159,6 +187,8 @@ Object.assign(window, {
   toggleChangeTheme,
   fetchData,
   dispatchFormAction,
+  requestPermission,
+  getPermissionStatus,
   context,
 
   // this function only used on dart side
