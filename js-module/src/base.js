@@ -158,7 +158,7 @@ const requestPermission = async (permissionName) => {
   }
 };
 
-const getPermissionStatus = async () => {
+const getPermissionStatus = async (permissionName) => {
   switch (context._platform) {
     case "web":
       return null;
