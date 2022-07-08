@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/page_utils/should_update.widget.dart';
+import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:collection/collection.dart' show DeepCollectionEquality;
 
@@ -28,8 +29,8 @@ class _T_TextState extends State<T_Text> {
   var oldText = "";
   var text = "";
 
-  Map<String, dynamic> prevWidgetProps = {};
-  Map<String, dynamic> finalWidgetProps = {};
+  LayoutProps? prevWidgetProps;
+  LayoutProps? finalWidgetProps;
 
   bool shouldWidgetUpdate() {
     finalWidgetProps = widget.widgetProps;
@@ -56,13 +57,13 @@ class _T_TextState extends State<T_Text> {
 
         if (kIsWeb) {
           return SelectableText(
-            finalWidgetProps["text"],
+            finalWidgetProps?.text ?? "",
             style: ThemeDecoder.decodeTextStyle(finalWidgetProps),
           );
         }
 
         return Text(
-          finalWidgetProps["text"],
+          finalWidgetProps?.text ?? "",
           style: ThemeDecoder.decodeTextStyle(finalWidgetProps),
         );
       },

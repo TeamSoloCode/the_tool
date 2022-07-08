@@ -8,6 +8,7 @@ import 'package:form_builder_validators/form_builder_validators.dart'
     show FormBuilderValidators;
 import 'package:collection/collection.dart' show DeepCollectionEquality;
 import 'package:the_tool/page_utils/should_update.widget.dart';
+import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/utils.dart';
 
@@ -34,8 +35,8 @@ Timer? _debounce;
 
 class _T_TextFieldState extends State<T_TextField> {
   final textFieldController = TextEditingController();
-  Map<String, dynamic> prevWidgetProps = {};
-  Map<String, dynamic> widgetProps = {};
+  LayoutProps? prevWidgetProps;
+  LayoutProps? widgetProps;
   String? value;
   String? prevValue;
 
@@ -48,7 +49,7 @@ class _T_TextFieldState extends State<T_TextField> {
 
   bool shouldWidgetUpdate() {
     widgetProps = widget.widgetProps;
-    String? name = widgetProps["name"];
+    String? name = widgetProps?.name;
     String newText = widget.contextData[name] ?? "";
 
     if (prevValue != newText) {
@@ -72,7 +73,7 @@ class _T_TextFieldState extends State<T_TextField> {
   }
 
   void _debounceTextChanged(String? text) {
-    String? name = widgetProps["name"];
+    String? name = widgetProps?.name;
     if (_debounce?.isActive ?? false) _debounce?.cancel();
 
     _debounce = Timer(const Duration(milliseconds: 200), () {
@@ -85,13 +86,13 @@ class _T_TextFieldState extends State<T_TextField> {
   }
 
   Widget _computeTextField(
-    Map<String, dynamic>? widgetProps,
+    LayoutProps? widgetProps,
     BuildContext context,
   ) {
-    String? name = widgetProps?["name"];
+    String? name = widgetProps?.name;
     assert(name != null, "Missing \"name\" in field widget");
 
-    prevWidgetProps = widgetProps ?? {};
+    prevWidgetProps = widgetProps;
 
     return FormBuilderTextField(
       controller: textFieldController,

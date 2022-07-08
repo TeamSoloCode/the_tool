@@ -25,7 +25,10 @@ class T_Block extends T_Widget {
 class _T_BlockState extends State<T_Block> {
   @override
   Widget build(BuildContext context) {
-    var path = widget.widgetProps["path"];
+    var path = widget.widgetProps.path;
+    if (path == null) {
+      return const SizedBox.shrink();
+    }
     return T_Page(pagePath: path);
   }
 }

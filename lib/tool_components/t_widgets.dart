@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/style_utils.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
+import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/fields/t_fields_widget.dart';
 import 'package:the_tool/tool_components/fields/t_form_widget.dart';
 import 'package:the_tool/tool_components/t_button_widget.dart';
@@ -21,16 +22,16 @@ import 'package:the_tool/tool_components/t_text_widget.dart';
 import 'package:the_tool/utils.dart';
 
 class T_Widgets extends StatefulWidget {
-  final Map<String, dynamic> layout;
+  final LayoutProps layout;
   final String pagePath;
   Map<String, dynamic> contextData;
 
-  T_Widgets(
-      {Key? key,
-      required this.layout,
-      required this.pagePath,
-      required this.contextData})
-      : super(key: key);
+  T_Widgets({
+    Key? key,
+    required this.layout,
+    required this.pagePath,
+    required this.contextData,
+  }) : super(key: key);
 
   @override
   State<T_Widgets> createState() => _T_WidgetsState();
@@ -54,11 +55,11 @@ class _T_WidgetsState extends State<T_Widgets> {
   }
 
   Widget _getWidget(Map<String, dynamic> contextData, BuildContext context) {
-    Map<String, dynamic> content = widget.layout["content"] ?? widget.layout;
+    LayoutProps content = widget.layout.content ?? widget.layout;
 
     var hidden = utils.bindingValueToProp(
       contextData,
-      content["hidden"],
+      content.hidden,
     );
 
     if (!UtilsManager.isFalsy(hidden)) {
@@ -148,7 +149,7 @@ class _T_WidgetsState extends State<T_Widgets> {
   }
 
   Map<String, dynamic> _computeWidgetProps(
-    Map<String, dynamic> content,
+    LayoutProps content,
     Map<String, dynamic> contextData,
   ) {
     var themeProvider = context.read<ThemeProvider>();

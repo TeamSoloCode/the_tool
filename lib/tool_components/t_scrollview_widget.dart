@@ -37,7 +37,7 @@ class _T_ScrollViewState extends State<T_ScrollView> {
   @override
   Widget build(BuildContext context) {
     const Key centerKey = ValueKey<String>('bottom-sliver-list');
-    var items = _computeChildren(widget.widgetProps["children"]);
+    var items = _computeChildren(widget.widgetProps.children);
 
     return CustomScrollView(
       slivers: [

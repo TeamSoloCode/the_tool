@@ -4,6 +4,7 @@ import 'package:eventify/eventify.dart' as eventify;
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:the_tool/page_utils/should_update.widget.dart';
+import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
@@ -31,8 +32,8 @@ class T_Form extends T_Widget {
 class _T_FormState extends State<T_Form> {
   final _formKey = GlobalKey<FormBuilderState>();
   UtilsManager utils = getIt<UtilsManager>();
-  Map<String, dynamic> prevWidgetProps = {};
-  Map<String, dynamic> widgetProps = {};
+  LayoutProps? prevWidgetProps;
+  LayoutProps? widgetProps;
   Map<String, FormBuilderFieldState<FormBuilderField<dynamic>, dynamic>>?
       prevFields;
 
@@ -41,7 +42,7 @@ class _T_FormState extends State<T_Form> {
   @override
   void initState() {
     listener = utils.emitter.on(
-      widget.widgetProps["name"],
+      widget.widgetProps.name ?? "",
       context,
       formAction(),
     );
@@ -75,7 +76,7 @@ class _T_FormState extends State<T_Form> {
   @override
   Widget build(BuildContext context) {
     assert(
-      widget.widgetProps["name"] != null,
+      widget.widgetProps.name != null,
       "Form need to have name property",
     );
 
@@ -89,7 +90,7 @@ class _T_FormState extends State<T_Form> {
       autoFocusOnValidationFailure: true,
       autovalidateMode: AutovalidateMode.disabled,
       child: T_Widgets(
-        layout: widget.widgetProps["child"] ?? {},
+        layout: widget.widgetProps.child ?? const LayoutProps(),
         pagePath: widget.pageName,
         contextData: widget.contextData,
       ),

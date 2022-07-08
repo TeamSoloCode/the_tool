@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart' show DeepCollectionEquality;
 import 'package:the_tool/page_utils/should_update.widget.dart';
+import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/fields/t_select_field_widget.dart';
 import 'package:the_tool/tool_components/fields/t_text_field_widget.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
@@ -32,8 +33,8 @@ Timer? _debounce;
 
 class _T_FieldsState extends State<T_Fields> {
   final textFieldController = TextEditingController();
-  Map<String, dynamic> prevWidgetProps = {};
-  Map<String, dynamic> widgetProps = {};
+  LayoutProps? prevWidgetProps;
+  LayoutProps? widgetProps;
   dynamic value;
   dynamic prevValue;
 
@@ -46,7 +47,7 @@ class _T_FieldsState extends State<T_Fields> {
 
   bool shouldWidgetUpdate() {
     widgetProps = widget.widgetProps;
-    String? name = widgetProps["name"];
+    String? name = widgetProps?.name;
 
     value = widget.contextData[name] ?? "";
     bool isSameValue = false;
@@ -67,13 +68,13 @@ class _T_FieldsState extends State<T_Fields> {
   }
 
   Widget _computeFields(
-    Map<String, dynamic>? widgetProps,
+    LayoutProps? widgetProps,
     BuildContext context,
   ) {
-    String? fieldType = widgetProps?["fieldType"];
+    String? fieldType = widgetProps?.fieldType;
 
     prevValue = value;
-    prevWidgetProps = widgetProps ?? {};
+    prevWidgetProps = widgetProps;
 
     switch (fieldType) {
       case "text":

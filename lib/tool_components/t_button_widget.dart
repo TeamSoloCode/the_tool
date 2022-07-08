@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:the_tool/page_utils/should_update.widget.dart';
+import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/utils.dart';
 import 'package:collection/collection.dart' show DeepCollectionEquality;
@@ -25,8 +26,8 @@ class T_Button extends T_Widget {
 }
 
 class _T_ButtonState extends State<T_Button> {
-  Map<String, dynamic> prevWidgetProps = {};
-  Map<String, dynamic> widgetProps = {};
+  LayoutProps? prevWidgetProps;
+  LayoutProps? widgetProps;
 
   bool shouldWidgetUpdate() {
     widgetProps = widget.widgetProps;
@@ -40,9 +41,9 @@ class _T_ButtonState extends State<T_Button> {
   }
 
   Widget _computeButton() {
-    String? buttonType = widgetProps["buttonType"];
+    String? buttonType = widgetProps?.buttonType;
 
-    String text = widgetProps["text"];
+    String text = widgetProps?.text ?? "";
     prevWidgetProps = widgetProps;
 
     assert(
@@ -51,7 +52,7 @@ class _T_ButtonState extends State<T_Button> {
     );
 
     onClick() async {
-      var rawOnClick = widgetProps["onClick"];
+      var rawOnClick = widgetProps?.onClick;
       if (rawOnClick is String) {
         await widget.executeJS(rawOnClick);
       }
@@ -59,7 +60,7 @@ class _T_ButtonState extends State<T_Button> {
 
     if (buttonType == "icon_button") {
       return IconButton(
-        icon: Icon(MdiIcons.fromString(widgetProps["icon"])),
+        icon: Icon(MdiIcons.fromString(widgetProps?.icon ?? "")),
         onPressed: onClick,
       );
     } else if (buttonType == "text_button") {

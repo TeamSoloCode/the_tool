@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:the_tool/page_utils/should_update.widget.dart';
+import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:collection/collection.dart' show DeepCollectionEquality;
 
@@ -25,8 +26,8 @@ class T_SelectField extends T_Widget {
 }
 
 class _T_SelectFieldState extends State<T_SelectField> {
-  Map<String, dynamic> prevWidgetProps = {};
-  Map<String, dynamic> widgetProps = {};
+  LayoutProps? prevWidgetProps;
+  LayoutProps? widgetProps;
   String? selectedValue;
 
   dynamic value;
@@ -37,8 +38,8 @@ class _T_SelectFieldState extends State<T_SelectField> {
 
   bool shouldWidgetUpdate() {
     widgetProps = widget.widgetProps;
-    String? name = widgetProps["name"];
-    dynamic currentItems = widgetProps["items"] ?? [];
+    String? name = widgetProps?.name;
+    dynamic currentItems = widgetProps?.items ?? [];
 
     var selectedValueInContext = widget.contextData[name];
     if (currentItems is String) {
@@ -79,21 +80,21 @@ class _T_SelectFieldState extends State<T_SelectField> {
   }
 
   void _onChangeOption(dynamic value) {
-    String name = widgetProps["name"];
+    String name = widgetProps?.name ?? "";
     widget.setPageData({name: value});
     selectedValue = value;
   }
 
   Widget _computeSelectField(
-    Map<String, dynamic>? widgetProps,
+    LayoutProps? widgetProps,
     BuildContext context,
   ) {
-    String? name = widgetProps?["name"];
+    String? name = widgetProps?.name;
     value = widget.contextData[name];
-    items = widgetProps?["items"] ?? [];
+    items = widgetProps?.items ?? [];
     assert(name != null, "Missing \"name\" in field widget");
 
-    prevWidgetProps = widgetProps ?? {};
+    prevWidgetProps = widgetProps;
 
     /** "items" property might be a string, that's mean it's a databinding */
     if (items is String) {

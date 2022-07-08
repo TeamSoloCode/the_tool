@@ -13,12 +13,20 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       text: json['text'] as String?,
       hidden: json['hidden'],
       icon: json['icon'] as String?,
-      buttonType: json['buttonType'] as String?,
       mainAxisAlignment: json['mainAxisAlignment'] as String?,
       path: json['path'] as String?,
+      onClick: json['onClick'] as String?,
+      buttonType: json['buttonType'] as String?,
+      key: json['key'] as String?,
+      name: json['name'] as String?,
+      items: json['items'],
+      fieldType: json['fieldType'] as String?,
       child: json['child'] == null
           ? null
           : LayoutProps.fromJson(json['child'] as Map<String, dynamic>),
+      content: json['content'] == null
+          ? null
+          : LayoutProps.fromJson(json['content'] as Map<String, dynamic>),
       children: (json['children'] as List<dynamic>?)
           ?.map((e) => LayoutProps.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -35,10 +43,16 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'text': instance.text,
       'hidden': instance.hidden,
       'icon': instance.icon,
-      'buttonType': instance.buttonType,
       'mainAxisAlignment': instance.mainAxisAlignment,
       'path': instance.path,
+      'onClick': instance.onClick,
+      'buttonType': instance.buttonType,
+      'key': instance.key,
+      'name': instance.name,
+      'items': instance.items,
+      'fieldType': instance.fieldType,
       'child': instance.child,
+      'content': instance.content,
       'children': instance.children,
       'bottomNav': instance.bottomNav,
     };

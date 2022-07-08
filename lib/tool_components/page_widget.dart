@@ -11,6 +11,7 @@ import 'package:the_tool/page_utils/should_update.widget.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/t_widget_interface/bottom_nav_props.dart';
 import 'package:the_tool/t_widget_interface/bottom_navigation_props/bottom_navigation_props.dart';
+import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +30,7 @@ class T_Page extends StatefulWidget {
 class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
   Map<String, dynamic> _prevPageState = {};
   Map<String, dynamic> _initPageState = {};
-  Map<String, dynamic> _pageLayout = {};
+  LayoutProps? _pageLayout;
   bool _isReadyToRun = false;
 
   late UtilsManager utils;
@@ -121,10 +122,9 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     );
     var layout = pageInfo["layout"];
 
-    _pageLayout.addAll(layout);
+    _pageLayout = LayoutProps.fromJson(layout);
     _customAppBar = gato.get(_pageLayout, "appBar");
-    _bottomNavBar =
-        BottomNavigationProps.fromJson(_pageLayout["bottomNav"] ?? {});
+    _bottomNavBar = _pageLayout?.bottomNav;
   }
 
   Widget _getSelectedPage(
@@ -133,7 +133,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
   ) {
     if (_bottomNavBar == null || _bottomNavBar?.items == null) {
       return T_Widgets(
-        layout: _pageLayout,
+        layout: _pageLayout ?? const LayoutProps(),
         pagePath: widget.pagePath,
         contextData: contextData,
       );
