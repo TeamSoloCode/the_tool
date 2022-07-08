@@ -131,8 +131,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     Map<String, dynamic> contextData,
     int selectedBottomNavIndex,
   ) {
-    log("abcd ${_bottomNavBar?.items}");
-    if (_bottomNavBar?.items == null) {
+    if (_bottomNavBar == null || _bottomNavBar?.items == null) {
       return T_Widgets(
         layout: _pageLayout,
         pagePath: widget.pagePath,
@@ -146,14 +145,11 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
   List<Widget> _computeBottomNavigationPages(
     BottomNavigationProps? bottomNavConfig,
   ) {
-    if (bottomNavConfig == null) {
+    if (bottomNavConfig == null || bottomNavConfig.items == null) {
       return [];
     }
 
     var items = bottomNavConfig.items;
-
-    log("abcd $items");
-
     List<Widget> pages = (items ?? []).map((item) {
       if (item.path == null) {
         throw Exception("Please provide path in bottom navigation iten");
