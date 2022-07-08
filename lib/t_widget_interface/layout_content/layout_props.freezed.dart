@@ -33,10 +33,12 @@ mixin _$LayoutProps {
   String? get name => throw _privateConstructorUsedError;
   dynamic get items => throw _privateConstructorUsedError;
   String? get fieldType => throw _privateConstructorUsedError;
+  dynamic get className => throw _privateConstructorUsedError;
   LayoutProps? get child => throw _privateConstructorUsedError;
   LayoutProps? get content => throw _privateConstructorUsedError;
   List<LayoutProps>? get children => throw _privateConstructorUsedError;
   BottomNavigationProps? get bottomNav => throw _privateConstructorUsedError;
+  AppBarProps? get appBar => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -63,14 +65,17 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? name,
       dynamic items,
       String? fieldType,
+      dynamic className,
       LayoutProps? child,
       LayoutProps? content,
       List<LayoutProps>? children,
-      BottomNavigationProps? bottomNav});
+      BottomNavigationProps? bottomNav,
+      AppBarProps? appBar});
 
   $LayoutPropsCopyWith<$Res>? get child;
   $LayoutPropsCopyWith<$Res>? get content;
   $BottomNavigationPropsCopyWith<$Res>? get bottomNav;
+  $AppBarPropsCopyWith<$Res>? get appBar;
 }
 
 /// @nodoc
@@ -96,10 +101,12 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
     Object? name = freezed,
     Object? items = freezed,
     Object? fieldType = freezed,
+    Object? className = freezed,
     Object? child = freezed,
     Object? content = freezed,
     Object? children = freezed,
     Object? bottomNav = freezed,
+    Object? appBar = freezed,
   }) {
     return _then(_value.copyWith(
       color: color == freezed
@@ -154,6 +161,10 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
           ? _value.fieldType
           : fieldType // ignore: cast_nullable_to_non_nullable
               as String?,
+      className: className == freezed
+          ? _value.className
+          : className // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       child: child == freezed
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
@@ -170,6 +181,10 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
           ? _value.bottomNav
           : bottomNav // ignore: cast_nullable_to_non_nullable
               as BottomNavigationProps?,
+      appBar: appBar == freezed
+          ? _value.appBar
+          : appBar // ignore: cast_nullable_to_non_nullable
+              as AppBarProps?,
     ));
   }
 
@@ -205,6 +220,17 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
       return _then(_value.copyWith(bottomNav: value));
     });
   }
+
+  @override
+  $AppBarPropsCopyWith<$Res>? get appBar {
+    if (_value.appBar == null) {
+      return null;
+    }
+
+    return $AppBarPropsCopyWith<$Res>(_value.appBar!, (value) {
+      return _then(_value.copyWith(appBar: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -228,10 +254,12 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       String? name,
       dynamic items,
       String? fieldType,
+      dynamic className,
       LayoutProps? child,
       LayoutProps? content,
       List<LayoutProps>? children,
-      BottomNavigationProps? bottomNav});
+      BottomNavigationProps? bottomNav,
+      AppBarProps? appBar});
 
   @override
   $LayoutPropsCopyWith<$Res>? get child;
@@ -239,6 +267,8 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
   $LayoutPropsCopyWith<$Res>? get content;
   @override
   $BottomNavigationPropsCopyWith<$Res>? get bottomNav;
+  @override
+  $AppBarPropsCopyWith<$Res>? get appBar;
 }
 
 /// @nodoc
@@ -266,10 +296,12 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
     Object? name = freezed,
     Object? items = freezed,
     Object? fieldType = freezed,
+    Object? className = freezed,
     Object? child = freezed,
     Object? content = freezed,
     Object? children = freezed,
     Object? bottomNav = freezed,
+    Object? appBar = freezed,
   }) {
     return _then(_$_LayoutProps(
       color: color == freezed
@@ -324,6 +356,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
           ? _value.fieldType
           : fieldType // ignore: cast_nullable_to_non_nullable
               as String?,
+      className: className == freezed
+          ? _value.className
+          : className // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       child: child == freezed
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
@@ -340,6 +376,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
           ? _value.bottomNav
           : bottomNav // ignore: cast_nullable_to_non_nullable
               as BottomNavigationProps?,
+      appBar: appBar == freezed
+          ? _value.appBar
+          : appBar // ignore: cast_nullable_to_non_nullable
+              as AppBarProps?,
     ));
   }
 }
@@ -361,10 +401,12 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.name,
       this.items,
       this.fieldType,
+      this.className,
       this.child,
       this.content,
       final List<LayoutProps>? children,
-      this.bottomNav})
+      this.bottomNav,
+      this.appBar})
       : _children = children;
 
   factory _$_LayoutProps.fromJson(Map<String, dynamic> json) =>
@@ -397,6 +439,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   @override
   final String? fieldType;
   @override
+  final dynamic className;
+  @override
   final LayoutProps? child;
   @override
   final LayoutProps? content;
@@ -411,10 +455,12 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   final BottomNavigationProps? bottomNav;
+  @override
+  final AppBarProps? appBar;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(color: $color, backgroundColor: $backgroundColor, text: $text, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, items: $items, fieldType: $fieldType, child: $child, content: $content, children: $children, bottomNav: $bottomNav)';
+    return 'LayoutProps(color: $color, backgroundColor: $backgroundColor, text: $text, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, items: $items, fieldType: $fieldType, className: $className, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar)';
   }
 
   @override
@@ -435,10 +481,12 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('items', items))
       ..add(DiagnosticsProperty('fieldType', fieldType))
+      ..add(DiagnosticsProperty('className', className))
       ..add(DiagnosticsProperty('child', child))
       ..add(DiagnosticsProperty('content', content))
       ..add(DiagnosticsProperty('children', children))
-      ..add(DiagnosticsProperty('bottomNav', bottomNav));
+      ..add(DiagnosticsProperty('bottomNav', bottomNav))
+      ..add(DiagnosticsProperty('appBar', appBar));
   }
 
   @override
@@ -462,33 +510,38 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.items, items) &&
             const DeepCollectionEquality().equals(other.fieldType, fieldType) &&
+            const DeepCollectionEquality().equals(other.className, className) &&
             const DeepCollectionEquality().equals(other.child, child) &&
             const DeepCollectionEquality().equals(other.content, content) &&
             const DeepCollectionEquality().equals(other._children, _children) &&
-            const DeepCollectionEquality().equals(other.bottomNav, bottomNav));
+            const DeepCollectionEquality().equals(other.bottomNav, bottomNav) &&
+            const DeepCollectionEquality().equals(other.appBar, appBar));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(color),
-      const DeepCollectionEquality().hash(backgroundColor),
-      const DeepCollectionEquality().hash(text),
-      const DeepCollectionEquality().hash(hidden),
-      const DeepCollectionEquality().hash(icon),
-      const DeepCollectionEquality().hash(mainAxisAlignment),
-      const DeepCollectionEquality().hash(path),
-      const DeepCollectionEquality().hash(onClick),
-      const DeepCollectionEquality().hash(buttonType),
-      const DeepCollectionEquality().hash(key),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(items),
-      const DeepCollectionEquality().hash(fieldType),
-      const DeepCollectionEquality().hash(child),
-      const DeepCollectionEquality().hash(content),
-      const DeepCollectionEquality().hash(_children),
-      const DeepCollectionEquality().hash(bottomNav));
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        const DeepCollectionEquality().hash(color),
+        const DeepCollectionEquality().hash(backgroundColor),
+        const DeepCollectionEquality().hash(text),
+        const DeepCollectionEquality().hash(hidden),
+        const DeepCollectionEquality().hash(icon),
+        const DeepCollectionEquality().hash(mainAxisAlignment),
+        const DeepCollectionEquality().hash(path),
+        const DeepCollectionEquality().hash(onClick),
+        const DeepCollectionEquality().hash(buttonType),
+        const DeepCollectionEquality().hash(key),
+        const DeepCollectionEquality().hash(name),
+        const DeepCollectionEquality().hash(items),
+        const DeepCollectionEquality().hash(fieldType),
+        const DeepCollectionEquality().hash(className),
+        const DeepCollectionEquality().hash(child),
+        const DeepCollectionEquality().hash(content),
+        const DeepCollectionEquality().hash(_children),
+        const DeepCollectionEquality().hash(bottomNav),
+        const DeepCollectionEquality().hash(appBar)
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -516,10 +569,12 @@ abstract class _LayoutProps implements LayoutProps {
       final String? name,
       final dynamic items,
       final String? fieldType,
+      final dynamic className,
       final LayoutProps? child,
       final LayoutProps? content,
       final List<LayoutProps>? children,
-      final BottomNavigationProps? bottomNav}) = _$_LayoutProps;
+      final BottomNavigationProps? bottomNav,
+      final AppBarProps? appBar}) = _$_LayoutProps;
 
   factory _LayoutProps.fromJson(Map<String, dynamic> json) =
       _$_LayoutProps.fromJson;
@@ -551,6 +606,8 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   String? get fieldType => throw _privateConstructorUsedError;
   @override
+  dynamic get className => throw _privateConstructorUsedError;
+  @override
   LayoutProps? get child => throw _privateConstructorUsedError;
   @override
   LayoutProps? get content => throw _privateConstructorUsedError;
@@ -558,6 +615,8 @@ abstract class _LayoutProps implements LayoutProps {
   List<LayoutProps>? get children => throw _privateConstructorUsedError;
   @override
   BottomNavigationProps? get bottomNav => throw _privateConstructorUsedError;
+  @override
+  AppBarProps? get appBar => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_LayoutPropsCopyWith<_$_LayoutProps> get copyWith =>

@@ -21,6 +21,7 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String?,
       items: json['items'],
       fieldType: json['fieldType'] as String?,
+      className: json['className'],
       child: json['child'] == null
           ? null
           : LayoutProps.fromJson(json['child'] as Map<String, dynamic>),
@@ -34,6 +35,9 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
           ? null
           : BottomNavigationProps.fromJson(
               json['bottomNav'] as Map<String, dynamic>),
+      appBar: json['appBar'] == null
+          ? null
+          : AppBarProps.fromJson(json['appBar'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
@@ -51,8 +55,10 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'name': instance.name,
       'items': instance.items,
       'fieldType': instance.fieldType,
+      'className': instance.className,
       'child': instance.child,
       'content': instance.content,
       'children': instance.children,
       'bottomNav': instance.bottomNav,
+      'appBar': instance.appBar,
     };

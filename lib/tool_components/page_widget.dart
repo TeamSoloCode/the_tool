@@ -9,6 +9,7 @@ import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/should_update.widget.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
+import 'package:the_tool/t_widget_interface/app_bar_props/app_bar_props.dart';
 import 'package:the_tool/t_widget_interface/bottom_nav_props.dart';
 import 'package:the_tool/t_widget_interface/bottom_navigation_props/bottom_navigation_props.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
@@ -37,7 +38,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
   List<Widget> _pages = [];
 
   int _selectedBottomNavIndex = 0;
-  var _customAppBar;
+  AppBarProps? _customAppBar;
   BottomNavigationProps? _bottomNavBar;
 
   @override
@@ -123,7 +124,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     var layout = pageInfo["layout"];
 
     _pageLayout = LayoutProps.fromJson(layout);
-    _customAppBar = gato.get(_pageLayout, "appBar");
+    _customAppBar = _pageLayout?.appBar;
     _bottomNavBar = _pageLayout?.bottomNav;
   }
 
@@ -194,15 +195,15 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
 
   PreferredSizeWidget? _computeAppBar(
     Map<String, dynamic> contextData,
-    Map<String, dynamic>? appBarConfig,
+    AppBarProps? appBarConfig,
   ) {
     if (appBarConfig == null) {
       return null;
     }
 
-    if (appBarConfig["content"] != null) {
+    if (appBarConfig.content != null) {
       Widget title = T_Widgets(
-        layout: appBarConfig["content"],
+        layout: appBarConfig.content!,
         pagePath: widget.pagePath,
         contextData: contextData,
       );

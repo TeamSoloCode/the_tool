@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
+import 'package:the_tool/t_widget_interface/app_bar_props/app_bar_props.dart';
 import 'package:the_tool/t_widget_interface/bottom_navigation_props/bottom_navigation_props.dart';
 
 part 'layout_props.freezed.dart';
@@ -21,10 +22,12 @@ class LayoutProps with _$LayoutProps {
     String? name,
     dynamic items,
     String? fieldType,
+    dynamic className,
     LayoutProps? child,
     LayoutProps? content,
     List<LayoutProps>? children,
     BottomNavigationProps? bottomNav,
+    AppBarProps? appBar,
   }) = _LayoutProps;
 
   factory LayoutProps.fromJson(Map<String, Object?> json) =>
