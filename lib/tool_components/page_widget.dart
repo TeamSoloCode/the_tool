@@ -10,6 +10,7 @@ import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/should_update.widget.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/t_widget_interface/bottom_nav_props.dart';
+import 'package:the_tool/t_widget_interface/bottom_navigation_props/bottom_navigation_props.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +37,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
 
   int _selectedBottomNavIndex = 0;
   var _customAppBar;
-  var _bottomNavBar;
+  BottomNavigationProps? _bottomNavBar;
 
   @override
   void initState() {
@@ -122,7 +123,8 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
 
     _pageLayout.addAll(layout);
     _customAppBar = gato.get(_pageLayout, "appBar");
-    _bottomNavBar = gato.get(_pageLayout, "bottomNav");
+    _bottomNavBar =
+        BottomNavigationProps.fromJson(_pageLayout["bottomNav"] ?? {});
   }
 
   Widget _getSelectedPage(
@@ -141,19 +143,25 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
   }
 
   List<Widget> _computeBottomNavigationPages(
-    Map<String, dynamic>? bottomNavConfig,
+    BottomNavigationProps? bottomNavConfig,
   ) {
     if (bottomNavConfig == null) {
       return [];
     }
 
-    var items = gato.get(bottomNavConfig, "items") as List<dynamic>;
+    var items = bottomNavConfig.items;
 
-    List<Widget> pages = items.map((item) {
-      Key pageKey = Key(item['path']);
+    log("abcd $items");
+
+    List<Widget> pages = (items ?? []).map((item) {
+      if (item.path == null) {
+        throw Exception("Please provide path in bottom navigation iten");
+      }
+
+      Key pageKey = Key(item.path!);
       return T_Page(
         key: pageKey,
-        pagePath: item["path"],
+        pagePath: item.path!,
       );
     }).toList();
 
@@ -162,13 +170,13 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
 
   Widget? _computeBottomNavigationBar(
     Map<String, dynamic> contextData,
-    Map<String, dynamic>? bottomNavConfig,
+    BottomNavigationProps? bottomNavConfig,
   ) {
     if (bottomNavConfig == null) {
       return null;
     }
 
-    var bottomNavProps = BottomNavigationProps(
+    var bottomNavProps = DecodeBottomNavigation(
       bottomNavConfig: bottomNavConfig,
     );
 
