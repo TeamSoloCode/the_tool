@@ -64,7 +64,7 @@ class _T_TextState extends State<T_Text> {
 
         return Text(
           finalWidgetProps?.text ?? "",
-          style: ThemeDecoder.decodeTextStyle(finalWidgetProps),
+          style: ThemeDecoder.decodeTextStyle(finalWidgetProps?.toJson()),
         );
       },
       shouldWidgetUpdate: shouldWidgetUpdate(),

@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:from_css_color/from_css_color.dart';
 import 'package:json_theme/json_theme.dart';
+import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/utils.dart';
 
 class ThemeProvider with ChangeNotifier {
@@ -186,9 +187,9 @@ class ThemeProvider with ChangeNotifier {
     }
   }
 
-  Map<String, dynamic> mergeBaseColor(dynamic content) {
+  LayoutProps mergeBaseColor(LayoutProps content) {
     try {
-      var rawContent = json.encode(content);
+      var rawContent = json.encode(content.toJson());
 
       baseColor?.forEach((key, value) {
         if (!key.startsWith("--")) {
@@ -196,40 +197,58 @@ class ThemeProvider with ChangeNotifier {
         }
       });
 
-      return json.decode(rawContent);
+      return LayoutProps.fromJson(json.decode(rawContent));
     } catch (e) {
       rethrow;
     }
   }
 
-  Map<String, dynamic> mergeClasses(
-    dynamic widgetProps,
+  LayoutProps? mergeClasses(
+    LayoutProps? widgetProps,
     Map<String, dynamic> contextData,
   ) {
-    var className = widgetProps["className"];
-    Map<String, dynamic> updatedWidgetProps = widgetProps;
+    var className = widgetProps?.className;
+    LayoutProps? updatedWidgetProps = widgetProps;
 
     if (className == null) {
       return widgetProps;
     }
 
     updateWidgetProps(
-      Map<dynamic, dynamic> classData,
+      LayoutProps? classData,
       String className,
     ) {
       if (classData != null) {
-        updatedWidgetProps = {...updatedWidgetProps, ...classData};
+        updatedWidgetProps = updatedWidgetProps?.merge(classData);
       } else {
         log("Warning: Class $className is not exist !");
       }
     }
 
     if (className is String) {
-      updateWidgetProps(classes?[className], className);
+      // FIXME
+      updateWidgetProps(
+          LayoutProps.fromJson(
+            json.decode(
+              json.encode(
+                classes?[className],
+              ),
+            ),
+          ),
+          className);
     } else if (className is List) {
       className.forEach((cls) {
         if (cls is String) {
-          updateWidgetProps(classes?[cls], cls);
+          // FIXME
+          updateWidgetProps(
+              LayoutProps.fromJson(
+                json.decode(
+                  json.encode(
+                    classes?[cls],
+                  ),
+                ),
+              ),
+              cls);
         } else if (cls is Map) {
           cls.forEach((classname, value) {
             var result = value;
@@ -242,7 +261,16 @@ class ThemeProvider with ChangeNotifier {
             }
 
             if (!UtilsManager.isFalsy(result)) {
-              updateWidgetProps(classes?[classname], classname);
+              // FIXME
+              updateWidgetProps(
+                  LayoutProps.fromJson(
+                    json.decode(
+                      json.encode(
+                        classes?[classname],
+                      ),
+                    ),
+                  ),
+                  classname);
             }
           });
         }
