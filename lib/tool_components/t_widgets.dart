@@ -157,10 +157,10 @@ class _T_WidgetsState extends State<T_Widgets> {
         themeProvider.mergeClasses(content, contextData) ?? const LayoutProps();
 
     if (widgetProps.color != null) {
-      widgetProps.copyWith(color: parseColor(widgetProps.color));
+      widgetProps = widgetProps.copyWith(color: parseColor(widgetProps.color));
     }
     if (widgetProps.backgroundColor != null) {
-      widgetProps.copyWith(
+      widgetProps = widgetProps.copyWith(
         backgroundColor: parseColor(widgetProps.backgroundColor),
       );
     }
@@ -169,7 +169,7 @@ class _T_WidgetsState extends State<T_Widgets> {
 
     if (widgetProps.icon != null &&
         UtilsManager.isValueBinding(widgetProps.icon)) {
-      widgetProps.copyWith(
+      widgetProps = widgetProps.copyWith(
         icon: utils.bindingValueToText(
           contextData,
           widgetProps.icon,
@@ -178,7 +178,7 @@ class _T_WidgetsState extends State<T_Widgets> {
     }
 
     if (widgetProps.text != null) {
-      widgetProps.copyWith(
+      widgetProps = widgetProps.copyWith(
         text: utils.bindingValueToText(
           widget.contextData,
           widgetProps.text,
