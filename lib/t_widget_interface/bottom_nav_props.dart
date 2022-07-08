@@ -30,6 +30,7 @@ class DecodeBottomNavigation {
         backgroundColor: color,
       );
     }).toList();
+
     _items = bottomNavItems;
   }
 
