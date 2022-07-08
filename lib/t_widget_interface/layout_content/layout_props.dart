@@ -9,6 +9,7 @@ part 'layout_props.g.dart';
 @freezed
 class LayoutProps with _$LayoutProps {
   const factory LayoutProps({
+    String? type,
     String? color,
     String? backgroundColor,
     String? text,
@@ -32,4 +33,32 @@ class LayoutProps with _$LayoutProps {
 
   factory LayoutProps.fromJson(Map<String, Object?> json) =>
       _$LayoutPropsFromJson(json);
+}
+
+extension MergeLayoutProps on LayoutProps {
+  LayoutProps merge(LayoutProps? other) {
+    if (other == null) return this;
+
+    return copyWith(
+      color: other.color ?? color,
+      backgroundColor: other.backgroundColor ?? backgroundColor,
+      text: other.text ?? text,
+      hidden: other.hidden ?? hidden,
+      icon: other.icon ?? icon,
+      mainAxisAlignment: other.mainAxisAlignment ?? mainAxisAlignment,
+      path: other.path ?? path,
+      onClick: other.onClick ?? onClick,
+      buttonType: other.buttonType ?? buttonType,
+      key: other.key ?? key,
+      name: other.name ?? name,
+      items: other.items ?? items,
+      fieldType: other.fieldType ?? fieldType,
+      className: other.className ?? className,
+      child: other.child ?? child,
+      content: other.content ?? content,
+      children: other.children ?? children,
+      bottomNav: other.bottomNav ?? bottomNav,
+      appBar: other.appBar ?? appBar,
+    );
+  }
 }

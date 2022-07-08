@@ -1,28 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
+import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 
-class T_Column extends StatelessWidget {
-  Map<String, dynamic> widgetProps;
-  Future<void> Function(String js) executeJS;
+class T_Column extends T_Widget {
   final String pageName;
-  Map<String, dynamic> contextData;
-
   T_Column({
     Key? key,
-    required this.executeJS,
-    required this.widgetProps,
-    required this.contextData,
+    required executeJS,
+    required widgetProps,
     required this.pageName,
-  }) : super(key: key);
+    required contextData,
+  }) : super(
+          key: key,
+          widgetProps: widgetProps,
+          executeJS: executeJS,
+          contextData: contextData,
+        );
 
+  @override
+  State<T_Column> createState() => _T_ColumnState();
+}
+
+class _T_ColumnState extends State<T_Column> {
   List<Widget> _getChildren() {
-    List<dynamic> children = widgetProps["children"];
+    List<LayoutProps> children = widget.widgetProps.children ?? [];
 
     return children.map((child) {
       return T_Widgets(
         layout: child,
-        pagePath: pageName,
-        contextData: contextData,
+        pagePath: widget.pageName,
+        contextData: widget.contextData,
       );
     }).toList();
   }

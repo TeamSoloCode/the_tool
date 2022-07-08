@@ -8,6 +8,7 @@ part of 'layout_props.dart';
 
 _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
     _$_LayoutProps(
+      type: json['type'] as String?,
       color: json['color'] as String?,
       backgroundColor: json['backgroundColor'] as String?,
       text: json['text'] as String?,
@@ -42,6 +43,7 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
     <String, dynamic>{
+      'type': instance.type,
       'color': instance.color,
       'backgroundColor': instance.backgroundColor,
       'text': instance.text,

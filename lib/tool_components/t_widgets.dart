@@ -66,12 +66,12 @@ class _T_WidgetsState extends State<T_Widgets> {
       return const SizedBox.shrink();
     }
 
-    Map<String, dynamic> widgetProps = _computeWidgetProps(
+    LayoutProps? widgetProps = _computeWidgetProps(
       content,
       contextData,
     );
 
-    switch (gato.get(content, "type")) {
+    switch (content.type) {
       case "text":
         return T_Text(
           executeJS: executeJSWithPagePath,
@@ -148,43 +148,51 @@ class _T_WidgetsState extends State<T_Widgets> {
     return _getWidget(contextData[widget.pagePath] ?? {}, context);
   }
 
-  Map<String, dynamic> _computeWidgetProps(
+  LayoutProps? _computeWidgetProps(
     LayoutProps content,
     Map<String, dynamic> contextData,
   ) {
     var themeProvider = context.read<ThemeProvider>();
-    Map<String, dynamic> widgetProps =
-        themeProvider.mergeClasses(content, contextData);
+    LayoutProps? widgetProps =
+        themeProvider.mergeClasses(content, contextData) ?? const LayoutProps();
 
-    if (widgetProps["color"] != null) {
-      widgetProps["color"] = parseColor(widgetProps["color"]);
+    if (widgetProps.color != null) {
+      widgetProps.copyWith(color: parseColor(widgetProps.color));
     }
-    if (widgetProps["backgroundColor"] != null) {
-      widgetProps["backgroundColor"] =
-          parseColor(widgetProps["backgroundColor"]);
-    }
-    widgetProps = themeProvider.mergeBaseColor(widgetProps);
-
-    if (widgetProps["icon"] != null &&
-        UtilsManager.isValueBinding(widgetProps["icon"])) {
-      widgetProps["icon"] = utils.bindingValueToText(
-        contextData,
-        widgetProps["icon"],
+    if (widgetProps.backgroundColor != null) {
+      widgetProps.copyWith(
+        backgroundColor: parseColor(widgetProps.backgroundColor),
       );
     }
 
-    if (widgetProps["text"] != null) {
-      widgetProps["text"] = utils.bindingValueToText(
-        widget.contextData,
-        gato.get(widgetProps, "text"),
+    widgetProps = themeProvider.mergeBaseColor(widgetProps);
+
+    if (widgetProps.icon != null &&
+        UtilsManager.isValueBinding(widgetProps.icon)) {
+      widgetProps.copyWith(
+        icon: utils.bindingValueToText(
+          contextData,
+          widgetProps.icon,
+        ),
+      );
+    }
+
+    if (widgetProps.text != null) {
+      widgetProps.copyWith(
+        text: utils.bindingValueToText(
+          widget.contextData,
+          widgetProps.text,
+        ),
       );
     }
 
     // FIXME: xxxx
-    widgetProps = json.decode(
-      json.encode(ThemeProvider.transformColorFromCSS(
-        widgetProps,
-      )),
+    widgetProps = LayoutProps.fromJson(
+      json.decode(
+        json.encode(ThemeProvider.transformColorFromCSS(
+          widgetProps.toJson(),
+        )),
+      ),
     );
 
     return widgetProps;

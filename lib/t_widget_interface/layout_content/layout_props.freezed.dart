@@ -20,6 +20,7 @@ LayoutProps _$LayoutPropsFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$LayoutProps {
+  String? get type => throw _privateConstructorUsedError;
   String? get color => throw _privateConstructorUsedError;
   String? get backgroundColor => throw _privateConstructorUsedError;
   String? get text => throw _privateConstructorUsedError;
@@ -52,7 +53,8 @@ abstract class $LayoutPropsCopyWith<$Res> {
           LayoutProps value, $Res Function(LayoutProps) then) =
       _$LayoutPropsCopyWithImpl<$Res>;
   $Res call(
-      {String? color,
+      {String? type,
+      String? color,
       String? backgroundColor,
       String? text,
       dynamic hidden,
@@ -88,6 +90,7 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? type = freezed,
     Object? color = freezed,
     Object? backgroundColor = freezed,
     Object? text = freezed,
@@ -109,6 +112,10 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
     Object? appBar = freezed,
   }) {
     return _then(_value.copyWith(
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String?,
       color: color == freezed
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
@@ -241,7 +248,8 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       __$$_LayoutPropsCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String? color,
+      {String? type,
+      String? color,
       String? backgroundColor,
       String? text,
       dynamic hidden,
@@ -283,6 +291,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? type = freezed,
     Object? color = freezed,
     Object? backgroundColor = freezed,
     Object? text = freezed,
@@ -304,6 +313,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
     Object? appBar = freezed,
   }) {
     return _then(_$_LayoutProps(
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String?,
       color: color == freezed
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
@@ -388,7 +401,8 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   const _$_LayoutProps(
-      {this.color,
+      {this.type,
+      this.color,
       this.backgroundColor,
       this.text,
       this.hidden,
@@ -412,6 +426,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   factory _$_LayoutProps.fromJson(Map<String, dynamic> json) =>
       _$$_LayoutPropsFromJson(json);
 
+  @override
+  final String? type;
   @override
   final String? color;
   @override
@@ -460,7 +476,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(color: $color, backgroundColor: $backgroundColor, text: $text, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, items: $items, fieldType: $fieldType, className: $className, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, items: $items, fieldType: $fieldType, className: $className, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar)';
   }
 
   @override
@@ -468,6 +484,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'LayoutProps'))
+      ..add(DiagnosticsProperty('type', type))
       ..add(DiagnosticsProperty('color', color))
       ..add(DiagnosticsProperty('backgroundColor', backgroundColor))
       ..add(DiagnosticsProperty('text', text))
@@ -494,6 +511,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_LayoutProps &&
+            const DeepCollectionEquality().equals(other.type, type) &&
             const DeepCollectionEquality().equals(other.color, color) &&
             const DeepCollectionEquality()
                 .equals(other.backgroundColor, backgroundColor) &&
@@ -522,6 +540,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
+        const DeepCollectionEquality().hash(type),
         const DeepCollectionEquality().hash(color),
         const DeepCollectionEquality().hash(backgroundColor),
         const DeepCollectionEquality().hash(text),
@@ -556,7 +575,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
 abstract class _LayoutProps implements LayoutProps {
   const factory _LayoutProps(
-      {final String? color,
+      {final String? type,
+      final String? color,
       final String? backgroundColor,
       final String? text,
       final dynamic hidden,
@@ -579,6 +599,8 @@ abstract class _LayoutProps implements LayoutProps {
   factory _LayoutProps.fromJson(Map<String, dynamic> json) =
       _$_LayoutProps.fromJson;
 
+  @override
+  String? get type => throw _privateConstructorUsedError;
   @override
   String? get color => throw _privateConstructorUsedError;
   @override
