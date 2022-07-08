@@ -103,10 +103,13 @@ void registerJavascriptHandler(
       switch (args[0]) {
         case "request":
           permissionStatus = await permissionManager.requestPermission(args[1]);
-          return permissionManager.permissionStatusToMap(permissionStatus);
+          break;
         case "status":
           permissionStatus =
               await permissionManager.getPermissionStatus(args[1]);
+          break;
+        case "open_app_settings":
+          return await permissionManager.requestOpenAppSettings();
       }
       return permissionManager.permissionStatusToMap(permissionStatus);
     },

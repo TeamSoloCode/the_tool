@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:permission_handler/permission_handler.dart';
 
 class PermissionManager {
@@ -45,10 +47,15 @@ class PermissionManager {
     return Future.value(permission?.status);
   }
 
+  Future<bool> requestOpenAppSettings() async {
+    return await openAppSettings();
+  }
+
   Map<String, bool> permissionStatusToMap(PermissionStatus? permissionStatus) {
     if (permissionStatus == null) {
       return {};
     }
+
     return {
       "isGranted": permissionStatus.isGranted,
       "isDenied": permissionStatus.isDenied,
