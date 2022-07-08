@@ -226,26 +226,20 @@ class ThemeProvider with ChangeNotifier {
     }
 
     if (className is String) {
-      // FIXME
       updateWidgetProps(
           LayoutProps.fromJson(
-            json.decode(
-              json.encode(
-                classes?[className],
-              ),
+            Map<String, dynamic>.from(
+              classes?[className],
             ),
           ),
           className);
     } else if (className is List) {
       className.forEach((cls) {
         if (cls is String) {
-          // FIXME
           updateWidgetProps(
               LayoutProps.fromJson(
-                json.decode(
-                  json.encode(
-                    classes?[cls],
-                  ),
+                Map<String, dynamic>.from(
+                  classes?[cls],
                 ),
               ),
               cls);
@@ -261,13 +255,10 @@ class ThemeProvider with ChangeNotifier {
             }
 
             if (!UtilsManager.isFalsy(result)) {
-              // FIXME
               updateWidgetProps(
                   LayoutProps.fromJson(
-                    json.decode(
-                      json.encode(
-                        classes?[classname],
-                      ),
+                    Map<String, dynamic>.from(
+                      classes?[classname],
                     ),
                   ),
                   classname);
