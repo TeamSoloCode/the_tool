@@ -58,7 +58,7 @@ class _T_TextState extends State<T_Text> {
         if (kIsWeb) {
           return SelectableText(
             finalWidgetProps?.text ?? "",
-            style: ThemeDecoder.decodeTextStyle(finalWidgetProps),
+            style: ThemeDecoder.decodeTextStyle(finalWidgetProps?.toJson()),
           );
         }
 
