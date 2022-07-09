@@ -9,20 +9,20 @@ import 'package:the_tool/tool_components/t_widgets.dart';
 
 class T_Container extends T_Widget {
   @override
-  String pageName;
+  String parentPagePath;
 
   T_Container({
     Key? key,
     required executeJS,
     required widgetProps,
-    required this.pageName,
+    required this.parentPagePath,
     required contextData,
   }) : super(
             key: key,
             widgetProps: widgetProps,
             executeJS: executeJS,
             contextData: contextData,
-            pageName: pageName);
+            parentPagePath: parentPagePath);
 
   @override
   State<T_Container> createState() => _T_ContainerState();
@@ -38,7 +38,7 @@ class _T_ContainerState extends State<T_Container> {
       color: color,
       child: T_Widgets(
         layout: widget.widgetProps.child ?? const LayoutProps(),
-        pagePath: widget.pageName,
+        pagePath: widget.parentPagePath,
         contextData: widget.contextData,
       ),
     );

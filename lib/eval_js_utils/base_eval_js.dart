@@ -96,7 +96,10 @@ abstract class BaseEvalJS {
         }, [])
 
 
-        return null;
+        const a = React.createElement("div", {}, "aaaaaaaaaaa");
+        const b = React.createElement("div", {}, "bbbbbbbbbbb");
+        
+        return [a, b];
       });
 
       const appEl = document.getElementById("app")

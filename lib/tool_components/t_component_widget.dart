@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,11 +11,13 @@ import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
 
-class T_Block extends T_Widget {
-  T_Block({
+class T_Component extends T_Widget {
+  final String parentPagePath;
+  T_Component({
     Key? key,
     required executeJS,
     required widgetProps,
+    required this.parentPagePath,
     required contextData,
   }) : super(
           key: key,
@@ -23,10 +27,10 @@ class T_Block extends T_Widget {
         );
 
   @override
-  State<T_Block> createState() => _T_BlockState();
+  State<T_Component> createState() => _T_BlockState();
 }
 
-class _T_BlockState extends State<T_Block> {
+class _T_BlockState extends State<T_Component> {
   LayoutProps? _pageLayout;
   final UtilsManager _utils = getIt<UtilsManager>();
 
@@ -46,6 +50,7 @@ class _T_BlockState extends State<T_Block> {
   @override
   Widget build(BuildContext context) {
     var path = widget.widgetProps.path;
+    log("component $path");
     if (path == null) {
       return const SizedBox.shrink();
     }
@@ -54,10 +59,13 @@ class _T_BlockState extends State<T_Block> {
       builder: (context, snapshot) {
         const loadingPage = Text("Loading...");
         if (snapshot.data == true) {
-          return T_Widgets(
-            layout: _pageLayout ?? const LayoutProps(),
-            pagePath: path,
-            contextData: widget.contextData,
+          return Container(
+            constraints: BoxConstraints(maxHeight: 200),
+            child: T_Widgets(
+              layout: _pageLayout ?? const LayoutProps(),
+              pagePath: widget.parentPagePath,
+              contextData: widget.contextData,
+            ),
           );
         }
         return loadingPage;

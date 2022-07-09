@@ -9,14 +9,14 @@ import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
 
 class T_Form extends T_Widget {
-  final String pageName;
+  final String parentPagePath;
 
   T_Form({
     Key? key,
     required executeJS,
     required widgetProps,
     required contextData,
-    required this.pageName,
+    required this.parentPagePath,
   }) : super(
           key: key,
           widgetProps: widgetProps,
@@ -96,7 +96,7 @@ class _T_FormState extends State<T_Form> {
       autovalidateMode: AutovalidateMode.disabled,
       child: T_Widgets(
         layout: widget.widgetProps.child ?? const LayoutProps(),
-        pagePath: widget.pageName,
+        pagePath: widget.parentPagePath,
         contextData: widget.contextData,
       ),
     );

@@ -4,12 +4,12 @@ import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 
 class T_Column extends T_Widget {
-  final String pageName;
+  final String parentPagePath;
   T_Column({
     Key? key,
     required executeJS,
     required widgetProps,
-    required this.pageName,
+    required this.parentPagePath,
     required contextData,
   }) : super(
           key: key,
@@ -29,7 +29,7 @@ class _T_ColumnState extends State<T_Column> {
     return children.map((child) {
       return T_Widgets(
         layout: child,
-        pagePath: widget.pageName,
+        pagePath: widget.parentPagePath,
         contextData: widget.contextData,
       );
     }).toList();

@@ -6,12 +6,12 @@ import 'package:the_tool/utils.dart';
 
 class T_Row extends T_Widget {
   UtilsManager utils = getIt<UtilsManager>();
-  final String pageName;
+  final String parentPagePath;
   T_Row({
     Key? key,
     required executeJS,
     required widgetProps,
-    required this.pageName,
+    required this.parentPagePath,
     required contextData,
   }) : super(
           key: key,
@@ -29,7 +29,7 @@ class _T_RowState extends State<T_Row> {
     return (children ?? []).map((child) {
       return T_Widgets(
         layout: child,
-        pagePath: widget.pageName,
+        pagePath: widget.parentPagePath,
         contextData: widget.contextData,
       );
     }).toList();

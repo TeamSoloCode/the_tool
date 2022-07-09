@@ -14,7 +14,7 @@ import 'package:the_tool/tool_components/t_button_widget.dart';
 import 'package:the_tool/tool_components/t_column_widget.dart';
 import 'package:the_tool/tool_components/t_container_widget.dart';
 import 'package:gato/gato.dart' as gato;
-import 'package:the_tool/tool_components/t_block_widget.dart';
+import 'package:the_tool/tool_components/t_component_widget.dart';
 import 'package:the_tool/tool_components/t_icon_widget.dart';
 import 'package:the_tool/tool_components/t_row_widget.dart';
 import 'package:the_tool/tool_components/t_scrollview_widget.dart';
@@ -41,6 +41,7 @@ class _T_WidgetsState extends State<T_Widgets> {
   UtilsManager utils = getIt<UtilsManager>();
 
   Future<void> executeJSWithPagePath(String jsCode) async {
+    log("executeJSWithPagePath $jsCode ${widget.pagePath}");
     await utils.evalJS?.executeJS(jsCode, widget.pagePath);
   }
 
@@ -94,41 +95,42 @@ class _T_WidgetsState extends State<T_Widgets> {
         return T_Row(
           executeJS: executeJSWithPagePath,
           widgetProps: widgetProps,
-          pageName: widget.pagePath,
+          parentPagePath: widget.pagePath,
           contextData: contextData,
         );
       case "form":
         return T_Form(
           executeJS: executeJSWithPagePath,
           widgetProps: widgetProps,
-          pageName: widget.pagePath,
+          parentPagePath: widget.pagePath,
           contextData: contextData,
         );
       case "block":
-        return T_Block(
+        return T_Component(
           executeJS: executeJSWithPagePath,
           widgetProps: widgetProps,
           contextData: contextData,
+          parentPagePath: widget.pagePath,
         );
       case "container":
         return T_Container(
           executeJS: executeJSWithPagePath,
           widgetProps: widgetProps,
-          pageName: widget.pagePath,
+          parentPagePath: widget.pagePath,
           contextData: contextData,
         );
       case "column":
         return T_Column(
           executeJS: executeJSWithPagePath,
           widgetProps: widgetProps,
-          pageName: widget.pagePath,
+          parentPagePath: widget.pagePath,
           contextData: contextData,
         );
       case "scroll_view":
         return T_ScrollView(
           executeJS: executeJSWithPagePath,
           widgetProps: widgetProps,
-          pageName: widget.pagePath,
+          parentPagePath: widget.pagePath,
           contextData: contextData,
         );
       case "field":

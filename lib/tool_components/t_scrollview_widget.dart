@@ -5,12 +5,12 @@ import 'package:the_tool/utils.dart';
 
 class T_ScrollView extends T_Widget {
   UtilsManager utils = getIt<UtilsManager>();
-  final String pageName;
+  final String parentPagePath;
   T_ScrollView({
     Key? key,
     required executeJS,
     required widgetProps,
-    required this.pageName,
+    required this.parentPagePath,
     required contextData,
   }) : super(
           key: key,
@@ -28,7 +28,7 @@ class _T_ScrollViewState extends State<T_ScrollView> {
     return (children ?? []).map((child) {
       return T_Widgets(
         layout: child,
-        pagePath: widget.pageName,
+        pagePath: widget.parentPagePath,
         contextData: widget.contextData,
       );
     }).toList();
