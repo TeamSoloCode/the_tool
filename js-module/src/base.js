@@ -1,6 +1,6 @@
 import _ from "lodash";
 import Cookies from "js-cookie";
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4, v1 as uuidv1 } from "uuid";
 import webJSChannel from "./web_js_channel";
 
 const _initContext = { _data: {}, _prevData: {}, _platform: "mobile" };
@@ -97,7 +97,7 @@ const fetchData = async (path, options = {}) => {
   const optionAsJSON = JSON.stringify(options);
   switch (context._platform) {
     case "web":
-      const requestId = uuidv4();
+      const requestId = uuidv1();
       const returnDataPromise = new Promise((resolve, reject) => {
         const checkTimeoutId = setTimeout(() => {
           reject("Request timeout!");
@@ -132,16 +132,32 @@ const __ondataresponse = (requestId, data) => {
   webJSChannel.emit(requestId, data);
 };
 
-const dispatchFormAction = async (name, action = "submit") => {
+const validateForm = async (formName) => {
+  const actionId = uuidv1();
+  const promiseResult = new Promise((resolve) => {
+    webJSChannel.once(actionId, (data) => {
+      const { result } = JSON.parse(data);
+      resolve(result);
+    });
+  });
+  dispatchFormAction(actionId, formName, "validate");
+  return promiseResult;
+};
+
+const resetForm = async (formName) => {
+  return dispatchFormAction(formName, "reset");
+};
+
+const dispatchFormAction = async (actionId, formName, action = "submit") => {
   switch (context._platform) {
     case "web":
-      dispatch_form_action(name, action);
+      dispatch_form_action(formName, JSON.stringify({ action, actionId }));
       return;
 
     case "mobile":
       await window.flutter_inappwebview.callHandler(
         "dispatch_form_action",
-        name,
+        formName,
         action
       );
       return;
@@ -149,23 +165,11 @@ const dispatchFormAction = async (name, action = "submit") => {
 };
 
 const requestPermission = async (permissionName) => {
-  switch (context._platform) {
-    case "web":
-      return null;
-
-    case "mobile":
-      return await permissionEvent("request", permissionName);
-  }
+  return await permissionEvent("request", permissionName);
 };
 
 const getPermissionStatus = async (permissionName) => {
-  switch (context._platform) {
-    case "web":
-      return null;
-
-    case "mobile":
-      return await permissionEvent("status", permissionName);
-  }
+  return await permissionEvent("status", permissionName);
 };
 
 const openAppSettings = async () => {
@@ -196,7 +200,11 @@ Object.assign(window, {
   getCookies,
   toggleChangeTheme,
   fetchData,
-  dispatchFormAction,
+
+  /** Form context           */
+  validateForm,
+  resetForm,
+  /**----------------------- */
 
   /** Context for permission */
   requestPermission,

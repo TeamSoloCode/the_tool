@@ -107,4 +107,7 @@ class EvalJS extends BaseEvalJS {
   void setPageArguments(Map<String, dynamic> args, String pagePath) {
     // webViewController?.runJavascript("context['$pagePath']._ = args;");
   }
+
+  @override
+  void emitFormActionResponse(String id, data) {}
 }

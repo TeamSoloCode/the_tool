@@ -89,6 +89,13 @@ void _dispatchFormAction(String eventName, String eventData) {
   getIt<UtilsManager>().emitter.emit(eventName, _context, eventData);
 }
 
+void emitFormActionResponse(String id, dynamic data) {
+  js.context.callMethod("__ondataresponse", [
+    id,
+    json.encode({"result": data})
+  ]);
+}
+
 void _emitDataResponseEvent(
   String id,
   String path,

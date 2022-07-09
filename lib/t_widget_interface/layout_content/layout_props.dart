@@ -6,7 +6,7 @@ import 'package:the_tool/t_widget_interface/bottom_navigation_props/bottom_navig
 part 'layout_props.freezed.dart';
 part 'layout_props.g.dart';
 
-@freezed
+@Freezed()
 class LayoutProps with _$LayoutProps {
   const factory LayoutProps({
     String? type,
@@ -40,6 +40,7 @@ extension MergeLayoutProps on LayoutProps {
     if (other == null) return this;
 
     return copyWith(
+      type: other.type ?? type,
       color: other.color ?? color,
       backgroundColor: other.backgroundColor ?? backgroundColor,
       text: other.text ?? text,

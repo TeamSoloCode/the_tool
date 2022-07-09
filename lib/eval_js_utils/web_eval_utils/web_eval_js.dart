@@ -74,4 +74,9 @@ class EvalJS extends BaseEvalJS {
 
   @override
   void setPageArguments(Map<String, dynamic> args, String pagePath) {}
+
+  @override
+  void emitFormActionResponse(String id, data) {
+    webjs.emitFormActionResponse(id, data);
+  }
 }

@@ -18,6 +18,8 @@ abstract class BaseEvalJS {
 
   void setPageArguments(Map<String, dynamic> args, String pagePath);
 
+  void emitFormActionResponse(String id, dynamic data);
+
   String getBaseComponentCode(String pagePath) {
     return """
     try {
