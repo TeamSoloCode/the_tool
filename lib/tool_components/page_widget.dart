@@ -28,7 +28,7 @@ class T_Page extends StatefulWidget {
   State<T_Page> createState() => _T_Page();
 }
 
-class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
+class _T_Page extends State<T_Page> {
   Map<String, dynamic> _prevPageState = {};
   Map<String, dynamic> _initPageState = {};
   LayoutProps? _pageLayout;
@@ -60,13 +60,13 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     super.dispose();
   }
 
-  @override
-  bool get wantKeepAlive => true;
+  // @override
+  // bool get wantKeepAlive => true;
 
   ThemeMode? prevThemeMode;
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+    // super.build(context);
     var pageData = context.select((ContextStateProvider value) {
       Map<String, dynamic> emptyData = {};
       var data = value.contextData[widget.pagePath] ?? emptyData;

@@ -21,6 +21,7 @@ Support pages app bar custom actions
 Support theme for t_input
 Support validator for t_text_field
 Support validator for t_select_field
+Support onSubmit for t_form
 
 #-------------------------------------------------
 
@@ -44,7 +45,7 @@ Support validator for t_select_field
 -Move theme json to server
 -Fix bug reload page got redirected to initial page instead of current route
 -Support dispatch form action form js side
--Support basic submit action for t_form widget
+-Support basic form action for t_form widget
 -Support asking/granting permission
 -Exclude WebView from web build (web)
 -Fix bug #primaryColor have been replace even on the text property (issue from replace base color on widget props)
