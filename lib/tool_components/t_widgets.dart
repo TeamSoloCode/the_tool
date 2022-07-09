@@ -41,7 +41,6 @@ class _T_WidgetsState extends State<T_Widgets> {
   UtilsManager utils = getIt<UtilsManager>();
 
   Future<void> executeJSWithPagePath(String jsCode) async {
-    log("executeJSWithPagePath $jsCode ${widget.pagePath}");
     await utils.evalJS?.executeJS(jsCode, widget.pagePath);
   }
 
@@ -105,7 +104,7 @@ class _T_WidgetsState extends State<T_Widgets> {
           parentPagePath: widget.pagePath,
           contextData: contextData,
         );
-      case "block":
+      case "component":
         return T_Component(
           executeJS: executeJSWithPagePath,
           widgetProps: widgetProps,

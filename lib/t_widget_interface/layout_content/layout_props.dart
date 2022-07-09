@@ -24,6 +24,7 @@ class LayoutProps with _$LayoutProps {
     dynamic items,
     String? fieldType,
     dynamic className,
+    Map<String, dynamic>? componentProps,
     LayoutProps? child,
     LayoutProps? content,
     List<LayoutProps>? children,
@@ -60,6 +61,7 @@ extension MergeLayoutProps on LayoutProps {
       children: other.children ?? children,
       bottomNav: other.bottomNav ?? bottomNav,
       appBar: other.appBar ?? appBar,
+      componentProps: other.componentProps ?? componentProps,
     );
   }
 }

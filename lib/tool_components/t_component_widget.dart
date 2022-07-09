@@ -33,15 +33,16 @@ class T_Component extends T_Widget {
 class _T_BlockState extends State<T_Component> {
   LayoutProps? _pageLayout;
   final UtilsManager _utils = getIt<UtilsManager>();
+  bool _loaded = false;
 
   Future<void> _loadPageInfo(String pagePath) async {
     APIClientManager apiClient = getIt<APIClientManager>();
     Map<String, dynamic> pageInfo = await apiClient.getClientPageInfo(pagePath);
 
-    // _utils.evalJS?.executePageCode(
-    //   pageInfo["code"],
-    //   pagePath,
-    // );
+    _utils.evalJS?.executePageCode(
+      pageInfo["code"],
+      pagePath,
+    );
     var layout = pageInfo["layout"];
 
     _pageLayout = LayoutProps.fromJson(layout);
@@ -50,7 +51,7 @@ class _T_BlockState extends State<T_Component> {
   @override
   Widget build(BuildContext context) {
     var path = widget.widgetProps.path;
-    log("component $path");
+
     if (path == null) {
       return const SizedBox.shrink();
     }
@@ -59,12 +60,21 @@ class _T_BlockState extends State<T_Component> {
       builder: (context, snapshot) {
         const loadingPage = Text("Loading...");
         if (snapshot.data == true) {
+          var componentData = context.select((ContextStateProvider value) {
+            Map<String, dynamic> emptyData = {};
+            var data = value.contextData[path] ?? emptyData;
+            return data;
+          });
+
+          print(
+            "$path ${widget.widgetProps.componentProps} $componentData",
+          );
           return Container(
             constraints: BoxConstraints(maxHeight: 200),
             child: T_Widgets(
               layout: _pageLayout ?? const LayoutProps(),
-              pagePath: widget.parentPagePath,
-              contextData: widget.contextData,
+              pagePath: path,
+              contextData: componentData,
             ),
           );
         }
@@ -76,7 +86,11 @@ class _T_BlockState extends State<T_Component> {
 
   Future<bool> _isReadyToRun(String pagePath) async {
     return Future<bool>.microtask(() async {
-      await _loadPageInfo(pagePath);
+      if (!_loaded) {
+        log("component $pagePath");
+        await _loadPageInfo(pagePath);
+      }
+      _loaded = true;
       return true;
     });
   }

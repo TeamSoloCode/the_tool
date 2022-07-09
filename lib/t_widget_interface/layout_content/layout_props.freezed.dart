@@ -35,6 +35,8 @@ mixin _$LayoutProps {
   dynamic get items => throw _privateConstructorUsedError;
   String? get fieldType => throw _privateConstructorUsedError;
   dynamic get className => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get componentProps =>
+      throw _privateConstructorUsedError;
   LayoutProps? get child => throw _privateConstructorUsedError;
   LayoutProps? get content => throw _privateConstructorUsedError;
   List<LayoutProps>? get children => throw _privateConstructorUsedError;
@@ -68,6 +70,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       dynamic items,
       String? fieldType,
       dynamic className,
+      Map<String, dynamic>? componentProps,
       LayoutProps? child,
       LayoutProps? content,
       List<LayoutProps>? children,
@@ -105,6 +108,7 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
     Object? items = freezed,
     Object? fieldType = freezed,
     Object? className = freezed,
+    Object? componentProps = freezed,
     Object? child = freezed,
     Object? content = freezed,
     Object? children = freezed,
@@ -172,6 +176,10 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
           ? _value.className
           : className // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      componentProps: componentProps == freezed
+          ? _value.componentProps
+          : componentProps // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
       child: child == freezed
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
@@ -263,6 +271,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       dynamic items,
       String? fieldType,
       dynamic className,
+      Map<String, dynamic>? componentProps,
       LayoutProps? child,
       LayoutProps? content,
       List<LayoutProps>? children,
@@ -306,6 +315,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
     Object? items = freezed,
     Object? fieldType = freezed,
     Object? className = freezed,
+    Object? componentProps = freezed,
     Object? child = freezed,
     Object? content = freezed,
     Object? children = freezed,
@@ -373,6 +383,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
           ? _value.className
           : className // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      componentProps: componentProps == freezed
+          ? _value._componentProps
+          : componentProps // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
       child: child == freezed
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
@@ -416,12 +430,14 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.items,
       this.fieldType,
       this.className,
+      final Map<String, dynamic>? componentProps,
       this.child,
       this.content,
       final List<LayoutProps>? children,
       this.bottomNav,
       this.appBar})
-      : _children = children;
+      : _componentProps = componentProps,
+        _children = children;
 
   factory _$_LayoutProps.fromJson(Map<String, dynamic> json) =>
       _$$_LayoutPropsFromJson(json);
@@ -456,6 +472,15 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   final String? fieldType;
   @override
   final dynamic className;
+  final Map<String, dynamic>? _componentProps;
+  @override
+  Map<String, dynamic>? get componentProps {
+    final value = _componentProps;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
   @override
   final LayoutProps? child;
   @override
@@ -476,7 +501,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, items: $items, fieldType: $fieldType, className: $className, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, items: $items, fieldType: $fieldType, className: $className, componentProps: $componentProps, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar)';
   }
 
   @override
@@ -499,6 +524,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('items', items))
       ..add(DiagnosticsProperty('fieldType', fieldType))
       ..add(DiagnosticsProperty('className', className))
+      ..add(DiagnosticsProperty('componentProps', componentProps))
       ..add(DiagnosticsProperty('child', child))
       ..add(DiagnosticsProperty('content', content))
       ..add(DiagnosticsProperty('children', children))
@@ -529,6 +555,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
             const DeepCollectionEquality().equals(other.items, items) &&
             const DeepCollectionEquality().equals(other.fieldType, fieldType) &&
             const DeepCollectionEquality().equals(other.className, className) &&
+            const DeepCollectionEquality()
+                .equals(other._componentProps, _componentProps) &&
             const DeepCollectionEquality().equals(other.child, child) &&
             const DeepCollectionEquality().equals(other.content, content) &&
             const DeepCollectionEquality().equals(other._children, _children) &&
@@ -555,6 +583,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
         const DeepCollectionEquality().hash(items),
         const DeepCollectionEquality().hash(fieldType),
         const DeepCollectionEquality().hash(className),
+        const DeepCollectionEquality().hash(_componentProps),
         const DeepCollectionEquality().hash(child),
         const DeepCollectionEquality().hash(content),
         const DeepCollectionEquality().hash(_children),
@@ -590,6 +619,7 @@ abstract class _LayoutProps implements LayoutProps {
       final dynamic items,
       final String? fieldType,
       final dynamic className,
+      final Map<String, dynamic>? componentProps,
       final LayoutProps? child,
       final LayoutProps? content,
       final List<LayoutProps>? children,
@@ -629,6 +659,9 @@ abstract class _LayoutProps implements LayoutProps {
   String? get fieldType => throw _privateConstructorUsedError;
   @override
   dynamic get className => throw _privateConstructorUsedError;
+  @override
+  Map<String, dynamic>? get componentProps =>
+      throw _privateConstructorUsedError;
   @override
   LayoutProps? get child => throw _privateConstructorUsedError;
   @override
