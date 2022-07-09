@@ -57,7 +57,7 @@ class _T_FormState extends State<T_Form> {
 
   eventify.EventCallback formAction() {
     return (event, cont) {
-      print("Form EventCallback ${event.eventName} ${event.eventData}");
+      log("Form EventCallback ${event.eventName} ${event.eventData}");
       var data = json.decode(event.eventData as String);
       switch (data["action"]) {
         case "validate":

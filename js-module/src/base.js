@@ -140,15 +140,19 @@ const validateForm = async (formName) => {
       resolve(result);
     });
   });
-  dispatchFormAction(actionId, formName, "validate");
+  dispatchFormAction(formName, actionId, "validate");
   return promiseResult;
 };
 
 const resetForm = async (formName) => {
-  return dispatchFormAction(formName, "reset");
+  return dispatchFormAction(formName, "id", "reset");
 };
 
-const dispatchFormAction = async (actionId, formName, action = "submit") => {
+const dispatchFormAction = async (
+  formName,
+  actionId = "",
+  action = "submit"
+) => {
   switch (context._platform) {
     case "web":
       dispatch_form_action(formName, JSON.stringify({ action, actionId }));
@@ -158,7 +162,7 @@ const dispatchFormAction = async (actionId, formName, action = "submit") => {
       await window.flutter_inappwebview.callHandler(
         "dispatch_form_action",
         formName,
-        action
+        JSON.stringify({ action, actionId })
       );
       return;
   }

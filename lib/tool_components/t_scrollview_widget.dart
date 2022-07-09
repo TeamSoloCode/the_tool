@@ -40,7 +40,6 @@ class _T_ScrollViewState extends State<T_ScrollView> {
     var items = _computeChildren(widget.widgetProps.children);
 
     return CustomScrollView(
-      shrinkWrap: true,
       slivers: [
         SliverList(
           key: centerKey,
