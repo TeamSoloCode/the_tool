@@ -58,7 +58,7 @@ class _T_ComponentState extends State<T_Component> {
       componentCode: pageInfo["code"],
       componentPath: _componentId,
       parentPagePath: widget.parentPagePath,
-      componentPropsAsJSON: json.encode(_pageLayout?.componentProps),
+      componentPropsAsJSON: widget.widgetProps.componentProps ?? {},
     );
   }
 

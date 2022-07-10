@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -113,12 +114,13 @@ class EvalJS extends BaseEvalJS {
     required String parentPagePath,
     required String componentPath,
     required String componentCode,
-    String componentPropsAsJSON = "{}",
+    Map<dynamic, dynamic> componentPropsAsJSON = const {},
   }) async {
     String subComponentCode = getRegisterComponentCode(
       parentPagePath: parentPagePath,
       componentPath: componentPath,
       componentCode: componentCode,
+      componentPropsAsJSON: json.encode(componentPropsAsJSON),
     );
 
     webViewController?.evaluateJavascript(source: subComponentCode);
@@ -130,9 +132,10 @@ class EvalJS extends BaseEvalJS {
     required String componentPath,
   }) async {
     webViewController?.evaluateJavascript(
-        source: getUnregisterComponentCode(
-      parentPagePath: parentPagePath,
-      componentPath: componentPath,
-    ));
+      source: getUnregisterComponentCode(
+        parentPagePath: parentPagePath,
+        componentPath: componentPath,
+      ),
+    );
   }
 }

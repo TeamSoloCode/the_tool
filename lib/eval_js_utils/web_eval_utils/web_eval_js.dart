@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:the_tool/eval_js_utils/base_eval_js.dart';
 import 'dart:js' as js;
 import 'package:the_tool/eval_js_utils/web_eval_utils/web_js_invoke.dart'
@@ -82,12 +84,13 @@ class EvalJS extends BaseEvalJS {
     required String parentPagePath,
     required String componentPath,
     required String componentCode,
-    String componentPropsAsJSON = "{}",
+    Map<dynamic, dynamic> componentPropsAsJSON = const {},
   }) async {
     String subComponentCode = getRegisterComponentCode(
       parentPagePath: parentPagePath,
       componentPath: componentPath,
       componentCode: componentCode,
+      componentPropsAsJSON: json.encode(componentPropsAsJSON),
     );
 
     js.context.callMethod("eval", [subComponentCode]);
@@ -98,11 +101,14 @@ class EvalJS extends BaseEvalJS {
     required String parentPagePath,
     required String componentPath,
   }) async {
-    js.context.callMethod("eval", [
-      getUnregisterComponentCode(
-        parentPagePath: parentPagePath,
-        componentPath: componentPath,
-      )
-    ]);
+    js.context.callMethod(
+      "eval",
+      [
+        getUnregisterComponentCode(
+          parentPagePath: parentPagePath,
+          componentPath: componentPath,
+        )
+      ],
+    );
   }
 }

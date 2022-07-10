@@ -24,7 +24,7 @@ abstract class BaseEvalJS {
     required String parentPagePath,
     required String componentPath,
     required String componentCode,
-    String componentPropsAsJSON = "{}",
+    Map<dynamic, dynamic> componentPropsAsJSON = const {},
   });
 
   Future<void> unregisterSubComponent({
@@ -47,7 +47,21 @@ abstract class BaseEvalJS {
     )}
         })
 
-        context['$parentPagePath'].registerSubComponent(
+        const rawComponentProps = JSON.parse('$componentPropsAsJSON' || "{}")
+
+        const componentProps = Object.entries(rawComponentProps).reduce((result, [key, value]) => {
+          const propsFromParent = _.get(context, `$parentPagePath.\${value}`)
+          if(propsFromParent != undefined) {
+            result[key] = propsFromParent
+          }
+          
+          return result
+        }, {})
+
+        console.log(`abcd \${Object.keys(componentProps)}`)
+
+        
+        _.get(context, `$parentPagePath.registerSubComponent`)?.(
           "$componentPath",
           React.createElement(
             "div", 
@@ -55,20 +69,18 @@ abstract class BaseEvalJS {
               id: "$componentPath",
               key: "$componentPath",
             },
-            [
-              React.createElement(
-                SubComponent, 
-                {
-                  
-                }
-              )
-            ]
+            React.createElement(
+              SubComponent, 
+              {
+                ...componentProps
+              }
+            )
           )
           
         )
       }
       catch(e) {
-        throw e
+        console.error(e)
       }
     """;
   }
