@@ -161,8 +161,17 @@ class _T_WidgetsState extends State<T_Widgets> {
       widgetProps = widgetProps.copyWith(color: parseColor(widgetProps.color));
     }
     if (widgetProps.backgroundColor != null) {
+      var backgroundColor = widgetProps.backgroundColor;
+      var isBindingValue = UtilsManager.isValueBinding(backgroundColor);
       widgetProps = widgetProps.copyWith(
-        backgroundColor: parseColor(widgetProps.backgroundColor),
+        backgroundColor: parseColor(
+          isBindingValue
+              ? utils.bindingValueToProp(
+                  contextData,
+                  backgroundColor,
+                )
+              : backgroundColor,
+        ),
       );
     }
 

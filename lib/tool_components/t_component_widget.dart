@@ -81,12 +81,6 @@ class _T_ComponentState extends State<T_Component> {
             return data;
           });
 
-          var componentProps = widget.widgetProps.componentProps;
-
-          print(
-            "$_componentId: $componentProps $componentData",
-          );
-
           return Container(
             constraints: BoxConstraints(maxHeight: 200),
             child: T_Widgets(

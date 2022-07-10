@@ -51,15 +51,9 @@ abstract class BaseEvalJS {
 
         const componentProps = Object.entries(rawComponentProps).reduce((result, [key, value]) => {
           const propsFromParent = _.get(context, `$parentPagePath.\${value}`)
-          if(propsFromParent != undefined) {
-            result[key] = propsFromParent
-          }
-          
+          result[key] = propsFromParent != undefined ? propsFromParent : value
           return result
         }, {})
-
-        console.log(`abcd \${Object.keys(componentProps)}`)
-
         
         _.get(context, `$parentPagePath.registerSubComponent`)?.(
           "$componentPath",
@@ -131,6 +125,7 @@ abstract class BaseEvalJS {
             _tLoaded: true,
             _tIsWeb: context._platform == "web",
             _tIsMobile: context._platform == "mobile",
+            props: {...props}
           },
         )
         const prevPageData = usePrevious(pageData)
@@ -142,6 +137,7 @@ abstract class BaseEvalJS {
 
           // To prevent multi call when pageData not update yet
           pageData = nextData;
+
           setContextData({
             ['$pagePath']: {..._contextData['$pagePath'], ...nextData}
           })
@@ -176,7 +172,12 @@ abstract class BaseEvalJS {
         }, [subComponents])
 
         React.useEffect(() => {
-          exportPageContext({ setPageData, getPageData, registerSubComponent, subComponents })
+          exportPageContext({ 
+            setPageData, 
+            getPageData, 
+            registerSubComponent, 
+            subComponents 
+          })
           context['$pagePath'].exportPageContext = exportPageContext
         }, [pageData, setPageData, getPageData, registerSubComponent, exportPageContext, subComponents])
 
