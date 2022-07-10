@@ -35,6 +35,7 @@ class _T_ComponentState extends State<T_Component> {
   final UtilsManager _utils = getIt<UtilsManager>();
   bool _loaded = false;
   String _componentId = "";
+  Map<String, dynamic> _pageInfo = {};
 
   @override
   void dispose() {
@@ -47,15 +48,14 @@ class _T_ComponentState extends State<T_Component> {
 
   Future<void> _loadComponentInfo(String componentPath) async {
     APIClientManager apiClient = getIt<APIClientManager>();
-    Map<String, dynamic> pageInfo =
-        await apiClient.getClientPageInfo(componentPath);
-    var layout = pageInfo["layout"];
+    _pageInfo = await apiClient.getClientPageInfo(componentPath);
+    var layout = _pageInfo["layout"];
     _pageLayout = LayoutProps.fromJson(layout);
 
     _componentId = "${componentPath}_${const Uuid().v4()}";
 
     await _utils.evalJS?.registerSubComponent(
-      componentCode: pageInfo["code"],
+      componentCode: _pageInfo["code"],
       componentPath: _componentId,
       parentPagePath: widget.parentPagePath,
       componentPropsAsJSON: widget.widgetProps.componentProps ?? {},
@@ -71,18 +71,20 @@ class _T_ComponentState extends State<T_Component> {
     }
 
     return FutureBuilder(
+      key: Key(_componentId),
       builder: (context, snapshot) {
         const loadingPage = Text("Loading...");
 
         if (snapshot.data == true) {
-          var componentData = context.select((ContextStateProvider value) {
-            var data = value.contextData[_componentId] ??
+          Map<String, dynamic> componentData =
+              context.select((ContextStateProvider value) {
+            Map<String, dynamic> data = value.contextData[_componentId] ??
                 Map<String, dynamic>.from({});
             return data;
           });
 
           return Container(
-            constraints: BoxConstraints(maxHeight: 200),
+            constraints: BoxConstraints(maxHeight: 150),
             child: T_Widgets(
               layout: _pageLayout ?? const LayoutProps(),
               pagePath: _componentId,
@@ -101,6 +103,7 @@ class _T_ComponentState extends State<T_Component> {
       if (!_loaded) {
         await _loadComponentInfo(pagePath);
       }
+
       _loaded = true;
       return true;
     });

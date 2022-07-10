@@ -45,7 +45,7 @@ class _T_ButtonState extends State<T_Button> {
 
     String text = widgetProps?.text ?? "";
     prevWidgetProps = widgetProps;
-
+    print("button render");
     assert(
       shouldWidgetUpdate() == false,
       "shouldWidgetUpdate should be false after build new project",

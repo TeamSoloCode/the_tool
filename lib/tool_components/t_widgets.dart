@@ -196,6 +196,21 @@ class _T_WidgetsState extends State<T_Widgets> {
       );
     }
 
+    if (widgetProps.componentProps != null) {
+      Map<String, dynamic>? updatedComponentProps = {};
+      widgetProps.componentProps?.forEach((key, value) {
+        var isValueBinding = UtilsManager.isValueBinding(value);
+        updatedComponentProps[key] = isValueBinding
+            ? utils.bindingValueToProp(
+                widget.contextData,
+                value,
+              )
+            : value;
+      });
+
+      widgetProps = widgetProps.copyWith(componentProps: updatedComponentProps);
+    }
+
     // FIXME: xxxx
     widgetProps = LayoutProps.fromJson(
       json.decode(

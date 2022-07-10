@@ -39,39 +39,31 @@ abstract class BaseEvalJS {
     String componentPropsAsJSON = "{}",
   }) {
     return """
+
       try {
         const SubComponent = React.memo((props) => {
+
+          const prevProps = usePrevious(props)
+          React.useEffect(() => {
+            if(prevProps && !_.isEqual(prevProps, props)) {
+              setPageData({props: {...props}})
+            }
+          }, [props])
+
     ${_commonBaseComponentCode(
       pagePath: componentPath,
       clientCode: componentCode,
     )}
-        })
+        /** Do not add code under this area*/
 
+        })
+        
         const rawComponentProps = JSON.parse('$componentPropsAsJSON' || "{}")
 
-        const componentProps = Object.entries(rawComponentProps).reduce((result, [key, value]) => {
-          const propsFromParent = _.get(context, `$parentPagePath.\${value}`)
-          result[key] = propsFromParent != undefined ? propsFromParent : value
-          return result
-        }, {})
-        
-        _.get(context, `$parentPagePath.registerSubComponent`)?.(
-          "$componentPath",
-          React.createElement(
-            "div", 
-            {
-              id: "$componentPath",
-              key: "$componentPath",
-            },
-            React.createElement(
-              SubComponent, 
-              {
-                ...componentProps
-              }
-            )
-          )
-          
-        )
+        /** Add subcomponent into parent component by its register function */
+        _.get(context, `$parentPagePath.registerSubComponent`)
+                  ?.("$componentPath", SubComponent, rawComponentProps)
+         
       }
       catch(e) {
         console.error(e)
@@ -90,6 +82,7 @@ abstract class BaseEvalJS {
       pagePath: pagePath,
       clientCode: clientCode,
     )}
+        /** Do not add code under this area*/
       });
 
       const appEl = document.getElementById("app")
@@ -104,7 +97,7 @@ abstract class BaseEvalJS {
         document.getElementById("$pagePath")
       );
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
     """;
   }
@@ -125,7 +118,9 @@ abstract class BaseEvalJS {
             _tLoaded: true,
             _tIsWeb: context._platform == "web",
             _tIsMobile: context._platform == "mobile",
-            props: {...props}
+
+            /** add props from parent page into pageData */
+            props
           },
         )
         const prevPageData = usePrevious(pageData)
@@ -166,8 +161,12 @@ abstract class BaseEvalJS {
         }, [setPageData, didInitState])
 
         // adding sub component when using t_component
-        const registerSubComponent = React.useCallback((subComponentName, newComponent) => {
-          const newSubComponents = {...subComponents, [subComponentName]: newComponent}
+        const registerSubComponent = React.useCallback((
+          subComponentName, 
+          newComponent, 
+          rawComponentProps,
+        ) => {
+          const newSubComponents = {...subComponents, [subComponentName]: {newComponent, rawComponentProps}}
           _setSubComponent(newSubComponents)
         }, [subComponents])
 
@@ -198,7 +197,37 @@ abstract class BaseEvalJS {
           }
         }, [])
 
-        return Object.values(subComponents);
+        return Object.entries(subComponents).map(([key, value]) => {
+          const { newComponent, rawComponentProps } = value
+
+          const componentProps = Object.entries(rawComponentProps)
+          .reduce((result, [key, value]) => {
+            const propFromParentContext = _.get(context, `$pagePath.\${value}`)
+            const propsFromParentData = _.get(getPageData(), `\${value}`)
+
+            result[key] = propFromParentContext != undefined ? propFromParentContext : value
+
+            if(propsFromParentData) {
+              result[key] = propsFromParentData
+            }
+
+            return result
+          }, {})
+
+          return React.createElement(
+            "div", 
+            {
+              id: key,
+              key: key,
+            },
+            React.createElement(
+              newComponent, 
+              {
+                ...componentProps
+              }
+            )
+          )
+        });
     """;
   }
 

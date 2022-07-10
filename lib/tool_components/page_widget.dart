@@ -68,9 +68,8 @@ class _T_Page extends State<T_Page> {
   Widget build(BuildContext context) {
     // super.build(context);
     var pageData = context.select((ContextStateProvider value) {
-      Map<String, dynamic> emptyData = {};
-      var data = value.contextData[widget.pagePath] ?? emptyData;
-      return data;
+      return value.contextData[widget.pagePath] ??
+          Map<String, dynamic>.from({});
     });
 
     if (_isReadyToRun == false ||
