@@ -92,4 +92,17 @@ class EvalJS extends BaseEvalJS {
 
     js.context.callMethod("eval", [subComponentCode]);
   }
+
+  @override
+  Future<void> unregisterSubComponent({
+    required String parentPagePath,
+    required String componentPath,
+  }) async {
+    String unregisterCode = """
+      const componentEl = document.getElementById("$componentPath")
+      const rootEl = document.getElementById("$parentPagePath")
+      rootEl.removeChild(componentEl);
+      ReactDOM.unmountComponentAtNode(componentEl);
+    """;
+  }
 }

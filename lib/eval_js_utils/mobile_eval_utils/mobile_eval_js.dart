@@ -109,11 +109,22 @@ class EvalJS extends BaseEvalJS {
   void emitFormActionResponse(String id, data) {}
 
   @override
-  Future<void> registerSubComponent(
-      {required String parentPagePath,
-      required String componentPath,
-      required String componentCode,
-      String componentPropsAsJSON = "{}"}) async {
-    throw UnimplementedError();
+  Future<void> registerSubComponent({
+    required String parentPagePath,
+    required String componentPath,
+    required String componentCode,
+    String componentPropsAsJSON = "{}",
+  }) async {
+    String subComponentCode = getSubComponentCode(
+      parentPagePath: parentPagePath,
+      componentPath: componentPath,
+      componentCode: componentCode,
+    );
+
+    webViewController?.evaluateJavascript(source: subComponentCode);
   }
+
+  @override
+  Future<void> unregisterSubComponent(
+      {required String parentPagePath, required String componentPath}) async {}
 }

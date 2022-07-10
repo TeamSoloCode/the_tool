@@ -27,14 +27,23 @@ class T_Component extends T_Widget {
         );
 
   @override
-  State<T_Component> createState() => _T_BlockState();
+  State<T_Component> createState() => _T_ComponentState();
 }
 
-class _T_BlockState extends State<T_Component> {
+class _T_ComponentState extends State<T_Component> {
   LayoutProps? _pageLayout;
   final UtilsManager _utils = getIt<UtilsManager>();
   bool _loaded = false;
   String _componentId = "";
+
+  @override
+  void dispose() {
+    _utils.evalJS?.unregisterSubComponent(
+      parentPagePath: widget.parentPagePath,
+      componentPath: _componentId,
+    );
+    super.dispose();
+  }
 
   Future<void> _loadComponentInfo(String componentPath) async {
     APIClientManager apiClient = getIt<APIClientManager>();
@@ -43,7 +52,7 @@ class _T_BlockState extends State<T_Component> {
     var layout = pageInfo["layout"];
     _pageLayout = LayoutProps.fromJson(layout);
 
-    _componentId = "${componentPath}_${const Uuid().v1()}";
+    _componentId = "${componentPath}_${const Uuid().v4()}";
 
     await _utils.evalJS?.registerSubComponent(
       componentCode: pageInfo["code"],
@@ -75,7 +84,7 @@ class _T_BlockState extends State<T_Component> {
           var componentProps = widget.widgetProps.componentProps;
 
           print(
-            "$path $componentProps $componentData",
+            "$_componentId: $componentProps $componentData",
           );
 
           return Container(

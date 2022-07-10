@@ -27,6 +27,9 @@ abstract class BaseEvalJS {
     String componentPropsAsJSON = "{}",
   });
 
+  Future<void> unregisterSubComponent(
+      {required String parentPagePath, required String componentPath});
+
   String getSubComponentCode({
     required String parentPagePath,
     required String componentPath,
@@ -43,12 +46,23 @@ abstract class BaseEvalJS {
         })
 
         context['$parentPagePath'].registerSubComponent(
+          "$componentPath",
           React.createElement(
-            SubComponent, 
+            "div", 
             {
-              key: "$componentPath"
-            }
+              id: "$componentPath",
+              key: "$componentPath",
+            },
+            [
+              React.createElement(
+                SubComponent, 
+                {
+                  
+                }
+              )
+            ]
           )
+          
         )
       }
       catch(e) {
@@ -97,7 +111,7 @@ abstract class BaseEvalJS {
         context._prevData = Object.assign({}, _prevContextData);
         context._data = Object.assign({}, context._data, _contextData);
         
-        const [subComponents, _setSubComponent] = React.useState([])
+        const [subComponents, _setSubComponent] = React.useState({})
         
         let [pageData, _setPageData] = React.useState({ 
             _tLoaded: true,
@@ -142,15 +156,15 @@ abstract class BaseEvalJS {
         }, [setPageData, didInitState])
 
         // adding sub component when using t_component
-        const registerSubComponent = React.useCallback((newComponent) => {
-          const newSubComponents = [...subComponents, newComponent]
+        const registerSubComponent = React.useCallback((subComponentName, newComponent) => {
+          const newSubComponents = {...subComponents, [subComponentName]: newComponent}
           _setSubComponent(newSubComponents)
         }, [subComponents])
 
         React.useEffect(() => {
-          exportPageContext({ setPageData, getPageData, registerSubComponent })
+          exportPageContext({ setPageData, getPageData, registerSubComponent, subComponents })
           context['$pagePath'].exportPageContext = exportPageContext
-        }, [pageData, setPageData, getPageData, registerSubComponent, exportPageContext])
+        }, [pageData, setPageData, getPageData, registerSubComponent, exportPageContext, subComponents])
 
 
         $clientCode
@@ -169,7 +183,7 @@ abstract class BaseEvalJS {
           }
         }, [])
 
-        return subComponents;
+        return Object.values(subComponents);
     """;
   }
 }
