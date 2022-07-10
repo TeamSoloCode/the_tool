@@ -27,10 +27,12 @@ abstract class BaseEvalJS {
     String componentPropsAsJSON = "{}",
   });
 
-  Future<void> unregisterSubComponent(
-      {required String parentPagePath, required String componentPath});
+  Future<void> unregisterSubComponent({
+    required String parentPagePath,
+    required String componentPath,
+  });
 
-  String getSubComponentCode({
+  String getRegisterComponentCode({
     required String parentPagePath,
     required String componentPath,
     required String componentCode,
@@ -185,5 +187,23 @@ abstract class BaseEvalJS {
 
         return Object.values(subComponents);
     """;
+  }
+
+  String getUnregisterComponentCode({
+    required String parentPagePath,
+    required String componentPath,
+  }) {
+    String unregisterComponentCode = """
+      /** set timeout to wait for parent unmounted  */
+      setTimeout(() => {
+        const componentEl = document.getElementById("$componentPath")
+        const parentEl = document.getElementById("$parentPagePath")
+        if(parentEl) {
+          parentEl.removeChild(componentEl);
+          ReactDOM.unmountComponentAtNode(componentEl);
+        }
+      }, 200)
+    """;
+    return unregisterComponentCode;
   }
 }

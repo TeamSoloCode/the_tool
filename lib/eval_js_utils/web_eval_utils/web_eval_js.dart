@@ -84,7 +84,7 @@ class EvalJS extends BaseEvalJS {
     required String componentCode,
     String componentPropsAsJSON = "{}",
   }) async {
-    String subComponentCode = getSubComponentCode(
+    String subComponentCode = getRegisterComponentCode(
       parentPagePath: parentPagePath,
       componentPath: componentPath,
       componentCode: componentCode,
@@ -98,18 +98,11 @@ class EvalJS extends BaseEvalJS {
     required String parentPagePath,
     required String componentPath,
   }) async {
-    String unregisterComponentCode = """
-      /** set timeout to wait for parent unmounted  */
-      setTimeout(() => {
-        const componentEl = document.getElementById("$componentPath")
-        const parentEl = document.getElementById("$parentPagePath")
-        if(parentEl) {
-          parentEl.removeChild(componentEl);
-          ReactDOM.unmountComponentAtNode(componentEl);
-        }
-      }, 200)
-    """;
-
-    js.context.callMethod("eval", [unregisterComponentCode]);
+    js.context.callMethod("eval", [
+      getUnregisterComponentCode(
+        parentPagePath: parentPagePath,
+        componentPath: componentPath,
+      )
+    ]);
   }
 }
