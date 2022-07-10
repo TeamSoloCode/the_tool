@@ -35,14 +35,9 @@ class EvalJS extends BaseEvalJS {
   ) async {
     String pageCode = """
       (() => {
-        ${getBaseComponentCode(pagePath)}
+        ${getBaseComponentCode(pagePath: pagePath, clientCode: clientCode)}
       })()
       """;
-
-    pageCode = pageCode.replaceAll(
-      "// <client_code>",
-      clientCode,
-    );
 
     js.context.callMethod("eval", [pageCode]);
   }
@@ -80,5 +75,21 @@ class EvalJS extends BaseEvalJS {
   @override
   void emitFormActionResponse(String id, data) {
     webjs.emitFormActionResponse(id, data);
+  }
+
+  @override
+  Future<void> registerSubComponent({
+    required String parentPagePath,
+    required String componentPath,
+    required String componentCode,
+    String componentPropsAsJSON = "{}",
+  }) async {
+    String subComponentCode = getSubComponentCode(
+      parentPagePath: parentPagePath,
+      componentPath: componentPath,
+      componentCode: componentCode,
+    );
+
+    js.context.callMethod("eval", [subComponentCode]);
   }
 }

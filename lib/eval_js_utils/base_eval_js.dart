@@ -20,7 +20,120 @@ abstract class BaseEvalJS {
 
   void emitFormActionResponse(String id, dynamic data);
 
-  String getBaseComponentCode(String pagePath) {
+  Future<void> registerSubComponent({
+    required String parentPagePath,
+    required String componentPath,
+    required String componentCode,
+    String componentPropsAsJSON = "{}",
+  });
+
+  String getSubComponentCode({
+    required String parentPagePath,
+    required String componentPath,
+    required String componentCode,
+    String componentPropsAsJSON = "{}",
+  }) {
+    return """
+      try {
+        const SubComponent = React.memo((props) => {
+          const [_contextData, _setContextData] = React.useState(context._data);
+          let [didInitState, setDidInitState] = React.useState(false)
+          const _prevContextData = usePrevious(_contextData);
+          context._updateContextData = _setContextData;
+          context._prevData = Object.assign({}, _prevContextData);
+          context._data = Object.assign({}, context._data, _contextData);
+          
+          const [subComponents, _setSubComponent] = React.useState([])
+          
+          let [pageData, _setPageData] = React.useState({ 
+              _tLoaded: true,
+              _tIsWeb: context._platform == "web",
+              _tIsMobile: context._platform == "mobile",
+            },
+          )
+          const prevPageData = usePrevious(pageData)
+
+          // This will use to set data in layout code
+          const setPageData = React.useCallback((data) => {
+            const nextData = {...pageData, ...data}
+            _setPageData(nextData)
+
+            // To prevent multi call when pageData not update yet
+            pageData = nextData;
+            setContextData({
+              ['$componentPath']: {..._contextData['$componentPath'], ...nextData}
+            })
+          }, [pageData, _contextData])
+
+          const getPageData = React.useCallback(() => {
+            return pageData;
+          }, [pageData])
+
+          // Export page context
+          const exportPageContext = React.useCallback((exportedContext = {}) => {
+            context['$componentPath'] = context['$componentPath'] || {}
+            Object.assign(context['$componentPath'], exportedContext)
+          }, [pageData])
+
+          const getPageArguments = React.useCallback(() => {
+            return context['$componentPath']?._pageArguments || {};
+          }, [context['$componentPath']])
+
+          // Use to init state before render the widget
+          const useInitState = React.useCallback((initData = {}) => {
+            if(!didInitState) {
+              Object.assign(pageData, {...initData})
+              setDidInitState(true);
+            }
+          }, [setPageData, didInitState])
+
+          // adding sub component when using t_component
+          const registerSubComponent = React.useCallback((newComponent) => {
+            const newSubComponents = [...subComponents, newComponent]
+            _setSubComponent(newSubComponents)
+          }, [subComponents])
+
+          React.useEffect(() => {
+            exportPageContext({ setPageData, getPageData, registerSubComponent })
+            context['$componentPath'].exportPageContext = exportPageContext
+          }, [pageData, setPageData, getPageData, registerSubComponent, exportPageContext])
+
+          React.useEffect(() => {
+            logger.log(`Didmount $componentPath`)
+            // init data for page
+            setTimeout(() => {
+              setPageData({_tLoaded: true,})
+            })
+
+            return () => {
+              logger.log(`Unmounted $componentPath`)
+              context['$componentPath'] = {}
+              setPageData({})
+            }
+          }, [])
+
+          $componentCode
+
+          return null;
+        })
+
+        context['$parentPagePath'].registerSubComponent(
+          React.createElement(
+            SubComponent, 
+            {
+              key: "$componentPath"
+            }
+          )
+        )
+      }
+      catch(e) {
+        console.error(e)
+      }
+    """;
+  }
+
+  String getBaseComponentCode(
+      {required String pagePath, required String clientCode}) {
     return """
     try {
       const Main = React.memo((props) => {
@@ -31,6 +144,7 @@ abstract class BaseEvalJS {
         context._prevData = Object.assign({}, _prevContextData);
         context._data = Object.assign({}, context._data, _contextData);
         
+        const [subComponents, _setSubComponent] = React.useState([])
         
         let [pageData, _setPageData] = React.useState({ 
             _tLoaded: true,
@@ -74,12 +188,19 @@ abstract class BaseEvalJS {
           }
         }, [setPageData, didInitState])
 
+        // adding sub component when using t_component
+        const registerSubComponent = React.useCallback((newComponent) => {
+          const newSubComponents = [...subComponents, newComponent]
+          _setSubComponent(newSubComponents)
+        }, [subComponents])
+
         React.useEffect(() => {
-          exportPageContext({ setPageData, getPageData })
-        }, [pageData, setPageData, getPageData])
+          exportPageContext({ setPageData, getPageData, registerSubComponent })
+          context['$pagePath'].exportPageContext = exportPageContext
+        }, [pageData, setPageData, getPageData, registerSubComponent, exportPageContext])
 
 
-        // <client_code>
+        $clientCode
 
         React.useEffect(() => {
           logger.log(`Didmount $pagePath`)
@@ -95,11 +216,7 @@ abstract class BaseEvalJS {
           }
         }, [])
 
-
-        const a = React.createElement("div", {}, "aaaaaaaaaaa");
-        const b = React.createElement("div", {}, "bbbbbbbbbbb");
-        
-        return [a, b];
+        return subComponents;
       });
 
       const appEl = document.getElementById("app")
@@ -116,6 +233,12 @@ abstract class BaseEvalJS {
     } catch (err) {
       console.log(err);
     }
+    """;
+  }
+
+  String _commonBaseComponentCode(String pagePath) {
+    return """
+
     """;
   }
 }
