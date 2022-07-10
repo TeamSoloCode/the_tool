@@ -178,7 +178,7 @@ abstract class BaseEvalJS {
 
           return () => {
             logger.log(`Unmounted $pagePath`)
-            context['$pagePath'] = {}
+            delete context['$pagePath']
             setPageData({})
           }
         }, [])

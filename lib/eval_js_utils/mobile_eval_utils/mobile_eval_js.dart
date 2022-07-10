@@ -126,5 +126,19 @@ class EvalJS extends BaseEvalJS {
 
   @override
   Future<void> unregisterSubComponent(
-      {required String parentPagePath, required String componentPath}) async {}
+      {required String parentPagePath, required String componentPath}) async {
+    String unregisterComponentCode = """
+        /** set timeout to wait for parent unmounted  */
+        setTimeout(() => {
+          const componentEl = document.getElementById("$componentPath")
+          const parentEl = document.getElementById("$parentPagePath")
+          if(parentEl) {
+            parentEl.removeChild(componentEl);
+            ReactDOM.unmountComponentAtNode(componentEl);
+          }
+        }, 200)
+      """;
+
+    webViewController?.evaluateJavascript(source: unregisterComponentCode);
+  }
 }

@@ -98,11 +98,18 @@ class EvalJS extends BaseEvalJS {
     required String parentPagePath,
     required String componentPath,
   }) async {
-    String unregisterCode = """
-      const componentEl = document.getElementById("$componentPath")
-      const rootEl = document.getElementById("$parentPagePath")
-      rootEl.removeChild(componentEl);
-      ReactDOM.unmountComponentAtNode(componentEl);
+    String unregisterComponentCode = """
+      /** set timeout to wait for parent unmounted  */
+      setTimeout(() => {
+        const componentEl = document.getElementById("$componentPath")
+        const parentEl = document.getElementById("$parentPagePath")
+        if(parentEl) {
+          parentEl.removeChild(componentEl);
+          ReactDOM.unmountComponentAtNode(componentEl);
+        }
+      }, 200)
     """;
+
+    js.context.callMethod("eval", [unregisterComponentCode]);
   }
 }
