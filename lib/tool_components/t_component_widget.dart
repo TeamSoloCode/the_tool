@@ -71,7 +71,6 @@ class _T_ComponentState extends State<T_Component> {
     }
 
     return FutureBuilder(
-      key: Key(_componentId),
       builder: (context, snapshot) {
         const loadingPage = Text("Loading...");
 
@@ -84,6 +83,7 @@ class _T_ComponentState extends State<T_Component> {
           });
 
           return Container(
+            key: Key(_componentId),
             constraints: BoxConstraints(maxHeight: 150),
             child: T_Widgets(
               layout: _pageLayout ?? const LayoutProps(),

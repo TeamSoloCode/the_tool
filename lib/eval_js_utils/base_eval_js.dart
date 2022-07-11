@@ -112,7 +112,8 @@ abstract class BaseEvalJS {
         context._prevData = Object.assign({}, _prevContextData);
         context._data = Object.assign({}, context._data, _contextData);
         
-        const [subComponents, _setSubComponent] = React.useState({})
+        const [_subComponents] = React.useState([])
+        const [_updateSubComponentToken, _setUpdateSubComponentToken] = React.useState()
         
         let [pageData, _setPageData] = React.useState({ 
             _tLoaded: true,
@@ -161,24 +162,33 @@ abstract class BaseEvalJS {
         }, [setPageData, didInitState])
 
         // adding sub component when using t_component
-        const registerSubComponent = React.useCallback((
+        const registerSubComponent = (
           subComponentName, 
           newComponent, 
           rawComponentProps,
         ) => {
-          const newSubComponents = {...subComponents, [subComponentName]: {newComponent, rawComponentProps}}
-          _setSubComponent(newSubComponents)
-        }, [subComponents])
+          _subComponents.push({subComponentName, newComponent, rawComponentProps})
+          _setUpdateSubComponentToken(Date.now())
+        }
+
+        const subComponents = React.useMemo(() => {
+          return _subComponents
+        }, [_updateSubComponentToken])
 
         React.useEffect(() => {
           exportPageContext({ 
             setPageData, 
             getPageData, 
-            registerSubComponent, 
-            subComponents 
+            registerSubComponent
           })
           context['$pagePath'].exportPageContext = exportPageContext
-        }, [pageData, setPageData, getPageData, registerSubComponent, exportPageContext, subComponents])
+        }, [
+          pageData, 
+          setPageData, 
+          getPageData, 
+          registerSubComponent, 
+          exportPageContext
+        ])
 
 
         $clientCode
@@ -196,10 +206,13 @@ abstract class BaseEvalJS {
             setPageData({})
           }
         }, [])
-
-        return Object.entries(subComponents).map(([key, value]) => {
-          const { newComponent, rawComponentProps } = value
-
+        
+        return subComponents.map(({ 
+          subComponentName, 
+          newComponent, 
+          rawComponentProps 
+        }) => {
+          
           const componentProps = Object.entries(rawComponentProps)
           .reduce((result, [key, value]) => {
             const propFromParentContext = _.get(context, `$pagePath.\${value}`)
@@ -217,17 +230,18 @@ abstract class BaseEvalJS {
           return React.createElement(
             "div", 
             {
-              id: key,
-              key: key,
+              id: `\${subComponentName}`,
+              key: `\${subComponentName}`,
             },
             React.createElement(
               newComponent, 
               {
+                key: `\${subComponentName}`,
                 ...componentProps
               }
             )
           )
-        });
+        })
     """;
   }
 
