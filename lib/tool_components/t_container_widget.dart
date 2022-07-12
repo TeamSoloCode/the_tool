@@ -18,11 +18,12 @@ class T_Container extends T_Widget {
     required this.parentPagePath,
     required contextData,
   }) : super(
-            key: key,
-            widgetProps: widgetProps,
-            executeJS: executeJS,
-            contextData: contextData,
-            parentPagePath: parentPagePath);
+          key: key,
+          widgetProps: widgetProps,
+          executeJS: executeJS,
+          contextData: contextData,
+          parentPagePath: parentPagePath,
+        );
 
   @override
   State<T_Container> createState() => _T_ContainerState();
@@ -31,10 +32,12 @@ class T_Container extends T_Widget {
 class _T_ContainerState extends State<T_Container> {
   @override
   Widget build(BuildContext context) {
-    var cssColor = widget.widgetProps.backgroundColor;
+    var props = widget.widgetProps;
+    var cssColor = props.backgroundColor;
     Color? color = cssColor != null ? fromCssColor(cssColor) : null;
     return Container(
       key: widget.getBindingKey(),
+      constraints: BoxConstraints(maxHeight: props.maxHeight),
       color: color,
       child: T_Widgets(
         layout: widget.widgetProps.child ?? const LayoutProps(),

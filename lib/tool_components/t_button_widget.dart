@@ -4,7 +4,6 @@ import 'package:the_tool/page_utils/should_update.widget.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/utils.dart';
-import 'package:collection/collection.dart' show DeepCollectionEquality;
 
 class T_Button extends T_Widget {
   final UtilsManager utils = getIt<UtilsManager>();
@@ -32,11 +31,7 @@ class _T_ButtonState extends State<T_Button> {
   bool shouldWidgetUpdate() {
     widgetProps = widget.widgetProps;
 
-    var shouldUpdate = !const DeepCollectionEquality().equals(
-      prevWidgetProps,
-      widgetProps,
-    );
-
+    var shouldUpdate = !(prevWidgetProps == widgetProps);
     return shouldUpdate;
   }
 
@@ -45,7 +40,6 @@ class _T_ButtonState extends State<T_Button> {
 
     String text = widgetProps?.text ?? "";
     prevWidgetProps = widgetProps;
-    print("button render");
     assert(
       shouldWidgetUpdate() == false,
       "shouldWidgetUpdate should be false after build new project",

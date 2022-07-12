@@ -220,6 +220,25 @@ class _T_WidgetsState extends State<T_Widgets> {
       ),
     );
 
+    dynamic result = double.infinity;
+    if (widgetProps.maxHeight is String) {
+      if (UtilsManager.isValueBinding(widgetProps.maxHeight)) {
+        result = utils.bindingValueToProp(
+          widget.contextData,
+          widgetProps.maxHeight,
+        );
+      }
+    } else if (widgetProps.maxHeight is double) {
+      result = widgetProps.maxHeight;
+    }
+
+    assert(
+      result is double,
+      "\"maxHeight\" must be a number or bound with number value (${widgetProps.maxHeight})",
+    );
+
+    widgetProps = widgetProps.copyWith(maxHeight: result);
+
     return widgetProps;
   }
 }

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
@@ -10,6 +11,8 @@ import 'package:the_tool/t_widget_interface/client_config/client_config.dart';
 class APIClientManager {
   final String host = kIsWeb ? "localhost" : "10.0.2.2";
   final Dio _dio = Dio();
+
+  var _dioCached = Dio();
 
   APIClientManager() : super() {
     _dio.interceptors.add(PrettyDioLogger(
@@ -24,6 +27,18 @@ class APIClientManager {
       compact: true,
       maxWidth: 90,
     ));
+
+    var cacheStore = MemCacheStore();
+    var cacheOptions = CacheOptions(
+      store: cacheStore,
+      maxStale: const Duration(seconds: 30),
+      hitCacheOnErrorExcept: [],
+      policy: CachePolicy.forceCache,
+    );
+
+    _dioCached.interceptors.add(
+      DioCacheInterceptor(options: cacheOptions),
+    );
   }
 
   String? _beAPI = "http://localhost:3000";
@@ -78,7 +93,7 @@ class APIClientManager {
 
   Future<Map<String, dynamic>> getClientPageInfo(String pagePath) async {
     try {
-      var response = await _dio.get('$_pageAPI/pages/$pagePath');
+      var response = await _dioCached.get('$_pageAPI/pages/$pagePath');
       return Future.value(
         {
           "code": response.data["code"],

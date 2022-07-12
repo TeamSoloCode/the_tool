@@ -1,6 +1,6 @@
 import _ from "lodash";
 import Cookies from "js-cookie";
-import { v4 as uuidv4, v1 as uuidv1 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 import webJSChannel from "./web_js_channel";
 
 const _initContext = { _data: {}, _prevData: {}, _platform: "mobile" };
@@ -97,7 +97,7 @@ const fetchData = async (path, options = {}) => {
   const optionAsJSON = JSON.stringify(options);
   switch (context._platform) {
     case "web":
-      const requestId = uuidv1();
+      const requestId = uuidv4();
       const returnDataPromise = new Promise((resolve, reject) => {
         const checkTimeoutId = setTimeout(() => {
           reject("Request timeout!");
@@ -133,7 +133,7 @@ const __ondataresponse = (requestId, data) => {
 };
 
 const validateForm = async (formName) => {
-  const actionId = uuidv1();
+  const actionId = uuidv4();
   const promiseResult = new Promise((resolve) => {
     webJSChannel.once(actionId, (data) => {
       const { result } = JSON.parse(data);

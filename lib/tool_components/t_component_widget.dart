@@ -33,9 +33,18 @@ class T_Component extends T_Widget {
 class _T_ComponentState extends State<T_Component> {
   LayoutProps? _pageLayout;
   final UtilsManager _utils = getIt<UtilsManager>();
-  bool _loaded = false;
   String _componentId = "";
   Map<String, dynamic> _pageInfo = {};
+  bool isReady = false;
+
+  @override
+  void initState() {
+    if (widget.widgetProps.path != null) {
+      _loadComponentInfo(widget.widgetProps.path!);
+    }
+
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -49,6 +58,7 @@ class _T_ComponentState extends State<T_Component> {
   Future<void> _loadComponentInfo(String componentPath) async {
     APIClientManager apiClient = getIt<APIClientManager>();
     _pageInfo = await apiClient.getClientPageInfo(componentPath);
+
     var layout = _pageInfo["layout"];
     _pageLayout = LayoutProps.fromJson(layout);
 
@@ -60,52 +70,32 @@ class _T_ComponentState extends State<T_Component> {
       parentPagePath: widget.parentPagePath,
       componentPropsAsJSON: widget.widgetProps.componentProps ?? {},
     );
+
+    setState(() {
+      isReady = true;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     var path = widget.widgetProps.path;
 
-    if (path == null) {
+    if (path == null || !isReady) {
       return const SizedBox.shrink();
     }
 
-    return FutureBuilder(
-      builder: (context, snapshot) {
-        const loadingPage = Text("Loading...");
-
-        if (snapshot.data == true) {
-          Map<String, dynamic> componentData =
-              context.select((ContextStateProvider value) {
-            Map<String, dynamic> data = value.contextData[_componentId] ??
-                Map<String, dynamic>.from({});
-            return data;
-          });
-
-          return Container(
-            key: Key(_componentId),
-            constraints: BoxConstraints(maxHeight: 150),
-            child: T_Widgets(
-              layout: _pageLayout ?? const LayoutProps(),
-              pagePath: _componentId,
-              contextData: componentData,
-            ),
-          );
-        }
-        return loadingPage;
-      },
-      future: _isReadyToRun(path),
-    );
-  }
-
-  Future<bool> _isReadyToRun(String pagePath) async {
-    return Future<bool>.microtask(() async {
-      if (!_loaded) {
-        await _loadComponentInfo(pagePath);
-      }
-
-      _loaded = true;
-      return true;
+    Map<String, dynamic> componentData =
+        context.select((ContextStateProvider value) {
+      Map<String, dynamic> data =
+          value.contextData[_componentId] ?? Map<String, dynamic>.from({});
+      return data;
     });
+
+    return T_Widgets(
+      key: Key(_componentId),
+      layout: _pageLayout ?? const LayoutProps(),
+      pagePath: _componentId,
+      contextData: componentData,
+    );
   }
 }

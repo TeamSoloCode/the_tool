@@ -35,10 +35,7 @@ class _T_TextState extends State<T_Text> {
   bool shouldWidgetUpdate() {
     finalWidgetProps = widget.widgetProps;
 
-    var shouldUpdate = !const DeepCollectionEquality().equals(
-      prevWidgetProps,
-      finalWidgetProps,
-    );
+    var shouldUpdate = !(prevWidgetProps == finalWidgetProps);
 
     return shouldUpdate;
   }
