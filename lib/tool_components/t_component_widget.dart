@@ -9,7 +9,6 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
-import 'package:uuid/uuid.dart';
 
 class T_Component extends T_Widget {
   final String parentPagePath;
@@ -62,7 +61,7 @@ class _T_ComponentState extends State<T_Component> {
     var layout = _pageInfo["layout"];
     _pageLayout = LayoutProps.fromJson(layout);
 
-    _componentId = "${componentPath}_${const Uuid().v4()}";
+    _componentId = "${componentPath}_${Timeline.now}";
 
     await _utils.evalJS?.registerSubComponent(
       componentCode: _pageInfo["code"],
