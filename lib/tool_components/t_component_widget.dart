@@ -32,7 +32,7 @@ class T_Component extends T_Widget {
 class _T_ComponentState extends State<T_Component> {
   LayoutProps? _pageLayout;
   final UtilsManager _utils = getIt<UtilsManager>();
-  String _componentId = "";
+  late final String _componentId;
   Map<String, dynamic> _pageInfo = {};
   bool isReady = false;
 

@@ -47,6 +47,12 @@ extension MergeLayoutProps on LayoutProps {
     if (other == null) return this;
 
     return copyWith(
+      height: other.height ?? height,
+      width: other.width ?? width,
+      maxWith: other.maxWith ?? maxWith,
+      maxHeight: other.maxHeight ?? maxHeight,
+      minWith: other.minWith ?? minWith,
+      minHeight: other.minHeight ?? minHeight,
       type: other.type ?? type,
       color: other.color ?? color,
       backgroundColor: other.backgroundColor ?? backgroundColor,
