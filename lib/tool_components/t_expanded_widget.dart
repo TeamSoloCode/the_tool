@@ -3,9 +3,9 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 
-class T_Column extends T_Widget {
+class T_Expanded extends T_Widget {
   final String pagePath;
-  T_Column({
+  T_Expanded({
     Key? key,
     required executeJS,
     required widgetProps,
@@ -19,26 +19,19 @@ class T_Column extends T_Widget {
         );
 
   @override
-  State<T_Column> createState() => _T_ColumnState();
+  State<T_Expanded> createState() => _T_ExpandedState();
 }
 
-class _T_ColumnState extends State<T_Column> {
-  List<Widget> _getChildren() {
-    List<LayoutProps> children = widget.widgetProps.children ?? [];
-
-    return children.map((child) {
-      return T_Widgets(
-        layout: child,
-        pagePath: widget.pagePath,
-        contextData: widget.contextData,
-      );
-    }).toList();
-  }
-
+class _T_ExpandedState extends State<T_Expanded> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: _getChildren(),
+    return Expanded(
+      flex: widget.widgetProps.flex ?? 1,
+      child: T_Widgets(
+        layout: widget.widgetProps.child ?? const LayoutProps(),
+        pagePath: widget.pagePath,
+        contextData: widget.contextData,
+      ),
     );
   }
 }

@@ -193,9 +193,9 @@ abstract class _AppBarProps implements AppBarProps {
       _$_AppBarProps.fromJson;
 
   @override
-  LayoutProps? get content => throw _privateConstructorUsedError;
+  LayoutProps? get content;
   @override
-  LayoutProps? get custom => throw _privateConstructorUsedError;
+  LayoutProps? get custom;
   @override
   @JsonKey(ignore: true)
   _$$_AppBarPropsCopyWith<_$_AppBarProps> get copyWith =>

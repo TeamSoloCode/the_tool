@@ -206,12 +206,11 @@ abstract class _BottomNavigationProps implements BottomNavigationProps {
       _$_BottomNavigationProps.fromJson;
 
   @override
-  String? get selectedItemColor => throw _privateConstructorUsedError;
+  String? get selectedItemColor;
   @override
-  String? get navType => throw _privateConstructorUsedError;
+  String? get navType;
   @override
-  List<BottomNavigationItemProps>? get items =>
-      throw _privateConstructorUsedError;
+  List<BottomNavigationItemProps>? get items;
   @override
   @JsonKey(ignore: true)
   _$$_BottomNavigationPropsCopyWith<_$_BottomNavigationProps> get copyWith =>

@@ -1,4 +1,3 @@
-Cached t_component if possible
 #-------------------------------------------------
 
 Support get data from exportPageContext
@@ -50,3 +49,4 @@ Support onSubmit for t_form
 -Fix bug #primaryColor have been replace even on the text property (issue from replace base color on widget props)
 -Support get forms validation result from t_from to js (web)
 -Support t_block to insert t_widget as json to json layout
+-Cached t_component if possible

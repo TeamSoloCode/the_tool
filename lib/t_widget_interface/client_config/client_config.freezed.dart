@@ -240,15 +240,15 @@ abstract class _ClientConfig implements ClientConfig {
       _$_ClientConfig.fromJson;
 
   @override
-  String? get initialPage => throw _privateConstructorUsedError;
+  String? get initialPage;
   @override
-  List<Map<String, dynamic>>? get routes => throw _privateConstructorUsedError;
+  List<Map<String, dynamic>>? get routes;
   @override
-  String? get themePath => throw _privateConstructorUsedError;
+  String? get themePath;
   @override
-  String? get pageAPI => throw _privateConstructorUsedError;
+  String? get pageAPI;
   @override
-  String? get beAPI => throw _privateConstructorUsedError;
+  String? get beAPI;
   @override
   @JsonKey(ignore: true)
   _$$_ClientConfigCopyWith<_$_ClientConfig> get copyWith =>

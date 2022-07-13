@@ -30,6 +30,7 @@ class LayoutProps with _$LayoutProps {
     dynamic maxHeight,
     dynamic minWith,
     dynamic minHeight,
+    int? flex,
     Map<String, dynamic>? componentProps,
     LayoutProps? child,
     LayoutProps? content,

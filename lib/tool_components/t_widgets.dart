@@ -13,6 +13,8 @@ import 'package:the_tool/tool_components/t_button_widget.dart';
 import 'package:the_tool/tool_components/t_column_widget.dart';
 import 'package:the_tool/tool_components/t_container_widget.dart';
 import 'package:the_tool/tool_components/t_component_widget.dart';
+import 'package:the_tool/tool_components/t_expanded_widget.dart';
+import 'package:the_tool/tool_components/t_grid_widget.dart';
 import 'package:the_tool/tool_components/t_icon_widget.dart';
 import 'package:the_tool/tool_components/t_row_widget.dart';
 import 'package:the_tool/tool_components/t_scrollview_widget.dart';
@@ -92,42 +94,55 @@ class _T_WidgetsState extends State<T_Widgets> {
         return T_Row(
           executeJS: executeJSWithPagePath,
           widgetProps: widgetProps,
-          parentPagePath: widget.pagePath,
+          pagePath: widget.pagePath,
           contextData: contextData,
         );
       case "form":
         return T_Form(
           executeJS: executeJSWithPagePath,
           widgetProps: widgetProps,
-          parentPagePath: widget.pagePath,
+          pagePath: widget.pagePath,
           contextData: contextData,
         );
       case "component":
         return T_Component(
-          executeJS: executeJSWithPagePath,
-          widgetProps: widgetProps,
-          contextData: contextData,
-          parentPagePath: widget.pagePath,
-        );
+            executeJS: executeJSWithPagePath,
+            widgetProps: widgetProps,
+            contextData: contextData,
+            pagePath: widget.pagePath);
       case "container":
         return T_Container(
           executeJS: executeJSWithPagePath,
           widgetProps: widgetProps,
-          parentPagePath: widget.pagePath,
+          pagePath: widget.pagePath,
           contextData: contextData,
         );
       case "column":
         return T_Column(
           executeJS: executeJSWithPagePath,
           widgetProps: widgetProps,
-          parentPagePath: widget.pagePath,
+          pagePath: widget.pagePath,
           contextData: contextData,
         );
       case "scroll_view":
         return T_ScrollView(
           executeJS: executeJSWithPagePath,
           widgetProps: widgetProps,
-          parentPagePath: widget.pagePath,
+          pagePath: widget.pagePath,
+          contextData: contextData,
+        );
+      case "grid":
+        return T_Grid(
+          executeJS: executeJSWithPagePath,
+          widgetProps: widgetProps,
+          pagePath: widget.pagePath,
+          contextData: contextData,
+        );
+      case "expanded":
+        return T_Expanded(
+          executeJS: executeJSWithPagePath,
+          widgetProps: widgetProps,
+          pagePath: widget.pagePath,
           contextData: contextData,
         );
       case "field":
@@ -218,6 +233,12 @@ class _T_WidgetsState extends State<T_Widgets> {
       ),
     );
 
+    widgetProps = updateMaxHeight(widgetProps);
+
+    return widgetProps;
+  }
+
+  LayoutProps updateMaxHeight(LayoutProps widgetProps) {
     dynamic result = double.infinity;
     if (widgetProps.maxHeight is String) {
       if (UtilsManager.isValueBinding(widgetProps.maxHeight)) {
@@ -235,8 +256,6 @@ class _T_WidgetsState extends State<T_Widgets> {
       "\"maxHeight\" must be a number or bound with number value (${widgetProps.maxHeight})",
     );
 
-    widgetProps = widgetProps.copyWith(maxHeight: result);
-
-    return widgetProps;
+    return widgetProps.copyWith(maxHeight: result);
   }
 }

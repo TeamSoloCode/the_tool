@@ -9,7 +9,7 @@ abstract class T_Widget extends StatefulWidget {
   Future<void> Function(String js) executeJS;
   LayoutProps widgetProps;
   Map<String, dynamic> contextData;
-  final String? parentPagePath;
+  final String? pagePath;
   UtilsManager _utils = getIt<UtilsManager>();
 
   T_Widget({
@@ -17,7 +17,7 @@ abstract class T_Widget extends StatefulWidget {
     required this.executeJS,
     required this.widgetProps,
     required this.contextData,
-    this.parentPagePath,
+    this.pagePath,
   });
 
   Key? getBindingKey() {

@@ -41,6 +41,7 @@ mixin _$LayoutProps {
   dynamic get maxHeight => throw _privateConstructorUsedError;
   dynamic get minWith => throw _privateConstructorUsedError;
   dynamic get minHeight => throw _privateConstructorUsedError;
+  int? get flex => throw _privateConstructorUsedError;
   Map<String, dynamic>? get componentProps =>
       throw _privateConstructorUsedError;
   LayoutProps? get child => throw _privateConstructorUsedError;
@@ -82,6 +83,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       dynamic maxHeight,
       dynamic minWith,
       dynamic minHeight,
+      int? flex,
       Map<String, dynamic>? componentProps,
       LayoutProps? child,
       LayoutProps? content,
@@ -126,6 +128,7 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
     Object? maxHeight = freezed,
     Object? minWith = freezed,
     Object? minHeight = freezed,
+    Object? flex = freezed,
     Object? componentProps = freezed,
     Object? child = freezed,
     Object? content = freezed,
@@ -218,6 +221,10 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
           ? _value.minHeight
           : minHeight // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      flex: flex == freezed
+          ? _value.flex
+          : flex // ignore: cast_nullable_to_non_nullable
+              as int?,
       componentProps: componentProps == freezed
           ? _value.componentProps
           : componentProps // ignore: cast_nullable_to_non_nullable
@@ -319,6 +326,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       dynamic maxHeight,
       dynamic minWith,
       dynamic minHeight,
+      int? flex,
       Map<String, dynamic>? componentProps,
       LayoutProps? child,
       LayoutProps? content,
@@ -369,6 +377,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
     Object? maxHeight = freezed,
     Object? minWith = freezed,
     Object? minHeight = freezed,
+    Object? flex = freezed,
     Object? componentProps = freezed,
     Object? child = freezed,
     Object? content = freezed,
@@ -461,6 +470,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
           ? _value.minHeight
           : minHeight // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      flex: flex == freezed
+          ? _value.flex
+          : flex // ignore: cast_nullable_to_non_nullable
+              as int?,
       componentProps: componentProps == freezed
           ? _value._componentProps
           : componentProps // ignore: cast_nullable_to_non_nullable
@@ -514,6 +527,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.maxHeight,
       this.minWith,
       this.minHeight,
+      this.flex,
       final Map<String, dynamic>? componentProps,
       this.child,
       this.content,
@@ -568,6 +582,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   final dynamic minWith;
   @override
   final dynamic minHeight;
+  @override
+  final int? flex;
   final Map<String, dynamic>? _componentProps;
   @override
   Map<String, dynamic>? get componentProps {
@@ -597,7 +613,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, items: $items, fieldType: $fieldType, className: $className, height: $height, width: $width, maxWith: $maxWith, maxHeight: $maxHeight, minWith: $minWith, minHeight: $minHeight, componentProps: $componentProps, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, items: $items, fieldType: $fieldType, className: $className, height: $height, width: $width, maxWith: $maxWith, maxHeight: $maxHeight, minWith: $minWith, minHeight: $minHeight, flex: $flex, componentProps: $componentProps, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar)';
   }
 
   @override
@@ -626,6 +642,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('maxHeight', maxHeight))
       ..add(DiagnosticsProperty('minWith', minWith))
       ..add(DiagnosticsProperty('minHeight', minHeight))
+      ..add(DiagnosticsProperty('flex', flex))
       ..add(DiagnosticsProperty('componentProps', componentProps))
       ..add(DiagnosticsProperty('child', child))
       ..add(DiagnosticsProperty('content', content))
@@ -663,6 +680,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
             const DeepCollectionEquality().equals(other.maxHeight, maxHeight) &&
             const DeepCollectionEquality().equals(other.minWith, minWith) &&
             const DeepCollectionEquality().equals(other.minHeight, minHeight) &&
+            const DeepCollectionEquality().equals(other.flex, flex) &&
             const DeepCollectionEquality()
                 .equals(other._componentProps, _componentProps) &&
             const DeepCollectionEquality().equals(other.child, child) &&
@@ -697,6 +715,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
         const DeepCollectionEquality().hash(maxHeight),
         const DeepCollectionEquality().hash(minWith),
         const DeepCollectionEquality().hash(minHeight),
+        const DeepCollectionEquality().hash(flex),
         const DeepCollectionEquality().hash(_componentProps),
         const DeepCollectionEquality().hash(child),
         const DeepCollectionEquality().hash(content),
@@ -739,6 +758,7 @@ abstract class _LayoutProps implements LayoutProps {
       final dynamic maxHeight,
       final dynamic minWith,
       final dynamic minHeight,
+      final int? flex,
       final Map<String, dynamic>? componentProps,
       final LayoutProps? child,
       final LayoutProps? content,
@@ -750,60 +770,61 @@ abstract class _LayoutProps implements LayoutProps {
       _$_LayoutProps.fromJson;
 
   @override
-  String? get type => throw _privateConstructorUsedError;
+  String? get type;
   @override
-  String? get color => throw _privateConstructorUsedError;
+  String? get color;
   @override
-  String? get backgroundColor => throw _privateConstructorUsedError;
+  String? get backgroundColor;
   @override
-  String? get text => throw _privateConstructorUsedError;
+  String? get text;
   @override
-  dynamic get hidden => throw _privateConstructorUsedError;
+  dynamic get hidden;
   @override
-  String? get icon => throw _privateConstructorUsedError;
+  String? get icon;
   @override
-  String? get mainAxisAlignment => throw _privateConstructorUsedError;
+  String? get mainAxisAlignment;
   @override
-  String? get path => throw _privateConstructorUsedError;
+  String? get path;
   @override
-  String? get onClick => throw _privateConstructorUsedError;
+  String? get onClick;
   @override
-  String? get buttonType => throw _privateConstructorUsedError;
+  String? get buttonType;
   @override
-  String? get key => throw _privateConstructorUsedError;
+  String? get key;
   @override
-  String? get name => throw _privateConstructorUsedError;
+  String? get name;
   @override
-  dynamic get items => throw _privateConstructorUsedError;
+  dynamic get items;
   @override
-  String? get fieldType => throw _privateConstructorUsedError;
+  String? get fieldType;
   @override
-  dynamic get className => throw _privateConstructorUsedError;
+  dynamic get className;
   @override
-  dynamic get height => throw _privateConstructorUsedError;
+  dynamic get height;
   @override
-  dynamic get width => throw _privateConstructorUsedError;
+  dynamic get width;
   @override
-  dynamic get maxWith => throw _privateConstructorUsedError;
+  dynamic get maxWith;
   @override
-  dynamic get maxHeight => throw _privateConstructorUsedError;
+  dynamic get maxHeight;
   @override
-  dynamic get minWith => throw _privateConstructorUsedError;
+  dynamic get minWith;
   @override
-  dynamic get minHeight => throw _privateConstructorUsedError;
+  dynamic get minHeight;
   @override
-  Map<String, dynamic>? get componentProps =>
-      throw _privateConstructorUsedError;
+  int? get flex;
   @override
-  LayoutProps? get child => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get componentProps;
   @override
-  LayoutProps? get content => throw _privateConstructorUsedError;
+  LayoutProps? get child;
   @override
-  List<LayoutProps>? get children => throw _privateConstructorUsedError;
+  LayoutProps? get content;
   @override
-  BottomNavigationProps? get bottomNav => throw _privateConstructorUsedError;
+  List<LayoutProps>? get children;
   @override
-  AppBarProps? get appBar => throw _privateConstructorUsedError;
+  BottomNavigationProps? get bottomNav;
+  @override
+  AppBarProps? get appBar;
   @override
   @JsonKey(ignore: true)
   _$$_LayoutPropsCopyWith<_$_LayoutProps> get copyWith =>

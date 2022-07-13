@@ -29,6 +29,7 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       maxHeight: json['maxHeight'],
       minWith: json['minWith'],
       minHeight: json['minHeight'],
+      flex: json['flex'] as int?,
       componentProps: json['componentProps'] as Map<String, dynamic>?,
       child: json['child'] == null
           ? null
@@ -71,6 +72,7 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'maxHeight': instance.maxHeight,
       'minWith': instance.minWith,
       'minHeight': instance.minHeight,
+      'flex': instance.flex,
       'componentProps': instance.componentProps,
       'child': instance.child,
       'content': instance.content,

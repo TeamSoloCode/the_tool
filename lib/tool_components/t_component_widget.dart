@@ -11,12 +11,12 @@ import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
 
 class T_Component extends T_Widget {
-  final String parentPagePath;
+  final String pagePath;
   T_Component({
     Key? key,
     required executeJS,
     required widgetProps,
-    required this.parentPagePath,
+    required this.pagePath,
     required contextData,
   }) : super(
           key: key,
@@ -48,7 +48,7 @@ class _T_ComponentState extends State<T_Component> {
   @override
   void dispose() {
     _utils.evalJS?.unregisterSubComponent(
-      parentPagePath: widget.parentPagePath,
+      parentPagePath: widget.pagePath,
       componentPath: _componentId,
     );
     super.dispose();
@@ -66,7 +66,7 @@ class _T_ComponentState extends State<T_Component> {
     await _utils.evalJS?.registerSubComponent(
       componentCode: _pageInfo["code"],
       componentPath: _componentId,
-      parentPagePath: widget.parentPagePath,
+      parentPagePath: widget.pagePath,
       componentPropsAsJSON: widget.widgetProps.componentProps ?? {},
     );
 
