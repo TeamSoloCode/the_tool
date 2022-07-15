@@ -10,7 +10,7 @@ import 'package:eventify/eventify.dart' as eventify;
 GetIt getIt = GetIt.instance;
 
 class UtilsManager {
-  UtilsManager() : super() {}
+  UtilsManager() : super();
   Map<String, String> _staticContent = {};
   static final regexPattern = RegExp(r"[^{{\}}]+(?=}})");
 

@@ -12,7 +12,7 @@ class APIClientManager {
   final String host = kIsWeb ? "localhost" : "10.0.2.2";
   final Dio _dio = Dio();
 
-  var _dioCached = Dio();
+  final _dioCached = Dio();
 
   APIClientManager() : super() {
     _dio.interceptors.add(PrettyDioLogger(
@@ -93,7 +93,7 @@ class APIClientManager {
 
   Future<Map<String, dynamic>> getClientPageInfo(String pagePath) async {
     try {
-      var response = await _dioCached.get('$_pageAPI/pages/$pagePath');
+      var response = await _dio.get('$_pageAPI/pages/$pagePath');
       return Future.value(
         {
           "code": response.data["code"],

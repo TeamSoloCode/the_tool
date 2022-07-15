@@ -28,7 +28,7 @@ class T_Page extends StatefulWidget {
   State<T_Page> createState() => _T_Page();
 }
 
-class _T_Page extends State<T_Page> {
+class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
   Map<String, dynamic> _prevPageState = {};
   Map<String, dynamic> _initPageState = {};
   LayoutProps? _pageLayout;
@@ -60,13 +60,13 @@ class _T_Page extends State<T_Page> {
     super.dispose();
   }
 
-  // @override
-  // bool get wantKeepAlive => true;
+  @override
+  bool get wantKeepAlive => true;
 
   ThemeMode? prevThemeMode;
   @override
   Widget build(BuildContext context) {
-    // super.build(context);
+    super.build(context);
     var pageData = context.select((ContextStateProvider value) {
       return value.contextData[widget.pagePath] ??
           Map<String, dynamic>.from({});
@@ -86,17 +86,17 @@ class _T_Page extends State<T_Page> {
 
     log("Update page: ${widget.pagePath} $pageData");
 
-    return Scaffold(
-      appBar: _computeAppBar(
-        pageData,
-        _customAppBar,
-      ),
-      bottomNavigationBar: _computeBottomNavigationBar(
-        pageData,
-        _bottomNavBar,
-      ),
-      body: SafeArea(
-        child: _getSelectedPage(
+    return SafeArea(
+      child: Scaffold(
+        appBar: _computeAppBar(
+          pageData,
+          _customAppBar,
+        ),
+        bottomNavigationBar: _computeBottomNavigationBar(
+          pageData,
+          _bottomNavBar,
+        ),
+        body: _getSelectedPage(
           pageData,
           _selectedBottomNavIndex,
         ),

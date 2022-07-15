@@ -124,13 +124,6 @@ class _T_WidgetsState extends State<T_Widgets> {
           pagePath: widget.pagePath,
           contextData: contextData,
         );
-      case "scroll_view":
-        return T_ScrollView(
-          executeJS: executeJSWithPagePath,
-          widgetProps: widgetProps,
-          pagePath: widget.pagePath,
-          contextData: contextData,
-        );
       case "grid":
         return T_Grid(
           executeJS: executeJSWithPagePath,
@@ -138,6 +131,14 @@ class _T_WidgetsState extends State<T_Widgets> {
           pagePath: widget.pagePath,
           contextData: contextData,
         );
+      case "scroll_view":
+        return T_ScrollView(
+          executeJS: executeJSWithPagePath,
+          widgetProps: widgetProps,
+          pagePath: widget.pagePath,
+          contextData: contextData,
+        );
+
       case "expanded":
         return T_Expanded(
           executeJS: executeJSWithPagePath,
@@ -233,13 +234,14 @@ class _T_WidgetsState extends State<T_Widgets> {
       ),
     );
 
-    widgetProps = updateMaxHeight(widgetProps);
+    widgetProps = _computeMaxHeight(widgetProps);
+    widgetProps = _computeHeight(widgetProps);
 
     return widgetProps;
   }
 
-  LayoutProps updateMaxHeight(LayoutProps widgetProps) {
-    dynamic result = double.infinity;
+  LayoutProps _computeMaxHeight(LayoutProps widgetProps) {
+    double result = double.infinity;
     if (widgetProps.maxHeight is String) {
       if (UtilsManager.isValueBinding(widgetProps.maxHeight)) {
         result = utils.bindingValueToProp(
@@ -247,15 +249,36 @@ class _T_WidgetsState extends State<T_Widgets> {
           widgetProps.maxHeight,
         );
       }
-    } else if (widgetProps.maxHeight is double) {
-      result = widgetProps.maxHeight;
+    } else if (widgetProps.height is num) {
+      result = widgetProps.height / 1.0;
     }
 
     assert(
-      result is double,
+      result is num,
       "\"maxHeight\" must be a number or bound with number value (${widgetProps.maxHeight})",
     );
 
     return widgetProps.copyWith(maxHeight: result);
+  }
+
+  LayoutProps _computeHeight(LayoutProps widgetProps) {
+    double? result;
+    if (widgetProps.height is String) {
+      if (UtilsManager.isValueBinding(widgetProps.height)) {
+        result = utils.bindingValueToProp(
+          widget.contextData,
+          widgetProps.height,
+        );
+      }
+    } else if (widgetProps.height is num) {
+      result = widgetProps.height / 1.0;
+    }
+
+    assert(
+      result is num || result == null,
+      "\"height\" must be a number or bound with number value (${widgetProps.height})",
+    );
+
+    return widgetProps.copyWith(height: result);
   }
 }

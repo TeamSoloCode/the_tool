@@ -37,6 +37,7 @@ class _T_ContainerState extends State<T_Container> {
     Color? color = cssColor != null ? fromCssColor(cssColor) : null;
     return Container(
       key: widget.getBindingKey(),
+      height: props.height,
       constraints: BoxConstraints(maxHeight: props.maxHeight),
       color: color,
       child: T_Widgets(

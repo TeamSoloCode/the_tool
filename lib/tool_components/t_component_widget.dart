@@ -9,6 +9,7 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
+import 'package:uuid/uuid.dart';
 
 class T_Component extends T_Widget {
   final String pagePath;
@@ -32,26 +33,17 @@ class T_Component extends T_Widget {
 class _T_ComponentState extends State<T_Component> {
   LayoutProps? _pageLayout;
   final UtilsManager _utils = getIt<UtilsManager>();
-  late final String _componentId;
+  String _componentId = "";
   Map<String, dynamic> _pageInfo = {};
   bool isReady = false;
 
   @override
-  void initState() {
-    if (widget.widgetProps.path != null) {
-      _loadComponentInfo(widget.widgetProps.path!);
-    }
-
-    super.initState();
-  }
-
-  @override
   void dispose() {
+    super.dispose();
     _utils.evalJS?.unregisterSubComponent(
       parentPagePath: widget.pagePath,
       componentPath: _componentId,
     );
-    super.dispose();
   }
 
   Future<void> _loadComponentInfo(String componentPath) async {
@@ -61,7 +53,7 @@ class _T_ComponentState extends State<T_Component> {
     var layout = _pageInfo["layout"];
     _pageLayout = LayoutProps.fromJson(layout);
 
-    _componentId = "${componentPath}_${Timeline.now}";
+    _componentId = "${componentPath}_${const Uuid().v4()}";
 
     await _utils.evalJS?.registerSubComponent(
       componentCode: _pageInfo["code"],
@@ -70,8 +62,10 @@ class _T_ComponentState extends State<T_Component> {
       componentPropsAsJSON: widget.widgetProps.componentProps ?? {},
     );
 
-    setState(() {
-      isReady = true;
+    Future.delayed(Duration.zero, () async {
+      setState(() {
+        isReady = true;
+      });
     });
   }
 
@@ -80,6 +74,7 @@ class _T_ComponentState extends State<T_Component> {
     var path = widget.widgetProps.path;
 
     if (path == null || !isReady) {
+      _loadComponentInfo(widget.widgetProps.path!);
       return const SizedBox.shrink();
     }
 

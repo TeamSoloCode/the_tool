@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
@@ -26,6 +24,8 @@ class T_Grid extends T_Widget {
 }
 
 class _T_GridState extends State<T_Grid> {
+  List<Widget> _items = [];
+
   List<Widget> _computeChildren(List<dynamic>? children) {
     return (children ?? []).map((child) {
       return T_Widgets(
@@ -38,17 +38,7 @@ class _T_GridState extends State<T_Grid> {
 
   @override
   Widget build(BuildContext context) {
-    var items = _computeChildren(widget.widgetProps.children);
-
-    return GridView.builder(
-      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: MediaQuery.of(context).size.width,
-        mainAxisExtent: 120,
-      ),
-      itemCount: items.length,
-      itemBuilder: (BuildContext ctx, index) {
-        return items.elementAt(index);
-      },
-    );
+    _items = _computeChildren(widget.widgetProps.children);
+    return Text("abcd");
   }
 }
