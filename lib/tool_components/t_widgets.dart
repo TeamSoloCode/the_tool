@@ -242,20 +242,16 @@ class _T_WidgetsState extends State<T_Widgets> {
 
   LayoutProps _computeMaxHeight(LayoutProps widgetProps) {
     double result = double.infinity;
-    if (widgetProps.maxHeight is String) {
-      if (UtilsManager.isValueBinding(widgetProps.maxHeight)) {
-        result = utils.bindingValueToProp(
-          widget.contextData,
-          widgetProps.maxHeight,
-        );
-      }
-    } else if (widgetProps.height is num) {
-      result = widgetProps.height / 1.0;
+    dynamic maxHeight = widgetProps.maxHeight;
+    if (maxHeight is String) {
+      result = _getBindingValue(maxHeight);
+    } else if (maxHeight is num) {
+      result = maxHeight / 1.0;
     }
 
     assert(
       result is num,
-      "\"maxHeight\" must be a number or bound with number value (${widgetProps.maxHeight})",
+      "\"maxHeight\" must be a number or bound with number value ($maxHeight)",
     );
 
     return widgetProps.copyWith(maxHeight: result);
@@ -263,22 +259,25 @@ class _T_WidgetsState extends State<T_Widgets> {
 
   LayoutProps _computeHeight(LayoutProps widgetProps) {
     double? result;
-    if (widgetProps.height is String) {
-      if (UtilsManager.isValueBinding(widgetProps.height)) {
-        result = utils.bindingValueToProp(
-          widget.contextData,
-          widgetProps.height,
-        );
-      }
-    } else if (widgetProps.height is num) {
-      result = widgetProps.height / 1.0;
+    dynamic height = widgetProps.height;
+    if (height is String) {
+      result = _getBindingValue(widgetProps.height);
+    } else if (height is num) {
+      result = height / 1.0;
     }
 
     assert(
       result is num || result == null,
-      "\"height\" must be a number or bound with number value (${widgetProps.height})",
+      "\"height\" must be a number or bound with number value ($height)",
     );
 
     return widgetProps.copyWith(height: result);
+  }
+
+  dynamic _getBindingValue(String rawBind) {
+    if (UtilsManager.isValueBinding(rawBind)) {
+      return utils.bindingValueToProp(widget.contextData, rawBind);
+    }
+    return rawBind;
   }
 }
