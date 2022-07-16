@@ -97,11 +97,13 @@ class _T_ComponentState extends State<T_Component>
       return data;
     });
 
-    return T_Widgets(
+    return RepaintBoundary(
       key: Key(_componentId),
-      layout: _pageLayout ?? const LayoutProps(),
-      pagePath: _componentId,
-      contextData: componentData,
+      child: T_Widgets(
+        layout: _pageLayout ?? const LayoutProps(),
+        pagePath: _componentId,
+        contextData: componentData,
+      ),
     );
   }
 }

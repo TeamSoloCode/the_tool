@@ -31,7 +31,9 @@ class _ShouldWidgetUpdateState extends State<ShouldWidgetUpdate> {
         widgetSnapshot == null ||
         prevThemeMode != currentThemeMode) {
       prevThemeMode = currentThemeMode;
-      widgetSnapshot = widget.builder(context);
+      widgetSnapshot = RepaintBoundary(
+        child: widget.builder(context),
+      );
     }
 
     return widgetSnapshot!;
