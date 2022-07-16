@@ -38,7 +38,13 @@ class _T_ContainerState extends State<T_Container> {
     return Container(
       key: widget.getBindingKey(),
       height: props.height,
-      constraints: BoxConstraints(maxHeight: props.maxHeight),
+      width: props.width,
+      constraints: BoxConstraints(
+        maxHeight: props.maxHeight,
+        maxWidth: props.maxWidth,
+        minHeight: props.minHeight,
+        minWidth: props.minWidth,
+      ),
       color: color,
       child: T_Widgets(
         layout: widget.widgetProps.child ?? const LayoutProps(),

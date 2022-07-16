@@ -37,9 +37,9 @@ mixin _$LayoutProps {
   dynamic get className => throw _privateConstructorUsedError;
   dynamic get height => throw _privateConstructorUsedError;
   dynamic get width => throw _privateConstructorUsedError;
-  dynamic get maxWith => throw _privateConstructorUsedError;
+  dynamic get maxWidth => throw _privateConstructorUsedError;
   dynamic get maxHeight => throw _privateConstructorUsedError;
-  dynamic get minWith => throw _privateConstructorUsedError;
+  dynamic get minWidth => throw _privateConstructorUsedError;
   dynamic get minHeight => throw _privateConstructorUsedError;
   int? get flex => throw _privateConstructorUsedError;
   Map<String, dynamic>? get componentProps =>
@@ -79,9 +79,9 @@ abstract class $LayoutPropsCopyWith<$Res> {
       dynamic className,
       dynamic height,
       dynamic width,
-      dynamic maxWith,
+      dynamic maxWidth,
       dynamic maxHeight,
-      dynamic minWith,
+      dynamic minWidth,
       dynamic minHeight,
       int? flex,
       Map<String, dynamic>? componentProps,
@@ -124,9 +124,9 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
     Object? className = freezed,
     Object? height = freezed,
     Object? width = freezed,
-    Object? maxWith = freezed,
+    Object? maxWidth = freezed,
     Object? maxHeight = freezed,
-    Object? minWith = freezed,
+    Object? minWidth = freezed,
     Object? minHeight = freezed,
     Object? flex = freezed,
     Object? componentProps = freezed,
@@ -205,17 +205,17 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
           ? _value.width
           : width // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      maxWith: maxWith == freezed
-          ? _value.maxWith
-          : maxWith // ignore: cast_nullable_to_non_nullable
+      maxWidth: maxWidth == freezed
+          ? _value.maxWidth
+          : maxWidth // ignore: cast_nullable_to_non_nullable
               as dynamic,
       maxHeight: maxHeight == freezed
           ? _value.maxHeight
           : maxHeight // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      minWith: minWith == freezed
-          ? _value.minWith
-          : minWith // ignore: cast_nullable_to_non_nullable
+      minWidth: minWidth == freezed
+          ? _value.minWidth
+          : minWidth // ignore: cast_nullable_to_non_nullable
               as dynamic,
       minHeight: minHeight == freezed
           ? _value.minHeight
@@ -322,9 +322,9 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       dynamic className,
       dynamic height,
       dynamic width,
-      dynamic maxWith,
+      dynamic maxWidth,
       dynamic maxHeight,
-      dynamic minWith,
+      dynamic minWidth,
       dynamic minHeight,
       int? flex,
       Map<String, dynamic>? componentProps,
@@ -373,9 +373,9 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
     Object? className = freezed,
     Object? height = freezed,
     Object? width = freezed,
-    Object? maxWith = freezed,
+    Object? maxWidth = freezed,
     Object? maxHeight = freezed,
-    Object? minWith = freezed,
+    Object? minWidth = freezed,
     Object? minHeight = freezed,
     Object? flex = freezed,
     Object? componentProps = freezed,
@@ -454,17 +454,17 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
           ? _value.width
           : width // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      maxWith: maxWith == freezed
-          ? _value.maxWith
-          : maxWith // ignore: cast_nullable_to_non_nullable
+      maxWidth: maxWidth == freezed
+          ? _value.maxWidth
+          : maxWidth // ignore: cast_nullable_to_non_nullable
               as dynamic,
       maxHeight: maxHeight == freezed
           ? _value.maxHeight
           : maxHeight // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      minWith: minWith == freezed
-          ? _value.minWith
-          : minWith // ignore: cast_nullable_to_non_nullable
+      minWidth: minWidth == freezed
+          ? _value.minWidth
+          : minWidth // ignore: cast_nullable_to_non_nullable
               as dynamic,
       minHeight: minHeight == freezed
           ? _value.minHeight
@@ -523,9 +523,9 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.className,
       this.height,
       this.width,
-      this.maxWith,
+      this.maxWidth,
       this.maxHeight,
-      this.minWith,
+      this.minWidth,
       this.minHeight,
       this.flex,
       final Map<String, dynamic>? componentProps,
@@ -575,11 +575,11 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   @override
   final dynamic width;
   @override
-  final dynamic maxWith;
+  final dynamic maxWidth;
   @override
   final dynamic maxHeight;
   @override
-  final dynamic minWith;
+  final dynamic minWidth;
   @override
   final dynamic minHeight;
   @override
@@ -613,7 +613,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, items: $items, fieldType: $fieldType, className: $className, height: $height, width: $width, maxWith: $maxWith, maxHeight: $maxHeight, minWith: $minWith, minHeight: $minHeight, flex: $flex, componentProps: $componentProps, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, items: $items, fieldType: $fieldType, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, flex: $flex, componentProps: $componentProps, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar)';
   }
 
   @override
@@ -638,9 +638,9 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('className', className))
       ..add(DiagnosticsProperty('height', height))
       ..add(DiagnosticsProperty('width', width))
-      ..add(DiagnosticsProperty('maxWith', maxWith))
+      ..add(DiagnosticsProperty('maxWidth', maxWidth))
       ..add(DiagnosticsProperty('maxHeight', maxHeight))
-      ..add(DiagnosticsProperty('minWith', minWith))
+      ..add(DiagnosticsProperty('minWidth', minWidth))
       ..add(DiagnosticsProperty('minHeight', minHeight))
       ..add(DiagnosticsProperty('flex', flex))
       ..add(DiagnosticsProperty('componentProps', componentProps))
@@ -676,9 +676,9 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
             const DeepCollectionEquality().equals(other.className, className) &&
             const DeepCollectionEquality().equals(other.height, height) &&
             const DeepCollectionEquality().equals(other.width, width) &&
-            const DeepCollectionEquality().equals(other.maxWith, maxWith) &&
+            const DeepCollectionEquality().equals(other.maxWidth, maxWidth) &&
             const DeepCollectionEquality().equals(other.maxHeight, maxHeight) &&
-            const DeepCollectionEquality().equals(other.minWith, minWith) &&
+            const DeepCollectionEquality().equals(other.minWidth, minWidth) &&
             const DeepCollectionEquality().equals(other.minHeight, minHeight) &&
             const DeepCollectionEquality().equals(other.flex, flex) &&
             const DeepCollectionEquality()
@@ -711,9 +711,9 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
         const DeepCollectionEquality().hash(className),
         const DeepCollectionEquality().hash(height),
         const DeepCollectionEquality().hash(width),
-        const DeepCollectionEquality().hash(maxWith),
+        const DeepCollectionEquality().hash(maxWidth),
         const DeepCollectionEquality().hash(maxHeight),
-        const DeepCollectionEquality().hash(minWith),
+        const DeepCollectionEquality().hash(minWidth),
         const DeepCollectionEquality().hash(minHeight),
         const DeepCollectionEquality().hash(flex),
         const DeepCollectionEquality().hash(_componentProps),
@@ -754,9 +754,9 @@ abstract class _LayoutProps implements LayoutProps {
       final dynamic className,
       final dynamic height,
       final dynamic width,
-      final dynamic maxWith,
+      final dynamic maxWidth,
       final dynamic maxHeight,
-      final dynamic minWith,
+      final dynamic minWidth,
       final dynamic minHeight,
       final int? flex,
       final Map<String, dynamic>? componentProps,
@@ -804,11 +804,11 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   dynamic get width;
   @override
-  dynamic get maxWith;
+  dynamic get maxWidth;
   @override
   dynamic get maxHeight;
   @override
-  dynamic get minWith;
+  dynamic get minWidth;
   @override
   dynamic get minHeight;
   @override

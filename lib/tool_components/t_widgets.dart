@@ -234,44 +234,49 @@ class _T_WidgetsState extends State<T_Widgets> {
       ),
     );
 
-    widgetProps = _computeMaxHeight(widgetProps);
-    widgetProps = _computeHeight(widgetProps);
+    widgetProps = _computeHeightAndWidth(widgetProps);
 
     return widgetProps;
   }
 
-  LayoutProps _computeMaxHeight(LayoutProps widgetProps) {
-    double result = double.infinity;
+  LayoutProps _computeHeightAndWidth(LayoutProps widgetProps) {
+    double? heightResult;
+    double? widthResult;
+
     dynamic maxHeight = widgetProps.maxHeight;
-    if (maxHeight is String) {
-      result = _getBindingValue(maxHeight);
-    } else if (maxHeight is num) {
-      result = maxHeight / 1.0;
-    }
+    dynamic maxWidth = widgetProps.maxWidth;
+    dynamic minHeight = widgetProps.minHeight;
+    dynamic minWidth = widgetProps.minWidth;
 
-    assert(
-      result is num,
-      "\"maxHeight\" must be a number or bound with number value ($maxHeight)",
-    );
-
-    return widgetProps.copyWith(maxHeight: result);
-  }
-
-  LayoutProps _computeHeight(LayoutProps widgetProps) {
-    double? result;
     dynamic height = widgetProps.height;
-    if (height is String) {
-      result = _getBindingValue(widgetProps.height);
-    } else if (height is num) {
-      result = height / 1.0;
-    }
+    dynamic width = widgetProps.width;
+
+    double maxHeightResult = _computeValue(maxHeight) ?? double.infinity;
+    double maxWidthResult = _computeValue(maxWidth) ?? double.infinity;
+    double minHeightResult = _computeValue(minHeight) ?? 0.0;
+    double minWidthResult = _computeValue(minWidth) ?? 0.0;
+
+    heightResult = _computeValue(height);
+    widthResult = _computeValue(width);
 
     assert(
-      result is num || result == null,
+      heightResult is num || heightResult == null,
       "\"height\" must be a number or bound with number value ($height)",
     );
 
-    return widgetProps.copyWith(height: result);
+    assert(
+      widthResult is num || widthResult == null,
+      "\"width\" must be a number or bound with number value ($width)",
+    );
+
+    return widgetProps.copyWith(
+      height: heightResult,
+      width: widthResult,
+      maxHeight: maxHeightResult,
+      maxWidth: maxWidthResult,
+      minHeight: minHeightResult,
+      minWidth: minWidthResult,
+    );
   }
 
   dynamic _getBindingValue(String rawBind) {
@@ -279,5 +284,14 @@ class _T_WidgetsState extends State<T_Widgets> {
       return utils.bindingValueToProp(widget.contextData, rawBind);
     }
     return rawBind;
+  }
+
+  dynamic _computeValue(dynamic value) {
+    if (value is String) {
+      return _getBindingValue(value);
+    } else if (value is num) {
+      return value / 1.0;
+    }
+    return value;
   }
 }
