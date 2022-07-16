@@ -155,7 +155,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
         throw Exception("Please provide path in bottom navigation iten");
       }
 
-      Key pageKey = Key(item.path!);
+      ValueKey pageKey = ValueKey(item.path!);
       return T_Page(
         key: pageKey,
         pagePath: item.path!,

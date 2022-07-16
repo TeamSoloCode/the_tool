@@ -93,7 +93,7 @@ class APIClientManager {
 
   Future<Map<String, dynamic>> getClientPageInfo(String pagePath) async {
     try {
-      var response = await _dio.get('$_pageAPI/pages/$pagePath');
+      var response = await _dioCached.get('$_pageAPI/pages/$pagePath');
       return Future.value(
         {
           "code": response.data["code"],

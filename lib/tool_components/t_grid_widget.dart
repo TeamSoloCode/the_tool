@@ -39,6 +39,15 @@ class _T_GridState extends State<T_Grid> {
   @override
   Widget build(BuildContext context) {
     _items = _computeChildren(widget.widgetProps.children);
-    return Text("abcd");
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: MediaQuery.of(context).size.width,
+        mainAxisExtent: 200,
+      ),
+      itemCount: _items.length,
+      itemBuilder: (BuildContext ctx, index) {
+        return _items.elementAt(index);
+      },
+    );
   }
 }

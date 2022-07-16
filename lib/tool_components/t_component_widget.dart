@@ -30,12 +30,21 @@ class T_Component extends T_Widget {
   State<T_Component> createState() => _T_ComponentState();
 }
 
-class _T_ComponentState extends State<T_Component> {
+class _T_ComponentState extends State<T_Component>
+    with AutomaticKeepAliveClientMixin {
   LayoutProps? _pageLayout;
   final UtilsManager _utils = getIt<UtilsManager>();
   String _componentId = "";
   Map<String, dynamic> _pageInfo = {};
   bool isReady = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.widgetProps.path != null) {
+      _loadComponentInfo(widget.widgetProps.path!);
+    }
+  }
 
   @override
   void dispose() {
@@ -70,11 +79,14 @@ class _T_ComponentState extends State<T_Component> {
   }
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     var path = widget.widgetProps.path;
 
     if (path == null || !isReady) {
-      _loadComponentInfo(widget.widgetProps.path!);
       return const SizedBox.shrink();
     }
 
