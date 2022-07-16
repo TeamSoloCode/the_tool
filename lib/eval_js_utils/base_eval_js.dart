@@ -37,6 +37,7 @@ abstract class BaseEvalJS {
     required String componentPath,
     required String componentCode,
     String componentPropsAsJSON = "{}",
+    String computedComponentPropsAsJSON = "{}",
   }) {
     return """
 
@@ -59,10 +60,11 @@ abstract class BaseEvalJS {
         })
         
         const rawComponentProps = JSON.parse('$componentPropsAsJSON' || "{}")
-
+        const computedComponentProps = JSON.parse('$computedComponentPropsAsJSON' || "{}")
+        
         /** Add subcomponent into parent component by its register function */
         _.get(context, `$parentPagePath.registerSubComponent`)
-                  ?.("$componentPath", SubComponent, rawComponentProps)
+                  ?.("$componentPath", SubComponent, rawComponentProps, computedComponentProps)
          
       }
       catch(e) {
@@ -166,8 +168,9 @@ abstract class BaseEvalJS {
           subComponentName, 
           newComponent, 
           rawComponentProps,
+          computedComponentProps,
         ) => {
-          _subComponents.push({subComponentName, newComponent, rawComponentProps})
+          _subComponents.push({subComponentName, newComponent, rawComponentProps, computedComponentProps})
           _setUpdateSubComponentToken(Date.now())
         }
 
@@ -216,11 +219,12 @@ abstract class BaseEvalJS {
           const componentProps = Object.entries(rawComponentProps)
           .reduce((result, [key, value]) => {
             const propFromParentContext = _.get(context, `$pagePath.\${value}`)
-            const propsFromParentData = _.get(getPageData(), `\${value}`)
-
+            
             result[key] = propFromParentContext != undefined ? propFromParentContext : value
+            
 
-            if(propsFromParentData) {
+            if(value && isValueBinding(value)) {
+              const propsFromParentData = getBindingValue(getPageData(), value)
               result[key] = propsFromParentData
             }
 

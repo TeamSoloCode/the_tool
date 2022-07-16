@@ -4,7 +4,17 @@ import { v4 as uuidv4 } from "uuid";
 import webJSChannel from "./web_js_channel";
 
 const _initContext = { _data: {}, _prevData: {}, _platform: "mobile" };
+const valueBindingPattern = new RegExp(/[^{{\\}}]+(?=}})/, "g");
 export const context = _initContext;
+
+const isValueBinding = (rawBindingValue) => {
+  return !_.isEmpty(rawBindingValue.match(valueBindingPattern));
+};
+
+const getBindingValue = (data, rawBindingValue) => {
+  const key = rawBindingValue.match(valueBindingPattern)[0];
+  return _.get(data, (key || "").trim());
+};
 
 const setContextData = (data, callback = () => {}) => {
   const nextData = Object.assign({}, context._data, data);
@@ -204,6 +214,8 @@ Object.assign(window, {
   getCookies,
   toggleChangeTheme,
   fetchData,
+  isValueBinding,
+  getBindingValue,
 
   /** Form context           */
   validateForm,

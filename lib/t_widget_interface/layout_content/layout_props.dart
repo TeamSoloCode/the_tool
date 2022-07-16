@@ -30,8 +30,18 @@ class LayoutProps with _$LayoutProps {
     dynamic maxHeight,
     dynamic minWidth,
     dynamic minHeight,
+    dynamic margin,
     int? flex,
+    /**
+     * This is raw props passed form parent layout to t_component
+     * It contains binding value and raw binding value ("{{}}", "@", "!")
+     */
     Map<String, dynamic>? componentProps,
+    /**
+     * This is the props passed from parent layout to t_component
+     * It has been bound all the binding value to context data value
+     */
+    Map<String, dynamic>? computedComponentProps,
     LayoutProps? child,
     LayoutProps? content,
     List<LayoutProps>? children,
@@ -54,6 +64,7 @@ extension MergeLayoutProps on LayoutProps {
       maxHeight: other.maxHeight ?? maxHeight,
       minWidth: other.minWidth ?? minWidth,
       minHeight: other.minHeight ?? minHeight,
+      flex: other.flex ?? flex,
       type: other.type ?? type,
       color: other.color ?? color,
       backgroundColor: other.backgroundColor ?? backgroundColor,

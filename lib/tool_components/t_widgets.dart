@@ -222,7 +222,8 @@ class _T_WidgetsState extends State<T_Widgets> {
             : value;
       });
 
-      widgetProps = widgetProps.copyWith(componentProps: updatedComponentProps);
+      widgetProps =
+          widgetProps.copyWith(computedComponentProps: updatedComponentProps);
     }
 
     // FIXME: xxxx

@@ -35,10 +35,12 @@ class _T_ContainerState extends State<T_Container> {
     var props = widget.widgetProps;
     var cssColor = props.backgroundColor;
     Color? color = cssColor != null ? fromCssColor(cssColor) : null;
+
     return Container(
       key: widget.getBindingKey(),
       height: props.height,
       width: props.width,
+      margin: ThemeDecoder.decodeEdgeInsetsGeometry(props.margin),
       constraints: BoxConstraints(
         maxHeight: props.maxHeight,
         maxWidth: props.maxWidth,

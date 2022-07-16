@@ -41,8 +41,19 @@ mixin _$LayoutProps {
   dynamic get maxHeight => throw _privateConstructorUsedError;
   dynamic get minWidth => throw _privateConstructorUsedError;
   dynamic get minHeight => throw _privateConstructorUsedError;
+  dynamic get margin => throw _privateConstructorUsedError;
   int? get flex => throw _privateConstructorUsedError;
+  /**
+     * This is raw props passed form parent layout to t_component
+     * It contains binding value and raw binding value ("{{}}", "@", "!")
+     */
   Map<String, dynamic>? get componentProps =>
+      throw _privateConstructorUsedError;
+  /**
+     * This is the props passed from parent layout to t_component
+     * It has been bound all the binding value to context data value
+     */
+  Map<String, dynamic>? get computedComponentProps =>
       throw _privateConstructorUsedError;
   LayoutProps? get child => throw _privateConstructorUsedError;
   LayoutProps? get content => throw _privateConstructorUsedError;
@@ -83,8 +94,10 @@ abstract class $LayoutPropsCopyWith<$Res> {
       dynamic maxHeight,
       dynamic minWidth,
       dynamic minHeight,
+      dynamic margin,
       int? flex,
       Map<String, dynamic>? componentProps,
+      Map<String, dynamic>? computedComponentProps,
       LayoutProps? child,
       LayoutProps? content,
       List<LayoutProps>? children,
@@ -128,8 +141,10 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
     Object? maxHeight = freezed,
     Object? minWidth = freezed,
     Object? minHeight = freezed,
+    Object? margin = freezed,
     Object? flex = freezed,
     Object? componentProps = freezed,
+    Object? computedComponentProps = freezed,
     Object? child = freezed,
     Object? content = freezed,
     Object? children = freezed,
@@ -221,6 +236,10 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
           ? _value.minHeight
           : minHeight // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      margin: margin == freezed
+          ? _value.margin
+          : margin // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       flex: flex == freezed
           ? _value.flex
           : flex // ignore: cast_nullable_to_non_nullable
@@ -228,6 +247,10 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
       componentProps: componentProps == freezed
           ? _value.componentProps
           : componentProps // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
+      computedComponentProps: computedComponentProps == freezed
+          ? _value.computedComponentProps
+          : computedComponentProps // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
       child: child == freezed
           ? _value.child
@@ -326,8 +349,10 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       dynamic maxHeight,
       dynamic minWidth,
       dynamic minHeight,
+      dynamic margin,
       int? flex,
       Map<String, dynamic>? componentProps,
+      Map<String, dynamic>? computedComponentProps,
       LayoutProps? child,
       LayoutProps? content,
       List<LayoutProps>? children,
@@ -377,8 +402,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
     Object? maxHeight = freezed,
     Object? minWidth = freezed,
     Object? minHeight = freezed,
+    Object? margin = freezed,
     Object? flex = freezed,
     Object? componentProps = freezed,
+    Object? computedComponentProps = freezed,
     Object? child = freezed,
     Object? content = freezed,
     Object? children = freezed,
@@ -470,6 +497,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
           ? _value.minHeight
           : minHeight // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      margin: margin == freezed
+          ? _value.margin
+          : margin // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       flex: flex == freezed
           ? _value.flex
           : flex // ignore: cast_nullable_to_non_nullable
@@ -477,6 +508,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
       componentProps: componentProps == freezed
           ? _value._componentProps
           : componentProps // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
+      computedComponentProps: computedComponentProps == freezed
+          ? _value._computedComponentProps
+          : computedComponentProps // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
       child: child == freezed
           ? _value.child
@@ -527,14 +562,17 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.maxHeight,
       this.minWidth,
       this.minHeight,
+      this.margin,
       this.flex,
       final Map<String, dynamic>? componentProps,
+      final Map<String, dynamic>? computedComponentProps,
       this.child,
       this.content,
       final List<LayoutProps>? children,
       this.bottomNav,
       this.appBar})
       : _componentProps = componentProps,
+        _computedComponentProps = computedComponentProps,
         _children = children;
 
   factory _$_LayoutProps.fromJson(Map<String, dynamic> json) =>
@@ -583,11 +621,38 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   @override
   final dynamic minHeight;
   @override
+  final dynamic margin;
+  @override
   final int? flex;
+/**
+     * This is raw props passed form parent layout to t_component
+     * It contains binding value and raw binding value ("{{}}", "@", "!")
+     */
   final Map<String, dynamic>? _componentProps;
+/**
+     * This is raw props passed form parent layout to t_component
+     * It contains binding value and raw binding value ("{{}}", "@", "!")
+     */
   @override
   Map<String, dynamic>? get componentProps {
     final value = _componentProps;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
+/**
+     * This is the props passed from parent layout to t_component
+     * It has been bound all the binding value to context data value
+     */
+  final Map<String, dynamic>? _computedComponentProps;
+/**
+     * This is the props passed from parent layout to t_component
+     * It has been bound all the binding value to context data value
+     */
+  @override
+  Map<String, dynamic>? get computedComponentProps {
+    final value = _computedComponentProps;
     if (value == null) return null;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(value);
@@ -613,7 +678,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, items: $items, fieldType: $fieldType, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, flex: $flex, componentProps: $componentProps, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, items: $items, fieldType: $fieldType, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, flex: $flex, componentProps: $componentProps, computedComponentProps: $computedComponentProps, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar)';
   }
 
   @override
@@ -642,8 +707,11 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('maxHeight', maxHeight))
       ..add(DiagnosticsProperty('minWidth', minWidth))
       ..add(DiagnosticsProperty('minHeight', minHeight))
+      ..add(DiagnosticsProperty('margin', margin))
       ..add(DiagnosticsProperty('flex', flex))
       ..add(DiagnosticsProperty('componentProps', componentProps))
+      ..add(
+          DiagnosticsProperty('computedComponentProps', computedComponentProps))
       ..add(DiagnosticsProperty('child', child))
       ..add(DiagnosticsProperty('content', content))
       ..add(DiagnosticsProperty('children', children))
@@ -680,9 +748,12 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
             const DeepCollectionEquality().equals(other.maxHeight, maxHeight) &&
             const DeepCollectionEquality().equals(other.minWidth, minWidth) &&
             const DeepCollectionEquality().equals(other.minHeight, minHeight) &&
+            const DeepCollectionEquality().equals(other.margin, margin) &&
             const DeepCollectionEquality().equals(other.flex, flex) &&
             const DeepCollectionEquality()
                 .equals(other._componentProps, _componentProps) &&
+            const DeepCollectionEquality().equals(
+                other._computedComponentProps, _computedComponentProps) &&
             const DeepCollectionEquality().equals(other.child, child) &&
             const DeepCollectionEquality().equals(other.content, content) &&
             const DeepCollectionEquality().equals(other._children, _children) &&
@@ -715,8 +786,10 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
         const DeepCollectionEquality().hash(maxHeight),
         const DeepCollectionEquality().hash(minWidth),
         const DeepCollectionEquality().hash(minHeight),
+        const DeepCollectionEquality().hash(margin),
         const DeepCollectionEquality().hash(flex),
         const DeepCollectionEquality().hash(_componentProps),
+        const DeepCollectionEquality().hash(_computedComponentProps),
         const DeepCollectionEquality().hash(child),
         const DeepCollectionEquality().hash(content),
         const DeepCollectionEquality().hash(_children),
@@ -758,8 +831,10 @@ abstract class _LayoutProps implements LayoutProps {
       final dynamic maxHeight,
       final dynamic minWidth,
       final dynamic minHeight,
+      final dynamic margin,
       final int? flex,
       final Map<String, dynamic>? componentProps,
+      final Map<String, dynamic>? computedComponentProps,
       final LayoutProps? child,
       final LayoutProps? content,
       final List<LayoutProps>? children,
@@ -812,9 +887,21 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   dynamic get minHeight;
   @override
+  dynamic get margin;
+  @override
   int? get flex;
   @override
+  /**
+     * This is raw props passed form parent layout to t_component
+     * It contains binding value and raw binding value ("{{}}", "@", "!")
+     */
   Map<String, dynamic>? get componentProps;
+  @override
+  /**
+     * This is the props passed from parent layout to t_component
+     * It has been bound all the binding value to context data value
+     */
+  Map<String, dynamic>? get computedComponentProps;
   @override
   LayoutProps? get child;
   @override

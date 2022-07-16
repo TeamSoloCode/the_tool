@@ -69,6 +69,8 @@ class _T_ComponentState extends State<T_Component>
       componentPath: _componentId,
       parentPagePath: widget.pagePath,
       componentPropsAsJSON: widget.widgetProps.componentProps ?? {},
+      computedComponentPropsAsJSON:
+          widget.widgetProps.computedComponentProps ?? {},
     );
 
     Future.delayed(Duration.zero, () async {
