@@ -218,14 +218,17 @@ abstract class BaseEvalJS {
           
           const componentProps = Object.entries(rawComponentProps)
           .reduce((result, [key, value]) => {
-            const propFromParentContext = _.get(context, `$pagePath.\${value}`)
+            let propFromParentContext = _.get(context, `$pagePath.\${value}`)
             
             result[key] = propFromParentContext != undefined ? propFromParentContext : value
             
 
             if(value && isValueBinding(value)) {
               const propsFromParentData = getBindingValue(getPageData(), value)
-              result[key] = propsFromParentData
+              if(!propsFromParentData) {
+                propsFromParentContext = getBindingValue(_.get(context, '$pagePath'), value)
+              }
+              result[key] =  propsFromParentData || propsFromParentContext
             }
 
             return result

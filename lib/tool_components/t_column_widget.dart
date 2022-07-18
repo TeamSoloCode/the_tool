@@ -3,7 +3,7 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 
-class T_Column extends T_Widget {
+class T_Column extends T_StateLessWidget {
   final String pagePath;
   T_Column({
     Key? key,
@@ -18,19 +18,14 @@ class T_Column extends T_Widget {
           contextData: contextData,
         );
 
-  @override
-  State<T_Column> createState() => _T_ColumnState();
-}
-
-class _T_ColumnState extends State<T_Column> {
   List<Widget> _getChildren() {
-    List<LayoutProps> children = widget.widgetProps.children ?? [];
+    List<LayoutProps> children = widgetProps.children ?? [];
 
     return children.map((child) {
       return T_Widgets(
         layout: child,
-        pagePath: widget.pagePath,
-        contextData: widget.contextData,
+        pagePath: pagePath,
+        contextData: contextData,
       );
     }).toList();
   }

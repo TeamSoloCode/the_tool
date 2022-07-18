@@ -8,7 +8,7 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:collection/collection.dart' show DeepCollectionEquality;
 
-class T_Text extends T_Widget {
+class T_Text extends T_StateLessWidget {
   T_Text({
     Key? key,
     required executeJS,
@@ -21,11 +21,6 @@ class T_Text extends T_Widget {
           contextData: contextData,
         );
 
-  @override
-  State<T_Text> createState() => _T_TextState();
-}
-
-class _T_TextState extends State<T_Text> {
   var oldText = "";
   var text = "";
 
@@ -33,7 +28,7 @@ class _T_TextState extends State<T_Text> {
   LayoutProps? finalWidgetProps;
 
   bool shouldWidgetUpdate() {
-    finalWidgetProps = widget.widgetProps;
+    finalWidgetProps = widgetProps;
 
     var shouldUpdate = !(prevWidgetProps == finalWidgetProps);
 
@@ -43,7 +38,7 @@ class _T_TextState extends State<T_Text> {
   @override
   Widget build(BuildContext context) {
     return ShouldWidgetUpdate(
-      key: widget.getBindingKey(),
+      key: getBindingKey(),
       builder: (context) {
         prevWidgetProps = finalWidgetProps;
 

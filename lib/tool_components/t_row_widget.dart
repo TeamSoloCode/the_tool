@@ -4,7 +4,7 @@ import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
 
-class T_Row extends T_Widget {
+class T_Row extends T_StateLessWidget {
   UtilsManager utils = getIt<UtilsManager>();
   final String pagePath;
   T_Row({
@@ -20,17 +20,12 @@ class T_Row extends T_Widget {
           contextData: contextData,
         );
 
-  @override
-  State<T_Row> createState() => _T_RowState();
-}
-
-class _T_RowState extends State<T_Row> {
   List<Widget> _computeChildren(List<dynamic>? children) {
     return (children ?? []).map((child) {
       return T_Widgets(
         layout: child,
-        pagePath: widget.pagePath,
-        contextData: widget.contextData,
+        pagePath: pagePath,
+        contextData: contextData,
       );
     }).toList();
   }
@@ -38,13 +33,13 @@ class _T_RowState extends State<T_Row> {
   @override
   Widget build(BuildContext context) {
     var mainAxisAlignment = ThemeDecoder.decodeMainAxisAlignment(
-          widget.widgetProps.mainAxisAlignment,
+          widgetProps.mainAxisAlignment,
         ) ??
         MainAxisAlignment.start;
 
     return Row(
       mainAxisAlignment: mainAxisAlignment,
-      children: _computeChildren(widget.widgetProps.children),
+      children: _computeChildren(widgetProps.children),
     );
   }
 }
