@@ -85,9 +85,9 @@ class _PageContainerState extends State<PageContainer> {
                 _headlessWebView?.dispose();
                 _headlessWebView?.run();
               }
+            } else {
+              _updateWebEvalContext(context);
             }
-
-            if (kIsWeb) _updateWebEvalContext(context);
 
             return Stack(
               children: [

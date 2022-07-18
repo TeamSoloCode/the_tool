@@ -43,6 +43,8 @@ mixin _$LayoutProps {
   dynamic get minHeight => throw _privateConstructorUsedError;
   dynamic get margin => throw _privateConstructorUsedError;
   int? get flex => throw _privateConstructorUsedError;
+  String? get sliverListType => throw _privateConstructorUsedError;
+  double? get itemExtent => throw _privateConstructorUsedError;
   /**
      * This is raw props passed form parent layout to t_component
      * It contains binding value and raw binding value ("{{}}", "@", "!")
@@ -96,6 +98,8 @@ abstract class $LayoutPropsCopyWith<$Res> {
       dynamic minHeight,
       dynamic margin,
       int? flex,
+      String? sliverListType,
+      double? itemExtent,
       Map<String, dynamic>? componentProps,
       Map<String, dynamic>? computedComponentProps,
       LayoutProps? child,
@@ -143,6 +147,8 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
     Object? minHeight = freezed,
     Object? margin = freezed,
     Object? flex = freezed,
+    Object? sliverListType = freezed,
+    Object? itemExtent = freezed,
     Object? componentProps = freezed,
     Object? computedComponentProps = freezed,
     Object? child = freezed,
@@ -244,6 +250,14 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
           ? _value.flex
           : flex // ignore: cast_nullable_to_non_nullable
               as int?,
+      sliverListType: sliverListType == freezed
+          ? _value.sliverListType
+          : sliverListType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      itemExtent: itemExtent == freezed
+          ? _value.itemExtent
+          : itemExtent // ignore: cast_nullable_to_non_nullable
+              as double?,
       componentProps: componentProps == freezed
           ? _value.componentProps
           : componentProps // ignore: cast_nullable_to_non_nullable
@@ -351,6 +365,8 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       dynamic minHeight,
       dynamic margin,
       int? flex,
+      String? sliverListType,
+      double? itemExtent,
       Map<String, dynamic>? componentProps,
       Map<String, dynamic>? computedComponentProps,
       LayoutProps? child,
@@ -404,6 +420,8 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
     Object? minHeight = freezed,
     Object? margin = freezed,
     Object? flex = freezed,
+    Object? sliverListType = freezed,
+    Object? itemExtent = freezed,
     Object? componentProps = freezed,
     Object? computedComponentProps = freezed,
     Object? child = freezed,
@@ -505,6 +523,14 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
           ? _value.flex
           : flex // ignore: cast_nullable_to_non_nullable
               as int?,
+      sliverListType: sliverListType == freezed
+          ? _value.sliverListType
+          : sliverListType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      itemExtent: itemExtent == freezed
+          ? _value.itemExtent
+          : itemExtent // ignore: cast_nullable_to_non_nullable
+              as double?,
       componentProps: componentProps == freezed
           ? _value._componentProps
           : componentProps // ignore: cast_nullable_to_non_nullable
@@ -564,6 +590,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.minHeight,
       this.margin,
       this.flex,
+      this.sliverListType,
+      this.itemExtent,
       final Map<String, dynamic>? componentProps,
       final Map<String, dynamic>? computedComponentProps,
       this.child,
@@ -624,6 +652,10 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   final dynamic margin;
   @override
   final int? flex;
+  @override
+  final String? sliverListType;
+  @override
+  final double? itemExtent;
 /**
      * This is raw props passed form parent layout to t_component
      * It contains binding value and raw binding value ("{{}}", "@", "!")
@@ -678,7 +710,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, items: $items, fieldType: $fieldType, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, flex: $flex, componentProps: $componentProps, computedComponentProps: $computedComponentProps, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, items: $items, fieldType: $fieldType, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, flex: $flex, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar)';
   }
 
   @override
@@ -709,6 +741,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('minHeight', minHeight))
       ..add(DiagnosticsProperty('margin', margin))
       ..add(DiagnosticsProperty('flex', flex))
+      ..add(DiagnosticsProperty('sliverListType', sliverListType))
+      ..add(DiagnosticsProperty('itemExtent', itemExtent))
       ..add(DiagnosticsProperty('componentProps', componentProps))
       ..add(
           DiagnosticsProperty('computedComponentProps', computedComponentProps))
@@ -751,6 +785,10 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
             const DeepCollectionEquality().equals(other.margin, margin) &&
             const DeepCollectionEquality().equals(other.flex, flex) &&
             const DeepCollectionEquality()
+                .equals(other.sliverListType, sliverListType) &&
+            const DeepCollectionEquality()
+                .equals(other.itemExtent, itemExtent) &&
+            const DeepCollectionEquality()
                 .equals(other._componentProps, _componentProps) &&
             const DeepCollectionEquality().equals(
                 other._computedComponentProps, _computedComponentProps) &&
@@ -788,6 +826,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
         const DeepCollectionEquality().hash(minHeight),
         const DeepCollectionEquality().hash(margin),
         const DeepCollectionEquality().hash(flex),
+        const DeepCollectionEquality().hash(sliverListType),
+        const DeepCollectionEquality().hash(itemExtent),
         const DeepCollectionEquality().hash(_componentProps),
         const DeepCollectionEquality().hash(_computedComponentProps),
         const DeepCollectionEquality().hash(child),
@@ -833,6 +873,8 @@ abstract class _LayoutProps implements LayoutProps {
       final dynamic minHeight,
       final dynamic margin,
       final int? flex,
+      final String? sliverListType,
+      final double? itemExtent,
       final Map<String, dynamic>? componentProps,
       final Map<String, dynamic>? computedComponentProps,
       final LayoutProps? child,
@@ -890,6 +932,10 @@ abstract class _LayoutProps implements LayoutProps {
   dynamic get margin;
   @override
   int? get flex;
+  @override
+  String? get sliverListType;
+  @override
+  double? get itemExtent;
   @override
   /**
      * This is raw props passed form parent layout to t_component

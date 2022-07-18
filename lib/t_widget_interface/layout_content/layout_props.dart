@@ -32,6 +32,8 @@ class LayoutProps with _$LayoutProps {
     dynamic minHeight,
     dynamic margin,
     int? flex,
+    String? sliverListType,
+    double? itemExtent,
     /**
      * This is raw props passed form parent layout to t_component
      * It contains binding value and raw binding value ("{{}}", "@", "!")

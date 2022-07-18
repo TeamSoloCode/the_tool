@@ -8,6 +8,7 @@ import 'package:the_tool/utils.dart';
 class T_ScrollView extends T_StateLessWidget {
   UtilsManager utils = getIt<UtilsManager>();
   final String pagePath;
+
   T_ScrollView({
     Key? key,
     required executeJS,
@@ -38,18 +39,36 @@ class T_ScrollView extends T_StateLessWidget {
   Widget build(BuildContext context) {
     const Key centerKey = ValueKey<String>('bottom-sliver-list');
     _items = _computeChildren(widgetProps.children);
+    if (widgetProps.sliverListType == "fixed_extent_list") {
+      assert(
+        widgetProps.itemExtent != null,
+        "If sliverListType = \"fixed_extent_list\", please provide \"itemExtent\" with type number",
+      );
+    }
 
     return CustomScrollView(
       slivers: [
-        SliverList(
-          key: centerKey,
-          delegate: SliverChildBuilderDelegate(
-            (context, index) {
-              return _items.elementAt(index);
-            },
-            childCount: _items.length,
+        if (widgetProps.sliverListType == "fixed_extent_list")
+          SliverFixedExtentList(
+            key: centerKey,
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return _items.elementAt(index);
+              },
+              childCount: _items.length,
+            ),
+            itemExtent: widgetProps.itemExtent ?? 100,
           ),
-        )
+        if (widgetProps.sliverListType == null)
+          SliverList(
+            key: centerKey,
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return _items.elementAt(index);
+              },
+              childCount: _items.length,
+            ),
+          )
       ],
     );
   }
