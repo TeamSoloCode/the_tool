@@ -85,6 +85,7 @@ class EvalJS extends BaseEvalJS {
     required String componentPath,
     required String componentCode,
     Map<dynamic, dynamic> componentPropsAsJSON = const {},
+    Map<dynamic, dynamic> computedComponentPropsAsJSON = const {},
   }) async {
     String subComponentCode = getRegisterComponentCode(
       parentPagePath: parentPagePath,

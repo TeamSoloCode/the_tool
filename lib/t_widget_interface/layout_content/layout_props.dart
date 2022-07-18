@@ -32,6 +32,9 @@ class LayoutProps with _$LayoutProps {
     dynamic minHeight,
     dynamic margin,
     int? flex,
+    /**
+     * 
+     */
     String? sliverListType,
     double? itemExtent,
     /**

@@ -43,6 +43,9 @@ mixin _$LayoutProps {
   dynamic get minHeight => throw _privateConstructorUsedError;
   dynamic get margin => throw _privateConstructorUsedError;
   int? get flex => throw _privateConstructorUsedError;
+  /**
+     * 
+     */
   String? get sliverListType => throw _privateConstructorUsedError;
   double? get itemExtent => throw _privateConstructorUsedError;
   /**
@@ -652,6 +655,9 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   final dynamic margin;
   @override
   final int? flex;
+/**
+     * 
+     */
   @override
   final String? sliverListType;
   @override
@@ -933,6 +939,9 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   int? get flex;
   @override
+  /**
+     * 
+     */
   String? get sliverListType;
   @override
   double? get itemExtent;

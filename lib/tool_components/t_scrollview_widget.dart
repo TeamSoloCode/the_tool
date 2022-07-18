@@ -37,7 +37,6 @@ class T_ScrollView extends T_StateLessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const Key centerKey = ValueKey<String>('bottom-sliver-list');
     _items = _computeChildren(widgetProps.children);
     if (widgetProps.sliverListType == "fixed_extent_list") {
       assert(
@@ -50,7 +49,7 @@ class T_ScrollView extends T_StateLessWidget {
       slivers: [
         if (widgetProps.sliverListType == "fixed_extent_list")
           SliverFixedExtentList(
-            key: centerKey,
+            key: const ValueKey<String>('sliver-fixed-list'),
             delegate: SliverChildBuilderDelegate(
               (context, index) {
                 return _items.elementAt(index);
@@ -61,7 +60,7 @@ class T_ScrollView extends T_StateLessWidget {
           ),
         if (widgetProps.sliverListType == null)
           SliverList(
-            key: centerKey,
+            key: const ValueKey<String>('sliver-list'),
             delegate: SliverChildBuilderDelegate(
               (context, index) {
                 return _items.elementAt(index);
