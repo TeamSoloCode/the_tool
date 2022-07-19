@@ -20,6 +20,7 @@ import 'package:the_tool/tool_components/t_row_widget.dart';
 import 'package:the_tool/tool_components/t_scrollview_widget.dart';
 import 'package:the_tool/tool_components/t_text_widget.dart';
 import 'package:the_tool/utils.dart';
+import 'package:collection/collection.dart' show DeepCollectionEquality;
 
 class T_Widgets extends StatefulWidget {
   final LayoutProps layout;
@@ -39,7 +40,7 @@ class T_Widgets extends StatefulWidget {
 
 class _T_WidgetsState extends State<T_Widgets> {
   UtilsManager utils = getIt<UtilsManager>();
-
+  Widget tWidgets = SizedBox.shrink();
   Future<void> executeJSWithPagePath(String jsCode) async {
     await utils.evalJS?.executeJS(jsCode, widget.pagePath);
   }
@@ -54,7 +55,10 @@ class _T_WidgetsState extends State<T_Widgets> {
     return rawColor;
   }
 
-  Widget _getWidget(Map<String, dynamic> contextData, BuildContext context) {
+  Future<dynamic> _getWidget(dynamic input) async {
+    var contextData = Map<String, dynamic>.from(input["contextData"] ?? {});
+    var context = input["context"];
+
     LayoutProps content = widget.layout.content ?? widget.layout;
 
     var hidden = utils.bindingValueToProp(
@@ -66,7 +70,7 @@ class _T_WidgetsState extends State<T_Widgets> {
       return const SizedBox.shrink();
     }
 
-    LayoutProps? widgetProps = _computeWidgetProps(
+    LayoutProps? widgetProps = await _computeWidgetProps(
       content,
       contextData,
     );
@@ -157,16 +161,46 @@ class _T_WidgetsState extends State<T_Widgets> {
     }
   }
 
+  Future<void> _updateTWidgets(
+    Map<String, dynamic> contextData,
+    BuildContext context,
+  ) async {
+    // Stopwatch stopwatch = Stopwatch()..start();
+    // var newTWidgets = await compute(_getWidget, {
+    //   "contextData": contextData[widget.pagePath] ?? {},
+    //   "context": context,
+    // });
+
+    var newTWidgets = await _getWidget({
+      "contextData": contextData[widget.pagePath] ?? {},
+      "context": context,
+    });
+
+    setState(() {
+      prevContextData.addAll(contextData);
+      tWidgets = newTWidgets;
+    });
+    // print(
+    //   'doSomething() executed in ${stopwatch.elapsed} ${widget.layout.type} ${widget.pagePath}',
+    // );
+  }
+
+  Map<String, dynamic> prevContextData = {};
   @override
   Widget build(BuildContext context) {
     var contextData = context.read<ContextStateProvider>().contextData;
-    return _getWidget(contextData[widget.pagePath] ?? {}, context);
+
+    if (!const DeepCollectionEquality().equals(prevContextData, contextData)) {
+      _updateTWidgets(contextData, context);
+    }
+
+    return tWidgets;
   }
 
-  LayoutProps? _computeWidgetProps(
+  Future<LayoutProps?> _computeWidgetProps(
     LayoutProps content,
     Map<String, dynamic> contextData,
-  ) {
+  ) async {
     var themeProvider = context.read<ThemeProvider>();
     LayoutProps? widgetProps =
         themeProvider.mergeClasses(content, contextData) ?? const LayoutProps();
