@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
+import 'package:uuid/uuid.dart';
 
-class T_ScrollView extends T_StateLessWidget {
+class T_ScrollView extends T_Widget {
   UtilsManager utils = getIt<UtilsManager>();
   final String pagePath;
 
@@ -22,14 +23,20 @@ class T_ScrollView extends T_StateLessWidget {
           contextData: contextData,
         );
 
+  @override
+  State<T_ScrollView> createState() => _T_ScrollViewState();
+}
+
+class _T_ScrollViewState extends State<T_ScrollView> {
   List<Widget> _items = [];
+  final widgetUuid = const Uuid().v4();
 
   List<Widget> _computeChildren(List<dynamic>? children) {
     return (children ?? []).map((child) {
       var tWidget = T_Widgets(
         layout: child,
-        pagePath: pagePath,
-        contextData: contextData,
+        pagePath: widget.pagePath,
+        contextData: widget.contextData,
       );
       return tWidget;
     }).toList();
@@ -37,17 +44,19 @@ class T_ScrollView extends T_StateLessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _items = _computeChildren(widgetProps.children);
-    if (widgetProps.sliverListType == "fixed_extent_list") {
+    var props = widget.widgetProps;
+    _items = _computeChildren(props.children);
+    if (props.sliverListType == "fixed_extent_list") {
       assert(
-        widgetProps.itemExtent != null,
+        props.itemExtent != null,
         "If sliverListType = \"fixed_extent_list\", please provide \"itemExtent\" with type number",
       );
     }
 
     return CustomScrollView(
+      key: widget.getBindingKey() ?? ValueKey(widgetUuid),
       slivers: [
-        if (widgetProps.sliverListType == "fixed_extent_list")
+        if (props.sliverListType == "fixed_extent_list")
           SliverFixedExtentList(
             key: const ValueKey<String>('sliver-fixed-list'),
             delegate: SliverChildBuilderDelegate(
@@ -56,9 +65,9 @@ class T_ScrollView extends T_StateLessWidget {
               },
               childCount: _items.length,
             ),
-            itemExtent: widgetProps.itemExtent ?? 100,
+            itemExtent: props.itemExtent ?? 100,
           ),
-        if (widgetProps.sliverListType == null)
+        if (props.sliverListType == null)
           SliverList(
             key: const ValueKey<String>('sliver-list'),
             delegate: SliverChildBuilderDelegate(

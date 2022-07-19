@@ -3,8 +3,9 @@ import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
+import 'package:uuid/uuid.dart';
 
-class T_Row extends T_StateLessWidget {
+class T_Row extends T_Widget {
   UtilsManager utils = getIt<UtilsManager>();
   final String pagePath;
   T_Row({
@@ -19,27 +20,35 @@ class T_Row extends T_StateLessWidget {
           executeJS: executeJS,
           contextData: contextData,
         );
+  @override
+  State<T_Row> createState() => _T_RowState();
+}
+
+class _T_RowState extends State<T_Row> {
+  final widgetUuid = const Uuid().v4();
 
   List<Widget> _computeChildren(List<dynamic>? children) {
     return (children ?? []).map((child) {
       return T_Widgets(
         layout: child,
-        pagePath: pagePath,
-        contextData: contextData,
+        pagePath: widget.pagePath,
+        contextData: widget.contextData,
       );
     }).toList();
   }
 
   @override
   Widget build(BuildContext context) {
+    var props = widget.widgetProps;
     var mainAxisAlignment = ThemeDecoder.decodeMainAxisAlignment(
-          widgetProps.mainAxisAlignment,
+          props.mainAxisAlignment,
         ) ??
         MainAxisAlignment.start;
 
     return Row(
+      key: widget.getBindingKey() ?? ValueKey(widgetUuid),
       mainAxisAlignment: mainAxisAlignment,
-      children: _computeChildren(widgetProps.children),
+      children: _computeChildren(props.children),
     );
   }
 }

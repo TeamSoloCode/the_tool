@@ -8,13 +8,13 @@ abstract class BaseEvalJS {
 
   BaseEvalJS({required this.contextStateProvider, required this.context});
 
-  Future<void> executeJS(String jsCode, String pageName);
+  Future<void> executeJS(String jsCode, String pagePath);
 
   Future<String> setupReactForClientCode(String clientCoreCode);
 
   void unmountClientCode(String pagePath);
 
-  Future<void> executePageCode(String jsCode, String pagePath);
+  Future<void> executePageCode(String clientCode, String pagePath);
 
   void setPageArguments(Map<String, dynamic> args, String pagePath);
 

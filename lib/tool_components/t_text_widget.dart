@@ -6,9 +6,8 @@ import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/page_utils/should_update.widget.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
-import 'package:collection/collection.dart' show DeepCollectionEquality;
 
-class T_Text extends T_StateLessWidget {
+class T_Text extends T_Widget {
   T_Text({
     Key? key,
     required executeJS,
@@ -20,7 +19,11 @@ class T_Text extends T_StateLessWidget {
           executeJS: executeJS,
           contextData: contextData,
         );
+  @override
+  State<T_Text> createState() => _T_TextState();
+}
 
+class _T_TextState extends State<T_Text> {
   var oldText = "";
   var text = "";
 
@@ -28,17 +31,14 @@ class T_Text extends T_StateLessWidget {
   LayoutProps? finalWidgetProps;
 
   bool shouldWidgetUpdate() {
-    finalWidgetProps = widgetProps;
-
+    finalWidgetProps = widget.widgetProps;
     var shouldUpdate = !(prevWidgetProps == finalWidgetProps);
-
     return shouldUpdate;
   }
 
   @override
   Widget build(BuildContext context) {
     return ShouldWidgetUpdate(
-      key: getBindingKey(),
       builder: (context) {
         prevWidgetProps = finalWidgetProps;
 

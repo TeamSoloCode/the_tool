@@ -6,8 +6,9 @@ import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
+import 'package:uuid/uuid.dart';
 
-class T_Container extends T_StateLessWidget {
+class T_Container extends T_Widget {
   @override
   String pagePath;
 
@@ -24,14 +25,20 @@ class T_Container extends T_StateLessWidget {
           contextData: contextData,
           pagePath: pagePath,
         );
+  @override
+  State<T_Container> createState() => _T_ContainerState();
+}
+
+class _T_ContainerState extends State<T_Container> {
+  final widgetUuid = const Uuid().v4();
 
   @override
   Widget build(BuildContext context) {
-    var props = widgetProps;
+    var props = widget.widgetProps;
     var cssColor = props.backgroundColor;
     Color? color = cssColor != null ? fromCssColor(cssColor) : null;
     return Container(
-      key: getBindingKey(),
+      key: widget.getBindingKey() ?? ValueKey(widgetUuid),
       height: props.height,
       width: props.width,
       margin: ThemeDecoder.decodeEdgeInsetsGeometry(props.margin),
@@ -43,9 +50,9 @@ class T_Container extends T_StateLessWidget {
       ),
       color: color,
       child: T_Widgets(
-        layout: widgetProps.child ?? const LayoutProps(),
-        pagePath: pagePath,
-        contextData: contextData,
+        layout: props.child ?? const LayoutProps(),
+        pagePath: widget.pagePath,
+        contextData: widget.contextData,
       ),
     );
   }

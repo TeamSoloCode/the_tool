@@ -22,6 +22,7 @@ import 'package:the_tool/tool_components/t_scrollview_widget.dart';
 import 'package:the_tool/tool_components/t_text_widget.dart';
 import 'package:the_tool/utils.dart';
 import 'package:collection/collection.dart' show DeepCollectionEquality;
+import 'package:uuid/uuid.dart';
 
 class T_Widgets extends StatefulWidget {
   final LayoutProps layout;
@@ -42,6 +43,8 @@ class T_Widgets extends StatefulWidget {
 class _T_WidgetsState extends State<T_Widgets> {
   UtilsManager utils = getIt<UtilsManager>();
   Widget tWidgets = const SizedBox.shrink();
+  final widgetUuid = const Uuid().v4();
+
   Future<void> executeJSWithPagePath(String jsCode) async {
     await utils.evalJS?.executeJS(jsCode, widget.pagePath);
   }
@@ -58,7 +61,6 @@ class _T_WidgetsState extends State<T_Widgets> {
 
   Future<Widget> _getWidget(dynamic input) async {
     var contextData = Map<String, dynamic>.from(input["contextData"] ?? {});
-    var context = input["context"];
 
     LayoutProps content = widget.layout.content ?? widget.layout;
 
@@ -79,24 +81,28 @@ class _T_WidgetsState extends State<T_Widgets> {
     switch (content.type) {
       case "text":
         return T_Text(
+          key: ValueKey(widgetUuid),
           executeJS: executeJSWithPagePath,
           widgetProps: widgetProps,
           contextData: contextData,
         );
       case "button":
         return T_Button(
+          key: ValueKey(widgetUuid),
           executeJS: executeJSWithPagePath,
           widgetProps: widgetProps,
           contextData: contextData,
         );
       case "icon":
         return T_Icon(
+          key: ValueKey(widgetUuid),
           executeJS: executeJSWithPagePath,
           widgetProps: widgetProps,
           contextData: contextData,
         );
       case "row":
         return T_Row(
+          key: ValueKey(widgetUuid),
           executeJS: executeJSWithPagePath,
           widgetProps: widgetProps,
           pagePath: widget.pagePath,
@@ -104,6 +110,7 @@ class _T_WidgetsState extends State<T_Widgets> {
         );
       case "form":
         return T_Form(
+          key: ValueKey(widgetUuid),
           executeJS: executeJSWithPagePath,
           widgetProps: widgetProps,
           pagePath: widget.pagePath,
@@ -111,12 +118,14 @@ class _T_WidgetsState extends State<T_Widgets> {
         );
       case "component":
         return T_Component(
+            key: ValueKey(widgetUuid),
             executeJS: executeJSWithPagePath,
             widgetProps: widgetProps,
             contextData: contextData,
             pagePath: widget.pagePath);
       case "container":
         return T_Container(
+          key: ValueKey(widgetUuid),
           executeJS: executeJSWithPagePath,
           widgetProps: widgetProps,
           pagePath: widget.pagePath,
@@ -124,6 +133,7 @@ class _T_WidgetsState extends State<T_Widgets> {
         );
       case "column":
         return T_Column(
+          key: ValueKey(widgetUuid),
           executeJS: executeJSWithPagePath,
           widgetProps: widgetProps,
           pagePath: widget.pagePath,
@@ -131,6 +141,7 @@ class _T_WidgetsState extends State<T_Widgets> {
         );
       case "grid":
         return T_Grid(
+          key: ValueKey(widgetUuid),
           executeJS: executeJSWithPagePath,
           widgetProps: widgetProps,
           pagePath: widget.pagePath,
@@ -138,6 +149,7 @@ class _T_WidgetsState extends State<T_Widgets> {
         );
       case "scroll_view":
         return T_ScrollView(
+          key: ValueKey(widgetUuid),
           executeJS: executeJSWithPagePath,
           widgetProps: widgetProps,
           pagePath: widget.pagePath,
@@ -146,6 +158,7 @@ class _T_WidgetsState extends State<T_Widgets> {
 
       case "expanded":
         return T_Expanded(
+          key: ValueKey(widgetUuid),
           executeJS: executeJSWithPagePath,
           widgetProps: widgetProps,
           pagePath: widget.pagePath,
@@ -153,6 +166,7 @@ class _T_WidgetsState extends State<T_Widgets> {
         );
       case "field":
         return T_Fields(
+          key: ValueKey(widgetUuid),
           executeJS: executeJSWithPagePath,
           widgetProps: widgetProps,
           contextData: contextData,
@@ -173,7 +187,7 @@ class _T_WidgetsState extends State<T_Widgets> {
         "context": context,
       };
       var newTWidgets =
-          kIsWeb ? await compute(_getWidget, input) : await _getWidget(input);
+          await (kIsWeb ? compute(_getWidget, input) : _getWidget(input));
 
       setState(() {
         prevContextData.addAll(contextData);
@@ -187,6 +201,7 @@ class _T_WidgetsState extends State<T_Widgets> {
   }
 
   Map<String, dynamic> prevContextData = {};
+
   @override
   Widget build(BuildContext context) {
     _updateTWidgets(context);
