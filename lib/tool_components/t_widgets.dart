@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
@@ -40,7 +41,7 @@ class T_Widgets extends StatefulWidget {
 
 class _T_WidgetsState extends State<T_Widgets> {
   UtilsManager utils = getIt<UtilsManager>();
-  Widget tWidgets = SizedBox.shrink();
+  Widget tWidgets = const SizedBox.shrink();
   Future<void> executeJSWithPagePath(String jsCode) async {
     await utils.evalJS?.executeJS(jsCode, widget.pagePath);
   }
@@ -55,7 +56,7 @@ class _T_WidgetsState extends State<T_Widgets> {
     return rawColor;
   }
 
-  Future<dynamic> _getWidget(dynamic input) async {
+  Future<Widget> _getWidget(dynamic input) async {
     var contextData = Map<String, dynamic>.from(input["contextData"] ?? {});
     var context = input["context"];
 
@@ -162,38 +163,33 @@ class _T_WidgetsState extends State<T_Widgets> {
   }
 
   Future<void> _updateTWidgets(
-    Map<String, dynamic> contextData,
     BuildContext context,
   ) async {
-    // Stopwatch stopwatch = Stopwatch()..start();
-    // var newTWidgets = await compute(_getWidget, {
-    //   "contextData": contextData[widget.pagePath] ?? {},
-    //   "context": context,
-    // });
+    var contextData = context.read<ContextStateProvider>().contextData;
+    if (!const DeepCollectionEquality().equals(prevContextData, contextData)) {
+      // Stopwatch stopwatch = Stopwatch()..start();
+      var input = {
+        "contextData": contextData[widget.pagePath] ?? {},
+        "context": context,
+      };
+      var newTWidgets =
+          kIsWeb ? await compute(_getWidget, input) : await _getWidget(input);
 
-    var newTWidgets = await _getWidget({
-      "contextData": contextData[widget.pagePath] ?? {},
-      "context": context,
-    });
+      setState(() {
+        prevContextData.addAll(contextData);
+        tWidgets = newTWidgets;
+      });
 
-    setState(() {
-      prevContextData.addAll(contextData);
-      tWidgets = newTWidgets;
-    });
-    // print(
-    //   'doSomething() executed in ${stopwatch.elapsed} ${widget.layout.type} ${widget.pagePath}',
-    // );
+      // print(
+      //   'doSomething() executed in ${stopwatch.elapsed} ${widget.layout.type} ${widget.pagePath}',
+      // );
+    }
   }
 
   Map<String, dynamic> prevContextData = {};
   @override
   Widget build(BuildContext context) {
-    var contextData = context.read<ContextStateProvider>().contextData;
-
-    if (!const DeepCollectionEquality().equals(prevContextData, contextData)) {
-      _updateTWidgets(contextData, context);
-    }
-
+    _updateTWidgets(context);
     return tWidgets;
   }
 
