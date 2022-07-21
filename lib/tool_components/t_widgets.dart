@@ -44,6 +44,7 @@ class _T_WidgetsState extends State<T_Widgets> {
   UtilsManager utils = getIt<UtilsManager>();
   Widget tWidgets = const SizedBox.shrink();
   final widgetUuid = const Uuid().v4();
+  LayoutProps? prevWidgetProps;
 
   Future<void> executeJSWithPagePath(String jsCode) async {
     await utils.evalJS?.executeJS(jsCode, widget.pagePath);
@@ -77,6 +78,14 @@ class _T_WidgetsState extends State<T_Widgets> {
       content,
       contextData,
     );
+    if (["text", "button", "icon", "field"].contains(content.type) &&
+        prevWidgetProps == widgetProps) {
+      return tWidgets;
+    }
+
+    debugPrint("type ${content.type}");
+
+    prevWidgetProps = widgetProps;
 
     switch (content.type) {
       case "text":

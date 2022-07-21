@@ -32,8 +32,11 @@ class _T_ScrollViewState extends State<T_ScrollView> {
   final widgetUuid = const Uuid().v4();
 
   List<Widget> _computeChildren(List<dynamic>? children) {
+    var index = 0;
     return (children ?? []).map((child) {
+      index++;
       var tWidget = T_Widgets(
+        key: ValueKey(index),
         layout: child,
         pagePath: widget.pagePath,
         contextData: widget.contextData,

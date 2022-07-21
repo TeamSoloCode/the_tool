@@ -1,3 +1,5 @@
+Change theme is not working properly (text not change color)
+
 #-------------------------------------------------
 
 Support get data from exportPageContext
