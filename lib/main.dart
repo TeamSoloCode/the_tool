@@ -13,8 +13,11 @@ import 't_widget_interface/client_config/client_config.dart';
 import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
     if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_utils/web_eval_js.dart';
 
+import 'package:worker_manager/worker_manager.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Executor().warmUp();
 
   // if (Platform.isAndroid) {
   //   await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);

@@ -26,10 +26,12 @@ class T_Column extends T_Widget {
 class _T_ColumnState extends State<T_Column> {
   final widgetUuid = const Uuid().v4();
   List<Widget> _getChildren() {
+    var index = 0;
     List<LayoutProps> children = widget.widgetProps.children ?? [];
-
     return children.map((child) {
+      index++;
       return T_Widgets(
+        key: ValueKey(index),
         layout: child,
         pagePath: widget.pagePath,
         contextData: widget.contextData,

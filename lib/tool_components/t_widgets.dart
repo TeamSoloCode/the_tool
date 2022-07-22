@@ -83,14 +83,14 @@ class _T_WidgetsState extends State<T_Widgets> {
       return tWidgets;
     }
 
-    debugPrint("type ${content.type}");
-
     prevWidgetProps = widgetProps;
+
+    debugPrint("abcd ${content.type}");
 
     switch (content.type) {
       case "text":
         return T_Text(
-          key: ValueKey(widgetUuid),
+          key: Key(widgetUuid),
           executeJS: executeJSWithPagePath,
           widgetProps: widgetProps,
           contextData: contextData,

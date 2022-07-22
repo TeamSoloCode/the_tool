@@ -27,32 +27,20 @@ class T_Button extends T_Widget {
 }
 
 class _T_ButtonState extends State<T_Button> {
-  LayoutProps? prevWidgetProps;
   LayoutProps? widgetProps;
 
-  bool shouldWidgetUpdate() {
-    widgetProps = widget.widgetProps;
-
-    var shouldUpdate = !(prevWidgetProps == widgetProps);
-    return shouldUpdate;
+  onClick() async {
+    var rawOnClick = widgetProps?.onClick;
+    if (rawOnClick is String) {
+      await widget.executeJS(rawOnClick);
+    }
   }
 
   Widget _computeButton() {
+    widgetProps = widget.widgetProps;
     String? buttonType = widgetProps?.buttonType;
 
     String text = widgetProps?.text ?? "";
-    prevWidgetProps = widgetProps;
-    assert(
-      shouldWidgetUpdate() == false,
-      "shouldWidgetUpdate should be false after build new project",
-    );
-
-    onClick() async {
-      var rawOnClick = widgetProps?.onClick;
-      if (rawOnClick is String) {
-        await widget.executeJS(rawOnClick);
-      }
-    }
 
     if (buttonType == "icon_button") {
       return IconButton(
@@ -78,12 +66,6 @@ class _T_ButtonState extends State<T_Button> {
 
   @override
   Widget build(BuildContext context) {
-    return ShouldWidgetUpdate(
-      key: widget.getBindingKey(),
-      builder: (context) {
-        return _computeButton();
-      },
-      shouldWidgetUpdate: shouldWidgetUpdate(),
-    );
+    return _computeButton();
   }
 }

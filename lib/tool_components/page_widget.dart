@@ -1,14 +1,9 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:from_css_color/from_css_color.dart';
-import 'package:json_theme/json_theme.dart';
-import 'dart:convert';
 
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
-import 'package:the_tool/page_utils/should_update.widget.dart';
-import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/t_widget_interface/app_bar_props/app_bar_props.dart';
 import 'package:the_tool/t_widget_interface/bottom_nav_props.dart';
 import 'package:the_tool/t_widget_interface/bottom_navigation_props/bottom_navigation_props.dart';
@@ -45,6 +40,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
   void initState() {
     utils = getIt<UtilsManager>();
     _startLoadingData();
+    context.read<ContextStateProvider>().updateContextData({"_tLoaded": true});
     super.initState();
   }
 
@@ -67,6 +63,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    // var pageData = Map<String, dynamic>.from({"_tLoaded": true});
     var pageData = context.select((ContextStateProvider value) {
       return value.contextData[widget.pagePath] ??
           Map<String, dynamic>.from({});

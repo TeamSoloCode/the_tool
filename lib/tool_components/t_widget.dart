@@ -19,11 +19,11 @@ abstract class T_Widget extends StatefulWidget {
     required this.widgetProps,
     required this.contextData,
     this.pagePath,
-  });
+  }) : super(key: key);
 
-  ValueKey? getBindingKey() {
+  Key? getBindingKey() {
     var rawKey = widgetProps.key;
-    if (rawKey == null) return null;
+    if (rawKey == null) return key;
     if (UtilsManager.isValueBinding(rawKey)) {
       var bindingValue = _utils.bindingValueToText(contextData, rawKey);
       return ValueKey(bindingValue);

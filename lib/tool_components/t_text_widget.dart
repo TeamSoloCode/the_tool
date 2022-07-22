@@ -24,42 +24,20 @@ class T_Text extends T_Widget {
 }
 
 class _T_TextState extends State<T_Text> {
-  var oldText = "";
   var text = "";
-
-  LayoutProps? prevWidgetProps;
-  LayoutProps? finalWidgetProps;
-
-  bool shouldWidgetUpdate() {
-    finalWidgetProps = widget.widgetProps;
-    var shouldUpdate = !(prevWidgetProps == finalWidgetProps);
-    return shouldUpdate;
-  }
-
   @override
   Widget build(BuildContext context) {
-    return ShouldWidgetUpdate(
-      builder: (context) {
-        prevWidgetProps = finalWidgetProps;
+    LayoutProps? widgetProps = widget.widgetProps;
+    if (kIsWeb) {
+      return SelectableText(
+        widgetProps.text ?? "",
+        style: ThemeDecoder.decodeTextStyle(widgetProps.toJson()),
+      );
+    }
 
-        assert(
-          shouldWidgetUpdate() == false,
-          "shouldWidgetUpdate should be false after build new project",
-        );
-
-        if (kIsWeb) {
-          return SelectableText(
-            finalWidgetProps?.text ?? "",
-            style: ThemeDecoder.decodeTextStyle(finalWidgetProps?.toJson()),
-          );
-        }
-
-        return Text(
-          finalWidgetProps?.text ?? "",
-          style: ThemeDecoder.decodeTextStyle(finalWidgetProps?.toJson()),
-        );
-      },
-      shouldWidgetUpdate: shouldWidgetUpdate(),
+    return Text(
+      widgetProps.text ?? "",
+      style: ThemeDecoder.decodeTextStyle(widgetProps.toJson()),
     );
   }
 }
