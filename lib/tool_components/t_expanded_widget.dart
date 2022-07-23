@@ -65,9 +65,9 @@ class _T_ExpandedState extends State<T_Expanded> {
       _prevProps = _props;
 
       _snapshot = Expanded(
-        flex: widget.widgetProps.flex ?? 1,
+        flex: _props?.flex ?? 1,
         child: T_Widgets(
-          layout: widget.widgetProps.child ?? const LayoutProps(),
+          layout: _props?.child ?? const LayoutProps(),
           pagePath: widget.pagePath,
           contextData: widget.parentData,
         ),

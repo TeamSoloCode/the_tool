@@ -6,10 +6,10 @@ import 'package:flutter_form_builder/flutter_form_builder.dart'
     show FormBuilderTextField;
 import 'package:form_builder_validators/form_builder_validators.dart'
     show FormBuilderValidators;
-import 'package:collection/collection.dart' show DeepCollectionEquality;
-import 'package:the_tool/page_utils/should_update.widget.dart';
+import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
+import 'package:provider/provider.dart';
 
 class T_TextField extends T_Widget {
   T_TextField({
@@ -32,8 +32,9 @@ Timer? _debounce;
 
 class _T_TextFieldState extends State<T_TextField> {
   final textFieldController = TextEditingController();
-  LayoutProps? prevWidgetProps;
-  LayoutProps? widgetProps;
+  Widget _snapshot = const SizedBox.shrink();
+  LayoutProps? _props;
+  LayoutProps? _prevProps;
   String? value;
   String? prevValue;
 
@@ -44,33 +45,8 @@ class _T_TextFieldState extends State<T_TextField> {
     super.dispose();
   }
 
-  bool shouldWidgetUpdate() {
-    widgetProps = widget.widgetProps;
-    String? name = widgetProps?.name;
-    String newText = widget.parentData[name] ?? "";
-
-    if (prevValue != newText) {
-      // To fix bug setState during build
-      Future.delayed(Duration.zero, () async {
-        textFieldController.text = newText;
-        textFieldController.selection = TextSelection.collapsed(
-          offset: newText.length,
-        );
-      });
-    }
-
-    assert(name != null, "Missing \"name\" in field widget");
-
-    var shouldUpdate = !const DeepCollectionEquality().equals(
-      prevWidgetProps,
-      widgetProps,
-    );
-
-    return shouldUpdate;
-  }
-
   void _debounceTextChanged(String? text) {
-    String? name = widgetProps?.name;
+    String? name = _props?.name;
     if (_debounce?.isActive ?? false) _debounce?.cancel();
 
     _debounce = Timer(const Duration(milliseconds: 200), () {
@@ -88,8 +64,6 @@ class _T_TextFieldState extends State<T_TextField> {
   ) {
     String? name = widgetProps?.name;
     assert(name != null, "Missing \"name\" in field widget");
-
-    prevWidgetProps = widgetProps;
 
     return FormBuilderTextField(
       controller: textFieldController,
@@ -116,12 +90,30 @@ class _T_TextFieldState extends State<T_TextField> {
 
   @override
   Widget build(BuildContext context) {
-    return ShouldWidgetUpdate(
-      key: widget.getBindingKey(),
-      builder: (context) {
-        return _computeTextField(widget.widgetProps, context);
-      },
-      shouldWidgetUpdate: shouldWidgetUpdate(),
+    Map<String, dynamic> contextData =
+        context.select((ContextStateProvider value) {
+      return Map<String, dynamic>.from(
+          value.contextData[widget.pagePath] ?? {});
+    });
+
+    _props = widget.utils.computeWidgetProps(
+      widget.widgetProps,
+      contextData,
     );
+
+    if (_props != null) {
+      if (_props == _prevProps) {
+        return _snapshot;
+      }
+
+      if (_props?.hidden == true) {
+        return const SizedBox.shrink();
+      }
+
+      _prevProps = _props;
+      _snapshot = _computeTextField(_props, context);
+    }
+
+    return _snapshot;
   }
 }

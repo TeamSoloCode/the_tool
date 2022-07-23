@@ -84,12 +84,12 @@ class _T_WidgetsState extends State<T_Widgets> {
           contextData: contextData,
         );
       case "form":
-      // return T_Form(
-      //   key: ValueKey(widgetUuid),
-      //   widgetProps: widgetProps,
-      //   pagePath: widget.pagePath,
-      //   contextData: contextData,
-      // );
+        return T_Form(
+          key: ValueKey(widgetUuid),
+          widgetProps: content,
+          pagePath: widget.pagePath,
+          contextData: contextData,
+        );
       case "component":
         return T_Component(
             key: ValueKey(widgetUuid),
@@ -133,12 +133,12 @@ class _T_WidgetsState extends State<T_Widgets> {
           parentData: contextData,
         );
       case "field":
-      // return T_Fields(
-      //   key: ValueKey(widgetUuid),
-      //   widgetProps: widgetProps,
-      //   pagePath: widget.pagePath,
-      //   contextData: contextData,
-      // );
+        return T_Fields(
+          key: ValueKey(widgetUuid),
+          widgetProps: content,
+          pagePath: widget.pagePath,
+          contextData: contextData,
+        );
       default:
         return const SizedBox.shrink();
     }

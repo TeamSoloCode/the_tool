@@ -3,10 +3,10 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:the_tool/page_utils/should_update.widget.dart';
+import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
-import 'package:collection/collection.dart' show DeepCollectionEquality;
+import 'package:provider/provider.dart';
 
 class T_SelectField extends T_Widget {
   T_SelectField({
@@ -26,8 +26,9 @@ class T_SelectField extends T_Widget {
 }
 
 class _T_SelectFieldState extends State<T_SelectField> {
-  LayoutProps? prevWidgetProps;
-  LayoutProps? widgetProps;
+  Widget _snapshot = const SizedBox.shrink();
+  LayoutProps? _props;
+  LayoutProps? _prevProps;
   String? selectedValue;
 
   dynamic value;
@@ -35,36 +36,6 @@ class _T_SelectFieldState extends State<T_SelectField> {
 
   dynamic items;
   dynamic prevItems;
-
-  bool shouldWidgetUpdate() {
-    widgetProps = widget.widgetProps;
-    String? name = widgetProps?.name;
-    dynamic currentItems = widgetProps?.items ?? [];
-
-    var selectedValueInContext = widget.parentData[name];
-    if (currentItems is String) {
-      currentItems = widget.parentData[currentItems] ?? [];
-    }
-
-    bool isSameItems = false;
-
-    if (currentItems is List || currentItems == null) {
-      isSameItems =
-          const DeepCollectionEquality().equals(currentItems, prevItems);
-    } else {
-      assert(false, "Select field data should be List or null");
-    }
-
-    var shouldUpdate = (selectedValue != selectedValueInContext) ||
-        !isSameItems ||
-        !(selectedValueInContext == prevValue) ||
-        !const DeepCollectionEquality().equals(
-          prevWidgetProps,
-          widgetProps,
-        );
-
-    return shouldUpdate;
-  }
 
   List<DropdownMenuItem> _computeDropdownItems(dynamic value) {
     if (value is! List) return [];
@@ -80,7 +51,7 @@ class _T_SelectFieldState extends State<T_SelectField> {
   }
 
   void _onChangeOption(dynamic value) {
-    String name = widgetProps?.name ?? "";
+    String name = _props?.name ?? "";
     widget.setPageData({name: value});
     selectedValue = value;
   }
@@ -93,8 +64,6 @@ class _T_SelectFieldState extends State<T_SelectField> {
     value = widget.parentData[name];
     items = widgetProps?.items ?? [];
     assert(name != null, "Missing \"name\" in field widget");
-
-    prevWidgetProps = widgetProps;
 
     /** "items" property might be a string, that's mean it's a databinding */
     if (items is String) {
@@ -125,12 +94,30 @@ class _T_SelectFieldState extends State<T_SelectField> {
 
   @override
   Widget build(BuildContext context) {
-    return ShouldWidgetUpdate(
-      key: widget.getBindingKey(),
-      builder: (context) {
-        return _computeSelectField(widget.widgetProps, context);
-      },
-      shouldWidgetUpdate: shouldWidgetUpdate(),
+    Map<String, dynamic> contextData =
+        context.select((ContextStateProvider value) {
+      return Map<String, dynamic>.from(
+          value.contextData[widget.pagePath] ?? {});
+    });
+
+    _props = widget.utils.computeWidgetProps(
+      widget.widgetProps,
+      contextData,
     );
+
+    if (_props != null) {
+      if (_props == _prevProps) {
+        return _snapshot;
+      }
+
+      if (_props?.hidden == true) {
+        return const SizedBox.shrink();
+      }
+
+      _prevProps = _props;
+      _snapshot = _computeSelectField(_props, context);
+    }
+
+    return _snapshot;
   }
 }

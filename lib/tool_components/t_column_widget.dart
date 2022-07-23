@@ -44,7 +44,7 @@ class _T_ColumnState extends State<T_Column> {
 
   List<Widget> _getChildren() {
     var index = 0;
-    List<LayoutProps> children = widget.widgetProps.children ?? [];
+    List<LayoutProps> children = _props?.children ?? [];
     return children.map((child) {
       index++;
       return T_Widgets(

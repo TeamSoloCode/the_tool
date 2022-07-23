@@ -3,10 +3,12 @@ import 'dart:developer';
 import 'package:eventify/eventify.dart' as eventify;
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
+import 'package:provider/provider.dart';
 
 class T_Form extends T_Widget {
   T_Form({
@@ -28,8 +30,10 @@ class T_Form extends T_Widget {
 class _T_FormState extends State<T_Form> {
   final _formKey = GlobalKey<FormBuilderState>();
   UtilsManager utils = getIt<UtilsManager>();
-  LayoutProps? prevWidgetProps;
-  LayoutProps? widgetProps;
+  Widget _snapshot = const SizedBox.shrink();
+  LayoutProps? _props;
+  LayoutProps? _prevProps;
+
   Map<String, FormBuilderFieldState<FormBuilderField<dynamic>, dynamic>>?
       prevFields;
 
@@ -77,8 +81,29 @@ class _T_FormState extends State<T_Form> {
 
   @override
   Widget build(BuildContext context) {
+    Map<String, dynamic> contextData =
+        context.select((ContextStateProvider value) {
+      return Map<String, dynamic>.from(
+          value.contextData[widget.pagePath] ?? {});
+    });
+
+    _props = widget.utils.computeWidgetProps(
+      widget.widgetProps,
+      contextData,
+    );
+
+    if (_props == _prevProps) {
+      return _snapshot;
+    }
+
+    if (_props?.hidden == true) {
+      return const SizedBox.shrink();
+    }
+
+    _prevProps = _props;
+
     assert(
-      widget.widgetProps.name != null,
+      _props?.name != null,
       "Form need to have name property",
     );
 
@@ -87,15 +112,17 @@ class _T_FormState extends State<T_Form> {
       field.setValue(widget.parentData[key]);
     });
 
-    return FormBuilder(
+    _snapshot = FormBuilder(
       key: _formKey,
       autoFocusOnValidationFailure: true,
       autovalidateMode: AutovalidateMode.disabled,
       child: T_Widgets(
-        layout: widget.widgetProps.child ?? const LayoutProps(),
+        layout: _props?.child ?? const LayoutProps(),
         pagePath: widget.pagePath,
         contextData: widget.parentData,
       ),
     );
+
+    return _snapshot;
   }
 }

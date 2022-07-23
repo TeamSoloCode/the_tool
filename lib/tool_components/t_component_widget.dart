@@ -100,7 +100,7 @@ class _T_ComponentState extends State<T_Component>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    var path = widget.widgetProps.path;
+    var path = _props?.path;
 
     if (path == null || !isReady) {
       return const SizedBox.shrink();
