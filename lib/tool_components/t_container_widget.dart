@@ -45,41 +45,37 @@ class _T_ContainerState extends State<T_Container> {
       contextData,
     );
 
-    if (_props != null) {
-      if (_props == _prevProps) {
-        return _snapshot;
-      }
-
-      if (_props?.hidden == true) {
-        return const SizedBox.shrink();
-      }
-
-      _prevProps = _props;
-
-      var cssColor = _props?.backgroundColor;
-      Color? color = cssColor != null ? fromCssColor(cssColor) : null;
-
-      _snapshot = Container(
-        key: widget.getBindingKey() ?? ValueKey(widgetUuid),
-        height: _props?.height,
-        width: _props?.width,
-        margin: ThemeDecoder.decodeEdgeInsetsGeometry(_props?.margin),
-        constraints: BoxConstraints(
-          maxHeight: _props?.maxHeight,
-          maxWidth: _props?.maxWidth,
-          minHeight: _props?.minHeight,
-          minWidth: _props?.minWidth,
-        ),
-        color: color,
-        child: T_Widgets(
-          layout: _props?.child ?? const LayoutProps(),
-          pagePath: widget.pagePath,
-          contextData: contextData,
-        ),
-      );
-
+    if (_props == _prevProps) {
       return _snapshot;
     }
+
+    if (_props?.hidden == true) {
+      return const SizedBox.shrink();
+    }
+
+    _prevProps = _props;
+
+    var cssColor = _props?.backgroundColor;
+    Color? color = cssColor != null ? fromCssColor(cssColor) : null;
+
+    _snapshot = Container(
+      key: widget.getBindingKey() ?? ValueKey(widgetUuid),
+      height: _props?.height,
+      width: _props?.width,
+      margin: ThemeDecoder.decodeEdgeInsetsGeometry(_props?.margin),
+      constraints: BoxConstraints(
+        maxHeight: _props?.maxHeight,
+        maxWidth: _props?.maxWidth,
+        minHeight: _props?.minHeight,
+        minWidth: _props?.minWidth,
+      ),
+      color: color,
+      child: T_Widgets(
+        layout: _props?.child ?? const LayoutProps(),
+        pagePath: widget.pagePath,
+        contextData: contextData,
+      ),
+    );
 
     return _snapshot;
   }

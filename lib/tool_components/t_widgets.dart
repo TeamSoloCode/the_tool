@@ -46,12 +46,10 @@ class _T_WidgetsState extends State<T_Widgets> {
 
   Widget _getWidget(Map<String, dynamic> contextData) {
     LayoutProps content = widget.layout.content ?? widget.layout;
-
+    debugPrint("abcd ${content.type}");
     if (tWidgets != null) {
       return tWidgets ?? const SizedBox.shrink();
     }
-
-    debugPrint("abcd ${content.type}");
 
     switch (content.type) {
       case "text":
