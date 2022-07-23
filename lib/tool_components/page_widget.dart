@@ -140,6 +140,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
   List<Widget> _computeBottomNavigationPages(
     BottomNavigationProps? bottomNavConfig,
   ) {
+    var size = MediaQuery.of(context).size;
     if (bottomNavConfig == null || bottomNavConfig.items == null) {
       return [];
     }
@@ -151,9 +152,14 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
       }
 
       ValueKey pageKey = ValueKey(item.path!);
-      return T_Page(
-        key: pageKey,
-        pagePath: item.path!,
+
+      return SizedBox(
+        height: size.height,
+        width: size.width,
+        child: T_Page(
+          key: pageKey,
+          pagePath: item.path!,
+        ),
       );
     }).toList();
 
