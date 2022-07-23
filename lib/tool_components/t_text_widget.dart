@@ -8,7 +8,7 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:provider/provider.dart';
 
-class T_Text extends T_Widget {
+class T_Text extends T_StatelessWidget {
   T_Text({
     Key? key,
     required widgetProps,
@@ -19,41 +19,24 @@ class T_Text extends T_Widget {
           widgetProps: widgetProps,
           parentData: contextData,
           pagePath: pagePath,
-        );
+        ) {
+    debugPrint("T_Text");
+  }
 
-  @override
-  State<T_Text> createState() => _T_TextState();
-}
-
-class _T_TextState extends State<T_Text> {
   var text = "";
   Widget _snapshot = const SizedBox.shrink();
   LayoutProps? _props;
   LayoutProps? _prevProps;
 
-  Future<void> _computeProps(Map<String, dynamic> contextData) async {
-    var nextProps = await widget.utils.computeWidgetProps(
-      widget.widgetProps,
-      contextData,
-    );
-
-    if (_props != nextProps) {
-      setState(() {
-        _props = nextProps;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     Map<String, dynamic> contextData =
         context.select((ContextStateProvider value) {
-      return Map<String, dynamic>.from(
-          value.contextData[widget.pagePath] ?? {});
+      return Map<String, dynamic>.from(value.contextData[pagePath] ?? {});
     });
 
-    _props = widget.utils.computeWidgetProps(
-      widget.widgetProps,
+    _props = utils.computeWidgetProps(
+      widgetProps,
       contextData,
     );
 

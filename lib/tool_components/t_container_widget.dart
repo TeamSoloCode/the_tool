@@ -10,7 +10,7 @@ import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:uuid/uuid.dart';
 import 'package:provider/provider.dart';
 
-class T_Container extends T_Widget {
+class T_Container extends T_StatelessWidget {
   T_Container({
     Key? key,
     required widgetProps,
@@ -22,12 +22,7 @@ class T_Container extends T_Widget {
           parentData: contextData,
           pagePath: pagePath,
         );
-  @override
-  State<T_Container> createState() => _T_ContainerState();
-}
 
-class _T_ContainerState extends State<T_Container> {
-  final widgetUuid = const Uuid().v4();
   LayoutProps? _props;
   LayoutProps? _prevProps;
   Widget _snapshot = const SizedBox.shrink();
@@ -36,12 +31,11 @@ class _T_ContainerState extends State<T_Container> {
   Widget build(BuildContext context) {
     Map<String, dynamic> contextData =
         context.select((ContextStateProvider value) {
-      return Map<String, dynamic>.from(
-          value.contextData[widget.pagePath] ?? {});
+      return Map<String, dynamic>.from(value.contextData[pagePath] ?? {});
     });
 
-    _props = widget.utils.computeWidgetProps(
-      widget.widgetProps,
+    _props = utils.computeWidgetProps(
+      widgetProps,
       contextData,
     );
 
@@ -59,7 +53,7 @@ class _T_ContainerState extends State<T_Container> {
     Color? color = cssColor != null ? fromCssColor(cssColor) : null;
 
     _snapshot = Container(
-      key: widget.getBindingKey() ?? ValueKey(widgetUuid),
+      key: getBindingKey(),
       height: _props?.height,
       width: _props?.width,
       margin: ThemeDecoder.decodeEdgeInsetsGeometry(_props?.margin),
@@ -72,7 +66,7 @@ class _T_ContainerState extends State<T_Container> {
       color: color,
       child: T_Widgets(
         layout: _props?.child ?? const LayoutProps(),
-        pagePath: widget.pagePath,
+        pagePath: pagePath,
         contextData: contextData,
       ),
     );

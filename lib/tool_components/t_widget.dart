@@ -40,3 +40,40 @@ abstract class T_Widget extends StatefulWidget {
     );
   }
 }
+
+abstract class T_StatelessWidget extends StatelessWidget {
+  final LayoutProps widgetProps;
+  final Map<String, dynamic> parentData;
+  final String pagePath;
+  final UtilsManager utils = getIt<UtilsManager>();
+  final String? widgetUuid;
+
+  T_StatelessWidget({
+    Key? key,
+    required this.widgetProps,
+    required this.parentData,
+    required this.pagePath,
+    this.widgetUuid,
+  }) : super(key: key);
+
+  Future<void> executeJSWithPagePath(String jsCode) async {
+    await utils.evalJS?.executeJS(jsCode, pagePath);
+  }
+
+  Key? getBindingKey() {
+    var rawKey = widgetProps.key;
+    if (rawKey == null) return key;
+    if (UtilsManager.isValueBinding(rawKey)) {
+      var bindingValue = utils.bindingValueToText(parentData, rawKey);
+      return ValueKey(bindingValue);
+    }
+
+    return ValueKey(rawKey);
+  }
+
+  Future<void> setPageData(Map<String, dynamic> newData) async {
+    await executeJSWithPagePath(
+      "setPageData(JSON.parse('${json.encode(newData)}'));",
+    );
+  }
+}

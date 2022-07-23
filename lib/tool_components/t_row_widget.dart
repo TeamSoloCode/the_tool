@@ -7,7 +7,7 @@ import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
-class T_Row extends T_Widget {
+class T_Row extends T_StatelessWidget {
   T_Row({
     Key? key,
     required widgetProps,
@@ -20,28 +20,9 @@ class T_Row extends T_Widget {
           pagePath: pagePath,
         );
 
-  @override
-  State<T_Row> createState() => _T_RowState();
-}
-
-class _T_RowState extends State<T_Row> {
-  final widgetUuid = const Uuid().v4();
   LayoutProps? _props;
   LayoutProps? _prevProps;
   Widget _snapshot = const SizedBox.shrink();
-
-  Future<void> _computeProps(Map<String, dynamic> contextData) async {
-    var nextProps = await widget.utils.computeWidgetProps(
-      widget.widgetProps,
-      contextData,
-    );
-
-    if (_props != nextProps) {
-      setState(() {
-        _props = nextProps;
-      });
-    }
-  }
 
   List<Widget> _computeChildren(
     List<dynamic>? children,
@@ -50,7 +31,7 @@ class _T_RowState extends State<T_Row> {
     return (children ?? []).map((child) {
       return T_Widgets(
         layout: child,
-        pagePath: widget.pagePath,
+        pagePath: pagePath,
         contextData: contextData,
       );
     }).toList();
@@ -60,12 +41,11 @@ class _T_RowState extends State<T_Row> {
   Widget build(BuildContext context) {
     Map<String, dynamic> contextData =
         context.select((ContextStateProvider value) {
-      return Map<String, dynamic>.from(
-          value.contextData[widget.pagePath] ?? {});
+      return Map<String, dynamic>.from(value.contextData[pagePath] ?? {});
     });
 
-    _props = widget.utils.computeWidgetProps(
-      widget.widgetProps,
+    _props = utils.computeWidgetProps(
+      widgetProps,
       contextData,
     );
 
@@ -86,7 +66,7 @@ class _T_RowState extends State<T_Row> {
           MainAxisAlignment.start;
 
       _snapshot = Row(
-        key: widget.getBindingKey() ?? ValueKey(widgetUuid),
+        key: getBindingKey(),
         mainAxisAlignment: mainAxisAlignment,
         children: _computeChildren(_props?.children, contextData),
       );

@@ -5,11 +5,9 @@ import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
-import 'package:the_tool/utils.dart';
-import 'package:uuid/uuid.dart';
 import 'package:provider/provider.dart';
 
-class T_ScrollView extends T_Widget {
+class T_ScrollView extends T_StatelessWidget {
   T_ScrollView({
     Key? key,
     required widgetProps,
@@ -22,31 +20,11 @@ class T_ScrollView extends T_Widget {
           pagePath: pagePath,
         );
 
-  @override
-  State<T_ScrollView> createState() => _T_ScrollViewState();
-}
-
-class _T_ScrollViewState extends State<T_ScrollView> {
   List<Widget> _items = [];
-  final widgetUuid = const Uuid().v4();
   LayoutProps? _props;
   LayoutProps? _prevProps;
   Widget _snapshot = const SizedBox.shrink();
   Map<String, dynamic> _contextData = {};
-
-  Future<void> _computeProps(Map<String, dynamic> contextData) async {
-    if (_props == null || _props != _prevProps) {
-      var nextProps = await widget.utils.computeWidgetProps(
-        widget.widgetProps,
-        contextData,
-      );
-
-      setState(() {
-        _prevProps = _props;
-        _props = nextProps;
-      });
-    }
-  }
 
   List<Widget> _computeChildren(
       List<dynamic>? children, Map<String, dynamic> contextData) {
@@ -56,7 +34,7 @@ class _T_ScrollViewState extends State<T_ScrollView> {
       var tWidget = T_Widgets(
         key: ValueKey(index),
         layout: child,
-        pagePath: widget.pagePath,
+        pagePath: pagePath,
         contextData: contextData,
       );
       return tWidget;
@@ -66,12 +44,11 @@ class _T_ScrollViewState extends State<T_ScrollView> {
   @override
   Widget build(BuildContext context) {
     _contextData = context.select((ContextStateProvider value) {
-      return Map<String, dynamic>.from(
-          value.contextData[widget.pagePath] ?? {});
+      return Map<String, dynamic>.from(value.contextData[pagePath] ?? {});
     });
 
-    _props = widget.utils.computeWidgetProps(
-      widget.widgetProps,
+    _props = utils.computeWidgetProps(
+      widgetProps,
       _contextData,
     );
 
@@ -95,7 +72,7 @@ class _T_ScrollViewState extends State<T_ScrollView> {
       }
 
       _snapshot = CustomScrollView(
-        key: widget.getBindingKey() ?? ValueKey(widgetUuid),
+        key: getBindingKey(),
         slivers: [
           if (_props?.sliverListType == "fixed_extent_list")
             SliverFixedExtentList(
