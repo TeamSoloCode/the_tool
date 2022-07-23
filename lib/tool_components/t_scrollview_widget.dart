@@ -43,63 +43,59 @@ class T_ScrollView extends T_StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _contextData = context.select((ContextStateProvider value) {
-      return Map<String, dynamic>.from(value.contextData[pagePath] ?? {});
-    });
-
-    _props = utils.computeWidgetProps(
-      widgetProps,
-      _contextData,
-    );
-
-    if (_props != null) {
-      if (_props == _prevProps) {
-        return _snapshot;
-      }
-
-      if (_props?.hidden == true) {
-        return const SizedBox.shrink();
-      }
-
-      _prevProps = _props;
-
-      _items = _computeChildren(_props?.children, _contextData);
-      if (_props?.sliverListType == "fixed_extent_list") {
-        assert(
-          _props?.itemExtent != null,
-          "If sliverListType = \"fixed_extent_list\", please provide \"itemExtent\" with type number",
-        );
-      }
-
-      _snapshot = CustomScrollView(
-        key: getBindingKey(),
-        slivers: [
-          if (_props?.sliverListType == "fixed_extent_list")
-            SliverFixedExtentList(
-              key: const ValueKey<String>('sliver-fixed-list'),
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  return _items.elementAt(index);
-                },
-                childCount: _items.length,
-              ),
-              itemExtent: _props?.itemExtent ?? 100,
-            ),
-          if (_props?.sliverListType == null)
-            SliverList(
-              key: const ValueKey<String>('sliver-list'),
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  return _items.elementAt(index);
-                },
-                childCount: _items.length,
-              ),
-            )
-        ],
+    _props = context.select((ContextStateProvider value) {
+      var data = Map<String, dynamic>.from(
+        value.contextData[pagePath] ?? {},
       );
 
-      return _snapshot;
+      _contextData = data;
+
+      return utils.computeWidgetProps(
+        widgetProps,
+        data,
+      );
+    });
+
+    if (_props?.hidden == true) {
+      return const SizedBox.shrink();
     }
+
+    _prevProps = _props;
+
+    _items = _computeChildren(_props?.children, _contextData);
+    if (_props?.sliverListType == "fixed_extent_list") {
+      assert(
+        _props?.itemExtent != null,
+        "If sliverListType = \"fixed_extent_list\", please provide \"itemExtent\" with type number",
+      );
+    }
+
+    _snapshot = CustomScrollView(
+      key: getBindingKey(),
+      slivers: [
+        if (_props?.sliverListType == "fixed_extent_list")
+          SliverFixedExtentList(
+            key: const ValueKey<String>('sliver-fixed-list'),
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return _items.elementAt(index);
+              },
+              childCount: _items.length,
+            ),
+            itemExtent: _props?.itemExtent ?? 100,
+          ),
+        if (_props?.sliverListType == null)
+          SliverList(
+            key: const ValueKey<String>('sliver-list'),
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return _items.elementAt(index);
+              },
+              childCount: _items.length,
+            ),
+          )
+      ],
+    );
 
     return _snapshot;
   }

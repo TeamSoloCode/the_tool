@@ -25,36 +25,35 @@ class T_Expanded extends T_StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _contextData = context.select((ContextStateProvider value) {
-      return Map<String, dynamic>.from(value.contextData[pagePath] ?? {});
+    Map<String, dynamic>? contextData = {};
+    _props = context.select((ContextStateProvider value) {
+      var data = Map<String, dynamic>.from(
+        value.contextData[pagePath] ?? {},
+      );
+
+      contextData = data;
+
+      return utils.computeWidgetProps(
+        widgetProps,
+        data,
+      );
     });
 
-    _props = utils.computeWidgetProps(
-      widgetProps,
-      _contextData,
-    );
-
-    if (_props != null) {
-      if (_props == _prevProps) {
-        return _snapshot;
-      }
-
-      if (_props?.hidden == true) {
-        return const SizedBox.shrink();
-      }
-
-      _prevProps = _props;
-
-      _snapshot = Expanded(
-        key: getBindingKey(),
-        flex: _props?.flex ?? 1,
-        child: T_Widgets(
-          layout: _props?.child ?? const LayoutProps(),
-          pagePath: pagePath,
-          contextData: parentData,
-        ),
-      );
+    if (_props?.hidden == true) {
+      return const SizedBox.shrink();
     }
+
+    _prevProps = _props;
+
+    _snapshot = Expanded(
+      key: getBindingKey(),
+      flex: _props?.flex ?? 1,
+      child: T_Widgets(
+        layout: _props?.child ?? const LayoutProps(),
+        pagePath: pagePath,
+        contextData: parentData,
+      ),
+    );
 
     return _snapshot;
   }

@@ -29,19 +29,21 @@ class T_Container extends T_StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> contextData =
-        context.select((ContextStateProvider value) {
-      return Map<String, dynamic>.from(value.contextData[pagePath] ?? {});
+    Map<String, dynamic> contextData = Map<String, dynamic>.from({});
+    _props = context.select((ContextStateProvider value) {
+      var data = Map<String, dynamic>.from(
+        value.contextData[pagePath] ?? {},
+      );
+
+      contextData = data;
+
+      return utils.computeWidgetProps(
+        widgetProps,
+        data,
+      );
     });
 
-    _props = utils.computeWidgetProps(
-      widgetProps,
-      contextData,
-    );
-
-    if (_props == _prevProps) {
-      return _snapshot;
-    }
+    debugPrint("T_Container");
 
     if (_props?.hidden == true) {
       return const SizedBox.shrink();

@@ -39,38 +39,36 @@ class T_Row extends T_StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> contextData =
-        context.select((ContextStateProvider value) {
-      return Map<String, dynamic>.from(value.contextData[pagePath] ?? {});
+    Map<String, dynamic> contextData = Map<String, dynamic>.from({});
+    _props = context.select((ContextStateProvider value) {
+      var data = Map<String, dynamic>.from(
+        value.contextData[pagePath] ?? {},
+      );
+
+      contextData = data;
+
+      return utils.computeWidgetProps(
+        widgetProps,
+        data,
+      );
     });
 
-    _props = utils.computeWidgetProps(
-      widgetProps,
-      contextData,
-    );
-
-    if (_props != null) {
-      if (_props == _prevProps) {
-        return _snapshot;
-      }
-
-      if (_props?.hidden == true) {
-        return const SizedBox.shrink();
-      }
-
-      _prevProps = _props;
-
-      var mainAxisAlignment = ThemeDecoder.decodeMainAxisAlignment(
-            _props?.mainAxisAlignment,
-          ) ??
-          MainAxisAlignment.start;
-
-      _snapshot = Row(
-        key: getBindingKey(),
-        mainAxisAlignment: mainAxisAlignment,
-        children: _computeChildren(_props?.children, contextData),
-      );
+    if (_props?.hidden == true) {
+      return const SizedBox.shrink();
     }
+
+    _prevProps = _props;
+
+    var mainAxisAlignment = ThemeDecoder.decodeMainAxisAlignment(
+          _props?.mainAxisAlignment,
+        ) ??
+        MainAxisAlignment.start;
+
+    _snapshot = Row(
+      key: getBindingKey(),
+      mainAxisAlignment: mainAxisAlignment,
+      children: _computeChildren(_props?.children, contextData),
+    );
     return _snapshot;
   }
 }

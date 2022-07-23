@@ -38,31 +38,29 @@ class T_Column extends T_StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> contextData =
-        context.select((ContextStateProvider value) {
-      return Map<String, dynamic>.from(value.contextData[pagePath] ?? {});
+    Map<String, dynamic>? contextData = {};
+    _props = context.select((ContextStateProvider value) {
+      var data = Map<String, dynamic>.from(
+        value.contextData[pagePath] ?? {},
+      );
+
+      contextData = data;
+
+      return utils.computeWidgetProps(
+        widgetProps,
+        data,
+      );
     });
 
-    _props = utils.computeWidgetProps(
-      widgetProps,
-      contextData,
-    );
-
-    if (_props != null) {
-      if (_props == _prevProps) {
-        return _snapshot;
-      }
-
-      if (_props?.hidden == true) {
-        return const SizedBox.shrink();
-      }
-
-      _prevProps = _props;
-      _snapshot = Column(
-        key: getBindingKey(),
-        children: _getChildren(),
-      );
+    if (_props?.hidden == true) {
+      return const SizedBox.shrink();
     }
+
+    _prevProps = _props;
+    _snapshot = Column(
+      key: getBindingKey(),
+      children: _getChildren(),
+    );
 
     return _snapshot;
   }
