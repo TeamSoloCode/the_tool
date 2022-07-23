@@ -135,10 +135,10 @@ class UtilsManager {
   static isFalsy(dynamic data) =>
       ["", "false", "null", "0", "undefined", null, false].contains(data);
 
-  Future<LayoutProps?> computeWidgetProps(
+  LayoutProps computeWidgetProps(
     LayoutProps content,
     Map<String, dynamic> contextData,
-  ) async {
+  ) {
     var hidden = bindingValueToProp(
       contextData,
       content.hidden,

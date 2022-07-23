@@ -21,7 +21,6 @@ import 'package:the_tool/tool_components/t_icon_widget.dart';
 import 'package:the_tool/tool_components/t_row_widget.dart';
 import 'package:the_tool/tool_components/t_scrollview_widget.dart';
 import 'package:the_tool/tool_components/t_text_widget.dart';
-import 'package:the_tool/utils.dart';
 import 'package:collection/collection.dart' show DeepCollectionEquality;
 import 'package:uuid/uuid.dart';
 
@@ -42,11 +41,10 @@ class T_Widgets extends StatefulWidget {
 }
 
 class _T_WidgetsState extends State<T_Widgets> {
-  UtilsManager utils = getIt<UtilsManager>();
   Widget? tWidgets;
   final widgetUuid = const Uuid().v4();
 
-  Future<Widget> _getWidget(Map<String, dynamic> contextData) async {
+  Widget _getWidget(Map<String, dynamic> contextData) {
     LayoutProps content = widget.layout.content ?? widget.layout;
 
     if (tWidgets != null) {
@@ -153,7 +151,7 @@ class _T_WidgetsState extends State<T_Widgets> {
     if (!const DeepCollectionEquality().equals(prevContextData, contextData)) {
       // Stopwatch stopwatch = Stopwatch()..start();
 
-      var newTWidgets = await _getWidget(contextData[widget.pagePath] ?? {});
+      var newTWidgets = _getWidget(contextData[widget.pagePath] ?? {});
 
       setState(() {
         prevContextData.addAll(contextData);

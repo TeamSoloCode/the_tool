@@ -64,7 +64,11 @@ class _T_ColumnState extends State<T_Column> {
           value.contextData[widget.pagePath] ?? {});
     });
 
-    _computeProps(contextData);
+    _props = widget.utils.computeWidgetProps(
+      widget.widgetProps,
+      contextData,
+    );
+
     if (_props != null) {
       if (_props == _prevProps) {
         return _snapshot;

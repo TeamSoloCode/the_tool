@@ -64,7 +64,10 @@ class _T_GridState extends State<T_Grid> {
           value.contextData[widget.pagePath] ?? {});
     });
 
-    _computeProps(contextData);
+    _props = widget.utils.computeWidgetProps(
+      widget.widgetProps,
+      contextData,
+    );
 
     if (_props != null) {
       if (_props == _prevProps) {

@@ -74,7 +74,10 @@ class _T_ComponentState extends State<T_Component>
     _componentId = "${componentPath}_${const Uuid().v4()}";
     var contextData =
         getIt<ContextStateProvider>().contextData[widget.pagePath];
-    _props = await _computeProps(contextData);
+    _props = widget.utils.computeWidgetProps(
+      widget.widgetProps,
+      contextData,
+    );
 
     await _utils.evalJS?.registerSubComponent(
       componentCode: _pageInfo["code"],

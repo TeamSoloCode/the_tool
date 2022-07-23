@@ -48,7 +48,10 @@ class _T_IconState extends State<T_Icon> {
           value.contextData[widget.pagePath] ?? {});
     });
 
-    _computeProps(contextData);
+    _props = widget.utils.computeWidgetProps(
+      widget.widgetProps,
+      contextData,
+    );
 
     if (_props != null) {
       if (_props == _prevProps) {

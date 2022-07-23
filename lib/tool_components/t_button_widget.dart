@@ -66,19 +66,6 @@ class _T_ButtonState extends State<T_Button> {
     }
   }
 
-  Future<void> _computeProps(Map<String, dynamic> contextData) async {
-    var nextProps = await widget.utils.computeWidgetProps(
-      widget.widgetProps,
-      contextData,
-    );
-
-    if (_props != nextProps) {
-      setState(() {
-        _props = nextProps;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     Map<String, dynamic> contextData =
@@ -87,7 +74,10 @@ class _T_ButtonState extends State<T_Button> {
           value.contextData[widget.pagePath] ?? {});
     });
 
-    _computeProps(contextData);
+    _props = widget.utils.computeWidgetProps(
+      widget.widgetProps,
+      contextData,
+    );
 
     if (_props != null) {
       if (_props == _prevProps) {

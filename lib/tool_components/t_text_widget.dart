@@ -52,7 +52,10 @@ class _T_TextState extends State<T_Text> {
           value.contextData[widget.pagePath] ?? {});
     });
 
-    _computeProps(contextData);
+    _props = widget.utils.computeWidgetProps(
+      widget.widgetProps,
+      contextData,
+    );
 
     if (_props != null) {
       if (_props == _prevProps) {
