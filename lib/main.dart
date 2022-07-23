@@ -44,7 +44,13 @@ void main() async {
     providers: [
       ChangeNotifierProvider(create: (_) => getIt<ContextStateProvider>()),
       ChangeNotifierProvider(
-        create: (context) => ThemeProvider(context: context),
+        create: (context) {
+          getIt.registerSingleton<ThemeProvider>(
+            ThemeProvider(context: context),
+            signalsReady: true,
+          );
+          return getIt<ThemeProvider>();
+        },
       )
     ],
     child: const MyApp(),

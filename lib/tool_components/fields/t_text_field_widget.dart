@@ -10,21 +10,18 @@ import 'package:collection/collection.dart' show DeepCollectionEquality;
 import 'package:the_tool/page_utils/should_update.widget.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
-import 'package:the_tool/utils.dart';
 
 class T_TextField extends T_Widget {
-  UtilsManager utils = getIt<UtilsManager>();
-
   T_TextField({
     Key? key,
-    required executeJS,
     required widgetProps,
     required contextData,
+    required pagePath,
   }) : super(
           key: key,
           widgetProps: widgetProps,
-          executeJS: executeJS,
-          contextData: contextData,
+          parentData: contextData,
+          pagePath: pagePath,
         );
 
   @override
@@ -50,7 +47,7 @@ class _T_TextFieldState extends State<T_TextField> {
   bool shouldWidgetUpdate() {
     widgetProps = widget.widgetProps;
     String? name = widgetProps?.name;
-    String newText = widget.contextData[name] ?? "";
+    String newText = widget.parentData[name] ?? "";
 
     if (prevValue != newText) {
       // To fix bug setState during build
@@ -77,7 +74,7 @@ class _T_TextFieldState extends State<T_TextField> {
     if (_debounce?.isActive ?? false) _debounce?.cancel();
 
     _debounce = Timer(const Duration(milliseconds: 200), () {
-      String newText = widget.contextData[name] ?? "";
+      String newText = widget.parentData[name] ?? "";
       if (newText != text && name != null) {
         widget.setPageData({name: text});
         prevValue = text == "" ? null : text;

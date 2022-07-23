@@ -9,19 +9,16 @@ import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
 
 class T_Form extends T_Widget {
-  final String pagePath;
-
   T_Form({
     Key? key,
-    required executeJS,
     required widgetProps,
     required contextData,
-    required this.pagePath,
+    required pagePath,
   }) : super(
           key: key,
           widgetProps: widgetProps,
-          executeJS: executeJS,
-          contextData: contextData,
+          parentData: contextData,
+          pagePath: pagePath,
         );
 
   @override
@@ -87,7 +84,7 @@ class _T_FormState extends State<T_Form> {
 
     var fields = _formKey.currentState?.fields;
     fields?.forEach((key, field) {
-      field.setValue(widget.contextData[key]);
+      field.setValue(widget.parentData[key]);
     });
 
     return FormBuilder(
@@ -97,7 +94,7 @@ class _T_FormState extends State<T_Form> {
       child: T_Widgets(
         layout: widget.widgetProps.child ?? const LayoutProps(),
         pagePath: widget.pagePath,
-        contextData: widget.contextData,
+        contextData: widget.parentData,
       ),
     );
   }

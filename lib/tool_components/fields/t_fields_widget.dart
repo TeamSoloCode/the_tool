@@ -15,14 +15,14 @@ class T_Fields extends T_Widget {
 
   T_Fields({
     Key? key,
-    required executeJS,
     required widgetProps,
     required contextData,
+    required pagePath,
   }) : super(
           key: key,
           widgetProps: widgetProps,
-          executeJS: executeJS,
-          contextData: contextData,
+          parentData: contextData,
+          pagePath: pagePath,
         );
 
   @override
@@ -49,7 +49,7 @@ class _T_FieldsState extends State<T_Fields> {
     widgetProps = widget.widgetProps;
     String? name = widgetProps?.name;
 
-    value = widget.contextData[name] ?? "";
+    value = widget.parentData[name] ?? "";
     bool isSameValue = false;
 
     if (value is Map || value is List) {
@@ -79,15 +79,15 @@ class _T_FieldsState extends State<T_Fields> {
     switch (fieldType) {
       case "text":
         return T_TextField(
-          executeJS: widget.executeJS,
+          pagePath: widget.pagePath,
           widgetProps: widgetProps,
-          contextData: widget.contextData,
+          contextData: widget.parentData,
         );
       case "select":
         return T_SelectField(
-          executeJS: widget.executeJS,
+          pagePath: widget.pagePath,
           widgetProps: widgetProps,
-          contextData: widget.contextData,
+          contextData: widget.parentData,
         );
       default:
         throw Exception("$fieldType field type is not supported!");

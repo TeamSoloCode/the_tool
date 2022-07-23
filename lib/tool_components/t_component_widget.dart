@@ -12,18 +12,16 @@ import 'package:the_tool/utils.dart';
 import 'package:uuid/uuid.dart';
 
 class T_Component extends T_Widget {
-  final String pagePath;
   T_Component({
     Key? key,
-    required executeJS,
     required widgetProps,
-    required this.pagePath,
+    required pagePath,
     required contextData,
   }) : super(
           key: key,
           widgetProps: widgetProps,
-          executeJS: executeJS,
-          contextData: contextData,
+          parentData: contextData,
+          pagePath: pagePath,
         );
 
   @override
@@ -37,6 +35,17 @@ class _T_ComponentState extends State<T_Component>
   String _componentId = "";
   Map<String, dynamic> _pageInfo = {};
   bool isReady = false;
+
+  LayoutProps? _props;
+  LayoutProps? _prevProps;
+  Widget _snapshot = const SizedBox.shrink();
+
+  Future<LayoutProps?> _computeProps(Map<String, dynamic> contextData) async {
+    return await widget.utils.computeWidgetProps(
+      widget.widgetProps,
+      contextData,
+    );
+  }
 
   @override
   void initState() {
@@ -63,14 +72,16 @@ class _T_ComponentState extends State<T_Component>
     _pageLayout = LayoutProps.fromJson(layout);
 
     _componentId = "${componentPath}_${const Uuid().v4()}";
+    var contextData =
+        getIt<ContextStateProvider>().contextData[widget.pagePath];
+    _props = await _computeProps(contextData);
 
     await _utils.evalJS?.registerSubComponent(
       componentCode: _pageInfo["code"],
       componentPath: _componentId,
       parentPagePath: widget.pagePath,
-      componentPropsAsJSON: widget.widgetProps.componentProps ?? {},
-      computedComponentPropsAsJSON:
-          widget.widgetProps.computedComponentProps ?? {},
+      componentPropsAsJSON: _props?.componentProps ?? {},
+      computedComponentPropsAsJSON: _props?.computedComponentProps ?? {},
     );
 
     Future.delayed(Duration.zero, () async {

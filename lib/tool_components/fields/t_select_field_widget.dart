@@ -11,14 +11,14 @@ import 'package:collection/collection.dart' show DeepCollectionEquality;
 class T_SelectField extends T_Widget {
   T_SelectField({
     Key? key,
-    required executeJS,
     required widgetProps,
     required contextData,
+    required pagePath,
   }) : super(
           key: key,
           widgetProps: widgetProps,
-          executeJS: executeJS,
-          contextData: contextData,
+          parentData: contextData,
+          pagePath: pagePath,
         );
 
   @override
@@ -41,9 +41,9 @@ class _T_SelectFieldState extends State<T_SelectField> {
     String? name = widgetProps?.name;
     dynamic currentItems = widgetProps?.items ?? [];
 
-    var selectedValueInContext = widget.contextData[name];
+    var selectedValueInContext = widget.parentData[name];
     if (currentItems is String) {
-      currentItems = widget.contextData[currentItems] ?? [];
+      currentItems = widget.parentData[currentItems] ?? [];
     }
 
     bool isSameItems = false;
@@ -90,7 +90,7 @@ class _T_SelectFieldState extends State<T_SelectField> {
     BuildContext context,
   ) {
     String? name = widgetProps?.name;
-    value = widget.contextData[name];
+    value = widget.parentData[name];
     items = widgetProps?.items ?? [];
     assert(name != null, "Missing \"name\" in field widget");
 
@@ -98,7 +98,7 @@ class _T_SelectFieldState extends State<T_SelectField> {
 
     /** "items" property might be a string, that's mean it's a databinding */
     if (items is String) {
-      items = widget.contextData[items] ?? [];
+      items = widget.parentData[items] ?? [];
     }
 
     prevValue = value;

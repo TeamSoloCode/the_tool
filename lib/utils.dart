@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/services.dart';
@@ -6,6 +7,9 @@ import 'package:get_it/get_it.dart';
 import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
     if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_utils/web_eval_js.dart';
 import 'package:eventify/eventify.dart' as eventify;
+import 'package:the_tool/page_utils/style_utils.dart';
+import 'package:the_tool/page_utils/theme_provider.dart';
+import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -130,4 +134,175 @@ class UtilsManager {
 
   static isFalsy(dynamic data) =>
       ["", "false", "null", "0", "undefined", null, false].contains(data);
+
+  Future<LayoutProps?> computeWidgetProps(
+    LayoutProps content,
+    Map<String, dynamic> contextData,
+  ) async {
+    var hidden = bindingValueToProp(
+      contextData,
+      content.hidden,
+    );
+
+    if (!UtilsManager.isFalsy(hidden)) {
+      return const LayoutProps(hidden: true);
+    }
+
+    var themeProvider = getIt<ThemeProvider>();
+    LayoutProps? widgetProps =
+        themeProvider.mergeClasses(content, contextData) ?? const LayoutProps();
+
+    if (widgetProps.color != null) {
+      widgetProps = widgetProps.copyWith(
+          color: parseColor(
+        widgetProps.color,
+        contextData,
+      ));
+    }
+    if (widgetProps.backgroundColor != null) {
+      var backgroundColor = widgetProps.backgroundColor;
+      var isBindingValue = UtilsManager.isValueBinding(backgroundColor);
+      widgetProps = widgetProps.copyWith(
+        backgroundColor: parseColor(
+          isBindingValue
+              ? bindingValueToProp(
+                  contextData,
+                  backgroundColor,
+                )
+              : backgroundColor,
+          contextData,
+        ),
+      );
+    }
+
+    widgetProps = themeProvider.mergeBaseColor(widgetProps);
+
+    if (widgetProps.icon != null &&
+        UtilsManager.isValueBinding(widgetProps.icon)) {
+      widgetProps = widgetProps.copyWith(
+        icon: bindingValueToText(
+          contextData,
+          widgetProps.icon,
+        ),
+      );
+    }
+
+    if (widgetProps.text != null) {
+      widgetProps = widgetProps.copyWith(
+        text: bindingValueToText(
+          contextData,
+          widgetProps.text,
+        ),
+      );
+    }
+
+    if (widgetProps.componentProps != null) {
+      Map<String, dynamic>? updatedComponentProps = {};
+      widgetProps.componentProps?.forEach((key, value) {
+        var isValueBinding = UtilsManager.isValueBinding(value);
+        updatedComponentProps[key] = isValueBinding
+            ? bindingValueToProp(
+                contextData,
+                value,
+              )
+            : value;
+      });
+
+      widgetProps =
+          widgetProps.copyWith(computedComponentProps: updatedComponentProps);
+    }
+
+    // FIXME: xxxx
+    widgetProps = LayoutProps.fromJson(
+      json.decode(
+        json.encode(ThemeProvider.transformColorFromCSS(
+          widgetProps.toJson(),
+        )),
+      ),
+    );
+
+    widgetProps = _computeHeightAndWidth(widgetProps, contextData);
+
+    return widgetProps;
+  }
+
+  LayoutProps _computeHeightAndWidth(
+    LayoutProps widgetProps,
+    Map<String, dynamic> contextData,
+  ) {
+    double? heightResult;
+    double? widthResult;
+
+    dynamic maxHeight = widgetProps.maxHeight;
+    dynamic maxWidth = widgetProps.maxWidth;
+    dynamic minHeight = widgetProps.minHeight;
+    dynamic minWidth = widgetProps.minWidth;
+
+    dynamic height = widgetProps.height;
+    dynamic width = widgetProps.width;
+
+    double maxHeightResult =
+        _computeValue(maxHeight, contextData) ?? double.infinity;
+    double maxWidthResult =
+        _computeValue(maxWidth, contextData) ?? double.infinity;
+    double minHeightResult = _computeValue(minHeight, contextData) ?? 0.0;
+    double minWidthResult = _computeValue(minWidth, contextData) ?? 0.0;
+
+    heightResult = _computeValue(height, contextData);
+    widthResult = _computeValue(width, contextData);
+
+    assert(
+      heightResult is num || heightResult == null,
+      "\"height\" must be a number or bound with number value ($height)",
+    );
+
+    assert(
+      widthResult is num || widthResult == null,
+      "\"width\" must be a number or bound with number value ($width)",
+    );
+
+    return widgetProps.copyWith(
+      height: heightResult,
+      width: widthResult,
+      maxHeight: maxHeightResult,
+      maxWidth: maxWidthResult,
+      minHeight: minHeightResult,
+      minWidth: minWidthResult,
+    );
+  }
+
+  dynamic _getBindingValue(
+    String rawBind,
+    Map<String, dynamic> contextData,
+  ) {
+    if (UtilsManager.isValueBinding(rawBind)) {
+      return bindingValueToProp(contextData, rawBind);
+    }
+    return rawBind;
+  }
+
+  dynamic _computeValue(
+    dynamic value,
+    Map<String, dynamic> contextData,
+  ) {
+    if (value is String) {
+      return _getBindingValue(value, contextData);
+    } else if (value is num) {
+      return value / 1.0;
+    }
+    return value;
+  }
+
+  String? parseColor(
+    String? rawColor,
+    Map<String, dynamic> contextData,
+  ) {
+    if (rawColor != null && UtilsManager.isValueBinding(rawColor)) {
+      return StyleUtils.getCssStringWithContextData(
+        rawColor,
+        contextData,
+      );
+    }
+    return rawColor;
+  }
 }

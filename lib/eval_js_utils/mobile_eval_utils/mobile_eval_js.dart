@@ -30,8 +30,8 @@ class EvalJS extends BaseEvalJS {
   Future<void> executeJS(String jsCode, String pagePath) async {
     var index = jsCode.indexOf('(');
 
-    var isFunctionInContext = await webViewController?.callAsyncJavaScript(
-      functionBody:
+    var isFunctionInContext = await webViewController?.evaluateJavascript(
+      source:
           "isFunctionExistsOnContext('${jsCode.substring(0, index)}', '$pagePath')",
     );
 

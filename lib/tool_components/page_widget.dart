@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:the_tool/page_utils/page_context_provider.dart';
 import 'package:the_tool/t_widget_interface/app_bar_props/app_bar_props.dart';
 import 'package:the_tool/t_widget_interface/bottom_nav_props.dart';
 import 'package:the_tool/t_widget_interface/bottom_navigation_props/bottom_navigation_props.dart';
@@ -40,7 +41,6 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
   void initState() {
     utils = getIt<UtilsManager>();
     _startLoadingData();
-    context.read<ContextStateProvider>().updateContextData({"_tLoaded": true});
     super.initState();
   }
 
@@ -83,21 +83,26 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
 
     log("Update page: ${widget.pagePath} $pageData");
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: _computeAppBar(
-          pageData,
-          _customAppBar,
-        ),
-        bottomNavigationBar: _computeBottomNavigationBar(
-          pageData,
-          _bottomNavBar,
-        ),
-        body: _getSelectedPage(
-          pageData,
-          _selectedBottomNavIndex,
-        ),
-      ),
+    return ChangeNotifierProvider(
+      create: (context) => getIt<PageContextProvider>(),
+      builder: (context, child) {
+        return SafeArea(
+          child: Scaffold(
+            appBar: _computeAppBar(
+              pageData,
+              _customAppBar,
+            ),
+            bottomNavigationBar: _computeBottomNavigationBar(
+              pageData,
+              _bottomNavBar,
+            ),
+            body: _getSelectedPage(
+              pageData,
+              _selectedBottomNavIndex,
+            ),
+          ),
+        );
+      },
     );
   }
 

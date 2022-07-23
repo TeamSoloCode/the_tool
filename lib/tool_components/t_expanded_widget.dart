@@ -4,18 +4,16 @@ import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 
 class T_Expanded extends T_Widget {
-  final String pagePath;
   T_Expanded({
     Key? key,
-    required executeJS,
     required widgetProps,
-    required this.pagePath,
-    required contextData,
+    required pagePath,
+    required parentData,
   }) : super(
           key: key,
           widgetProps: widgetProps,
-          executeJS: executeJS,
-          contextData: contextData,
+          parentData: parentData,
+          pagePath: pagePath,
         );
 
   @override
@@ -23,6 +21,23 @@ class T_Expanded extends T_Widget {
 }
 
 class _T_ExpandedState extends State<T_Expanded> {
+  LayoutProps? _props;
+  LayoutProps? _prevProps;
+  Widget _snapshot = const SizedBox.shrink();
+
+  Future<void> _computeProps(Map<String, dynamic> contextData) async {
+    var nextProps = await widget.utils.computeWidgetProps(
+      widget.widgetProps,
+      contextData,
+    );
+
+    if (_props != nextProps) {
+      setState(() {
+        _props = nextProps;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -30,7 +45,7 @@ class _T_ExpandedState extends State<T_Expanded> {
       child: T_Widgets(
         layout: widget.widgetProps.child ?? const LayoutProps(),
         pagePath: widget.pagePath,
-        contextData: widget.contextData,
+        contextData: widget.parentData,
       ),
     );
   }
