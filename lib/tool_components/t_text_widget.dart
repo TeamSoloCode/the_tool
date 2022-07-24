@@ -23,7 +23,6 @@ class T_Text extends T_StatelessWidget {
   var text = "";
   Widget _snapshot = const SizedBox.shrink();
   LayoutProps? _props;
-  LayoutProps? _prevProps;
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +45,6 @@ class T_Text extends T_StatelessWidget {
     if (_props?.hidden == true) {
       return const SizedBox.shrink();
     }
-
-    _prevProps = _props;
 
     if (kIsWeb) {
       _snapshot = SelectableText(

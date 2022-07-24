@@ -106,12 +106,13 @@ class _T_ComponentState extends State<T_Component>
       return const SizedBox.shrink();
     }
 
-    Map<String, dynamic> componentData =
-        context.select((ContextStateProvider value) {
-      Map<String, dynamic> data =
-          value.contextData[_componentId] ?? Map<String, dynamic>.from({});
-      return data;
-    });
+    Map<String, dynamic> componentData = context.select(
+      (ContextStateProvider value) {
+        Map<String, dynamic> data =
+            value.contextData[_componentId] ?? Map<String, dynamic>.from({});
+        return data;
+      },
+    );
 
     return RepaintBoundary(
       key: Key(_componentId),
