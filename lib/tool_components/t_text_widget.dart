@@ -9,13 +9,13 @@ import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:provider/provider.dart';
 
 class T_Text extends T_StatelessWidget {
-  T_Text(
-      {Key? key,
-      required widgetProps,
-      required contextData,
-      required pagePath,
-      required widgetUuid})
-      : super(
+  T_Text({
+    Key? key,
+    required widgetProps,
+    required contextData,
+    required pagePath,
+    required widgetUuid,
+  }) : super(
           key: key,
           widgetProps: widgetProps,
           parentData: contextData,

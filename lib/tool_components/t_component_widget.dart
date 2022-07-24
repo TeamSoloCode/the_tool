@@ -33,21 +33,10 @@ class T_Component extends T_Widget {
 class _T_ComponentState extends State<T_Component>
     with AutomaticKeepAliveClientMixin {
   LayoutProps? _pageLayout;
-  final UtilsManager _utils = getIt<UtilsManager>();
   String _componentId = "";
   Map<String, dynamic> _pageInfo = {};
-  bool isReady = false;
-
+  bool _isReady = false;
   LayoutProps? _props;
-  LayoutProps? _prevProps;
-  Widget _snapshot = const SizedBox.shrink();
-
-  Future<LayoutProps?> _computeProps(Map<String, dynamic> contextData) async {
-    return await widget.utils.computeWidgetProps(
-      widget.widgetProps,
-      contextData,
-    );
-  }
 
   @override
   void initState() {
@@ -60,7 +49,7 @@ class _T_ComponentState extends State<T_Component>
   @override
   void dispose() {
     super.dispose();
-    _utils.evalJS?.unregisterSubComponent(
+    widget.utils.evalJS?.unregisterSubComponent(
       parentPagePath: widget.pagePath,
       componentPath: _componentId,
     );
@@ -81,7 +70,7 @@ class _T_ComponentState extends State<T_Component>
       contextData,
     );
 
-    await _utils.evalJS?.registerSubComponent(
+    await widget.utils.evalJS?.registerSubComponent(
       componentCode: _pageInfo["code"],
       componentPath: _componentId,
       parentPagePath: widget.pagePath,
@@ -91,7 +80,7 @@ class _T_ComponentState extends State<T_Component>
 
     Future.delayed(Duration.zero, () async {
       setState(() {
-        isReady = true;
+        _isReady = true;
       });
     });
   }
@@ -104,7 +93,7 @@ class _T_ComponentState extends State<T_Component>
     super.build(context);
     var path = _props?.path;
 
-    if (path == null || !isReady) {
+    if (path == null || !_isReady) {
       return const SizedBox.shrink();
     }
 

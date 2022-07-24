@@ -33,7 +33,7 @@ Support onSubmit for t_form
 -Fix bug setPageData clear data when call on multi place
 -Support for basic input field and form
 -Reduce rerendering of all t_widgets
--Fix mapEqual in ShouldWidgetUpdate , it not compare to map properly
+
 -The props when pass into t_widget still not totally binding
 -Support set key and dynamic key for all t_widget
 -Support route (web)
