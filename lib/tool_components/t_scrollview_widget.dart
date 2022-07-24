@@ -13,11 +13,13 @@ class T_ScrollView extends T_StatelessWidget {
     required widgetProps,
     required pagePath,
     required contextData,
+    required widgetUuid,
   }) : super(
           key: key,
           widgetProps: widgetProps,
           parentData: contextData,
           pagePath: pagePath,
+          widgetUuid: widgetUuid,
         );
 
   List<Widget> _items = [];

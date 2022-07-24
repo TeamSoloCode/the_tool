@@ -16,11 +16,13 @@ class T_Form extends T_Widget {
     required widgetProps,
     required contextData,
     required pagePath,
+    required widgetUuid,
   }) : super(
           key: key,
           widgetProps: widgetProps,
           parentData: contextData,
           pagePath: pagePath,
+          widgetUuid: widgetUuid,
         );
 
   @override

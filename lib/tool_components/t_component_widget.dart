@@ -17,11 +17,13 @@ class T_Component extends T_Widget {
     required widgetProps,
     required pagePath,
     required contextData,
+    required widgetUuid,
   }) : super(
           key: key,
           widgetProps: widgetProps,
           parentData: contextData,
           pagePath: pagePath,
+          widgetUuid: widgetUuid,
         );
 
   @override

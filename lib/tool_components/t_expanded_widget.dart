@@ -11,11 +11,13 @@ class T_Expanded extends T_StatelessWidget {
     required widgetProps,
     required pagePath,
     required parentData,
+    required widgetUuid,
   }) : super(
           key: key,
           widgetProps: widgetProps,
           parentData: parentData,
           pagePath: pagePath,
+          widgetUuid: widgetUuid,
         );
 
   LayoutProps? _props;

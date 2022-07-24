@@ -18,11 +18,13 @@ class T_Fields extends T_Widget {
     required widgetProps,
     required contextData,
     required pagePath,
+    required widgetUuid,
   }) : super(
           key: key,
           widgetProps: widgetProps,
           parentData: contextData,
           pagePath: pagePath,
+          widgetUuid: widgetUuid,
         );
 
   @override
@@ -60,12 +62,14 @@ class _T_FieldsState extends State<T_Fields> {
           pagePath: widget.pagePath,
           widgetProps: widget.widgetProps,
           contextData: widget.parentData,
+          widgetUuid: widget.widgetUuid,
         );
       case "select":
         return T_SelectField(
           pagePath: widget.pagePath,
           widgetProps: widget.widgetProps,
           contextData: widget.parentData,
+          widgetUuid: widget.widgetUuid,
         );
       default:
         throw Exception("$fieldType field type is not supported!");

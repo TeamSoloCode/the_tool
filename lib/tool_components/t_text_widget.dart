@@ -9,19 +9,19 @@ import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:provider/provider.dart';
 
 class T_Text extends T_StatelessWidget {
-  T_Text({
-    Key? key,
-    required widgetProps,
-    required contextData,
-    required pagePath,
-  }) : super(
+  T_Text(
+      {Key? key,
+      required widgetProps,
+      required contextData,
+      required pagePath,
+      required widgetUuid})
+      : super(
           key: key,
           widgetProps: widgetProps,
           parentData: contextData,
           pagePath: pagePath,
-        ) {
-    debugPrint("T_Text");
-  }
+          widgetUuid: widgetUuid,
+        );
 
   var text = "";
   Widget _snapshot = const SizedBox.shrink();

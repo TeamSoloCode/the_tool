@@ -13,11 +13,13 @@ class T_Grid extends T_Widget {
     required widgetProps,
     required this.pagePath,
     required contextData,
+    required widgetUuid,
   }) : super(
           key: key,
           widgetProps: widgetProps,
           parentData: contextData,
           pagePath: pagePath,
+          widgetUuid: widgetUuid,
         );
 
   @override

@@ -11,11 +11,13 @@ class T_Column extends T_StatelessWidget {
     required widgetProps,
     required pagePath,
     required contextData,
+    required widgetUuid,
   }) : super(
           key: key,
           widgetProps: widgetProps,
           parentData: contextData,
           pagePath: pagePath,
+          widgetUuid: widgetUuid,
         );
 
   LayoutProps? _props;

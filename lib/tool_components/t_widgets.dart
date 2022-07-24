@@ -1,13 +1,7 @@
-import 'dart:convert';
-import 'dart:developer';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
-import 'package:the_tool/page_utils/page_context_provider.dart';
-import 'package:the_tool/page_utils/style_utils.dart';
-import 'package:the_tool/page_utils/theme_provider.dart';
+import 'package:the_tool/page_utils/twidget_context_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/fields/t_fields_widget.dart';
 import 'package:the_tool/tool_components/fields/t_form_widget.dart';
@@ -22,6 +16,7 @@ import 'package:the_tool/tool_components/t_row_widget.dart';
 import 'package:the_tool/tool_components/t_scrollview_widget.dart';
 import 'package:the_tool/tool_components/t_text_widget.dart';
 import 'package:collection/collection.dart' show DeepCollectionEquality;
+import 'package:the_tool/utils.dart';
 import 'package:uuid/uuid.dart';
 
 class T_Widgets extends StatefulWidget {
@@ -44,9 +39,15 @@ class _T_WidgetsState extends State<T_Widgets> {
   Widget? tWidgets;
   final widgetUuid = const Uuid().v4();
 
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   Widget _getWidget(Map<String, dynamic> contextData) {
     LayoutProps content = widget.layout.content ?? widget.layout;
     debugPrint("abcd ${content.type}");
+
     if (tWidgets != null) {
       return tWidgets ?? const SizedBox.shrink();
     }
@@ -58,6 +59,7 @@ class _T_WidgetsState extends State<T_Widgets> {
           widgetProps: content,
           contextData: contextData,
           pagePath: widget.pagePath,
+          widgetUuid: widgetUuid,
         );
       case "button":
         return T_Button(
@@ -73,6 +75,7 @@ class _T_WidgetsState extends State<T_Widgets> {
           widgetProps: content,
           contextData: contextData,
           pagePath: widget.pagePath,
+          widgetUuid: widgetUuid,
         );
       case "row":
         return T_Row(
@@ -80,6 +83,7 @@ class _T_WidgetsState extends State<T_Widgets> {
           widgetProps: content,
           pagePath: widget.pagePath,
           contextData: contextData,
+          widgetUuid: widgetUuid,
         );
       case "form":
         return T_Form(
@@ -87,19 +91,23 @@ class _T_WidgetsState extends State<T_Widgets> {
           widgetProps: content,
           pagePath: widget.pagePath,
           contextData: contextData,
+          widgetUuid: widgetUuid,
         );
       case "component":
         return T_Component(
-            key: ValueKey(widgetUuid),
-            widgetProps: content,
-            contextData: contextData,
-            pagePath: widget.pagePath);
+          key: ValueKey(widgetUuid),
+          widgetProps: content,
+          contextData: contextData,
+          pagePath: widget.pagePath,
+          widgetUuid: widgetUuid,
+        );
       case "container":
         return T_Container(
           key: ValueKey(widgetUuid),
           widgetProps: content,
           pagePath: widget.pagePath,
           contextData: contextData,
+          widgetUuid: widgetUuid,
         );
       case "column":
         return T_Column(
@@ -107,6 +115,7 @@ class _T_WidgetsState extends State<T_Widgets> {
           widgetProps: content,
           pagePath: widget.pagePath,
           contextData: contextData,
+          widgetUuid: widgetUuid,
         );
       case "grid":
         return T_Grid(
@@ -114,6 +123,7 @@ class _T_WidgetsState extends State<T_Widgets> {
           widgetProps: content,
           pagePath: widget.pagePath,
           contextData: contextData,
+          widgetUuid: widgetUuid,
         );
       case "scroll_view":
         return T_ScrollView(
@@ -121,6 +131,7 @@ class _T_WidgetsState extends State<T_Widgets> {
           widgetProps: content,
           pagePath: widget.pagePath,
           contextData: contextData,
+          widgetUuid: widgetUuid,
         );
 
       case "expanded":
@@ -129,6 +140,7 @@ class _T_WidgetsState extends State<T_Widgets> {
           widgetProps: content,
           pagePath: widget.pagePath,
           parentData: contextData,
+          widgetUuid: widgetUuid,
         );
       case "field":
         return T_Fields(
@@ -136,6 +148,7 @@ class _T_WidgetsState extends State<T_Widgets> {
           widgetProps: content,
           pagePath: widget.pagePath,
           contextData: contextData,
+          widgetUuid: widgetUuid,
         );
       default:
         return const SizedBox.shrink();
@@ -145,14 +158,12 @@ class _T_WidgetsState extends State<T_Widgets> {
   Future<void> _updateTWidgets(
     BuildContext context,
   ) async {
-    var contextData = context.read<ContextStateProvider>().contextData;
-    if (!const DeepCollectionEquality().equals(prevContextData, contextData)) {
+    if (tWidgets == null) {
       // Stopwatch stopwatch = Stopwatch()..start();
-
+      var contextData = context.read<ContextStateProvider>().contextData;
       var newTWidgets = _getWidget(contextData[widget.pagePath] ?? {});
 
       setState(() {
-        prevContextData.addAll(contextData);
         tWidgets = newTWidgets;
       });
 
@@ -161,8 +172,6 @@ class _T_WidgetsState extends State<T_Widgets> {
       // );
     }
   }
-
-  Map<String, dynamic> prevContextData = {};
 
   @override
   Widget build(BuildContext context) {

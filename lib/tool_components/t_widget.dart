@@ -16,7 +16,7 @@ abstract class T_Widget extends StatefulWidget {
     required this.widgetProps,
     required this.parentData,
     required this.pagePath,
-    this.widgetUuid,
+    required this.widgetUuid,
   }) : super(key: key);
 
   Future<void> executeJSWithPagePath(String jsCode) async {
@@ -53,7 +53,7 @@ abstract class T_StatelessWidget extends StatelessWidget {
     required this.widgetProps,
     required this.parentData,
     required this.pagePath,
-    this.widgetUuid,
+    required this.widgetUuid,
   }) : super(key: key);
 
   Future<void> executeJSWithPagePath(String jsCode) async {
