@@ -146,12 +146,13 @@ class _T_WidgetsState extends State<T_Widgets> {
     BuildContext context,
   ) async {
     var contextData = context.read<ContextStateProvider>().contextData;
-    if (tWidgets == null) {
+    if (!const DeepCollectionEquality().equals(prevContextData, contextData)) {
       // Stopwatch stopwatch = Stopwatch()..start();
 
       var newTWidgets = _getWidget(contextData[widget.pagePath] ?? {});
 
       setState(() {
+        prevContextData.addAll(contextData);
         tWidgets = newTWidgets;
       });
 
@@ -160,6 +161,8 @@ class _T_WidgetsState extends State<T_Widgets> {
       // );
     }
   }
+
+  Map<String, dynamic> prevContextData = {};
 
   @override
   Widget build(BuildContext context) {

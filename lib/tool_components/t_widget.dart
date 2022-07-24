@@ -5,10 +5,10 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/utils.dart';
 
 abstract class T_Widget extends StatefulWidget {
-  final LayoutProps widgetProps;
-  final Map<String, dynamic> parentData;
+  LayoutProps widgetProps;
+  Map<String, dynamic> parentData;
   final String pagePath;
-  final UtilsManager utils = getIt<UtilsManager>();
+  UtilsManager utils = getIt<UtilsManager>();
   final String? widgetUuid;
 
   T_Widget({

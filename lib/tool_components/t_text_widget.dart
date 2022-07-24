@@ -19,7 +19,10 @@ class T_Text extends T_StatelessWidget {
           widgetProps: widgetProps,
           parentData: contextData,
           pagePath: pagePath,
-        );
+        ) {
+    debugPrint("T_Text");
+  }
+
   var text = "";
   Widget _snapshot = const SizedBox.shrink();
   LayoutProps? _props;
@@ -27,38 +30,38 @@ class T_Text extends T_StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic>? contextData = {};
-    _props = context.select((ContextStateProvider value) {
-      var data = Map<String, dynamic>.from(
-        value.contextData[pagePath] ?? {},
-      );
-
-      contextData = data;
-
-      return utils.computeWidgetProps(
-        widgetProps,
-        data,
-      );
+    Map<String, dynamic> contextData =
+        context.select((ContextStateProvider value) {
+      return Map<String, dynamic>.from(value.contextData[pagePath] ?? {});
     });
 
-    debugPrint("T_Text");
+    _props = utils.computeWidgetProps(
+      widgetProps,
+      contextData,
+    );
 
-    if (_props?.hidden == true) {
-      return const SizedBox.shrink();
-    }
+    if (_props != null) {
+      if (_props == _prevProps) {
+        return _snapshot;
+      }
 
-    _prevProps = _props;
+      if (_props?.hidden == true) {
+        return const SizedBox.shrink();
+      }
 
-    if (kIsWeb) {
-      _snapshot = SelectableText(
-        _props?.text ?? "",
-        style: ThemeDecoder.decodeTextStyle(_props?.toJson()),
-      );
-    } else {
-      _snapshot = Text(
-        _props?.text ?? "",
-        style: ThemeDecoder.decodeTextStyle(_props?.toJson()),
-      );
+      _prevProps = _props;
+
+      if (kIsWeb) {
+        _snapshot = SelectableText(
+          _props?.text ?? "",
+          style: ThemeDecoder.decodeTextStyle(_props?.toJson()),
+        );
+      } else {
+        _snapshot = Text(
+          _props?.text ?? "",
+          style: ThemeDecoder.decodeTextStyle(_props?.toJson()),
+        );
+      }
     }
 
     return _snapshot;

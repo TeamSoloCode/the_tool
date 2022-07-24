@@ -66,26 +66,29 @@ class _T_ButtonState extends State<T_Button> {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic>? contextData = {};
-    _props = context.select((ContextStateProvider value) {
-      var data = Map<String, dynamic>.from(
-        value.contextData[widget.pagePath] ?? {},
-      );
-
-      contextData = data;
-
-      return widget.utils.computeWidgetProps(
-        widget.widgetProps,
-        data,
-      );
+    Map<String, dynamic> contextData =
+        context.select((ContextStateProvider value) {
+      return Map<String, dynamic>.from(
+          value.contextData[widget.pagePath] ?? {});
     });
 
-    if (_props?.hidden == true) {
-      return const SizedBox.shrink();
-    }
+    _props = widget.utils.computeWidgetProps(
+      widget.widgetProps,
+      contextData,
+    );
 
-    _prevProps = _props;
-    _snapshot = _computeButton(_props!);
+    if (_props != null) {
+      if (_props == _prevProps) {
+        return _snapshot;
+      }
+
+      if (_props?.hidden == true) {
+        return const SizedBox.shrink();
+      }
+
+      _prevProps = _props;
+      _snapshot = _computeButton(_props!);
+    }
 
     return _snapshot;
   }
