@@ -271,6 +271,25 @@ class ThemeProvider with ChangeNotifier {
     return updatedWidgetProps;
   }
 
+  static Map<String, dynamic> transformBindingPropsToValue(
+    Map<String, dynamic> inputValue,
+    Map<String, dynamic> contextData,
+  ) {
+    Map<String, dynamic> results = {};
+    inputValue.forEach((key, value) {
+      if (value is String && UtilsManager.isValueBinding(value)) {
+        results[key] = _utils.bindingValueToText(
+          contextData,
+          value,
+        );
+      } else {
+        results[key] = value;
+      }
+    });
+
+    return results;
+  }
+
   static dynamic transformColorFromCSS(dynamic inputValue) {
     if (inputValue is Map) {
       var updateValue = {};

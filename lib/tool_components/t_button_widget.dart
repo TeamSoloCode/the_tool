@@ -29,6 +29,7 @@ class T_Button extends T_Widget {
 class _T_ButtonState extends State<T_Button> {
   Widget _snapshot = const SizedBox.shrink();
   LayoutProps? _props;
+  LayoutProps? _prevProps;
 
   Widget _computeButton(LayoutProps widgetProps) {
     String? buttonType = widgetProps.buttonType;
@@ -83,6 +84,7 @@ class _T_ButtonState extends State<T_Button> {
       return const SizedBox.shrink();
     }
 
+    _prevProps = _props;
     _snapshot = _computeButton(_props!);
 
     return _snapshot;

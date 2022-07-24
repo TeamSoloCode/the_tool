@@ -24,6 +24,7 @@ class T_Container extends T_StatelessWidget {
         );
 
   LayoutProps? _props;
+  LayoutProps? _prevProps;
   Widget _snapshot = const SizedBox.shrink();
 
   @override
@@ -48,27 +49,27 @@ class T_Container extends T_StatelessWidget {
       return const SizedBox.shrink();
     }
 
+    _prevProps = _props;
+
     var cssColor = _props?.backgroundColor;
     Color? color = cssColor != null ? fromCssColor(cssColor) : null;
 
-    _snapshot = RepaintBoundary(
-      child: Container(
-        key: getBindingKey(),
-        height: _props?.height,
-        width: _props?.width,
-        margin: ThemeDecoder.decodeEdgeInsetsGeometry(_props?.margin),
-        constraints: BoxConstraints(
-          maxHeight: _props?.maxHeight,
-          maxWidth: _props?.maxWidth,
-          minHeight: _props?.minHeight,
-          minWidth: _props?.minWidth,
-        ),
-        color: color,
-        child: T_Widgets(
-          layout: _props?.child ?? const LayoutProps(),
-          pagePath: pagePath,
-          contextData: contextData,
-        ),
+    _snapshot = Container(
+      key: getBindingKey(),
+      height: _props?.height,
+      width: _props?.width,
+      margin: ThemeDecoder.decodeEdgeInsetsGeometry(_props?.margin),
+      constraints: BoxConstraints(
+        maxHeight: _props?.maxHeight,
+        maxWidth: _props?.maxWidth,
+        minHeight: _props?.minHeight,
+        minWidth: _props?.minWidth,
+      ),
+      color: color,
+      child: T_Widgets(
+        layout: _props?.child ?? const LayoutProps(),
+        pagePath: pagePath,
+        contextData: contextData,
       ),
     );
 
