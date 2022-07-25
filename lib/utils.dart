@@ -159,6 +159,7 @@ class UtilsManager {
         contextData,
       ));
     }
+
     if (widgetProps.backgroundColor != null) {
       var backgroundColor = widgetProps.backgroundColor;
       var isBindingValue = UtilsManager.isValueBinding(backgroundColor);
@@ -177,8 +178,7 @@ class UtilsManager {
 
     widgetProps = themeProvider.mergeBaseColor(widgetProps);
 
-    if (widgetProps.icon != null &&
-        UtilsManager.isValueBinding(widgetProps.icon)) {
+    if (UtilsManager.isValueBinding(widgetProps.icon)) {
       widgetProps = widgetProps.copyWith(
         icon: bindingValueToText(
           contextData,
@@ -187,7 +187,7 @@ class UtilsManager {
       );
     }
 
-    if (widgetProps.text != null) {
+    if (UtilsManager.isValueBinding(widgetProps.text)) {
       widgetProps = widgetProps.copyWith(
         text: bindingValueToText(
           contextData,
@@ -196,7 +196,7 @@ class UtilsManager {
       );
     }
 
-    if (widgetProps.componentProps != null) {
+    if (widgetProps.type == "component" && widgetProps.componentProps != null) {
       Map<String, dynamic>? updatedComponentProps = {};
       widgetProps.componentProps?.forEach((key, value) {
         var isValueBinding = UtilsManager.isValueBinding(value);
@@ -221,7 +221,9 @@ class UtilsManager {
       ),
     );
 
-    widgetProps = _computeHeightAndWidth(widgetProps, contextData);
+    if (widgetProps.type == "container") {
+      widgetProps = _computeHeightAndWidth(widgetProps, contextData);
+    }
 
     return widgetProps;
   }
@@ -304,5 +306,10 @@ class UtilsManager {
       );
     }
     return rawColor;
+  }
+
+  bool hasBindingValue(LayoutProps props) {
+    var propsAsJSON = json.encode(props.toJson());
+    return isValueBinding(propsAsJSON);
   }
 }

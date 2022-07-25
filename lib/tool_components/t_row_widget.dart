@@ -43,7 +43,7 @@ class T_Row extends T_StatelessWidget {
   Widget build(BuildContext context) {
     Map<String, dynamic> contextData =
         context.select((ContextStateProvider value) {
-      return Map<String, dynamic>.from(value.contextData[pagePath] ?? {});
+      return value.contextData[pagePath] ?? {"": null};
     });
 
     _props = utils.computeWidgetProps(

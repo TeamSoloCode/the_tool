@@ -5,6 +5,7 @@ import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/permission_manager.dart';
 import 'package:the_tool/page_utils/storage_utils.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
+import 'package:the_tool/page_utils/twidget_context_provider.dart';
 import 'package:the_tool/tool_components/page_container_widget.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
@@ -13,11 +14,8 @@ import 't_widget_interface/client_config/client_config.dart';
 import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
     if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_utils/web_eval_js.dart';
 
-import 'package:worker_manager/worker_manager.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Executor().warmUp();
 
   // if (Platform.isAndroid) {
   //   await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
@@ -37,12 +35,18 @@ void main() async {
     signalsReady: true,
   );
 
+  getIt.registerSingleton<PageContextProvider>(
+    PageContextProvider(),
+    signalsReady: true,
+  );
+
   ClientConfig config = await getIt<APIClientManager>().getClientConfig();
   getIt<ContextStateProvider>().appConfig = config;
 
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => getIt<ContextStateProvider>()),
+      ChangeNotifierProvider(create: (_) => getIt<PageContextProvider>()),
       ChangeNotifierProvider(
         create: (context) {
           getIt.registerSingleton<ThemeProvider>(

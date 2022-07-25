@@ -99,9 +99,7 @@ class _T_ComponentState extends State<T_Component>
 
     Map<String, dynamic> componentData =
         context.select((ContextStateProvider value) {
-      Map<String, dynamic> data =
-          value.contextData[_componentId] ?? Map<String, dynamic>.from({});
-      return data;
+      return value.contextData[_componentId] ?? {"": null};
     });
 
     return RepaintBoundary(

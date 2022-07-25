@@ -91,6 +91,10 @@ extension MergeLayoutProps on LayoutProps {
       bottomNav: other.bottomNav ?? bottomNav,
       appBar: other.appBar ?? appBar,
       componentProps: other.componentProps ?? componentProps,
+      computedComponentProps:
+          other.computedComponentProps ?? computedComponentProps,
+      sliverListType: other.sliverListType ?? sliverListType,
+      itemExtent: other.itemExtent ?? itemExtent,
     );
   }
 }

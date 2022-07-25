@@ -46,8 +46,7 @@ class _T_IconState extends State<T_Icon> {
   Widget build(BuildContext context) {
     Map<String, dynamic> contextData =
         context.select((ContextStateProvider value) {
-      return Map<String, dynamic>.from(
-          value.contextData[widget.pagePath] ?? {});
+      return value.contextData[widget.pagePath] ?? {"": null};
     });
 
     _props = widget.utils.computeWidgetProps(

@@ -63,8 +63,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     super.build(context);
     // var pageData = Map<String, dynamic>.from({"_tLoaded": true});
     var pageData = context.select((ContextStateProvider value) {
-      return value.contextData[widget.pagePath] ??
-          Map<String, dynamic>.from({});
+      return value.contextData[widget.pagePath] ?? {"": null};
     });
 
     if (_isReadyToRun == false ||

@@ -41,12 +41,20 @@ class _T_WidgetsState extends State<T_Widgets> {
 
   @override
   void dispose() {
+    // getIt<PageContextProvider>().unregisterTWidgetsProps(widgetUuid);
     super.dispose();
   }
 
   Widget _getWidget(Map<String, dynamic> contextData) {
     LayoutProps content = widget.layout.content ?? widget.layout;
     debugPrint("abcd ${content.type}");
+
+    // getIt<PageContextProvider>().registerTWidgetsProps(
+    //   widgetUuid,
+    //   widget.pagePath,
+    //   content,
+    //   contextData,
+    // );
 
     if (tWidgets != null) {
       return tWidgets ?? const SizedBox.shrink();
