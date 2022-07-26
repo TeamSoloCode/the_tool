@@ -26,22 +26,28 @@ class T_Text extends T_StatelessWidget {
   Widget build(BuildContext context) {
     watchContextState(context);
 
-    if (props?.hidden == true) {
-      return const SizedBox.shrink();
-    }
+    if (props != null) {
+      if (props == prevProps) {
+        return snapshot;
+      }
 
-    prevProps = props;
+      if (props?.hidden == true) {
+        return const SizedBox.shrink();
+      }
 
-    if (kIsWeb) {
-      snapshot = SelectableText(
-        props?.text ?? "",
-        style: ThemeDecoder.decodeTextStyle(props?.toJson()),
-      );
-    } else {
-      snapshot = Text(
-        props?.text ?? "",
-        style: ThemeDecoder.decodeTextStyle(props?.toJson()),
-      );
+      prevProps = props;
+
+      if (kIsWeb) {
+        snapshot = SelectableText(
+          props?.text ?? "",
+          style: ThemeDecoder.decodeTextStyle(props?.toJson()),
+        );
+      } else {
+        snapshot = Text(
+          props?.text ?? "",
+          style: ThemeDecoder.decodeTextStyle(props?.toJson()),
+        );
+      }
     }
 
     return snapshot;
