@@ -38,10 +38,6 @@ class _T_FieldsState extends State<T_Fields> {
   dynamic value;
   dynamic prevValue;
 
-  Widget _snapshot = const SizedBox.shrink();
-  LayoutProps? _props;
-  LayoutProps? _prevProps;
-
   @override
   void dispose() {
     textFieldController.dispose();
@@ -78,22 +74,18 @@ class _T_FieldsState extends State<T_Fields> {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> contextData =
-        context.select((ContextStateProvider value) {
-      return value.contextData[widget.pagePath] ?? {"": null};
-    });
+    widget.watchContextState(context);
 
-    _props = widget.utils.computeWidgetProps(
-      widget.widgetProps,
-      contextData,
-    );
+    Widget _snapshot = widget.snapshot;
+    LayoutProps? _props = widget.props;
+    LayoutProps? _prevProps = widget.prevProps;
 
     if (_props != null) {
       if (_props == _prevProps) {
         return _snapshot;
       }
 
-      if (_props?.hidden == true) {
+      if (_props.hidden == true) {
         return const SizedBox.shrink();
       }
 

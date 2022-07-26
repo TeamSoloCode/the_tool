@@ -1,12 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
-import 'package:provider/provider.dart';
 
 class T_SelectField extends T_Widget {
   T_SelectField({
@@ -28,9 +24,6 @@ class T_SelectField extends T_Widget {
 }
 
 class _T_SelectFieldState extends State<T_SelectField> {
-  Widget _snapshot = const SizedBox.shrink();
-  LayoutProps? _props;
-  LayoutProps? _prevProps;
   String? selectedValue;
 
   dynamic value;
@@ -53,7 +46,7 @@ class _T_SelectFieldState extends State<T_SelectField> {
   }
 
   void _onChangeOption(dynamic value) {
-    String name = _props?.name ?? "";
+    String name = widget.props?.name ?? "";
     widget.setPageData({name: value});
     selectedValue = value;
   }
@@ -96,22 +89,18 @@ class _T_SelectFieldState extends State<T_SelectField> {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> contextData =
-        context.select((ContextStateProvider value) {
-      return value.contextData[widget.pagePath] ?? {"": null};
-    });
+    widget.watchContextState(context);
 
-    _props = widget.utils.computeWidgetProps(
-      widget.widgetProps,
-      contextData,
-    );
+    Widget _snapshot = widget.snapshot;
+    LayoutProps? _props = widget.props;
+    LayoutProps? _prevProps = widget.prevProps;
 
     if (_props != null) {
       if (_props == _prevProps) {
         return _snapshot;
       }
 
-      if (_props?.hidden == true) {
+      if (_props.hidden == true) {
         return const SizedBox.shrink();
       }
 

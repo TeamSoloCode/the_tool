@@ -64,10 +64,24 @@ class LayoutProps with _$LayoutProps {
 extension MergeLayoutProps on LayoutProps {
   LayoutProps parseCssColors(LayoutProps props) {
     var propsAsJSON = props.toJson();
+
     Map<String, dynamic> newProps = {};
     propsAsJSON.forEach((key, value) {
-      if (!["child", "children"].contains(key)) {
-        newProps[key] = ThemeProvider.transformColorFromCSS(value);
+      if (value != null) {
+        if (![
+          "child",
+          "children",
+          "componentProps",
+        ].contains(key)) {
+          newProps[key] = ThemeProvider.transformColorFromCSS(value);
+        }
+
+        if (key == "computedComponentProps") {
+          newProps[key] =
+              Map<String, dynamic>.from(ThemeProvider.transformColorFromCSS(
+            json.decode(json.encode(value)),
+          ));
+        }
       }
     });
 

@@ -1,11 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:the_tool/page_utils/context_state_provider.dart';
-import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
-import 'package:provider/provider.dart';
 
 class T_ScrollView extends T_StatelessWidget {
   T_ScrollView({
@@ -21,13 +16,7 @@ class T_ScrollView extends T_StatelessWidget {
           pagePath: pagePath,
           widgetUuid: widgetUuid,
         );
-
   List<Widget> _items = [];
-  LayoutProps? _props;
-  LayoutProps? _prevProps;
-  Widget _snapshot = const SizedBox.shrink();
-  Map<String, dynamic> _contextData = {};
-
   List<Widget> _computeChildren(
       List<dynamic>? children, Map<String, dynamic> contextData) {
     var index = 0;
@@ -45,38 +34,31 @@ class T_ScrollView extends T_StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _contextData = context.select((ContextStateProvider value) {
-      return value.contextData[pagePath] ?? {"": null};
-    });
+    watchContextState(context);
 
-    _props = utils.computeWidgetProps(
-      widgetProps,
-      _contextData,
-    );
-
-    if (_props != null) {
-      if (_props == _prevProps) {
-        return _snapshot;
+    if (props != null) {
+      if (props == prevProps) {
+        return snapshot;
       }
 
-      if (_props?.hidden == true) {
+      if (props?.hidden == true) {
         return const SizedBox.shrink();
       }
 
-      _prevProps = _props;
+      prevProps = props;
 
-      _items = _computeChildren(_props?.children, _contextData);
-      if (_props?.sliverListType == "fixed_extent_list") {
+      _items = _computeChildren(props?.children, contextData);
+      if (props?.sliverListType == "fixed_extent_list") {
         assert(
-          _props?.itemExtent != null,
+          props?.itemExtent != null,
           "If sliverListType = \"fixed_extent_list\", please provide \"itemExtent\" with type number",
         );
       }
 
-      _snapshot = CustomScrollView(
+      snapshot = CustomScrollView(
         key: getBindingKey(),
         slivers: [
-          if (_props?.sliverListType == "fixed_extent_list")
+          if (props?.sliverListType == "fixed_extent_list")
             SliverFixedExtentList(
               key: const ValueKey<String>('sliver-fixed-list'),
               delegate: SliverChildBuilderDelegate(
@@ -85,9 +67,9 @@ class T_ScrollView extends T_StatelessWidget {
                 },
                 childCount: _items.length,
               ),
-              itemExtent: _props?.itemExtent ?? 100,
+              itemExtent: props?.itemExtent ?? 100,
             ),
-          if (_props?.sliverListType == null)
+          if (props?.sliverListType == null)
             SliverList(
               key: const ValueKey<String>('sliver-list'),
               delegate: SliverChildBuilderDelegate(
@@ -100,9 +82,9 @@ class T_ScrollView extends T_StatelessWidget {
         ],
       );
 
-      return _snapshot;
+      return snapshot;
     }
 
-    return _snapshot;
+    return snapshot;
   }
 }

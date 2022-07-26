@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
-import 'package:the_tool/page_utils/twidget_context_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/fields/t_fields_widget.dart';
 import 'package:the_tool/tool_components/fields/t_form_widget.dart';
@@ -15,8 +14,6 @@ import 'package:the_tool/tool_components/t_icon_widget.dart';
 import 'package:the_tool/tool_components/t_row_widget.dart';
 import 'package:the_tool/tool_components/t_scrollview_widget.dart';
 import 'package:the_tool/tool_components/t_text_widget.dart';
-import 'package:collection/collection.dart' show DeepCollectionEquality;
-import 'package:the_tool/utils.dart';
 import 'package:uuid/uuid.dart';
 
 class T_Widgets extends StatefulWidget {
@@ -47,8 +44,6 @@ class _T_WidgetsState extends State<T_Widgets> {
 
   Widget _getWidget(Map<String, dynamic> contextData) {
     LayoutProps content = widget.layout.content ?? widget.layout;
-    debugPrint("abcd ${content.type}");
-
     // getIt<PageContextProvider>().registerTWidgetsProps(
     //   widgetUuid,
     //   widget.pagePath,

@@ -3,12 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:from_css_color/from_css_color.dart';
 import 'package:json_theme/json_theme.dart';
-import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
-import 'package:uuid/uuid.dart';
-import 'package:provider/provider.dart';
 
 class T_Container extends T_StatelessWidget {
   T_Container({
@@ -25,56 +22,44 @@ class T_Container extends T_StatelessWidget {
           widgetUuid: widgetUuid,
         );
 
-  LayoutProps? _props;
-  LayoutProps? _prevProps;
-  Widget _snapshot = const SizedBox.shrink();
-
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> contextData =
-        context.select((ContextStateProvider value) {
-      return value.contextData[pagePath] ?? {"": null};
-    });
+    watchContextState(context);
 
-    _props = utils.computeWidgetProps(
-      widgetProps,
-      contextData,
-    );
-
-    if (_props == _prevProps) {
-      return _snapshot;
+    if (props == prevProps) {
+      return snapshot;
     }
 
-    if (_props?.hidden == true) {
+    if (props?.hidden == true) {
       return const SizedBox.shrink();
     }
 
-    _prevProps = _props;
+    prevProps = props;
 
-    var cssColor = _props?.backgroundColor;
+    var cssColor = props?.backgroundColor;
     Color? color = cssColor != null ? fromCssColor(cssColor) : null;
 
-    _snapshot = RepaintBoundary(
+    snapshot = RepaintBoundary(
       child: Container(
         key: getBindingKey(),
-        height: _props?.height,
-        width: _props?.width,
-        margin: ThemeDecoder.decodeEdgeInsetsGeometry(_props?.margin),
+        height: props?.height,
+        width: props?.width,
+        margin: ThemeDecoder.decodeEdgeInsetsGeometry(props?.margin),
         constraints: BoxConstraints(
-          maxHeight: _props?.maxHeight,
-          maxWidth: _props?.maxWidth,
-          minHeight: _props?.minHeight,
-          minWidth: _props?.minWidth,
+          maxHeight: props?.maxHeight,
+          maxWidth: props?.maxWidth,
+          minHeight: props?.minHeight,
+          minWidth: props?.minWidth,
         ),
         color: color,
         child: T_Widgets(
-          layout: _props?.child ?? const LayoutProps(),
+          layout: props?.child ?? const LayoutProps(),
           pagePath: pagePath,
           contextData: contextData,
         ),
       ),
     );
 
-    return _snapshot;
+    return snapshot;
   }
 }

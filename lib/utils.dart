@@ -17,6 +17,7 @@ class UtilsManager {
   UtilsManager() : super();
   Map<String, String> _staticContent = {};
   static final regexPattern = RegExp(r"[^{{\}}]+(?=}})");
+  late ThemeProvider themeProvider;
 
   final eventify.EventEmitter _emitter = eventify.EventEmitter();
   eventify.EventEmitter get emitter => _emitter;
@@ -26,6 +27,7 @@ class UtilsManager {
 
   set evalJS(EvalJS? evalJS) {
     _evalJS = evalJS;
+    themeProvider = getIt<ThemeProvider>();
   }
 
   Future<void> loadStaticContent() async {
@@ -148,7 +150,8 @@ class UtilsManager {
       return const LayoutProps(hidden: true);
     }
 
-    var themeProvider = getIt<ThemeProvider>();
+    log("computeWidgetProps ${Timeline.now}");
+
     LayoutProps? widgetProps =
         themeProvider.mergeClasses(content, contextData) ?? const LayoutProps();
 
@@ -215,7 +218,6 @@ class UtilsManager {
       );
     }
 
-    // FIXME: xxxx
     widgetProps = widgetProps.parseCssColors(widgetProps);
 
     if (widgetProps.type == "container") {
@@ -306,7 +308,24 @@ class UtilsManager {
   }
 
   bool hasBindingValue(LayoutProps props) {
-    var propsAsJSON = json.encode(props.toJson());
-    return isValueBinding(propsAsJSON);
+    var result = false;
+    props.toJson().forEach((key, value) {
+      if (value != null) {
+        if (![
+          "child",
+          "children",
+          "computedComponentProps",
+        ].contains(key)) {
+          if (value is String && isValueBinding(value)) {
+            result = true;
+          } else if ((value is Map || value is List) &&
+              isValueBinding(jsonEncode(value))) {
+            result = true;
+          }
+        }
+      }
+    });
+
+    return result;
   }
 }

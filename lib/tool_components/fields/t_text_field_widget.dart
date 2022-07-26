@@ -6,10 +6,8 @@ import 'package:flutter_form_builder/flutter_form_builder.dart'
     show FormBuilderTextField;
 import 'package:form_builder_validators/form_builder_validators.dart'
     show FormBuilderValidators;
-import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
-import 'package:provider/provider.dart';
 
 class T_TextField extends T_Widget {
   T_TextField({
@@ -34,9 +32,6 @@ Timer? _debounce;
 
 class _T_TextFieldState extends State<T_TextField> {
   final textFieldController = TextEditingController();
-  Widget _snapshot = const SizedBox.shrink();
-  LayoutProps? _props;
-  LayoutProps? _prevProps;
   String? value;
   String? prevValue;
 
@@ -48,7 +43,7 @@ class _T_TextFieldState extends State<T_TextField> {
   }
 
   void _debounceTextChanged(String? text) {
-    String? name = _props?.name;
+    String? name = widget.props?.name;
     if (_debounce?.isActive ?? false) _debounce?.cancel();
 
     _debounce = Timer(const Duration(milliseconds: 200), () {
@@ -92,22 +87,18 @@ class _T_TextFieldState extends State<T_TextField> {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> contextData =
-        context.select((ContextStateProvider value) {
-      return value.contextData[widget.pagePath] ?? {"": null};
-    });
+    widget.watchContextState(context);
 
-    _props = widget.utils.computeWidgetProps(
-      widget.widgetProps,
-      contextData,
-    );
+    Widget _snapshot = widget.snapshot;
+    LayoutProps? _props = widget.props;
+    LayoutProps? _prevProps = widget.prevProps;
 
     if (_props != null) {
       if (_props == _prevProps) {
         return _snapshot;
       }
 
-      if (_props?.hidden == true) {
+      if (_props.hidden == true) {
         return const SizedBox.shrink();
       }
 

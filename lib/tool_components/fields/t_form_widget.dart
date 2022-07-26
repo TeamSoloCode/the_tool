@@ -32,9 +32,6 @@ class T_Form extends T_Widget {
 class _T_FormState extends State<T_Form> {
   final _formKey = GlobalKey<FormBuilderState>();
   UtilsManager utils = getIt<UtilsManager>();
-  Widget _snapshot = const SizedBox.shrink();
-  LayoutProps? _props;
-  LayoutProps? _prevProps;
 
   Map<String, FormBuilderFieldState<FormBuilderField<dynamic>, dynamic>>?
       prevFields;
@@ -83,15 +80,11 @@ class _T_FormState extends State<T_Form> {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> contextData =
-        context.select((ContextStateProvider value) {
-      return value.contextData[widget.pagePath] ?? {"": null};
-    });
+    widget.watchContextState(context);
 
-    _props = widget.utils.computeWidgetProps(
-      widget.widgetProps,
-      contextData,
-    );
+    Widget _snapshot = widget.snapshot;
+    LayoutProps? _props = widget.props;
+    LayoutProps? _prevProps = widget.prevProps;
 
     if (_props == _prevProps) {
       return _snapshot;
