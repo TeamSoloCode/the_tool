@@ -1,4 +1,5 @@
 Change theme is not working properly (text not change color)
+Fix bug not loading data in fields
 
 #-------------------------------------------------
 

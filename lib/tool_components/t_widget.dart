@@ -27,7 +27,9 @@ abstract class T_Widget extends StatefulWidget {
     required this.pagePath,
     required this.widgetUuid,
   }) : super(key: key) {
-    hasBindingValue = utils.hasBindingValue(widgetProps);
+    if (prevProps == null) {
+      hasBindingValue = utils.hasBindingValue(widgetProps);
+    }
   }
 
   void watchContextState(BuildContext context) {
@@ -47,6 +49,8 @@ abstract class T_Widget extends StatefulWidget {
       widgetProps,
       contextData,
     );
+
+    debugPrint("rebuild widget ${widgetProps.type} ${Timeline.now}");
   }
 
   Future<void> executeJSWithPagePath(String jsCode) async {
@@ -91,7 +95,9 @@ abstract class T_StatelessWidget extends StatelessWidget {
     required this.pagePath,
     required this.widgetUuid,
   }) : super(key: key) {
-    hasBindingValue = utils.hasBindingValue(widgetProps);
+    if (prevProps == null) {
+      hasBindingValue = utils.hasBindingValue(widgetProps);
+    }
   }
 
   void watchContextState(BuildContext context) {
@@ -111,6 +117,7 @@ abstract class T_StatelessWidget extends StatelessWidget {
       widgetProps,
       contextData,
     );
+    debugPrint("rebuild widget ${widgetProps.type} ${Timeline.now}");
   }
 
   Future<void> executeJSWithPagePath(String jsCode) async {

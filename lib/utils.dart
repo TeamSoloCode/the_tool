@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:gato/gato.dart' as gato;
 import 'package:get_it/get_it.dart';
@@ -149,8 +150,6 @@ class UtilsManager {
     if (!UtilsManager.isFalsy(hidden)) {
       return const LayoutProps(hidden: true);
     }
-
-    log("computeWidgetProps ${Timeline.now}");
 
     LayoutProps? widgetProps =
         themeProvider.mergeClasses(content, contextData) ?? const LayoutProps();
@@ -307,16 +306,18 @@ class UtilsManager {
     return rawColor;
   }
 
-  bool hasBindingValue(LayoutProps props) {
+  bool hasBindingValue(LayoutProps uncomputedProps) {
     var result = false;
-    props.toJson().forEach((key, value) {
+    uncomputedProps.toJson().forEach((key, value) {
       if (value != null) {
         if (![
           "child",
           "children",
           "computedComponentProps",
         ].contains(key)) {
-          if (value is String && isValueBinding(value)) {
+          if (key == "name") {
+            result = true;
+          } else if (value is String && isValueBinding(value)) {
             result = true;
           } else if ((value is Map || value is List) &&
               isValueBinding(jsonEncode(value))) {
