@@ -178,7 +178,8 @@ class UtilsManager {
 
     widgetProps = themeProvider.mergeBaseColor(widgetProps);
 
-    if (UtilsManager.isValueBinding(widgetProps.icon)) {
+    if (widgetProps.icon != null &&
+        UtilsManager.isValueBinding(widgetProps.icon)) {
       widgetProps = widgetProps.copyWith(
         icon: bindingValueToText(
           contextData,
@@ -187,7 +188,8 @@ class UtilsManager {
       );
     }
 
-    if (UtilsManager.isValueBinding(widgetProps.text)) {
+    if (widgetProps.text != null &&
+        UtilsManager.isValueBinding(widgetProps.text)) {
       widgetProps = widgetProps.copyWith(
         text: bindingValueToText(
           contextData,
@@ -208,18 +210,13 @@ class UtilsManager {
             : value;
       });
 
-      widgetProps =
-          widgetProps.copyWith(computedComponentProps: updatedComponentProps);
+      widgetProps = widgetProps.copyWith(
+        computedComponentProps: updatedComponentProps,
+      );
     }
 
     // FIXME: xxxx
-    widgetProps = LayoutProps.fromJson(
-      json.decode(
-        json.encode(ThemeProvider.transformColorFromCSS(
-          widgetProps.toJson(),
-        )),
-      ),
-    );
+    widgetProps = widgetProps.parseCssColors(widgetProps);
 
     if (widgetProps.type == "container") {
       widgetProps = _computeHeightAndWidth(widgetProps, contextData);

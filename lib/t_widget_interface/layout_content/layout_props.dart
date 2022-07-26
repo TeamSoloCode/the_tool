@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
+import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/t_widget_interface/app_bar_props/app_bar_props.dart';
 import 'package:the_tool/t_widget_interface/bottom_navigation_props/bottom_navigation_props.dart';
 
@@ -59,6 +62,18 @@ class LayoutProps with _$LayoutProps {
 }
 
 extension MergeLayoutProps on LayoutProps {
+  LayoutProps parseCssColors(LayoutProps props) {
+    var propsAsJSON = props.toJson();
+    Map<String, dynamic> newProps = {};
+    propsAsJSON.forEach((key, value) {
+      if (!["child", "children"].contains(key)) {
+        newProps[key] = ThemeProvider.transformColorFromCSS(value);
+      }
+    });
+
+    return merge(LayoutProps.fromJson(newProps));
+  }
+
   LayoutProps merge(LayoutProps? other) {
     if (other == null) return this;
 
