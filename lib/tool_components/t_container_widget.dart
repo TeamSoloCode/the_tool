@@ -26,10 +26,6 @@ class T_Container extends T_StatelessWidget {
   Widget build(BuildContext context) {
     watchContextState(context);
 
-    if (props == prevProps) {
-      return snapshot;
-    }
-
     if (props?.hidden == true) {
       return const SizedBox.shrink();
     }

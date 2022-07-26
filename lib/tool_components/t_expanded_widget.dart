@@ -22,27 +22,21 @@ class T_Expanded extends T_StatelessWidget {
   Widget build(BuildContext context) {
     watchContextState(context);
 
-    if (props != null) {
-      if (props == prevProps) {
-        return snapshot;
-      }
-
-      if (props?.hidden == true) {
-        return const SizedBox.shrink();
-      }
-
-      prevProps = props;
-
-      snapshot = Expanded(
-        key: getBindingKey(),
-        flex: props?.flex ?? 1,
-        child: T_Widgets(
-          layout: props?.child ?? const LayoutProps(),
-          pagePath: pagePath,
-          contextData: contextData,
-        ),
-      );
+    if (props?.hidden == true) {
+      return const SizedBox.shrink();
     }
+
+    prevProps = props;
+
+    snapshot = Expanded(
+      key: getBindingKey(),
+      flex: props?.flex ?? 1,
+      child: T_Widgets(
+        layout: props?.child ?? const LayoutProps(),
+        pagePath: pagePath,
+        contextData: contextData,
+      ),
+    );
 
     return snapshot;
   }

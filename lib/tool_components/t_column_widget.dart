@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
@@ -36,21 +38,15 @@ class T_Column extends T_StatelessWidget {
   Widget build(BuildContext context) {
     watchContextState(context);
 
-    if (props != null) {
-      if (props == prevProps) {
-        return snapshot;
-      }
-
-      if (props?.hidden == true) {
-        return const SizedBox.shrink();
-      }
-
-      prevProps = props;
-      snapshot = Column(
-        key: getBindingKey(),
-        children: _getChildren(),
-      );
+    if (props?.hidden == true) {
+      return const SizedBox.shrink();
     }
+
+    prevProps = props;
+    snapshot = Column(
+      key: getBindingKey(),
+      children: _getChildren(),
+    );
 
     return snapshot;
   }
