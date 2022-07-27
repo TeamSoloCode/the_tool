@@ -306,22 +306,39 @@ class UtilsManager {
     return rawColor;
   }
 
-  bool hasBindingValue(LayoutProps uncomputedProps) {
+  bool hasBindingValue(
+    LayoutProps uncomputedProps,
+    void Function(String bindingString) updateWidgetBindingStrings,
+  ) {
     var result = false;
-    uncomputedProps.toJson().forEach((key, value) {
+    uncomputedProps.toJson().forEach((propName, value) {
       if (value != null) {
         if (![
           "child",
           "children",
           "computedComponentProps",
-        ].contains(key)) {
-          if (key == "name") {
+        ].contains(propName)) {
+          String valueAsString = (value is Map || value is List)
+              ? jsonEncode(value)
+              : value.toString();
+          if (propName == "name") {
             result = true;
-          } else if (value is String && isValueBinding(value)) {
+          } else if (isValueBinding(valueAsString)) {
             result = true;
-          } else if ((value is Map || value is List) &&
-              isValueBinding(jsonEncode(value))) {
-            result = true;
+          }
+
+          if (result) {
+            UtilsManager.regexPattern.allMatches(valueAsString).map(
+              (match) {
+                var bindString = valueAsString
+                    .substring(
+                      match.start,
+                      match.end,
+                    )
+                    .trim();
+                updateWidgetBindingStrings(bindString);
+              },
+            ).toList();
           }
         }
       }

@@ -26,15 +26,9 @@ class T_Container extends T_StatelessWidget {
   Widget build(BuildContext context) {
     watchContextState(context);
 
-    if (props == prevProps) {
-      return snapshot;
-    }
-
     if (props?.hidden == true) {
       return const SizedBox.shrink();
     }
-
-    prevProps = props;
 
     var cssColor = props?.backgroundColor;
     Color? color = cssColor != null ? fromCssColor(cssColor) : null;

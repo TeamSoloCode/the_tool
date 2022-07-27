@@ -23,15 +23,9 @@ class T_Expanded extends T_StatelessWidget {
     watchContextState(context);
 
     if (props != null) {
-      if (props == prevProps) {
-        return snapshot;
-      }
-
       if (props?.hidden == true) {
         return const SizedBox.shrink();
       }
-
-      prevProps = props;
 
       snapshot = Expanded(
         key: getBindingKey(),

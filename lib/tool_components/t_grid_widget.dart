@@ -44,18 +44,12 @@ class _T_GridState extends State<T_Grid> {
 
     Widget _snapshot = widget.snapshot;
     LayoutProps? _props = widget.props;
-    LayoutProps? _prevProps = widget.prevProps;
 
     if (_props != null) {
-      if (_props == _prevProps) {
-        return _snapshot;
-      }
-
       if (_props.hidden == true) {
         return const SizedBox.shrink();
       }
 
-      _prevProps = _props;
       _items = _computeChildren(_props.children, widget.contextData);
       _snapshot = GridView.builder(
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(

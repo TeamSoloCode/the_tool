@@ -84,17 +84,10 @@ class _T_FormState extends State<T_Form> {
 
     Widget _snapshot = widget.snapshot;
     LayoutProps? _props = widget.props;
-    LayoutProps? _prevProps = widget.prevProps;
-
-    if (_props == _prevProps) {
-      return _snapshot;
-    }
 
     if (_props?.hidden == true) {
       return const SizedBox.shrink();
     }
-
-    _prevProps = _props;
 
     assert(
       _props?.name != null,

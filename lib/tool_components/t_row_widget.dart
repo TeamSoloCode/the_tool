@@ -36,15 +36,9 @@ class T_Row extends T_StatelessWidget {
     watchContextState(context);
 
     if (props != null) {
-      if (props == prevProps) {
-        return snapshot;
-      }
-
       if (props?.hidden == true) {
         return const SizedBox.shrink();
       }
-
-      prevProps = props;
 
       var mainAxisAlignment = ThemeDecoder.decodeMainAxisAlignment(
             props?.mainAxisAlignment,

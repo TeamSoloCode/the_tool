@@ -93,18 +93,12 @@ class _T_SelectFieldState extends State<T_SelectField> {
 
     Widget _snapshot = widget.snapshot;
     LayoutProps? _props = widget.props;
-    LayoutProps? _prevProps = widget.prevProps;
 
     if (_props != null) {
-      if (_props == _prevProps) {
-        return _snapshot;
-      }
-
       if (_props.hidden == true) {
         return const SizedBox.shrink();
       }
 
-      _prevProps = _props;
       _snapshot = _computeSelectField(_props, context);
     }
 

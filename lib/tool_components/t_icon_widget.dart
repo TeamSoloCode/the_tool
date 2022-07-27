@@ -29,18 +29,11 @@ class _T_IconState extends State<T_Icon> {
 
     Widget _snapshot = widget.snapshot;
     LayoutProps? _props = widget.props;
-    LayoutProps? _prevProps = widget.prevProps;
 
     if (_props != null) {
-      if (_props == _prevProps) {
-        return _snapshot;
-      }
-
       if (_props.hidden == true) {
         return const SizedBox.shrink();
       }
-
-      _prevProps = _props;
 
       var path = _props.icon ?? "";
       _snapshot = Icon(MdiIcons.fromString(path));

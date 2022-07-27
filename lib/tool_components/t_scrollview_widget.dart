@@ -37,15 +37,9 @@ class T_ScrollView extends T_StatelessWidget {
     watchContextState(context);
 
     if (props != null) {
-      if (props == prevProps) {
-        return snapshot;
-      }
-
       if (props?.hidden == true) {
         return const SizedBox.shrink();
       }
-
-      prevProps = props;
 
       _items = _computeChildren(props?.children, contextData);
       if (props?.sliverListType == "fixed_extent_list") {
