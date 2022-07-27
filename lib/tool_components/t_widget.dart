@@ -36,17 +36,14 @@ abstract class T_Widget extends StatefulWidget {
         widgetProps,
         updateWidgetBindingStrings,
       );
-      log("widgetBindingStrings ${widgetProps.type} ${widgetBindingStrings}");
     }
   }
 
   void watchContextState(BuildContext context) {
     var prevData = contextData;
-    var isDependenciesChanged = false;
     context.select((ContextStateProvider value) {
       var newPageData = value.contextData[pagePath] ?? {"": null};
-      isDependenciesChanged = isTWidgetDependenciesChanged(newPageData);
-      if (!hasBindingValue || !isDependenciesChanged) {
+      if (!hasBindingValue || !isTWidgetDependenciesChanged(newPageData)) {
         return prevData;
       }
       contextData = newPageData;
@@ -138,19 +135,17 @@ abstract class T_StatelessWidget extends StatelessWidget {
         widgetProps,
         updateWidgetBindingStrings,
       );
-      log("widgetBindingStrings ${widgetProps.type} ${widgetBindingStrings}");
     }
   }
 
   void watchContextState(BuildContext context) {
     var prevData = contextData;
-    var isDependenciesChanged = false;
     context.select((ContextStateProvider value) {
       var newPageData = value.contextData[pagePath] ?? {"": null};
-      isDependenciesChanged = isTWidgetDependenciesChanged(newPageData);
-      if (!hasBindingValue || !isDependenciesChanged) {
+      if (!hasBindingValue || !isTWidgetDependenciesChanged(newPageData)) {
         return prevData;
       }
+
       contextData = newPageData;
       return newPageData;
     });

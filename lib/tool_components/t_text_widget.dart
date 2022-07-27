@@ -33,11 +33,13 @@ class T_Text extends T_StatelessWidget {
     if (kIsWeb) {
       snapshot = SelectableText(
         props?.text ?? "",
+        key: getBindingKey(),
         style: ThemeDecoder.decodeTextStyle(props?.toJson()),
       );
     } else {
       snapshot = Text(
         props?.text ?? "",
+        key: getBindingKey(),
         style: ThemeDecoder.decodeTextStyle(props?.toJson()),
       );
     }
