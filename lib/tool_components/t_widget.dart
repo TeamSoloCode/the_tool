@@ -86,8 +86,8 @@ abstract class T_Widget extends StatefulWidget {
     return isChanged;
   }
 
-  Future<void> executeJSWithPagePath(String jsCode) async {
-    await utils.evalJS?.executeJS(jsCode, pagePath);
+  Future<dynamic> executeJSWithPagePath(String jsCode) async {
+    return await utils.evalJS?.executeJS(jsCode, pagePath);
   }
 
   Key? getBindingKey() {

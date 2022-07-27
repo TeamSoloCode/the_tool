@@ -8,7 +8,7 @@ abstract class BaseEvalJS {
 
   BaseEvalJS({required this.contextStateProvider, required this.context});
 
-  Future<void> executeJS(String jsCode, String pagePath);
+  Future<dynamic> executeJS(String jsCode, String pagePath);
 
   Future<String> setupReactForClientCode(String clientCoreCode);
 

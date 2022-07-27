@@ -27,7 +27,7 @@ class EvalJS extends BaseEvalJS {
   }
 
   @override
-  Future<void> executeJS(String jsCode, String pagePath) async {
+  Future<dynamic> executeJS(String jsCode, String pagePath) async {
     var index = jsCode.indexOf('(');
 
     var isFunctionInContext = await webViewController?.evaluateJavascript(
@@ -36,11 +36,11 @@ class EvalJS extends BaseEvalJS {
     );
 
     if (isFunctionInContext == 1) {
-      webViewController?.callAsyncJavaScript(
+      return await webViewController?.callAsyncJavaScript(
         functionBody: "context['$pagePath'].$jsCode",
       );
     } else {
-      webViewController?.callAsyncJavaScript(functionBody: jsCode);
+      return await webViewController?.callAsyncJavaScript(functionBody: jsCode);
     }
   }
 

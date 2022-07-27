@@ -25,7 +25,6 @@ class T_Text extends T_StatelessWidget {
   @override
   Widget build(BuildContext context) {
     watchContextState(context);
-
     if (props?.hidden == true) {
       return const SizedBox.shrink();
     }

@@ -54,7 +54,7 @@ class EvalJS extends BaseEvalJS {
   }
 
   @override
-  Future<void> executeJS(String jsCode, String pageName) async {
+  Future<dynamic> executeJS(String jsCode, String pageName) async {
     var index = jsCode.indexOf('(');
 
     var isFunctionInContext = await js.context.callMethod(
@@ -65,9 +65,10 @@ class EvalJS extends BaseEvalJS {
     );
 
     if (isFunctionInContext == 1) {
-      js.context.callMethod("eval", ["context['$pageName'].$jsCode"]);
+      return await js.context
+          .callMethod("eval", ["context['$pageName'].$jsCode"]);
     } else {
-      js.context.callMethod("eval", [jsCode]);
+      return await js.context.callMethod("eval", [jsCode]);
     }
   }
 
