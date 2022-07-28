@@ -33,24 +33,22 @@ class T_Container extends T_StatelessWidget {
     var cssColor = props?.backgroundColor;
     Color? color = cssColor != null ? fromCssColor(cssColor) : null;
 
-    snapshot = RepaintBoundary(
-      child: Container(
-        key: getBindingKey(),
-        height: props?.height,
-        width: props?.width,
-        margin: ThemeDecoder.decodeEdgeInsetsGeometry(props?.margin),
-        constraints: BoxConstraints(
-          maxHeight: props?.maxHeight,
-          maxWidth: props?.maxWidth,
-          minHeight: props?.minHeight,
-          minWidth: props?.minWidth,
-        ),
-        color: color,
-        child: T_Widgets(
-          layout: props?.child ?? const LayoutProps(),
-          pagePath: pagePath,
-          contextData: contextData,
-        ),
+    snapshot = Container(
+      key: getBindingKey(),
+      height: props?.height,
+      width: props?.width,
+      margin: ThemeDecoder.decodeEdgeInsetsGeometry(props?.margin),
+      constraints: BoxConstraints(
+        maxHeight: props?.maxHeight,
+        maxWidth: props?.maxWidth,
+        minHeight: props?.minHeight,
+        minWidth: props?.minWidth,
+      ),
+      color: color,
+      child: T_Widgets(
+        layout: props?.child ?? const LayoutProps(),
+        pagePath: pagePath,
+        contextData: contextData,
       ),
     );
 

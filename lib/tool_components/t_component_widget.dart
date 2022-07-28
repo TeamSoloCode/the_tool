@@ -62,6 +62,7 @@ class _T_ComponentState extends State<T_Component>
     _componentId = "${componentPath}_${const Uuid().v4()}";
     var contextData =
         getIt<ContextStateProvider>().contextData[widget.pagePath];
+
     _props = widget.utils.computeWidgetProps(
       widget.widgetProps,
       contextData,
@@ -85,6 +86,7 @@ class _T_ComponentState extends State<T_Component>
   @override
   bool get wantKeepAlive => true;
 
+  bool didBuild = false;
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -94,18 +96,20 @@ class _T_ComponentState extends State<T_Component>
       return const SizedBox.shrink();
     }
 
-    Map<String, dynamic> componentData =
-        context.select((ContextStateProvider value) {
-      return value.contextData[_componentId] ?? {"": null};
-    });
+    if (didBuild) {
+      return widget.snapshot;
+    }
 
-    return RepaintBoundary(
+    var contextData =
+        getIt<ContextStateProvider>().contextData[widget.pagePath];
+
+    widget.snapshot = T_Widgets(
       key: Key(_componentId),
-      child: T_Widgets(
-        layout: _pageLayout ?? const LayoutProps(),
-        pagePath: _componentId,
-        contextData: componentData,
-      ),
+      layout: _pageLayout ?? const LayoutProps(),
+      pagePath: _componentId,
+      contextData: contextData[_componentId] ?? {"": null},
     );
+    didBuild = true;
+    return widget.snapshot;
   }
 }

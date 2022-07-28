@@ -10,10 +10,11 @@ import 'package:collection/collection.dart' show DeepCollectionEquality;
 import 'package:gato/gato.dart' as gato;
 
 abstract class T_Widget extends StatefulWidget {
-  LayoutProps widgetProps;
-  Map<String, dynamic> parentData;
+  final LayoutProps widgetProps;
+  final Map<String, dynamic> parentData;
   final String pagePath;
-  UtilsManager utils = getIt<UtilsManager>();
+  final UtilsManager utils = getIt<UtilsManager>();
+  final contextStateProvider = getIt<ContextStateProvider>();
   final String? widgetUuid;
 
   LayoutProps? props;
@@ -39,11 +40,16 @@ abstract class T_Widget extends StatefulWidget {
     }
   }
 
-  void watchContextState(BuildContext context) {
+  void watchContextState(BuildContext context, {String? providedPagePath}) {
     var prevData = contextData;
+    var path = providedPagePath ?? pagePath;
     context.select((ContextStateProvider value) {
-      var newPageData = value.contextData[pagePath] ?? {"": null};
-      if (!hasBindingValue || !isTWidgetDependenciesChanged(newPageData)) {
+      var newPageData = value.contextData[path] ?? {"": null};
+      if (!hasBindingValue ||
+          !isTWidgetDependenciesChanged(
+            newPageData,
+            providedPagePath: path,
+          )) {
         return prevData;
       }
       contextData = newPageData;
@@ -61,15 +67,26 @@ abstract class T_Widget extends StatefulWidget {
 
     prevProps = props;
 
-    debugPrint(
-        "rebuild widget ${widgetProps.type} ${widgetBindingStrings} ${Timeline.now}");
+    debugPrint("rebuild widget ${widgetProps.type} ${Timeline.now}");
+
+    return;
   }
 
   void updateWidgetBindingStrings(String bindingString) {
     widgetBindingStrings.add(bindingString);
   }
 
-  bool isTWidgetDependenciesChanged(Map<String, dynamic> contextData) {
+  bool isTWidgetDependenciesChanged(Map<String, dynamic> contextData,
+      {String? providedPagePath}) {
+    var depsAsString =
+        "${providedPagePath ?? pagePath}_${widgetBindingStrings.toString()}";
+    var caheValue =
+        contextStateProvider.cacheCheckTWidgetDepsChanged[depsAsString];
+
+    if (caheValue != null) {
+      return caheValue;
+    }
+
     var newBindingValues = widgetBindingStrings.map((widgetBindingString) {
       return gato.get(contextData, widgetBindingString).toString();
     }).toList();
@@ -83,6 +100,12 @@ abstract class T_Widget extends StatefulWidget {
       prevBindingValues = newBindingValues;
     }
 
+    contextStateProvider.updateCacheCheckTWidgetDepsChanged(
+      depsAsString,
+      isChanged,
+    );
+    debugPrint(
+        "isTWidgetDependenciesChanged ${widgetProps.type} ${widgetBindingStrings.toString()} ${isChanged}");
     return isChanged;
   }
 
@@ -113,6 +136,7 @@ abstract class T_StatelessWidget extends StatelessWidget {
   final Map<String, dynamic> parentData;
   final String pagePath;
   final UtilsManager utils = getIt<UtilsManager>();
+  final contextStateProvider = getIt<ContextStateProvider>();
   final String? widgetUuid;
 
   LayoutProps? props;
@@ -138,11 +162,16 @@ abstract class T_StatelessWidget extends StatelessWidget {
     }
   }
 
-  void watchContextState(BuildContext context) {
+  void watchContextState(BuildContext context, {String? providedPagePath}) {
     var prevData = contextData;
+    var path = providedPagePath ?? pagePath;
     context.select((ContextStateProvider value) {
-      var newPageData = value.contextData[pagePath] ?? {"": null};
-      if (!hasBindingValue || !isTWidgetDependenciesChanged(newPageData)) {
+      var newPageData = value.contextData[path] ?? {"": null};
+      if (!hasBindingValue ||
+          !isTWidgetDependenciesChanged(
+            newPageData,
+            providedPagePath: path,
+          )) {
         return prevData;
       }
 
@@ -161,15 +190,24 @@ abstract class T_StatelessWidget extends StatelessWidget {
 
     prevProps = props;
 
-    debugPrint(
-        "rebuild widget ${widgetProps.type} ${widgetBindingStrings} ${Timeline.now}");
+    debugPrint("rebuild widget ${widgetProps.type} ${Timeline.now}");
   }
 
   void updateWidgetBindingStrings(String bindingString) {
     widgetBindingStrings.add(bindingString);
   }
 
-  bool isTWidgetDependenciesChanged(Map<String, dynamic> contextData) {
+  bool isTWidgetDependenciesChanged(Map<String, dynamic> contextData,
+      {String? providedPagePath}) {
+    var depsAsString =
+        "${providedPagePath ?? pagePath}_${widgetBindingStrings.toString()}";
+    var caheValue =
+        contextStateProvider.cacheCheckTWidgetDepsChanged[depsAsString];
+
+    if (caheValue != null) {
+      return caheValue;
+    }
+
     var newBindingValues = widgetBindingStrings.map((widgetBindingString) {
       return gato.get(contextData, widgetBindingString).toString();
     }).toList();
@@ -183,6 +221,12 @@ abstract class T_StatelessWidget extends StatelessWidget {
       prevBindingValues = newBindingValues;
     }
 
+    contextStateProvider.updateCacheCheckTWidgetDepsChanged(
+      depsAsString,
+      isChanged,
+    );
+    debugPrint(
+        "isTWidgetDependenciesChanged ${widgetProps.type} ${widgetBindingStrings.toString()} ${isChanged}");
     return isChanged;
   }
 
