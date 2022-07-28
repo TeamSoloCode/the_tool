@@ -76,8 +76,10 @@ abstract class T_Widget extends StatefulWidget {
     widgetBindingStrings.add(bindingString);
   }
 
-  bool isTWidgetDependenciesChanged(Map<String, dynamic> contextData,
-      {String? providedPagePath}) {
+  bool isTWidgetDependenciesChanged(
+    Map<String, dynamic> contextData, {
+    String? providedPagePath,
+  }) {
     var depsAsString =
         "${providedPagePath ?? pagePath}_${widgetBindingStrings.toString()}";
     var caheValue =
@@ -100,6 +102,7 @@ abstract class T_Widget extends StatefulWidget {
       prevBindingValues = newBindingValues;
     }
 
+    // Cache the result for later use
     contextStateProvider.updateCacheCheckTWidgetDepsChanged(
       depsAsString,
       isChanged,
@@ -197,8 +200,10 @@ abstract class T_StatelessWidget extends StatelessWidget {
     widgetBindingStrings.add(bindingString);
   }
 
-  bool isTWidgetDependenciesChanged(Map<String, dynamic> contextData,
-      {String? providedPagePath}) {
+  bool isTWidgetDependenciesChanged(
+    Map<String, dynamic> contextData, {
+    String? providedPagePath,
+  }) {
     var depsAsString =
         "${providedPagePath ?? pagePath}_${widgetBindingStrings.toString()}";
     var caheValue =
@@ -221,10 +226,12 @@ abstract class T_StatelessWidget extends StatelessWidget {
       prevBindingValues = newBindingValues;
     }
 
+    // Cache the result for later use
     contextStateProvider.updateCacheCheckTWidgetDepsChanged(
       depsAsString,
       isChanged,
     );
+
     debugPrint(
         "isTWidgetDependenciesChanged ${widgetProps.type} ${widgetBindingStrings.toString()} ${isChanged}");
     return isChanged;
