@@ -71,11 +71,12 @@ extension MergeLayoutProps on LayoutProps {
         if (![
           "child",
           "children",
-          "componentProps",
+          "componentProps", // this need to stay the same from the begining
         ].contains(key)) {
           newProps[key] = ThemeProvider.transformColorFromCSS(value);
         }
 
+        // computedComponentProps could have css color value
         if (key == "computedComponentProps") {
           newProps[key] =
               Map<String, dynamic>.from(ThemeProvider.transformColorFromCSS(

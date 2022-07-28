@@ -1,10 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
-import 'package:the_tool/page_utils/twidget_context_provider.dart';
 
 import 'package:the_tool/t_widget_interface/client_config/client_config.dart';
-import 'package:the_tool/utils.dart';
 
 class ContextStateProvider with ChangeNotifier, DiagnosticableTreeMixin {
   Map<String, dynamic> _contextData = {};
