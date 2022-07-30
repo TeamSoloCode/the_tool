@@ -91,10 +91,6 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> {
     LayoutProps? _props = widget.props;
 
     if (_props != null) {
-      if (_props.hidden == true) {
-        return const SizedBox.shrink();
-      }
-
       _snapshot = _computeTextField(_props, context);
     }
 

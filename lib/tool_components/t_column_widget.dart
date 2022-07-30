@@ -35,10 +35,6 @@ class T_Column extends TStatelessWidget {
   @override
   Widget buildWidget(BuildContext context) {
     if (props != null) {
-      if (props?.hidden == true) {
-        return const SizedBox.shrink();
-      }
-
       snapshot = Column(
         key: getBindingKey(),
         children: _getChildren(),

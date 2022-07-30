@@ -20,21 +20,15 @@ class T_Expanded extends TStatelessWidget {
 
   @override
   Widget buildWidget(BuildContext context) {
-    if (props != null) {
-      if (props?.hidden == true) {
-        return const SizedBox.shrink();
-      }
-
-      snapshot = Expanded(
-        key: getBindingKey(),
-        flex: props?.flex ?? 1,
-        child: TWidgets(
-          layout: props?.child ?? const LayoutProps(),
-          pagePath: pagePath,
-          contextData: contextData,
-        ),
-      );
-    }
+    snapshot = Expanded(
+      key: getBindingKey(),
+      flex: props?.flex ?? 1,
+      child: TWidgets(
+        layout: props?.child ?? const LayoutProps(),
+        pagePath: pagePath,
+        contextData: contextData,
+      ),
+    );
 
     return snapshot;
   }

@@ -44,10 +44,6 @@ class _T_GridState extends TStatefulWidget<T_Grid> {
     LayoutProps? _props = widget.props;
 
     if (_props != null) {
-      if (_props.hidden == true) {
-        return const SizedBox.shrink();
-      }
-
       _items = _computeChildren(_props.children, widget.contextData);
       _snapshot = GridView.builder(
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(

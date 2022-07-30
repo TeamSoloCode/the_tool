@@ -81,10 +81,6 @@ class _T_FormState extends TStatefulWidget<T_Form> {
     Widget _snapshot = widget.snapshot;
     LayoutProps? _props = widget.props;
 
-    if (_props?.hidden == true) {
-      return const SizedBox.shrink();
-    }
-
     assert(
       _props?.name != null,
       "Form need to have name property",

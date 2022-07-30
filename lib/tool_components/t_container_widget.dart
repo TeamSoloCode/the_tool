@@ -22,10 +22,6 @@ class T_Container extends TStatelessWidget {
 
   @override
   Widget buildWidget(BuildContext context) {
-    if (props?.hidden == true) {
-      return const SizedBox.shrink();
-    }
-
     var cssColor = props?.backgroundColor;
     Color? color = cssColor != null ? fromCssColor(cssColor) : null;
 

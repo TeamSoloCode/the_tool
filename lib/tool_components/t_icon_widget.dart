@@ -29,10 +29,6 @@ class _T_IconState extends TStatefulWidget<T_Icon> {
     LayoutProps? _props = widget.props;
 
     if (_props != null) {
-      if (_props.hidden == true) {
-        return const SizedBox.shrink();
-      }
-
       var path = _props.icon ?? "";
       _snapshot = Icon(MdiIcons.fromString(path));
     }

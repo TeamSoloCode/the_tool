@@ -93,10 +93,6 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField> {
     LayoutProps? _props = widget.props;
 
     if (_props != null) {
-      if (_props.hidden == true) {
-        return const SizedBox.shrink();
-      }
-
       _snapshot = _computeSelectField(_props, context);
     }
 

@@ -52,8 +52,6 @@ mixin BaseStateWidget on Widget {
 
     prevProps = props;
 
-    debugPrint("rebuild widget ${widgetProps.type} ${Timeline.now}");
-
     return;
   }
 
@@ -92,8 +90,6 @@ mixin BaseStateWidget on Widget {
       depsAsString,
       isChanged,
     );
-    debugPrint(
-        "isTWidgetDependenciesChanged ${widgetProps.type} ${widgetBindingStrings.toString()} $isChanged");
     return isChanged;
   }
 
@@ -148,6 +144,15 @@ abstract class TStatefulWidget<Page extends TWidget> extends State<Page> {
     if (isWatchContextState) {
       widget.watchContextState(context);
     }
+
+    if (widget.props?.hidden == true) {
+      return const SizedBox.shrink();
+    }
+
+    if (widget.props == null) {
+      return widget.snapshot;
+    }
+
     return buildWidget(context);
   }
 }
@@ -179,6 +184,15 @@ abstract class TStatelessWidget extends StatelessWidget with BaseStateWidget {
     if (isWatchContextState) {
       watchContextState(context);
     }
+
+    if (props?.hidden == true) {
+      return const SizedBox.shrink();
+    }
+
+    if (props == null) {
+      return snapshot;
+    }
+
     return buildWidget(context);
   }
 }

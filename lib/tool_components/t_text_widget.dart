@@ -22,10 +22,6 @@ class T_Text extends TStatelessWidget {
 
   @override
   Widget buildWidget(BuildContext context) {
-    if (props?.hidden == true) {
-      return const SizedBox.shrink();
-    }
-
     if (kIsWeb) {
       snapshot = SelectableText(
         props?.text ?? "",

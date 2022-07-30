@@ -33,22 +33,16 @@ class T_Row extends TStatelessWidget {
 
   @override
   Widget buildWidget(BuildContext context) {
-    if (props != null) {
-      if (props?.hidden == true) {
-        return const SizedBox.shrink();
-      }
+    var mainAxisAlignment = ThemeDecoder.decodeMainAxisAlignment(
+          props?.mainAxisAlignment,
+        ) ??
+        MainAxisAlignment.start;
 
-      var mainAxisAlignment = ThemeDecoder.decodeMainAxisAlignment(
-            props?.mainAxisAlignment,
-          ) ??
-          MainAxisAlignment.start;
-
-      snapshot = Row(
-        key: getBindingKey(),
-        mainAxisAlignment: mainAxisAlignment,
-        children: _computeChildren(props?.children, contextData),
-      );
-    }
+    snapshot = Row(
+      key: getBindingKey(),
+      mainAxisAlignment: mainAxisAlignment,
+      children: _computeChildren(props?.children, contextData),
+    );
     return snapshot;
   }
 }
