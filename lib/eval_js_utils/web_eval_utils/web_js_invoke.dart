@@ -2,9 +2,7 @@
 library web_js_invoke;
 
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:js' as js;
-import 'dart:js_util' as js_util;
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';

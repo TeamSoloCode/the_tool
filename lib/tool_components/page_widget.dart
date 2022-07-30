@@ -23,8 +23,8 @@ class T_Page extends StatefulWidget {
 }
 
 class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
-  Map<String, dynamic> _prevPageState = {};
-  Map<String, dynamic> _initPageState = {};
+  final Map<String, dynamic> _prevPageState = {};
+  final Map<String, dynamic> _initPageState = {};
   LayoutProps? _pageLayout;
   bool _isReadyToRun = false;
 
@@ -218,7 +218,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.light_mode),
+            icon: const Icon(Icons.light_mode),
           ),
         ],
       );

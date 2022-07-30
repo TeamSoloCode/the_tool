@@ -30,7 +30,7 @@ class T_TextField extends T_Widget {
 
 Timer? _debounce;
 
-class _T_TextFieldState extends State<T_TextField> {
+class _T_TextFieldState extends StateWidget<T_TextField> {
   final textFieldController = TextEditingController();
   String? value;
   String? prevValue;
@@ -86,9 +86,7 @@ class _T_TextFieldState extends State<T_TextField> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    widget.watchContextState(context);
-
+  Widget buildWidget(BuildContext context) {
     Widget _snapshot = widget.snapshot;
     LayoutProps? _props = widget.props;
 

@@ -23,7 +23,7 @@ class T_SelectField extends T_Widget {
   State<T_SelectField> createState() => _T_SelectFieldState();
 }
 
-class _T_SelectFieldState extends State<T_SelectField> {
+class _T_SelectFieldState extends StateWidget<T_SelectField> {
   String? selectedValue;
 
   dynamic value;
@@ -88,9 +88,7 @@ class _T_SelectFieldState extends State<T_SelectField> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    widget.watchContextState(context);
-
+  Widget buildWidget(BuildContext context) {
     Widget _snapshot = widget.snapshot;
     LayoutProps? _props = widget.props;
 

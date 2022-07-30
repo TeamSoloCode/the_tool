@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
@@ -9,7 +10,8 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:the_tool/t_widget_interface/client_config/client_config.dart';
 
 class APIClientManager {
-  final String host = kIsWeb ? "localhost" : "10.0.2.2";
+  final String host =
+      kIsWeb ? "localhost" : (Platform.isAndroid ? "10.0.2.2" : "localhost");
   final Dio _dio = Dio();
 
   final _dioCached = Dio();

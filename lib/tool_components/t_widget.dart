@@ -93,7 +93,7 @@ mixin BaseStateWidget on Widget {
       isChanged,
     );
     debugPrint(
-        "isTWidgetDependenciesChanged ${widgetProps.type} ${widgetBindingStrings.toString()} ${isChanged}");
+        "isTWidgetDependenciesChanged ${widgetProps.type} ${widgetBindingStrings.toString()} $isChanged");
     return isChanged;
   }
 
@@ -140,6 +140,18 @@ abstract class T_Widget extends StatefulWidget with BaseStateWidget {
   }
 }
 
+abstract class StateWidget<Page extends T_Widget> extends State<Page> {
+  Widget buildWidget(BuildContext context);
+  bool isWatchContextState = true;
+  @override
+  Widget build(BuildContext context) {
+    if (isWatchContextState) {
+      widget.watchContextState(context);
+    }
+    return buildWidget(context);
+  }
+}
+
 abstract class T_StatelessWidget extends StatelessWidget with BaseStateWidget {
   T_StatelessWidget({
     Key? key,
@@ -158,5 +170,15 @@ abstract class T_StatelessWidget extends StatelessWidget with BaseStateWidget {
         updateWidgetBindingStrings,
       );
     }
+  }
+
+  Widget buildWidget(BuildContext context);
+  bool isWatchContextState = true;
+  @override
+  Widget build(BuildContext context) {
+    if (isWatchContextState) {
+      watchContextState(context);
+    }
+    return buildWidget(context);
   }
 }

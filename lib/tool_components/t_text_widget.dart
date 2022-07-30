@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +22,7 @@ class T_Text extends T_StatelessWidget {
   var text = "";
 
   @override
-  Widget build(BuildContext context) {
-    watchContextState(context);
+  Widget buildWidget(BuildContext context) {
     if (props?.hidden == true) {
       return const SizedBox.shrink();
     }

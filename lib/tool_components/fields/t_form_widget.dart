@@ -27,7 +27,7 @@ class T_Form extends T_Widget {
   State<T_Form> createState() => _T_FormState();
 }
 
-class _T_FormState extends State<T_Form> {
+class _T_FormState extends StateWidget<T_Form> {
   final _formKey = GlobalKey<FormBuilderState>();
   UtilsManager utils = getIt<UtilsManager>();
 
@@ -77,9 +77,7 @@ class _T_FormState extends State<T_Form> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    widget.watchContextState(context);
-
+  Widget buildWidget(BuildContext context) {
     Widget _snapshot = widget.snapshot;
     LayoutProps? _props = widget.props;
 

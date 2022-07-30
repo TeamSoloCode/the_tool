@@ -234,7 +234,7 @@ class ThemeProvider with ChangeNotifier {
           ),
           className);
     } else if (className is List) {
-      className.forEach((cls) {
+      for (var cls in className) {
         if (cls is String) {
           updateWidgetProps(
               LayoutProps.fromJson(
@@ -265,7 +265,7 @@ class ThemeProvider with ChangeNotifier {
             }
           });
         }
-      });
+      }
     }
 
     return updatedWidgetProps;
@@ -280,9 +280,9 @@ class ThemeProvider with ChangeNotifier {
       return updateValue;
     } else if (inputValue is List) {
       var updateValue = [];
-      inputValue.forEach((value) {
+      for (var value in inputValue) {
         updateValue.add(transformColorFromCSS(value));
-      });
+      }
       return updateValue;
     } else if (inputValue is String) {
       if (isCssColor(inputValue)) {

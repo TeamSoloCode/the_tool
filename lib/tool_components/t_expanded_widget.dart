@@ -19,9 +19,7 @@ class T_Expanded extends T_StatelessWidget {
         );
 
   @override
-  Widget build(BuildContext context) {
-    watchContextState(context);
-
+  Widget buildWidget(BuildContext context) {
     if (props != null) {
       if (props?.hidden == true) {
         return const SizedBox.shrink();

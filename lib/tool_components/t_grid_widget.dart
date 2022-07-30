@@ -22,7 +22,7 @@ class T_Grid extends T_Widget {
   State<T_Grid> createState() => _T_GridState();
 }
 
-class _T_GridState extends State<T_Grid> {
+class _T_GridState extends StateWidget<T_Grid> {
   List<Widget> _items = [];
 
   List<Widget> _computeChildren(
@@ -39,9 +39,7 @@ class _T_GridState extends State<T_Grid> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    widget.watchContextState(context);
-
+  Widget buildWidget(BuildContext context) {
     Widget _snapshot = widget.snapshot;
     LayoutProps? _props = widget.props;
 

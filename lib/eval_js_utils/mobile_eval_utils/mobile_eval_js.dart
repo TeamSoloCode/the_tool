@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:the_tool/eval_js_utils/base_eval_js.dart';

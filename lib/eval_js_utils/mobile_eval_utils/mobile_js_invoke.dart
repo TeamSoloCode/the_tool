@@ -1,11 +1,11 @@
 library mobile_js_invoke;
 
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:permission_handler_platform_interface/permission_handler_platform_interface.dart';
 import 'package:provider/provider.dart';
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
@@ -99,7 +99,7 @@ void registerJavascriptHandler(
     handlerName: "permission_event",
     callback: (args) async {
       var permissionManager = getIt<PermissionManager>();
-      var permissionStatus;
+      PermissionStatus? permissionStatus;
       switch (args[0]) {
         case "request":
           permissionStatus = await permissionManager.requestPermission(args[1]);

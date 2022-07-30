@@ -1,11 +1,10 @@
-import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/utils.dart';
 
 class PageContextProvider with ChangeNotifier, DiagnosticableTreeMixin {
-  Map<String, Map<String, dynamic>> _tWidgetsProps = {};
+  final Map<String, Map<String, dynamic>> _tWidgetsProps = {};
   final utils = getIt<UtilsManager>();
 
   Map<String, dynamic> get tWidgetsProps => _tWidgetsProps;

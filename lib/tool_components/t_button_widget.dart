@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -24,7 +23,7 @@ class T_Button extends T_Widget {
   State<T_Button> createState() => _T_ButtonState();
 }
 
-class _T_ButtonState extends State<T_Button> {
+class _T_ButtonState extends StateWidget<T_Button> {
   Widget _computeButton(LayoutProps widgetProps) {
     String? buttonType = widgetProps.buttonType;
     String text = widgetProps.text ?? "";
@@ -59,9 +58,7 @@ class _T_ButtonState extends State<T_Button> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    widget.watchContextState(context);
-
+  Widget buildWidget(BuildContext context) {
     Widget _snapshot = widget.snapshot;
     LayoutProps? _props = widget.props;
 

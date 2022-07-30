@@ -1,16 +1,14 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/fields/t_select_field_widget.dart';
 import 'package:the_tool/tool_components/fields/t_text_field_widget.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/utils.dart';
-import 'package:provider/provider.dart';
 
 class T_Fields extends T_Widget {
+  @override
   UtilsManager utils = getIt<UtilsManager>();
 
   T_Fields({
@@ -33,7 +31,7 @@ class T_Fields extends T_Widget {
 
 Timer? _debounce;
 
-class _T_FieldsState extends State<T_Fields> {
+class _T_FieldsState extends StateWidget<T_Fields> {
   final textFieldController = TextEditingController();
   dynamic value;
   dynamic prevValue;
@@ -73,9 +71,7 @@ class _T_FieldsState extends State<T_Fields> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    widget.watchContextState(context);
-
+  Widget buildWidget(BuildContext context) {
     Widget _snapshot = widget.snapshot;
     LayoutProps? _props = widget.props;
 

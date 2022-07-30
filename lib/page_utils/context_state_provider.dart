@@ -1,11 +1,10 @@
-import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 
 import 'package:the_tool/t_widget_interface/client_config/client_config.dart';
 
 class ContextStateProvider with ChangeNotifier, DiagnosticableTreeMixin {
-  Map<String, dynamic> _contextData = {};
+  final Map<String, dynamic> _contextData = {};
   Map<String, bool> _cacheCheckTWidgetDepsChanged = {};
   ClientConfig? _appConfig;
   Map<String, dynamic> initData;

@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:from_css_color/from_css_color.dart';
@@ -23,9 +22,7 @@ class T_Container extends T_StatelessWidget {
         );
 
   @override
-  Widget build(BuildContext context) {
-    watchContextState(context);
-
+  Widget buildWidget(BuildContext context) {
     if (props?.hidden == true) {
       return const SizedBox.shrink();
     }

@@ -1,7 +1,5 @@
 import 'dart:convert';
-import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:gato/gato.dart' as gato;
 import 'package:get_it/get_it.dart';
@@ -65,7 +63,7 @@ class UtilsManager {
     String? text,
   ) {
     if (text is! String) return text ?? "";
-    if (text == null || !isValueBinding(text)) {
+    if (!isValueBinding(text)) {
       return text;
     }
 

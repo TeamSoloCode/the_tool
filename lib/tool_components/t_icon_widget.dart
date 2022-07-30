@@ -22,11 +22,9 @@ class T_Icon extends T_Widget {
   State<T_Icon> createState() => _T_IconState();
 }
 
-class _T_IconState extends State<T_Icon> {
+class _T_IconState extends StateWidget<T_Icon> {
   @override
-  Widget build(BuildContext context) {
-    widget.watchContextState(context);
-
+  Widget buildWidget(BuildContext context) {
     Widget _snapshot = widget.snapshot;
     LayoutProps? _props = widget.props;
 

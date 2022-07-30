@@ -148,12 +148,12 @@ class _PageContainerState extends State<PageContainer> {
     Map<String, Widget Function(BuildContext)> routes = {};
     List<Map<String, dynamic>> routesConfig = routeConfig;
 
-    routesConfig.forEach((routeConfig) {
+    for (var routeConfig in routesConfig) {
       String path = routeConfig['path'];
       routes.addAll({
         "/$path": (context) => T_Page(pagePath: path),
       });
-    });
+    }
 
     return routes;
   }
