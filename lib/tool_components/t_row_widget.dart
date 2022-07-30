@@ -3,7 +3,7 @@ import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 
-class T_Row extends T_StatelessWidget {
+class T_Row extends TStatelessWidget {
   T_Row({
     Key? key,
     required widgetProps,
@@ -23,7 +23,7 @@ class T_Row extends T_StatelessWidget {
     Map<String, dynamic> contextData,
   ) {
     return (children ?? []).map((child) {
-      return T_Widgets(
+      return TWidgets(
         layout: child,
         pagePath: pagePath,
         contextData: contextData,

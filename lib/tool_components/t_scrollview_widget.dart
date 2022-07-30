@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 
-class T_ScrollView extends T_StatelessWidget {
+class T_ScrollView extends TStatelessWidget {
   T_ScrollView({
     Key? key,
     required widgetProps,
@@ -22,7 +22,7 @@ class T_ScrollView extends T_StatelessWidget {
     var index = 0;
     return (children ?? []).map((child) {
       index++;
-      var tWidget = T_Widgets(
+      var tWidget = TWidgets(
         key: ValueKey(index),
         layout: child,
         pagePath: pagePath,

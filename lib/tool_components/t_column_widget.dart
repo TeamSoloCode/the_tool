@@ -3,7 +3,7 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 
-class T_Column extends T_StatelessWidget {
+class T_Column extends TStatelessWidget {
   T_Column({
     Key? key,
     required widgetProps,
@@ -23,7 +23,7 @@ class T_Column extends T_StatelessWidget {
     List<LayoutProps> children = props?.children ?? [];
     return children.map((child) {
       index++;
-      return T_Widgets(
+      return TWidgets(
         key: ValueKey(index),
         layout: child,
         pagePath: pagePath,

@@ -4,7 +4,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 
-class T_SelectField extends T_Widget {
+class T_SelectField extends TWidget {
   T_SelectField({
     Key? key,
     required widgetProps,
@@ -23,7 +23,7 @@ class T_SelectField extends T_Widget {
   State<T_SelectField> createState() => _T_SelectFieldState();
 }
 
-class _T_SelectFieldState extends StateWidget<T_SelectField> {
+class _T_SelectFieldState extends TStatefulWidget<T_SelectField> {
   String? selectedValue;
 
   dynamic value;

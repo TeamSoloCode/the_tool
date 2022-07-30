@@ -1,10 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 
-class T_Button extends T_Widget {
+class T_Button extends TWidget {
   T_Button({
     Key? key,
     required contextData,
@@ -23,7 +22,7 @@ class T_Button extends T_Widget {
   State<T_Button> createState() => _T_ButtonState();
 }
 
-class _T_ButtonState extends StateWidget<T_Button> {
+class _T_ButtonState extends TStatefulWidget<T_Button> {
   Widget _computeButton(LayoutProps widgetProps) {
     String? buttonType = widgetProps.buttonType;
     String text = widgetProps.text ?? "";

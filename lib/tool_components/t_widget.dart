@@ -119,8 +119,8 @@ mixin BaseStateWidget on Widget {
   }
 }
 
-abstract class T_Widget extends StatefulWidget with BaseStateWidget {
-  T_Widget({
+abstract class TWidget extends StatefulWidget with BaseStateWidget {
+  TWidget({
     Key? key,
     required widgetProps,
     required parentData,
@@ -140,7 +140,7 @@ abstract class T_Widget extends StatefulWidget with BaseStateWidget {
   }
 }
 
-abstract class StateWidget<Page extends T_Widget> extends State<Page> {
+abstract class TStatefulWidget<Page extends TWidget> extends State<Page> {
   Widget buildWidget(BuildContext context);
   bool isWatchContextState = true;
   @override
@@ -152,8 +152,8 @@ abstract class StateWidget<Page extends T_Widget> extends State<Page> {
   }
 }
 
-abstract class T_StatelessWidget extends StatelessWidget with BaseStateWidget {
-  T_StatelessWidget({
+abstract class TStatelessWidget extends StatelessWidget with BaseStateWidget {
+  TStatelessWidget({
     Key? key,
     required widgetProps,
     required parentData,

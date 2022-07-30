@@ -126,7 +126,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     int selectedBottomNavIndex,
   ) {
     if (_bottomNavBar == null || _bottomNavBar?.items == null) {
-      return T_Widgets(
+      return TWidgets(
         layout: _pageLayout ?? const LayoutProps(),
         pagePath: widget.pagePath,
         contextData: contextData,
@@ -201,7 +201,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     }
 
     if (appBarConfig.content != null) {
-      Widget title = T_Widgets(
+      Widget title = TWidgets(
         layout: appBarConfig.content!,
         pagePath: widget.pagePath,
         contextData: contextData,
@@ -227,7 +227,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     var customContent = gato.get(appBarConfig, "custom");
     return PreferredSize(
       preferredSize: Size.fromHeight(gato.get(customContent, "height") ?? 120),
-      child: T_Widgets(
+      child: TWidgets(
         layout: customContent,
         pagePath: widget.pagePath,
         contextData: contextData,

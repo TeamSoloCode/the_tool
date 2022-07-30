@@ -7,7 +7,7 @@ import 'package:the_tool/tool_components/fields/t_text_field_widget.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/utils.dart';
 
-class T_Fields extends T_Widget {
+class T_Fields extends TWidget {
   @override
   UtilsManager utils = getIt<UtilsManager>();
 
@@ -31,7 +31,7 @@ class T_Fields extends T_Widget {
 
 Timer? _debounce;
 
-class _T_FieldsState extends StateWidget<T_Fields> {
+class _T_FieldsState extends TStatefulWidget<T_Fields> {
   final textFieldController = TextEditingController();
   dynamic value;
   dynamic prevValue;

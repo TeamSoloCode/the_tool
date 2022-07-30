@@ -9,7 +9,7 @@ import 'package:form_builder_validators/form_builder_validators.dart'
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 
-class T_TextField extends T_Widget {
+class T_TextField extends TWidget {
   T_TextField({
     Key? key,
     required widgetProps,
@@ -30,7 +30,7 @@ class T_TextField extends T_Widget {
 
 Timer? _debounce;
 
-class _T_TextFieldState extends StateWidget<T_TextField> {
+class _T_TextFieldState extends TStatefulWidget<T_TextField> {
   final textFieldController = TextEditingController();
   String? value;
   String? prevValue;

@@ -7,7 +7,7 @@ import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
 import 'package:uuid/uuid.dart';
 
-class T_Component extends T_Widget {
+class T_Component extends TWidget {
   T_Component({
     Key? key,
     required widgetProps,
@@ -102,7 +102,7 @@ class _T_ComponentState extends State<T_Component>
     var contextData =
         getIt<ContextStateProvider>().contextData[widget.pagePath];
 
-    widget.snapshot = T_Widgets(
+    widget.snapshot = TWidgets(
       key: Key(_componentId),
       layout: _pageLayout ?? const LayoutProps(),
       pagePath: _componentId,

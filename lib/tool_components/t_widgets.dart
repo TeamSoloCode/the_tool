@@ -16,12 +16,12 @@ import 'package:the_tool/tool_components/t_scrollview_widget.dart';
 import 'package:the_tool/tool_components/t_text_widget.dart';
 import 'package:uuid/uuid.dart';
 
-class T_Widgets extends StatefulWidget {
+class TWidgets extends StatefulWidget {
   final LayoutProps layout;
   final String pagePath;
   Map<String, dynamic> contextData;
 
-  T_Widgets({
+  TWidgets({
     Key? key,
     required this.layout,
     required this.pagePath,
@@ -29,10 +29,10 @@ class T_Widgets extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<T_Widgets> createState() => _T_WidgetsState();
+  State<TWidgets> createState() => _TWidgetsState();
 }
 
-class _T_WidgetsState extends State<T_Widgets> {
+class _TWidgetsState extends State<TWidgets> {
   Widget? tWidgets;
   final widgetUuid = const Uuid().v4();
 

@@ -3,7 +3,7 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 
-class T_Grid extends T_Widget {
+class T_Grid extends TWidget {
   T_Grid({
     Key? key,
     required widgetProps,
@@ -22,7 +22,7 @@ class T_Grid extends T_Widget {
   State<T_Grid> createState() => _T_GridState();
 }
 
-class _T_GridState extends StateWidget<T_Grid> {
+class _T_GridState extends TStatefulWidget<T_Grid> {
   List<Widget> _items = [];
 
   List<Widget> _computeChildren(
@@ -30,7 +30,7 @@ class _T_GridState extends StateWidget<T_Grid> {
     Map<String, dynamic> contextData,
   ) {
     return (children ?? []).map((child) {
-      return T_Widgets(
+      return TWidgets(
         layout: child,
         pagePath: widget.pagePath,
         contextData: contextData,

@@ -8,7 +8,7 @@ import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
 
-class T_Form extends T_Widget {
+class T_Form extends TWidget {
   T_Form({
     Key? key,
     required widgetProps,
@@ -27,7 +27,7 @@ class T_Form extends T_Widget {
   State<T_Form> createState() => _T_FormState();
 }
 
-class _T_FormState extends StateWidget<T_Form> {
+class _T_FormState extends TStatefulWidget<T_Form> {
   final _formKey = GlobalKey<FormBuilderState>();
   UtilsManager utils = getIt<UtilsManager>();
 
@@ -99,7 +99,7 @@ class _T_FormState extends StateWidget<T_Form> {
       key: _formKey,
       autoFocusOnValidationFailure: true,
       autovalidateMode: AutovalidateMode.disabled,
-      child: T_Widgets(
+      child: TWidgets(
         layout: _props?.child ?? const LayoutProps(),
         pagePath: widget.pagePath,
         contextData: widget.parentData,
