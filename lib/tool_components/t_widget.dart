@@ -9,13 +9,13 @@ import 'package:provider/provider.dart';
 import 'package:collection/collection.dart' show DeepCollectionEquality;
 import 'package:gato/gato.dart' as gato;
 
-abstract class T_Widget extends StatefulWidget {
-  final LayoutProps widgetProps;
-  final Map<String, dynamic> parentData;
-  final String pagePath;
+mixin BaseStateWidget on Widget {
+  late final LayoutProps widgetProps;
+  late final Map<String, dynamic> parentData;
+  late final String pagePath;
   final UtilsManager utils = getIt<UtilsManager>();
   final contextStateProvider = getIt<ContextStateProvider>();
-  final String? widgetUuid;
+  late final String? widgetUuid;
 
   LayoutProps? props;
   LayoutProps? prevProps;
@@ -24,21 +24,6 @@ abstract class T_Widget extends StatefulWidget {
   final Set<String> widgetBindingStrings = {};
   List<dynamic> prevBindingValues = [];
   var hasBindingValue = false;
-
-  T_Widget({
-    Key? key,
-    required this.widgetProps,
-    required this.parentData,
-    required this.pagePath,
-    required this.widgetUuid,
-  }) : super(key: key) {
-    if (prevProps == null) {
-      hasBindingValue = utils.hasBindingValue(
-        widgetProps,
-        updateWidgetBindingStrings,
-      );
-    }
-  }
 
   void watchContextState(BuildContext context, {String? providedPagePath}) {
     var prevData = contextData;
@@ -134,29 +119,18 @@ abstract class T_Widget extends StatefulWidget {
   }
 }
 
-abstract class T_StatelessWidget extends StatelessWidget {
-  final LayoutProps widgetProps;
-  final Map<String, dynamic> parentData;
-  final String pagePath;
-  final UtilsManager utils = getIt<UtilsManager>();
-  final contextStateProvider = getIt<ContextStateProvider>();
-  final String? widgetUuid;
-
-  LayoutProps? props;
-  LayoutProps? prevProps;
-  Widget snapshot = const SizedBox.shrink();
-  Map<String, dynamic> contextData = {};
-  final Set<String> widgetBindingStrings = {};
-  List<String> prevBindingValues = [];
-  var hasBindingValue = false;
-
-  T_StatelessWidget({
+abstract class T_Widget extends StatefulWidget with BaseStateWidget {
+  T_Widget({
     Key? key,
-    required this.widgetProps,
-    required this.parentData,
-    required this.pagePath,
-    required this.widgetUuid,
+    required widgetProps,
+    required parentData,
+    required pagePath,
+    required widgetUuid,
   }) : super(key: key) {
+    this.widgetProps = widgetProps;
+    this.parentData = parentData;
+    this.pagePath = pagePath;
+    this.widgetUuid = widgetUuid;
     if (prevProps == null) {
       hasBindingValue = utils.hasBindingValue(
         widgetProps,
@@ -164,97 +138,25 @@ abstract class T_StatelessWidget extends StatelessWidget {
       );
     }
   }
+}
 
-  void watchContextState(BuildContext context, {String? providedPagePath}) {
-    var prevData = contextData;
-    var path = providedPagePath ?? pagePath;
-    context.select((ContextStateProvider value) {
-      var newPageData = value.contextData[path] ?? {"": null};
-      if (!hasBindingValue ||
-          !isTWidgetDependenciesChanged(
-            newPageData,
-            providedPagePath: path,
-          )) {
-        return prevData;
-      }
-
-      contextData = newPageData;
-      return newPageData;
-    });
-
-    if (prevProps != null && !hasBindingValue) {
-      return;
+abstract class T_StatelessWidget extends StatelessWidget with BaseStateWidget {
+  T_StatelessWidget({
+    Key? key,
+    required widgetProps,
+    required parentData,
+    required pagePath,
+    required widgetUuid,
+  }) : super(key: key) {
+    this.widgetProps = widgetProps;
+    this.parentData = parentData;
+    this.pagePath = pagePath;
+    this.widgetUuid = widgetUuid;
+    if (prevProps == null) {
+      hasBindingValue = utils.hasBindingValue(
+        widgetProps,
+        updateWidgetBindingStrings,
+      );
     }
-
-    props = utils.computeWidgetProps(
-      widgetProps,
-      contextData,
-    );
-
-    prevProps = props;
-
-    debugPrint("rebuild widget ${widgetProps.type} ${Timeline.now}");
-  }
-
-  void updateWidgetBindingStrings(String bindingString) {
-    widgetBindingStrings.add(bindingString);
-  }
-
-  bool isTWidgetDependenciesChanged(
-    Map<String, dynamic> contextData, {
-    String? providedPagePath,
-  }) {
-    var depsAsString =
-        "${providedPagePath ?? pagePath}_${widgetBindingStrings.toString()}";
-    var caheValue =
-        contextStateProvider.cacheCheckTWidgetDepsChanged[depsAsString];
-
-    if (caheValue != null) {
-      return caheValue;
-    }
-
-    var newBindingValues = widgetBindingStrings.map((widgetBindingString) {
-      return gato.get(contextData, widgetBindingString).toString();
-    }).toList();
-
-    var isChanged = !const DeepCollectionEquality().equals(
-      newBindingValues,
-      prevBindingValues,
-    );
-
-    if (isChanged) {
-      prevBindingValues = newBindingValues;
-    }
-
-    // Cache the result for later use
-    contextStateProvider.updateCacheCheckTWidgetDepsChanged(
-      depsAsString,
-      isChanged,
-    );
-
-    debugPrint(
-        "isTWidgetDependenciesChanged ${widgetProps.type} ${widgetBindingStrings.toString()} ${isChanged}");
-    return isChanged;
-  }
-
-  Future<void> executeJSWithPagePath(String jsCode) async {
-    await utils.evalJS?.executeJS(jsCode, pagePath);
-  }
-
-  Key? getBindingKey() {
-    var rawKey = widgetProps.key;
-    if (rawKey == null) return key;
-    if (UtilsManager.isValueBinding(rawKey)) {
-      var bindingValue = utils.bindingValueToText(parentData, rawKey);
-      return ValueKey(bindingValue);
-    }
-
-    return ValueKey(rawKey);
-  }
-
-  Future<void> setPageData(Map<String, dynamic> newData) async {
-    await executeJSWithPagePath(
-      "setPageData(JSON.parse('${json.encode(newData)}'));",
-    );
   }
 }
