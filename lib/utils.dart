@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/services.dart';
 import 'package:gato/gato.dart' as gato;
@@ -154,10 +155,11 @@ class UtilsManager {
 
     if (widgetProps.color != null) {
       widgetProps = widgetProps.copyWith(
-          color: parseColor(
-        widgetProps.color,
-        contextData,
-      ));
+        color: parseColor(
+          widgetProps.color,
+          contextData,
+        ),
+      );
     }
 
     if (widgetProps.backgroundColor != null) {

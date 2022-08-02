@@ -24,6 +24,7 @@ mixin _$LayoutProps {
   String? get color => throw _privateConstructorUsedError;
   String? get backgroundColor => throw _privateConstructorUsedError;
   String? get text => throw _privateConstructorUsedError;
+  double? get fontSize => throw _privateConstructorUsedError;
   dynamic get hidden => throw _privateConstructorUsedError;
   String? get icon => throw _privateConstructorUsedError;
   String? get mainAxisAlignment => throw _privateConstructorUsedError;
@@ -82,6 +83,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? color,
       String? backgroundColor,
       String? text,
+      double? fontSize,
       dynamic hidden,
       String? icon,
       String? mainAxisAlignment,
@@ -131,6 +133,7 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
     Object? color = freezed,
     Object? backgroundColor = freezed,
     Object? text = freezed,
+    Object? fontSize = freezed,
     Object? hidden = freezed,
     Object? icon = freezed,
     Object? mainAxisAlignment = freezed,
@@ -177,6 +180,10 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String?,
+      fontSize: fontSize == freezed
+          ? _value.fontSize
+          : fontSize // ignore: cast_nullable_to_non_nullable
+              as double?,
       hidden: hidden == freezed
           ? _value.hidden
           : hidden // ignore: cast_nullable_to_non_nullable
@@ -349,6 +356,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       String? color,
       String? backgroundColor,
       String? text,
+      double? fontSize,
       dynamic hidden,
       String? icon,
       String? mainAxisAlignment,
@@ -404,6 +412,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
     Object? color = freezed,
     Object? backgroundColor = freezed,
     Object? text = freezed,
+    Object? fontSize = freezed,
     Object? hidden = freezed,
     Object? icon = freezed,
     Object? mainAxisAlignment = freezed,
@@ -450,6 +459,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String?,
+      fontSize: fontSize == freezed
+          ? _value.fontSize
+          : fontSize // ignore: cast_nullable_to_non_nullable
+              as double?,
       hidden: hidden == freezed
           ? _value.hidden
           : hidden // ignore: cast_nullable_to_non_nullable
@@ -574,6 +587,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.color,
       this.backgroundColor,
       this.text,
+      this.fontSize,
       this.hidden,
       this.icon,
       this.mainAxisAlignment,
@@ -617,6 +631,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   final String? backgroundColor;
   @override
   final String? text;
+  @override
+  final double? fontSize;
   @override
   final dynamic hidden;
   @override
@@ -716,7 +732,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, items: $items, fieldType: $fieldType, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, flex: $flex, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, items: $items, fieldType: $fieldType, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, flex: $flex, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar)';
   }
 
   @override
@@ -728,6 +744,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('color', color))
       ..add(DiagnosticsProperty('backgroundColor', backgroundColor))
       ..add(DiagnosticsProperty('text', text))
+      ..add(DiagnosticsProperty('fontSize', fontSize))
       ..add(DiagnosticsProperty('hidden', hidden))
       ..add(DiagnosticsProperty('icon', icon))
       ..add(DiagnosticsProperty('mainAxisAlignment', mainAxisAlignment))
@@ -769,6 +786,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
             const DeepCollectionEquality()
                 .equals(other.backgroundColor, backgroundColor) &&
             const DeepCollectionEquality().equals(other.text, text) &&
+            const DeepCollectionEquality().equals(other.fontSize, fontSize) &&
             const DeepCollectionEquality().equals(other.hidden, hidden) &&
             const DeepCollectionEquality().equals(other.icon, icon) &&
             const DeepCollectionEquality()
@@ -813,6 +831,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
         const DeepCollectionEquality().hash(color),
         const DeepCollectionEquality().hash(backgroundColor),
         const DeepCollectionEquality().hash(text),
+        const DeepCollectionEquality().hash(fontSize),
         const DeepCollectionEquality().hash(hidden),
         const DeepCollectionEquality().hash(icon),
         const DeepCollectionEquality().hash(mainAxisAlignment),
@@ -860,6 +879,7 @@ abstract class _LayoutProps implements LayoutProps {
       final String? color,
       final String? backgroundColor,
       final String? text,
+      final double? fontSize,
       final dynamic hidden,
       final String? icon,
       final String? mainAxisAlignment,
@@ -900,6 +920,8 @@ abstract class _LayoutProps implements LayoutProps {
   String? get backgroundColor;
   @override
   String? get text;
+  @override
+  double? get fontSize;
   @override
   dynamic get hidden;
   @override

@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
@@ -24,10 +25,19 @@ mixin BaseStateWidget on Widget {
   final Set<String> widgetBindingStrings = {};
   List<dynamic> prevBindingValues = [];
   var hasBindingValue = false;
+  ThemeMode? _currentThemeMode;
+  ThemeMode? _prevThemeMode;
 
   void watchContextState(BuildContext context, {String? providedPagePath}) {
     var prevData = contextData;
     var path = providedPagePath ?? pagePath;
+
+    _currentThemeMode = context.select(
+      (ThemeProvider theme) {
+        return theme.currentThemeMode;
+      },
+    );
+
     context.select((ContextStateProvider value) {
       var newPageData = value.contextData[path] ?? {"": null};
       if (!hasBindingValue ||
@@ -41,7 +51,9 @@ mixin BaseStateWidget on Widget {
       return newPageData;
     });
 
-    if (prevProps != null && !hasBindingValue) {
+    if (prevProps != null &&
+        !hasBindingValue &&
+        _prevThemeMode == _currentThemeMode) {
       return;
     }
 
@@ -51,8 +63,7 @@ mixin BaseStateWidget on Widget {
     );
 
     prevProps = props;
-
-    return;
+    _prevThemeMode = _currentThemeMode;
   }
 
   void updateWidgetBindingStrings(String bindingString) {

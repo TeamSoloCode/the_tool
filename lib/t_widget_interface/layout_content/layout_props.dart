@@ -16,6 +16,7 @@ class LayoutProps with _$LayoutProps {
     String? color,
     String? backgroundColor,
     String? text,
+    double? fontSize,
     dynamic hidden,
     String? icon,
     String? mainAxisAlignment,
@@ -68,11 +69,7 @@ extension MergeLayoutProps on LayoutProps {
     Map<String, dynamic> newProps = {};
     propsAsJSON.forEach((key, value) {
       if (value != null) {
-        if (![
-          "child",
-          "children",
-          "componentProps", // this need to stay the same from the begining
-        ].contains(key)) {
+        if (key.toLowerCase().contains("color")) {
           newProps[key] = ThemeProvider.transformColorFromCSS(value);
         }
 
@@ -104,6 +101,7 @@ extension MergeLayoutProps on LayoutProps {
       color: other.color ?? color,
       backgroundColor: other.backgroundColor ?? backgroundColor,
       text: other.text ?? text,
+      fontSize: other.fontSize ?? fontSize,
       hidden: other.hidden ?? hidden,
       icon: other.icon ?? icon,
       mainAxisAlignment: other.mainAxisAlignment ?? mainAxisAlignment,

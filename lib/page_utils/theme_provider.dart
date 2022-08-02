@@ -13,7 +13,7 @@ class ThemeProvider with ChangeNotifier {
   Map<String, dynamic>? _classes;
   Map<String, dynamic>? _baseColor;
   BuildContext context;
-  static final UtilsManager _utils = getIt<UtilsManager>();
+  static final UtilsManager utils = getIt<UtilsManager>();
 
   Map<int, Color> color = {
     50: const Color.fromRGBO(136, 14, 79, .1),
@@ -189,15 +189,26 @@ class ThemeProvider with ChangeNotifier {
 
   LayoutProps mergeBaseColor(LayoutProps content) {
     try {
-      var rawContent = json.encode(content.toJson());
+      var rawContent = content.toJson();
 
-      baseColor?.forEach((key, value) {
-        if (!key.startsWith("--")) {
-          rawContent = rawContent.replaceAll(RegExp("\"$key\""), "\"$value\"");
+      rawContent.forEach((propName, propValue) {
+        if (![
+              "child",
+              "children",
+            ].contains(propName) &&
+            propValue is String) {
+          baseColor?.forEach((baseColorName, value) {
+            if (!baseColorName.startsWith("--")) {
+              rawContent[propName] = propValue.replaceAll(
+                RegExp("\"$baseColorName\""),
+                "\"$value\"",
+              );
+            }
+          });
         }
       });
 
-      return LayoutProps.fromJson(json.decode(rawContent));
+      return LayoutProps.fromJson(json.decode(json.encode(rawContent)));
     } catch (e) {
       rethrow;
     }
@@ -248,7 +259,7 @@ class ThemeProvider with ChangeNotifier {
             var result = value;
 
             if (UtilsManager.isValueBinding(value)) {
-              result = _utils.bindingValueToProp(
+              result = utils.bindingValueToProp(
                 contextData,
                 value,
               );
