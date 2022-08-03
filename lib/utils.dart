@@ -16,6 +16,8 @@ GetIt getIt = GetIt.instance;
 class UtilsManager {
   UtilsManager() : super();
   Map<String, String> _staticContent = {};
+  static Map<String, dynamic> emptyMapStringDynamic =
+      Map<String, dynamic>.from({});
   static final regexPattern = RegExp(r"[^{{\}}]+(?=}})");
   late ThemeProvider themeProvider;
 

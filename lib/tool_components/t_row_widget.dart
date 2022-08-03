@@ -22,8 +22,11 @@ class T_Row extends TStatelessWidget {
     List<dynamic>? children,
     Map<String, dynamic> contextData,
   ) {
+    var index = 0;
     return (children ?? []).map((child) {
+      index++;
       return TWidgets(
+        key: ValueKey(index),
         layout: child,
         pagePath: pagePath,
         contextData: contextData,

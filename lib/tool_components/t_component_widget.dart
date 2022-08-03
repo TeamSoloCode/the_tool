@@ -60,7 +60,8 @@ class _T_ComponentState extends State<T_Component>
 
     _componentId = "${componentPath}_${const Uuid().v4()}";
     var contextData =
-        getIt<ContextStateProvider>().contextData[widget.pagePath];
+        getIt<ContextStateProvider>().contextData[widget.pagePath] ??
+            UtilsManager.emptyMapStringDynamic;
 
     _props = widget.utils.computeWidgetProps(
       widget.widgetProps,
@@ -106,7 +107,8 @@ class _T_ComponentState extends State<T_Component>
       key: Key(_componentId),
       layout: _pageLayout ?? const LayoutProps(),
       pagePath: _componentId,
-      contextData: contextData[_componentId] ?? {"": null},
+      contextData:
+          contextData[_componentId] ?? UtilsManager.emptyMapStringDynamic,
     );
     didBuild = true;
     return widget.snapshot;

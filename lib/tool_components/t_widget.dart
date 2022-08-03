@@ -142,7 +142,9 @@ abstract class TWidget extends StatefulWidget with BaseStateWidget {
     this.pagePath = pagePath;
     this.widgetUuid = widgetUuid;
 
-    contextData = getIt<ContextStateProvider>().contextData[pagePath];
+    contextData = getIt<ContextStateProvider>().contextData[pagePath] ??
+        UtilsManager.emptyMapStringDynamic;
+    ;
 
     if (prevProps == null) {
       hasBindingValue = utils.hasBindingValue(
@@ -187,7 +189,8 @@ abstract class TStatelessWidget extends StatelessWidget with BaseStateWidget {
     this.pagePath = pagePath;
     this.widgetUuid = widgetUuid;
 
-    contextData = getIt<ContextStateProvider>().contextData[pagePath];
+    contextData = getIt<ContextStateProvider>().contextData[pagePath] ??
+        UtilsManager.emptyMapStringDynamic;
     if (prevProps == null) {
       hasBindingValue = utils.hasBindingValue(
         widgetProps,

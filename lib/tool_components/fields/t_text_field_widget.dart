@@ -33,7 +33,7 @@ Timer? _debounce;
 class _TTextFieldState extends TStatefulWidget<TTextField> {
   final textFieldController = TextEditingController();
   String? value;
-  String? prevValue;
+  var debounceDuration = const Duration(milliseconds: 500);
 
   @override
   void dispose() {
@@ -44,14 +44,10 @@ class _TTextFieldState extends TStatefulWidget<TTextField> {
 
   @override
   void didChangeDependencies() {
-    super.didChangeDependencies();
-    debugPrint(
-        "T_TextField ${widget.widgetProps.name} ${widget.pagePath} ${widget.contextData}");
-
     String? name = widget.widgetProps.name;
     String newText = widget.contextData[name] ?? "";
-    String text = textFieldController.text;
-    if (newText != text && name != null) {
+    String currentText = textFieldController.text;
+    if (newText != currentText && name != null) {
       Future.delayed(Duration.zero, () async {
         textFieldController.value = TextEditingValue(
             text: newText,
@@ -60,6 +56,8 @@ class _TTextFieldState extends TStatefulWidget<TTextField> {
             ));
       });
     }
+
+    super.didChangeDependencies();
   }
 
   void _debounceTextChanged(
@@ -69,7 +67,7 @@ class _TTextFieldState extends TStatefulWidget<TTextField> {
     String? name = widget.props?.name;
     if (_debounce?.isActive ?? false) _debounce?.cancel();
 
-    _debounce = Timer(const Duration(milliseconds: 200), () {
+    _debounce = Timer(debounceDuration, () {
       String newText = contextData[name] ?? "";
       if (newText != text && name != null) {
         widget.setPageData({name: text});
