@@ -47,6 +47,7 @@ mixin BaseStateWidget on Widget {
           )) {
         return prevData;
       }
+
       contextData = newPageData;
       return newPageData;
     });
@@ -64,6 +65,8 @@ mixin BaseStateWidget on Widget {
 
     prevProps = props;
     _prevThemeMode = _currentThemeMode;
+
+    return;
   }
 
   void updateWidgetBindingStrings(String bindingString) {
@@ -138,6 +141,9 @@ abstract class TWidget extends StatefulWidget with BaseStateWidget {
     this.parentData = parentData;
     this.pagePath = pagePath;
     this.widgetUuid = widgetUuid;
+
+    contextData = getIt<ContextStateProvider>().contextData[pagePath];
+
     if (prevProps == null) {
       hasBindingValue = utils.hasBindingValue(
         widgetProps,
@@ -180,6 +186,8 @@ abstract class TStatelessWidget extends StatelessWidget with BaseStateWidget {
     this.parentData = parentData;
     this.pagePath = pagePath;
     this.widgetUuid = widgetUuid;
+
+    contextData = getIt<ContextStateProvider>().contextData[pagePath];
     if (prevProps == null) {
       hasBindingValue = utils.hasBindingValue(
         widgetProps,

@@ -339,6 +339,10 @@ class UtilsManager {
                 updateWidgetBindingStrings(bindString);
               },
             ).toList();
+
+            if (propName == "name") {
+              updateWidgetBindingStrings(value);
+            }
           }
         }
       }

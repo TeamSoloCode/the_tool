@@ -52,7 +52,7 @@ class _T_FieldsState extends TStatefulWidget<T_Fields> {
 
     switch (fieldType) {
       case "text":
-        return T_TextField(
+        return TTextField(
           pagePath: widget.pagePath,
           widgetProps: widget.widgetProps,
           contextData: widget.parentData,

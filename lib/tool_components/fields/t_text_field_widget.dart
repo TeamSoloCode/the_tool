@@ -9,8 +9,8 @@ import 'package:form_builder_validators/form_builder_validators.dart'
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 
-class T_TextField extends TWidget {
-  T_TextField({
+class TTextField extends TWidget {
+  TTextField({
     Key? key,
     required widgetProps,
     required contextData,
@@ -25,12 +25,12 @@ class T_TextField extends TWidget {
         );
 
   @override
-  State<T_TextField> createState() => _T_TextFieldState();
+  State<TTextField> createState() => _TTextFieldState();
 }
 
 Timer? _debounce;
 
-class _T_TextFieldState extends TStatefulWidget<T_TextField> {
+class _TTextFieldState extends TStatefulWidget<TTextField> {
   final textFieldController = TextEditingController();
   String? value;
   String? prevValue;
@@ -42,22 +42,44 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> {
     super.dispose();
   }
 
-  void _debounceTextChanged(String? text) {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    debugPrint(
+        "T_TextField ${widget.widgetProps.name} ${widget.pagePath} ${widget.contextData}");
+
+    String? name = widget.widgetProps.name;
+    String newText = widget.contextData[name] ?? "";
+    String text = textFieldController.text;
+    if (newText != text && name != null) {
+      Future.delayed(Duration.zero, () async {
+        textFieldController.value = TextEditingValue(
+            text: newText,
+            selection: TextSelection.fromPosition(
+              TextPosition(offset: newText.length),
+            ));
+      });
+    }
+  }
+
+  void _debounceTextChanged(
+    String? text,
+    Map<String, dynamic> contextData,
+  ) {
     String? name = widget.props?.name;
     if (_debounce?.isActive ?? false) _debounce?.cancel();
 
     _debounce = Timer(const Duration(milliseconds: 200), () {
-      String newText = widget.parentData[name] ?? "";
+      String newText = contextData[name] ?? "";
       if (newText != text && name != null) {
         widget.setPageData({name: text});
-        prevValue = text == "" ? null : text;
       }
     });
   }
 
   Widget _computeTextField(
     LayoutProps? widgetProps,
-    BuildContext context,
+    Map<String, dynamic> contextData,
   ) {
     String? name = widgetProps?.name;
     assert(name != null, "Missing \"name\" in field widget");
@@ -69,8 +91,13 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> {
         hintText: "Placeholder",
         labelText: 'Required field number and below than 10',
       ),
+      // initialValue: contextData[name] ?? "",
       onChanged: (text) {
-        _debounceTextChanged(text);
+        _debounceTextChanged(text, contextData);
+      },
+      onReset: () {
+        textFieldController.value = TextEditingValue.empty;
+        widget.setPageData({name!: ""});
       },
       onEditingComplete: () {
         log("onEditingComplete");
@@ -91,7 +118,7 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> {
     LayoutProps? _props = widget.props;
 
     if (_props != null) {
-      _snapshot = _computeTextField(_props, context);
+      _snapshot = _computeTextField(_props, widget.contextData);
     }
 
     return _snapshot;
