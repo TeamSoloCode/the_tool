@@ -144,7 +144,7 @@ class APIClientManager {
     String? themePath = "theme",
   }) async {
     try {
-      var response = await _dio.get('$_pageAPI/${themePath ?? "theme"}');
+      var response = await _dioCached.get('$_pageAPI/${themePath ?? "theme"}');
       return Future.value(json.decode(response.data));
     } on DioError catch (e) {
       if (e.response != null) {
