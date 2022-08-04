@@ -130,7 +130,11 @@ abstract class BaseEvalJS {
 
         // This will use to set data for layout code
         const setPageData = React.useCallback((data) => {
-          const nextData = {..._pageData, ...data}
+          const nextData = {..._pageData }
+          Object.entries(data).forEach(([key, value]) => {
+            _.set(nextData, key, value)
+          })
+
           _setPageData(nextData)
 
           // To prevent multi call when _pageData not update yet
