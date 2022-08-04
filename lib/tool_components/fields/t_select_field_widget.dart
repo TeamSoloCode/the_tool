@@ -3,6 +3,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
+import 'package:uuid/uuid.dart';
 
 class T_SelectField extends TWidget {
   T_SelectField({
@@ -25,21 +26,30 @@ class T_SelectField extends TWidget {
 
 class _T_SelectFieldState extends TStatefulWidget<T_SelectField> {
   String? selectedValue;
-
-  dynamic value;
-  dynamic prevValue;
-
+  final _dropDownKey = GlobalKey<FormBuilderFieldState>();
   dynamic items;
-  dynamic prevItems;
+
+  @override
+  void didChangeDependencies() {
+    String? name = widget.widgetProps.name;
+    dynamic currentValue = _dropDownKey.currentState?.value;
+    if (selectedValue != currentValue && name != null) {
+      Future.delayed(Duration.zero, () async {
+        _dropDownKey.currentState?.setValue(selectedValue);
+      });
+    }
+
+    super.didChangeDependencies();
+  }
 
   List<DropdownMenuItem> _computeDropdownItems(dynamic value) {
     if (value is! List) return [];
 
     return value
         .map(
-          (gender) => DropdownMenuItem(
-            value: gender,
-            child: Text('$gender'),
+          (item) => DropdownMenuItem(
+            value: item,
+            child: Text('$item'),
           ),
         )
         .toList();
@@ -53,23 +63,22 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField> {
 
   Widget _computeSelectField(
     LayoutProps? widgetProps,
-    BuildContext context,
+    Map<String, dynamic> contextData,
   ) {
     String? name = widgetProps?.name;
-    value = widget.parentData[name];
+    var value = contextData[name];
     items = widgetProps?.items ?? [];
     assert(name != null, "Missing \"name\" in field widget");
 
     /** "items" property might be a string, that's mean it's a databinding */
     if (items is String) {
-      items = widget.parentData[items] ?? [];
+      items = contextData[items] ?? [];
     }
 
-    prevValue = value;
-    prevItems = items;
+    debugPrint("T_SelectField $name $value");
 
     return FormBuilderDropdown(
-      key: value != null ? Key(value) : null,
+      key: _dropDownKey,
       name: name ?? "",
       decoration: const InputDecoration(
         labelText: 'Gender',
@@ -78,6 +87,10 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField> {
       initialValue: value,
       allowClear: true,
       hint: const Text('Select Gender'),
+      onReset: () {
+        _onChangeOption(null);
+        _dropDownKey.currentState!.setValue(null);
+      },
       validator: FormBuilderValidators.compose(
         [
           FormBuilderValidators.required(),
@@ -93,9 +106,8 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField> {
     LayoutProps? _props = widget.props;
 
     if (_props != null) {
-      _snapshot = _computeSelectField(_props, context);
+      _snapshot = _computeSelectField(_props, widget.contextData);
     }
-
     return _snapshot;
   }
 }
