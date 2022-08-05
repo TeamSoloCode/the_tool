@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/t_widget_interface/app_bar_props/app_bar_props.dart';
 import 'package:the_tool/t_widget_interface/bottom_navigation_props/bottom_navigation_props.dart';
+import 'package:the_tool/t_widget_interface/image_content/image_provider.dart';
 
 part 'layout_props.freezed.dart';
 part 'layout_props.g.dart';
@@ -35,7 +36,13 @@ class LayoutProps with _$LayoutProps {
     dynamic minWidth,
     dynamic minHeight,
     dynamic margin,
+    double? borderTop,
+    double? borderBottom,
+    double? borderRight,
+    double? borderLeft,
     int? flex,
+    String? fit,
+
     /**
      * 
      */
@@ -56,6 +63,7 @@ class LayoutProps with _$LayoutProps {
     List<LayoutProps>? children,
     BottomNavigationProps? bottomNav,
     AppBarProps? appBar,
+    ImageProviderProps? imageProviderProps,
   }) = _LayoutProps;
 
   factory LayoutProps.fromJson(Map<String, Object?> json) =>

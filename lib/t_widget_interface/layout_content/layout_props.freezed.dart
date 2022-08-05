@@ -43,7 +43,12 @@ mixin _$LayoutProps {
   dynamic get minWidth => throw _privateConstructorUsedError;
   dynamic get minHeight => throw _privateConstructorUsedError;
   dynamic get margin => throw _privateConstructorUsedError;
+  double? get borderTop => throw _privateConstructorUsedError;
+  double? get borderBottom => throw _privateConstructorUsedError;
+  double? get borderRight => throw _privateConstructorUsedError;
+  double? get borderLeft => throw _privateConstructorUsedError;
   int? get flex => throw _privateConstructorUsedError;
+  String? get fit => throw _privateConstructorUsedError;
   /**
      * 
      */
@@ -66,6 +71,8 @@ mixin _$LayoutProps {
   List<LayoutProps>? get children => throw _privateConstructorUsedError;
   BottomNavigationProps? get bottomNav => throw _privateConstructorUsedError;
   AppBarProps? get appBar => throw _privateConstructorUsedError;
+  ImageProviderProps? get imageProviderProps =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -102,7 +109,12 @@ abstract class $LayoutPropsCopyWith<$Res> {
       dynamic minWidth,
       dynamic minHeight,
       dynamic margin,
+      double? borderTop,
+      double? borderBottom,
+      double? borderRight,
+      double? borderLeft,
       int? flex,
+      String? fit,
       String? sliverListType,
       double? itemExtent,
       Map<String, dynamic>? componentProps,
@@ -111,12 +123,14 @@ abstract class $LayoutPropsCopyWith<$Res> {
       LayoutProps? content,
       List<LayoutProps>? children,
       BottomNavigationProps? bottomNav,
-      AppBarProps? appBar});
+      AppBarProps? appBar,
+      ImageProviderProps? imageProviderProps});
 
   $LayoutPropsCopyWith<$Res>? get child;
   $LayoutPropsCopyWith<$Res>? get content;
   $BottomNavigationPropsCopyWith<$Res>? get bottomNav;
   $AppBarPropsCopyWith<$Res>? get appBar;
+  $ImageProviderPropsCopyWith<$Res>? get imageProviderProps;
 }
 
 /// @nodoc
@@ -152,7 +166,12 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
     Object? minWidth = freezed,
     Object? minHeight = freezed,
     Object? margin = freezed,
+    Object? borderTop = freezed,
+    Object? borderBottom = freezed,
+    Object? borderRight = freezed,
+    Object? borderLeft = freezed,
     Object? flex = freezed,
+    Object? fit = freezed,
     Object? sliverListType = freezed,
     Object? itemExtent = freezed,
     Object? componentProps = freezed,
@@ -162,6 +181,7 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
     Object? children = freezed,
     Object? bottomNav = freezed,
     Object? appBar = freezed,
+    Object? imageProviderProps = freezed,
   }) {
     return _then(_value.copyWith(
       type: type == freezed
@@ -256,10 +276,30 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
           ? _value.margin
           : margin // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      borderTop: borderTop == freezed
+          ? _value.borderTop
+          : borderTop // ignore: cast_nullable_to_non_nullable
+              as double?,
+      borderBottom: borderBottom == freezed
+          ? _value.borderBottom
+          : borderBottom // ignore: cast_nullable_to_non_nullable
+              as double?,
+      borderRight: borderRight == freezed
+          ? _value.borderRight
+          : borderRight // ignore: cast_nullable_to_non_nullable
+              as double?,
+      borderLeft: borderLeft == freezed
+          ? _value.borderLeft
+          : borderLeft // ignore: cast_nullable_to_non_nullable
+              as double?,
       flex: flex == freezed
           ? _value.flex
           : flex // ignore: cast_nullable_to_non_nullable
               as int?,
+      fit: fit == freezed
+          ? _value.fit
+          : fit // ignore: cast_nullable_to_non_nullable
+              as String?,
       sliverListType: sliverListType == freezed
           ? _value.sliverListType
           : sliverListType // ignore: cast_nullable_to_non_nullable
@@ -296,6 +336,10 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
           ? _value.appBar
           : appBar // ignore: cast_nullable_to_non_nullable
               as AppBarProps?,
+      imageProviderProps: imageProviderProps == freezed
+          ? _value.imageProviderProps
+          : imageProviderProps // ignore: cast_nullable_to_non_nullable
+              as ImageProviderProps?,
     ));
   }
 
@@ -342,6 +386,18 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
       return _then(_value.copyWith(appBar: value));
     });
   }
+
+  @override
+  $ImageProviderPropsCopyWith<$Res>? get imageProviderProps {
+    if (_value.imageProviderProps == null) {
+      return null;
+    }
+
+    return $ImageProviderPropsCopyWith<$Res>(_value.imageProviderProps!,
+        (value) {
+      return _then(_value.copyWith(imageProviderProps: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -375,7 +431,12 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       dynamic minWidth,
       dynamic minHeight,
       dynamic margin,
+      double? borderTop,
+      double? borderBottom,
+      double? borderRight,
+      double? borderLeft,
       int? flex,
+      String? fit,
       String? sliverListType,
       double? itemExtent,
       Map<String, dynamic>? componentProps,
@@ -384,7 +445,8 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       LayoutProps? content,
       List<LayoutProps>? children,
       BottomNavigationProps? bottomNav,
-      AppBarProps? appBar});
+      AppBarProps? appBar,
+      ImageProviderProps? imageProviderProps});
 
   @override
   $LayoutPropsCopyWith<$Res>? get child;
@@ -394,6 +456,8 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
   $BottomNavigationPropsCopyWith<$Res>? get bottomNav;
   @override
   $AppBarPropsCopyWith<$Res>? get appBar;
+  @override
+  $ImageProviderPropsCopyWith<$Res>? get imageProviderProps;
 }
 
 /// @nodoc
@@ -431,7 +495,12 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
     Object? minWidth = freezed,
     Object? minHeight = freezed,
     Object? margin = freezed,
+    Object? borderTop = freezed,
+    Object? borderBottom = freezed,
+    Object? borderRight = freezed,
+    Object? borderLeft = freezed,
     Object? flex = freezed,
+    Object? fit = freezed,
     Object? sliverListType = freezed,
     Object? itemExtent = freezed,
     Object? componentProps = freezed,
@@ -441,6 +510,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
     Object? children = freezed,
     Object? bottomNav = freezed,
     Object? appBar = freezed,
+    Object? imageProviderProps = freezed,
   }) {
     return _then(_$_LayoutProps(
       type: type == freezed
@@ -535,10 +605,30 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
           ? _value.margin
           : margin // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      borderTop: borderTop == freezed
+          ? _value.borderTop
+          : borderTop // ignore: cast_nullable_to_non_nullable
+              as double?,
+      borderBottom: borderBottom == freezed
+          ? _value.borderBottom
+          : borderBottom // ignore: cast_nullable_to_non_nullable
+              as double?,
+      borderRight: borderRight == freezed
+          ? _value.borderRight
+          : borderRight // ignore: cast_nullable_to_non_nullable
+              as double?,
+      borderLeft: borderLeft == freezed
+          ? _value.borderLeft
+          : borderLeft // ignore: cast_nullable_to_non_nullable
+              as double?,
       flex: flex == freezed
           ? _value.flex
           : flex // ignore: cast_nullable_to_non_nullable
               as int?,
+      fit: fit == freezed
+          ? _value.fit
+          : fit // ignore: cast_nullable_to_non_nullable
+              as String?,
       sliverListType: sliverListType == freezed
           ? _value.sliverListType
           : sliverListType // ignore: cast_nullable_to_non_nullable
@@ -575,6 +665,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
           ? _value.appBar
           : appBar // ignore: cast_nullable_to_non_nullable
               as AppBarProps?,
+      imageProviderProps: imageProviderProps == freezed
+          ? _value.imageProviderProps
+          : imageProviderProps // ignore: cast_nullable_to_non_nullable
+              as ImageProviderProps?,
     ));
   }
 }
@@ -606,7 +700,12 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.minWidth,
       this.minHeight,
       this.margin,
+      this.borderTop,
+      this.borderBottom,
+      this.borderRight,
+      this.borderLeft,
       this.flex,
+      this.fit,
       this.sliverListType,
       this.itemExtent,
       final Map<String, dynamic>? componentProps,
@@ -615,7 +714,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.content,
       final List<LayoutProps>? children,
       this.bottomNav,
-      this.appBar})
+      this.appBar,
+      this.imageProviderProps})
       : _componentProps = componentProps,
         _computedComponentProps = computedComponentProps,
         _children = children;
@@ -670,7 +770,17 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   @override
   final dynamic margin;
   @override
+  final double? borderTop;
+  @override
+  final double? borderBottom;
+  @override
+  final double? borderRight;
+  @override
+  final double? borderLeft;
+  @override
   final int? flex;
+  @override
+  final String? fit;
 /**
      * 
      */
@@ -729,10 +839,12 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   final BottomNavigationProps? bottomNav;
   @override
   final AppBarProps? appBar;
+  @override
+  final ImageProviderProps? imageProviderProps;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, items: $items, fieldType: $fieldType, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, flex: $flex, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, items: $items, fieldType: $fieldType, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, fit: $fit, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, imageProviderProps: $imageProviderProps)';
   }
 
   @override
@@ -763,7 +875,12 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('minWidth', minWidth))
       ..add(DiagnosticsProperty('minHeight', minHeight))
       ..add(DiagnosticsProperty('margin', margin))
+      ..add(DiagnosticsProperty('borderTop', borderTop))
+      ..add(DiagnosticsProperty('borderBottom', borderBottom))
+      ..add(DiagnosticsProperty('borderRight', borderRight))
+      ..add(DiagnosticsProperty('borderLeft', borderLeft))
       ..add(DiagnosticsProperty('flex', flex))
+      ..add(DiagnosticsProperty('fit', fit))
       ..add(DiagnosticsProperty('sliverListType', sliverListType))
       ..add(DiagnosticsProperty('itemExtent', itemExtent))
       ..add(DiagnosticsProperty('componentProps', componentProps))
@@ -773,7 +890,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('content', content))
       ..add(DiagnosticsProperty('children', children))
       ..add(DiagnosticsProperty('bottomNav', bottomNav))
-      ..add(DiagnosticsProperty('appBar', appBar));
+      ..add(DiagnosticsProperty('appBar', appBar))
+      ..add(DiagnosticsProperty('imageProviderProps', imageProviderProps));
   }
 
   @override
@@ -807,7 +925,15 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
             const DeepCollectionEquality().equals(other.minWidth, minWidth) &&
             const DeepCollectionEquality().equals(other.minHeight, minHeight) &&
             const DeepCollectionEquality().equals(other.margin, margin) &&
+            const DeepCollectionEquality().equals(other.borderTop, borderTop) &&
+            const DeepCollectionEquality()
+                .equals(other.borderBottom, borderBottom) &&
+            const DeepCollectionEquality()
+                .equals(other.borderRight, borderRight) &&
+            const DeepCollectionEquality()
+                .equals(other.borderLeft, borderLeft) &&
             const DeepCollectionEquality().equals(other.flex, flex) &&
+            const DeepCollectionEquality().equals(other.fit, fit) &&
             const DeepCollectionEquality()
                 .equals(other.sliverListType, sliverListType) &&
             const DeepCollectionEquality()
@@ -820,7 +946,9 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
             const DeepCollectionEquality().equals(other.content, content) &&
             const DeepCollectionEquality().equals(other._children, _children) &&
             const DeepCollectionEquality().equals(other.bottomNav, bottomNav) &&
-            const DeepCollectionEquality().equals(other.appBar, appBar));
+            const DeepCollectionEquality().equals(other.appBar, appBar) &&
+            const DeepCollectionEquality()
+                .equals(other.imageProviderProps, imageProviderProps));
   }
 
   @JsonKey(ignore: true)
@@ -850,7 +978,12 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
         const DeepCollectionEquality().hash(minWidth),
         const DeepCollectionEquality().hash(minHeight),
         const DeepCollectionEquality().hash(margin),
+        const DeepCollectionEquality().hash(borderTop),
+        const DeepCollectionEquality().hash(borderBottom),
+        const DeepCollectionEquality().hash(borderRight),
+        const DeepCollectionEquality().hash(borderLeft),
         const DeepCollectionEquality().hash(flex),
+        const DeepCollectionEquality().hash(fit),
         const DeepCollectionEquality().hash(sliverListType),
         const DeepCollectionEquality().hash(itemExtent),
         const DeepCollectionEquality().hash(_componentProps),
@@ -859,7 +992,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
         const DeepCollectionEquality().hash(content),
         const DeepCollectionEquality().hash(_children),
         const DeepCollectionEquality().hash(bottomNav),
-        const DeepCollectionEquality().hash(appBar)
+        const DeepCollectionEquality().hash(appBar),
+        const DeepCollectionEquality().hash(imageProviderProps)
       ]);
 
   @JsonKey(ignore: true)
@@ -898,7 +1032,12 @@ abstract class _LayoutProps implements LayoutProps {
       final dynamic minWidth,
       final dynamic minHeight,
       final dynamic margin,
+      final double? borderTop,
+      final double? borderBottom,
+      final double? borderRight,
+      final double? borderLeft,
       final int? flex,
+      final String? fit,
       final String? sliverListType,
       final double? itemExtent,
       final Map<String, dynamic>? componentProps,
@@ -907,7 +1046,8 @@ abstract class _LayoutProps implements LayoutProps {
       final LayoutProps? content,
       final List<LayoutProps>? children,
       final BottomNavigationProps? bottomNav,
-      final AppBarProps? appBar}) = _$_LayoutProps;
+      final AppBarProps? appBar,
+      final ImageProviderProps? imageProviderProps}) = _$_LayoutProps;
 
   factory _LayoutProps.fromJson(Map<String, dynamic> json) =
       _$_LayoutProps.fromJson;
@@ -959,7 +1099,17 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   dynamic get margin;
   @override
+  double? get borderTop;
+  @override
+  double? get borderBottom;
+  @override
+  double? get borderRight;
+  @override
+  double? get borderLeft;
+  @override
   int? get flex;
+  @override
+  String? get fit;
   @override
   /**
      * 
@@ -989,6 +1139,8 @@ abstract class _LayoutProps implements LayoutProps {
   BottomNavigationProps? get bottomNav;
   @override
   AppBarProps? get appBar;
+  @override
+  ImageProviderProps? get imageProviderProps;
   @override
   @JsonKey(ignore: true)
   _$$_LayoutPropsCopyWith<_$_LayoutProps> get copyWith =>

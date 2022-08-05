@@ -31,7 +31,12 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       minWidth: json['minWidth'],
       minHeight: json['minHeight'],
       margin: json['margin'],
+      borderTop: (json['borderTop'] as num?)?.toDouble(),
+      borderBottom: (json['borderBottom'] as num?)?.toDouble(),
+      borderRight: (json['borderRight'] as num?)?.toDouble(),
+      borderLeft: (json['borderLeft'] as num?)?.toDouble(),
       flex: json['flex'] as int?,
+      fit: json['fit'] as String?,
       sliverListType: json['sliverListType'] as String?,
       itemExtent: (json['itemExtent'] as num?)?.toDouble(),
       componentProps: json['componentProps'] as Map<String, dynamic>?,
@@ -53,6 +58,10 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       appBar: json['appBar'] == null
           ? null
           : AppBarProps.fromJson(json['appBar'] as Map<String, dynamic>),
+      imageProviderProps: json['imageProviderProps'] == null
+          ? null
+          : ImageProviderProps.fromJson(
+              json['imageProviderProps'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
@@ -80,7 +89,12 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'minWidth': instance.minWidth,
       'minHeight': instance.minHeight,
       'margin': instance.margin,
+      'borderTop': instance.borderTop,
+      'borderBottom': instance.borderBottom,
+      'borderRight': instance.borderRight,
+      'borderLeft': instance.borderLeft,
       'flex': instance.flex,
+      'fit': instance.fit,
       'sliverListType': instance.sliverListType,
       'itemExtent': instance.itemExtent,
       'componentProps': instance.componentProps,
@@ -90,4 +104,5 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'children': instance.children,
       'bottomNav': instance.bottomNav,
       'appBar': instance.appBar,
+      'imageProviderProps': instance.imageProviderProps,
     };
