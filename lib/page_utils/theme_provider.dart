@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:from_css_color/from_css_color.dart';
 import 'package:json_theme/json_theme.dart';
+import 'package:the_tool/extensions/input_decoration_theme.extension.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/utils.dart';
 
@@ -77,6 +78,14 @@ class ThemeProvider with ChangeNotifier {
           validate: false,
         );
 
+        InputDecorationTheme? defaultInputDecorationTheme =
+            themeData.inputDecorationTheme;
+        InputDecorationTheme? inputDecorationTheme =
+            ThemeDecoder.decodeInputDecorationTheme(
+          computedThemeMap["inputDecorationTheme"],
+          validate: false,
+        );
+
         _themeData = themeData.copyWith(
           primaryColor: ThemeDecoder.decodeColor(
             computedThemeMap["primaryColor"],
@@ -88,6 +97,8 @@ class ThemeProvider with ChangeNotifier {
             backgroundColor: appBarTheme?.backgroundColor,
             shape: appBarTheme?.shape,
           ),
+          inputDecorationTheme:
+              defaultInputDecorationTheme.merge(inputDecorationTheme),
 
           // colorScheme: ColorScheme.fromSwatch(
           //   primarySwatch: MaterialColor(
