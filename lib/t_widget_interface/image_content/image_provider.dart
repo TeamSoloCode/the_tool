@@ -1,7 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
-import 'package:json_serializable/builder.dart';
-import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 
 part 'image_provider.freezed.dart';
 part 'image_provider.g.dart';
