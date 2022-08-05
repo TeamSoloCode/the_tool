@@ -32,8 +32,18 @@ Timer? _debounce;
 
 class _TTextFieldState extends TStatefulWidget<TTextField> {
   final textFieldController = TextEditingController();
-  String? value;
+  String? currentValue;
   var debounceDuration = const Duration(milliseconds: 500);
+
+  @override
+  void initState() {
+    String? name = widget.widgetProps.name;
+    assert(name != null, "Missing \"name\" in field widget");
+    var text = widget.contextData[name] ?? "";
+    textFieldController.text = text;
+    currentValue = text;
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -45,14 +55,13 @@ class _TTextFieldState extends TStatefulWidget<TTextField> {
   @override
   void didChangeDependencies() {
     String? name = widget.widgetProps.name;
-    String newText = widget.contextData[name] ?? "";
     String currentText = textFieldController.text;
-    if (newText != currentText && name != null) {
+    if (currentValue != currentText && name != null) {
       Future.delayed(Duration.zero, () async {
         textFieldController.value = TextEditingValue(
-            text: newText,
+            text: currentValue ?? "",
             selection: TextSelection.fromPosition(
-              TextPosition(offset: newText.length),
+              TextPosition(offset: currentValue?.length ?? 0),
             ));
       });
     }
@@ -71,6 +80,7 @@ class _TTextFieldState extends TStatefulWidget<TTextField> {
       String newText = contextData[name] ?? "";
       if (newText != text && name != null) {
         widget.setPageData({name: text});
+        currentValue = text;
       }
     });
   }
@@ -80,7 +90,6 @@ class _TTextFieldState extends TStatefulWidget<TTextField> {
     Map<String, dynamic> contextData,
   ) {
     String? name = widgetProps?.name;
-    assert(name != null, "Missing \"name\" in field widget");
 
     return FormBuilderTextField(
       controller: textFieldController,
@@ -96,6 +105,7 @@ class _TTextFieldState extends TStatefulWidget<TTextField> {
       onReset: () {
         textFieldController.value = TextEditingValue.empty;
         widget.setPageData({name!: ""});
+        currentValue = "";
       },
       onEditingComplete: () {
         log("onEditingComplete");
