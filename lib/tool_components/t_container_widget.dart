@@ -27,7 +27,6 @@ class T_Container extends TStatelessWidget {
               "fit": props?.imageProviderProps?.fit,
               "image": props?.imageProviderProps?.toJson()
             },
-            validate: false,
           )
         : null;
   }
@@ -48,7 +47,6 @@ class T_Container extends TStatelessWidget {
         minHeight: props?.minHeight,
         minWidth: props?.minWidth,
       ),
-      // color: color,
       decoration: BoxDecoration(
         color: color,
         image: _computeImage(props),

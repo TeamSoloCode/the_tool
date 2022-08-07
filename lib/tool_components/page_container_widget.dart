@@ -114,15 +114,16 @@ class _PageContainerState extends State<PageContainer> {
     );
   }
 
+  bool didMount = false;
   Future<bool> _isReadyToRun() async {
     return Future<bool>.microtask(() async {
+      if (didMount || _utils.staticContent.isNotEmpty) return true;
       await getIt<StorageManager>().initStorageBox();
-
       if (!kIsWeb) {
         await webview.loadLibrary();
         await getIt<UtilsManager>().loadStaticContent();
       }
-
+      didMount = true;
       return true;
     });
   }
@@ -181,6 +182,7 @@ class _PageContainerState extends State<PageContainer> {
   }
 
   void _initWebViewForMobile(BuildContext context) {
+    if (_isWebViewReady) return;
     _headlessWebView = webview.HeadlessInAppWebView(
       onWebViewCreated: (webViewController) async {
         _evalJS = EvalJS(

@@ -63,9 +63,9 @@ class EvalJS extends BaseEvalJS {
   ) async {
     var staticContent = getIt<UtilsManager>().staticContent;
 
-    String vendorContent = staticContent["vendor"];
-    String appContent = staticContent["app"];
-    String fileContent = staticContent["htmlContent"];
+    String vendorContent = staticContent["vendor"] ?? "";
+    String appContent = staticContent["app"] ?? "";
+    String fileContent = staticContent["htmlContent"] ?? "";
 
     String replacedContent = fileContent.replaceAll(
       "// <vendor_code>",

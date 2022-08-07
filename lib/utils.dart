@@ -48,7 +48,7 @@ class UtilsManager {
     };
   }
 
-  get staticContent => _staticContent;
+  Map<String, String> get staticContent => _staticContent;
 
   static bool isValueBinding(String? value) {
     if (value == null) return false;
