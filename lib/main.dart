@@ -6,59 +6,28 @@ import 'package:the_tool/page_utils/permission_manager.dart';
 import 'package:the_tool/page_utils/storage_utils.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/page_utils/twidget_context_provider.dart';
+import 'package:the_tool/static_pages/select_project.dart';
 import 'package:the_tool/tool_components/page_container_widget.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
 import 't_widget_interface/client_config/client_config.dart';
+import 'package:json_theme/json_theme_schemas.dart';
 
 import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
     if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_utils/web_eval_js.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SchemaValidator.enabled = false;
 
   // if (Platform.isAndroid) {
   //   await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
   // }
   getIt.registerSingleton<UtilsManager>(UtilsManager(), signalsReady: true);
   getIt.registerSingleton<StorageManager>(StorageManager(), signalsReady: true);
-  getIt.registerSingleton<APIClientManager>(
-    APIClientManager(),
-    signalsReady: true,
-  );
-  getIt.registerSingleton<ContextStateProvider>(
-    ContextStateProvider(),
-    signalsReady: true,
-  );
-  getIt.registerSingleton<PermissionManager>(
-    PermissionManager(),
-    signalsReady: true,
-  );
+  await getIt<StorageManager>().initStorageBox();
 
-  getIt.registerSingleton<PageContextProvider>(
-    PageContextProvider(),
-    signalsReady: true,
-  );
-
-  ClientConfig config = await getIt<APIClientManager>().getClientConfig();
-  getIt<ContextStateProvider>().appConfig = config;
-
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(create: (_) => getIt<ContextStateProvider>()),
-      ChangeNotifierProvider(create: (_) => getIt<PageContextProvider>()),
-      ChangeNotifierProvider(
-        create: (context) {
-          getIt.registerSingleton<ThemeProvider>(
-            ThemeProvider(context: context),
-            signalsReady: true,
-          );
-          return getIt<ThemeProvider>();
-        },
-      )
-    ],
-    child: const MyApp(),
-  ));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -69,6 +38,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  String? selectedProjectName;
+
   @override
   void initState() {
     if (kIsWeb) _loadWebCoreJSCode(context);
@@ -93,8 +64,74 @@ class _MyAppState extends State<MyApp> {
     utils.evalJS = evalJS;
   }
 
+  void _loadProject(String projectName) {
+    setState(() {
+      selectedProjectName = projectName;
+    });
+  }
+
+  Future<bool> _isReadyToRun() async {
+    return Future<bool>.microtask(() async {
+      getIt.registerSingleton<APIClientManager>(
+        APIClientManager(),
+        signalsReady: true,
+      );
+      getIt.registerSingleton<ContextStateProvider>(
+        ContextStateProvider(),
+        signalsReady: true,
+      );
+      getIt.registerSingleton<PermissionManager>(
+        PermissionManager(),
+        signalsReady: true,
+      );
+
+      getIt.registerSingleton<PageContextProvider>(
+        PageContextProvider(),
+        signalsReady: true,
+      );
+
+      ClientConfig config = await getIt<APIClientManager>().getClientConfig();
+      getIt<ContextStateProvider>().appConfig = config;
+
+      return true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const PageContainer();
+    if (selectedProjectName == null) {
+      return SelectProjectPage(
+        loadProject: _loadProject,
+      );
+    } else {
+      return FutureBuilder(
+        builder: (context, snapshot) {
+          if (snapshot.data != true) {
+            return SizedBox();
+          }
+          return MultiProvider(
+            providers: [
+              ChangeNotifierProvider(
+                  create: (_) => getIt<ContextStateProvider>()),
+              ChangeNotifierProvider(
+                  create: (_) => getIt<PageContextProvider>()),
+              ChangeNotifierProvider(
+                create: (context) {
+                  getIt.registerSingleton<ThemeProvider>(
+                    ThemeProvider(context: context),
+                    signalsReady: true,
+                  );
+                  return getIt<ThemeProvider>();
+                },
+              )
+            ],
+            child: const PageContainer(),
+          );
+        },
+        future: _isReadyToRun(),
+      );
+    }
+
+    // return const PageContainer();
   }
 }

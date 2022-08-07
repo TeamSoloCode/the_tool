@@ -101,7 +101,8 @@ class _T_ComponentState extends State<T_Component>
     }
 
     var contextData =
-        getIt<ContextStateProvider>().contextData[widget.pagePath];
+        getIt<ContextStateProvider>().contextData[widget.pagePath] ??
+            UtilsManager.emptyMapStringDynamic;
 
     widget.snapshot = TWidgets(
       key: Key(_componentId),

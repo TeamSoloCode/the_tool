@@ -118,7 +118,7 @@ class _PageContainerState extends State<PageContainer> {
   Future<bool> _isReadyToRun() async {
     return Future<bool>.microtask(() async {
       if (didMount || _utils.staticContent.isNotEmpty) return true;
-      await getIt<StorageManager>().initStorageBox();
+      // await getIt<StorageManager>().initStorageBox();
       if (!kIsWeb) {
         await webview.loadLibrary();
         await getIt<UtilsManager>().loadStaticContent();
