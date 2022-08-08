@@ -73,6 +73,9 @@ mixin _$LayoutProps {
   AppBarProps? get appBar => throw _privateConstructorUsedError;
   ImageProviderProps? get imageProviderProps =>
       throw _privateConstructorUsedError;
+  BorderProps? get boxBorder => throw _privateConstructorUsedError;
+  BorderRadiusProps? get borderRadius => throw _privateConstructorUsedError;
+  BoxShadowProps? get boxShadow => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -124,13 +127,19 @@ abstract class $LayoutPropsCopyWith<$Res> {
       List<LayoutProps>? children,
       BottomNavigationProps? bottomNav,
       AppBarProps? appBar,
-      ImageProviderProps? imageProviderProps});
+      ImageProviderProps? imageProviderProps,
+      BorderProps? boxBorder,
+      BorderRadiusProps? borderRadius,
+      BoxShadowProps? boxShadow});
 
   $LayoutPropsCopyWith<$Res>? get child;
   $LayoutPropsCopyWith<$Res>? get content;
   $BottomNavigationPropsCopyWith<$Res>? get bottomNav;
   $AppBarPropsCopyWith<$Res>? get appBar;
   $ImageProviderPropsCopyWith<$Res>? get imageProviderProps;
+  $BorderPropsCopyWith<$Res>? get boxBorder;
+  $BorderRadiusPropsCopyWith<$Res>? get borderRadius;
+  $BoxShadowPropsCopyWith<$Res>? get boxShadow;
 }
 
 /// @nodoc
@@ -182,6 +191,9 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
     Object? bottomNav = freezed,
     Object? appBar = freezed,
     Object? imageProviderProps = freezed,
+    Object? boxBorder = freezed,
+    Object? borderRadius = freezed,
+    Object? boxShadow = freezed,
   }) {
     return _then(_value.copyWith(
       type: type == freezed
@@ -340,6 +352,18 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
           ? _value.imageProviderProps
           : imageProviderProps // ignore: cast_nullable_to_non_nullable
               as ImageProviderProps?,
+      boxBorder: boxBorder == freezed
+          ? _value.boxBorder
+          : boxBorder // ignore: cast_nullable_to_non_nullable
+              as BorderProps?,
+      borderRadius: borderRadius == freezed
+          ? _value.borderRadius
+          : borderRadius // ignore: cast_nullable_to_non_nullable
+              as BorderRadiusProps?,
+      boxShadow: boxShadow == freezed
+          ? _value.boxShadow
+          : boxShadow // ignore: cast_nullable_to_non_nullable
+              as BoxShadowProps?,
     ));
   }
 
@@ -398,6 +422,39 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
       return _then(_value.copyWith(imageProviderProps: value));
     });
   }
+
+  @override
+  $BorderPropsCopyWith<$Res>? get boxBorder {
+    if (_value.boxBorder == null) {
+      return null;
+    }
+
+    return $BorderPropsCopyWith<$Res>(_value.boxBorder!, (value) {
+      return _then(_value.copyWith(boxBorder: value));
+    });
+  }
+
+  @override
+  $BorderRadiusPropsCopyWith<$Res>? get borderRadius {
+    if (_value.borderRadius == null) {
+      return null;
+    }
+
+    return $BorderRadiusPropsCopyWith<$Res>(_value.borderRadius!, (value) {
+      return _then(_value.copyWith(borderRadius: value));
+    });
+  }
+
+  @override
+  $BoxShadowPropsCopyWith<$Res>? get boxShadow {
+    if (_value.boxShadow == null) {
+      return null;
+    }
+
+    return $BoxShadowPropsCopyWith<$Res>(_value.boxShadow!, (value) {
+      return _then(_value.copyWith(boxShadow: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -446,7 +503,10 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       List<LayoutProps>? children,
       BottomNavigationProps? bottomNav,
       AppBarProps? appBar,
-      ImageProviderProps? imageProviderProps});
+      ImageProviderProps? imageProviderProps,
+      BorderProps? boxBorder,
+      BorderRadiusProps? borderRadius,
+      BoxShadowProps? boxShadow});
 
   @override
   $LayoutPropsCopyWith<$Res>? get child;
@@ -458,6 +518,12 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
   $AppBarPropsCopyWith<$Res>? get appBar;
   @override
   $ImageProviderPropsCopyWith<$Res>? get imageProviderProps;
+  @override
+  $BorderPropsCopyWith<$Res>? get boxBorder;
+  @override
+  $BorderRadiusPropsCopyWith<$Res>? get borderRadius;
+  @override
+  $BoxShadowPropsCopyWith<$Res>? get boxShadow;
 }
 
 /// @nodoc
@@ -511,6 +577,9 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
     Object? bottomNav = freezed,
     Object? appBar = freezed,
     Object? imageProviderProps = freezed,
+    Object? boxBorder = freezed,
+    Object? borderRadius = freezed,
+    Object? boxShadow = freezed,
   }) {
     return _then(_$_LayoutProps(
       type: type == freezed
@@ -669,6 +738,18 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
           ? _value.imageProviderProps
           : imageProviderProps // ignore: cast_nullable_to_non_nullable
               as ImageProviderProps?,
+      boxBorder: boxBorder == freezed
+          ? _value.boxBorder
+          : boxBorder // ignore: cast_nullable_to_non_nullable
+              as BorderProps?,
+      borderRadius: borderRadius == freezed
+          ? _value.borderRadius
+          : borderRadius // ignore: cast_nullable_to_non_nullable
+              as BorderRadiusProps?,
+      boxShadow: boxShadow == freezed
+          ? _value.boxShadow
+          : boxShadow // ignore: cast_nullable_to_non_nullable
+              as BoxShadowProps?,
     ));
   }
 }
@@ -715,7 +796,10 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       final List<LayoutProps>? children,
       this.bottomNav,
       this.appBar,
-      this.imageProviderProps})
+      this.imageProviderProps,
+      this.boxBorder,
+      this.borderRadius,
+      this.boxShadow})
       : _componentProps = componentProps,
         _computedComponentProps = computedComponentProps,
         _children = children;
@@ -841,10 +925,16 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   final AppBarProps? appBar;
   @override
   final ImageProviderProps? imageProviderProps;
+  @override
+  final BorderProps? boxBorder;
+  @override
+  final BorderRadiusProps? borderRadius;
+  @override
+  final BoxShadowProps? boxShadow;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, items: $items, fieldType: $fieldType, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, fit: $fit, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, imageProviderProps: $imageProviderProps)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, items: $items, fieldType: $fieldType, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, fit: $fit, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, imageProviderProps: $imageProviderProps, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
   }
 
   @override
@@ -891,7 +981,10 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('children', children))
       ..add(DiagnosticsProperty('bottomNav', bottomNav))
       ..add(DiagnosticsProperty('appBar', appBar))
-      ..add(DiagnosticsProperty('imageProviderProps', imageProviderProps));
+      ..add(DiagnosticsProperty('imageProviderProps', imageProviderProps))
+      ..add(DiagnosticsProperty('boxBorder', boxBorder))
+      ..add(DiagnosticsProperty('borderRadius', borderRadius))
+      ..add(DiagnosticsProperty('boxShadow', boxShadow));
   }
 
   @override
@@ -948,7 +1041,11 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
             const DeepCollectionEquality().equals(other.bottomNav, bottomNav) &&
             const DeepCollectionEquality().equals(other.appBar, appBar) &&
             const DeepCollectionEquality()
-                .equals(other.imageProviderProps, imageProviderProps));
+                .equals(other.imageProviderProps, imageProviderProps) &&
+            const DeepCollectionEquality().equals(other.boxBorder, boxBorder) &&
+            const DeepCollectionEquality()
+                .equals(other.borderRadius, borderRadius) &&
+            const DeepCollectionEquality().equals(other.boxShadow, boxShadow));
   }
 
   @JsonKey(ignore: true)
@@ -993,7 +1090,10 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
         const DeepCollectionEquality().hash(_children),
         const DeepCollectionEquality().hash(bottomNav),
         const DeepCollectionEquality().hash(appBar),
-        const DeepCollectionEquality().hash(imageProviderProps)
+        const DeepCollectionEquality().hash(imageProviderProps),
+        const DeepCollectionEquality().hash(boxBorder),
+        const DeepCollectionEquality().hash(borderRadius),
+        const DeepCollectionEquality().hash(boxShadow)
       ]);
 
   @JsonKey(ignore: true)
@@ -1047,7 +1147,10 @@ abstract class _LayoutProps implements LayoutProps {
       final List<LayoutProps>? children,
       final BottomNavigationProps? bottomNav,
       final AppBarProps? appBar,
-      final ImageProviderProps? imageProviderProps}) = _$_LayoutProps;
+      final ImageProviderProps? imageProviderProps,
+      final BorderProps? boxBorder,
+      final BorderRadiusProps? borderRadius,
+      final BoxShadowProps? boxShadow}) = _$_LayoutProps;
 
   factory _LayoutProps.fromJson(Map<String, dynamic> json) =
       _$_LayoutProps.fromJson;
@@ -1141,6 +1244,12 @@ abstract class _LayoutProps implements LayoutProps {
   AppBarProps? get appBar;
   @override
   ImageProviderProps? get imageProviderProps;
+  @override
+  BorderProps? get boxBorder;
+  @override
+  BorderRadiusProps? get borderRadius;
+  @override
+  BoxShadowProps? get boxShadow;
   @override
   @JsonKey(ignore: true)
   _$$_LayoutPropsCopyWith<_$_LayoutProps> get copyWith =>

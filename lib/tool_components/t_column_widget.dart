@@ -23,11 +23,13 @@ class T_Column extends TStatelessWidget {
     List<LayoutProps> children = props?.children ?? [];
     return children.map((child) {
       index++;
-      return TWidgets(
-        key: ValueKey(index),
-        layout: child,
-        pagePath: pagePath,
-        contextData: parentData,
+      return Container(
+        child: TWidgets(
+          key: ValueKey(index),
+          layout: child,
+          pagePath: pagePath,
+          contextData: parentData,
+        ),
       );
     }).toList();
   }

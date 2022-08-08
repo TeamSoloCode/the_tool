@@ -62,6 +62,16 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
           ? null
           : ImageProviderProps.fromJson(
               json['imageProviderProps'] as Map<String, dynamic>),
+      boxBorder: json['boxBorder'] == null
+          ? null
+          : BorderProps.fromJson(json['boxBorder'] as Map<String, dynamic>),
+      borderRadius: json['borderRadius'] == null
+          ? null
+          : BorderRadiusProps.fromJson(
+              json['borderRadius'] as Map<String, dynamic>),
+      boxShadow: json['boxShadow'] == null
+          ? null
+          : BoxShadowProps.fromJson(json['boxShadow'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
@@ -105,4 +115,7 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'bottomNav': instance.bottomNav,
       'appBar': instance.appBar,
       'imageProviderProps': instance.imageProviderProps,
+      'boxBorder': instance.boxBorder,
+      'borderRadius': instance.borderRadius,
+      'boxShadow': instance.boxShadow,
     };

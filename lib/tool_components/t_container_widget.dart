@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:from_css_color/from_css_color.dart';
 import 'package:json_theme/json_theme.dart';
+import 'package:the_tool/t_widget_interface/box_decoration_props/border_props/border_props.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
+import 'package:the_tool/tool_components/mixin_component/container_mixin.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 
-class T_Container extends TStatelessWidget {
+class T_Container extends TStatelessWidget with ContainerMixin {
   T_Container({
     Key? key,
     required widgetProps,
@@ -20,22 +22,10 @@ class T_Container extends TStatelessWidget {
           widgetUuid: widgetUuid,
         );
 
-  DecorationImage? _computeImage(LayoutProps? props) {
-    return props?.imageProviderProps != null
-        ? ThemeDecoder.decodeDecorationImage(
-            {
-              "fit": props?.imageProviderProps?.fit,
-              "image": props?.imageProviderProps?.toJson()
-            },
-          )
-        : null;
-  }
-
   @override
   Widget buildWidget(BuildContext context) {
     var cssColor = props?.backgroundColor;
     Color? color = cssColor != null ? fromCssColor(cssColor) : null;
-
     snapshot = Container(
       key: getBindingKey(),
       height: props?.height,
@@ -47,10 +37,7 @@ class T_Container extends TStatelessWidget {
         minHeight: props?.minHeight,
         minWidth: props?.minWidth,
       ),
-      decoration: BoxDecoration(
-        color: color,
-        image: _computeImage(props),
-      ),
+      decoration: computeBoxDecoration(props),
       child: TWidgets(
         layout: props?.child ?? const LayoutProps(),
         pagePath: pagePath,

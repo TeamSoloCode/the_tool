@@ -29,4 +29,10 @@ class StyleUtils {
 
     return null;
   }
+
+  static List<T>? decodeDynamicList<T>(
+    Iterable<T>? list,
+  ) {
+    return list!.toList();
+  }
 }

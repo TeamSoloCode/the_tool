@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
@@ -144,7 +143,6 @@ abstract class TWidget extends StatefulWidget with BaseStateWidget {
 
     contextData = getIt<ContextStateProvider>().contextData[pagePath] ??
         UtilsManager.emptyMapStringDynamic;
-    ;
 
     if (prevProps == null) {
       hasBindingValue = utils.hasBindingValue(

@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 
 import 'package:the_tool/t_widget_interface/client_config/client_config.dart';
@@ -17,9 +16,9 @@ class ContextStateProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   Future<void> updateContextData(Map<String, dynamic> contextData) async {
     _contextData.addAll(contextData);
-    notifyListeners();
     _cacheCheckTWidgetDepsChanged = {};
     // getIt<PageContextProvider>().updateTWidgetProps(_contextData);
+    notifyListeners();
   }
 
   void updateCacheCheckTWidgetDepsChanged(String depsKey, bool isDepsChanged) {

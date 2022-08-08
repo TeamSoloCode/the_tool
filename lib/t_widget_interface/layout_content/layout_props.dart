@@ -5,12 +5,16 @@ import 'package:flutter/foundation.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/t_widget_interface/app_bar_props/app_bar_props.dart';
 import 'package:the_tool/t_widget_interface/bottom_navigation_props/bottom_navigation_props.dart';
+import 'package:the_tool/t_widget_interface/box_decoration_props/border_props/border_props.dart';
+import 'package:the_tool/t_widget_interface/box_decoration_props/border_radius_props/border_radius_props.dart';
+import 'package:the_tool/t_widget_interface/box_decoration_props/box_decoration_props.dart';
+import 'package:the_tool/t_widget_interface/box_decoration_props/box_shadow_props/box_shadow_props.dart';
 import 'package:the_tool/t_widget_interface/image_content/image_provider.dart';
 
 part 'layout_props.freezed.dart';
 part 'layout_props.g.dart';
 
-@Freezed()
+@freezed
 class LayoutProps with _$LayoutProps {
   const factory LayoutProps({
     String? type,
@@ -64,10 +68,15 @@ class LayoutProps with _$LayoutProps {
     BottomNavigationProps? bottomNav,
     AppBarProps? appBar,
     ImageProviderProps? imageProviderProps,
+    BorderProps? boxBorder,
+    BorderRadiusProps? borderRadius,
+    BoxShadowProps? boxShadow,
   }) = _LayoutProps;
 
   factory LayoutProps.fromJson(Map<String, Object?> json) =>
       _$LayoutPropsFromJson(json);
+
+  // Map<String, dynamic> toJson() => _$LayoutPropsToJson(this);
 }
 
 extension MergeLayoutProps on LayoutProps {

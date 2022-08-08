@@ -1,0 +1,275 @@
+// coverage:ignore-file
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+
+part of 'box_shadow_props.dart';
+
+// **************************************************************************
+// FreezedGenerator
+// **************************************************************************
+
+T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
+BoxShadowProps _$BoxShadowPropsFromJson(Map<String, dynamic> json) {
+  return _BoxShadowProps.fromJson(json);
+}
+
+/// @nodoc
+mixin _$BoxShadowProps {
+  String? get color => throw _privateConstructorUsedError;
+  int? get blurRadius => throw _privateConstructorUsedError;
+  String? get blurStyle => throw _privateConstructorUsedError;
+  String? get colorBoxShadow => throw _privateConstructorUsedError;
+  int? get offset => throw _privateConstructorUsedError;
+  int? get spreadRadius => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $BoxShadowPropsCopyWith<BoxShadowProps> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $BoxShadowPropsCopyWith<$Res> {
+  factory $BoxShadowPropsCopyWith(
+          BoxShadowProps value, $Res Function(BoxShadowProps) then) =
+      _$BoxShadowPropsCopyWithImpl<$Res>;
+  $Res call(
+      {String? color,
+      int? blurRadius,
+      String? blurStyle,
+      String? colorBoxShadow,
+      int? offset,
+      int? spreadRadius});
+}
+
+/// @nodoc
+class _$BoxShadowPropsCopyWithImpl<$Res>
+    implements $BoxShadowPropsCopyWith<$Res> {
+  _$BoxShadowPropsCopyWithImpl(this._value, this._then);
+
+  final BoxShadowProps _value;
+  // ignore: unused_field
+  final $Res Function(BoxShadowProps) _then;
+
+  @override
+  $Res call({
+    Object? color = freezed,
+    Object? blurRadius = freezed,
+    Object? blurStyle = freezed,
+    Object? colorBoxShadow = freezed,
+    Object? offset = freezed,
+    Object? spreadRadius = freezed,
+  }) {
+    return _then(_value.copyWith(
+      color: color == freezed
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as String?,
+      blurRadius: blurRadius == freezed
+          ? _value.blurRadius
+          : blurRadius // ignore: cast_nullable_to_non_nullable
+              as int?,
+      blurStyle: blurStyle == freezed
+          ? _value.blurStyle
+          : blurStyle // ignore: cast_nullable_to_non_nullable
+              as String?,
+      colorBoxShadow: colorBoxShadow == freezed
+          ? _value.colorBoxShadow
+          : colorBoxShadow // ignore: cast_nullable_to_non_nullable
+              as String?,
+      offset: offset == freezed
+          ? _value.offset
+          : offset // ignore: cast_nullable_to_non_nullable
+              as int?,
+      spreadRadius: spreadRadius == freezed
+          ? _value.spreadRadius
+          : spreadRadius // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$$_BoxShadowPropsCopyWith<$Res>
+    implements $BoxShadowPropsCopyWith<$Res> {
+  factory _$$_BoxShadowPropsCopyWith(
+          _$_BoxShadowProps value, $Res Function(_$_BoxShadowProps) then) =
+      __$$_BoxShadowPropsCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {String? color,
+      int? blurRadius,
+      String? blurStyle,
+      String? colorBoxShadow,
+      int? offset,
+      int? spreadRadius});
+}
+
+/// @nodoc
+class __$$_BoxShadowPropsCopyWithImpl<$Res>
+    extends _$BoxShadowPropsCopyWithImpl<$Res>
+    implements _$$_BoxShadowPropsCopyWith<$Res> {
+  __$$_BoxShadowPropsCopyWithImpl(
+      _$_BoxShadowProps _value, $Res Function(_$_BoxShadowProps) _then)
+      : super(_value, (v) => _then(v as _$_BoxShadowProps));
+
+  @override
+  _$_BoxShadowProps get _value => super._value as _$_BoxShadowProps;
+
+  @override
+  $Res call({
+    Object? color = freezed,
+    Object? blurRadius = freezed,
+    Object? blurStyle = freezed,
+    Object? colorBoxShadow = freezed,
+    Object? offset = freezed,
+    Object? spreadRadius = freezed,
+  }) {
+    return _then(_$_BoxShadowProps(
+      color: color == freezed
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as String?,
+      blurRadius: blurRadius == freezed
+          ? _value.blurRadius
+          : blurRadius // ignore: cast_nullable_to_non_nullable
+              as int?,
+      blurStyle: blurStyle == freezed
+          ? _value.blurStyle
+          : blurStyle // ignore: cast_nullable_to_non_nullable
+              as String?,
+      colorBoxShadow: colorBoxShadow == freezed
+          ? _value.colorBoxShadow
+          : colorBoxShadow // ignore: cast_nullable_to_non_nullable
+              as String?,
+      offset: offset == freezed
+          ? _value.offset
+          : offset // ignore: cast_nullable_to_non_nullable
+              as int?,
+      spreadRadius: spreadRadius == freezed
+          ? _value.spreadRadius
+          : spreadRadius // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_BoxShadowProps
+    with DiagnosticableTreeMixin
+    implements _BoxShadowProps {
+  _$_BoxShadowProps(
+      {this.color,
+      this.blurRadius,
+      this.blurStyle,
+      this.colorBoxShadow,
+      this.offset,
+      this.spreadRadius});
+
+  factory _$_BoxShadowProps.fromJson(Map<String, dynamic> json) =>
+      _$$_BoxShadowPropsFromJson(json);
+
+  @override
+  final String? color;
+  @override
+  final int? blurRadius;
+  @override
+  final String? blurStyle;
+  @override
+  final String? colorBoxShadow;
+  @override
+  final int? offset;
+  @override
+  final int? spreadRadius;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'BoxShadowProps(color: $color, blurRadius: $blurRadius, blurStyle: $blurStyle, colorBoxShadow: $colorBoxShadow, offset: $offset, spreadRadius: $spreadRadius)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'BoxShadowProps'))
+      ..add(DiagnosticsProperty('color', color))
+      ..add(DiagnosticsProperty('blurRadius', blurRadius))
+      ..add(DiagnosticsProperty('blurStyle', blurStyle))
+      ..add(DiagnosticsProperty('colorBoxShadow', colorBoxShadow))
+      ..add(DiagnosticsProperty('offset', offset))
+      ..add(DiagnosticsProperty('spreadRadius', spreadRadius));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_BoxShadowProps &&
+            const DeepCollectionEquality().equals(other.color, color) &&
+            const DeepCollectionEquality()
+                .equals(other.blurRadius, blurRadius) &&
+            const DeepCollectionEquality().equals(other.blurStyle, blurStyle) &&
+            const DeepCollectionEquality()
+                .equals(other.colorBoxShadow, colorBoxShadow) &&
+            const DeepCollectionEquality().equals(other.offset, offset) &&
+            const DeepCollectionEquality()
+                .equals(other.spreadRadius, spreadRadius));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(color),
+      const DeepCollectionEquality().hash(blurRadius),
+      const DeepCollectionEquality().hash(blurStyle),
+      const DeepCollectionEquality().hash(colorBoxShadow),
+      const DeepCollectionEquality().hash(offset),
+      const DeepCollectionEquality().hash(spreadRadius));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_BoxShadowPropsCopyWith<_$_BoxShadowProps> get copyWith =>
+      __$$_BoxShadowPropsCopyWithImpl<_$_BoxShadowProps>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_BoxShadowPropsToJson(this);
+  }
+}
+
+abstract class _BoxShadowProps implements BoxShadowProps {
+  factory _BoxShadowProps(
+      {final String? color,
+      final int? blurRadius,
+      final String? blurStyle,
+      final String? colorBoxShadow,
+      final int? offset,
+      final int? spreadRadius}) = _$_BoxShadowProps;
+
+  factory _BoxShadowProps.fromJson(Map<String, dynamic> json) =
+      _$_BoxShadowProps.fromJson;
+
+  @override
+  String? get color;
+  @override
+  int? get blurRadius;
+  @override
+  String? get blurStyle;
+  @override
+  String? get colorBoxShadow;
+  @override
+  int? get offset;
+  @override
+  int? get spreadRadius;
+  @override
+  @JsonKey(ignore: true)
+  _$$_BoxShadowPropsCopyWith<_$_BoxShadowProps> get copyWith =>
+      throw _privateConstructorUsedError;
+}

@@ -34,6 +34,7 @@ void registerJavascriptHandler(
   webViewController?.addJavaScriptHandler(
     handlerName: "setState",
     callback: (args) {
+      print(contextStateProvider.toString());
       contextStateProvider.updateContextData(args[0]);
     },
   );
