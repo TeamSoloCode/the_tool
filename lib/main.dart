@@ -27,7 +27,43 @@ void main() async {
   getIt.registerSingleton<StorageManager>(StorageManager(), signalsReady: true);
   await getIt<StorageManager>().initStorageBox();
 
-  runApp(const MyApp());
+  getIt.registerSingleton<APIClientManager>(
+    APIClientManager(),
+    signalsReady: true,
+  );
+  getIt.registerSingleton<ContextStateProvider>(
+    ContextStateProvider(),
+    signalsReady: true,
+  );
+  getIt.registerSingleton<PermissionManager>(
+    PermissionManager(),
+    signalsReady: true,
+  );
+
+  getIt.registerSingleton<PageContextProvider>(
+    PageContextProvider(),
+    signalsReady: true,
+  );
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => getIt<ContextStateProvider>(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) {
+            getIt.registerSingleton<ThemeProvider>(
+              ThemeProvider(context: context),
+              signalsReady: true,
+            );
+            return getIt<ThemeProvider>();
+          },
+        )
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -38,7 +74,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String? selectedProjectName;
+  String? _selectedProjectName;
 
   @override
   void initState() {
@@ -66,31 +102,17 @@ class _MyAppState extends State<MyApp> {
 
   void _loadProject(String projectName) {
     setState(() {
-      selectedProjectName = projectName;
+      _selectedProjectName = projectName;
     });
   }
 
   Future<bool> _isReadyToRun() async {
     return Future<bool>.microtask(() async {
-      getIt.registerSingleton<APIClientManager>(
-        APIClientManager(),
-        signalsReady: true,
-      );
-      getIt.registerSingleton<ContextStateProvider>(
-        ContextStateProvider(),
-        signalsReady: true,
-      );
-      getIt.registerSingleton<PermissionManager>(
-        PermissionManager(),
-        signalsReady: true,
-      );
+      var apiClient = getIt<APIClientManager>();
 
-      getIt.registerSingleton<PageContextProvider>(
-        PageContextProvider(),
-        signalsReady: true,
-      );
-
-      ClientConfig config = await getIt<APIClientManager>().getClientConfig();
+      apiClient.projectName = _selectedProjectName ??
+          getIt<StorageManager>().getLocalBox("projectName");
+      ClientConfig config = await apiClient.getClientConfig();
       getIt<ContextStateProvider>().appConfig = config;
 
       return true;
@@ -99,7 +121,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    if (selectedProjectName == null) {
+    if (_selectedProjectName == null) {
       return SelectProjectPage(
         loadProject: _loadProject,
       );
@@ -109,24 +131,7 @@ class _MyAppState extends State<MyApp> {
           if (snapshot.data != true) {
             return SizedBox();
           }
-          return MultiProvider(
-            providers: [
-              ChangeNotifierProvider(
-                  create: (_) => getIt<ContextStateProvider>()),
-              ChangeNotifierProvider(
-                  create: (_) => getIt<PageContextProvider>()),
-              ChangeNotifierProvider(
-                create: (context) {
-                  getIt.registerSingleton<ThemeProvider>(
-                    ThemeProvider(context: context),
-                    signalsReady: true,
-                  );
-                  return getIt<ThemeProvider>();
-                },
-              )
-            ],
-            child: const PageContainer(),
-          );
+          return const PageContainer();
         },
         future: _isReadyToRun(),
       );

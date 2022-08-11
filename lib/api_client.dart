@@ -14,7 +14,7 @@ import 'package:the_tool/utils.dart';
 class APIClientManager {
   final String host =
       kIsWeb ? "localhost" : (Platform.isAndroid ? "10.0.2.2" : "localhost");
-  final projectName = getIt<StorageManager>().getLocalBox("projectName");
+  String _projectName = getIt<StorageManager>().getLocalBox("projectName");
   final Dio _dio = Dio();
 
   final _dioCached = Dio();
@@ -44,6 +44,10 @@ class APIClientManager {
     _dioCached.interceptors.add(
       DioCacheInterceptor(options: cacheOptions),
     );
+  }
+
+  set projectName(String prjName) {
+    _projectName = prjName;
   }
 
   String? _beAPI = "http://localhost:3000";
@@ -89,7 +93,8 @@ class APIClientManager {
 
   Future<String> getClientCore() async {
     try {
-      var response = await _dio.get('$_pageAPI/pages/layout/$projectName/core');
+      var response =
+          await _dio.get('$_pageAPI/pages/layout/$_projectName/core');
       return Future.value(response.data["code"]);
     } on DioError catch (e) {
       log("Core not found => " + e.message);
@@ -101,8 +106,8 @@ class APIClientManager {
 
   Future<Map<String, dynamic>> getClientPageInfo(String pagePath) async {
     try {
-      var response =
-          await _dioCached.get('$_pageAPI/pages/layout/$projectName/$pagePath');
+      var response = await _dioCached
+          .get('$_pageAPI/pages/layout/$_projectName/$pagePath');
       return Future.value(
         {
           "code": response.data["code"],
@@ -128,7 +133,8 @@ class APIClientManager {
         _beAPI = _beAPI!.replaceFirst("localhost", host);
       }
 
-      var response = await _dio.get('$_beAPI/pages/client-config/$projectName');
+      var response =
+          await _dio.get('$_beAPI/pages/client-config/$_projectName');
       var clientConfig = ClientConfig.fromJson(json.decode(response.data));
 
       _pageAPI = clientConfig.pageAPI ?? _beAPI;
@@ -152,7 +158,7 @@ class APIClientManager {
   }) async {
     try {
       var response = await _dioCached
-          .get('$_pageAPI/${themePath ?? "theme"}/$projectName');
+          .get('$_pageAPI/${themePath ?? "theme"}/$_projectName');
       return Future.value(json.decode(response.data));
     } on DioError catch (e) {
       log("Theme not found => " + e.message);

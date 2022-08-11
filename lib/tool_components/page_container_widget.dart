@@ -182,7 +182,7 @@ class _PageContainerState extends State<PageContainer> {
   }
 
   void _initWebViewForMobile(BuildContext context) {
-    if (_isWebViewReady) return;
+    if (_isWebViewReady || _headlessWebView != null) return;
     _headlessWebView = webview.HeadlessInAppWebView(
       onWebViewCreated: (webViewController) async {
         _evalJS = EvalJS(
