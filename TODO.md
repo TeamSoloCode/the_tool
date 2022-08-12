@@ -1,13 +1,14 @@
-Appbar not display properly
-
+Load all needed page in isolate thread
 #-------------------------------------------------
+
+Appbar not display properly
+Move base react component , app.js, vendor.js and js-module to server
 
 Support get data from exportPageContext
 Add refresh page button for development mode
 Split widget with Deferred components
 
 Use dart2js to support lazy loading for web (web)
-Move base react component , app.js, vendor.js and js-module to server
 Support customizable for t_select_field items
 Support for basic on SliverAppBar, SliverGrid
 Support common json widget on layout.json
@@ -22,6 +23,7 @@ Support theme for t_input
 Support validator for t_text_field
 Support validator for t_select_field
 Support onSubmit for t_form
+Support inlayout t_component in layout.json (like t_component but only being used in 1 page)
 
 #-------------------------------------------------
 

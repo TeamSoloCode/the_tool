@@ -14,7 +14,8 @@ import 'package:the_tool/utils.dart';
 class APIClientManager {
   final String host =
       kIsWeb ? "localhost" : (Platform.isAndroid ? "10.0.2.2" : "localhost");
-  String _projectName = getIt<StorageManager>().getLocalBox("projectName");
+  String _projectName =
+      getIt<StorageManager>().getLocalBox("projectName") ?? "";
   final Dio _dio = Dio();
 
   final _dioCached = Dio();

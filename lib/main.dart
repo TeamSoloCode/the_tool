@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:the_tool/api_client.dart';
@@ -76,12 +77,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String? _selectedProjectName;
 
-  @override
-  void initState() {
-    if (kIsWeb) _loadWebCoreJSCode(context);
-    super.initState();
-  }
-
   Future<void> _loadWebCoreJSCode(BuildContext context) async {
     UtilsManager utils = getIt<UtilsManager>();
     EvalJS evalJS;
@@ -115,6 +110,7 @@ class _MyAppState extends State<MyApp> {
       ClientConfig config = await apiClient.getClientConfig();
       getIt<ContextStateProvider>().appConfig = config;
 
+      if (kIsWeb) _loadWebCoreJSCode(context);
       return true;
     });
   }
@@ -136,7 +132,5 @@ class _MyAppState extends State<MyApp> {
         future: _isReadyToRun(),
       );
     }
-
-    // return const PageContainer();
   }
 }
