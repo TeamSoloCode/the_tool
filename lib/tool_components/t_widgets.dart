@@ -156,20 +156,27 @@ class _TWidgetsState extends State<TWidgets> {
           widgetUuid: widgetUuid,
         );
       default:
-        var contextStateProvider = getIt<ContextStateProvider>();
-        LayoutProps? innerComponent = gato.get(
-          contextStateProvider.pageComponents,
-          "${widget.pagePath}.${content.type}",
-        );
-        if (innerComponent != null) {
-          return TWidgets(
-            contextData: contextData,
-            layout: innerComponent,
-            pagePath: widget.pagePath,
-          );
-        }
-        return const SizedBox.shrink();
+        return _computeNotBuiltInWidget(contextData, content.type);
     }
+  }
+
+  Widget _computeNotBuiltInWidget(
+    Map<String, dynamic> contextData,
+    String? type,
+  ) {
+    var contextStateProvider = getIt<ContextStateProvider>();
+    LayoutProps? innerComponent = gato.get(
+      contextStateProvider.pageComponents,
+      "${widget.pagePath}.${type}",
+    );
+    if (innerComponent != null) {
+      return TWidgets(
+        contextData: contextData,
+        layout: innerComponent,
+        pagePath: widget.pagePath,
+      );
+    }
+    return Text("Unsupported widget. Type: $type");
   }
 
   Future<void> _updateTWidgets(
