@@ -136,8 +136,8 @@ class UtilsManager {
     return computedValue;
   }
 
-  static isFalsy(dynamic data) =>
-      ["", "false", "null", "0", "undefined", null, false].contains(data);
+  static isTruthy(dynamic data) =>
+      !["", "false", "null", "0", "undefined", null, false].contains(data);
 
   LayoutProps computeWidgetProps(
     LayoutProps content,
@@ -148,7 +148,7 @@ class UtilsManager {
       content.hidden,
     );
 
-    if (!UtilsManager.isFalsy(hidden)) {
+    if (UtilsManager.isTruthy(hidden)) {
       return const LayoutProps(hidden: true);
     }
 

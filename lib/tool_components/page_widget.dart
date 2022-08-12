@@ -69,7 +69,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     });
 
     if (_isReadyToRun == false ||
-        UtilsManager.isFalsy(gato.get(pageData, "_tLoaded"))) {
+        !UtilsManager.isTruthy(gato.get(pageData, "_tLoaded"))) {
       return const Scaffold(
         body: Center(
           child: SpinKitFadingCircle(

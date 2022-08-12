@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:the_tool/page_utils/storage_utils.dart';
+import 'package:the_tool/page_utils/storage_manager.dart';
 
 import 'package:the_tool/t_widget_interface/client_config/client_config.dart';
 import 'package:the_tool/utils.dart';
