@@ -1,8 +1,9 @@
-Load all needed page in isolate thread
+Support inlayout t_component in layout.json (like t_component but only being used in 1 page)
 #-------------------------------------------------
 
 Appbar not display properly
 Move base react component , app.js, vendor.js and js-module to server
+Load all needed page in isolate thread
 
 Support get data from exportPageContext
 Add refresh page button for development mode
@@ -23,7 +24,6 @@ Support theme for t_input
 Support validator for t_text_field
 Support validator for t_select_field
 Support onSubmit for t_form
-Support inlayout t_component in layout.json (like t_component but only being used in 1 page)
 
 #-------------------------------------------------
 

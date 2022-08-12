@@ -52,6 +52,13 @@ class _T_ComponentState extends State<T_Component>
   }
 
   Future<void> _loadComponentInfo(String componentPath) async {
+    var parentPagePath =
+        widget.pagePath.substring(widget.pagePath.lastIndexOf("_"));
+    if (componentPath == parentPagePath) {
+      throw Exception("Parent page path and component path cannot the same");
+    }
+
+    var contextStateProvider = getIt<ContextStateProvider>();
     APIClientManager apiClient = getIt<APIClientManager>();
     _pageInfo = await apiClient.getClientPageInfo(componentPath);
 
@@ -59,9 +66,16 @@ class _T_ComponentState extends State<T_Component>
     _pageLayout = LayoutProps.fromJson(layout);
 
     _componentId = "${componentPath}_${const Uuid().v4()}";
-    var contextData =
-        getIt<ContextStateProvider>().contextData[widget.pagePath] ??
-            UtilsManager.emptyMapStringDynamic;
+
+    if (_pageLayout?.components != null) {
+      contextStateProvider.addPageComponents(
+        pagePath: componentPath,
+        components: _pageLayout!.components!,
+      );
+    }
+
+    var contextData = contextStateProvider.contextData[widget.pagePath] ??
+        UtilsManager.emptyMapStringDynamic;
 
     _props = widget.utils.computeWidgetProps(
       widget.widgetProps,

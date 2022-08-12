@@ -58,6 +58,10 @@ class LayoutProps with _$LayoutProps {
      * It has been bound all the binding value to context data value
      */
     Map<String, dynamic>? computedComponentProps,
+    /**
+     * Contains json widget for internal layout.json use only
+     */
+    Map<String, LayoutProps?>? components,
     LayoutProps? child,
     LayoutProps? content,
     List<LayoutProps>? children,

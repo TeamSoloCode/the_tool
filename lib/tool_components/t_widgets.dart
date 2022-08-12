@@ -14,7 +14,9 @@ import 'package:the_tool/tool_components/t_icon_widget.dart';
 import 'package:the_tool/tool_components/t_row_widget.dart';
 import 'package:the_tool/tool_components/t_scrollview_widget.dart';
 import 'package:the_tool/tool_components/t_text_widget.dart';
+import 'package:the_tool/utils.dart';
 import 'package:uuid/uuid.dart';
+import 'package:gato/gato.dart' as gato;
 
 class TWidgets extends StatefulWidget {
   final LayoutProps layout;
@@ -154,6 +156,18 @@ class _TWidgetsState extends State<TWidgets> {
           widgetUuid: widgetUuid,
         );
       default:
+        var contextStateProvider = getIt<ContextStateProvider>();
+        LayoutProps? innerComponent = gato.get(
+          contextStateProvider.pageComponents,
+          "${widget.pagePath}.${content.type}",
+        );
+        if (innerComponent != null) {
+          return TWidgets(
+            contextData: contextData,
+            layout: innerComponent,
+            pagePath: widget.pagePath,
+          );
+        }
         return const SizedBox.shrink();
     }
   }

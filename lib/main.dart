@@ -83,7 +83,6 @@ class _MyAppState extends State<MyApp> {
     APIClientManager apiClient = getIt<APIClientManager>();
 
     evalJS = EvalJS(
-      contextStateProvider: context.read<ContextStateProvider>(),
       context: context,
     );
     String clientCore = await apiClient.getClientCore();

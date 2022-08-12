@@ -42,6 +42,10 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       componentProps: json['componentProps'] as Map<String, dynamic>?,
       computedComponentProps:
           json['computedComponentProps'] as Map<String, dynamic>?,
+      components: (json['components'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k,
+            e == null ? null : LayoutProps.fromJson(e as Map<String, dynamic>)),
+      ),
       child: json['child'] == null
           ? null
           : LayoutProps.fromJson(json['child'] as Map<String, dynamic>),
@@ -99,6 +103,7 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'itemExtent': instance.itemExtent,
       'componentProps': instance.componentProps,
       'computedComponentProps': instance.computedComponentProps,
+      'components': instance.components,
       'child': instance.child,
       'content': instance.content,
       'children': instance.children,

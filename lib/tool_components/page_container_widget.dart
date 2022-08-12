@@ -40,8 +40,10 @@ class _PageContainerState extends State<PageContainer> {
 
   @override
   void dispose() {
-    getIt<StorageManager>().closeStorageBox();
-    _headlessWebView?.dispose();
+    Future.delayed(const Duration(milliseconds: 300), () async {
+      getIt<StorageManager>().closeStorageBox();
+      _headlessWebView?.dispose();
+    });
     super.dispose();
   }
 
@@ -175,7 +177,6 @@ class _PageContainerState extends State<PageContainer> {
 
   void _updateWebEvalContext(BuildContext context) {
     _evalJS = EvalJS(
-      contextStateProvider: context.read<ContextStateProvider>(),
       context: context,
     );
     _utils.evalJS = _evalJS;
@@ -188,7 +189,6 @@ class _PageContainerState extends State<PageContainer> {
         _evalJS = EvalJS(
           context: context,
           webViewController: webViewController,
-          contextStateProvider: context.read<ContextStateProvider>(),
         );
 
         String clientCore = await _apiClient.getClientCore();

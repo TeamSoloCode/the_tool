@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:the_tool/eval_js_utils/base_eval_js.dart';
+import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/utils.dart';
 import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_js_invoke.dart'
     as mobilejs;
@@ -10,17 +11,15 @@ class EvalJS extends BaseEvalJS {
   InAppWebViewController? webViewController;
 
   EvalJS({
-    required contextStateProvider,
     this.webViewController,
     required context,
   }) : super(
-          contextStateProvider: contextStateProvider,
           context: context,
         ) {
     mobilejs.main();
     mobilejs.registerJavascriptHandler(
       context,
-      contextStateProvider,
+      getIt<ContextStateProvider>(),
       webViewController,
     );
   }
