@@ -6,6 +6,7 @@ import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/t_widget_interface/app_bar_props/app_bar_props.dart';
 import 'package:the_tool/t_widget_interface/bottom_navigation_props/bottom_navigation_props.dart';
 import 'package:the_tool/t_widget_interface/image_content/image_provider.dart';
+import 'package:the_tool/utils.dart';
 
 part 'layout_props.freezed.dart';
 part 'layout_props.g.dart';
@@ -109,7 +110,8 @@ extension MergeLayoutProps on LayoutProps {
       minWidth: other.minWidth ?? minWidth,
       minHeight: other.minHeight ?? minHeight,
       flex: other.flex ?? flex,
-      type: other.type ?? type,
+      fit: other.fit ?? fit,
+      // type: other.type ?? type,
       color: other.color ?? color,
       backgroundColor: other.backgroundColor ?? backgroundColor,
       text: other.text ?? text,
@@ -130,9 +132,16 @@ extension MergeLayoutProps on LayoutProps {
       children: other.children ?? children,
       bottomNav: other.bottomNav ?? bottomNav,
       appBar: other.appBar ?? appBar,
-      componentProps: other.componentProps ?? componentProps,
-      computedComponentProps:
-          other.computedComponentProps ?? computedComponentProps,
+      componentProps: {
+        ...{...componentProps ?? UtilsManager.emptyMapStringDynamic},
+        ...{...other.componentProps ?? UtilsManager.emptyMapStringDynamic},
+      },
+      computedComponentProps: {
+        ...{...computedComponentProps ?? UtilsManager.emptyMapStringDynamic},
+        ...{
+          ...other.computedComponentProps ?? UtilsManager.emptyMapStringDynamic
+        },
+      },
       sliverListType: other.sliverListType ?? sliverListType,
       itemExtent: other.itemExtent ?? itemExtent,
     );

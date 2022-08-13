@@ -156,27 +156,27 @@ class _TWidgetsState extends State<TWidgets> {
           widgetUuid: widgetUuid,
         );
       default:
-        return _computeNotBuiltInWidget(contextData, content.type);
+        return _computeNotBuiltInWidget(contextData, content);
     }
   }
 
   Widget _computeNotBuiltInWidget(
     Map<String, dynamic> contextData,
-    String? type,
+    LayoutProps content,
   ) {
     var contextStateProvider = getIt<ContextStateProvider>();
     LayoutProps? innerComponent = gato.get(
       contextStateProvider.pageComponents,
-      "${widget.pagePath}.${type}",
+      "${widget.pagePath}.${content.type}",
     );
     if (innerComponent != null) {
       return TWidgets(
         contextData: contextData,
-        layout: innerComponent,
+        layout: innerComponent.merge(content),
         pagePath: widget.pagePath,
       );
     }
-    return Text("Unsupported widget. Type: $type");
+    return Text("Unsupported widget. Type: ${content.type}");
   }
 
   Future<void> _updateTWidgets(
