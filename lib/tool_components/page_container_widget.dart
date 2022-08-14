@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart'
     deferred as webview;
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
@@ -145,8 +146,8 @@ class _PageContainerState extends State<PageContainer> {
     var routeConfig = config?.routes;
     if (routeConfig == null) return {};
 
-    Map<String, Widget Function(BuildContext)> routes = {};
     List<Map<String, dynamic>> routesConfig = routeConfig;
+    Map<String, Widget Function(BuildContext)> routes = {};
 
     for (var routeConfig in routesConfig) {
       String path = routeConfig['path'];
@@ -154,7 +155,6 @@ class _PageContainerState extends State<PageContainer> {
         "/$path": (context) => T_Page(pagePath: path),
       });
     }
-
     return routes;
   }
 
