@@ -40,10 +40,8 @@ class _PageContainerState extends State<PageContainer> {
 
   @override
   void dispose() {
-    Future.delayed(const Duration(milliseconds: 300), () async {
-      getIt<StorageManager>().closeStorageBox();
-      _headlessWebView?.dispose();
-    });
+    getIt<StorageManager>().closeStorageBox();
+    _headlessWebView?.dispose();
     super.dispose();
   }
 
@@ -120,7 +118,6 @@ class _PageContainerState extends State<PageContainer> {
   Future<bool> _isReadyToRun() async {
     return Future<bool>.microtask(() async {
       if (didMount || _utils.staticContent.isNotEmpty) return true;
-      // await getIt<StorageManager>().initStorageBox();
       if (!kIsWeb) {
         await webview.loadLibrary();
         await getIt<UtilsManager>().loadStaticContent();
@@ -184,20 +181,30 @@ class _PageContainerState extends State<PageContainer> {
 
   void _initWebViewForMobile(BuildContext context) {
     if (_isWebViewReady || _headlessWebView != null) return;
+
     _headlessWebView = webview.HeadlessInAppWebView(
       onWebViewCreated: (webViewController) async {
-        _evalJS = EvalJS(
-          context: context,
-          webViewController: webViewController,
-        );
+        try {
+          _evalJS = EvalJS(
+            context: context,
+            webViewController: webViewController,
+          );
 
-        String clientCore = await _apiClient.getClientCore();
-        String htmlContent =
-            (await _evalJS.setupReactForClientCode(clientCore));
+          String clientCore = await _apiClient.getClientCore();
+          String htmlContent =
+              (await _evalJS.setupReactForClientCode(clientCore));
 
-        await webViewController.loadData(data: htmlContent);
+          await webViewController.loadData(data: htmlContent);
 
-        _utils.evalJS = _evalJS;
+          _utils.evalJS = _evalJS;
+        } catch (error) {
+          _headlessWebView?.dispose();
+          _headlessWebView = null;
+          _utils.evalJS = null;
+          setState(() {
+            _isWebViewReady = false;
+          });
+        }
       },
       onLoadStart: (controller, url) {},
       androidOnPermissionRequest: (controller, origin, resources) async {

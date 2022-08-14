@@ -101,7 +101,7 @@ extension MergeLayoutProps on LayoutProps {
 
   LayoutProps merge(LayoutProps? other) {
     if (other == null) return this;
-
+    var emptyMapStringDynamic = UtilsManager.emptyMapStringDynamic;
     return copyWith(
       height: other.height ?? height,
       width: other.width ?? width,
@@ -132,16 +132,18 @@ extension MergeLayoutProps on LayoutProps {
       children: other.children ?? children,
       bottomNav: other.bottomNav ?? bottomNav,
       appBar: other.appBar ?? appBar,
-      componentProps: {
-        ...{...componentProps ?? UtilsManager.emptyMapStringDynamic},
-        ...{...other.componentProps ?? UtilsManager.emptyMapStringDynamic},
-      },
-      computedComponentProps: {
-        ...{...computedComponentProps ?? UtilsManager.emptyMapStringDynamic},
-        ...{
-          ...other.computedComponentProps ?? UtilsManager.emptyMapStringDynamic
-        },
-      },
+      componentProps: other.componentProps != null
+          ? {
+              ...{...componentProps ?? emptyMapStringDynamic},
+              ...{...other.componentProps ?? emptyMapStringDynamic},
+            }
+          : componentProps,
+      computedComponentProps: other.computedComponentProps != null
+          ? {
+              ...{...computedComponentProps ?? emptyMapStringDynamic},
+              ...{...other.computedComponentProps ?? emptyMapStringDynamic},
+            }
+          : computedComponentProps,
       sliverListType: other.sliverListType ?? sliverListType,
       itemExtent: other.itemExtent ?? itemExtent,
     );
