@@ -14,7 +14,7 @@ mixin ContainerMixin {
   }
 
   BoxBorder? computeBoxBorder(LayoutProps? props) {
-    return ThemeDecoder.decodeBoxBorder(props?.boxBorder!.toJson());
+    return ThemeDecoder.decodeBoxBorder(props?.boxBorder?.toJson());
   }
 
   BorderRadiusGeometry? _computeBorderRadius(LayoutProps? props) {
