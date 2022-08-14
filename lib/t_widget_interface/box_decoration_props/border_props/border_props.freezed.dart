@@ -23,6 +23,10 @@ mixin _$BorderProps {
   int? get width => throw _privateConstructorUsedError;
   String? get color => throw _privateConstructorUsedError;
   String? get style => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get left => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get right => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get bottom => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get top => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +39,14 @@ abstract class $BorderPropsCopyWith<$Res> {
   factory $BorderPropsCopyWith(
           BorderProps value, $Res Function(BorderProps) then) =
       _$BorderPropsCopyWithImpl<$Res>;
-  $Res call({int? width, String? color, String? style});
+  $Res call(
+      {int? width,
+      String? color,
+      String? style,
+      Map<String, dynamic>? left,
+      Map<String, dynamic>? right,
+      Map<String, dynamic>? bottom,
+      Map<String, dynamic>? top});
 }
 
 /// @nodoc
@@ -51,6 +62,10 @@ class _$BorderPropsCopyWithImpl<$Res> implements $BorderPropsCopyWith<$Res> {
     Object? width = freezed,
     Object? color = freezed,
     Object? style = freezed,
+    Object? left = freezed,
+    Object? right = freezed,
+    Object? bottom = freezed,
+    Object? top = freezed,
   }) {
     return _then(_value.copyWith(
       width: width == freezed
@@ -65,6 +80,22 @@ class _$BorderPropsCopyWithImpl<$Res> implements $BorderPropsCopyWith<$Res> {
           ? _value.style
           : style // ignore: cast_nullable_to_non_nullable
               as String?,
+      left: left == freezed
+          ? _value.left
+          : left // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
+      right: right == freezed
+          ? _value.right
+          : right // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
+      bottom: bottom == freezed
+          ? _value.bottom
+          : bottom // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
+      top: top == freezed
+          ? _value.top
+          : top // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
     ));
   }
 }
@@ -76,7 +107,14 @@ abstract class _$$_BorderPropsCopyWith<$Res>
           _$_BorderProps value, $Res Function(_$_BorderProps) then) =
       __$$_BorderPropsCopyWithImpl<$Res>;
   @override
-  $Res call({int? width, String? color, String? style});
+  $Res call(
+      {int? width,
+      String? color,
+      String? style,
+      Map<String, dynamic>? left,
+      Map<String, dynamic>? right,
+      Map<String, dynamic>? bottom,
+      Map<String, dynamic>? top});
 }
 
 /// @nodoc
@@ -94,6 +132,10 @@ class __$$_BorderPropsCopyWithImpl<$Res> extends _$BorderPropsCopyWithImpl<$Res>
     Object? width = freezed,
     Object? color = freezed,
     Object? style = freezed,
+    Object? left = freezed,
+    Object? right = freezed,
+    Object? bottom = freezed,
+    Object? top = freezed,
   }) {
     return _then(_$_BorderProps(
       width: width == freezed
@@ -108,6 +150,22 @@ class __$$_BorderPropsCopyWithImpl<$Res> extends _$BorderPropsCopyWithImpl<$Res>
           ? _value.style
           : style // ignore: cast_nullable_to_non_nullable
               as String?,
+      left: left == freezed
+          ? _value._left
+          : left // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
+      right: right == freezed
+          ? _value._right
+          : right // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
+      bottom: bottom == freezed
+          ? _value._bottom
+          : bottom // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
+      top: top == freezed
+          ? _value._top
+          : top // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
     ));
   }
 }
@@ -115,7 +173,18 @@ class __$$_BorderPropsCopyWithImpl<$Res> extends _$BorderPropsCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_BorderProps with DiagnosticableTreeMixin implements _BorderProps {
-  _$_BorderProps({this.width, this.color, this.style});
+  _$_BorderProps(
+      {this.width,
+      this.color,
+      this.style,
+      final Map<String, dynamic>? left,
+      final Map<String, dynamic>? right,
+      final Map<String, dynamic>? bottom,
+      final Map<String, dynamic>? top})
+      : _left = left,
+        _right = right,
+        _bottom = bottom,
+        _top = top;
 
   factory _$_BorderProps.fromJson(Map<String, dynamic> json) =>
       _$$_BorderPropsFromJson(json);
@@ -126,10 +195,45 @@ class _$_BorderProps with DiagnosticableTreeMixin implements _BorderProps {
   final String? color;
   @override
   final String? style;
+  final Map<String, dynamic>? _left;
+  @override
+  Map<String, dynamic>? get left {
+    final value = _left;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
+  final Map<String, dynamic>? _right;
+  @override
+  Map<String, dynamic>? get right {
+    final value = _right;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
+  final Map<String, dynamic>? _bottom;
+  @override
+  Map<String, dynamic>? get bottom {
+    final value = _bottom;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
+  final Map<String, dynamic>? _top;
+  @override
+  Map<String, dynamic>? get top {
+    final value = _top;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'BorderProps(width: $width, color: $color, style: $style)';
+    return 'BorderProps(width: $width, color: $color, style: $style, left: $left, right: $right, bottom: $bottom, top: $top)';
   }
 
   @override
@@ -139,7 +243,11 @@ class _$_BorderProps with DiagnosticableTreeMixin implements _BorderProps {
       ..add(DiagnosticsProperty('type', 'BorderProps'))
       ..add(DiagnosticsProperty('width', width))
       ..add(DiagnosticsProperty('color', color))
-      ..add(DiagnosticsProperty('style', style));
+      ..add(DiagnosticsProperty('style', style))
+      ..add(DiagnosticsProperty('left', left))
+      ..add(DiagnosticsProperty('right', right))
+      ..add(DiagnosticsProperty('bottom', bottom))
+      ..add(DiagnosticsProperty('top', top));
   }
 
   @override
@@ -149,7 +257,11 @@ class _$_BorderProps with DiagnosticableTreeMixin implements _BorderProps {
             other is _$_BorderProps &&
             const DeepCollectionEquality().equals(other.width, width) &&
             const DeepCollectionEquality().equals(other.color, color) &&
-            const DeepCollectionEquality().equals(other.style, style));
+            const DeepCollectionEquality().equals(other.style, style) &&
+            const DeepCollectionEquality().equals(other._left, _left) &&
+            const DeepCollectionEquality().equals(other._right, _right) &&
+            const DeepCollectionEquality().equals(other._bottom, _bottom) &&
+            const DeepCollectionEquality().equals(other._top, _top));
   }
 
   @JsonKey(ignore: true)
@@ -158,7 +270,11 @@ class _$_BorderProps with DiagnosticableTreeMixin implements _BorderProps {
       runtimeType,
       const DeepCollectionEquality().hash(width),
       const DeepCollectionEquality().hash(color),
-      const DeepCollectionEquality().hash(style));
+      const DeepCollectionEquality().hash(style),
+      const DeepCollectionEquality().hash(_left),
+      const DeepCollectionEquality().hash(_right),
+      const DeepCollectionEquality().hash(_bottom),
+      const DeepCollectionEquality().hash(_top));
 
   @JsonKey(ignore: true)
   @override
@@ -175,7 +291,11 @@ abstract class _BorderProps implements BorderProps {
   factory _BorderProps(
       {final int? width,
       final String? color,
-      final String? style}) = _$_BorderProps;
+      final String? style,
+      final Map<String, dynamic>? left,
+      final Map<String, dynamic>? right,
+      final Map<String, dynamic>? bottom,
+      final Map<String, dynamic>? top}) = _$_BorderProps;
 
   factory _BorderProps.fromJson(Map<String, dynamic> json) =
       _$_BorderProps.fromJson;
@@ -186,6 +306,14 @@ abstract class _BorderProps implements BorderProps {
   String? get color;
   @override
   String? get style;
+  @override
+  Map<String, dynamic>? get left;
+  @override
+  Map<String, dynamic>? get right;
+  @override
+  Map<String, dynamic>? get bottom;
+  @override
+  Map<String, dynamic>? get top;
   @override
   @JsonKey(ignore: true)
   _$$_BorderPropsCopyWith<_$_BorderProps> get copyWith =>

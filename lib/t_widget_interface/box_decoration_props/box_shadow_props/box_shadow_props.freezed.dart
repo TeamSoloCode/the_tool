@@ -24,7 +24,7 @@ mixin _$BoxShadowProps {
   int? get blurRadius => throw _privateConstructorUsedError;
   String? get blurStyle => throw _privateConstructorUsedError;
   String? get colorBoxShadow => throw _privateConstructorUsedError;
-  int? get offset => throw _privateConstructorUsedError;
+  Map<String, double>? get offset => throw _privateConstructorUsedError;
   int? get spreadRadius => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -43,7 +43,7 @@ abstract class $BoxShadowPropsCopyWith<$Res> {
       int? blurRadius,
       String? blurStyle,
       String? colorBoxShadow,
-      int? offset,
+      Map<String, double>? offset,
       int? spreadRadius});
 }
 
@@ -85,7 +85,7 @@ class _$BoxShadowPropsCopyWithImpl<$Res>
       offset: offset == freezed
           ? _value.offset
           : offset // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as Map<String, double>?,
       spreadRadius: spreadRadius == freezed
           ? _value.spreadRadius
           : spreadRadius // ignore: cast_nullable_to_non_nullable
@@ -106,7 +106,7 @@ abstract class _$$_BoxShadowPropsCopyWith<$Res>
       int? blurRadius,
       String? blurStyle,
       String? colorBoxShadow,
-      int? offset,
+      Map<String, double>? offset,
       int? spreadRadius});
 }
 
@@ -148,9 +148,9 @@ class __$$_BoxShadowPropsCopyWithImpl<$Res>
           : colorBoxShadow // ignore: cast_nullable_to_non_nullable
               as String?,
       offset: offset == freezed
-          ? _value.offset
+          ? _value._offset
           : offset // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as Map<String, double>?,
       spreadRadius: spreadRadius == freezed
           ? _value.spreadRadius
           : spreadRadius // ignore: cast_nullable_to_non_nullable
@@ -169,8 +169,9 @@ class _$_BoxShadowProps
       this.blurRadius,
       this.blurStyle,
       this.colorBoxShadow,
-      this.offset,
-      this.spreadRadius});
+      final Map<String, double>? offset,
+      this.spreadRadius})
+      : _offset = offset;
 
   factory _$_BoxShadowProps.fromJson(Map<String, dynamic> json) =>
       _$$_BoxShadowPropsFromJson(json);
@@ -183,8 +184,15 @@ class _$_BoxShadowProps
   final String? blurStyle;
   @override
   final String? colorBoxShadow;
+  final Map<String, double>? _offset;
   @override
-  final int? offset;
+  Map<String, double>? get offset {
+    final value = _offset;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
   @override
   final int? spreadRadius;
 
@@ -217,7 +225,7 @@ class _$_BoxShadowProps
             const DeepCollectionEquality().equals(other.blurStyle, blurStyle) &&
             const DeepCollectionEquality()
                 .equals(other.colorBoxShadow, colorBoxShadow) &&
-            const DeepCollectionEquality().equals(other.offset, offset) &&
+            const DeepCollectionEquality().equals(other._offset, _offset) &&
             const DeepCollectionEquality()
                 .equals(other.spreadRadius, spreadRadius));
   }
@@ -230,7 +238,7 @@ class _$_BoxShadowProps
       const DeepCollectionEquality().hash(blurRadius),
       const DeepCollectionEquality().hash(blurStyle),
       const DeepCollectionEquality().hash(colorBoxShadow),
-      const DeepCollectionEquality().hash(offset),
+      const DeepCollectionEquality().hash(_offset),
       const DeepCollectionEquality().hash(spreadRadius));
 
   @JsonKey(ignore: true)
@@ -250,7 +258,7 @@ abstract class _BoxShadowProps implements BoxShadowProps {
       final int? blurRadius,
       final String? blurStyle,
       final String? colorBoxShadow,
-      final int? offset,
+      final Map<String, double>? offset,
       final int? spreadRadius}) = _$_BoxShadowProps;
 
   factory _BoxShadowProps.fromJson(Map<String, dynamic> json) =
@@ -265,7 +273,7 @@ abstract class _BoxShadowProps implements BoxShadowProps {
   @override
   String? get colorBoxShadow;
   @override
-  int? get offset;
+  Map<String, double>? get offset;
   @override
   int? get spreadRadius;
   @override

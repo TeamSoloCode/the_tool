@@ -12,7 +12,9 @@ _$_BoxShadowProps _$$_BoxShadowPropsFromJson(Map<String, dynamic> json) =>
       blurRadius: json['blurRadius'] as int?,
       blurStyle: json['blurStyle'] as String?,
       colorBoxShadow: json['colorBoxShadow'] as String?,
-      offset: json['offset'] as int?,
+      offset: (json['offset'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, (e as num).toDouble()),
+      ),
       spreadRadius: json['spreadRadius'] as int?,
     );
 

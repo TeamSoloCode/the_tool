@@ -72,7 +72,7 @@ class LayoutProps with _$LayoutProps {
     List<LayoutProps>? children,
     BottomNavigationProps? bottomNav,
     AppBarProps? appBar,
-    ImageProviderProps? imageProviderProps,
+    ImageProviderProps? image,
     BorderProps? boxBorder,
     BorderRadiusProps? borderRadius,
     BoxShadowProps? boxShadow,

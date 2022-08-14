@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:from_css_color/from_css_color.dart';
 import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/page_utils/style_utils.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 
 mixin ContainerMixin {
   DecorationImage? computeImage(LayoutProps? props) {
-    return props?.imageProviderProps != null
+    return props?.image != null
         ? ThemeDecoder.decodeDecorationImage({
-            "fit": props?.imageProviderProps?.fit,
-            "image": props?.imageProviderProps?.toJson()
+            "fit": props?.image?.fit,
+            "image": props?.image?.toJson(),
           }, validate: false)
         : null;
   }
@@ -61,11 +62,17 @@ mixin ContainerMixin {
   }
 
   BoxDecoration? computeBoxDecoration(LayoutProps? props) {
+    var cssColor = props?.backgroundColor;
+    Color? color = cssColor != null ? fromCssColor(cssColor) : null;
+
     return ThemeDecoder.decodeBoxDecoration({
+      "color": color,
       //  "backgroundBlendMode": <BlendMode>,
       "border": computeBoxBorder(props),
-      "borderRadius": _computeBorderRadius(props),
-      "boxShadow": StyleUtils.decodeDynamicList([computeBoxShadow(props)]),
+      // "borderRadius": _computeBorderRadius(props),
+      "boxShadow": StyleUtils.decodeDynamicList(
+        props?.boxShadow != null ? [computeBoxShadow(props)] : [],
+      ),
       "image": computeImage(props),
       //  "gradient": <Gradient>,
       //  "shape": <BoxShape>

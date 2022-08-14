@@ -12,7 +12,7 @@ class BoxShadowProps with _$BoxShadowProps {
       int? blurRadius,
       String? blurStyle,
       String? colorBoxShadow,
-      int? offset,
+      Map<String, double>? offset,
       int? spreadRadius}) = _BoxShadowProps;
   factory BoxShadowProps.fromJson(Map<String, Object?> json) =>
       _$BoxShadowPropsFromJson(json);
