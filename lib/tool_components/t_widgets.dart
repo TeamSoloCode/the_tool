@@ -14,7 +14,9 @@ import 'package:the_tool/tool_components/t_icon_widget.dart';
 import 'package:the_tool/tool_components/t_row_widget.dart';
 import 'package:the_tool/tool_components/t_scrollview_widget.dart';
 import 'package:the_tool/tool_components/t_text_widget.dart';
+import 'package:the_tool/utils.dart';
 import 'package:uuid/uuid.dart';
+import 'package:gato/gato.dart' as gato;
 
 class TWidgets extends StatefulWidget {
   final LayoutProps layout;
@@ -154,8 +156,27 @@ class _TWidgetsState extends State<TWidgets> {
           widgetUuid: widgetUuid,
         );
       default:
-        return const SizedBox.shrink();
+        return _computeNotBuiltInWidget(contextData, content);
     }
+  }
+
+  Widget _computeNotBuiltInWidget(
+    Map<String, dynamic> contextData,
+    LayoutProps content,
+  ) {
+    var contextStateProvider = getIt<ContextStateProvider>();
+    LayoutProps? innerComponent = gato.get(
+      contextStateProvider.pageComponents,
+      "${widget.pagePath}.${content.type}",
+    );
+    if (innerComponent != null) {
+      return TWidgets(
+        contextData: contextData,
+        layout: innerComponent.merge(content),
+        pagePath: widget.pagePath,
+      );
+    }
+    return Text("Unsupported widget. Type: ${content.type}");
   }
 
   Future<void> _updateTWidgets(

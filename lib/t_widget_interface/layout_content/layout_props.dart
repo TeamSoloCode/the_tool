@@ -10,6 +10,7 @@ import 'package:the_tool/t_widget_interface/box_decoration_props/border_radius_p
 import 'package:the_tool/t_widget_interface/box_decoration_props/box_decoration_props.dart';
 import 'package:the_tool/t_widget_interface/box_decoration_props/box_shadow_props/box_shadow_props.dart';
 import 'package:the_tool/t_widget_interface/image_content/image_provider.dart';
+import 'package:the_tool/utils.dart';
 
 part 'layout_props.freezed.dart';
 part 'layout_props.g.dart';
@@ -62,6 +63,10 @@ class LayoutProps with _$LayoutProps {
      * It has been bound all the binding value to context data value
      */
     Map<String, dynamic>? computedComponentProps,
+    /**
+     * Contains json widget for internal layout.json use only
+     */
+    Map<String, LayoutProps?>? components,
     LayoutProps? child,
     LayoutProps? content,
     List<LayoutProps>? children,
@@ -105,7 +110,7 @@ extension MergeLayoutProps on LayoutProps {
 
   LayoutProps merge(LayoutProps? other) {
     if (other == null) return this;
-
+    var emptyMapStringDynamic = UtilsManager.emptyMapStringDynamic;
     return copyWith(
       height: other.height ?? height,
       width: other.width ?? width,
@@ -114,7 +119,8 @@ extension MergeLayoutProps on LayoutProps {
       minWidth: other.minWidth ?? minWidth,
       minHeight: other.minHeight ?? minHeight,
       flex: other.flex ?? flex,
-      type: other.type ?? type,
+      fit: other.fit ?? fit,
+      // type: other.type ?? type,
       color: other.color ?? color,
       backgroundColor: other.backgroundColor ?? backgroundColor,
       text: other.text ?? text,
@@ -135,9 +141,18 @@ extension MergeLayoutProps on LayoutProps {
       children: other.children ?? children,
       bottomNav: other.bottomNav ?? bottomNav,
       appBar: other.appBar ?? appBar,
-      componentProps: other.componentProps ?? componentProps,
-      computedComponentProps:
-          other.computedComponentProps ?? computedComponentProps,
+      componentProps: other.componentProps != null
+          ? {
+              ...{...componentProps ?? emptyMapStringDynamic},
+              ...{...other.componentProps ?? emptyMapStringDynamic},
+            }
+          : componentProps,
+      computedComponentProps: other.computedComponentProps != null
+          ? {
+              ...{...computedComponentProps ?? emptyMapStringDynamic},
+              ...{...other.computedComponentProps ?? emptyMapStringDynamic},
+            }
+          : computedComponentProps,
       sliverListType: other.sliverListType ?? sliverListType,
       itemExtent: other.itemExtent ?? itemExtent,
     );

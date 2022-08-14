@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 
 abstract class BaseEvalJS {
-  ContextStateProvider contextStateProvider;
   BuildContext context;
   bool initialized = false;
 
-  BaseEvalJS({required this.contextStateProvider, required this.context});
+  BaseEvalJS({required this.context});
 
   Future<dynamic> executeJS(String jsCode, String pagePath);
 

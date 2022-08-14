@@ -66,7 +66,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     });
 
     if (_isReadyToRun == false ||
-        UtilsManager.isFalsy(gato.get(pageData, "_tLoaded"))) {
+        !UtilsManager.isTruthy(gato.get(pageData, "_tLoaded"))) {
       return const Scaffold(
         body: Center(
           child: SpinKitFadingCircle(
@@ -105,7 +105,9 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
   }
 
   Future<void> _loadPageInfo() async {
-    APIClientManager apiClient = getIt<APIClientManager>();
+    var contextStateProvider = getIt<ContextStateProvider>();
+    var apiClient = getIt<APIClientManager>();
+
     Map<String, dynamic> pageInfo =
         await apiClient.getClientPageInfo(widget.pagePath);
 
@@ -116,6 +118,13 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     var layout = pageInfo["layout"];
 
     _pageLayout = LayoutProps.fromJson(layout);
+    if (_pageLayout?.components != null) {
+      contextStateProvider.addPageComponents(
+        pagePath: widget.pagePath,
+        components: _pageLayout!.components!,
+      );
+    }
+
     _customAppBar = _pageLayout?.appBar;
     _bottomNavBar = _pageLayout?.bottomNav;
   }

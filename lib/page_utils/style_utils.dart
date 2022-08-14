@@ -15,7 +15,7 @@ class StyleUtils {
 
     var isBoundValue = _utils.bindingValueToProp(contextData, rawTextColor);
 
-    if (!UtilsManager.isFalsy(isBoundValue)) {
+    if (UtilsManager.isTruthy(isBoundValue)) {
       var bindingValue = _utils.bindingValueToText(
         contextData,
         rawTextColor,

@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 
 import 'package:the_tool/t_widget_interface/client_config/client_config.dart';
+import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
+import 'package:the_tool/utils.dart';
 
 class ContextStateProvider with ChangeNotifier, DiagnosticableTreeMixin {
   final Map<String, dynamic> _contextData = {};
@@ -11,7 +13,7 @@ class ContextStateProvider with ChangeNotifier, DiagnosticableTreeMixin {
   ContextStateProvider({this.initData = const {}}) : super() {
     _contextData.addAll(initData);
   }
-
+  // ==========================================================================
   Map<String, dynamic> get contextData => _contextData;
 
   Future<void> updateContextData(Map<String, dynamic> contextData) async {
@@ -24,7 +26,9 @@ class ContextStateProvider with ChangeNotifier, DiagnosticableTreeMixin {
   void updateCacheCheckTWidgetDepsChanged(String depsKey, bool isDepsChanged) {
     _cacheCheckTWidgetDepsChanged.putIfAbsent(depsKey, () => isDepsChanged);
   }
+  // ==========================================================================
 
+  // ==========================================================================
   Map<String, bool> get cacheCheckTWidgetDepsChanged =>
       _cacheCheckTWidgetDepsChanged;
 
@@ -34,6 +38,20 @@ class ContextStateProvider with ChangeNotifier, DiagnosticableTreeMixin {
     _appConfig = contextConfig;
     notifyListeners();
   }
+  // ==========================================================================
+
+  // ==========================================================================
+  final Map<String, Map<String, LayoutProps?>> _pageComponents = Map.of({});
+
+  Map<String, Map<String, LayoutProps?>> get pageComponents => _pageComponents;
+
+  void addPageComponents({
+    required String pagePath,
+    required Map<String, LayoutProps?> components,
+  }) {
+    _pageComponents.putIfAbsent(pagePath, () => components);
+  }
+  // ==========================================================================
 
   /// Makes `Counter` readable inside the devtools by listing all of its properties
   @override

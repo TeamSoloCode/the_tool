@@ -1,10 +1,11 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:json_theme/json_theme_schemas.dart';
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/permission_manager.dart';
-import 'package:the_tool/page_utils/storage_utils.dart';
+import 'package:the_tool/page_utils/storage_manager.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/page_utils/twidget_context_provider.dart';
 import 'package:the_tool/static_pages/select_project.dart';
@@ -28,7 +29,43 @@ void main() async {
   getIt.registerSingleton<StorageManager>(StorageManager(), signalsReady: true);
   await getIt<StorageManager>().initStorageBox();
 
-  runApp(const MyApp());
+  getIt.registerSingleton<APIClientManager>(
+    APIClientManager(),
+    signalsReady: true,
+  );
+  getIt.registerSingleton<ContextStateProvider>(
+    ContextStateProvider(),
+    signalsReady: true,
+  );
+  getIt.registerSingleton<PermissionManager>(
+    PermissionManager(),
+    signalsReady: true,
+  );
+
+  getIt.registerSingleton<PageContextProvider>(
+    PageContextProvider(),
+    signalsReady: true,
+  );
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => getIt<ContextStateProvider>(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) {
+            getIt.registerSingleton<ThemeProvider>(
+              ThemeProvider(context: context),
+              signalsReady: true,
+            );
+            return getIt<ThemeProvider>();
+          },
+        )
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -39,13 +76,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String? selectedProjectName;
-
-  @override
-  void initState() {
-    if (kIsWeb) _loadWebCoreJSCode(context);
-    super.initState();
-  }
+  String? _selectedProjectName;
 
   Future<void> _loadWebCoreJSCode(BuildContext context) async {
     UtilsManager utils = getIt<UtilsManager>();
@@ -53,7 +84,6 @@ class _MyAppState extends State<MyApp> {
     APIClientManager apiClient = getIt<APIClientManager>();
 
     evalJS = EvalJS(
-      contextStateProvider: context.read<ContextStateProvider>(),
       context: context,
     );
     String clientCore = await apiClient.getClientCore();
@@ -67,40 +97,27 @@ class _MyAppState extends State<MyApp> {
 
   void _loadProject(String projectName) {
     setState(() {
-      selectedProjectName = projectName;
+      _selectedProjectName = projectName;
     });
   }
 
   Future<bool> _isReadyToRun() async {
     return Future<bool>.microtask(() async {
-      getIt.registerSingleton<APIClientManager>(
-        APIClientManager(),
-        signalsReady: true,
-      );
-      getIt.registerSingleton<ContextStateProvider>(
-        ContextStateProvider(),
-        signalsReady: true,
-      );
-      getIt.registerSingleton<PermissionManager>(
-        PermissionManager(),
-        signalsReady: true,
-      );
+      var apiClient = getIt<APIClientManager>();
 
-      getIt.registerSingleton<PageContextProvider>(
-        PageContextProvider(),
-        signalsReady: true,
-      );
-
-      ClientConfig config = await getIt<APIClientManager>().getClientConfig();
+      apiClient.projectName = _selectedProjectName ??
+          getIt<StorageManager>().getLocalBox("projectName");
+      ClientConfig config = await apiClient.getClientConfig();
       getIt<ContextStateProvider>().appConfig = config;
 
+      if (kIsWeb) _loadWebCoreJSCode(context);
       return true;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (selectedProjectName == null) {
+    if (_selectedProjectName == null) {
       return SelectProjectPage(
         loadProject: _loadProject,
       );
@@ -110,29 +127,10 @@ class _MyAppState extends State<MyApp> {
           if (snapshot.data != true) {
             return const SizedBox();
           }
-          return MultiProvider(
-            providers: [
-              ChangeNotifierProvider(
-                  create: (_) => getIt<ContextStateProvider>()),
-              ChangeNotifierProvider(
-                  create: (_) => getIt<PageContextProvider>()),
-              ChangeNotifierProvider(
-                create: (context) {
-                  getIt.registerSingleton<ThemeProvider>(
-                    ThemeProvider(context: context),
-                    signalsReady: true,
-                  );
-                  return getIt<ThemeProvider>();
-                },
-              )
-            ],
-            child: const PageContainer(),
-          );
+          return const PageContainer();
         },
         future: _isReadyToRun(),
       );
     }
-
-    // return const PageContainer();
   }
 }

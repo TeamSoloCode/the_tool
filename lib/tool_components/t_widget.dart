@@ -38,7 +38,9 @@ mixin BaseStateWidget on Widget {
     );
 
     context.select((ContextStateProvider value) {
-      var newPageData = value.contextData[path] ?? {"": null};
+      var newPageData =
+          value.contextData[path] ?? UtilsManager.emptyMapStringDynamic;
+
       if (!hasBindingValue ||
           !isTWidgetDependenciesChanged(
             newPageData,
@@ -76,14 +78,14 @@ mixin BaseStateWidget on Widget {
     Map<String, dynamic> contextData, {
     String? providedPagePath,
   }) {
-    var depsAsString =
-        "${providedPagePath ?? pagePath}_${widgetBindingStrings.toString()}";
-    var caheValue =
-        contextStateProvider.cacheCheckTWidgetDepsChanged[depsAsString];
+    // var depsAsString =
+    //     "${providedPagePath ?? pagePath}_${widgetBindingStrings.toString()}";
+    // var caheValue =
+    //     contextStateProvider.cacheCheckTWidgetDepsChanged[depsAsString];
 
-    if (caheValue != null) {
-      return caheValue;
-    }
+    // if (caheValue != null) {
+    //   return caheValue;
+    // }
 
     var newBindingValues = widgetBindingStrings.map((widgetBindingString) {
       return gato.get(contextData, widgetBindingString).toString();
@@ -99,10 +101,10 @@ mixin BaseStateWidget on Widget {
     }
 
     // Cache the result for later use
-    contextStateProvider.updateCacheCheckTWidgetDepsChanged(
-      depsAsString,
-      isChanged,
-    );
+    // contextStateProvider.updateCacheCheckTWidgetDepsChanged(
+    //   depsAsString,
+    //   isChanged,
+    // );
     return isChanged;
   }
 

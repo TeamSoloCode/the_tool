@@ -4,16 +4,17 @@ import 'package:the_tool/eval_js_utils/base_eval_js.dart';
 import 'dart:js' as js;
 import 'package:the_tool/eval_js_utils/web_eval_utils/web_js_invoke.dart'
     as webjs;
+import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:the_tool/utils.dart';
 
 class EvalJS extends BaseEvalJS {
   var webViewController;
   EvalJS({
-    required contextStateProvider,
     this.webViewController,
     required context,
-  }) : super(contextStateProvider: contextStateProvider, context: context) {
+  }) : super(context: context) {
     webjs.setContextBuilder(context);
-    webjs.setContextStateProvider(contextStateProvider);
+    webjs.setContextStateProvider(getIt<ContextStateProvider>());
     webjs.main();
     js.context.callMethod('setPlatform', ['web']);
   }

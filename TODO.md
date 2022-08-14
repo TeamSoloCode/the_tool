@@ -1,13 +1,16 @@
-Appbar not display properly
+Fix bug can loadData (static html/js) of webview on mobile
 
 #-------------------------------------------------
+
+Appbar not display properly
+Move base react component , app.js, vendor.js and js-module to server
+Load all needed page in isolate thread
 
 Support get data from exportPageContext
 Add refresh page button for development mode
 Split widget with Deferred components
 
 Use dart2js to support lazy loading for web (web)
-Move base react component , app.js, vendor.js and js-module to server
 Support customizable for t_select_field items
 Support for basic on SliverAppBar, SliverGrid
 Support common json widget on layout.json
@@ -52,3 +55,5 @@ Support onSubmit for t_form
 -Support get forms validation result from t_from to js (web)
 -Support t_block to insert t_widget as json to json layout
 -Cached t_component if possible
+-Support inlayout t_component in layout.json (like t_component but only being used in 1 page) + Support merge property
+-Hidden property not working properly

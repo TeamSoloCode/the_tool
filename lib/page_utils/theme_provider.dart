@@ -276,7 +276,7 @@ class ThemeProvider with ChangeNotifier {
               );
             }
 
-            if (!UtilsManager.isFalsy(result)) {
+            if (UtilsManager.isTruthy(result)) {
               updateWidgetProps(
                   LayoutProps.fromJson(
                     Map<String, dynamic>.from(

@@ -9,7 +9,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
-import 'package:the_tool/page_utils/storage_utils.dart';
+import 'package:the_tool/page_utils/storage_manager.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/tool_components/page_widget.dart';
 import 'package:the_tool/utils.dart';
@@ -121,7 +121,6 @@ class _PageContainerState extends State<PageContainer> {
   Future<bool> _isReadyToRun() async {
     return Future<bool>.microtask(() async {
       if (didMount || _utils.staticContent.isNotEmpty) return true;
-      // await getIt<StorageManager>().initStorageBox();
       if (!kIsWeb) {
         await webview.loadLibrary();
         await getIt<UtilsManager>().loadStaticContent();
@@ -176,29 +175,37 @@ class _PageContainerState extends State<PageContainer> {
 
   void _updateWebEvalContext(BuildContext context) {
     _evalJS = EvalJS(
-      contextStateProvider: context.read<ContextStateProvider>(),
       context: context,
     );
     _utils.evalJS = _evalJS;
   }
 
   void _initWebViewForMobile(BuildContext context) {
-    if (_isWebViewReady) return;
+    if (_isWebViewReady || _headlessWebView != null) return;
+
     _headlessWebView = webview.HeadlessInAppWebView(
-      onWebViewCreated: (InAppWebViewController webViewController) async {
-        _evalJS = EvalJS(
-          context: context,
-          webViewController: webViewController,
-          contextStateProvider: context.read<ContextStateProvider>(),
-        );
+      onWebViewCreated: (webViewController) async {
+        try {
+          _evalJS = EvalJS(
+            context: context,
+            webViewController: webViewController,
+          );
 
-        String clientCore = await _apiClient.getClientCore();
-        String htmlContent =
-            (await _evalJS.setupReactForClientCode(clientCore));
+          String clientCore = await _apiClient.getClientCore();
+          String htmlContent =
+              (await _evalJS.setupReactForClientCode(clientCore));
 
-        await webViewController.loadData(data: htmlContent);
+          await webViewController.loadData(data: htmlContent);
 
-        _utils.evalJS = _evalJS;
+          _utils.evalJS = _evalJS;
+        } catch (error) {
+          _headlessWebView?.dispose();
+          _headlessWebView = null;
+          _utils.evalJS = null;
+          setState(() {
+            _isWebViewReady = false;
+          });
+        }
       },
       onLoadStart: (controller, url) {},
       androidOnPermissionRequest: (controller, origin, resources) async {
