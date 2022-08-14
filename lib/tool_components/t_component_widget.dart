@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
@@ -33,6 +35,7 @@ class _T_ComponentState extends State<T_Component>
   Map<String, dynamic> _pageInfo = {};
   bool _isReady = false;
   LayoutProps? _props;
+  var emptyMapStringDynamic = UtilsManager.emptyMapStringDynamic;
 
   @override
   void initState() {
@@ -69,13 +72,13 @@ class _T_ComponentState extends State<T_Component>
 
     if (_pageLayout?.components != null) {
       contextStateProvider.addPageComponents(
-        pagePath: componentPath,
+        pagePath: _componentId,
         components: _pageLayout!.components!,
       );
     }
 
     var contextData = contextStateProvider.contextData[widget.pagePath] ??
-        UtilsManager.emptyMapStringDynamic;
+        emptyMapStringDynamic;
 
     _props = widget.utils.computeWidgetProps(
       widget.widgetProps,
@@ -116,14 +119,13 @@ class _T_ComponentState extends State<T_Component>
 
     var contextData =
         getIt<ContextStateProvider>().contextData[widget.pagePath] ??
-            UtilsManager.emptyMapStringDynamic;
+            emptyMapStringDynamic;
 
     widget.snapshot = TWidgets(
       key: Key(_componentId),
       layout: _pageLayout ?? const LayoutProps(),
       pagePath: _componentId,
-      contextData:
-          contextData[_componentId] ?? UtilsManager.emptyMapStringDynamic,
+      contextData: contextData[_componentId] ?? emptyMapStringDynamic,
     );
     didBuild = true;
     return widget.snapshot;
