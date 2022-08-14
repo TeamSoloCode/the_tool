@@ -34,10 +34,8 @@ class _PageContainerState extends State<PageContainer> {
   ThemeMode? _currentThemeMode;
 
   late EvalJS _evalJS;
-  Map<String, Widget Function(BuildContext)> routes = {};
   @override
   void initState() {
-    _computeRoutes();
     super.initState();
   }
 
@@ -149,6 +147,7 @@ class _PageContainerState extends State<PageContainer> {
     if (routeConfig == null) return {};
 
     List<Map<String, dynamic>> routesConfig = routeConfig;
+    Map<String, Widget Function(BuildContext)> routes = {};
 
     for (var routeConfig in routesConfig) {
       String path = routeConfig['path'];

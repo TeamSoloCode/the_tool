@@ -1,5 +1,4 @@
 import 'package:flutter/rendering.dart';
-import 'package:the_tool/t_widget_interface/base_props/base_border_props.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';

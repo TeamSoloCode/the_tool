@@ -18,7 +18,6 @@ import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
     if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_utils/web_eval_js.dart';
 
 void main() async {
-  SchemaValidator.enabled = false;
   WidgetsFlutterBinding.ensureInitialized();
   SchemaValidator.enabled = false;
 
