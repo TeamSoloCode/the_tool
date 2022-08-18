@@ -167,7 +167,7 @@ class _TWidgetsState extends State<TWidgets> {
     var contextStateProvider = getIt<ContextStateProvider>();
     LayoutProps? innerComponent = gato.get(
       contextStateProvider.pageComponents,
-      "${widget.pagePath}.${content.type}",
+      "${widget.pagePath}.${content.component}",
     );
     if (innerComponent != null) {
       return TWidgets(
@@ -176,7 +176,8 @@ class _TWidgetsState extends State<TWidgets> {
         pagePath: widget.pagePath,
       );
     }
-    return Text("Unsupported widget. Type: ${content.type}");
+    return Text(
+        "Unsupported widget. Type: ${content.type ?? content.component}");
   }
 
   Future<void> _updateTWidgets(

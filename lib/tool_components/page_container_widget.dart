@@ -29,7 +29,7 @@ class _PageContainerState extends State<PageContainer> {
   final UtilsManager _utils = getIt<UtilsManager>();
   final APIClientManager _apiClient = getIt<APIClientManager>();
   String? _errorMessage;
-  var _headlessWebView;
+  dynamic _headlessWebView;
   ThemeData? _themeData;
   ThemeMode? _currentThemeMode;
 

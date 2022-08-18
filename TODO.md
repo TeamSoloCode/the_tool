@@ -1,4 +1,5 @@
-Fix bug can loadData (static html/js) of webview on mobile
+Cannot scroll t_row when is overflow
+Do not show text "Unsupported widget. Type: null" when child is not defined
 
 #-------------------------------------------------
 
@@ -57,3 +58,4 @@ Support onSubmit for t_form
 -Cached t_component if possible
 -Support inlayout t_component in layout.json (like t_component but only being used in 1 page) + Support merge property
 -Hidden property not working properly
+-Fix bug can loadData (static html/js) of webview on mobile

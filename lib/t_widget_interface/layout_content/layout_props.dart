@@ -67,6 +67,7 @@ class LayoutProps with _$LayoutProps {
      * Contains json widget for internal layout.json use only
      */
     Map<String, LayoutProps?>? components,
+    String? component,
     LayoutProps? child,
     LayoutProps? content,
     List<LayoutProps>? children,

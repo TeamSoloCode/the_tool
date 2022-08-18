@@ -71,6 +71,7 @@ mixin _$LayoutProps {
      */
   Map<String, LayoutProps?>? get components =>
       throw _privateConstructorUsedError;
+  String? get component => throw _privateConstructorUsedError;
   LayoutProps? get child => throw _privateConstructorUsedError;
   LayoutProps? get content => throw _privateConstructorUsedError;
   List<LayoutProps>? get children => throw _privateConstructorUsedError;
@@ -127,6 +128,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       Map<String, dynamic>? componentProps,
       Map<String, dynamic>? computedComponentProps,
       Map<String, LayoutProps?>? components,
+      String? component,
       LayoutProps? child,
       LayoutProps? content,
       List<LayoutProps>? children,
@@ -191,6 +193,7 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
     Object? componentProps = freezed,
     Object? computedComponentProps = freezed,
     Object? components = freezed,
+    Object? component = freezed,
     Object? child = freezed,
     Object? content = freezed,
     Object? children = freezed,
@@ -338,6 +341,10 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
           ? _value.components
           : components // ignore: cast_nullable_to_non_nullable
               as Map<String, LayoutProps?>?,
+      component: component == freezed
+          ? _value.component
+          : component // ignore: cast_nullable_to_non_nullable
+              as String?,
       child: child == freezed
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
@@ -508,6 +515,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       Map<String, dynamic>? componentProps,
       Map<String, dynamic>? computedComponentProps,
       Map<String, LayoutProps?>? components,
+      String? component,
       LayoutProps? child,
       LayoutProps? content,
       List<LayoutProps>? children,
@@ -582,6 +590,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
     Object? componentProps = freezed,
     Object? computedComponentProps = freezed,
     Object? components = freezed,
+    Object? component = freezed,
     Object? child = freezed,
     Object? content = freezed,
     Object? children = freezed,
@@ -729,6 +738,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
           ? _value._components
           : components // ignore: cast_nullable_to_non_nullable
               as Map<String, LayoutProps?>?,
+      component: component == freezed
+          ? _value.component
+          : component // ignore: cast_nullable_to_non_nullable
+              as String?,
       child: child == freezed
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
@@ -807,6 +820,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       final Map<String, dynamic>? componentProps,
       final Map<String, dynamic>? computedComponentProps,
       final Map<String, LayoutProps?>? components,
+      this.component,
       this.child,
       this.content,
       final List<LayoutProps>? children,
@@ -939,6 +953,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   }
 
   @override
+  final String? component;
+  @override
   final LayoutProps? child;
   @override
   final LayoutProps? content;
@@ -966,7 +982,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, items: $items, fieldType: $fieldType, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, fit: $fit, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, items: $items, fieldType: $fieldType, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, fit: $fit, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
   }
 
   @override
@@ -1009,6 +1025,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(
           DiagnosticsProperty('computedComponentProps', computedComponentProps))
       ..add(DiagnosticsProperty('components', components))
+      ..add(DiagnosticsProperty('component', component))
       ..add(DiagnosticsProperty('child', child))
       ..add(DiagnosticsProperty('content', content))
       ..add(DiagnosticsProperty('children', children))
@@ -1070,6 +1087,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
                 other._computedComponentProps, _computedComponentProps) &&
             const DeepCollectionEquality()
                 .equals(other._components, _components) &&
+            const DeepCollectionEquality().equals(other.component, component) &&
             const DeepCollectionEquality().equals(other.child, child) &&
             const DeepCollectionEquality().equals(other.content, content) &&
             const DeepCollectionEquality().equals(other._children, _children) &&
@@ -1120,6 +1138,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
         const DeepCollectionEquality().hash(_componentProps),
         const DeepCollectionEquality().hash(_computedComponentProps),
         const DeepCollectionEquality().hash(_components),
+        const DeepCollectionEquality().hash(component),
         const DeepCollectionEquality().hash(child),
         const DeepCollectionEquality().hash(content),
         const DeepCollectionEquality().hash(_children),
@@ -1178,6 +1197,7 @@ abstract class _LayoutProps implements LayoutProps {
       final Map<String, dynamic>? componentProps,
       final Map<String, dynamic>? computedComponentProps,
       final Map<String, LayoutProps?>? components,
+      final String? component,
       final LayoutProps? child,
       final LayoutProps? content,
       final List<LayoutProps>? children,
@@ -1273,6 +1293,8 @@ abstract class _LayoutProps implements LayoutProps {
      * Contains json widget for internal layout.json use only
      */
   Map<String, LayoutProps?>? get components;
+  @override
+  String? get component;
   @override
   LayoutProps? get child;
   @override
