@@ -9,8 +9,8 @@ import 'package:form_builder_validators/form_builder_validators.dart'
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 
-class TTextField extends TWidget {
-  TTextField({
+class T_TextField extends TWidget {
+  T_TextField({
     Key? key,
     required widgetProps,
     required contextData,
@@ -25,13 +25,13 @@ class TTextField extends TWidget {
         );
 
   @override
-  State<TTextField> createState() => _TTextFieldState();
+  State<T_TextField> createState() => _T_TextFieldState();
 }
 
 Timer? _debounce;
 
-class _TTextFieldState extends TStatefulWidget<TTextField> {
-  final textFieldController = TextEditingController();
+class _T_TextFieldState extends TStatefulWidget<T_TextField> {
+  var textFieldController = TextEditingController();
   String? currentValue;
   var debounceDuration = const Duration(milliseconds: 500);
 
@@ -56,6 +56,7 @@ class _TTextFieldState extends TStatefulWidget<TTextField> {
   void didChangeDependencies() {
     String? name = widget.widgetProps.name;
     String currentText = textFieldController.text;
+    currentValue = widget.contextData[name];
     if (currentValue != currentText && name != null) {
       Future.delayed(Duration.zero, () async {
         textFieldController.value = TextEditingValue(
@@ -101,11 +102,6 @@ class _TTextFieldState extends TStatefulWidget<TTextField> {
       // initialValue: contextData[name] ?? "",
       onChanged: (text) {
         _debounceTextChanged(text, contextData);
-      },
-      onReset: () {
-        textFieldController.value = TextEditingValue.empty;
-        widget.setPageData({name!: ""});
-        currentValue = "";
       },
       onEditingComplete: () {
         log("onEditingComplete");

@@ -64,13 +64,6 @@ class _T_FormState extends TStatefulWidget<T_Form> {
             data["actionId"],
             isValid,
           );
-
-          return;
-        case "reset":
-          var fields = _formKey.currentState?.fields;
-          fields?.forEach((key, field) {
-            field.reset();
-          });
           return;
       }
     };

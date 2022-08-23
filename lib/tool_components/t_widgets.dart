@@ -176,6 +176,9 @@ class _TWidgetsState extends State<TWidgets> {
         pagePath: widget.pagePath,
       );
     }
+    if (content.type == null && content.component == null) {
+      return const SizedBox();
+    }
     return Text(
         "Unsupported widget. Type: ${content.type ?? content.component}");
   }

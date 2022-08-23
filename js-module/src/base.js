@@ -154,10 +154,6 @@ const validateForm = async (formName) => {
   return promiseResult;
 };
 
-const resetForm = async (formName) => {
-  return dispatchFormAction(formName, "id", "reset");
-};
-
 const dispatchFormAction = async (
   formName,
   actionId = "",
@@ -219,7 +215,6 @@ Object.assign(window, {
 
   /** Form context           */
   validateForm,
-  resetForm,
   /**----------------------- */
 
   /** Context for permission */

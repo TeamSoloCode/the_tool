@@ -32,9 +32,11 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField> {
   void didChangeDependencies() {
     String? name = widget.widgetProps.name;
     dynamic currentValue = _dropDownKey.currentState?.value;
+    selectedValue = widget.contextData[name];
     if (selectedValue != currentValue && name != null) {
       Future.delayed(Duration.zero, () async {
         _dropDownKey.currentState?.setValue(selectedValue);
+        _dropDownKey.currentState?.setState(() {});
       });
     }
 
@@ -86,10 +88,6 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField> {
       initialValue: value,
       allowClear: true,
       hint: const Text('Select Gender'),
-      onReset: () {
-        _onChangeOption(null);
-        _dropDownKey.currentState!.setValue(null);
-      },
       validator: FormBuilderValidators.compose(
         [
           FormBuilderValidators.required(),
