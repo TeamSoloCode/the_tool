@@ -67,6 +67,12 @@ class LayoutProps with _$LayoutProps {
      * Contains json widget for internal layout.json use only
      */
     Map<String, LayoutProps?>? components,
+    /**
+     * This use to set scroll on Row or Column
+     * if scrollable = true and widget is Row => Axix.horizontal
+     * if scrollable = true and widget is Column => Axix.vertical
+     */
+    bool? scrollable,
     String? component,
     LayoutProps? child,
     LayoutProps? content,
@@ -139,6 +145,7 @@ extension MergeLayoutProps on LayoutProps {
       className: other.className ?? className,
       child: other.child ?? child,
       content: other.content ?? content,
+      scrollable: other.scrollable ?? scrollable,
       children: other.children ?? children,
       bottomNav: other.bottomNav ?? bottomNav,
       appBar: other.appBar ?? appBar,

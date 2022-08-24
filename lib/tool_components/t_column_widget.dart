@@ -39,6 +39,13 @@ class T_Column extends TStatelessWidget {
         key: getBindingKey(),
         children: _getChildren(),
       );
+
+      if (props?.scrollable == true) {
+        snapshot = SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: snapshot,
+        );
+      }
     }
 
     return snapshot;

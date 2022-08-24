@@ -46,6 +46,14 @@ class T_Row extends TStatelessWidget {
       mainAxisAlignment: mainAxisAlignment,
       children: _computeChildren(props?.children, contextData),
     );
+
+    if (props?.scrollable == true) {
+      snapshot = SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: snapshot,
+      );
+    }
+
     return snapshot;
   }
 }
