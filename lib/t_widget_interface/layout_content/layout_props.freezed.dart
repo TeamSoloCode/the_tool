@@ -33,8 +33,6 @@ mixin _$LayoutProps {
   String? get buttonType => throw _privateConstructorUsedError;
   String? get key => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
-  dynamic get items => throw _privateConstructorUsedError;
-  String? get fieldType => throw _privateConstructorUsedError;
   dynamic get className => throw _privateConstructorUsedError;
   dynamic get height => throw _privateConstructorUsedError;
   dynamic get width => throw _privateConstructorUsedError;
@@ -49,6 +47,7 @@ mixin _$LayoutProps {
   double? get borderLeft => throw _privateConstructorUsedError;
   int? get flex => throw _privateConstructorUsedError;
   String? get fit => throw _privateConstructorUsedError;
+  dynamic get alignment => throw _privateConstructorUsedError;
   /**
      * 
      */
@@ -76,8 +75,14 @@ mixin _$LayoutProps {
      * if scrollable = true and widget is Row => Axix.horizontal
      * if scrollable = true and widget is Column => Axix.vertical
      */
-  bool? get scrollable => throw _privateConstructorUsedError;
+  bool? get scrollable =>
+      throw _privateConstructorUsedError; // TextField Start================================================
+  String? get hintText => throw _privateConstructorUsedError;
+  String? get labelText => throw _privateConstructorUsedError;
   bool? get obscureText => throw _privateConstructorUsedError;
+  dynamic get items => throw _privateConstructorUsedError;
+  String? get fieldType =>
+      throw _privateConstructorUsedError; // TextField End================================================
   String? get component => throw _privateConstructorUsedError;
   LayoutProps? get child => throw _privateConstructorUsedError;
   LayoutProps? get content => throw _privateConstructorUsedError;
@@ -114,8 +119,6 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? buttonType,
       String? key,
       String? name,
-      dynamic items,
-      String? fieldType,
       dynamic className,
       dynamic height,
       dynamic width,
@@ -130,13 +133,18 @@ abstract class $LayoutPropsCopyWith<$Res> {
       double? borderLeft,
       int? flex,
       String? fit,
+      dynamic alignment,
       String? sliverListType,
       double? itemExtent,
       Map<String, dynamic>? componentProps,
       Map<String, dynamic>? computedComponentProps,
       Map<String, LayoutProps?>? components,
       bool? scrollable,
+      String? hintText,
+      String? labelText,
       bool? obscureText,
+      dynamic items,
+      String? fieldType,
       String? component,
       LayoutProps? child,
       LayoutProps? content,
@@ -181,8 +189,6 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
     Object? buttonType = freezed,
     Object? key = freezed,
     Object? name = freezed,
-    Object? items = freezed,
-    Object? fieldType = freezed,
     Object? className = freezed,
     Object? height = freezed,
     Object? width = freezed,
@@ -197,13 +203,18 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
     Object? borderLeft = freezed,
     Object? flex = freezed,
     Object? fit = freezed,
+    Object? alignment = freezed,
     Object? sliverListType = freezed,
     Object? itemExtent = freezed,
     Object? componentProps = freezed,
     Object? computedComponentProps = freezed,
     Object? components = freezed,
     Object? scrollable = freezed,
+    Object? hintText = freezed,
+    Object? labelText = freezed,
     Object? obscureText = freezed,
+    Object? items = freezed,
+    Object? fieldType = freezed,
     Object? component = freezed,
     Object? child = freezed,
     Object? content = freezed,
@@ -268,14 +279,6 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      items: items == freezed
-          ? _value.items
-          : items // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      fieldType: fieldType == freezed
-          ? _value.fieldType
-          : fieldType // ignore: cast_nullable_to_non_nullable
-              as String?,
       className: className == freezed
           ? _value.className
           : className // ignore: cast_nullable_to_non_nullable
@@ -332,6 +335,10 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
           ? _value.fit
           : fit // ignore: cast_nullable_to_non_nullable
               as String?,
+      alignment: alignment == freezed
+          ? _value.alignment
+          : alignment // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       sliverListType: sliverListType == freezed
           ? _value.sliverListType
           : sliverListType // ignore: cast_nullable_to_non_nullable
@@ -356,10 +363,26 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
           ? _value.scrollable
           : scrollable // ignore: cast_nullable_to_non_nullable
               as bool?,
+      hintText: hintText == freezed
+          ? _value.hintText
+          : hintText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      labelText: labelText == freezed
+          ? _value.labelText
+          : labelText // ignore: cast_nullable_to_non_nullable
+              as String?,
       obscureText: obscureText == freezed
           ? _value.obscureText
           : obscureText // ignore: cast_nullable_to_non_nullable
               as bool?,
+      items: items == freezed
+          ? _value.items
+          : items // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      fieldType: fieldType == freezed
+          ? _value.fieldType
+          : fieldType // ignore: cast_nullable_to_non_nullable
+              as String?,
       component: component == freezed
           ? _value.component
           : component // ignore: cast_nullable_to_non_nullable
@@ -513,8 +536,6 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       String? buttonType,
       String? key,
       String? name,
-      dynamic items,
-      String? fieldType,
       dynamic className,
       dynamic height,
       dynamic width,
@@ -529,13 +550,18 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       double? borderLeft,
       int? flex,
       String? fit,
+      dynamic alignment,
       String? sliverListType,
       double? itemExtent,
       Map<String, dynamic>? componentProps,
       Map<String, dynamic>? computedComponentProps,
       Map<String, LayoutProps?>? components,
       bool? scrollable,
+      String? hintText,
+      String? labelText,
       bool? obscureText,
+      dynamic items,
+      String? fieldType,
       String? component,
       LayoutProps? child,
       LayoutProps? content,
@@ -590,8 +616,6 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
     Object? buttonType = freezed,
     Object? key = freezed,
     Object? name = freezed,
-    Object? items = freezed,
-    Object? fieldType = freezed,
     Object? className = freezed,
     Object? height = freezed,
     Object? width = freezed,
@@ -606,13 +630,18 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
     Object? borderLeft = freezed,
     Object? flex = freezed,
     Object? fit = freezed,
+    Object? alignment = freezed,
     Object? sliverListType = freezed,
     Object? itemExtent = freezed,
     Object? componentProps = freezed,
     Object? computedComponentProps = freezed,
     Object? components = freezed,
     Object? scrollable = freezed,
+    Object? hintText = freezed,
+    Object? labelText = freezed,
     Object? obscureText = freezed,
+    Object? items = freezed,
+    Object? fieldType = freezed,
     Object? component = freezed,
     Object? child = freezed,
     Object? content = freezed,
@@ -677,14 +706,6 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      items: items == freezed
-          ? _value.items
-          : items // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      fieldType: fieldType == freezed
-          ? _value.fieldType
-          : fieldType // ignore: cast_nullable_to_non_nullable
-              as String?,
       className: className == freezed
           ? _value.className
           : className // ignore: cast_nullable_to_non_nullable
@@ -741,6 +762,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
           ? _value.fit
           : fit // ignore: cast_nullable_to_non_nullable
               as String?,
+      alignment: alignment == freezed
+          ? _value.alignment
+          : alignment // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       sliverListType: sliverListType == freezed
           ? _value.sliverListType
           : sliverListType // ignore: cast_nullable_to_non_nullable
@@ -765,10 +790,26 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
           ? _value.scrollable
           : scrollable // ignore: cast_nullable_to_non_nullable
               as bool?,
+      hintText: hintText == freezed
+          ? _value.hintText
+          : hintText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      labelText: labelText == freezed
+          ? _value.labelText
+          : labelText // ignore: cast_nullable_to_non_nullable
+              as String?,
       obscureText: obscureText == freezed
           ? _value.obscureText
           : obscureText // ignore: cast_nullable_to_non_nullable
               as bool?,
+      items: items == freezed
+          ? _value.items
+          : items // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      fieldType: fieldType == freezed
+          ? _value.fieldType
+          : fieldType // ignore: cast_nullable_to_non_nullable
+              as String?,
       component: component == freezed
           ? _value.component
           : component // ignore: cast_nullable_to_non_nullable
@@ -830,8 +871,6 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.buttonType,
       this.key,
       this.name,
-      this.items,
-      this.fieldType,
       this.className,
       this.height,
       this.width,
@@ -846,13 +885,18 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.borderLeft,
       this.flex,
       this.fit,
+      this.alignment,
       this.sliverListType,
       this.itemExtent,
       final Map<String, dynamic>? componentProps,
       final Map<String, dynamic>? computedComponentProps,
       final Map<String, LayoutProps?>? components,
       this.scrollable,
+      this.hintText,
+      this.labelText,
       this.obscureText,
+      this.items,
+      this.fieldType,
       this.component,
       this.child,
       this.content,
@@ -898,10 +942,6 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   @override
   final String? name;
   @override
-  final dynamic items;
-  @override
-  final String? fieldType;
-  @override
   final dynamic className;
   @override
   final dynamic height;
@@ -929,6 +969,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   final int? flex;
   @override
   final String? fit;
+  @override
+  final dynamic alignment;
 /**
      * 
      */
@@ -992,8 +1034,18 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
      */
   @override
   final bool? scrollable;
+// TextField Start================================================
+  @override
+  final String? hintText;
+  @override
+  final String? labelText;
   @override
   final bool? obscureText;
+  @override
+  final dynamic items;
+  @override
+  final String? fieldType;
+// TextField End================================================
   @override
   final String? component;
   @override
@@ -1024,7 +1076,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, items: $items, fieldType: $fieldType, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, fit: $fit, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, obscureText: $obscureText, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, fit: $fit, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, items: $items, fieldType: $fieldType, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
   }
 
   @override
@@ -1045,8 +1097,6 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('buttonType', buttonType))
       ..add(DiagnosticsProperty('key', key))
       ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('items', items))
-      ..add(DiagnosticsProperty('fieldType', fieldType))
       ..add(DiagnosticsProperty('className', className))
       ..add(DiagnosticsProperty('height', height))
       ..add(DiagnosticsProperty('width', width))
@@ -1061,6 +1111,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('borderLeft', borderLeft))
       ..add(DiagnosticsProperty('flex', flex))
       ..add(DiagnosticsProperty('fit', fit))
+      ..add(DiagnosticsProperty('alignment', alignment))
       ..add(DiagnosticsProperty('sliverListType', sliverListType))
       ..add(DiagnosticsProperty('itemExtent', itemExtent))
       ..add(DiagnosticsProperty('componentProps', componentProps))
@@ -1068,7 +1119,11 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
           DiagnosticsProperty('computedComponentProps', computedComponentProps))
       ..add(DiagnosticsProperty('components', components))
       ..add(DiagnosticsProperty('scrollable', scrollable))
+      ..add(DiagnosticsProperty('hintText', hintText))
+      ..add(DiagnosticsProperty('labelText', labelText))
       ..add(DiagnosticsProperty('obscureText', obscureText))
+      ..add(DiagnosticsProperty('items', items))
+      ..add(DiagnosticsProperty('fieldType', fieldType))
       ..add(DiagnosticsProperty('component', component))
       ..add(DiagnosticsProperty('child', child))
       ..add(DiagnosticsProperty('content', content))
@@ -1102,8 +1157,6 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
                 .equals(other.buttonType, buttonType) &&
             const DeepCollectionEquality().equals(other.key, key) &&
             const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.items, items) &&
-            const DeepCollectionEquality().equals(other.fieldType, fieldType) &&
             const DeepCollectionEquality().equals(other.className, className) &&
             const DeepCollectionEquality().equals(other.height, height) &&
             const DeepCollectionEquality().equals(other.width, width) &&
@@ -1121,6 +1174,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
                 .equals(other.borderLeft, borderLeft) &&
             const DeepCollectionEquality().equals(other.flex, flex) &&
             const DeepCollectionEquality().equals(other.fit, fit) &&
+            const DeepCollectionEquality().equals(other.alignment, alignment) &&
             const DeepCollectionEquality()
                 .equals(other.sliverListType, sliverListType) &&
             const DeepCollectionEquality()
@@ -1133,8 +1187,12 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
                 .equals(other._components, _components) &&
             const DeepCollectionEquality()
                 .equals(other.scrollable, scrollable) &&
+            const DeepCollectionEquality().equals(other.hintText, hintText) &&
+            const DeepCollectionEquality().equals(other.labelText, labelText) &&
             const DeepCollectionEquality()
                 .equals(other.obscureText, obscureText) &&
+            const DeepCollectionEquality().equals(other.items, items) &&
+            const DeepCollectionEquality().equals(other.fieldType, fieldType) &&
             const DeepCollectionEquality().equals(other.component, component) &&
             const DeepCollectionEquality().equals(other.child, child) &&
             const DeepCollectionEquality().equals(other.content, content) &&
@@ -1165,8 +1223,6 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
         const DeepCollectionEquality().hash(buttonType),
         const DeepCollectionEquality().hash(key),
         const DeepCollectionEquality().hash(name),
-        const DeepCollectionEquality().hash(items),
-        const DeepCollectionEquality().hash(fieldType),
         const DeepCollectionEquality().hash(className),
         const DeepCollectionEquality().hash(height),
         const DeepCollectionEquality().hash(width),
@@ -1181,13 +1237,18 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
         const DeepCollectionEquality().hash(borderLeft),
         const DeepCollectionEquality().hash(flex),
         const DeepCollectionEquality().hash(fit),
+        const DeepCollectionEquality().hash(alignment),
         const DeepCollectionEquality().hash(sliverListType),
         const DeepCollectionEquality().hash(itemExtent),
         const DeepCollectionEquality().hash(_componentProps),
         const DeepCollectionEquality().hash(_computedComponentProps),
         const DeepCollectionEquality().hash(_components),
         const DeepCollectionEquality().hash(scrollable),
+        const DeepCollectionEquality().hash(hintText),
+        const DeepCollectionEquality().hash(labelText),
         const DeepCollectionEquality().hash(obscureText),
+        const DeepCollectionEquality().hash(items),
+        const DeepCollectionEquality().hash(fieldType),
         const DeepCollectionEquality().hash(component),
         const DeepCollectionEquality().hash(child),
         const DeepCollectionEquality().hash(content),
@@ -1226,8 +1287,6 @@ abstract class _LayoutProps implements LayoutProps {
       final String? buttonType,
       final String? key,
       final String? name,
-      final dynamic items,
-      final String? fieldType,
       final dynamic className,
       final dynamic height,
       final dynamic width,
@@ -1242,13 +1301,18 @@ abstract class _LayoutProps implements LayoutProps {
       final double? borderLeft,
       final int? flex,
       final String? fit,
+      final dynamic alignment,
       final String? sliverListType,
       final double? itemExtent,
       final Map<String, dynamic>? componentProps,
       final Map<String, dynamic>? computedComponentProps,
       final Map<String, LayoutProps?>? components,
       final bool? scrollable,
+      final String? hintText,
+      final String? labelText,
       final bool? obscureText,
+      final dynamic items,
+      final String? fieldType,
       final String? component,
       final LayoutProps? child,
       final LayoutProps? content,
@@ -1290,10 +1354,6 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   String? get name;
   @override
-  dynamic get items;
-  @override
-  String? get fieldType;
-  @override
   dynamic get className;
   @override
   dynamic get height;
@@ -1321,6 +1381,8 @@ abstract class _LayoutProps implements LayoutProps {
   int? get flex;
   @override
   String? get fit;
+  @override
+  dynamic get alignment;
   @override
   /**
      * 
@@ -1352,9 +1414,17 @@ abstract class _LayoutProps implements LayoutProps {
      * if scrollable = true and widget is Column => Axix.vertical
      */
   bool? get scrollable;
+  @override // TextField Start================================================
+  String? get hintText;
+  @override
+  String? get labelText;
   @override
   bool? get obscureText;
   @override
+  dynamic get items;
+  @override
+  String? get fieldType;
+  @override // TextField End================================================
   String? get component;
   @override
   LayoutProps? get child;

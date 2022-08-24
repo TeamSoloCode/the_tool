@@ -28,6 +28,7 @@ class T_Container extends TStatelessWidget with ContainerMixin {
     Color? color = cssColor != null ? fromCssColor(cssColor) : null;
     snapshot = Container(
       key: getBindingKey(),
+      alignment: computeAlignment(props),
       height: props?.height,
       width: props?.width,
       margin: ThemeDecoder.decodeEdgeInsetsGeometry(props?.margin),

@@ -78,4 +78,9 @@ mixin ContainerMixin {
       //  "shape": <BoxShape>
     }, validate: false);
   }
+
+  AlignmentGeometry? computeAlignment(LayoutProps? props) {
+    if (props?.alignment == null) return null;
+    return ThemeDecoder.decodeAlignment(props?.alignment);
+  }
 }

@@ -31,8 +31,6 @@ class LayoutProps with _$LayoutProps {
     String? buttonType,
     String? key,
     String? name,
-    dynamic items,
-    String? fieldType,
     dynamic className,
     dynamic height,
     dynamic width,
@@ -47,7 +45,7 @@ class LayoutProps with _$LayoutProps {
     double? borderLeft,
     int? flex,
     String? fit,
-
+    dynamic alignment,
     /**
      * 
      */
@@ -73,7 +71,13 @@ class LayoutProps with _$LayoutProps {
      * if scrollable = true and widget is Column => Axix.vertical
      */
     bool? scrollable,
+    // TextField Start================================================
+    String? hintText,
+    String? labelText,
     bool? obscureText,
+    dynamic items,
+    String? fieldType,
+    // TextField End================================================
     String? component,
     LayoutProps? child,
     LayoutProps? content,
@@ -151,6 +155,9 @@ extension MergeLayoutProps on LayoutProps {
       bottomNav: other.bottomNav ?? bottomNav,
       obscureText: other.obscureText ?? obscureText,
       appBar: other.appBar ?? appBar,
+      hintText: other.hintText ?? hintText,
+      labelText: other.labelText ?? labelText,
+      alignment: other.alignment ?? alignment,
       componentProps: other.componentProps != null
           ? {
               ...{...componentProps ?? emptyMapStringDynamic},

@@ -95,9 +95,9 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> {
       controller: textFieldController,
       obscureText: widgetProps?.obscureText ?? false,
       name: name ?? "",
-      decoration: const InputDecoration(
-        hintText: "Placeholder",
-        labelText: 'Required field number and below than 10',
+      decoration: InputDecoration(
+        hintText: widgetProps?.hintText,
+        labelText: widgetProps?.labelText,
       ),
       // initialValue: contextData[name] ?? "",
       onChanged: (text) {
