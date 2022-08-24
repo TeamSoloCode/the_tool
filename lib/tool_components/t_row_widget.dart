@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:json_theme/json_theme.dart';
+import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 
@@ -19,18 +20,29 @@ class T_Row extends TStatelessWidget {
         );
 
   List<Widget> _computeChildren(
-    List<dynamic>? children,
+    List<LayoutProps>? children,
     Map<String, dynamic> contextData,
   ) {
     var index = 0;
     return (children ?? []).map((child) {
       index++;
-      return TWidgets(
+
+      Widget item = TWidgets(
         key: ValueKey(index),
         layout: child,
         pagePath: pagePath,
         contextData: contextData,
       );
+
+      if (child.flex != null) {
+        item = Expanded(
+          key: ValueKey(index),
+          flex: child.flex ?? 1,
+          child: item,
+        );
+      }
+
+      return item;
     }).toList();
   }
 

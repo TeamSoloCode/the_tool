@@ -77,6 +77,7 @@ mixin _$LayoutProps {
      * if scrollable = true and widget is Column => Axix.vertical
      */
   bool? get scrollable => throw _privateConstructorUsedError;
+  bool? get obscureText => throw _privateConstructorUsedError;
   String? get component => throw _privateConstructorUsedError;
   LayoutProps? get child => throw _privateConstructorUsedError;
   LayoutProps? get content => throw _privateConstructorUsedError;
@@ -135,6 +136,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       Map<String, dynamic>? computedComponentProps,
       Map<String, LayoutProps?>? components,
       bool? scrollable,
+      bool? obscureText,
       String? component,
       LayoutProps? child,
       LayoutProps? content,
@@ -201,6 +203,7 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
     Object? computedComponentProps = freezed,
     Object? components = freezed,
     Object? scrollable = freezed,
+    Object? obscureText = freezed,
     Object? component = freezed,
     Object? child = freezed,
     Object? content = freezed,
@@ -352,6 +355,10 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
       scrollable: scrollable == freezed
           ? _value.scrollable
           : scrollable // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      obscureText: obscureText == freezed
+          ? _value.obscureText
+          : obscureText // ignore: cast_nullable_to_non_nullable
               as bool?,
       component: component == freezed
           ? _value.component
@@ -528,6 +535,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       Map<String, dynamic>? computedComponentProps,
       Map<String, LayoutProps?>? components,
       bool? scrollable,
+      bool? obscureText,
       String? component,
       LayoutProps? child,
       LayoutProps? content,
@@ -604,6 +612,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
     Object? computedComponentProps = freezed,
     Object? components = freezed,
     Object? scrollable = freezed,
+    Object? obscureText = freezed,
     Object? component = freezed,
     Object? child = freezed,
     Object? content = freezed,
@@ -756,6 +765,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
           ? _value.scrollable
           : scrollable // ignore: cast_nullable_to_non_nullable
               as bool?,
+      obscureText: obscureText == freezed
+          ? _value.obscureText
+          : obscureText // ignore: cast_nullable_to_non_nullable
+              as bool?,
       component: component == freezed
           ? _value.component
           : component // ignore: cast_nullable_to_non_nullable
@@ -839,6 +852,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       final Map<String, dynamic>? computedComponentProps,
       final Map<String, LayoutProps?>? components,
       this.scrollable,
+      this.obscureText,
       this.component,
       this.child,
       this.content,
@@ -979,6 +993,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   @override
   final bool? scrollable;
   @override
+  final bool? obscureText;
+  @override
   final String? component;
   @override
   final LayoutProps? child;
@@ -1008,7 +1024,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, items: $items, fieldType: $fieldType, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, fit: $fit, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, items: $items, fieldType: $fieldType, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, fit: $fit, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, obscureText: $obscureText, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
   }
 
   @override
@@ -1052,6 +1068,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
           DiagnosticsProperty('computedComponentProps', computedComponentProps))
       ..add(DiagnosticsProperty('components', components))
       ..add(DiagnosticsProperty('scrollable', scrollable))
+      ..add(DiagnosticsProperty('obscureText', obscureText))
       ..add(DiagnosticsProperty('component', component))
       ..add(DiagnosticsProperty('child', child))
       ..add(DiagnosticsProperty('content', content))
@@ -1116,6 +1133,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
                 .equals(other._components, _components) &&
             const DeepCollectionEquality()
                 .equals(other.scrollable, scrollable) &&
+            const DeepCollectionEquality()
+                .equals(other.obscureText, obscureText) &&
             const DeepCollectionEquality().equals(other.component, component) &&
             const DeepCollectionEquality().equals(other.child, child) &&
             const DeepCollectionEquality().equals(other.content, content) &&
@@ -1168,6 +1187,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
         const DeepCollectionEquality().hash(_computedComponentProps),
         const DeepCollectionEquality().hash(_components),
         const DeepCollectionEquality().hash(scrollable),
+        const DeepCollectionEquality().hash(obscureText),
         const DeepCollectionEquality().hash(component),
         const DeepCollectionEquality().hash(child),
         const DeepCollectionEquality().hash(content),
@@ -1228,6 +1248,7 @@ abstract class _LayoutProps implements LayoutProps {
       final Map<String, dynamic>? computedComponentProps,
       final Map<String, LayoutProps?>? components,
       final bool? scrollable,
+      final bool? obscureText,
       final String? component,
       final LayoutProps? child,
       final LayoutProps? content,
@@ -1331,6 +1352,8 @@ abstract class _LayoutProps implements LayoutProps {
      * if scrollable = true and widget is Column => Axix.vertical
      */
   bool? get scrollable;
+  @override
+  bool? get obscureText;
   @override
   String? get component;
   @override

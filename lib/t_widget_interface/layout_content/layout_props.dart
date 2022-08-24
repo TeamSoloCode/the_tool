@@ -73,6 +73,7 @@ class LayoutProps with _$LayoutProps {
      * if scrollable = true and widget is Column => Axix.vertical
      */
     bool? scrollable,
+    bool? obscureText,
     String? component,
     LayoutProps? child,
     LayoutProps? content,
@@ -148,6 +149,7 @@ extension MergeLayoutProps on LayoutProps {
       scrollable: other.scrollable ?? scrollable,
       children: other.children ?? children,
       bottomNav: other.bottomNav ?? bottomNav,
+      obscureText: other.obscureText ?? obscureText,
       appBar: other.appBar ?? appBar,
       componentProps: other.componentProps != null
           ? {

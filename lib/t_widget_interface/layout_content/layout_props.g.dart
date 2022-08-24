@@ -47,6 +47,7 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
             e == null ? null : LayoutProps.fromJson(e as Map<String, dynamic>)),
       ),
       scrollable: json['scrollable'] as bool?,
+      obscureText: json['obscureText'] as bool?,
       component: json['component'] as String?,
       child: json['child'] == null
           ? null
@@ -116,6 +117,7 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'computedComponentProps': instance.computedComponentProps,
       'components': instance.components,
       'scrollable': instance.scrollable,
+      'obscureText': instance.obscureText,
       'component': instance.component,
       'child': instance.child,
       'content': instance.content,

@@ -91,9 +91,9 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> {
     Map<String, dynamic> contextData,
   ) {
     String? name = widgetProps?.name;
-
     return FormBuilderTextField(
       controller: textFieldController,
+      obscureText: widgetProps?.obscureText ?? false,
       name: name ?? "",
       decoration: const InputDecoration(
         hintText: "Placeholder",
