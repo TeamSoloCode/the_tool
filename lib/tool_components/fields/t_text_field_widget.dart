@@ -35,6 +35,7 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> {
   String? currentValue;
   var debounceDuration = const Duration(milliseconds: 500);
   bool _showObscureText = false;
+  String? _errorMessage = null;
 
   @override
   void initState() {
@@ -115,6 +116,7 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> {
         hintText: widgetProps?.hintText,
         labelText: widgetProps?.labelText,
         suffixIcon: _generateSuffixIcon(widgetProps),
+        errorText: _errorMessage,
       ),
       obscureText: _showObscureText,
       // initialValue: contextData[name] ?? "",
@@ -126,12 +128,31 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> {
       },
       // valueTransformer: (text) => num.tryParse(text),
       validator: FormBuilderValidators.compose([
-        FormBuilderValidators.required(errorText: "Required field"),
-        FormBuilderValidators.numeric(errorText: "Number field"),
-        FormBuilderValidators.max(10, errorText: "Must below than 10"),
+        // FormBuilderValidators.required(errorText: "Required field"),
+        // FormBuilderValidators.numeric(errorText: "Number field"),
+        // FormBuilderValidators.max(10, errorText: "Must below than 10"),
+
+        (value) {
+          _runValidationFunction();
+          return null;
+        }
       ]),
+      onSaved: (value) {
+        _runValidationFunction();
+      },
       keyboardType: TextInputType.text,
     );
+  }
+
+  void _runValidationFunction() async {
+    String? validationFunction = widget.widgetProps.validationFunction;
+    if (validationFunction != null && validationFunction.isNotEmpty) {
+      var errorMessage = await widget.executeJSWithPagePath(validationFunction);
+      setState(() {
+        _errorMessage = errorMessage;
+      });
+    }
+    return null;
   }
 
   @override

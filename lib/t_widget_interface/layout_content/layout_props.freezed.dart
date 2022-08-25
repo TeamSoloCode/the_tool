@@ -81,7 +81,13 @@ mixin _$LayoutProps {
   String? get labelText => throw _privateConstructorUsedError;
   bool? get obscureText => throw _privateConstructorUsedError;
   dynamic get items => throw _privateConstructorUsedError;
-  String? get fieldType =>
+  String? get fieldType => throw _privateConstructorUsedError;
+  /**
+     * @summary This function will be eval for validating field value
+     * - Return false if value is valid
+     * - Return error message if value is invalid
+     */
+  String? get validationFunction =>
       throw _privateConstructorUsedError; // TextField End================================================
   String? get component => throw _privateConstructorUsedError;
   LayoutProps? get child => throw _privateConstructorUsedError;
@@ -145,6 +151,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       bool? obscureText,
       dynamic items,
       String? fieldType,
+      String? validationFunction,
       String? component,
       LayoutProps? child,
       LayoutProps? content,
@@ -215,6 +222,7 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
     Object? obscureText = freezed,
     Object? items = freezed,
     Object? fieldType = freezed,
+    Object? validationFunction = freezed,
     Object? component = freezed,
     Object? child = freezed,
     Object? content = freezed,
@@ -382,6 +390,10 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
       fieldType: fieldType == freezed
           ? _value.fieldType
           : fieldType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      validationFunction: validationFunction == freezed
+          ? _value.validationFunction
+          : validationFunction // ignore: cast_nullable_to_non_nullable
               as String?,
       component: component == freezed
           ? _value.component
@@ -562,6 +574,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       bool? obscureText,
       dynamic items,
       String? fieldType,
+      String? validationFunction,
       String? component,
       LayoutProps? child,
       LayoutProps? content,
@@ -642,6 +655,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
     Object? obscureText = freezed,
     Object? items = freezed,
     Object? fieldType = freezed,
+    Object? validationFunction = freezed,
     Object? component = freezed,
     Object? child = freezed,
     Object? content = freezed,
@@ -810,6 +824,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
           ? _value.fieldType
           : fieldType // ignore: cast_nullable_to_non_nullable
               as String?,
+      validationFunction: validationFunction == freezed
+          ? _value.validationFunction
+          : validationFunction // ignore: cast_nullable_to_non_nullable
+              as String?,
       component: component == freezed
           ? _value.component
           : component // ignore: cast_nullable_to_non_nullable
@@ -897,6 +915,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.obscureText,
       this.items,
       this.fieldType,
+      this.validationFunction,
       this.component,
       this.child,
       this.content,
@@ -1045,6 +1064,13 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   final dynamic items;
   @override
   final String? fieldType;
+/**
+     * @summary This function will be eval for validating field value
+     * - Return false if value is valid
+     * - Return error message if value is invalid
+     */
+  @override
+  final String? validationFunction;
 // TextField End================================================
   @override
   final String? component;
@@ -1076,7 +1102,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, fit: $fit, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, items: $items, fieldType: $fieldType, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, fit: $fit, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, items: $items, fieldType: $fieldType, validationFunction: $validationFunction, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
   }
 
   @override
@@ -1124,6 +1150,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('obscureText', obscureText))
       ..add(DiagnosticsProperty('items', items))
       ..add(DiagnosticsProperty('fieldType', fieldType))
+      ..add(DiagnosticsProperty('validationFunction', validationFunction))
       ..add(DiagnosticsProperty('component', component))
       ..add(DiagnosticsProperty('child', child))
       ..add(DiagnosticsProperty('content', content))
@@ -1193,6 +1220,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
                 .equals(other.obscureText, obscureText) &&
             const DeepCollectionEquality().equals(other.items, items) &&
             const DeepCollectionEquality().equals(other.fieldType, fieldType) &&
+            const DeepCollectionEquality()
+                .equals(other.validationFunction, validationFunction) &&
             const DeepCollectionEquality().equals(other.component, component) &&
             const DeepCollectionEquality().equals(other.child, child) &&
             const DeepCollectionEquality().equals(other.content, content) &&
@@ -1249,6 +1278,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
         const DeepCollectionEquality().hash(obscureText),
         const DeepCollectionEquality().hash(items),
         const DeepCollectionEquality().hash(fieldType),
+        const DeepCollectionEquality().hash(validationFunction),
         const DeepCollectionEquality().hash(component),
         const DeepCollectionEquality().hash(child),
         const DeepCollectionEquality().hash(content),
@@ -1313,6 +1343,7 @@ abstract class _LayoutProps implements LayoutProps {
       final bool? obscureText,
       final dynamic items,
       final String? fieldType,
+      final String? validationFunction,
       final String? component,
       final LayoutProps? child,
       final LayoutProps? content,
@@ -1424,6 +1455,13 @@ abstract class _LayoutProps implements LayoutProps {
   dynamic get items;
   @override
   String? get fieldType;
+  @override
+  /**
+     * @summary This function will be eval for validating field value
+     * - Return false if value is valid
+     * - Return error message if value is invalid
+     */
+  String? get validationFunction;
   @override // TextField End================================================
   String? get component;
   @override

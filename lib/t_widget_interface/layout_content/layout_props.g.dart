@@ -51,6 +51,7 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       obscureText: json['obscureText'] as bool?,
       items: json['items'],
       fieldType: json['fieldType'] as String?,
+      validationFunction: json['validationFunction'] as String?,
       component: json['component'] as String?,
       child: json['child'] == null
           ? null
@@ -124,6 +125,7 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'obscureText': instance.obscureText,
       'items': instance.items,
       'fieldType': instance.fieldType,
+      'validationFunction': instance.validationFunction,
       'component': instance.component,
       'child': instance.child,
       'content': instance.content,

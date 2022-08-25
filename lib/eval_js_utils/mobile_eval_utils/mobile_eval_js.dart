@@ -33,13 +33,16 @@ class EvalJS extends BaseEvalJS {
           "isFunctionExistsOnContext('${jsCode.substring(0, index)}', '$pagePath')",
     );
 
+    var code = jsCode;
     if (isFunctionInContext == 1) {
-      return await webViewController?.callAsyncJavaScript(
-        functionBody: "context['$pagePath'].$jsCode",
-      );
-    } else {
-      return await webViewController?.callAsyncJavaScript(functionBody: jsCode);
+      code = "context['$pagePath'].$jsCode";
     }
+
+    var result = await webViewController?.callAsyncJavaScript(
+      functionBody: "return await $code",
+    );
+
+    return result?.value;
   }
 
   @override

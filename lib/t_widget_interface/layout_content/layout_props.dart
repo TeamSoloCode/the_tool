@@ -77,6 +77,12 @@ class LayoutProps with _$LayoutProps {
     bool? obscureText,
     dynamic items,
     String? fieldType,
+    /**
+     * @summary This function will be eval for validating field value
+     * - Return false if value is valid
+     * - Return error message if value is invalid
+     */
+    String? validationFunction,
     // TextField End================================================
     String? component,
     LayoutProps? child,
