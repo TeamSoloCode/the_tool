@@ -34,6 +34,7 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> {
   var textFieldController = TextEditingController();
   String? currentValue;
   var debounceDuration = const Duration(milliseconds: 500);
+  bool _showObscureText = false;
 
   @override
   void initState() {
@@ -42,6 +43,7 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> {
     var text = widget.contextData[name] ?? "";
     textFieldController.text = text;
     currentValue = text;
+    _showObscureText = widget.widgetProps.obscureText ?? false;
     super.initState();
   }
 
@@ -86,6 +88,21 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> {
     });
   }
 
+  Widget? _generateSuffixIcon(LayoutProps? widgetProps) {
+    if (widgetProps?.obscureText == true) {
+      return IconButton(
+        icon: Icon(_showObscureText ? Icons.visibility : Icons.visibility_off),
+        onPressed: () {
+          setState(() {
+            _showObscureText = !_showObscureText;
+          });
+        },
+      );
+    }
+
+    return null;
+  }
+
   Widget _computeTextField(
     LayoutProps? widgetProps,
     Map<String, dynamic> contextData,
@@ -93,12 +110,13 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> {
     String? name = widgetProps?.name;
     return FormBuilderTextField(
       controller: textFieldController,
-      obscureText: widgetProps?.obscureText ?? false,
       name: name ?? "",
       decoration: InputDecoration(
         hintText: widgetProps?.hintText,
         labelText: widgetProps?.labelText,
+        suffixIcon: _generateSuffixIcon(widgetProps),
       ),
+      obscureText: _showObscureText,
       // initialValue: contextData[name] ?? "",
       onChanged: (text) {
         _debounceTextChanged(text, contextData);
