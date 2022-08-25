@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:js/js_util.dart';
 import 'package:the_tool/eval_js_utils/base_eval_js.dart';
 import 'dart:js' as js;
 import 'package:the_tool/eval_js_utils/web_eval_utils/web_js_invoke.dart'
@@ -65,12 +66,16 @@ class EvalJS extends BaseEvalJS {
       ],
     );
 
+    var code = jsCode;
     if (isFunctionInContext == 1) {
-      return await js.context
-          .callMethod("eval", ["context['$pagePath'].$jsCode"]);
-    } else {
-      return await js.context.callMethod("eval", [jsCode]);
+      code = "context['$pagePath'].$jsCode";
     }
+
+    var promise = webjs.callAsyncJavaScript(
+      "(async () => {return await $code })()",
+    );
+    var result = await promiseToFuture(promise);
+    return result;
   }
 
   @override

@@ -23,6 +23,9 @@ void setContextBuilder(BuildContext context) {
   _context = context;
 }
 
+@JS('__tWeb_callAsyncJavaScript')
+external callAsyncJavaScript(String code);
+
 @JS('setState')
 external set setContextData(
     void Function(String dataAsString, Function? callback) f);

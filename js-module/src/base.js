@@ -227,4 +227,13 @@ Object.assign(window, {
 
   // this function only used on dart side
   __ondataresponse,
+
+  /**
+   * This is the interface for dart run async js code
+   * @param {*} code
+   * @returns
+   */
+  __tWeb_callAsyncJavaScript: async (code) => {
+    return await eval(code);
+  },
 });

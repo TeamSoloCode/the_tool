@@ -1,3 +1,5 @@
+Support validator for t_select_field
+
 #-------------------------------------------------
 
 Appbar not display properly
@@ -20,8 +22,7 @@ Support child config for t_button type that has child property
 Support simple operator for binding data ( {{ !state.isGood | eq(state.isGood, "bad") }} )
 Support pages app bar custom actions
 Support theme for t_input
-Support validator for t_text_field
-Support validator for t_select_field
+
 Support onSubmit for t_form
 
 #-------------------------------------------------
@@ -58,3 +59,4 @@ Support onSubmit for t_form
 -Fix bug can loadData (static html/js) of webview on mobile
 -Do not show text "Unsupported widget. Type: null" when child is not defined
 -Cannot scroll t_row when is overflow
+-Support validator for t_text_field
