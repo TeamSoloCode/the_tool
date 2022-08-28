@@ -92,7 +92,7 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> {
   Widget? _generateSuffixIcon(LayoutProps? widgetProps) {
     if (widgetProps?.obscureText == true) {
       return IconButton(
-        icon: Icon(_showObscureText ? Icons.visibility : Icons.visibility_off),
+        icon: Icon(_showObscureText ? Icons.visibility_off : Icons.visibility),
         onPressed: () {
           setState(() {
             _showObscureText = !_showObscureText;
