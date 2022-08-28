@@ -23,9 +23,6 @@ void setContextBuilder(BuildContext context) {
   _context = context;
 }
 
-@JS('__tWeb_callAsyncJavaScript')
-external callAsyncJavaScript(String code);
-
 @JS('setState')
 external set setContextData(
     void Function(String dataAsString, Function? callback) f);
@@ -115,6 +112,14 @@ void _emitDataResponseEvent(
     json.encode({"err": res["err"], "message": res["message"], "response": res})
   ]);
 }
+
+///Convert JsObject to Dart Object
+dynamic convert(js.JsObject object) {
+  return json.decode(js.context['JSON'].callMethod("stringify", [object]));
+}
+
+@JS('__tWeb_callAsyncJavaScript')
+external callAsyncJavaScript(String code);
 
 void main() {
   setContextData = allowInterop(_setState);

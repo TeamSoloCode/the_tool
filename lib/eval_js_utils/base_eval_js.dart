@@ -116,7 +116,7 @@ abstract class BaseEvalJS {
         const [_subComponents] = React.useState([])
         const [_updateSubComponentToken, _setUpdateSubComponentToken] = React.useState()
         
-        let [_pageData, _setPageData] = React.useState({ 
+        let [pageData, _setPageData] = React.useState({ 
             _tLoaded: true,
             _tIsWeb: context._platform == "web",
             _tIsMobile: context._platform == "mobile",
@@ -125,34 +125,35 @@ abstract class BaseEvalJS {
             props
           },
         )
-        const prevPageData = usePrevious(_pageData)
+        
+        const prevPageData = usePrevious(pageData)
 
         // This will use to set data for layout code
         const setPageData = React.useCallback((data) => {
-          const nextData = {..._pageData }
+          const nextData = {...pageData }
           Object.entries(data).forEach(([key, value]) => {
             _.set(nextData, key, value)
           })
 
           _setPageData(nextData)
 
-          // To prevent multi call when _pageData not update yet
-          _pageData = nextData;
+          // To prevent multi call when pageData not update yet
+          pageData = nextData;
 
           setContextData({
             ['$pagePath']: {..._contextData['$pagePath'], ...nextData}
           })
-        }, [_pageData, _contextData])
+        }, [pageData, _contextData])
 
         const getPageData = React.useCallback(() => {
-          return _pageData;
-        }, [_pageData])
+          return pageData;
+        }, [pageData])
 
         // Export page context
         const exportPageContext = React.useCallback((exportedContext = {}) => {
           context['$pagePath'] = context['$pagePath'] || {}
           Object.assign(context['$pagePath'], exportedContext)
-        }, [_pageData])
+        }, [pageData])
 
         const getPageArguments = React.useCallback(() => {
           return context['$pagePath']?._pageArguments || {};
@@ -161,7 +162,7 @@ abstract class BaseEvalJS {
         // Use to init state before render the widget
         const useInitState = React.useCallback((initData = {}) => {
           if(!didInitState) {
-            Object.assign(_pageData, {...initData})
+            Object.assign(pageData, {...initData})
             setDidInitState(true);
           }
         }, [setPageData, didInitState])
@@ -182,14 +183,15 @@ abstract class BaseEvalJS {
         }, [_updateSubComponentToken])
 
         React.useEffect(() => {
-          exportPageContext({ 
-            setPageData, 
-            getPageData, 
+          exportPageContext({
+            pageData,
+            setPageData,
+            getPageData,
             registerSubComponent
           })
           context['$pagePath'].exportPageContext = exportPageContext
         }, [
-          _pageData, 
+          pageData, 
           setPageData, 
           getPageData, 
           registerSubComponent, 

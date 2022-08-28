@@ -1,8 +1,7 @@
 import 'dart:convert';
-
+import 'dart:js' as js;
 import 'package:js/js_util.dart';
 import 'package:the_tool/eval_js_utils/base_eval_js.dart';
-import 'dart:js' as js;
 import 'package:the_tool/eval_js_utils/web_eval_utils/web_js_invoke.dart'
     as webjs;
 import 'package:the_tool/page_utils/context_state_provider.dart';
@@ -17,6 +16,7 @@ class EvalJS extends BaseEvalJS {
     webjs.setContextBuilder(context);
     webjs.setContextStateProvider(getIt<ContextStateProvider>());
     webjs.main();
+
     js.context.callMethod('setPlatform', ['web']);
   }
 
@@ -72,9 +72,28 @@ class EvalJS extends BaseEvalJS {
     }
 
     var promise = webjs.callAsyncJavaScript(
-      "(async () => {return await $code })()",
+      """(async () => {
+        const { pageData, getPageData } = context['$pagePath'] ?? {}
+
+        const returnedValue = await $code 
+        if(_.isPlainObject(returnedValue)) {
+          return JSON.stringify(returnedValue)
+        }
+        return returnedValue;
+      })()""",
     );
+
     var result = await promiseToFuture(promise);
+
+    if (result is String) {
+      // This is because promiseToFuture return LegacyJavaScriptObject
+      // that can't be parse to Dart's Map
+      try {
+        return json.decode(result);
+      } catch (err) {
+        return result;
+      }
+    }
     return result;
   }
 
