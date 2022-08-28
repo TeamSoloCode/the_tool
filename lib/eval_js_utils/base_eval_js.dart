@@ -185,13 +185,15 @@ abstract class BaseEvalJS {
         React.useEffect(() => {
           exportPageContext({
             pageData,
+            prevPageData,
             setPageData,
             getPageData,
             registerSubComponent
           })
           context['$pagePath'].exportPageContext = exportPageContext
         }, [
-          pageData, 
+          pageData,
+          prevPageData,
           setPageData, 
           getPageData, 
           registerSubComponent, 

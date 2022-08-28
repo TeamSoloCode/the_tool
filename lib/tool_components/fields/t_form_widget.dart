@@ -61,10 +61,7 @@ class _T_FormState extends TStatefulWidget<T_Form> {
       switch (data["action"]) {
         case "validate":
           var isValid = await _handleValidationFunction();
-          utils.evalJS?.emitFormActionResponse(
-            data["actionId"],
-            isValid,
-          );
+          utils.evalJS?.emitFormActionResponse(data["actionId"], isValid);
           return;
       }
     };
