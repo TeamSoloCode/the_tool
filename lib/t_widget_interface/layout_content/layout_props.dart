@@ -83,6 +83,10 @@ class LayoutProps with _$LayoutProps {
      * - Return error message if value is invalid
      */
     String? validationFunction,
+    /**
+     * @summary Enabled/Disabled auto validate on change value
+     */
+    bool? autovalidateMode,
     // TextField End================================================
     String? component,
     LayoutProps? child,

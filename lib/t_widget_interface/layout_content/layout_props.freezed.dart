@@ -87,7 +87,11 @@ mixin _$LayoutProps {
      * - Return false if value is valid
      * - Return error message if value is invalid
      */
-  String? get validationFunction =>
+  String? get validationFunction => throw _privateConstructorUsedError;
+  /**
+     * @summary Enabled/Disabled auto validate on change value
+     */
+  bool? get autovalidateMode =>
       throw _privateConstructorUsedError; // TextField End================================================
   String? get component => throw _privateConstructorUsedError;
   LayoutProps? get child => throw _privateConstructorUsedError;
@@ -152,6 +156,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       dynamic items,
       String? fieldType,
       String? validationFunction,
+      bool? autovalidateMode,
       String? component,
       LayoutProps? child,
       LayoutProps? content,
@@ -223,6 +228,7 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
     Object? items = freezed,
     Object? fieldType = freezed,
     Object? validationFunction = freezed,
+    Object? autovalidateMode = freezed,
     Object? component = freezed,
     Object? child = freezed,
     Object? content = freezed,
@@ -395,6 +401,10 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
           ? _value.validationFunction
           : validationFunction // ignore: cast_nullable_to_non_nullable
               as String?,
+      autovalidateMode: autovalidateMode == freezed
+          ? _value.autovalidateMode
+          : autovalidateMode // ignore: cast_nullable_to_non_nullable
+              as bool?,
       component: component == freezed
           ? _value.component
           : component // ignore: cast_nullable_to_non_nullable
@@ -575,6 +585,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       dynamic items,
       String? fieldType,
       String? validationFunction,
+      bool? autovalidateMode,
       String? component,
       LayoutProps? child,
       LayoutProps? content,
@@ -656,6 +667,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
     Object? items = freezed,
     Object? fieldType = freezed,
     Object? validationFunction = freezed,
+    Object? autovalidateMode = freezed,
     Object? component = freezed,
     Object? child = freezed,
     Object? content = freezed,
@@ -828,6 +840,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
           ? _value.validationFunction
           : validationFunction // ignore: cast_nullable_to_non_nullable
               as String?,
+      autovalidateMode: autovalidateMode == freezed
+          ? _value.autovalidateMode
+          : autovalidateMode // ignore: cast_nullable_to_non_nullable
+              as bool?,
       component: component == freezed
           ? _value.component
           : component // ignore: cast_nullable_to_non_nullable
@@ -916,6 +932,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.items,
       this.fieldType,
       this.validationFunction,
+      this.autovalidateMode,
       this.component,
       this.child,
       this.content,
@@ -1071,6 +1088,11 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
      */
   @override
   final String? validationFunction;
+/**
+     * @summary Enabled/Disabled auto validate on change value
+     */
+  @override
+  final bool? autovalidateMode;
 // TextField End================================================
   @override
   final String? component;
@@ -1102,7 +1124,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, fit: $fit, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, items: $items, fieldType: $fieldType, validationFunction: $validationFunction, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, fit: $fit, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, items: $items, fieldType: $fieldType, validationFunction: $validationFunction, autovalidateMode: $autovalidateMode, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
   }
 
   @override
@@ -1151,6 +1173,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('items', items))
       ..add(DiagnosticsProperty('fieldType', fieldType))
       ..add(DiagnosticsProperty('validationFunction', validationFunction))
+      ..add(DiagnosticsProperty('autovalidateMode', autovalidateMode))
       ..add(DiagnosticsProperty('component', component))
       ..add(DiagnosticsProperty('child', child))
       ..add(DiagnosticsProperty('content', content))
@@ -1222,6 +1245,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
             const DeepCollectionEquality().equals(other.fieldType, fieldType) &&
             const DeepCollectionEquality()
                 .equals(other.validationFunction, validationFunction) &&
+            const DeepCollectionEquality()
+                .equals(other.autovalidateMode, autovalidateMode) &&
             const DeepCollectionEquality().equals(other.component, component) &&
             const DeepCollectionEquality().equals(other.child, child) &&
             const DeepCollectionEquality().equals(other.content, content) &&
@@ -1279,6 +1304,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
         const DeepCollectionEquality().hash(items),
         const DeepCollectionEquality().hash(fieldType),
         const DeepCollectionEquality().hash(validationFunction),
+        const DeepCollectionEquality().hash(autovalidateMode),
         const DeepCollectionEquality().hash(component),
         const DeepCollectionEquality().hash(child),
         const DeepCollectionEquality().hash(content),
@@ -1344,6 +1370,7 @@ abstract class _LayoutProps implements LayoutProps {
       final dynamic items,
       final String? fieldType,
       final String? validationFunction,
+      final bool? autovalidateMode,
       final String? component,
       final LayoutProps? child,
       final LayoutProps? content,
@@ -1462,6 +1489,11 @@ abstract class _LayoutProps implements LayoutProps {
      * - Return error message if value is invalid
      */
   String? get validationFunction;
+  @override
+  /**
+     * @summary Enabled/Disabled auto validate on change value
+     */
+  bool? get autovalidateMode;
   @override // TextField End================================================
   String? get component;
   @override

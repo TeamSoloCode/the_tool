@@ -69,7 +69,9 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> {
             ));
       });
     }
-
+    if (widget.widgetProps.autovalidateMode == true) {
+      _runValidationFunction();
+    }
     super.didChangeDependencies();
   }
 
