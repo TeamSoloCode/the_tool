@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
@@ -45,9 +46,14 @@ class T_Column extends TStatelessWidget {
 
   @override
   Widget buildWidget(BuildContext context) {
+    var mainAxisAlignment = ThemeDecoder.decodeMainAxisAlignment(
+          props?.mainAxisAlignment,
+        ) ??
+        MainAxisAlignment.start;
     if (props != null) {
       snapshot = Column(
         key: getBindingKey(),
+        mainAxisAlignment: mainAxisAlignment,
         children: _getChildren(),
       );
 
