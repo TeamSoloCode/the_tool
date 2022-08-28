@@ -71,6 +71,7 @@ class LayoutProps with _$LayoutProps {
      * if scrollable = true and widget is Column => Axix.vertical
      */
     bool? scrollable,
+
     // TextField Start================================================
     String? hintText,
     String? labelText,
@@ -86,8 +87,13 @@ class LayoutProps with _$LayoutProps {
     /**
      * @summary Enabled/Disabled auto validate on change value
      */
-    bool? autovalidateMode,
-    // TextField End================================================
+    bool? autovalidate,
+    // TextField End==================================================
+
+    // Form Start================================================
+    String? autovalidateMode,
+    // Form End==================================================
+
     String? component,
     LayoutProps? child,
     LayoutProps? content,

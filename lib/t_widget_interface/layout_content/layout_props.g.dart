@@ -52,7 +52,8 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       items: json['items'],
       fieldType: json['fieldType'] as String?,
       validationFunction: json['validationFunction'] as String?,
-      autovalidateMode: json['autovalidateMode'] as bool?,
+      autovalidate: json['autovalidate'] as bool?,
+      autovalidateMode: json['autovalidateMode'] as String?,
       component: json['component'] as String?,
       child: json['child'] == null
           ? null
@@ -127,6 +128,7 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'items': instance.items,
       'fieldType': instance.fieldType,
       'validationFunction': instance.validationFunction,
+      'autovalidate': instance.autovalidate,
       'autovalidateMode': instance.autovalidateMode,
       'component': instance.component,
       'child': instance.child,

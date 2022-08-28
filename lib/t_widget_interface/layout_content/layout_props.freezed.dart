@@ -91,8 +91,11 @@ mixin _$LayoutProps {
   /**
      * @summary Enabled/Disabled auto validate on change value
      */
-  bool? get autovalidateMode =>
-      throw _privateConstructorUsedError; // TextField End================================================
+  bool? get autovalidate =>
+      throw _privateConstructorUsedError; // TextField End==================================================
+// Form Start================================================
+  String? get autovalidateMode =>
+      throw _privateConstructorUsedError; // Form End==================================================
   String? get component => throw _privateConstructorUsedError;
   LayoutProps? get child => throw _privateConstructorUsedError;
   LayoutProps? get content => throw _privateConstructorUsedError;
@@ -156,7 +159,8 @@ abstract class $LayoutPropsCopyWith<$Res> {
       dynamic items,
       String? fieldType,
       String? validationFunction,
-      bool? autovalidateMode,
+      bool? autovalidate,
+      String? autovalidateMode,
       String? component,
       LayoutProps? child,
       LayoutProps? content,
@@ -228,6 +232,7 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
     Object? items = freezed,
     Object? fieldType = freezed,
     Object? validationFunction = freezed,
+    Object? autovalidate = freezed,
     Object? autovalidateMode = freezed,
     Object? component = freezed,
     Object? child = freezed,
@@ -401,10 +406,14 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
           ? _value.validationFunction
           : validationFunction // ignore: cast_nullable_to_non_nullable
               as String?,
+      autovalidate: autovalidate == freezed
+          ? _value.autovalidate
+          : autovalidate // ignore: cast_nullable_to_non_nullable
+              as bool?,
       autovalidateMode: autovalidateMode == freezed
           ? _value.autovalidateMode
           : autovalidateMode // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as String?,
       component: component == freezed
           ? _value.component
           : component // ignore: cast_nullable_to_non_nullable
@@ -585,7 +594,8 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       dynamic items,
       String? fieldType,
       String? validationFunction,
-      bool? autovalidateMode,
+      bool? autovalidate,
+      String? autovalidateMode,
       String? component,
       LayoutProps? child,
       LayoutProps? content,
@@ -667,6 +677,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
     Object? items = freezed,
     Object? fieldType = freezed,
     Object? validationFunction = freezed,
+    Object? autovalidate = freezed,
     Object? autovalidateMode = freezed,
     Object? component = freezed,
     Object? child = freezed,
@@ -840,10 +851,14 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
           ? _value.validationFunction
           : validationFunction // ignore: cast_nullable_to_non_nullable
               as String?,
+      autovalidate: autovalidate == freezed
+          ? _value.autovalidate
+          : autovalidate // ignore: cast_nullable_to_non_nullable
+              as bool?,
       autovalidateMode: autovalidateMode == freezed
           ? _value.autovalidateMode
           : autovalidateMode // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as String?,
       component: component == freezed
           ? _value.component
           : component // ignore: cast_nullable_to_non_nullable
@@ -932,6 +947,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.items,
       this.fieldType,
       this.validationFunction,
+      this.autovalidate,
       this.autovalidateMode,
       this.component,
       this.child,
@@ -1092,8 +1108,12 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
      * @summary Enabled/Disabled auto validate on change value
      */
   @override
-  final bool? autovalidateMode;
-// TextField End================================================
+  final bool? autovalidate;
+// TextField End==================================================
+// Form Start================================================
+  @override
+  final String? autovalidateMode;
+// Form End==================================================
   @override
   final String? component;
   @override
@@ -1124,7 +1144,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, fit: $fit, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, items: $items, fieldType: $fieldType, validationFunction: $validationFunction, autovalidateMode: $autovalidateMode, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, fit: $fit, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, items: $items, fieldType: $fieldType, validationFunction: $validationFunction, autovalidate: $autovalidate, autovalidateMode: $autovalidateMode, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
   }
 
   @override
@@ -1173,6 +1193,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('items', items))
       ..add(DiagnosticsProperty('fieldType', fieldType))
       ..add(DiagnosticsProperty('validationFunction', validationFunction))
+      ..add(DiagnosticsProperty('autovalidate', autovalidate))
       ..add(DiagnosticsProperty('autovalidateMode', autovalidateMode))
       ..add(DiagnosticsProperty('component', component))
       ..add(DiagnosticsProperty('child', child))
@@ -1246,6 +1267,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
             const DeepCollectionEquality()
                 .equals(other.validationFunction, validationFunction) &&
             const DeepCollectionEquality()
+                .equals(other.autovalidate, autovalidate) &&
+            const DeepCollectionEquality()
                 .equals(other.autovalidateMode, autovalidateMode) &&
             const DeepCollectionEquality().equals(other.component, component) &&
             const DeepCollectionEquality().equals(other.child, child) &&
@@ -1304,6 +1327,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
         const DeepCollectionEquality().hash(items),
         const DeepCollectionEquality().hash(fieldType),
         const DeepCollectionEquality().hash(validationFunction),
+        const DeepCollectionEquality().hash(autovalidate),
         const DeepCollectionEquality().hash(autovalidateMode),
         const DeepCollectionEquality().hash(component),
         const DeepCollectionEquality().hash(child),
@@ -1370,7 +1394,8 @@ abstract class _LayoutProps implements LayoutProps {
       final dynamic items,
       final String? fieldType,
       final String? validationFunction,
-      final bool? autovalidateMode,
+      final bool? autovalidate,
+      final String? autovalidateMode,
       final String? component,
       final LayoutProps? child,
       final LayoutProps? content,
@@ -1493,8 +1518,11 @@ abstract class _LayoutProps implements LayoutProps {
   /**
      * @summary Enabled/Disabled auto validate on change value
      */
-  bool? get autovalidateMode;
-  @override // TextField End================================================
+  bool? get autovalidate;
+  @override // TextField End==================================================
+// Form Start================================================
+  String? get autovalidateMode;
+  @override // Form End==================================================
   String? get component;
   @override
   LayoutProps? get child;

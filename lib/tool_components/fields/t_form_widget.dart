@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:eventify/eventify.dart' as eventify;
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
@@ -54,12 +55,12 @@ class _T_FormState extends TStatefulWidget<T_Form> {
   }
 
   eventify.EventCallback formAction() {
-    return (event, cont) {
+    return (event, cont) async {
       log("Form EventCallback ${event.eventName} ${event.eventData}");
       var data = json.decode(event.eventData as String);
       switch (data["action"]) {
         case "validate":
-          var isValid = _formKey.currentState?.validate();
+          var isValid = await _handleValidationFunction();
           utils.evalJS?.emitFormActionResponse(
             data["actionId"],
             isValid,
@@ -67,6 +68,27 @@ class _T_FormState extends TStatefulWidget<T_Form> {
           return;
       }
     };
+  }
+
+  Future<bool> _handleValidationFunction() async {
+    String? validationFunction = widget.widgetProps.validationFunction;
+    var errorTextMap = Map<String, dynamic>.from({});
+    if (validationFunction != null && validationFunction.isNotEmpty) {
+      errorTextMap = await widget.executeJSWithPagePath(validationFunction);
+    }
+    var isValid = false;
+    _formKey.currentState?.fields.forEach((key, field) {
+      var errorText = errorTextMap[key];
+      if (errorText == null) {
+        if (field.validate() == true) {
+          isValid = true;
+        }
+      } else {
+        field.invalidate(errorText);
+      }
+    });
+
+    return isValid;
   }
 
   @override
@@ -79,6 +101,7 @@ class _T_FormState extends TStatefulWidget<T_Form> {
       "Form need to have name property",
     );
 
+    var autovalidateMode = widget.props?.autovalidateMode;
     var fields = _formKey.currentState?.fields;
     fields?.forEach((key, field) {
       field.setValue(widget.parentData[key]);
@@ -86,8 +109,8 @@ class _T_FormState extends TStatefulWidget<T_Form> {
 
     _snapshot = FormBuilder(
       key: _formKey,
-      autoFocusOnValidationFailure: true,
-      autovalidateMode: AutovalidateMode.disabled,
+      // autoFocusOnValidationFailure: true,
+      autovalidateMode: ThemeDecoder.decodeAutovalidateMode(autovalidateMode),
       child: TWidgets(
         layout: _props?.child ?? const LayoutProps(),
         pagePath: widget.pagePath,

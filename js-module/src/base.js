@@ -213,9 +213,9 @@ Object.assign(window, {
   isValueBinding,
   getBindingValue,
 
-  /** Form context           */
+  /**Start Form context ----------*/
   validateForm,
-  /**----------------------- */
+  /**End  ----------------------- */
 
   /** Context for permission */
   requestPermission,
