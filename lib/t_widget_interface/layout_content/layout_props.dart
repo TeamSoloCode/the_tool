@@ -72,11 +72,13 @@ class LayoutProps with _$LayoutProps {
      */
     bool? scrollable,
 
-    // TextField Start================================================
+    // Field Start================================================
     String? hintText,
     String? labelText,
     bool? obscureText,
+    String? defaultValue,
     dynamic items,
+    @Default(false) allowClear,
     String? fieldType,
     /**
      * @summary This function will be eval for validating field value
@@ -88,7 +90,7 @@ class LayoutProps with _$LayoutProps {
      * @summary Enabled/Disabled auto validate on change value
      */
     bool? autovalidate,
-    // TextField End==================================================
+    // Field End==================================================
 
     // Form Start================================================
     String? autovalidateMode,
@@ -162,6 +164,9 @@ extension MergeLayoutProps on LayoutProps {
       key: other.key ?? key,
       name: other.name ?? name,
       items: other.items ?? items,
+      allowClear: other.allowClear ?? allowClear,
+      defaultValue: other.defaultValue ?? defaultValue,
+      autovalidateMode: other.autovalidateMode ?? autovalidateMode,
       fieldType: other.fieldType ?? fieldType,
       className: other.className ?? className,
       child: other.child ?? child,

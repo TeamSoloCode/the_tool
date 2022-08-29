@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
-import 'package:the_tool/tool_components/fields/t_fields_widget.dart';
-import 'package:the_tool/tool_components/fields/t_form_widget.dart';
+import 'package:the_tool/tool_components/fields/t_fields_widget.dart'
+    deferred as T_Fields;
+import 'package:the_tool/tool_components/fields/t_form_widget.dart'
+    deferred as T_Form;
 import 'package:the_tool/tool_components/t_button_widget.dart';
 import 'package:the_tool/tool_components/t_column_widget.dart';
 import 'package:the_tool/tool_components/t_container_widget.dart';
-import 'package:the_tool/tool_components/t_component_widget.dart';
+import 'package:the_tool/tool_components/t_component_widget.dart'
+    deferred as T_Component;
 import 'package:the_tool/tool_components/t_expanded_widget.dart';
-import 'package:the_tool/tool_components/t_grid_widget.dart';
+import 'package:the_tool/tool_components/t_grid_widget.dart' deferred as T_Grid;
 import 'package:the_tool/tool_components/t_icon_widget.dart';
 import 'package:the_tool/tool_components/t_row_widget.dart';
 import 'package:the_tool/tool_components/t_scrollview_widget.dart';
@@ -36,7 +39,7 @@ class TWidgets extends StatefulWidget {
 
 class _TWidgetsState extends State<TWidgets> {
   Widget? tWidgets;
-  final widgetUuid = const Uuid().v4();
+  String widgetUuid = const Uuid().v4();
 
   @override
   void dispose() {
@@ -44,7 +47,7 @@ class _TWidgetsState extends State<TWidgets> {
     super.dispose();
   }
 
-  Widget _getWidget(Map<String, dynamic> contextData) {
+  Future<Widget> _getWidget(Map<String, dynamic> contextData) async {
     LayoutProps content = widget.layout.content ?? widget.layout;
     // getIt<PageContextProvider>().registerTWidgetsProps(
     //   widgetUuid,
@@ -91,7 +94,8 @@ class _TWidgetsState extends State<TWidgets> {
           widgetUuid: widgetUuid,
         );
       case "form":
-        return T_Form(
+        await T_Form.loadLibrary();
+        return T_Form.T_Form(
           key: ValueKey(widgetUuid),
           widgetProps: content,
           pagePath: widget.pagePath,
@@ -99,7 +103,8 @@ class _TWidgetsState extends State<TWidgets> {
           widgetUuid: widgetUuid,
         );
       case "component":
-        return T_Component(
+        await T_Component.loadLibrary();
+        return T_Component.T_Component(
           key: ValueKey(widgetUuid),
           widgetProps: content,
           contextData: contextData,
@@ -123,7 +128,8 @@ class _TWidgetsState extends State<TWidgets> {
           widgetUuid: widgetUuid,
         );
       case "grid":
-        return T_Grid(
+        await T_Grid.loadLibrary();
+        return T_Grid.T_Grid(
           key: ValueKey(widgetUuid),
           widgetProps: content,
           pagePath: widget.pagePath,
@@ -148,7 +154,8 @@ class _TWidgetsState extends State<TWidgets> {
           widgetUuid: widgetUuid,
         );
       case "field":
-        return T_Fields(
+        await T_Fields.loadLibrary();
+        return T_Fields.T_Fields(
           key: ValueKey(widgetUuid),
           widgetProps: content,
           pagePath: widget.pagePath,
@@ -189,7 +196,7 @@ class _TWidgetsState extends State<TWidgets> {
     if (tWidgets == null) {
       // Stopwatch stopwatch = Stopwatch()..start();
       var contextData = context.read<ContextStateProvider>().contextData;
-      var newTWidgets = _getWidget(contextData[widget.pagePath] ?? {});
+      var newTWidgets = await _getWidget(contextData[widget.pagePath] ?? {});
 
       setState(() {
         tWidgets = newTWidgets;

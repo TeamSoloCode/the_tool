@@ -76,11 +76,13 @@ mixin _$LayoutProps {
      * if scrollable = true and widget is Column => Axix.vertical
      */
   bool? get scrollable =>
-      throw _privateConstructorUsedError; // TextField Start================================================
+      throw _privateConstructorUsedError; // Field Start================================================
   String? get hintText => throw _privateConstructorUsedError;
   String? get labelText => throw _privateConstructorUsedError;
   bool? get obscureText => throw _privateConstructorUsedError;
+  String? get defaultValue => throw _privateConstructorUsedError;
   dynamic get items => throw _privateConstructorUsedError;
+  dynamic get allowClear => throw _privateConstructorUsedError;
   String? get fieldType => throw _privateConstructorUsedError;
   /**
      * @summary This function will be eval for validating field value
@@ -92,7 +94,7 @@ mixin _$LayoutProps {
      * @summary Enabled/Disabled auto validate on change value
      */
   bool? get autovalidate =>
-      throw _privateConstructorUsedError; // TextField End==================================================
+      throw _privateConstructorUsedError; // Field End==================================================
 // Form Start================================================
   String? get autovalidateMode =>
       throw _privateConstructorUsedError; // Form End==================================================
@@ -156,7 +158,9 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? hintText,
       String? labelText,
       bool? obscureText,
+      String? defaultValue,
       dynamic items,
+      dynamic allowClear,
       String? fieldType,
       String? validationFunction,
       bool? autovalidate,
@@ -229,7 +233,9 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
     Object? hintText = freezed,
     Object? labelText = freezed,
     Object? obscureText = freezed,
+    Object? defaultValue = freezed,
     Object? items = freezed,
+    Object? allowClear = freezed,
     Object? fieldType = freezed,
     Object? validationFunction = freezed,
     Object? autovalidate = freezed,
@@ -394,9 +400,17 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
           ? _value.obscureText
           : obscureText // ignore: cast_nullable_to_non_nullable
               as bool?,
+      defaultValue: defaultValue == freezed
+          ? _value.defaultValue
+          : defaultValue // ignore: cast_nullable_to_non_nullable
+              as String?,
       items: items == freezed
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      allowClear: allowClear == freezed
+          ? _value.allowClear
+          : allowClear // ignore: cast_nullable_to_non_nullable
               as dynamic,
       fieldType: fieldType == freezed
           ? _value.fieldType
@@ -591,7 +605,9 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       String? hintText,
       String? labelText,
       bool? obscureText,
+      String? defaultValue,
       dynamic items,
+      dynamic allowClear,
       String? fieldType,
       String? validationFunction,
       bool? autovalidate,
@@ -674,7 +690,9 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
     Object? hintText = freezed,
     Object? labelText = freezed,
     Object? obscureText = freezed,
+    Object? defaultValue = freezed,
     Object? items = freezed,
+    Object? allowClear = freezed,
     Object? fieldType = freezed,
     Object? validationFunction = freezed,
     Object? autovalidate = freezed,
@@ -839,10 +857,15 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
           ? _value.obscureText
           : obscureText // ignore: cast_nullable_to_non_nullable
               as bool?,
+      defaultValue: defaultValue == freezed
+          ? _value.defaultValue
+          : defaultValue // ignore: cast_nullable_to_non_nullable
+              as String?,
       items: items == freezed
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      allowClear: allowClear == freezed ? _value.allowClear : allowClear,
       fieldType: fieldType == freezed
           ? _value.fieldType
           : fieldType // ignore: cast_nullable_to_non_nullable
@@ -944,7 +967,9 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.hintText,
       this.labelText,
       this.obscureText,
+      this.defaultValue,
       this.items,
+      this.allowClear = false,
       this.fieldType,
       this.validationFunction,
       this.autovalidate,
@@ -1086,7 +1111,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
      */
   @override
   final bool? scrollable;
-// TextField Start================================================
+// Field Start================================================
   @override
   final String? hintText;
   @override
@@ -1094,7 +1119,12 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   @override
   final bool? obscureText;
   @override
+  final String? defaultValue;
+  @override
   final dynamic items;
+  @override
+  @JsonKey()
+  final dynamic allowClear;
   @override
   final String? fieldType;
 /**
@@ -1109,7 +1139,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
      */
   @override
   final bool? autovalidate;
-// TextField End==================================================
+// Field End==================================================
 // Form Start================================================
   @override
   final String? autovalidateMode;
@@ -1144,7 +1174,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, fit: $fit, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, items: $items, fieldType: $fieldType, validationFunction: $validationFunction, autovalidate: $autovalidate, autovalidateMode: $autovalidateMode, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, fit: $fit, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, validationFunction: $validationFunction, autovalidate: $autovalidate, autovalidateMode: $autovalidateMode, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
   }
 
   @override
@@ -1190,7 +1220,9 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('hintText', hintText))
       ..add(DiagnosticsProperty('labelText', labelText))
       ..add(DiagnosticsProperty('obscureText', obscureText))
+      ..add(DiagnosticsProperty('defaultValue', defaultValue))
       ..add(DiagnosticsProperty('items', items))
+      ..add(DiagnosticsProperty('allowClear', allowClear))
       ..add(DiagnosticsProperty('fieldType', fieldType))
       ..add(DiagnosticsProperty('validationFunction', validationFunction))
       ..add(DiagnosticsProperty('autovalidate', autovalidate))
@@ -1262,7 +1294,11 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
             const DeepCollectionEquality().equals(other.labelText, labelText) &&
             const DeepCollectionEquality()
                 .equals(other.obscureText, obscureText) &&
+            const DeepCollectionEquality()
+                .equals(other.defaultValue, defaultValue) &&
             const DeepCollectionEquality().equals(other.items, items) &&
+            const DeepCollectionEquality()
+                .equals(other.allowClear, allowClear) &&
             const DeepCollectionEquality().equals(other.fieldType, fieldType) &&
             const DeepCollectionEquality()
                 .equals(other.validationFunction, validationFunction) &&
@@ -1324,7 +1360,9 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
         const DeepCollectionEquality().hash(hintText),
         const DeepCollectionEquality().hash(labelText),
         const DeepCollectionEquality().hash(obscureText),
+        const DeepCollectionEquality().hash(defaultValue),
         const DeepCollectionEquality().hash(items),
+        const DeepCollectionEquality().hash(allowClear),
         const DeepCollectionEquality().hash(fieldType),
         const DeepCollectionEquality().hash(validationFunction),
         const DeepCollectionEquality().hash(autovalidate),
@@ -1391,7 +1429,9 @@ abstract class _LayoutProps implements LayoutProps {
       final String? hintText,
       final String? labelText,
       final bool? obscureText,
+      final String? defaultValue,
       final dynamic items,
+      final dynamic allowClear,
       final String? fieldType,
       final String? validationFunction,
       final bool? autovalidate,
@@ -1497,14 +1537,18 @@ abstract class _LayoutProps implements LayoutProps {
      * if scrollable = true and widget is Column => Axix.vertical
      */
   bool? get scrollable;
-  @override // TextField Start================================================
+  @override // Field Start================================================
   String? get hintText;
   @override
   String? get labelText;
   @override
   bool? get obscureText;
   @override
+  String? get defaultValue;
+  @override
   dynamic get items;
+  @override
+  dynamic get allowClear;
   @override
   String? get fieldType;
   @override
@@ -1519,7 +1563,7 @@ abstract class _LayoutProps implements LayoutProps {
      * @summary Enabled/Disabled auto validate on change value
      */
   bool? get autovalidate;
-  @override // TextField End==================================================
+  @override // Field End==================================================
 // Form Start================================================
   String? get autovalidateMode;
   @override // Form End==================================================

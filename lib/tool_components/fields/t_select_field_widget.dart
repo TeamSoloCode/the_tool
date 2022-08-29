@@ -27,6 +27,7 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField> {
   String? selectedValue;
   final _dropDownKey = GlobalKey<FormBuilderFieldState>();
   dynamic items;
+  String? _errorMessage = null;
 
   @override
   void didChangeDependencies() {
@@ -43,17 +44,19 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField> {
     super.didChangeDependencies();
   }
 
-  List<DropdownMenuItem> _computeDropdownItems(dynamic value) {
-    if (value is! List) return [];
+  List<DropdownMenuItem> _computeDropdownItems(dynamic items) {
+    if (items is! List) return [];
 
-    return value
-        .map(
-          (item) => DropdownMenuItem(
-            value: item,
-            child: Text('$item'),
-          ),
-        )
-        .toList();
+    return items.map(
+      (item) {
+        var value = item is! List ? item : item[0];
+        var label = item is! List ? item : item[1];
+        return DropdownMenuItem(
+          value: value,
+          child: Text('$label'),
+        );
+      },
+    ).toList();
   }
 
   void _onChangeOption(dynamic value) {
@@ -76,23 +79,26 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField> {
       items = contextData[items] ?? [];
     }
 
-    debugPrint("T_SelectField $name $value");
-
     return FormBuilderDropdown(
       key: _dropDownKey,
       name: name ?? "",
-      decoration: const InputDecoration(
-        labelText: 'Gender',
+      decoration: InputDecoration(
+        hintText: widgetProps?.hintText,
+        labelText: widgetProps?.labelText,
+        errorText: _errorMessage,
       ),
       onChanged: _onChangeOption,
-      initialValue: value,
-      allowClear: true,
-      hint: const Text('Select Gender'),
-      validator: FormBuilderValidators.compose(
-        [
-          FormBuilderValidators.required(),
-        ],
-      ),
+      initialValue: widget.props?.defaultValue ?? value,
+      allowClear: widget.props?.allowClear,
+      validator: FormBuilderValidators.compose([
+        (dynamic value) {
+          _runValidationFunction();
+          return null;
+        }
+      ]),
+      onSaved: (dynamic value) {
+        _runValidationFunction();
+      },
       items: _computeDropdownItems(items),
     );
   }
@@ -106,5 +112,16 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField> {
       _snapshot = _computeSelectField(_props, widget.contextData);
     }
     return _snapshot;
+  }
+
+  void _runValidationFunction() async {
+    String? validationFunction = widget.widgetProps.validationFunction;
+    if (validationFunction != null && validationFunction.isNotEmpty) {
+      var errorMessage = await widget.executeJSWithPagePath(validationFunction);
+      setState(() {
+        _errorMessage = errorMessage;
+      });
+    }
+    return null;
   }
 }

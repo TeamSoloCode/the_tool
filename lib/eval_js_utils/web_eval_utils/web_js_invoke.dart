@@ -113,11 +113,6 @@ void _emitDataResponseEvent(
   ]);
 }
 
-///Convert JsObject to Dart Object
-dynamic convert(js.JsObject object) {
-  return json.decode(js.context['JSON'].callMethod("stringify", [object]));
-}
-
 @JS('__tWeb_callAsyncJavaScript')
 external callAsyncJavaScript(String code);
 
