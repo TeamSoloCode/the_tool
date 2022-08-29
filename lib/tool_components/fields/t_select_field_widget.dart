@@ -89,7 +89,7 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField> {
       ),
       onChanged: _onChangeOption,
       initialValue: widget.props?.defaultValue ?? value,
-      allowClear: widget.props?.allowClear,
+      allowClear: widget.props?.allowClear != null ? true : false,
       validator: FormBuilderValidators.compose([
         (dynamic value) {
           _runValidationFunction();

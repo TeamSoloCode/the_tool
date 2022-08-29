@@ -78,7 +78,7 @@ class LayoutProps with _$LayoutProps {
     bool? obscureText,
     String? defaultValue,
     dynamic items,
-    @Default(false) allowClear,
+    bool? allowClear,
     String? fieldType,
     /**
      * @summary This function will be eval for validating field value

@@ -51,7 +51,7 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       obscureText: json['obscureText'] as bool?,
       defaultValue: json['defaultValue'] as String?,
       items: json['items'],
-      allowClear: json['allowClear'] ?? false,
+      allowClear: json['allowClear'] as bool?,
       fieldType: json['fieldType'] as String?,
       validationFunction: json['validationFunction'] as String?,
       autovalidate: json['autovalidate'] as bool?,

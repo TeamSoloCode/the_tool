@@ -82,7 +82,7 @@ mixin _$LayoutProps {
   bool? get obscureText => throw _privateConstructorUsedError;
   String? get defaultValue => throw _privateConstructorUsedError;
   dynamic get items => throw _privateConstructorUsedError;
-  dynamic get allowClear => throw _privateConstructorUsedError;
+  bool? get allowClear => throw _privateConstructorUsedError;
   String? get fieldType => throw _privateConstructorUsedError;
   /**
      * @summary This function will be eval for validating field value
@@ -160,7 +160,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       bool? obscureText,
       String? defaultValue,
       dynamic items,
-      dynamic allowClear,
+      bool? allowClear,
       String? fieldType,
       String? validationFunction,
       bool? autovalidate,
@@ -411,7 +411,7 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
       allowClear: allowClear == freezed
           ? _value.allowClear
           : allowClear // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as bool?,
       fieldType: fieldType == freezed
           ? _value.fieldType
           : fieldType // ignore: cast_nullable_to_non_nullable
@@ -607,7 +607,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       bool? obscureText,
       String? defaultValue,
       dynamic items,
-      dynamic allowClear,
+      bool? allowClear,
       String? fieldType,
       String? validationFunction,
       bool? autovalidate,
@@ -865,7 +865,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      allowClear: allowClear == freezed ? _value.allowClear : allowClear,
+      allowClear: allowClear == freezed
+          ? _value.allowClear
+          : allowClear // ignore: cast_nullable_to_non_nullable
+              as bool?,
       fieldType: fieldType == freezed
           ? _value.fieldType
           : fieldType // ignore: cast_nullable_to_non_nullable
@@ -969,7 +972,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.obscureText,
       this.defaultValue,
       this.items,
-      this.allowClear = false,
+      this.allowClear,
       this.fieldType,
       this.validationFunction,
       this.autovalidate,
@@ -1123,8 +1126,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   @override
   final dynamic items;
   @override
-  @JsonKey()
-  final dynamic allowClear;
+  final bool? allowClear;
   @override
   final String? fieldType;
 /**
@@ -1431,7 +1433,7 @@ abstract class _LayoutProps implements LayoutProps {
       final bool? obscureText,
       final String? defaultValue,
       final dynamic items,
-      final dynamic allowClear,
+      final bool? allowClear,
       final String? fieldType,
       final String? validationFunction,
       final bool? autovalidate,
@@ -1548,7 +1550,7 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   dynamic get items;
   @override
-  dynamic get allowClear;
+  bool? get allowClear;
   @override
   String? get fieldType;
   @override
