@@ -1,5 +1,5 @@
 Support validator for t_select_field
-
+Too much data in context data
 #-------------------------------------------------
 
 Appbar not display properly
@@ -60,3 +60,4 @@ Support onSubmit for t_form
 -Do not show text "Unsupported widget. Type: null" when child is not defined
 -Cannot scroll t_row when is overflow
 -Support validator for t_text_field
+-Support auto validation for text_field
