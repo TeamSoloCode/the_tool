@@ -73,7 +73,7 @@ class EvalJS extends BaseEvalJS {
 
     var promise = webjs.callAsyncJavaScript(
       """(async () => {
-        const { pageData, getPageData } = context['$pagePath'] ?? {}
+        const { _pageData, getPageData } = context['$pagePath'] ?? {}
 
         const returnedValue = await $code 
         if(_.isPlainObject(returnedValue)) {
