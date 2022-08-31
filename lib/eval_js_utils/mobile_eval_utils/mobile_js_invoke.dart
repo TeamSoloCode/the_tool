@@ -43,7 +43,16 @@ void registerJavascriptHandler(
     callback: (args) {
       Map<String, dynamic> navigateData = args[0];
       String routeName = navigateData["pagePath"];
-      Map<String, dynamic> pageArguments = navigateData["pageArguments"];
+      Map<String, dynamic>? pageArguments = navigateData["pageArguments"];
+      Map<String, dynamic>? options = navigateData["options"];
+
+      if (options != null && options["replacementRoute"] == true) {
+        Navigator.of(context).pushReplacementNamed(
+          "/$routeName",
+          arguments: pageArguments,
+        );
+        return;
+      }
 
       Navigator.of(context).pushNamed("/$routeName", arguments: pageArguments);
     },

@@ -28,15 +28,18 @@ const setContextData = (data, callback = () => {}) => {
   // context._updateContextData(nextData);
 };
 
-const navigateTo = (pagePath, pageArguments = {}) => {
-  const navigateData = { pagePath, pageArguments };
-  context[pagePath] = context[pagePath] || {};
-  context[pagePath]._pageArguments = pageArguments;
+const navigateTo = (pagePath, pageArguments = {}, options = {}) => {
+  const navigateData = { pagePath, pageArguments, options };
+  _.set(context, "_pageArguments", pageArguments ?? {});
 
   if (context._platform == "mobile") {
     window.flutter_inappwebview.callHandler("navigate", navigateData);
   } else if (context._platform == "web") {
-    navigate(pagePath, JSON.stringify(pageArguments));
+    navigate(
+      pagePath,
+      JSON.stringify(pageArguments ?? {}),
+      JSON.stringify(options ?? {})
+    );
   }
 };
 

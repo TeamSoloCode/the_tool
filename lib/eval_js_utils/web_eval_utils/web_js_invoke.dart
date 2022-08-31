@@ -32,6 +32,7 @@ external set navigator(
   void Function(
     String routeName,
     String pageArguments,
+    String optionsAsJSON,
   )
       f,
 );
@@ -70,8 +71,16 @@ void _setState(String dataAsString, Function? callback) {
   );
 }
 
-void _navigator(String routeName, String pageArguments) {
+void _navigator(String routeName, String pageArguments, String optionsAsJSON) {
   Map<String, dynamic> arguments = json.decode(pageArguments);
+  Map<String, dynamic>? options = json.decode(optionsAsJSON);
+  if (options != null && options["replacementRoute"] == true) {
+    Navigator.of(_context).pushReplacementNamed(
+      "/$routeName",
+      arguments: arguments,
+    );
+    return;
+  }
   Navigator.of(_context).pushNamed("/$routeName", arguments: arguments);
 }
 
