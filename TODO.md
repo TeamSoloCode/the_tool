@@ -1,4 +1,3 @@
-Support validator for t_select_field
 Too much data in context data
 #-------------------------------------------------
 
@@ -61,3 +60,4 @@ Support onSubmit for t_form
 -Cannot scroll t_row when is overflow
 -Support validator for t_text_field
 -Support auto validation for text_field
+-Support validator for t_select_field
