@@ -106,7 +106,7 @@ class _T_FormState extends TStatefulWidget<T_Form> {
 
     _snapshot = FormBuilder(
       key: _formKey,
-      // autoFocusOnValidationFailure: true,
+      autoFocusOnValidationFailure: false,
       autovalidateMode: ThemeDecoder.decodeAutovalidateMode(autovalidateMode),
       child: TWidgets(
         layout: _props?.child ?? const LayoutProps(),

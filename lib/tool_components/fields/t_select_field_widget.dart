@@ -3,6 +3,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
+import 'package:the_tool/utils.dart';
 
 class T_SelectField extends TWidget {
   T_SelectField({
@@ -28,6 +29,15 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField> {
   final _dropDownKey = GlobalKey<FormBuilderFieldState>();
   dynamic items;
   String? _errorMessage = null;
+
+  @override
+  void initState() {
+    if (widget.widgetProps.defaultValue != null) {
+      _onChangeOption(widget.widgetProps.defaultValue);
+    }
+
+    super.initState();
+  }
 
   @override
   void didChangeDependencies() {
@@ -60,7 +70,7 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField> {
   }
 
   void _onChangeOption(dynamic value) {
-    String name = widget.props?.name ?? "";
+    String name = widget.widgetProps.name ?? "";
     widget.setPageData({name: value});
     selectedValue = value;
   }
@@ -78,7 +88,7 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField> {
     if (items is String) {
       items = contextData[items] ?? [];
     }
-
+    _dropDownKey.currentState?.setValue(value);
     return FormBuilderDropdown(
       key: _dropDownKey,
       name: name ?? "",
