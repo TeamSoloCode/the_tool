@@ -99,7 +99,6 @@ class ThemeProvider with ChangeNotifier {
           ),
           inputDecorationTheme:
               defaultInputDecorationTheme.merge(inputDecorationTheme),
-
           // colorScheme: ColorScheme.fromSwatch(
           //   primarySwatch: MaterialColor(
           //     ThemeDecoder.decodeColor(

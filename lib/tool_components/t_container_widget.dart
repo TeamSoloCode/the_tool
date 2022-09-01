@@ -20,7 +20,6 @@ class T_Container extends TStatelessWidget with ContainerMixin {
           pagePath: pagePath,
           widgetUuid: widgetUuid,
         );
-
   @override
   Widget buildWidget(BuildContext context) {
     snapshot = Container(
