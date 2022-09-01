@@ -20,34 +20,7 @@ mixin ContainerMixin {
 
   BorderRadiusGeometry? _computeBorderRadius(LayoutProps? props) {
     return props?.borderRadius != null
-        ? ThemeDecoder.decodeBorderRadius({
-            "type": props?.borderRadius!.type,
-            "radius": props?.borderRadius!.radius ?? 0,
-            "left": props?.borderRadius!.type == "horizontal"
-                ? props?.borderRadius!.left
-                : 0,
-            "right": props?.borderRadius!.type == "horizontal"
-                ? props?.borderRadius!.right
-                : 0,
-            "bottomLeft": props?.borderRadius!.type == "only"
-                ? props?.borderRadius!.bottomLeft
-                : 0,
-            "bottomRight": props?.borderRadius!.type == "only"
-                ? props?.borderRadius!.bottomRight
-                : 0,
-            "topLeft": props?.borderRadius!.type == "only"
-                ? props?.borderRadius!.topLeft
-                : 0,
-            "topRight": props?.borderRadius!.type == "only"
-                ? props?.borderRadius!.topRight
-                : 0,
-            "bottom": props?.borderRadius!.type == "vertical"
-                ? props?.borderRadius!.bottom
-                : 0,
-            "top": props?.borderRadius!.type == "vertical"
-                ? props?.borderRadius!.top
-                : 0,
-          })
+        ? ThemeDecoder.decodeBorderRadius(props)
         : null;
   }
 
@@ -62,14 +35,11 @@ mixin ContainerMixin {
   }
 
   BoxDecoration? computeBoxDecoration(LayoutProps? props) {
-    var cssColor = props?.backgroundColor;
-    Color? color = cssColor != null ? fromCssColor(cssColor) : null;
-
     return ThemeDecoder.decodeBoxDecoration({
-      "color": color,
+      "color": props?.backgroundColor,
       //  "backgroundBlendMode": <BlendMode>,
       "border": computeBoxBorder(props),
-      // "borderRadius": _computeBorderRadius(props),
+      "borderRadius": _computeBorderRadius(props),
       "boxShadow": StyleUtils.decodeDynamicList(
         props?.boxShadow != null ? [computeBoxShadow(props)] : [],
       ),

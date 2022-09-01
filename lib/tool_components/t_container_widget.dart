@@ -21,11 +21,8 @@ class T_Container extends TStatelessWidget with ContainerMixin {
           pagePath: pagePath,
           widgetUuid: widgetUuid,
         );
-
   @override
   Widget buildWidget(BuildContext context) {
-    var cssColor = props?.backgroundColor;
-    Color? color = cssColor != null ? fromCssColor(cssColor) : null;
     snapshot = Container(
       key: getBindingKey(),
       alignment: computeAlignment(props),

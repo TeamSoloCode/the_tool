@@ -160,7 +160,7 @@ class APIClientManager {
     try {
       var response = await _dioCached
           .get('$_pageAPI/${themePath ?? "theme"}/$_projectName');
-      return Future.value(json.decode(response.data));
+      return Future.value(response.data);
     } on DioError catch (e) {
       log("Theme not found => " + e.message);
       return Future.value({});
