@@ -46,8 +46,21 @@ void registerJavascriptHandler(
       Map<String, dynamic>? pageArguments = navigateData["pageArguments"];
       Map<String, dynamic>? options = navigateData["options"];
 
-      if (options != null && options["replacementRoute"] == true) {
+      if (options != null && options["action"] == "replacement_route") {
         Navigator.of(context).pushReplacementNamed(
+          "/$routeName",
+          arguments: pageArguments,
+        );
+        return;
+      }
+
+      if (options != null && options["action"] == "pop") {
+        Navigator.of(context).pop();
+        return;
+      }
+
+      if (options != null && options["action"] == "pop_and_push") {
+        Navigator.of(context).popAndPushNamed(
           "/$routeName",
           arguments: pageArguments,
         );

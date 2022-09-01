@@ -43,6 +43,14 @@ const navigateTo = (pagePath, pageArguments = {}, options = {}) => {
   }
 };
 
+const navigateBackAndGoTo = (pagePath, pageArguments = {}) => {
+  navigateTo(pagePath, pageArguments, { action: "pop_and_push" });
+};
+
+const navigateBack = () => {
+  navigateTo("", {}, { action: "pop" });
+};
+
 function usePrevious(value) {
   // The ref object is a generic container whose current property is mutable ...
   // ... and can hold any value, similar to an instance property on a class
@@ -207,7 +215,7 @@ Object.assign(window, {
   setContextData,
   usePrevious,
   setPlatform,
-  navigateTo,
+
   isFunctionExistsOnContext,
   setCookies,
   getCookies,
@@ -215,6 +223,12 @@ Object.assign(window, {
   fetchData,
   isValueBinding,
   getBindingValue,
+
+  /**Start Navigation ----------*/
+  navigateTo,
+  navigateBack,
+  navigateBackAndGoTo,
+  /**End Navigation ------------*/
 
   /**Start Form context ----------*/
   validateForm,
