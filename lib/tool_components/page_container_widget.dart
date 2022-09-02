@@ -129,11 +129,12 @@ class _PageContainerState extends State<PageContainer> {
     Map<String, dynamic> theme = await _apiClient.getAppTheme(
       themePath: themePath,
     );
-    var currentThemeData =
-        await context.read<ThemeProvider>().computeThemeData(theme);
+    var themeProvider = context.read<ThemeProvider>();
+    var currentThemeData = await themeProvider.computeThemeData(theme);
 
     setState(() {
       _themeData = currentThemeData;
+      themeProvider.refreshThemeData();
     });
   }
 

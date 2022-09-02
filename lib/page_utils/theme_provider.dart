@@ -15,6 +15,7 @@ class ThemeProvider with ChangeNotifier {
   Map<String, dynamic>? _baseColor;
   BuildContext context;
   static final UtilsManager utils = getIt<UtilsManager>();
+  var _themeRefreshToken = DateTime.now().millisecond;
 
   Map<int, Color> color = {
     50: const Color.fromRGBO(136, 14, 79, .1),
@@ -33,6 +34,7 @@ class ThemeProvider with ChangeNotifier {
 
   ThemeMode get currentThemeMode => _theme ?? ThemeMode.light;
   ThemeData? get themeData => _themeData;
+  int? get themeRefreshToken => _themeRefreshToken;
   Map<String, dynamic>? get classes => _classes;
   Map<String, dynamic>? get baseColor => _baseColor;
 
@@ -44,6 +46,11 @@ class ThemeProvider with ChangeNotifier {
     } else {
       _theme = mode;
     }
+    notifyListeners();
+  }
+
+  void refreshThemeData() {
+    _themeRefreshToken = DateTime.now().millisecond;
     notifyListeners();
   }
 

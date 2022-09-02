@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
@@ -24,16 +25,16 @@ mixin BaseStateWidget on Widget {
   final Set<String> widgetBindingStrings = {};
   List<dynamic> prevBindingValues = [];
   var hasBindingValue = false;
-  ThemeMode? _currentThemeMode;
-  ThemeMode? _prevThemeMode;
+  int? _themeRefreshToken;
+  int? _prevThemeRefreshToken;
 
   void watchContextState(BuildContext context, {String? providedPagePath}) {
     var prevData = contextData;
     var path = providedPagePath ?? pagePath;
 
-    _currentThemeMode = context.select(
+    _themeRefreshToken = context.select(
       (ThemeProvider theme) {
-        return theme.currentThemeMode;
+        return theme.themeRefreshToken;
       },
     );
 
@@ -55,7 +56,7 @@ mixin BaseStateWidget on Widget {
 
     if (prevProps != null &&
         !hasBindingValue &&
-        _prevThemeMode == _currentThemeMode) {
+        _prevThemeRefreshToken == _themeRefreshToken) {
       return;
     }
 
@@ -65,7 +66,7 @@ mixin BaseStateWidget on Widget {
     );
 
     prevProps = props;
-    _prevThemeMode = _currentThemeMode;
+    _prevThemeRefreshToken = _themeRefreshToken;
 
     return;
   }
