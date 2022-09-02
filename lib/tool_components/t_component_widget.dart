@@ -55,8 +55,10 @@ class _T_ComponentState extends State<T_Component>
   }
 
   Future<void> _loadComponentInfo(String componentPath) async {
-    var parentPagePath =
-        widget.pagePath.substring(widget.pagePath.lastIndexOf("_"));
+    var parentPagePath = widget.pagePath.substring(
+      widget.pagePath.lastIndexOf("_"),
+    );
+
     if (componentPath == parentPagePath) {
       throw Exception("Parent page path and component path cannot the same");
     }

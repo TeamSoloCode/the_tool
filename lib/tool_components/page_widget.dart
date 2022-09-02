@@ -11,6 +11,7 @@ import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:gato/gato.dart' as gato;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:uuid/uuid.dart';
 
 class T_Page extends StatefulWidget {
   String pagePath;
@@ -25,6 +26,8 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
   final Map<String, dynamic> _initPageState = {};
   LayoutProps? _pageLayout;
   bool _isReadyToRun = false;
+  late String _pageId;
+  final Map<String, String> _pageIdMap = {};
 
   late UtilsManager utils;
   List<Widget> _pages = [];
@@ -35,6 +38,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
 
   @override
   void initState() {
+    _pageId = widget.pagePath + const Uuid().v4();
     utils = getIt<UtilsManager>();
     _startLoadingData();
     super.initState();
@@ -48,7 +52,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
 
   @override
   void dispose() {
-    utils.evalJS?.unmountClientCode(widget.pagePath);
+    utils.evalJS?.unmountClientCode(_pageId);
     super.dispose();
   }
 
@@ -61,8 +65,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     super.build(context);
     // var pageData = Map<String, dynamic>.from({"_tLoaded": true});
     var pageData = context.select((ContextStateProvider value) {
-      return value.contextData[widget.pagePath] ??
-          UtilsManager.emptyMapStringDynamic;
+      return value.contextData[_pageId] ?? UtilsManager.emptyMapStringDynamic;
     });
 
     if (_isReadyToRun == false ||
@@ -77,7 +80,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
       );
     }
 
-    // log("Update page: ${widget.pagePath} $pageData");
+    debugPrint("Update page: ${_pageId} $pageData");
 
     return SafeArea(
       child: Scaffold(
@@ -111,16 +114,14 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     Map<String, dynamic> pageInfo =
         await apiClient.getClientPageInfo(widget.pagePath);
 
-    utils.evalJS?.executePageCode(
-      pageInfo["code"],
-      widget.pagePath,
-    );
+    utils.evalJS?.executePageCode(pageInfo["code"], _pageId);
+
     var layout = pageInfo["layout"];
 
     _pageLayout = LayoutProps.fromJson(layout);
     if (_pageLayout?.components != null) {
       contextStateProvider.addPageComponents(
-        pagePath: widget.pagePath,
+        pagePath: _pageId,
         components: _pageLayout!.components!,
       );
     }
@@ -136,7 +137,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     if (_bottomNavBar == null || _bottomNavBar?.items == null) {
       return TWidgets(
         layout: _pageLayout ?? const LayoutProps(),
-        pagePath: widget.pagePath,
+        pagePath: _pageId,
         contextData: contextData,
       );
     }
@@ -158,7 +159,9 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
         throw Exception("Please provide path in bottom navigation iten");
       }
 
-      ValueKey pageKey = ValueKey(item.path!);
+      // this make SubPage not changed key and re-render
+      _pageIdMap.putIfAbsent(item.path!, () => const Uuid().v4());
+      ValueKey pageKey = ValueKey(_pageIdMap[item.path]);
 
       return SizedBox(
         height: size.height,
@@ -211,7 +214,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     if (appBarConfig.content != null) {
       Widget title = TWidgets(
         layout: appBarConfig.content!,
-        pagePath: widget.pagePath,
+        pagePath: _pageId,
         contextData: contextData,
       );
 
@@ -237,7 +240,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
       preferredSize: Size.fromHeight(gato.get(customContent, "height") ?? 120),
       child: TWidgets(
         layout: customContent,
-        pagePath: widget.pagePath,
+        pagePath: _pageId,
         contextData: contextData,
       ),
     );
