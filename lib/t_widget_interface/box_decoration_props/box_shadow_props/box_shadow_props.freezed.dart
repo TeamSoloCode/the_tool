@@ -161,9 +161,7 @@ class __$$_BoxShadowPropsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_BoxShadowProps
-    with DiagnosticableTreeMixin
-    implements _BoxShadowProps {
+class _$_BoxShadowProps implements _BoxShadowProps {
   _$_BoxShadowProps(
       {this.color,
       this.blurRadius,
@@ -195,51 +193,6 @@ class _$_BoxShadowProps
 
   @override
   final int? spreadRadius;
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'BoxShadowProps(color: $color, blurRadius: $blurRadius, blurStyle: $blurStyle, colorBoxShadow: $colorBoxShadow, offset: $offset, spreadRadius: $spreadRadius)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'BoxShadowProps'))
-      ..add(DiagnosticsProperty('color', color))
-      ..add(DiagnosticsProperty('blurRadius', blurRadius))
-      ..add(DiagnosticsProperty('blurStyle', blurStyle))
-      ..add(DiagnosticsProperty('colorBoxShadow', colorBoxShadow))
-      ..add(DiagnosticsProperty('offset', offset))
-      ..add(DiagnosticsProperty('spreadRadius', spreadRadius));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_BoxShadowProps &&
-            const DeepCollectionEquality().equals(other.color, color) &&
-            const DeepCollectionEquality()
-                .equals(other.blurRadius, blurRadius) &&
-            const DeepCollectionEquality().equals(other.blurStyle, blurStyle) &&
-            const DeepCollectionEquality()
-                .equals(other.colorBoxShadow, colorBoxShadow) &&
-            const DeepCollectionEquality().equals(other._offset, _offset) &&
-            const DeepCollectionEquality()
-                .equals(other.spreadRadius, spreadRadius));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(color),
-      const DeepCollectionEquality().hash(blurRadius),
-      const DeepCollectionEquality().hash(blurStyle),
-      const DeepCollectionEquality().hash(colorBoxShadow),
-      const DeepCollectionEquality().hash(_offset),
-      const DeepCollectionEquality().hash(spreadRadius));
 
   @JsonKey(ignore: true)
   @override

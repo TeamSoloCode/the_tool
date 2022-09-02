@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 part 'bottom_nav_item_props.freezed.dart';
 part 'bottom_nav_item_props.g.dart';
 
-@freezed
+@Freezed(equal: false, toStringOverride: false)
 class BottomNavigationItemProps with _$BottomNavigationItemProps {
   const factory BottomNavigationItemProps({
     String? label,

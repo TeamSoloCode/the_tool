@@ -125,9 +125,7 @@ class __$$_BottomNavigationPropsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_BottomNavigationProps
-    with DiagnosticableTreeMixin
-    implements _BottomNavigationProps {
+class _$_BottomNavigationProps implements _BottomNavigationProps {
   const _$_BottomNavigationProps(
       {this.selectedItemColor,
       this.navType,
@@ -149,40 +147,6 @@ class _$_BottomNavigationProps
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'BottomNavigationProps(selectedItemColor: $selectedItemColor, navType: $navType, items: $items)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'BottomNavigationProps'))
-      ..add(DiagnosticsProperty('selectedItemColor', selectedItemColor))
-      ..add(DiagnosticsProperty('navType', navType))
-      ..add(DiagnosticsProperty('items', items));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_BottomNavigationProps &&
-            const DeepCollectionEquality()
-                .equals(other.selectedItemColor, selectedItemColor) &&
-            const DeepCollectionEquality().equals(other.navType, navType) &&
-            const DeepCollectionEquality().equals(other._items, _items));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(selectedItemColor),
-      const DeepCollectionEquality().hash(navType),
-      const DeepCollectionEquality().hash(_items));
 
   @JsonKey(ignore: true)
   @override

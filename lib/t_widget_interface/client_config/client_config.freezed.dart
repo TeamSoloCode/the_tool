@@ -147,7 +147,7 @@ class __$$_ClientConfigCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ClientConfig with DiagnosticableTreeMixin implements _ClientConfig {
+class _$_ClientConfig implements _ClientConfig {
   const _$_ClientConfig(
       {this.initialPage,
       final List<Map<String, dynamic>>? routes,
@@ -176,46 +176,6 @@ class _$_ClientConfig with DiagnosticableTreeMixin implements _ClientConfig {
   final String? pageAPI;
   @override
   final String? beAPI;
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ClientConfig(initialPage: $initialPage, routes: $routes, themePath: $themePath, pageAPI: $pageAPI, beAPI: $beAPI)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ClientConfig'))
-      ..add(DiagnosticsProperty('initialPage', initialPage))
-      ..add(DiagnosticsProperty('routes', routes))
-      ..add(DiagnosticsProperty('themePath', themePath))
-      ..add(DiagnosticsProperty('pageAPI', pageAPI))
-      ..add(DiagnosticsProperty('beAPI', beAPI));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_ClientConfig &&
-            const DeepCollectionEquality()
-                .equals(other.initialPage, initialPage) &&
-            const DeepCollectionEquality().equals(other._routes, _routes) &&
-            const DeepCollectionEquality().equals(other.themePath, themePath) &&
-            const DeepCollectionEquality().equals(other.pageAPI, pageAPI) &&
-            const DeepCollectionEquality().equals(other.beAPI, beAPI));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(initialPage),
-      const DeepCollectionEquality().hash(_routes),
-      const DeepCollectionEquality().hash(themePath),
-      const DeepCollectionEquality().hash(pageAPI),
-      const DeepCollectionEquality().hash(beAPI));
 
   @JsonKey(ignore: true)
   @override

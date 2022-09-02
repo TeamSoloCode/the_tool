@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 part 'border_radius_props.freezed.dart';
 part 'border_radius_props.g.dart';
 
-@freezed
+@Freezed(equal: false, toStringOverride: false)
 // @JsonSerializable()
 class BorderRadiusProps with _$BorderRadiusProps {
   factory BorderRadiusProps(

@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 part 'border_props.freezed.dart';
 part 'border_props.g.dart';
 
-@freezed
+@Freezed(equal: false, toStringOverride: false)
 class BorderProps with _$BorderProps {
   factory BorderProps(
       {int? width,

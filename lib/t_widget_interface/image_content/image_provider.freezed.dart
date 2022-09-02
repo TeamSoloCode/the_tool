@@ -161,9 +161,7 @@ class __$$_ImageProviderPropsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ImageProviderProps
-    with DiagnosticableTreeMixin
-    implements _ImageProviderProps {
+class _$_ImageProviderProps implements _ImageProviderProps {
   const _$_ImageProviderProps(
       {this.type,
       final Map<String, dynamic>? headers,
@@ -195,48 +193,6 @@ class _$_ImageProviderProps
   final int? scale;
   @override
   final String? fit;
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ImageProviderProps(type: $type, headers: $headers, url: $url, asset: $asset, scale: $scale, fit: $fit)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ImageProviderProps'))
-      ..add(DiagnosticsProperty('type', type))
-      ..add(DiagnosticsProperty('headers', headers))
-      ..add(DiagnosticsProperty('url', url))
-      ..add(DiagnosticsProperty('asset', asset))
-      ..add(DiagnosticsProperty('scale', scale))
-      ..add(DiagnosticsProperty('fit', fit));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_ImageProviderProps &&
-            const DeepCollectionEquality().equals(other.type, type) &&
-            const DeepCollectionEquality().equals(other._headers, _headers) &&
-            const DeepCollectionEquality().equals(other.url, url) &&
-            const DeepCollectionEquality().equals(other.asset, asset) &&
-            const DeepCollectionEquality().equals(other.scale, scale) &&
-            const DeepCollectionEquality().equals(other.fit, fit));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(type),
-      const DeepCollectionEquality().hash(_headers),
-      const DeepCollectionEquality().hash(url),
-      const DeepCollectionEquality().hash(asset),
-      const DeepCollectionEquality().hash(scale),
-      const DeepCollectionEquality().hash(fit));
 
   @JsonKey(ignore: true)
   @override

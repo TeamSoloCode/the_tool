@@ -172,7 +172,7 @@ class __$$_BorderPropsCopyWithImpl<$Res> extends _$BorderPropsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_BorderProps with DiagnosticableTreeMixin implements _BorderProps {
+class _$_BorderProps implements _BorderProps {
   _$_BorderProps(
       {this.width,
       this.color,
@@ -230,51 +230,6 @@ class _$_BorderProps with DiagnosticableTreeMixin implements _BorderProps {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(value);
   }
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'BorderProps(width: $width, color: $color, style: $style, left: $left, right: $right, bottom: $bottom, top: $top)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'BorderProps'))
-      ..add(DiagnosticsProperty('width', width))
-      ..add(DiagnosticsProperty('color', color))
-      ..add(DiagnosticsProperty('style', style))
-      ..add(DiagnosticsProperty('left', left))
-      ..add(DiagnosticsProperty('right', right))
-      ..add(DiagnosticsProperty('bottom', bottom))
-      ..add(DiagnosticsProperty('top', top));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_BorderProps &&
-            const DeepCollectionEquality().equals(other.width, width) &&
-            const DeepCollectionEquality().equals(other.color, color) &&
-            const DeepCollectionEquality().equals(other.style, style) &&
-            const DeepCollectionEquality().equals(other._left, _left) &&
-            const DeepCollectionEquality().equals(other._right, _right) &&
-            const DeepCollectionEquality().equals(other._bottom, _bottom) &&
-            const DeepCollectionEquality().equals(other._top, _top));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(width),
-      const DeepCollectionEquality().hash(color),
-      const DeepCollectionEquality().hash(style),
-      const DeepCollectionEquality().hash(_left),
-      const DeepCollectionEquality().hash(_right),
-      const DeepCollectionEquality().hash(_bottom),
-      const DeepCollectionEquality().hash(_top));
 
   @JsonKey(ignore: true)
   @override

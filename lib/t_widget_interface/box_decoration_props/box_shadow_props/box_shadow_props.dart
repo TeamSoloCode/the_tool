@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 part 'box_shadow_props.freezed.dart';
 part 'box_shadow_props.g.dart';
 
-@freezed
+@Freezed(equal: false, toStringOverride: false)
 // @JsonSerializable()
 class BoxShadowProps with _$BoxShadowProps {
   factory BoxShadowProps(

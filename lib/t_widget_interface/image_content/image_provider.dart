@@ -1,10 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter/foundation.dart';
 
 part 'image_provider.freezed.dart';
 part 'image_provider.g.dart';
 
-@freezed
+@Freezed(equal: false, toStringOverride: false)
 class ImageProviderProps with _$ImageProviderProps {
   const factory ImageProviderProps({
     String? type,

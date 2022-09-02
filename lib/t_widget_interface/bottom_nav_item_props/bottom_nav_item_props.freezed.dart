@@ -133,9 +133,7 @@ class __$$_BottomNavigationItemPropsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_BottomNavigationItemProps
-    with DiagnosticableTreeMixin
-    implements _BottomNavigationItemProps {
+class _$_BottomNavigationItemProps implements _BottomNavigationItemProps {
   const _$_BottomNavigationItemProps(
       {this.label, this.icon, this.path, this.backgroundColor});
 
@@ -150,43 +148,6 @@ class _$_BottomNavigationItemProps
   final String? path;
   @override
   final String? backgroundColor;
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'BottomNavigationItemProps(label: $label, icon: $icon, path: $path, backgroundColor: $backgroundColor)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'BottomNavigationItemProps'))
-      ..add(DiagnosticsProperty('label', label))
-      ..add(DiagnosticsProperty('icon', icon))
-      ..add(DiagnosticsProperty('path', path))
-      ..add(DiagnosticsProperty('backgroundColor', backgroundColor));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_BottomNavigationItemProps &&
-            const DeepCollectionEquality().equals(other.label, label) &&
-            const DeepCollectionEquality().equals(other.icon, icon) &&
-            const DeepCollectionEquality().equals(other.path, path) &&
-            const DeepCollectionEquality()
-                .equals(other.backgroundColor, backgroundColor));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(label),
-      const DeepCollectionEquality().hash(icon),
-      const DeepCollectionEquality().hash(path),
-      const DeepCollectionEquality().hash(backgroundColor));
 
   @JsonKey(ignore: true)
   @override

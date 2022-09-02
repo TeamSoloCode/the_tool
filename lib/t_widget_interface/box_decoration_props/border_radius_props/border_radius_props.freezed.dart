@@ -291,9 +291,7 @@ class __$$_BorderRadiusPropsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_BorderRadiusProps
-    with DiagnosticableTreeMixin
-    implements _BorderRadiusProps {
+class _$_BorderRadiusProps implements _BorderRadiusProps {
   _$_BorderRadiusProps(
       {this.colors,
       this.width,
@@ -347,83 +345,6 @@ class _$_BorderRadiusProps
   final int? offset;
   @override
   final int? spreadRadius;
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'BorderRadiusProps(colors: $colors, width: $width, type: $type, radius: $radius, left: $left, right: $right, bottomLeft: $bottomLeft, bottomRight: $bottomRight, topLeft: $topLeft, topRight: $topRight, bottom: $bottom, top: $top, blurRadius: $blurRadius, colorBoxShadow: $colorBoxShadow, offset: $offset, spreadRadius: $spreadRadius)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'BorderRadiusProps'))
-      ..add(DiagnosticsProperty('colors', colors))
-      ..add(DiagnosticsProperty('width', width))
-      ..add(DiagnosticsProperty('type', type))
-      ..add(DiagnosticsProperty('radius', radius))
-      ..add(DiagnosticsProperty('left', left))
-      ..add(DiagnosticsProperty('right', right))
-      ..add(DiagnosticsProperty('bottomLeft', bottomLeft))
-      ..add(DiagnosticsProperty('bottomRight', bottomRight))
-      ..add(DiagnosticsProperty('topLeft', topLeft))
-      ..add(DiagnosticsProperty('topRight', topRight))
-      ..add(DiagnosticsProperty('bottom', bottom))
-      ..add(DiagnosticsProperty('top', top))
-      ..add(DiagnosticsProperty('blurRadius', blurRadius))
-      ..add(DiagnosticsProperty('colorBoxShadow', colorBoxShadow))
-      ..add(DiagnosticsProperty('offset', offset))
-      ..add(DiagnosticsProperty('spreadRadius', spreadRadius));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_BorderRadiusProps &&
-            const DeepCollectionEquality().equals(other.colors, colors) &&
-            const DeepCollectionEquality().equals(other.width, width) &&
-            const DeepCollectionEquality().equals(other.type, type) &&
-            const DeepCollectionEquality().equals(other.radius, radius) &&
-            const DeepCollectionEquality().equals(other.left, left) &&
-            const DeepCollectionEquality().equals(other.right, right) &&
-            const DeepCollectionEquality()
-                .equals(other.bottomLeft, bottomLeft) &&
-            const DeepCollectionEquality()
-                .equals(other.bottomRight, bottomRight) &&
-            const DeepCollectionEquality().equals(other.topLeft, topLeft) &&
-            const DeepCollectionEquality().equals(other.topRight, topRight) &&
-            const DeepCollectionEquality().equals(other.bottom, bottom) &&
-            const DeepCollectionEquality().equals(other.top, top) &&
-            const DeepCollectionEquality()
-                .equals(other.blurRadius, blurRadius) &&
-            const DeepCollectionEquality()
-                .equals(other.colorBoxShadow, colorBoxShadow) &&
-            const DeepCollectionEquality().equals(other.offset, offset) &&
-            const DeepCollectionEquality()
-                .equals(other.spreadRadius, spreadRadius));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(colors),
-      const DeepCollectionEquality().hash(width),
-      const DeepCollectionEquality().hash(type),
-      const DeepCollectionEquality().hash(radius),
-      const DeepCollectionEquality().hash(left),
-      const DeepCollectionEquality().hash(right),
-      const DeepCollectionEquality().hash(bottomLeft),
-      const DeepCollectionEquality().hash(bottomRight),
-      const DeepCollectionEquality().hash(topLeft),
-      const DeepCollectionEquality().hash(topRight),
-      const DeepCollectionEquality().hash(bottom),
-      const DeepCollectionEquality().hash(top),
-      const DeepCollectionEquality().hash(blurRadius),
-      const DeepCollectionEquality().hash(colorBoxShadow),
-      const DeepCollectionEquality().hash(offset),
-      const DeepCollectionEquality().hash(spreadRadius));
 
   @JsonKey(ignore: true)
   @override

@@ -7,7 +7,6 @@ import 'package:the_tool/t_widget_interface/app_bar_props/app_bar_props.dart';
 import 'package:the_tool/t_widget_interface/bottom_navigation_props/bottom_navigation_props.dart';
 import 'package:the_tool/t_widget_interface/box_decoration_props/border_props/border_props.dart';
 import 'package:the_tool/t_widget_interface/box_decoration_props/border_radius_props/border_radius_props.dart';
-import 'package:the_tool/t_widget_interface/box_decoration_props/box_decoration_props.dart';
 import 'package:the_tool/t_widget_interface/box_decoration_props/box_shadow_props/box_shadow_props.dart';
 import 'package:the_tool/t_widget_interface/image_content/image_provider.dart';
 import 'package:the_tool/utils.dart';

@@ -133,7 +133,7 @@ class __$$_AppBarPropsCopyWithImpl<$Res> extends _$AppBarPropsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_AppBarProps with DiagnosticableTreeMixin implements _AppBarProps {
+class _$_AppBarProps implements _AppBarProps {
   const _$_AppBarProps({this.content, this.custom});
 
   factory _$_AppBarProps.fromJson(Map<String, dynamic> json) =>
@@ -143,36 +143,6 @@ class _$_AppBarProps with DiagnosticableTreeMixin implements _AppBarProps {
   final LayoutProps? content;
   @override
   final LayoutProps? custom;
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AppBarProps(content: $content, custom: $custom)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'AppBarProps'))
-      ..add(DiagnosticsProperty('content', content))
-      ..add(DiagnosticsProperty('custom', custom));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_AppBarProps &&
-            const DeepCollectionEquality().equals(other.content, content) &&
-            const DeepCollectionEquality().equals(other.custom, custom));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(content),
-      const DeepCollectionEquality().hash(custom));
 
   @JsonKey(ignore: true)
   @override
