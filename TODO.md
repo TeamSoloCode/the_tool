@@ -1,5 +1,5 @@
 Navigate Login => Register => click button Back to Login => press Back button on the Phone => Login Page did unmount
-
+Support FormBuilderVaidator for t_textfield
 #-------------------------------------------------
 
 Appbar not display properly
@@ -19,7 +19,8 @@ Support build mode (development/production) in context page data
 Support child config for t_button type that has child property
 Support simple operator for binding data ( {{ !state.isGood | eq(state.isGood, "bad") }} )
 Support pages app bar custom actions
-Support theme for t_input
+Support a js hook that with call when widget size change
+Support alert, dialog, snackbar
 
 #-------------------------------------------------
 

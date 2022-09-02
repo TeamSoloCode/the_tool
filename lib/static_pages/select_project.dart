@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:the_tool/page_utils/storage_manager.dart';
@@ -49,6 +48,9 @@ class _SelectProjectPageState extends State<SelectProjectPage> {
                   FormBuilderTextField(
                     name: "projectName",
                     initialValue: _storageManager.getLocalBox("projectName"),
+                    onSubmitted: (value) {
+                      _onSubmit();
+                    },
                     decoration: const InputDecoration(
                       labelText: "Project name",
                       border: OutlineInputBorder(),
