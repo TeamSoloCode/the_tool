@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gato/gato.dart' as gato;
 import 'package:get_it/get_it.dart';
 import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
@@ -201,6 +203,26 @@ class UtilsManager {
       );
     }
 
+    // if (widgetProps.errorText != null &&
+    //     UtilsManager.isValueBinding(widgetProps.errorText)) {
+    //   widgetProps = widgetProps.copyWith(
+    //     errorText: bindingValueToText(
+    //       contextData,
+    //       widgetProps.errorText,
+    //     ),
+    //   );
+    // }
+
+    if (widgetProps.defaultValue != null &&
+        UtilsManager.isValueBinding(widgetProps.defaultValue)) {
+      widgetProps = widgetProps.copyWith(
+        defaultValue: bindingValueToProp(
+          contextData,
+          widgetProps.defaultValue,
+        ),
+      );
+    }
+
     if (widgetProps.type == "component" && widgetProps.componentProps != null) {
       Map<String, dynamic>? updatedComponentProps = {};
       widgetProps.componentProps?.forEach((key, value) {
@@ -225,6 +247,15 @@ class UtilsManager {
     }
 
     return widgetProps;
+  }
+
+  double? _parseAdaptiveScreenUnit(String adaptiveUnit) {
+    if (adaptiveUnit.endsWith("sw")) {
+      var valueAsString = adaptiveUnit.replaceAll("sw", "");
+      var value = double.tryParse(valueAsString);
+      return value != null ? value.sw : 0.0;
+    }
+    return 0.0;
   }
 
   LayoutProps _computeHeightAndWidth(
@@ -272,22 +303,15 @@ class UtilsManager {
     );
   }
 
-  dynamic _getBindingValue(
-    String rawBind,
-    Map<String, dynamic> contextData,
-  ) {
-    if (UtilsManager.isValueBinding(rawBind)) {
-      return bindingValueToProp(contextData, rawBind);
-    }
-    return rawBind;
-  }
-
   dynamic _computeValue(
     dynamic value,
     Map<String, dynamic> contextData,
   ) {
     if (value is String) {
-      return _getBindingValue(value, contextData);
+      if (UtilsManager.isValueBinding(value)) {
+        return bindingValueToProp(contextData, value);
+      }
+      return _parseAdaptiveScreenUnit(value);
     } else if (value is num) {
       return value / 1.0;
     }

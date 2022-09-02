@@ -207,12 +207,11 @@ class ThemeProvider with ChangeNotifier {
               "children",
             ].contains(propName) &&
             propValue is String) {
-          baseColor?.forEach((baseColorName, value) {
+          baseColor?.forEach((baseColorName, baseColorValue) {
             if (!baseColorName.startsWith("--")) {
-              rawContent[propName] = propValue.replaceAll(
-                RegExp("\"$baseColorName\""),
-                "\"$value\"",
-              );
+              if (baseColorName == propValue) {
+                rawContent[propName] = baseColorValue;
+              }
             }
           });
         }

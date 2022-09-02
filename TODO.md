@@ -1,4 +1,5 @@
-Too much data in context data
+Navigate Login => Register => click button Back to Login => press Back button on the Phone => Login Page did unmount
+
 #-------------------------------------------------
 
 Appbar not display properly
@@ -7,9 +8,7 @@ Load all needed page in isolate thread
 
 Support get data from exportPageContext
 Add refresh page button for development mode
-Split widget with Deferred components
 
-Use dart2js to support lazy loading for web (web)
 Support customizable for t_select_field items
 Support for basic on SliverAppBar, SliverGrid
 Support common json widget on layout.json
@@ -22,8 +21,6 @@ Support simple operator for binding data ( {{ !state.isGood | eq(state.isGood, "
 Support pages app bar custom actions
 Support theme for t_input
 
-Support onSubmit for t_form
-
 #-------------------------------------------------
 
 -Support call api from dart (mobile)
@@ -34,7 +31,7 @@ Support onSubmit for t_form
 -Fix bug setPageData clear data when call on multi place
 -Support for basic input field and form
 -Reduce rerendering of all t_widgets
-
+-Support onSubmit for t_form
 -The props when pass into t_widget still not totally binding
 -Support set key and dynamic key for all t_widget
 -Support route (web)
@@ -61,3 +58,6 @@ Support onSubmit for t_form
 -Support validator for t_text_field
 -Support auto validation for text_field
 -Support validator for t_select_field
+-Use dart2js to support lazy loading for web (web)
+-Split widget with Deferred components
+-Support navigation pop function
