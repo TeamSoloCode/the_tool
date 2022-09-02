@@ -2236,9 +2236,15 @@ class ThemeDecoder {
     dynamic value, {
     bool validate = true,
   }) {
-    Color? color;
-    color = value != null ? fromCssColor(value) : Colors.transparent;
-    return color;
+    if (value == null) {
+      return null;
+    }
+
+    if (isCssColor(value)) {
+      return fromCssColor(value);
+    }
+
+    return Colors.black;
   }
 
   /// Decodes the given [value] to an [CardTheme].  This expects the given
