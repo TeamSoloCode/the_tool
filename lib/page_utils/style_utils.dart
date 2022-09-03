@@ -1,3 +1,5 @@
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
 import 'package:from_css_color/from_css_color.dart';
 import 'package:the_tool/utils.dart';
 
@@ -35,4 +37,10 @@ class StyleUtils {
   ) {
     return list!.toList();
   }
+}
+
+class MyCustomScrollBehavior extends MaterialScrollBehavior {
+  @override
+  Set<PointerDeviceKind> get dragDevices =>
+      {PointerDeviceKind.mouse, PointerDeviceKind.touch};
 }
