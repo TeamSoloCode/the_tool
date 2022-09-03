@@ -7,6 +7,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart'
 import 'package:form_builder_validators/form_builder_validators.dart'
     show FormBuilderValidators;
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
+import 'package:the_tool/tool_components/mixin_component/field_mixin.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 
 class T_TextField extends TWidget {
@@ -30,7 +31,7 @@ class T_TextField extends TWidget {
 
 Timer? _debounce;
 
-class _T_TextFieldState extends TStatefulWidget<T_TextField> {
+class _T_TextFieldState extends TStatefulWidget<T_TextField> with FieldMixin {
   var textFieldController = TextEditingController();
   String? currentValue;
   var debounceDuration = const Duration(milliseconds: 500);
@@ -114,6 +115,10 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> {
     return FormBuilderTextField(
       controller: textFieldController,
       name: name ?? "",
+      inputFormatters: [
+        // FilteringTextInputFormatter.digitsOnly,
+      ],
+
       decoration: InputDecoration(
         hintText: widgetProps?.hintText,
         labelText: widgetProps?.labelText,
@@ -130,10 +135,7 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> {
       },
       // valueTransformer: (text) => num.tryParse(text),
       validator: FormBuilderValidators.compose([
-        // FormBuilderValidators.required(errorText: "Required field"),
-        // FormBuilderValidators.numeric(errorText: "Number field"),
-        // FormBuilderValidators.max(10, errorText: "Must below than 10"),
-
+        ...computeValidators(widget.props?.validators),
         (value) {
           _runValidationFunction();
           return null;

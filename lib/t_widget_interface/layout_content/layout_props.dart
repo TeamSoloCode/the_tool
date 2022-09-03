@@ -89,6 +89,7 @@ class LayoutProps with _$LayoutProps {
      * @summary Enabled/Disabled auto validate on change value
      */
     bool? autovalidate,
+    List<Map<String, dynamic>>? validators,
     // Field End==================================================
 
     // Form Start================================================
@@ -178,6 +179,7 @@ extension MergeLayoutProps on LayoutProps {
       hintText: other.hintText ?? hintText,
       labelText: other.labelText ?? labelText,
       alignment: other.alignment ?? alignment,
+      // validators: other.validators ?? validators,
       componentProps: other.componentProps != null
           ? {
               ...{...componentProps ?? emptyMapStringDynamic},
