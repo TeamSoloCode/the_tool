@@ -1,4 +1,3 @@
-Navigate Login => Register => click button Back to Login => press Back button on the Phone => Login Page did unmount
 Support FormBuilderVaidator for t_textfield
 #-------------------------------------------------
 
@@ -62,3 +61,4 @@ Support alert, dialog, snackbar
 -Use dart2js to support lazy loading for web (web)
 -Split widget with Deferred components
 -Support navigation pop function
+-Navigate Login => Register => click button Back to Login => press Back button on the Phone => Login Page did unmount

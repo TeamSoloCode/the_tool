@@ -250,11 +250,26 @@ class UtilsManager {
   }
 
   double? _parseAdaptiveScreenUnit(String adaptiveUnit) {
-    if (adaptiveUnit.endsWith("sw")) {
-      var valueAsString = adaptiveUnit.replaceAll("sw", "");
+    double? computeValue(String unit) {
+      var valueAsString = adaptiveUnit.replaceAll(unit, "");
       var value = double.tryParse(valueAsString);
-      return value != null ? value.sw : 0.0;
+      return value;
     }
+
+    if (adaptiveUnit.endsWith("sw")) {
+      return computeValue("sw")?.sw;
+    } else if (adaptiveUnit.endsWith("sh")) {
+      return computeValue("sh")?.sh;
+    } else if (adaptiveUnit.endsWith("w")) {
+      return computeValue("w")?.w;
+    } else if (adaptiveUnit.endsWith("h")) {
+      return computeValue("h")?.h;
+    } else if (adaptiveUnit.endsWith("r")) {
+      return computeValue("r")?.r;
+    } else if (adaptiveUnit.endsWith("sp")) {
+      return computeValue("sp")?.sp;
+    }
+
     return 0.0;
   }
 

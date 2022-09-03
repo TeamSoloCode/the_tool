@@ -153,18 +153,6 @@ const __ondataresponse = (requestId, data) => {
   webJSChannel.emit(requestId, data);
 };
 
-const validateForm = async (formName) => {
-  const actionId = uuidv4();
-  const promiseResult = new Promise((resolve) => {
-    webJSChannel.once(actionId, (data) => {
-      const { result } = JSON.parse(data);
-      resolve(result);
-    });
-  });
-  dispatchFormAction(formName, actionId, "validate");
-  return promiseResult;
-};
-
 const dispatchFormAction = async (
   formName,
   actionId = "",
@@ -231,7 +219,7 @@ Object.assign(window, {
   /**End Navigation ------------*/
 
   /**Start Form context ----------*/
-  validateForm,
+  dispatchFormAction,
   /**End  ----------------------- */
 
   /** Context for permission */
@@ -244,6 +232,8 @@ Object.assign(window, {
 
   // this function only used on dart side
   __ondataresponse,
+  webJSChannel,
+  uuidv4,
 
   /**
    * This is the interface for dart run async js code

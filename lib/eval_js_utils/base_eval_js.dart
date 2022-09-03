@@ -196,8 +196,23 @@ abstract class BaseEvalJS {
           exportPageContext
         ])
 
+        const validateForm = React.useCallback(async (formName) => {
+          const actionId = uuidv4();
+          const promiseResult = new Promise((resolve) => {
+            webJSChannel.once(actionId, (data) => {
+              const { result } = JSON.parse(data);
+              resolve(result);
+            });
+          });
+          dispatchFormAction('$pagePath'+ formName, actionId, "validate");
+          return promiseResult;
+        }, [])
+
+        //==========================Start Page Code============================================
 
         $clientCode
+
+        //==========================End Page Code============================================
 
         React.useEffect(() => {
           logger.log(`Didmount $pagePath`)
