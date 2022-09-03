@@ -182,20 +182,6 @@ abstract class BaseEvalJS {
           return _subComponents
         }, [_updateSubComponentToken])
 
-        React.useEffect(() => {
-          exportPageContext({
-            setPageData,
-            getPageData,
-            registerSubComponent
-          })
-          context['$pagePath'].exportPageContext = exportPageContext
-        }, [
-          setPageData, 
-          getPageData, 
-          registerSubComponent, 
-          exportPageContext
-        ])
-
         const validateForm = React.useCallback(async (formName) => {
           const actionId = uuidv4();
           const promiseResult = new Promise((resolve) => {
@@ -207,6 +193,24 @@ abstract class BaseEvalJS {
           dispatchFormAction('$pagePath'+ formName, actionId, "validate");
           return promiseResult;
         }, [])
+
+        React.useEffect(() => {
+          exportPageContext({
+            validateForm,
+            setPageData,
+            getPageData,
+            registerSubComponent
+          })
+          context['$pagePath'].exportPageContext = exportPageContext
+        }, [
+          setPageData, 
+          getPageData, 
+          registerSubComponent, 
+          exportPageContext,
+          validateForm
+        ])
+
+
 
         //==========================Start Page Code============================================
 
