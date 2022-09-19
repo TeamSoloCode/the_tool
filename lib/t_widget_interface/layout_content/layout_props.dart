@@ -79,6 +79,7 @@ class LayoutProps with _$LayoutProps {
     dynamic items,
     bool? allowClear,
     String? fieldType,
+    bool? numeric,
     /**
      * @summary This function will be eval for validating field value
      * - Return false if value is valid

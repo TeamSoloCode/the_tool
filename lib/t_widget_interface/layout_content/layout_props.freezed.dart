@@ -84,6 +84,7 @@ mixin _$LayoutProps {
   dynamic get items => throw _privateConstructorUsedError;
   bool? get allowClear => throw _privateConstructorUsedError;
   String? get fieldType => throw _privateConstructorUsedError;
+  bool? get numeric => throw _privateConstructorUsedError;
   /**
      * @summary This function will be eval for validating field value
      * - Return false if value is valid
@@ -163,6 +164,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       dynamic items,
       bool? allowClear,
       String? fieldType,
+      bool? numeric,
       String? validationFunction,
       bool? autovalidate,
       List<Map<String, dynamic>>? validators,
@@ -239,6 +241,7 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
     Object? items = freezed,
     Object? allowClear = freezed,
     Object? fieldType = freezed,
+    Object? numeric = freezed,
     Object? validationFunction = freezed,
     Object? autovalidate = freezed,
     Object? validators = freezed,
@@ -419,6 +422,10 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
           ? _value.fieldType
           : fieldType // ignore: cast_nullable_to_non_nullable
               as String?,
+      numeric: numeric == freezed
+          ? _value.numeric
+          : numeric // ignore: cast_nullable_to_non_nullable
+              as bool?,
       validationFunction: validationFunction == freezed
           ? _value.validationFunction
           : validationFunction // ignore: cast_nullable_to_non_nullable
@@ -616,6 +623,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       dynamic items,
       bool? allowClear,
       String? fieldType,
+      bool? numeric,
       String? validationFunction,
       bool? autovalidate,
       List<Map<String, dynamic>>? validators,
@@ -702,6 +710,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
     Object? items = freezed,
     Object? allowClear = freezed,
     Object? fieldType = freezed,
+    Object? numeric = freezed,
     Object? validationFunction = freezed,
     Object? autovalidate = freezed,
     Object? validators = freezed,
@@ -882,6 +891,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
           ? _value.fieldType
           : fieldType // ignore: cast_nullable_to_non_nullable
               as String?,
+      numeric: numeric == freezed
+          ? _value.numeric
+          : numeric // ignore: cast_nullable_to_non_nullable
+              as bool?,
       validationFunction: validationFunction == freezed
           ? _value.validationFunction
           : validationFunction // ignore: cast_nullable_to_non_nullable
@@ -987,6 +1000,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.items,
       this.allowClear,
       this.fieldType,
+      this.numeric,
       this.validationFunction,
       this.autovalidate,
       final List<Map<String, dynamic>>? validators,
@@ -1144,6 +1158,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   final bool? allowClear;
   @override
   final String? fieldType;
+  @override
+  final bool? numeric;
 /**
      * @summary This function will be eval for validating field value
      * - Return false if value is valid
@@ -1200,7 +1216,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, fit: $fit, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, fit: $fit, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
   }
 
   @override
@@ -1250,6 +1266,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('items', items))
       ..add(DiagnosticsProperty('allowClear', allowClear))
       ..add(DiagnosticsProperty('fieldType', fieldType))
+      ..add(DiagnosticsProperty('numeric', numeric))
       ..add(DiagnosticsProperty('validationFunction', validationFunction))
       ..add(DiagnosticsProperty('autovalidate', autovalidate))
       ..add(DiagnosticsProperty('validators', validators))
@@ -1327,6 +1344,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
             const DeepCollectionEquality()
                 .equals(other.allowClear, allowClear) &&
             const DeepCollectionEquality().equals(other.fieldType, fieldType) &&
+            const DeepCollectionEquality().equals(other.numeric, numeric) &&
             const DeepCollectionEquality()
                 .equals(other.validationFunction, validationFunction) &&
             const DeepCollectionEquality()
@@ -1393,6 +1411,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
         const DeepCollectionEquality().hash(items),
         const DeepCollectionEquality().hash(allowClear),
         const DeepCollectionEquality().hash(fieldType),
+        const DeepCollectionEquality().hash(numeric),
         const DeepCollectionEquality().hash(validationFunction),
         const DeepCollectionEquality().hash(autovalidate),
         const DeepCollectionEquality().hash(_validators),
@@ -1463,6 +1482,7 @@ abstract class _LayoutProps implements LayoutProps {
       final dynamic items,
       final bool? allowClear,
       final String? fieldType,
+      final bool? numeric,
       final String? validationFunction,
       final bool? autovalidate,
       final List<Map<String, dynamic>>? validators,
@@ -1582,6 +1602,8 @@ abstract class _LayoutProps implements LayoutProps {
   bool? get allowClear;
   @override
   String? get fieldType;
+  @override
+  bool? get numeric;
   @override
   /**
      * @summary This function will be eval for validating field value

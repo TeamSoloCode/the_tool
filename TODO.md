@@ -1,5 +1,4 @@
-Support FormBuilderVaidator for t_textfield
-Support number type text field
+Support format number for t_textfield
 #-------------------------------------------------
 
 Appbar not display properly
@@ -9,7 +8,7 @@ Load all needed page in isolate thread
 Support get data from exportPageContext
 Add refresh page button for development mode
 
-Support customizable for t_select_field items
+Support customizable UI for t_select_field items
 Support for basic on SliverAppBar, SliverGrid
 Support common json widget on layout.json
 Support get and merge layout.json from another layout.json
@@ -62,4 +61,6 @@ Support alert, dialog, snackbar
 -Use dart2js to support lazy loading for web (web)
 -Split widget with Deferred components
 -Support navigation pop function
--Navigate Login => Register => click button Back to Login => press Back button on the Phone => Login Page did unmount
+-Navigate Login => Register => click button Back to Login => press Back button on the Phone => -Login Page did unmount
+-Support FormBuilderVaidator for t_textfield
+-Support number type text field

@@ -144,7 +144,7 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> with FieldMixin {
       onSaved: (value) {
         _runValidationFunction();
       },
-      keyboardType: TextInputType.text,
+      keyboardType: _getTextInputType(widget.props),
     );
   }
 
@@ -157,6 +157,14 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> with FieldMixin {
       });
     }
     return null;
+  }
+
+  TextInputType _getTextInputType(LayoutProps? layoutProps) {
+    if (layoutProps?.numeric == true) {
+      return TextInputType.number;
+    }
+
+    return TextInputType.text;
   }
 
   @override
