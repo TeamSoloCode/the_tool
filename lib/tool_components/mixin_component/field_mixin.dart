@@ -24,6 +24,14 @@ mixin FieldMixin {
         );
       }
 
+      if (validator["type"] == "numeric") {
+        validators.add(
+          FormBuilderValidators.numeric(
+            errorText: validator["errorText"],
+          ),
+        );
+      }
+
       if (validator["type"] == "max") {
         dynamic maxValue;
 
@@ -74,6 +82,36 @@ mixin FieldMixin {
           FormBuilderValidators.min(
             minValue,
             inclusive: inclusive,
+            errorText: validator["errorText"],
+          ),
+        );
+      }
+
+      if (validator["type"] == "max_length") {
+        var maxValue = int.tryParse(validator["maxLengthValue"].toString());
+
+        if (maxValue == null) {
+          throw Exception("maxLengthValue of min validator must be a number");
+        }
+
+        validators.add(
+          FormBuilderValidators.maxLength(
+            maxValue,
+            errorText: validator["errorText"],
+          ),
+        );
+      }
+
+      if (validator["type"] == "min_length") {
+        var minValue = int.tryParse(validator["minLengthValue"].toString());
+
+        if (minValue == null) {
+          throw Exception("minLengthValue of min validator must be a number");
+        }
+
+        validators.add(
+          FormBuilderValidators.minLength(
+            minValue,
             errorText: validator["errorText"],
           ),
         );

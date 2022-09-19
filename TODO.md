@@ -1,4 +1,5 @@
 Support FormBuilderVaidator for t_textfield
+Support number type text field
 #-------------------------------------------------
 
 Appbar not display properly
