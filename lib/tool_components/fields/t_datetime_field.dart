@@ -42,8 +42,14 @@ class _T_DatetimeState extends TStatefulWidget<T_Datetime> with FieldMixin {
   void didChangeDependencies() {
     String? name = widget.widgetProps.name;
     dynamic currentValue = _datetimeKey.currentState?.value;
+    try {
+      selectedValue = DateTime.parse(widget.contextData[name].toString());
+    } catch (e) {
+      throw Exception(
+        "Fail to parse ${widget.contextData[name].toString()}. Please use \"yyyy-MM-dd hh:mm:ss\" format",
+      );
+    }
 
-    selectedValue = DateTime.tryParse(widget.contextData[name].toString());
     if (selectedValue != currentValue && name != null) {
       Future.delayed(Duration.zero, () async {
         _datetimeKey.currentState?.setValue(selectedValue);
