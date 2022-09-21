@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
+import 'package:the_tool/tool_components/mixin_component/field_mixin.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/utils.dart';
 
@@ -24,7 +25,8 @@ class T_SelectField extends TWidget {
   State<T_SelectField> createState() => _T_SelectFieldState();
 }
 
-class _T_SelectFieldState extends TStatefulWidget<T_SelectField> {
+class _T_SelectFieldState extends TStatefulWidget<T_SelectField>
+    with FieldMixin {
   String? selectedValue;
   final _dropDownKey = GlobalKey<FormBuilderFieldState>();
   dynamic items;
@@ -101,6 +103,7 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField> {
       initialValue: widget.props?.defaultValue ?? value,
       allowClear: widget.props?.allowClear != null ? true : false,
       validator: FormBuilderValidators.compose([
+        ...computeFieldValidators(widget.props?.validators, contextData),
         (dynamic value) {
           _runValidationFunction();
           return null;

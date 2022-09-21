@@ -1,4 +1,5 @@
 Support format number for t_textfield
+Support validators for t_selectfield
 #-------------------------------------------------
 
 Appbar not display properly

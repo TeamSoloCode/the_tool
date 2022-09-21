@@ -6,29 +6,16 @@ import 'package:the_tool/utils.dart';
 mixin FieldMixin {
   final UtilsManager _utils = UtilsManager();
 
-  List<String? Function(String?)> computeValidators(
+  /// This validator compute function is use for SelectField
+  List<String? Function(dynamic)> computeFieldValidators(
     List<Map<String, dynamic>>? validatorsMap,
     Map<String, dynamic> contextData,
   ) {
-    List<String? Function(String?)> validators = [];
+    List<String? Function(dynamic)> validators = [];
     validatorsMap?.forEach((validator) {
       if (validator["type"] == "is_required") {
         validators.add(
           FormBuilderValidators.required(errorText: validator["errorText"]),
-        );
-      }
-
-      if (validator["type"] == "is_email") {
-        validators.add(
-          FormBuilderValidators.email(errorText: validator["errorText"]),
-        );
-      }
-
-      if (validator["type"] == "numeric") {
-        validators.add(
-          FormBuilderValidators.numeric(
-            errorText: validator["errorText"],
-          ),
         );
       }
 
@@ -116,8 +103,58 @@ mixin FieldMixin {
           ),
         );
       }
+
+      if (validator["type"] == "notEqual") {
+        validators.add(
+          FormBuilderValidators.notEqual(
+            validator["value"],
+            errorText: validator["errorText"],
+          ),
+        );
+      }
     });
 
     return validators;
+  }
+
+  /// This validator compute function is use for TextField
+  List<String? Function(String?)> computeCommonValidators(
+    List<Map<String, dynamic>>? validatorsMap,
+    Map<String, dynamic> contextData,
+  ) {
+    List<String? Function(String?)> validators = [];
+    validatorsMap?.forEach((validator) {
+      if (validator["type"] == "is_email") {
+        validators.add(
+          FormBuilderValidators.email(errorText: validator["errorText"]),
+        );
+      }
+
+      if (validator["type"] == "numeric") {
+        validators.add(
+          FormBuilderValidators.numeric(
+            errorText: validator["errorText"],
+          ),
+        );
+      }
+
+      if (validator["type"] == "integer") {
+        validators.add(
+          FormBuilderValidators.integer(
+            errorText: validator["errorText"],
+          ),
+        );
+      }
+
+      if (validator["type"] == "dateString") {
+        validators.add(
+          FormBuilderValidators.dateString(
+            errorText: validator["errorText"],
+          ),
+        );
+      }
+    });
+    var fieldValidators = computeFieldValidators(validatorsMap, contextData);
+    return [...validators, ...fieldValidators];
   }
 }

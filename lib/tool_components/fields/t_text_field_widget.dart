@@ -135,7 +135,7 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> with FieldMixin {
       },
       // valueTransformer: (text) => num.tryParse(text),
       validator: FormBuilderValidators.compose([
-        ...computeValidators(widget.props?.validators, contextData),
+        ...computeCommonValidators(widget.props?.validators, contextData),
         (value) {
           _runValidationFunction();
           return null;
