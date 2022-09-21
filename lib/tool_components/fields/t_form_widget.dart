@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:eventify/eventify.dart' as eventify;
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:intl/intl.dart';
 import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
@@ -101,7 +102,11 @@ class _T_FormState extends TStatefulWidget<T_Form> {
     var autovalidateMode = widget.props?.autovalidateMode;
     var fields = _formKey.currentState?.fields;
     fields?.forEach((key, field) {
-      field.setValue(widget.parentData[key]);
+      if (field.runtimeType.toString() == "_FormBuilderDateTimePickerState") {
+        field.setValue(DateTime.tryParse(widget.contextData[key]));
+      } else {
+        field.setValue(widget.parentData[key]);
+      }
     });
 
     _snapshot = FormBuilder(

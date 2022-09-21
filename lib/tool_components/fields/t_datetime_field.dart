@@ -42,7 +42,8 @@ class _T_DatetimeState extends TStatefulWidget<T_Datetime> with FieldMixin {
   void didChangeDependencies() {
     String? name = widget.widgetProps.name;
     dynamic currentValue = _datetimeKey.currentState?.value;
-    selectedValue = widget.contextData[name];
+
+    selectedValue = DateTime.tryParse(widget.contextData[name].toString());
     if (selectedValue != currentValue && name != null) {
       Future.delayed(Duration.zero, () async {
         _datetimeKey.currentState?.setValue(selectedValue);
@@ -75,7 +76,7 @@ class _T_DatetimeState extends TStatefulWidget<T_Datetime> with FieldMixin {
 
     return FormBuilderDateTimePicker(
       key: _datetimeKey,
-      // locale: Localizations.localeOf(context),
+      locale: Localizations.localeOf(context),
       decoration: computeFieldDecoration(
         widgetProps,
         errorMessage: _errorMessage,
