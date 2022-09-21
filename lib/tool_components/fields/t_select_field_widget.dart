@@ -94,10 +94,9 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField>
     return FormBuilderDropdown(
       key: _dropDownKey,
       name: name ?? "",
-      decoration: InputDecoration(
-        hintText: widgetProps?.hintText,
-        labelText: widgetProps?.labelText,
-        errorText: _errorMessage,
+      decoration: computeFieldDecoration(
+        widgetProps,
+        errorMessage: _errorMessage,
       ),
       onChanged: _onChangeOption,
       initialValue: widget.props?.defaultValue ?? value,

@@ -1,5 +1,5 @@
 Support format number for t_textfield
-Support validators for t_selectfield
+Support field date time picker
 #-------------------------------------------------
 
 Appbar not display properly
@@ -65,3 +65,4 @@ Support alert, dialog, snackbar
 -Navigate Login => Register => click button Back to Login => press Back button on the Phone => -Login Page did unmount
 -Support FormBuilderVaidator for t_textfield
 -Support number type text field
+-Support common validators for t_selectfield

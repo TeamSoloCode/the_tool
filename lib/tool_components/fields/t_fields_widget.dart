@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
+import 'package:the_tool/tool_components/fields/t_datetime_field.dart';
 import 'package:the_tool/tool_components/fields/t_select_field_widget.dart';
 import 'package:the_tool/tool_components/fields/t_text_field_widget.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
@@ -63,6 +64,13 @@ class _T_FieldsState extends TStatefulWidget<T_Fields> {
           pagePath: widget.pagePath,
           widgetProps: widget.widgetProps,
           contextData: widget.parentData,
+          widgetUuid: widget.widgetUuid,
+        );
+      case "datetime":
+        return T_Datetime(
+          widgetProps: widgetProps,
+          contextData: widget.parentData,
+          pagePath: widget.pagePath,
           widgetUuid: widget.widgetUuid,
         );
       default:

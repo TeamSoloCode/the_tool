@@ -119,11 +119,10 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> with FieldMixin {
         // FilteringTextInputFormatter.digitsOnly,
       ],
 
-      decoration: InputDecoration(
-        hintText: widgetProps?.hintText,
-        labelText: widgetProps?.labelText,
+      decoration: computeFieldDecoration(
+        widgetProps,
         suffixIcon: _generateSuffixIcon(widgetProps),
-        errorText: _errorMessage,
+        errorMessage: _errorMessage,
       ),
       obscureText: _showObscureText,
       // initialValue: contextData[name] ?? "",

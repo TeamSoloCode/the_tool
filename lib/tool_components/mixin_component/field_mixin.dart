@@ -1,10 +1,25 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/utils.dart';
 
 mixin FieldMixin {
   final UtilsManager _utils = UtilsManager();
+
+  InputDecoration computeFieldDecoration(
+    LayoutProps? widgetProps, {
+    String? errorMessage,
+    Widget? suffixIcon,
+  }) {
+    return InputDecoration(
+      hintText: widgetProps?.hintText,
+      labelText: widgetProps?.labelText,
+      errorText: errorMessage,
+      suffixIcon: suffixIcon,
+    );
+  }
 
   /// This validator compute function is use for SelectField
   List<String? Function(dynamic)> computeFieldValidators(
