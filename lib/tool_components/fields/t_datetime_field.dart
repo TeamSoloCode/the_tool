@@ -28,13 +28,40 @@ class T_Datetime extends TWidget {
 
 class _T_DatetimeState extends TStatefulWidget<T_Datetime> with FieldMixin {
   final _datetimeKey = GlobalKey<FormBuilderFieldState>();
-  String? _errorMessage = null;
+  String? _errorMessage;
+  DateTime? selectedValue;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     initializeDateFormatting();
+  }
+
+  @override
+  void didChangeDependencies() {
+    String? name = widget.widgetProps.name;
+    dynamic currentValue = _datetimeKey.currentState?.value;
+    selectedValue = widget.contextData[name];
+    if (selectedValue != currentValue && name != null) {
+      Future.delayed(Duration.zero, () async {
+        _datetimeKey.currentState?.setValue(selectedValue);
+        _datetimeKey.currentState?.setState(() {});
+      });
+    }
+
+    super.didChangeDependencies();
+  }
+
+  void _onChangeDate(dynamic value) {
+    String name = widget.widgetProps.name ?? "";
+    if (value is DateTime) {
+      widget.setPageData({name: value.toString()});
+    } else if (value == null) {
+      widget.setPageData({name: null});
+    }
+
+    selectedValue = value;
   }
 
   Widget _computeDatetimeField(
@@ -54,6 +81,9 @@ class _T_DatetimeState extends TStatefulWidget<T_Datetime> with FieldMixin {
         errorMessage: _errorMessage,
       ),
       name: name ?? "",
+      initialValue: DateTime.tryParse(
+        (widget.props?.defaultValue ?? value).toString(),
+      ),
       validator: FormBuilderValidators.compose([
         ...computeFieldValidators(widget.props?.validators, contextData),
         (dynamic value) {
@@ -64,6 +94,7 @@ class _T_DatetimeState extends TStatefulWidget<T_Datetime> with FieldMixin {
       onSaved: (dynamic value) {
         _runValidationFunction();
       },
+      onChanged: _onChangeDate,
     );
   }
 
