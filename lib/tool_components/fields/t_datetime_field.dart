@@ -3,6 +3,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:the_tool/constants.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/mixin_component/field_mixin.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
@@ -30,6 +31,7 @@ class _T_DatetimeState extends TStatefulWidget<T_Datetime> with FieldMixin {
   final _datetimeKey = GlobalKey<FormBuilderFieldState>();
   String? _errorMessage;
   DateTime? selectedValue;
+  var datetimeFieldController = TextEditingController();
 
   @override
   void initState() {
@@ -50,9 +52,12 @@ class _T_DatetimeState extends TStatefulWidget<T_Datetime> with FieldMixin {
       );
     }
 
-    if (selectedValue != currentValue && name != null) {
+    if (selectedValue.toString() != currentValue.toString() && name != null) {
       Future.delayed(Duration.zero, () async {
         _datetimeKey.currentState?.setValue(selectedValue);
+        datetimeFieldController.text = selectedValue != null
+            ? DateFormat(DefaultDateFormat).format(selectedValue!)
+            : "";
         _datetimeKey.currentState?.setState(() {});
       });
     }
@@ -79,15 +84,16 @@ class _T_DatetimeState extends TStatefulWidget<T_Datetime> with FieldMixin {
     var value = contextData[name];
 
     assert(name != null, "Missing \"name\" in field widget");
-
     return FormBuilderDateTimePicker(
       key: _datetimeKey,
+      controller: datetimeFieldController,
+      name: name ?? "",
+      format: DateFormat(DefaultDateFormat),
       locale: Localizations.localeOf(context),
       decoration: computeFieldDecoration(
         widgetProps,
         errorMessage: _errorMessage,
       ),
-      name: name ?? "",
       initialValue: DateTime.tryParse(
         (widget.props?.defaultValue ?? value).toString(),
       ),

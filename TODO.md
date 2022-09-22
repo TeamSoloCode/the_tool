@@ -12,7 +12,6 @@ Add refresh page button for development mode
 Support customizable UI for t_select_field items
 Support for basic on SliverAppBar, SliverGrid
 Support common json widget on layout.json
-Support get and merge layout.json from another layout.json
 Support config UI base on platform in layout.json
 Support config theme base on platform in theme.json
 Support build mode (development/production) in context page data
