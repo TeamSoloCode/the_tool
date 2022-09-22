@@ -77,6 +77,24 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField>
     selectedValue = value;
   }
 
+  Widget? _getSuffixIcon() {
+    if (UtilsManager.isTruthy(
+      widget.props?.allowClear,
+    )) {
+      return IconButton(
+        onPressed: () {
+          _dropDownKey.currentState?.setValue(null);
+          _onChangeOption(null);
+        },
+        icon: const Icon(
+          Icons.close,
+        ),
+      );
+    }
+
+    return null;
+  }
+
   Widget _computeSelectField(
     LayoutProps? widgetProps,
     Map<String, dynamic> contextData,
@@ -97,10 +115,10 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField>
       decoration: computeFieldDecoration(
         widgetProps,
         errorMessage: _errorMessage,
+        suffixIcon: _getSuffixIcon(),
       ),
       onChanged: _onChangeOption,
       initialValue: widget.props?.defaultValue ?? value,
-      allowClear: widget.props?.allowClear != null ? true : false,
       validator: FormBuilderValidators.compose([
         ...computeFieldValidators(widget.props?.validators, contextData),
         (dynamic value) {
