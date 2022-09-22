@@ -56,8 +56,8 @@ dependencies:
   dio_cache_interceptor: ^3.3.0
 
   # field packages
-  flutter_form_builder: ^7.2.1
-  form_builder_validators: ^8.1.1
+  flutter_form_builder: ^7.6.0
+  form_builder_validators: ^8.3.0
 
   pretty_dio_logger: ^1.1.1
   json_annotation: ^4.5.0
