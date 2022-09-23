@@ -111,7 +111,11 @@ class EvalJS extends BaseEvalJS {
   }
 
   @override
-  void emitFormActionResponse(String id, data) {}
+  void emitFormActionResponse(String id, data) {
+    webViewController?.evaluateJavascript(
+      source: "__ondataresponse('$id', '${json.encode({"result": data})}')",
+    );
+  }
 
   @override
   Future<void> registerSubComponent({
