@@ -1,8 +1,9 @@
 Support format number for t_textfield
-Support DataTable
+Fix bug: User press button home and go back to the app => cannot use emit to js side
 
 #-------------------------------------------------
 
+Support DataTable
 Appbar not display properly
 Move base react component , app.js, vendor.js and js-module to server
 Load all needed page in isolate thread

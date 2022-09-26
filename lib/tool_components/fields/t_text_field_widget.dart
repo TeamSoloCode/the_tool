@@ -37,6 +37,7 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> with FieldMixin {
   var debounceDuration = const Duration(milliseconds: 500);
   bool _showObscureText = false;
   String? _errorMessage = null;
+  bool _isUserTying = false;
 
   @override
   void initState() {
@@ -61,7 +62,13 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> with FieldMixin {
     String? name = widget.widgetProps.name;
     String currentText = textFieldController.text;
     currentValue = widget.contextData[name];
+
     if (currentValue != currentText && name != null) {
+      if (_isUserTying) {
+        currentValue = currentText;
+      }
+
+      _isUserTying = false;
       Future.delayed(Duration.zero, () async {
         textFieldController.value = TextEditingValue(
             text: currentValue ?? "",
@@ -83,6 +90,7 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> with FieldMixin {
     String? name = widget.props?.name;
     if (_debounce?.isActive ?? false) _debounce?.cancel();
 
+    _isUserTying = true;
     _debounce = Timer(debounceDuration, () {
       String newText = contextData[name] ?? "";
       if (newText != text && name != null) {

@@ -210,8 +210,6 @@ abstract class BaseEvalJS {
           validateForm
         ])
 
-
-
         //==========================Start Page Code==========================================
 
         $clientCode
