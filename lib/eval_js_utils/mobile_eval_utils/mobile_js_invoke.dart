@@ -4,7 +4,6 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:permission_handler_platform_interface/permission_handler_platform_interface.dart';
 import 'package:provider/provider.dart';
 import 'package:the_tool/api_client.dart';
@@ -29,7 +28,7 @@ class JavaScriptHandler {
 void registerJavascriptHandler(
   BuildContext context,
   ContextStateProvider contextStateProvider,
-  InAppWebViewController? webViewController,
+  dynamic webViewController,
 ) {
   webViewController?.addJavaScriptHandler(
     handlerName: "setState",

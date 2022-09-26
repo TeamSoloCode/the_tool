@@ -17,6 +17,8 @@ import 'package:the_tool/tool_components/t_icon_widget.dart';
 import 'package:the_tool/tool_components/t_row_widget.dart';
 import 'package:the_tool/tool_components/t_scrollview_widget.dart'
     deferred as T_ScrollView;
+import 'package:the_tool/tool_components/t_datatable_widget.dart'
+    deferred as T_Table;
 import 'package:the_tool/tool_components/t_text_widget.dart';
 import 'package:the_tool/utils.dart';
 import 'package:uuid/uuid.dart';
@@ -158,6 +160,15 @@ class _TWidgetsState extends State<TWidgets> {
       case "field":
         await T_Fields.loadLibrary();
         return T_Fields.T_Fields(
+          key: ValueKey(widgetUuid),
+          widgetProps: content,
+          pagePath: widget.pagePath,
+          contextData: contextData,
+          widgetUuid: widgetUuid,
+        );
+      case "table":
+        await T_Table.loadLibrary();
+        return T_Table.T_DataTable(
           key: ValueKey(widgetUuid),
           widgetProps: content,
           pagePath: widget.pagePath,
