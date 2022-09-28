@@ -60,6 +60,12 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
           ?.map((e) => e as Map<String, dynamic>)
           .toList(),
       autovalidateMode: json['autovalidateMode'] as String?,
+      columns: (json['columns'] as List<dynamic>?)
+          ?.map((e) => DataColumnProps.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      rows: (json['rows'] as List<dynamic>?)
+          ?.map((e) => DataRowProps.fromJson(e as Map<String, dynamic>))
+          .toList(),
       component: json['component'] as String?,
       child: json['child'] == null
           ? null
@@ -140,6 +146,8 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'autovalidate': instance.autovalidate,
       'validators': instance.validators,
       'autovalidateMode': instance.autovalidateMode,
+      'columns': instance.columns,
+      'rows': instance.rows,
       'component': instance.component,
       'child': instance.child,
       'content': instance.content,

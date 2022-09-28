@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:the_tool/t_widget_interface/data_table_props/data_cell_props/data_cell_props.dart';
+import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 
 class T_DataTable extends TWidget {
@@ -26,8 +28,79 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     super.initState();
   }
 
+  List<DataColumn> _computeColumns(
+    LayoutProps? widgetProps,
+    Map<String, dynamic> contextData,
+  ) {
+    if (widgetProps?.columns == null) return [];
+    List<DataColumn> computedColumns = [];
+    widgetProps?.columns!.map(
+      (column) => {
+        computedColumns.add(DataColumn(
+          label: Text(
+            column.label,
+          ),
+          numeric: column.numeric,
+          tooltip: column.label,
+          onSort: (columnIndex, ascending) {
+            var onSort = column.onSort;
+            if (onSort != null) {
+              widget.executeJSWithPagePath("$onSort($columnIndex, $ascending)");
+            }
+          },
+        ))
+      },
+    );
+
+    return computedColumns;
+  }
+
+  List<DataRow> _computeRows(
+    LayoutProps? widgetProps,
+    Map<String, dynamic> contextData,
+  ) {
+    if (widgetProps?.rows == null) return [];
+    List<DataRow> computedRows = [];
+    widgetProps?.rows!.map(
+      (row) => {
+        computedRows.add(DataRow(cells: _computeCells(row.cells, contextData)))
+      },
+    );
+
+    return computedRows;
+  }
+
+  List<DataCell> _computeCells(
+    List<DataCellProps>? dataCellProps,
+    Map<String, dynamic> contextData,
+  ) {
+    if (dataCellProps == null) return [];
+    List<DataCell> computedCells = [];
+    dataCellProps.map(
+      (column) => {computedCells.add(DataCell(Text("abcd")))},
+    );
+
+    return computedCells;
+  }
+
+  Widget _computeTable(
+    LayoutProps? widgetProps,
+    Map<String, dynamic> contextData,
+  ) {
+    return DataTable(
+      columns: _computeColumns(widgetProps, contextData),
+      rows: _computeRows(widgetProps, contextData),
+    );
+  }
+
   @override
   Widget buildWidget(BuildContext context) {
-    throw UnimplementedError();
+    Widget _snapshot = widget.snapshot;
+    LayoutProps? _props = widget.props;
+
+    if (_props != null) {
+      _snapshot = _computeTable(_props, widget.contextData);
+    }
+    return _snapshot;
   }
 }

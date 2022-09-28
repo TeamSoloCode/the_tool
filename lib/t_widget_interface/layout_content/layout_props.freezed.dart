@@ -100,6 +100,10 @@ mixin _$LayoutProps {
 // Form Start================================================
   String? get autovalidateMode =>
       throw _privateConstructorUsedError; // Form End==================================================
+// Table Start================================================
+  List<DataColumnProps>? get columns => throw _privateConstructorUsedError;
+  List<DataRowProps>? get rows =>
+      throw _privateConstructorUsedError; // Table End==================================================
   String? get component => throw _privateConstructorUsedError;
   LayoutProps? get child => throw _privateConstructorUsedError;
   LayoutProps? get content => throw _privateConstructorUsedError;
@@ -169,6 +173,8 @@ abstract class $LayoutPropsCopyWith<$Res> {
       bool? autovalidate,
       List<Map<String, dynamic>>? validators,
       String? autovalidateMode,
+      List<DataColumnProps>? columns,
+      List<DataRowProps>? rows,
       String? component,
       LayoutProps? child,
       LayoutProps? content,
@@ -246,6 +252,8 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
     Object? autovalidate = freezed,
     Object? validators = freezed,
     Object? autovalidateMode = freezed,
+    Object? columns = freezed,
+    Object? rows = freezed,
     Object? component = freezed,
     Object? child = freezed,
     Object? content = freezed,
@@ -442,6 +450,14 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
           ? _value.autovalidateMode
           : autovalidateMode // ignore: cast_nullable_to_non_nullable
               as String?,
+      columns: columns == freezed
+          ? _value.columns
+          : columns // ignore: cast_nullable_to_non_nullable
+              as List<DataColumnProps>?,
+      rows: rows == freezed
+          ? _value.rows
+          : rows // ignore: cast_nullable_to_non_nullable
+              as List<DataRowProps>?,
       component: component == freezed
           ? _value.component
           : component // ignore: cast_nullable_to_non_nullable
@@ -628,6 +644,8 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       bool? autovalidate,
       List<Map<String, dynamic>>? validators,
       String? autovalidateMode,
+      List<DataColumnProps>? columns,
+      List<DataRowProps>? rows,
       String? component,
       LayoutProps? child,
       LayoutProps? content,
@@ -715,6 +733,8 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
     Object? autovalidate = freezed,
     Object? validators = freezed,
     Object? autovalidateMode = freezed,
+    Object? columns = freezed,
+    Object? rows = freezed,
     Object? component = freezed,
     Object? child = freezed,
     Object? content = freezed,
@@ -911,6 +931,14 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
           ? _value.autovalidateMode
           : autovalidateMode // ignore: cast_nullable_to_non_nullable
               as String?,
+      columns: columns == freezed
+          ? _value._columns
+          : columns // ignore: cast_nullable_to_non_nullable
+              as List<DataColumnProps>?,
+      rows: rows == freezed
+          ? _value._rows
+          : rows // ignore: cast_nullable_to_non_nullable
+              as List<DataRowProps>?,
       component: component == freezed
           ? _value.component
           : component // ignore: cast_nullable_to_non_nullable
@@ -1005,6 +1033,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.autovalidate,
       final List<Map<String, dynamic>>? validators,
       this.autovalidateMode,
+      final List<DataColumnProps>? columns,
+      final List<DataRowProps>? rows,
       this.component,
       this.child,
       this.content,
@@ -1019,6 +1049,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
         _computedComponentProps = computedComponentProps,
         _components = components,
         _validators = validators,
+        _columns = columns,
+        _rows = rows,
         _children = children;
 
   factory _$_LayoutProps.fromJson(Map<String, dynamic> json) =>
@@ -1186,6 +1218,28 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   @override
   final String? autovalidateMode;
 // Form End==================================================
+// Table Start================================================
+  final List<DataColumnProps>? _columns;
+// Form End==================================================
+// Table Start================================================
+  @override
+  List<DataColumnProps>? get columns {
+    final value = _columns;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<DataRowProps>? _rows;
+  @override
+  List<DataRowProps>? get rows {
+    final value = _rows;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+// Table End==================================================
   @override
   final String? component;
   @override
@@ -1216,7 +1270,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, fit: $fit, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, fit: $fit, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
   }
 
   @override
@@ -1271,6 +1325,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('autovalidate', autovalidate))
       ..add(DiagnosticsProperty('validators', validators))
       ..add(DiagnosticsProperty('autovalidateMode', autovalidateMode))
+      ..add(DiagnosticsProperty('columns', columns))
+      ..add(DiagnosticsProperty('rows', rows))
       ..add(DiagnosticsProperty('component', component))
       ..add(DiagnosticsProperty('child', child))
       ..add(DiagnosticsProperty('content', content))
@@ -1282,151 +1338,6 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('borderRadius', borderRadius))
       ..add(DiagnosticsProperty('boxShadow', boxShadow));
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_LayoutProps &&
-            const DeepCollectionEquality().equals(other.type, type) &&
-            const DeepCollectionEquality().equals(other.color, color) &&
-            const DeepCollectionEquality()
-                .equals(other.backgroundColor, backgroundColor) &&
-            const DeepCollectionEquality().equals(other.text, text) &&
-            const DeepCollectionEquality().equals(other.fontSize, fontSize) &&
-            const DeepCollectionEquality().equals(other.hidden, hidden) &&
-            const DeepCollectionEquality().equals(other.icon, icon) &&
-            const DeepCollectionEquality()
-                .equals(other.mainAxisAlignment, mainAxisAlignment) &&
-            const DeepCollectionEquality().equals(other.path, path) &&
-            const DeepCollectionEquality().equals(other.onClick, onClick) &&
-            const DeepCollectionEquality()
-                .equals(other.buttonType, buttonType) &&
-            const DeepCollectionEquality().equals(other.key, key) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.className, className) &&
-            const DeepCollectionEquality().equals(other.height, height) &&
-            const DeepCollectionEquality().equals(other.width, width) &&
-            const DeepCollectionEquality().equals(other.maxWidth, maxWidth) &&
-            const DeepCollectionEquality().equals(other.maxHeight, maxHeight) &&
-            const DeepCollectionEquality().equals(other.minWidth, minWidth) &&
-            const DeepCollectionEquality().equals(other.minHeight, minHeight) &&
-            const DeepCollectionEquality().equals(other.margin, margin) &&
-            const DeepCollectionEquality().equals(other.borderTop, borderTop) &&
-            const DeepCollectionEquality()
-                .equals(other.borderBottom, borderBottom) &&
-            const DeepCollectionEquality()
-                .equals(other.borderRight, borderRight) &&
-            const DeepCollectionEquality()
-                .equals(other.borderLeft, borderLeft) &&
-            const DeepCollectionEquality().equals(other.flex, flex) &&
-            const DeepCollectionEquality().equals(other.fit, fit) &&
-            const DeepCollectionEquality().equals(other.alignment, alignment) &&
-            const DeepCollectionEquality()
-                .equals(other.sliverListType, sliverListType) &&
-            const DeepCollectionEquality()
-                .equals(other.itemExtent, itemExtent) &&
-            const DeepCollectionEquality()
-                .equals(other._componentProps, _componentProps) &&
-            const DeepCollectionEquality().equals(
-                other._computedComponentProps, _computedComponentProps) &&
-            const DeepCollectionEquality()
-                .equals(other._components, _components) &&
-            const DeepCollectionEquality()
-                .equals(other.scrollable, scrollable) &&
-            const DeepCollectionEquality().equals(other.hintText, hintText) &&
-            const DeepCollectionEquality().equals(other.labelText, labelText) &&
-            const DeepCollectionEquality()
-                .equals(other.obscureText, obscureText) &&
-            const DeepCollectionEquality()
-                .equals(other.defaultValue, defaultValue) &&
-            const DeepCollectionEquality().equals(other.items, items) &&
-            const DeepCollectionEquality()
-                .equals(other.allowClear, allowClear) &&
-            const DeepCollectionEquality().equals(other.fieldType, fieldType) &&
-            const DeepCollectionEquality().equals(other.numeric, numeric) &&
-            const DeepCollectionEquality()
-                .equals(other.validationFunction, validationFunction) &&
-            const DeepCollectionEquality()
-                .equals(other.autovalidate, autovalidate) &&
-            const DeepCollectionEquality()
-                .equals(other._validators, _validators) &&
-            const DeepCollectionEquality()
-                .equals(other.autovalidateMode, autovalidateMode) &&
-            const DeepCollectionEquality().equals(other.component, component) &&
-            const DeepCollectionEquality().equals(other.child, child) &&
-            const DeepCollectionEquality().equals(other.content, content) &&
-            const DeepCollectionEquality().equals(other._children, _children) &&
-            const DeepCollectionEquality().equals(other.bottomNav, bottomNav) &&
-            const DeepCollectionEquality().equals(other.appBar, appBar) &&
-            const DeepCollectionEquality().equals(other.image, image) &&
-            const DeepCollectionEquality().equals(other.boxBorder, boxBorder) &&
-            const DeepCollectionEquality()
-                .equals(other.borderRadius, borderRadius) &&
-            const DeepCollectionEquality().equals(other.boxShadow, boxShadow));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hashAll([
-        runtimeType,
-        const DeepCollectionEquality().hash(type),
-        const DeepCollectionEquality().hash(color),
-        const DeepCollectionEquality().hash(backgroundColor),
-        const DeepCollectionEquality().hash(text),
-        const DeepCollectionEquality().hash(fontSize),
-        const DeepCollectionEquality().hash(hidden),
-        const DeepCollectionEquality().hash(icon),
-        const DeepCollectionEquality().hash(mainAxisAlignment),
-        const DeepCollectionEquality().hash(path),
-        const DeepCollectionEquality().hash(onClick),
-        const DeepCollectionEquality().hash(buttonType),
-        const DeepCollectionEquality().hash(key),
-        const DeepCollectionEquality().hash(name),
-        const DeepCollectionEquality().hash(className),
-        const DeepCollectionEquality().hash(height),
-        const DeepCollectionEquality().hash(width),
-        const DeepCollectionEquality().hash(maxWidth),
-        const DeepCollectionEquality().hash(maxHeight),
-        const DeepCollectionEquality().hash(minWidth),
-        const DeepCollectionEquality().hash(minHeight),
-        const DeepCollectionEquality().hash(margin),
-        const DeepCollectionEquality().hash(borderTop),
-        const DeepCollectionEquality().hash(borderBottom),
-        const DeepCollectionEquality().hash(borderRight),
-        const DeepCollectionEquality().hash(borderLeft),
-        const DeepCollectionEquality().hash(flex),
-        const DeepCollectionEquality().hash(fit),
-        const DeepCollectionEquality().hash(alignment),
-        const DeepCollectionEquality().hash(sliverListType),
-        const DeepCollectionEquality().hash(itemExtent),
-        const DeepCollectionEquality().hash(_componentProps),
-        const DeepCollectionEquality().hash(_computedComponentProps),
-        const DeepCollectionEquality().hash(_components),
-        const DeepCollectionEquality().hash(scrollable),
-        const DeepCollectionEquality().hash(hintText),
-        const DeepCollectionEquality().hash(labelText),
-        const DeepCollectionEquality().hash(obscureText),
-        const DeepCollectionEquality().hash(defaultValue),
-        const DeepCollectionEquality().hash(items),
-        const DeepCollectionEquality().hash(allowClear),
-        const DeepCollectionEquality().hash(fieldType),
-        const DeepCollectionEquality().hash(numeric),
-        const DeepCollectionEquality().hash(validationFunction),
-        const DeepCollectionEquality().hash(autovalidate),
-        const DeepCollectionEquality().hash(_validators),
-        const DeepCollectionEquality().hash(autovalidateMode),
-        const DeepCollectionEquality().hash(component),
-        const DeepCollectionEquality().hash(child),
-        const DeepCollectionEquality().hash(content),
-        const DeepCollectionEquality().hash(_children),
-        const DeepCollectionEquality().hash(bottomNav),
-        const DeepCollectionEquality().hash(appBar),
-        const DeepCollectionEquality().hash(image),
-        const DeepCollectionEquality().hash(boxBorder),
-        const DeepCollectionEquality().hash(borderRadius),
-        const DeepCollectionEquality().hash(boxShadow)
-      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -1489,6 +1400,8 @@ abstract class _LayoutProps implements LayoutProps {
       final bool? autovalidate,
       final List<Map<String, dynamic>>? validators,
       final String? autovalidateMode,
+      final List<DataColumnProps>? columns,
+      final List<DataRowProps>? rows,
       final String? component,
       final LayoutProps? child,
       final LayoutProps? content,
@@ -1624,6 +1537,11 @@ abstract class _LayoutProps implements LayoutProps {
 // Form Start================================================
   String? get autovalidateMode;
   @override // Form End==================================================
+// Table Start================================================
+  List<DataColumnProps>? get columns;
+  @override
+  List<DataRowProps>? get rows;
+  @override // Table End==================================================
   String? get component;
   @override
   LayoutProps? get child;

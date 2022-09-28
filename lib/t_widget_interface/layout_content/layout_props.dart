@@ -8,13 +8,15 @@ import 'package:the_tool/t_widget_interface/bottom_navigation_props/bottom_navig
 import 'package:the_tool/t_widget_interface/box_decoration_props/border_props/border_props.dart';
 import 'package:the_tool/t_widget_interface/box_decoration_props/border_radius_props/border_radius_props.dart';
 import 'package:the_tool/t_widget_interface/box_decoration_props/box_shadow_props/box_shadow_props.dart';
+import 'package:the_tool/t_widget_interface/data_table_props/data_column_props/data_column_props.dart';
+import 'package:the_tool/t_widget_interface/data_table_props/data_row_props/data_row_props.dart';
 import 'package:the_tool/t_widget_interface/image_content/image_provider.dart';
 import 'package:the_tool/utils.dart';
 
 part 'layout_props.freezed.dart';
 part 'layout_props.g.dart';
 
-@freezed
+@Freezed(equal: false)
 class LayoutProps with _$LayoutProps {
   const factory LayoutProps({
     String? type,
@@ -96,6 +98,11 @@ class LayoutProps with _$LayoutProps {
     // Form Start================================================
     String? autovalidateMode,
     // Form End==================================================
+
+    // Table Start================================================
+    List<DataColumnProps>? columns,
+    List<DataRowProps>? rows,
+    // Table End==================================================
 
     String? component,
     LayoutProps? child,
