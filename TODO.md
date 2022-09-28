@@ -1,4 +1,5 @@
 Support format number for t_textfield
+Reduce bundle size
 Fix bug: User press button home and go back to the app => cannot use emit to js side
 
 #-------------------------------------------------

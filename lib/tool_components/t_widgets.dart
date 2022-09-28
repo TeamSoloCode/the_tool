@@ -3,22 +3,23 @@ import 'package:provider/provider.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/fields/t_fields_widget.dart'
-    deferred as T_Fields;
+    deferred as t_fields;
 import 'package:the_tool/tool_components/fields/t_form_widget.dart'
-    deferred as T_Form;
+    deferred as t_form;
 import 'package:the_tool/tool_components/t_button_widget.dart';
 import 'package:the_tool/tool_components/t_column_widget.dart';
 import 'package:the_tool/tool_components/t_container_widget.dart';
 import 'package:the_tool/tool_components/t_component_widget.dart'
-    deferred as T_Component;
-import 'package:the_tool/tool_components/t_expanded_widget.dart';
-import 'package:the_tool/tool_components/t_grid_widget.dart' deferred as T_Grid;
-import 'package:the_tool/tool_components/t_icon_widget.dart';
-import 'package:the_tool/tool_components/t_row_widget.dart';
+    deferred as t_component;
+import 'package:the_tool/tool_components/t_expanded_widget.dart'
+    deferred as t_expanded;
+import 'package:the_tool/tool_components/t_grid_widget.dart' deferred as t_grid;
+import 'package:the_tool/tool_components/t_icon_widget.dart' deferred as t_icon;
+import 'package:the_tool/tool_components/t_row_widget.dart' deferred as t_row;
 import 'package:the_tool/tool_components/t_scrollview_widget.dart'
-    deferred as T_ScrollView;
+    deferred as t_scrollview;
 import 'package:the_tool/tool_components/t_datatable_widget.dart'
-    deferred as T_Table;
+    deferred as t_table;
 import 'package:the_tool/tool_components/t_text_widget.dart';
 import 'package:the_tool/utils.dart';
 import 'package:uuid/uuid.dart';
@@ -81,7 +82,8 @@ class _TWidgetsState extends State<TWidgets> {
           pagePath: widget.pagePath,
         );
       case "icon":
-        return T_Icon(
+        await t_icon.loadLibrary();
+        return t_icon.T_Icon(
           key: ValueKey(widgetUuid),
           widgetProps: content,
           contextData: contextData,
@@ -89,7 +91,8 @@ class _TWidgetsState extends State<TWidgets> {
           widgetUuid: widgetUuid,
         );
       case "row":
-        return T_Row(
+        await t_row.loadLibrary();
+        return t_row.T_Row(
           key: ValueKey(widgetUuid),
           widgetProps: content,
           pagePath: widget.pagePath,
@@ -97,8 +100,8 @@ class _TWidgetsState extends State<TWidgets> {
           widgetUuid: widgetUuid,
         );
       case "form":
-        await T_Form.loadLibrary();
-        return T_Form.T_Form(
+        await t_form.loadLibrary();
+        return t_form.T_Form(
           key: ValueKey(widgetUuid),
           widgetProps: content,
           pagePath: widget.pagePath,
@@ -106,8 +109,8 @@ class _TWidgetsState extends State<TWidgets> {
           widgetUuid: widgetUuid,
         );
       case "component":
-        await T_Component.loadLibrary();
-        return T_Component.T_Component(
+        await t_component.loadLibrary();
+        return t_component.T_Component(
           key: ValueKey(widgetUuid),
           widgetProps: content,
           contextData: contextData,
@@ -131,8 +134,8 @@ class _TWidgetsState extends State<TWidgets> {
           widgetUuid: widgetUuid,
         );
       case "grid":
-        await T_Grid.loadLibrary();
-        return T_Grid.T_Grid(
+        await t_grid.loadLibrary();
+        return t_grid.T_Grid(
           key: ValueKey(widgetUuid),
           widgetProps: content,
           pagePath: widget.pagePath,
@@ -140,8 +143,8 @@ class _TWidgetsState extends State<TWidgets> {
           widgetUuid: widgetUuid,
         );
       case "scroll_view":
-        await T_ScrollView.loadLibrary();
-        return T_ScrollView.T_ScrollView(
+        await t_scrollview.loadLibrary();
+        return t_scrollview.T_ScrollView(
           key: ValueKey(widgetUuid),
           widgetProps: content,
           pagePath: widget.pagePath,
@@ -150,7 +153,8 @@ class _TWidgetsState extends State<TWidgets> {
         );
 
       case "expanded":
-        return T_Expanded(
+        await t_expanded.loadLibrary();
+        return t_expanded.T_Expanded(
           key: ValueKey(widgetUuid),
           widgetProps: content,
           pagePath: widget.pagePath,
@@ -158,8 +162,8 @@ class _TWidgetsState extends State<TWidgets> {
           widgetUuid: widgetUuid,
         );
       case "field":
-        await T_Fields.loadLibrary();
-        return T_Fields.T_Fields(
+        await t_fields.loadLibrary();
+        return t_fields.T_Fields(
           key: ValueKey(widgetUuid),
           widgetProps: content,
           pagePath: widget.pagePath,
@@ -167,8 +171,8 @@ class _TWidgetsState extends State<TWidgets> {
           widgetUuid: widgetUuid,
         );
       case "table":
-        await T_Table.loadLibrary();
-        return T_Table.T_DataTable(
+        await t_table.loadLibrary();
+        return t_table.T_DataTable(
           key: ValueKey(widgetUuid),
           widgetProps: content,
           pagePath: widget.pagePath,
