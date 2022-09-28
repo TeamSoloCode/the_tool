@@ -156,7 +156,9 @@ class _$_BottomNavigationProps implements _BottomNavigationProps {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_BottomNavigationPropsToJson(this);
+    return _$$_BottomNavigationPropsToJson(
+      this,
+    );
   }
 }
 

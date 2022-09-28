@@ -202,7 +202,9 @@ class _$_ImageProviderProps implements _ImageProviderProps {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ImageProviderPropsToJson(this);
+    return _$$_ImageProviderPropsToJson(
+      this,
+    );
   }
 }
 

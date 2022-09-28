@@ -238,7 +238,9 @@ class _$_BorderProps implements _BorderProps {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_BorderPropsToJson(this);
+    return _$$_BorderPropsToJson(
+      this,
+    );
   }
 }
 

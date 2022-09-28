@@ -354,7 +354,9 @@ class _$_BorderRadiusProps implements _BorderRadiusProps {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_BorderRadiusPropsToJson(this);
+    return _$$_BorderRadiusPropsToJson(
+      this,
+    );
   }
 }
 

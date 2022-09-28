@@ -201,7 +201,9 @@ class _$_BoxShadowProps implements _BoxShadowProps {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_BoxShadowPropsToJson(this);
+    return _$$_BoxShadowPropsToJson(
+      this,
+    );
   }
 }
 

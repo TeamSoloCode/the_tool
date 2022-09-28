@@ -1,8 +1,4 @@
-import 'package:flutter/rendering.dart';
-import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
-
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter/foundation.dart';
 
 part 'border_props.freezed.dart';
 part 'border_props.g.dart';

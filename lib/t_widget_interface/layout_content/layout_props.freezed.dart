@@ -1435,7 +1435,9 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_LayoutPropsToJson(this);
+    return _$$_LayoutPropsToJson(
+      this,
+    );
   }
 }
 

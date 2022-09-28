@@ -151,7 +151,9 @@ class _$_AppBarProps implements _AppBarProps {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AppBarPropsToJson(this);
+    return _$$_AppBarPropsToJson(
+      this,
+    );
   }
 }
 

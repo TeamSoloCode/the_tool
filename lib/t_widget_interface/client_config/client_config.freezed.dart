@@ -184,7 +184,9 @@ class _$_ClientConfig implements _ClientConfig {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ClientConfigToJson(this);
+    return _$$_ClientConfigToJson(
+      this,
+    );
   }
 }
 
