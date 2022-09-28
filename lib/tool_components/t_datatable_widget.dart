@@ -35,23 +35,26 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
   ) {
     if (widgetProps?.columns == null) return [];
     List<DataColumn> computedColumns = [];
-    widgetProps?.columns!.forEach(
-      (column) => {
-        computedColumns.add(DataColumn(
-          label: Text(
-            column.label,
-          ),
-          numeric: column.numeric,
-          tooltip: column.tooltip,
-          onSort: (columnIndex, ascending) {
-            var onSort = column.onSort;
-            if (onSort != null) {
-              widget.executeJSWithPagePath("$onSort($columnIndex, $ascending)");
-            }
+    widgetProps?.columns!
+        .map(
+          (column) => {
+            computedColumns.add(DataColumn(
+              label: Text(
+                column.label,
+              ),
+              numeric: column.numeric,
+              tooltip: column.tooltip,
+              onSort: (columnIndex, ascending) {
+                var onSort = column.onSort;
+                if (onSort != null) {
+                  widget.executeJSWithPagePath(
+                      "$onSort($columnIndex, $ascending)");
+                }
+              },
+            ))
           },
-        ))
-      },
-    );
+        )
+        .toList();
 
     return computedColumns;
   }
@@ -62,11 +65,14 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
   ) {
     if (widgetProps?.rows == null) return [];
     List<DataRow> computedRows = [];
-    widgetProps?.rows!.forEach(
-      (row) => {
-        computedRows.add(DataRow(cells: _computeCells(row.cells, contextData)))
-      },
-    );
+    widgetProps?.rows!
+        .map(
+          (row) => {
+            computedRows
+                .add(DataRow(cells: _computeCells(row.cells, contextData)))
+          },
+        )
+        .toList();
 
     return computedRows;
   }
@@ -77,18 +83,20 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
   ) {
     if (dataCellProps == null) return [];
     List<DataCell> computedCells = [];
-    dataCellProps.forEach(
-      (cell) => {
-        computedCells.add(DataCell(
-          TWidgets(
-            // key: ValueKey(index),
-            layout: cell.child,
-            pagePath: widget.pagePath,
-            contextData: widget.parentData,
-          ),
-        ))
-      },
-    );
+    dataCellProps
+        .map(
+          (cell) => {
+            computedCells.add(DataCell(
+              TWidgets(
+                // key: ValueKey(index),
+                layout: cell.child,
+                pagePath: widget.pagePath,
+                contextData: widget.parentData,
+              ),
+            ))
+          },
+        )
+        .toList();
 
     return computedCells;
   }
