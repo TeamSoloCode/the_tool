@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:the_tool/t_widget_interface/data_table_props/data_cell_props/data_cell_props.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
+import 'package:the_tool/tool_components/t_widgets.dart';
 
 class T_DataTable extends TWidget {
   T_DataTable({
@@ -34,14 +35,14 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
   ) {
     if (widgetProps?.columns == null) return [];
     List<DataColumn> computedColumns = [];
-    widgetProps?.columns!.map(
+    widgetProps?.columns!.forEach(
       (column) => {
         computedColumns.add(DataColumn(
           label: Text(
             column.label,
           ),
           numeric: column.numeric,
-          tooltip: column.label,
+          tooltip: column.tooltip,
           onSort: (columnIndex, ascending) {
             var onSort = column.onSort;
             if (onSort != null) {
@@ -61,7 +62,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
   ) {
     if (widgetProps?.rows == null) return [];
     List<DataRow> computedRows = [];
-    widgetProps?.rows!.map(
+    widgetProps?.rows!.forEach(
       (row) => {
         computedRows.add(DataRow(cells: _computeCells(row.cells, contextData)))
       },
@@ -76,8 +77,17 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
   ) {
     if (dataCellProps == null) return [];
     List<DataCell> computedCells = [];
-    dataCellProps.map(
-      (column) => {computedCells.add(DataCell(Text("abcd")))},
+    dataCellProps.forEach(
+      (cell) => {
+        computedCells.add(DataCell(
+          TWidgets(
+            // key: ValueKey(index),
+            layout: cell.child,
+            pagePath: widget.pagePath,
+            contextData: widget.parentData,
+          ),
+        ))
+      },
     );
 
     return computedCells;
