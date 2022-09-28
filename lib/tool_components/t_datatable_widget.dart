@@ -3,6 +3,7 @@ import 'package:the_tool/t_widget_interface/data_table_props/data_cell_props/dat
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
+import 'package:data_table_2/data_table_2.dart';
 
 class T_DataTable extends TWidget {
   T_DataTable({
@@ -48,7 +49,8 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
                 var onSort = column.onSort;
                 if (onSort != null) {
                   widget.executeJSWithPagePath(
-                      "$onSort($columnIndex, $ascending)");
+                    "$onSort($columnIndex, $ascending)",
+                  );
                 }
               },
             ))
@@ -68,8 +70,9 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     widgetProps?.rows!
         .map(
           (row) => {
-            computedRows
-                .add(DataRow(cells: _computeCells(row.cells, contextData)))
+            computedRows.add(DataRow(
+              cells: _computeCells(row.cells, contextData),
+            ))
           },
         )
         .toList();
@@ -105,7 +108,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     LayoutProps? widgetProps,
     Map<String, dynamic> contextData,
   ) {
-    return DataTable(
+    return DataTable2(
       columns: _computeColumns(widgetProps, contextData),
       rows: _computeRows(widgetProps, contextData),
     );
