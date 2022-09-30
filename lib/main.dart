@@ -11,16 +11,17 @@ import 'package:the_tool/tool_components/page_container_widget.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
 import 't_widget_interface/client_config/client_config.dart';
-import 'dart:io' show Platform if (dart.library.html) "dart:html" show Platform;
-import 'package:the_tool/static_pages/select_project.dart' deferred as select_project;
+import 'dart:io' if (dart.library.html) "dart:html";
+import 'package:the_tool/static_pages/select_project.dart'
+    deferred as select_project;
 import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
     if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_utils/web_eval_js.dart';
 
 void main() async {
-  if(!kIsWeb) {
-    if (Platform.isAndroid || Platform.isIOS) {
-      await ScreenUtil.ensureScreenSize();
-    }
+  if (!kIsWeb) {
+    // if (Platform.isAndroid || Platform.isIOS) {
+    await ScreenUtil.ensureScreenSize();
+    // }
   }
 
   WidgetsFlutterBinding.ensureInitialized();
@@ -115,29 +116,31 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<bool> _loadSelectProjectPage() async {
-  return Future<bool>.microtask(() async {
-    await select_project.loadLibrary();
-    return true;
-  });
-}
+    return Future<bool>.microtask(() async {
+      await select_project.loadLibrary();
+      return true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-          return FutureBuilder(
-        builder: (context, snapshot)  {
-          if (snapshot.data != true) {
-            return const SizedBox();
-          }
-          if (_selectedProjectName == null) { 
+    return FutureBuilder(
+      key: ValueKey(_selectedProjectName),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return const SizedBox();
+        }
+        if (_selectedProjectName == null) {
           return select_project.SelectProjectPage(
             loadProject: _loadProject,
           );
-           }else {
-            return const PageContainer();
-           }
-
-        },
-        future: _selectedProjectName == null ? _loadSelectProjectPage() : _isReadyToRun(),
-      );
+        } else {
+          return const PageContainer();
+        }
+      },
+      future: _selectedProjectName == null
+          ? _loadSelectProjectPage()
+          : _isReadyToRun(),
+    );
   }
 }

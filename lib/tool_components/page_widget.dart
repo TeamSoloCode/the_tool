@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
-import 'package:the_tool/t_widget_interface/app_bar_props/app_bar_props.dart';
 import 'package:the_tool/t_widget_interface/bottom_nav_props.dart';
 import 'package:the_tool/t_widget_interface/bottom_navigation_props/bottom_navigation_props.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
+import 'package:the_tool/tool_components/t_appbar_widget.dart'
+    deferred as t_appbar;
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
@@ -33,14 +34,17 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
   List<Widget> _pages = [];
 
   int _selectedBottomNavIndex = 0;
-  AppBarProps? _customAppBar;
   BottomNavigationProps? _bottomNavBar;
 
+  late Future<void> _loadNecessaryWidget;
   @override
   void initState() {
     _pageId = widget.pagePath + const Uuid().v4();
     utils = getIt<UtilsManager>();
     _startLoadingData();
+
+    ///Only load necessary widget base on page json
+    _loadNecessaryWidget = _loadTWidget();
     super.initState();
   }
 
@@ -59,7 +63,14 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
+  Future<void> _loadTWidget() async {
+    if (_pageLayout?.appBar != null) {
+      await t_appbar.loadLibrary();
+    }
+  }
+
   ThemeMode? prevThemeMode;
+  bool abcd = false;
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -82,21 +93,26 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
 
     debugPrint("Update page: ${_pageId} $pageData");
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: _computeAppBar(
-          pageData,
-          _customAppBar,
-        ),
-        bottomNavigationBar: _computeBottomNavigationBar(
-          pageData,
-          _bottomNavBar,
-        ),
-        body: _getSelectedPage(
-          pageData,
-          _selectedBottomNavIndex,
-        ),
-      ),
+    return FutureBuilder(
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return const SizedBox();
+        }
+        return SafeArea(
+          child: Scaffold(
+            appBar: _getAppBar(pageData),
+            bottomNavigationBar: _computeBottomNavigationBar(
+              pageData,
+              _bottomNavBar,
+            ),
+            body: _getSelectedPage(
+              pageData,
+              _selectedBottomNavIndex,
+            ),
+          ),
+        );
+      },
+      future: _loadNecessaryWidget,
     );
   }
 
@@ -126,7 +142,6 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
       );
     }
 
-    _customAppBar = _pageLayout?.appBar;
     _bottomNavBar = _pageLayout?.bottomNav;
   }
 
@@ -203,46 +218,10 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     });
   }
 
-  PreferredSizeWidget? _computeAppBar(
-    Map<String, dynamic> contextData,
-    AppBarProps? appBarConfig,
-  ) {
-    if (appBarConfig == null) {
+  dynamic _getAppBar(Map<String, dynamic> contextData) {
+    if (_pageLayout?.appBar == null) {
       return null;
     }
-
-    if (appBarConfig.content != null) {
-      Widget title = TWidgets(
-        layout: appBarConfig.content!,
-        pagePath: _pageId,
-        contextData: contextData,
-      );
-
-      // List<Widget> actions = (appBarConfig["actions"] as List<dynamic>).map(
-      //   (e) {
-      //     return SizedBox();
-      //   },
-      // ).toList();
-
-      return AppBar(
-        title: title,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.light_mode),
-          ),
-        ],
-      );
-    }
-
-    var customContent = gato.get(appBarConfig, "custom");
-    return PreferredSize(
-      preferredSize: Size.fromHeight(gato.get(customContent, "height") ?? 120),
-      child: TWidgets(
-        layout: customContent,
-        pagePath: _pageId,
-        contextData: contextData,
-      ),
-    );
+    return t_appbar.computeAppBar(_pageId, contextData, _pageLayout?.appBar);
   }
 }
