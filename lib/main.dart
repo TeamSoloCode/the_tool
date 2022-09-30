@@ -7,12 +7,12 @@ import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/permission_manager.dart';
 import 'package:the_tool/page_utils/storage_manager.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
-import 'package:the_tool/static_pages/select_project.dart';
 import 'package:the_tool/tool_components/page_container_widget.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
 import 't_widget_interface/client_config/client_config.dart';
 import 'dart:io' show Platform if (dart.library.html) "dart:html" show Platform;
+import 'package:the_tool/static_pages/select_project.dart' deferred as select_project;
 import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
     if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_utils/web_eval_js.dart';
 
@@ -114,22 +114,30 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  Future<bool> _loadSelectProjectPage() async {
+  return Future<bool>.microtask(() async {
+    await select_project.loadLibrary();
+    return true;
+  });
+}
+
   @override
   Widget build(BuildContext context) {
-    if (_selectedProjectName == null) {
-      return SelectProjectPage(
-        loadProject: _loadProject,
-      );
-    } else {
-      return FutureBuilder(
-        builder: (context, snapshot) {
+          return FutureBuilder(
+        builder: (context, snapshot)  {
           if (snapshot.data != true) {
             return const SizedBox();
           }
-          return const PageContainer();
+          if (_selectedProjectName == null) { 
+          return select_project.SelectProjectPage(
+            loadProject: _loadProject,
+          );
+           }else {
+            return const PageContainer();
+           }
+
         },
-        future: _isReadyToRun(),
+        future: _selectedProjectName == null ? _loadSelectProjectPage() : _isReadyToRun(),
       );
-    }
   }
 }
