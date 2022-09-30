@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
-import 'package:the_tool/t_widget_interface/bottom_nav_props.dart';
-import 'package:the_tool/t_widget_interface/bottom_navigation_props/bottom_navigation_props.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_appbar_widget.dart'
     deferred as t_appbar;
+import 'package:the_tool/tool_components/t_bottom_nav_widget.dart'
+    deferred as t_bottom_nav;
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:gato/gato.dart' as gato;
-import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_spinkit/src/fading_circle.dart';
 import 'package:uuid/uuid.dart';
 
 class T_Page extends StatefulWidget {
@@ -34,16 +34,14 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
   List<Widget> _pages = [];
 
   int _selectedBottomNavIndex = 0;
-  BottomNavigationProps? _bottomNavBar;
 
   late Future<void> _loadNecessaryWidget;
   @override
   void initState() {
     _pageId = widget.pagePath + const Uuid().v4();
     utils = getIt<UtilsManager>();
-    _startLoadingData();
 
-    ///Only load necessary widget base on page json
+    /// Only load necessary widget base on page json
     _loadNecessaryWidget = _loadTWidget();
     super.initState();
   }
@@ -64,8 +62,12 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
   bool get wantKeepAlive => true;
 
   Future<void> _loadTWidget() async {
+    await _startLoadingData();
     if (_pageLayout?.appBar != null) {
       await t_appbar.loadLibrary();
+    }
+    if (_pageLayout?.bottomNav != null) {
+      await t_bottom_nav.loadLibrary();
     }
   }
 
@@ -82,18 +84,14 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     if (_isReadyToRun == false ||
         !UtilsManager.isTruthy(gato.get(pageData, "_tLoaded"))) {
       return const Scaffold(
-        body: Center(
-          child: SpinKitFadingCircle(
-            color: Colors.blue,
-            size: 50.0,
-          ),
-        ),
+        body: Text("Loading..."),
       );
     }
 
     debugPrint("Update page: ${_pageId} $pageData");
 
     return FutureBuilder(
+      // key: ValueKey(_pageId),
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return const SizedBox();
@@ -101,10 +99,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
         return SafeArea(
           child: Scaffold(
             appBar: _getAppBar(pageData),
-            bottomNavigationBar: _computeBottomNavigationBar(
-              pageData,
-              _bottomNavBar,
-            ),
+            bottomNavigationBar: _getBottomNavigation(pageData),
             body: _getSelectedPage(
               pageData,
               _selectedBottomNavIndex,
@@ -141,81 +136,49 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
         components: _pageLayout!.components!,
       );
     }
-
-    _bottomNavBar = _pageLayout?.bottomNav;
   }
 
   Widget _getSelectedPage(
     Map<String, dynamic> contextData,
     int selectedBottomNavIndex,
   ) {
-    if (_bottomNavBar == null || _bottomNavBar?.items == null) {
+    if (_pageLayout?.bottomNav == null ||
+        _pageLayout?.bottomNav?.items == null) {
       return TWidgets(
         layout: _pageLayout ?? const LayoutProps(),
         pagePath: _pageId,
         contextData: contextData,
       );
     }
-    _pages = _computeBottomNavigationPages(_bottomNavBar);
+    _pages = t_bottom_nav.computeBottomNavigationPages(
+      context,
+      _pageLayout?.bottomNav,
+      updatePageIdMap: _updatePageIdMap,
+    );
     return _pages.elementAt(selectedBottomNavIndex);
   }
 
-  List<Widget> _computeBottomNavigationPages(
-    BottomNavigationProps? bottomNavConfig,
-  ) {
-    var size = MediaQuery.of(context).size;
-    if (bottomNavConfig == null || bottomNavConfig.items == null) {
-      return [];
-    }
-
-    var items = bottomNavConfig.items;
-    List<Widget> pages = (items ?? []).map((item) {
-      if (item.path == null) {
-        throw Exception("Please provide path in bottom navigation iten");
-      }
-
-      // this make SubPage not changed key and re-render
-      _pageIdMap.putIfAbsent(item.path!, () => const Uuid().v4());
-      ValueKey pageKey = ValueKey(_pageIdMap[item.path]);
-
-      return SizedBox(
-        height: size.height,
-        width: size.width,
-        child: T_Page(
-          key: pageKey,
-          pagePath: item.path!,
-        ),
-      );
-    }).toList();
-
-    return pages;
-  }
-
-  Widget? _computeBottomNavigationBar(
-    Map<String, dynamic> contextData,
-    BottomNavigationProps? bottomNavConfig,
-  ) {
-    if (bottomNavConfig == null || bottomNavConfig.items == null) {
-      return null;
-    }
-
-    var bottomNavProps = DecodeBottomNavigation(
-      bottomNavConfig: bottomNavConfig,
-    );
-
-    return BottomNavigationBar(
-      type: bottomNavProps.type,
-      items: bottomNavProps.items,
-      selectedItemColor: bottomNavProps.selectedItemColor,
-      currentIndex: _selectedBottomNavIndex,
-      onTap: _onBottomNavItemTapped,
-    );
+  String _updatePageIdMap(String pagePath) {
+    _pageIdMap.putIfAbsent(pagePath, () => const Uuid().v4());
+    return _pageIdMap[pagePath]!;
   }
 
   void _onBottomNavItemTapped(int index) {
     setState(() {
       _selectedBottomNavIndex = index;
     });
+  }
+
+  Widget? _getBottomNavigation(Map<String, dynamic> contextData) {
+    if (_pageLayout?.bottomNav == null) {
+      return null;
+    }
+    return t_bottom_nav.computeBottomNavigationBar(
+      contextData,
+      _pageLayout?.bottomNav,
+      currentIndex: _selectedBottomNavIndex,
+      onTap: _onBottomNavItemTapped,
+    );
   }
 
   dynamic _getAppBar(Map<String, dynamic> contextData) {
