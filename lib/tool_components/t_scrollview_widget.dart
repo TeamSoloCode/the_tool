@@ -21,7 +21,7 @@ class T_ScrollView extends TStatelessWidget {
 
   List<Widget> _computeChildren(
     List<dynamic>? children,
-    Map<String, dynamic> contextData,
+    Map<String, dynamic> childData,
   ) {
     var index = 0;
     return (children ?? []).map((child) {
@@ -30,7 +30,7 @@ class T_ScrollView extends TStatelessWidget {
         key: ValueKey(index),
         layout: child,
         pagePath: pagePath,
-        childData: contextData,
+        childData: childData,
       );
       return tWidget;
     }).toList();
@@ -40,7 +40,7 @@ class T_ScrollView extends TStatelessWidget {
   Widget buildWidget(BuildContext context) {
     _items = _computeChildren(
       props?.children,
-      childData.isEmpty ? contextData : childData,
+      childData,
     );
 
     if (props?.sliverListType == "fixed_extent_list") {

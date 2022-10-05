@@ -31,7 +31,7 @@ class T_Column extends TStatelessWidget {
         key: ValueKey(index),
         layout: child,
         pagePath: pagePath,
-        childData: Map<String, dynamic>.from(childData),
+        childData: childData,
       );
 
       if (child.flex != null) {

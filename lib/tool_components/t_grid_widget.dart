@@ -25,10 +25,7 @@ class T_Grid extends TWidget {
 class _T_GridState extends TStatefulWidget<T_Grid> {
   List<Widget> _items = [];
 
-  List<Widget> _computeChildren(
-    List<dynamic>? children,
-    Map<String, dynamic> contextData,
-  ) {
+  List<Widget> _computeChildren(List<dynamic>? children) {
     return (children ?? []).map((child) {
       return TWidgets(
         layout: child,
@@ -44,10 +41,7 @@ class _T_GridState extends TStatefulWidget<T_Grid> {
     LayoutProps? _props = widget.props;
 
     if (_props != null) {
-      _items = _computeChildren(
-        _props.children,
-        widget.childData.isEmpty ? widget.contextData : widget.childData,
-      );
+      _items = _computeChildren(_props.children);
       _snapshot = GridView.builder(
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: MediaQuery.of(context).size.width,

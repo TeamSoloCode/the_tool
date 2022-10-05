@@ -22,7 +22,7 @@ class T_Row extends TStatelessWidget {
 
   List<Widget> _computeChildren(
     List<LayoutProps>? children,
-    Map<String, dynamic> contextData,
+    Map<String, dynamic> childData,
   ) {
     var index = 0;
     return (children ?? []).map((child) {
@@ -32,7 +32,7 @@ class T_Row extends TStatelessWidget {
         key: ValueKey(index),
         layout: child,
         pagePath: pagePath,
-        childData: contextData,
+        childData: childData,
       );
 
       if (child.flex != null) {
@@ -59,7 +59,7 @@ class T_Row extends TStatelessWidget {
       mainAxisAlignment: mainAxisAlignment,
       children: _computeChildren(
         props?.children,
-        childData.isEmpty ? contextData : childData,
+        childData,
       ),
     );
 
