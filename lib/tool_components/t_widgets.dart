@@ -28,13 +28,13 @@ import 'package:gato/gato.dart' as gato;
 class TWidgets extends StatefulWidget {
   final LayoutProps layout;
   final String pagePath;
-  Map<String, dynamic> contextData;
+  Map<String, dynamic> childData;
 
   TWidgets({
     Key? key,
     required this.layout,
     required this.pagePath,
-    required this.contextData,
+    this.childData = const {},
   }) : super(key: key);
 
   @override
@@ -51,7 +51,7 @@ class _TWidgetsState extends State<TWidgets> {
     super.dispose();
   }
 
-  Future<Widget> _getWidget(Map<String, dynamic> contextData) async {
+  Future<Widget> _getWidget(Map<String, dynamic> childData) async {
     LayoutProps content = widget.layout.content ?? widget.layout;
     // getIt<PageContextProvider>().registerTWidgetsProps(
     //   widgetUuid,
@@ -69,7 +69,7 @@ class _TWidgetsState extends State<TWidgets> {
         return T_Text(
           key: Key(widgetUuid),
           widgetProps: content,
-          contextData: contextData,
+          childData: childData,
           pagePath: widget.pagePath,
           widgetUuid: widgetUuid,
         );
@@ -78,15 +78,15 @@ class _TWidgetsState extends State<TWidgets> {
           key: ValueKey(widgetUuid),
           widgetUuid: widgetUuid,
           widgetProps: content,
-          contextData: contextData,
           pagePath: widget.pagePath,
+          childData: childData,
         );
       case "icon":
         await t_icon.loadLibrary();
         return t_icon.T_Icon(
           key: ValueKey(widgetUuid),
           widgetProps: content,
-          contextData: contextData,
+          childData: childData,
           pagePath: widget.pagePath,
           widgetUuid: widgetUuid,
         );
@@ -96,7 +96,7 @@ class _TWidgetsState extends State<TWidgets> {
           key: ValueKey(widgetUuid),
           widgetProps: content,
           pagePath: widget.pagePath,
-          contextData: contextData,
+          childData: childData,
           widgetUuid: widgetUuid,
         );
       case "form":
@@ -105,7 +105,7 @@ class _TWidgetsState extends State<TWidgets> {
           key: ValueKey(widgetUuid),
           widgetProps: content,
           pagePath: widget.pagePath,
-          contextData: contextData,
+          childData: childData,
           widgetUuid: widgetUuid,
         );
       case "component":
@@ -113,7 +113,7 @@ class _TWidgetsState extends State<TWidgets> {
         return t_component.T_Component(
           key: ValueKey(widgetUuid),
           widgetProps: content,
-          contextData: contextData,
+          childData: childData,
           pagePath: widget.pagePath,
           widgetUuid: widgetUuid,
         );
@@ -122,7 +122,7 @@ class _TWidgetsState extends State<TWidgets> {
           key: ValueKey(widgetUuid),
           widgetProps: content,
           pagePath: widget.pagePath,
-          contextData: contextData,
+          childData: childData,
           widgetUuid: widgetUuid,
         );
       case "column":
@@ -130,7 +130,7 @@ class _TWidgetsState extends State<TWidgets> {
           key: ValueKey(widgetUuid),
           widgetProps: content,
           pagePath: widget.pagePath,
-          contextData: contextData,
+          childData: childData,
           widgetUuid: widgetUuid,
         );
       case "grid":
@@ -139,7 +139,7 @@ class _TWidgetsState extends State<TWidgets> {
           key: ValueKey(widgetUuid),
           widgetProps: content,
           pagePath: widget.pagePath,
-          contextData: contextData,
+          childData: childData,
           widgetUuid: widgetUuid,
         );
       case "scroll_view":
@@ -148,7 +148,7 @@ class _TWidgetsState extends State<TWidgets> {
           key: ValueKey(widgetUuid),
           widgetProps: content,
           pagePath: widget.pagePath,
-          contextData: contextData,
+          childData: childData,
           widgetUuid: widgetUuid,
         );
 
@@ -158,7 +158,7 @@ class _TWidgetsState extends State<TWidgets> {
           key: ValueKey(widgetUuid),
           widgetProps: content,
           pagePath: widget.pagePath,
-          parentData: contextData,
+          childData: childData,
           widgetUuid: widgetUuid,
         );
       case "field":
@@ -167,7 +167,7 @@ class _TWidgetsState extends State<TWidgets> {
           key: ValueKey(widgetUuid),
           widgetProps: content,
           pagePath: widget.pagePath,
-          contextData: contextData,
+          childData: childData,
           widgetUuid: widgetUuid,
         );
       case "table":
@@ -176,16 +176,16 @@ class _TWidgetsState extends State<TWidgets> {
           key: ValueKey(widgetUuid),
           widgetProps: content,
           pagePath: widget.pagePath,
-          contextData: contextData,
+          childData: childData,
           widgetUuid: widgetUuid,
         );
       default:
-        return _computeNotBuiltInWidget(contextData, content);
+        return _computeNotBuiltInWidget(childData, content);
     }
   }
 
   Widget _computeNotBuiltInWidget(
-    Map<String, dynamic> contextData,
+    Map<String, dynamic> childData,
     LayoutProps content,
   ) {
     var contextStateProvider = getIt<ContextStateProvider>();
@@ -195,7 +195,7 @@ class _TWidgetsState extends State<TWidgets> {
     );
     if (innerComponent != null) {
       return TWidgets(
-        contextData: contextData,
+        childData: childData,
         layout: innerComponent.merge(content),
         pagePath: widget.pagePath,
       );
@@ -212,8 +212,8 @@ class _TWidgetsState extends State<TWidgets> {
   ) async {
     if (tWidgets == null) {
       // Stopwatch stopwatch = Stopwatch()..start();
-      var contextData = context.read<ContextStateProvider>().contextData;
-      var newTWidgets = await _getWidget(contextData[widget.pagePath] ?? {});
+      // var contextData = context.read<ContextStateProvider>().contextData;
+      var newTWidgets = await _getWidget(widget.childData);
 
       setState(() {
         tWidgets = newTWidgets;

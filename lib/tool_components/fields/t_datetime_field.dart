@@ -13,13 +13,13 @@ class T_Datetime extends TWidget {
   T_Datetime({
     Key? key,
     required widgetProps,
-    required contextData,
+    childData = const {},
     required pagePath,
     required widgetUuid,
   }) : super(
           key: key,
           widgetProps: widgetProps,
-          parentData: contextData,
+          childData: childData,
           pagePath: pagePath,
           widgetUuid: widgetUuid,
         );
@@ -46,12 +46,12 @@ class _T_DatetimeState extends TStatefulWidget<T_Datetime> with FieldMixin {
     String? name = widget.widgetProps.name;
     dynamic currentValue = _datetimeKey.currentState?.value;
     try {
-      selectedValue = widget.contextData[name] != null
-          ? DateTime.parse(widget.contextData[name].toString())
+      selectedValue = widget.getData()[name] != null
+          ? DateTime.parse(widget.getData()[name].toString())
           : null;
     } catch (e) {
       throw Exception(
-        "Fail to parse ${widget.contextData[name].toString()}. Please use \"yyyy-MM-dd hh:mm:ss\" format",
+        "Fail to parse ${widget.getData()[name].toString()}. Please use \"yyyy-MM-dd hh:mm:ss\" format",
       );
     }
 
@@ -150,7 +150,7 @@ class _T_DatetimeState extends TStatefulWidget<T_Datetime> with FieldMixin {
     LayoutProps? _props = widget.props;
 
     if (_props != null) {
-      _snapshot = _computeDatetimeField(_props, widget.contextData);
+      _snapshot = _computeDatetimeField(_props, widget.getData());
     }
     return _snapshot;
   }

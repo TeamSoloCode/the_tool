@@ -10,12 +10,12 @@ class T_Container extends TStatelessWidget with ContainerMixin {
     Key? key,
     required widgetProps,
     required pagePath,
-    required contextData,
+    childData = const {},
     required widgetUuid,
   }) : super(
           key: key,
           widgetProps: widgetProps,
-          parentData: contextData,
+          childData: childData,
           pagePath: pagePath,
           widgetUuid: widgetUuid,
         );
@@ -37,7 +37,7 @@ class T_Container extends TStatelessWidget with ContainerMixin {
       child: TWidgets(
         layout: props?.child ?? const LayoutProps(),
         pagePath: pagePath,
-        contextData: contextData,
+        childData: childData,
       ),
     );
 

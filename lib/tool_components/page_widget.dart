@@ -147,7 +147,6 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
       return TWidgets(
         layout: _pageLayout ?? const LayoutProps(),
         pagePath: _pageId,
-        contextData: contextData,
       );
     }
     _pages = t_bottom_nav.computeBottomNavigationPages(
@@ -185,6 +184,6 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     if (_pageLayout?.appBar == null) {
       return null;
     }
-    return t_appbar.computeAppBar(_pageId, contextData, _pageLayout?.appBar);
+    return t_appbar.computeAppBar(_pageId, _pageLayout?.appBar);
   }
 }

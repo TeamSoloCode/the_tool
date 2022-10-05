@@ -7,13 +7,13 @@ class T_Text extends TStatelessWidget {
   T_Text({
     Key? key,
     required widgetProps,
-    required contextData,
+    childData = const {},
     required pagePath,
     required widgetUuid,
   }) : super(
           key: key,
           widgetProps: widgetProps,
-          parentData: contextData,
+          childData: childData,
           pagePath: pagePath,
           widgetUuid: widgetUuid,
         );

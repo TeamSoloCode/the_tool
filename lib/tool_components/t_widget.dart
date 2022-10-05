@@ -12,7 +12,7 @@ import 'package:gato/gato.dart' as gato;
 
 mixin BaseStateWidget on Widget {
   late final LayoutProps widgetProps;
-  late final Map<String, dynamic> parentData;
+  late final Map<String, dynamic> childData;
   late final String pagePath;
   final UtilsManager utils = getIt<UtilsManager>();
   final contextStateProvider = getIt<ContextStateProvider>();
@@ -62,7 +62,7 @@ mixin BaseStateWidget on Widget {
 
     props = utils.computeWidgetProps(
       widgetProps,
-      contextData,
+      childData.isEmpty ? contextData : childData,
     );
 
     prevProps = props;
@@ -117,7 +117,7 @@ mixin BaseStateWidget on Widget {
     var rawKey = widgetProps.key;
     if (rawKey == null) return key;
     if (UtilsManager.isValueBinding(rawKey)) {
-      var bindingValue = utils.bindingValueToText(parentData, rawKey);
+      var bindingValue = utils.bindingValueToText(childData, rawKey);
       return ValueKey(bindingValue);
     }
 
@@ -129,18 +129,22 @@ mixin BaseStateWidget on Widget {
       "setPageData(JSON.parse('${json.encode(newData)}'));",
     );
   }
+
+  Map<String, dynamic> getData() {
+    return childData.isEmpty ? contextData : childData;
+  }
 }
 
 abstract class TWidget extends StatefulWidget with BaseStateWidget {
   TWidget({
     Key? key,
     required widgetProps,
-    required parentData,
+    childData,
     required pagePath,
     required widgetUuid,
   }) : super(key: key) {
     this.widgetProps = widgetProps;
-    this.parentData = parentData;
+    this.childData = childData;
     this.pagePath = pagePath;
     this.widgetUuid = widgetUuid;
 
@@ -181,12 +185,12 @@ abstract class TStatelessWidget extends StatelessWidget with BaseStateWidget {
   TStatelessWidget({
     Key? key,
     required widgetProps,
-    required parentData,
+    childData,
     required pagePath,
     required widgetUuid,
   }) : super(key: key) {
     this.widgetProps = widgetProps;
-    this.parentData = parentData;
+    this.childData = childData;
     this.pagePath = pagePath;
     this.widgetUuid = widgetUuid;
 

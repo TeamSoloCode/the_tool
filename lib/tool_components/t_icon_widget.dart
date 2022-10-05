@@ -4,16 +4,16 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 
 class T_Icon extends TWidget {
-  T_Icon({
-    Key? key,
-    required widgetProps,
-    required contextData,
-    required pagePath,
-    required widgetUuid,
-  }) : super(
+  T_Icon(
+      {Key? key,
+      required widgetProps,
+      required pagePath,
+      required widgetUuid,
+      childData = const {}})
+      : super(
           key: key,
+          childData: childData,
           widgetProps: widgetProps,
-          parentData: contextData,
           pagePath: pagePath,
           widgetUuid: widgetUuid,
         );

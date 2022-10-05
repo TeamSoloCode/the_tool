@@ -9,13 +9,13 @@ class T_DataTable extends TWidget {
   T_DataTable({
     Key? key,
     required widgetProps,
-    required contextData,
     required pagePath,
     required widgetUuid,
+    childData = const {},
   }) : super(
           key: key,
           widgetProps: widgetProps,
-          parentData: contextData,
+          childData: childData,
           pagePath: pagePath,
           widgetUuid: widgetUuid,
         );
@@ -27,6 +27,10 @@ class T_DataTable extends TWidget {
 class _T_DataTableState extends TStatefulWidget<T_DataTable> {
   @override
   void initState() {
+    if (widget.widgetProps.name == null) {
+      throw Exception("Table must have name property to binding data");
+    }
+
     super.initState();
   }
 
@@ -65,24 +69,32 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     LayoutProps? widgetProps,
     Map<String, dynamic> contextData,
   ) {
-    if (widgetProps?.rows == null) return [];
+    var rows = widgetProps?.rows;
+
+    if (rows == null) return [];
     List<DataRow> computedRows = [];
-    widgetProps?.rows!
-        .map(
-          (row) => {
-            computedRows.add(DataRow(
-              cells: _computeCells(row.cells, contextData),
-            ))
-          },
-        )
-        .toList();
+    var items = contextData[widgetProps?.name];
+
+    if (items is! List) {
+      items = [];
+    }
+
+    int index = 0;
+    if (rows.length == 1) {
+      items.map((item) {
+        var cells = rows.elementAt(index).cells;
+        computedRows.add(DataRow(
+          cells: _computeCells(cells, item),
+        ));
+      }).toList();
+    }
 
     return computedRows;
   }
 
   List<DataCell> _computeCells(
     List<DataCellProps>? dataCellProps,
-    Map<String, dynamic> contextData,
+    Map<String, dynamic> item,
   ) {
     if (dataCellProps == null) return [];
     List<DataCell> computedCells = [];
@@ -94,7 +106,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
                 // key: ValueKey(index),
                 layout: cell.child,
                 pagePath: widget.pagePath,
-                contextData: widget.parentData,
+                childData: item,
               ),
             ))
           },
@@ -122,6 +134,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     if (_props != null) {
       _snapshot = _computeTable(_props, widget.contextData);
     }
+
     return _snapshot;
   }
 }

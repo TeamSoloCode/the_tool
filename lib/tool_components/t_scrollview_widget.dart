@@ -7,16 +7,18 @@ class T_ScrollView extends TStatelessWidget {
     Key? key,
     required widgetProps,
     required pagePath,
-    required contextData,
+    childData = const {},
     required widgetUuid,
   }) : super(
           key: key,
           widgetProps: widgetProps,
-          parentData: contextData,
+          childData: childData,
           pagePath: pagePath,
           widgetUuid: widgetUuid,
         );
+
   List<Widget> _items = [];
+
   List<Widget> _computeChildren(
     List<dynamic>? children,
     Map<String, dynamic> contextData,
@@ -28,7 +30,7 @@ class T_ScrollView extends TStatelessWidget {
         key: ValueKey(index),
         layout: child,
         pagePath: pagePath,
-        contextData: contextData,
+        childData: contextData,
       );
       return tWidget;
     }).toList();
@@ -36,7 +38,11 @@ class T_ScrollView extends TStatelessWidget {
 
   @override
   Widget buildWidget(BuildContext context) {
-    _items = _computeChildren(props?.children, contextData);
+    _items = _computeChildren(
+      props?.children,
+      childData.isEmpty ? contextData : childData,
+    );
+
     if (props?.sliverListType == "fixed_extent_list") {
       assert(
         props?.itemExtent != null,

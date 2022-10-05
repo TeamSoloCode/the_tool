@@ -8,12 +8,12 @@ class T_Grid extends TWidget {
     Key? key,
     required widgetProps,
     required pagePath,
-    required contextData,
+    childData = const {},
     required widgetUuid,
   }) : super(
           key: key,
           widgetProps: widgetProps,
-          parentData: contextData,
+          childData: childData,
           pagePath: pagePath,
           widgetUuid: widgetUuid,
         );
@@ -33,7 +33,7 @@ class _T_GridState extends TStatefulWidget<T_Grid> {
       return TWidgets(
         layout: child,
         pagePath: widget.pagePath,
-        contextData: contextData,
+        childData: widget.childData,
       );
     }).toList();
   }
@@ -44,7 +44,10 @@ class _T_GridState extends TStatefulWidget<T_Grid> {
     LayoutProps? _props = widget.props;
 
     if (_props != null) {
-      _items = _computeChildren(_props.children, widget.contextData);
+      _items = _computeChildren(
+        _props.children,
+        widget.childData.isEmpty ? widget.contextData : widget.childData,
+      );
       _snapshot = GridView.builder(
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: MediaQuery.of(context).size.width,

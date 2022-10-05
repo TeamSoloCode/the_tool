@@ -6,13 +6,13 @@ import 'package:the_tool/tool_components/t_widget.dart';
 class T_Button extends TWidget {
   T_Button({
     Key? key,
-    required contextData,
     required widgetUuid,
     required widgetProps,
     required pagePath,
+    childData = const {},
   }) : super(
           key: key,
-          parentData: contextData,
+          childData: childData,
           widgetUuid: widgetUuid,
           pagePath: pagePath,
           widgetProps: widgetProps,

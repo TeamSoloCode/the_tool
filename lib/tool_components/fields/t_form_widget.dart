@@ -14,13 +14,13 @@ class T_Form extends TWidget {
   T_Form({
     Key? key,
     required widgetProps,
-    required contextData,
+    childData = const {},
     required pagePath,
     required widgetUuid,
   }) : super(
           key: key,
           widgetProps: widgetProps,
-          parentData: contextData,
+          childData: childData,
           pagePath: pagePath,
           widgetUuid: widgetUuid,
         );
@@ -103,9 +103,9 @@ class _T_FormState extends TStatefulWidget<T_Form> {
     var fields = _formKey.currentState?.fields;
     fields?.forEach((key, field) {
       if (field.runtimeType.toString() == "_FormBuilderDateTimePickerState") {
-        field.setValue(DateTime.tryParse(widget.contextData[key].toString()));
+        field.setValue(DateTime.tryParse(widget.getData()[key].toString()));
       } else {
-        field.setValue(widget.parentData[key]);
+        field.setValue(widget.childData[key]);
       }
     });
 
@@ -116,7 +116,7 @@ class _T_FormState extends TStatefulWidget<T_Form> {
       child: TWidgets(
         layout: _props?.child ?? const LayoutProps(),
         pagePath: widget.pagePath,
-        contextData: widget.parentData,
+        childData: widget.childData,
       ),
     );
 

@@ -14,12 +14,12 @@ class T_Component extends TWidget {
     Key? key,
     required widgetProps,
     required pagePath,
-    required contextData,
+    childData = const {},
     required widgetUuid,
   }) : super(
           key: key,
           widgetProps: widgetProps,
-          parentData: contextData,
+          childData: childData,
           pagePath: pagePath,
           widgetUuid: widgetUuid,
         );
@@ -84,7 +84,9 @@ class _T_ComponentState extends State<T_Component>
 
     _props = widget.utils.computeWidgetProps(
       widget.widgetProps,
-      contextData,
+      widget.childData.isEmpty
+          ? contextData
+          : Map<String, dynamic>.from(widget.childData),
     );
 
     await widget.utils.evalJS?.registerSubComponent(
@@ -119,15 +121,15 @@ class _T_ComponentState extends State<T_Component>
       return widget.snapshot;
     }
 
-    var contextData =
-        getIt<ContextStateProvider>().contextData[widget.pagePath] ??
-            emptyMapStringDynamic;
+    // var contextData =
+    //     getIt<ContextStateProvider>().contextData[widget.pagePath] ??
+    //         emptyMapStringDynamic;
 
     widget.snapshot = TWidgets(
       key: Key(_componentId),
       layout: _pageLayout ?? const LayoutProps(),
       pagePath: _componentId,
-      contextData: contextData[_componentId] ?? emptyMapStringDynamic,
+      childData: widget.childData,
     );
     didBuild = true;
     return widget.snapshot;

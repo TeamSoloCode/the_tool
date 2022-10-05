@@ -10,12 +10,12 @@ class T_Row extends TStatelessWidget {
     Key? key,
     required widgetProps,
     required pagePath,
-    required contextData,
+    childData = const {},
     required widgetUuid,
   }) : super(
           key: key,
           widgetProps: widgetProps,
-          parentData: contextData,
+          childData: childData,
           pagePath: pagePath,
           widgetUuid: widgetUuid,
         );
@@ -32,7 +32,7 @@ class T_Row extends TStatelessWidget {
         key: ValueKey(index),
         layout: child,
         pagePath: pagePath,
-        contextData: contextData,
+        childData: contextData,
       );
 
       if (child.flex != null) {
@@ -57,7 +57,10 @@ class T_Row extends TStatelessWidget {
     snapshot = Row(
       key: getBindingKey(),
       mainAxisAlignment: mainAxisAlignment,
-      children: _computeChildren(props?.children, contextData),
+      children: _computeChildren(
+        props?.children,
+        childData.isEmpty ? contextData : childData,
+      ),
     );
 
     if (props?.scrollable == true) {

@@ -8,12 +8,12 @@ class T_Expanded extends TStatelessWidget {
     Key? key,
     required widgetProps,
     required pagePath,
-    required parentData,
+    childData = const {},
     required widgetUuid,
   }) : super(
           key: key,
           widgetProps: widgetProps,
-          parentData: parentData,
+          childData: childData,
           pagePath: pagePath,
           widgetUuid: widgetUuid,
         );
@@ -26,7 +26,7 @@ class T_Expanded extends TStatelessWidget {
       child: TWidgets(
         layout: props?.child ?? const LayoutProps(),
         pagePath: pagePath,
-        contextData: contextData,
+        childData: childData,
       ),
     );
 

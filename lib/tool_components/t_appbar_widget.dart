@@ -7,7 +7,6 @@ import 'package:gato/gato.dart' as gato;
 
 PreferredSizeWidget? computeAppBar(
   String pageId,
-  Map<String, dynamic> contextData,
   AppBarProps? appBarConfig,
 ) {
   if (appBarConfig == null) {
@@ -18,7 +17,6 @@ PreferredSizeWidget? computeAppBar(
     Widget title = TWidgets(
       layout: appBarConfig.content!,
       pagePath: pageId,
-      contextData: contextData,
     );
 
     // List<Widget> actions = (appBarConfig["actions"] as List<dynamic>).map(
@@ -44,7 +42,6 @@ PreferredSizeWidget? computeAppBar(
     child: TWidgets(
       layout: customContent,
       pagePath: pageId,
-      contextData: contextData,
     ),
   );
 }
