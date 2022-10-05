@@ -84,7 +84,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     if (_isReadyToRun == false ||
         !UtilsManager.isTruthy(gato.get(pageData, "_tLoaded"))) {
       return const Scaffold(
-        body: Text("Loading..."),
+        body: Center(child: Text("Loading...")),
       );
     }
 
