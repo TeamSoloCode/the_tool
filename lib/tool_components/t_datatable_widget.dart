@@ -98,20 +98,17 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
   ) {
     if (dataCellProps == null) return [];
     List<DataCell> computedCells = [];
-    dataCellProps
-        .map(
-          (cell) => {
-            computedCells.add(DataCell(
-              TWidgets(
-                // key: ValueKey(index),
-                layout: cell.child,
-                pagePath: widget.pagePath,
-                childData: item,
-              ),
-            ))
-          },
-        )
-        .toList();
+    dataCellProps.map(
+      (cell) {
+        return computedCells.add(DataCell(
+          TWidgets(
+            layout: cell.child,
+            pagePath: widget.pagePath,
+            childData: item,
+          ),
+        ));
+      },
+    ).toList();
 
     return computedCells;
   }
@@ -121,6 +118,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     Map<String, dynamic> contextData,
   ) {
     return DataTable2(
+      minWidth: widgetProps?.minWidth,
       columns: _computeColumns(widgetProps, contextData),
       rows: _computeRows(widgetProps, contextData),
     );

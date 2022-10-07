@@ -242,7 +242,7 @@ class UtilsManager {
 
     widgetProps = widgetProps.parseCssColors(widgetProps);
 
-    if (widgetProps.type == "container") {
+    if (["container", "table"].contains(widgetProps.type)) {
       widgetProps = _computeHeightAndWidth(widgetProps, contextData);
     }
 
