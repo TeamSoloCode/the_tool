@@ -81,6 +81,8 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
       return value.contextData[_pageId] ?? UtilsManager.emptyMapStringDynamic;
     });
 
+    getIt<ContextStateProvider>().setRootPageData(pageData);
+
     if (_isReadyToRun == false ||
         !UtilsManager.isTruthy(gato.get(pageData, "_tLoaded"))) {
       return const Scaffold(

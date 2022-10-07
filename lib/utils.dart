@@ -8,6 +8,7 @@ import 'package:get_it/get_it.dart';
 import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
     if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_utils/web_eval_js.dart';
 import 'package:eventify/eventify.dart' as eventify;
+import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/style_utils.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
@@ -20,6 +21,7 @@ class UtilsManager {
   static Map<String, dynamic> emptyMapStringDynamic =
       Map<String, dynamic>.from({});
   static final regexPattern = RegExp(r"[^{{\}}]+(?=}})");
+  static const rootPrefix = "\$root.";
   late ThemeProvider themeProvider;
 
   final eventify.EventEmitter _emitter = eventify.EventEmitter();
@@ -63,7 +65,7 @@ class UtilsManager {
   }
 
   String bindingValueToText(
-    Map<String, dynamic> pageContextData,
+    Map<String, dynamic> contextData,
     String? text,
   ) {
     if (text is! String) return text ?? "";
@@ -83,12 +85,15 @@ class UtilsManager {
             )
             .trim();
 
-        var bindingData = gato.get(pageContextData, bindingField) ?? "";
+        var rootData = getIt<ContextStateProvider>().rootPageData;
+        var useRootData = bindingField.startsWith(rootPrefix);
+        var selectedData = useRootData ? rootData : contextData;
 
-        // if (bindingData == null) {
-        //   var contextData = getIt<ContextStateProvider>().contextData;
-        //   bindingData = gato.get(contextData, bindingField);
-        // }
+        if (useRootData) {
+          bindingField = bindingField.substring(rootPrefix.length);
+        }
+
+        var bindingData = gato.get(selectedData, bindingField) ?? "";
 
         computedText = computedText.replaceRange(
           match.start - 2,
@@ -102,7 +107,7 @@ class UtilsManager {
   }
 
   dynamic bindingValueToProp(
-    Map<String, dynamic> pageContextData,
+    Map<String, dynamic> contextData,
     dynamic propValue,
   ) {
     if (propValue is! String) return propValue;
@@ -120,15 +125,15 @@ class UtilsManager {
             )
             .trim();
 
-        var bindingData = gato.get(
-          pageContextData,
-          bindingField,
-        );
+        var rootData = getIt<ContextStateProvider>().rootPageData;
+        var useRootData = bindingField.startsWith(rootPrefix);
+        var selectedData = useRootData ? rootData : contextData;
 
-        // if (bindingData == null) {
-        //   var contextData = getIt<ContextStateProvider>().contextData;
-        //   bindingData = gato.get(contextData, bindingField);
-        // }
+        if (useRootData) {
+          bindingField = bindingField.substring(rootPrefix.length);
+        }
+
+        var bindingData = gato.get(selectedData, bindingField);
 
         computedValue = bindingData;
       }
@@ -195,12 +200,8 @@ class UtilsManager {
 
     if (widgetProps.text != null &&
         UtilsManager.isValueBinding(widgetProps.text)) {
-      widgetProps = widgetProps.copyWith(
-        text: bindingValueToText(
-          contextData,
-          widgetProps.text,
-        ),
-      );
+      var text = bindingValueToText(contextData, widgetProps.text);
+      widgetProps = widgetProps.copyWith(text: text);
     }
 
     // if (widgetProps.errorText != null &&

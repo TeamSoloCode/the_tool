@@ -6,6 +6,7 @@ import 'package:the_tool/utils.dart';
 
 class ContextStateProvider with ChangeNotifier, DiagnosticableTreeMixin {
   final Map<String, dynamic> _contextData = {};
+  final Map<String, dynamic> _rootPageData = {};
   Map<String, bool> _cacheCheckTWidgetDepsChanged = {};
   ClientConfig? _appConfig;
   Map<String, dynamic> initData;
@@ -25,6 +26,15 @@ class ContextStateProvider with ChangeNotifier, DiagnosticableTreeMixin {
 
   void updateCacheCheckTWidgetDepsChanged(String depsKey, bool isDepsChanged) {
     _cacheCheckTWidgetDepsChanged.putIfAbsent(depsKey, () => isDepsChanged);
+  }
+  // ==========================================================================
+
+  // ==========================================================================
+  Map<String, dynamic> get rootPageData => _rootPageData;
+
+  Future<void> setRootPageData(Map<String, dynamic> data) async {
+    _rootPageData.clear();
+    _rootPageData.addAll(data);
   }
   // ==========================================================================
 
