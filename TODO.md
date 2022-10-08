@@ -2,14 +2,13 @@ Support format number for t_textfield
 Reduce bundle size
 Fix bug: User press button home and go back to the app => cannot use emit to js side
 
+Add paging for DataTable
 #-------------------------------------------------
 
-Support DataTable
 Appbar not display properly
 Move base react component , app.js, vendor.js and js-module to server
 Load all needed page in isolate thread
 
-Support get data from exportPageContext
 Add refresh page button for development mode
 
 Support customizable UI for t_select_field items
@@ -69,3 +68,4 @@ Support alert, dialog, snackbar
 -Support number type text field
 -Support common validators for t_selectfield
 -Support field date time picker
+-Support get root page data

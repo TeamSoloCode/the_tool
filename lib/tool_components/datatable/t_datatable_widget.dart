@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:the_tool/t_widget_interface/data_table_props/data_cell_props/data_cell_props.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
+import 'package:the_tool/tool_components/datatable/t_data_row_widget.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:data_table_2/data_table_2.dart';
@@ -25,6 +26,13 @@ class T_DataTable extends TWidget {
 }
 
 class _T_DataTableState extends TStatefulWidget<T_DataTable> {
+  int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
+  bool _sortAscending = true;
+  int? _sortColumnIndex;
+  late T_RowData _rowDataSource;
+  bool _initialized = false;
+  PaginatorController? _controller;
+
   @override
   void initState() {
     if (widget.widgetProps.name == null) {
@@ -32,6 +40,25 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     }
 
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_initialized) {
+      // _rowDataSource = T_RowData(
+      //     context, );
+
+      // _controller = PaginatorController();
+
+      // _initialized = true;
+    }
+  }
+
+  @override
+  void dispose() {
+    _rowDataSource.dispose();
+    super.dispose();
   }
 
   List<DataColumn> _computeColumns(
@@ -43,7 +70,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     widgetProps?.columns!
         .map(
           (column) => {
-            computedColumns.add(DataColumn(
+            computedColumns.add(DataColumn2(
               label: Text(
                 column.label,
               ),
@@ -65,62 +92,39 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     return computedColumns;
   }
 
-  List<DataRow> _computeRows(
+  T_RowData _computeRows(
     LayoutProps? widgetProps,
     Map<String, dynamic> contextData,
   ) {
     var rows = widgetProps?.rows;
 
-    if (rows == null) return [];
+    if (rows == null) return T_RowData.empty(context);
     List<DataRow> computedRows = [];
     var items = contextData[widgetProps?.name];
 
     if (items is! List) {
       items = [];
+      return T_RowData.empty(context);
     }
 
-    int index = 0;
-    if (rows.length == 1) {
-      items.map((item) {
-        var cells = rows.elementAt(index).cells;
-        computedRows.add(DataRow(
-          cells: _computeCells(cells, item),
-        ));
-      }).toList();
-    }
-
-    return computedRows;
-  }
-
-  List<DataCell> _computeCells(
-    List<DataCellProps>? dataCellProps,
-    Map<String, dynamic> item,
-  ) {
-    if (dataCellProps == null) return [];
-    List<DataCell> computedCells = [];
-    dataCellProps.map(
-      (cell) {
-        return computedCells.add(DataCell(
-          TWidgets(
-            layout: cell.child,
-            pagePath: widget.pagePath,
-            childData: item,
-          ),
-        ));
-      },
-    ).toList();
-
-    return computedCells;
+    return T_RowData(
+      context,
+      pagePath: widget.pagePath,
+      rowData: items,
+      rows: widgetProps!.rows!,
+    );
   }
 
   Widget _computeTable(
     LayoutProps? widgetProps,
     Map<String, dynamic> contextData,
   ) {
-    return DataTable2(
+    return PaginatedDataTable2(
+      rowsPerPage: 20,
       minWidth: widgetProps?.minWidth,
+      sortColumnIndex: 1,
       columns: _computeColumns(widgetProps, contextData),
-      rows: _computeRows(widgetProps, contextData),
+      source: _computeRows(widgetProps, contextData),
     );
   }
 

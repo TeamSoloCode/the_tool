@@ -18,7 +18,7 @@ import 'package:the_tool/tool_components/t_icon_widget.dart' deferred as t_icon;
 import 'package:the_tool/tool_components/t_row_widget.dart' deferred as t_row;
 import 'package:the_tool/tool_components/t_scrollview_widget.dart'
     deferred as t_scrollview;
-import 'package:the_tool/tool_components/t_datatable_widget.dart'
+import 'package:the_tool/tool_components/datatable/t_datatable_widget.dart'
     deferred as t_table;
 import 'package:the_tool/tool_components/t_text_widget.dart';
 import 'package:the_tool/utils.dart';
