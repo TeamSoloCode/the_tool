@@ -30,7 +30,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
   bool _sortAscending = true;
   int? _sortColumnIndex;
-  late T_RowData _rowDataSource;
+  T_RowData? _rowDataSource;
   bool _initialized = false;
   PaginatorController? _controller;
 
@@ -57,7 +57,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
 
   @override
   void dispose() {
-    _rowDataSource.dispose();
+    _rowDataSource?.dispose();
     super.dispose();
   }
 
@@ -99,20 +99,57 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     var rows = widgetProps?.rows;
 
     if (rows == null) return T_RowData.empty(context);
-    List<DataRow> computedRows = [];
     var items = contextData[widgetProps?.name];
 
     if (items is! List) {
       items = [];
       return T_RowData.empty(context);
     }
-
-    return T_RowData(
+    _rowDataSource?.dispose();
+    var dataSource = T_RowData(
       context,
       handleSelectRow: _handleSelectRow,
       pagePath: widget.pagePath,
       tableData: items,
       rows: widgetProps!.rows!,
+    );
+    _rowDataSource = dataSource;
+    return dataSource;
+  }
+
+  Widget _computeTable(
+    LayoutProps? widgetProps,
+    Map<String, dynamic> contextData,
+  ) {
+    return Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+        PaginatedDataTable2(
+          controller: _controller,
+          rowsPerPage: _rowsPerPage,
+          minWidth: widgetProps?.minWidth,
+          sortColumnIndex: 1,
+          initialFirstRowIndex: 0,
+          onSelectAll: (value) {
+            _handleSelectAll(value);
+          },
+          columns: _computeColumns(widgetProps, contextData),
+          source: _computeRows(widgetProps, contextData),
+          onRowsPerPageChanged: (value) {
+            // No need to wrap into setState, it will be called inside the widget
+            // and trigger rebuild
+            //setState(() {
+            _rowsPerPage = value!;
+            print(_rowsPerPage);
+            //});
+          },
+          onPageChanged: (rowIndex) {
+            print(rowIndex / _rowsPerPage);
+          },
+        ),
+        //Custom Pagination
+        // Positioned(bottom: 16, child: CustomPager(_controller!))
+      ],
     );
   }
 
@@ -132,37 +169,21 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     widget.setPageData({name!: items});
   }
 
-  Widget _computeTable(
-    LayoutProps? widgetProps,
-    Map<String, dynamic> contextData,
-  ) {
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      children: [
-        PaginatedDataTable2(
-          controller: _controller,
-          rowsPerPage: _rowsPerPage,
-          minWidth: widgetProps?.minWidth,
-          sortColumnIndex: 1,
-          initialFirstRowIndex: 0,
-          columns: _computeColumns(widgetProps, contextData),
-          source: _computeRows(widgetProps, contextData),
-          onRowsPerPageChanged: (value) {
-            // No need to wrap into setState, it will be called inside the widget
-            // and trigger rebuild
-            //setState(() {
-            _rowsPerPage = value!;
-            print(_rowsPerPage);
-            //});
-          },
-          onPageChanged: (rowIndex) {
-            print(rowIndex / _rowsPerPage);
-          },
-        ),
-        //Custom Pagination
-        // Positioned(bottom: 16, child: CustomPager(_controller!))
-      ],
-    );
+  void _handleSelectAll(bool? value) {
+    var name = widget.widgetProps.name;
+    var items = widget.contextData[name];
+    if (items == null) return;
+    _rowDataSource?.selectAll(value);
+    if (items is List) {
+      items.map((item) {
+        if (item is Map) {
+          item["selected"] = value;
+        }
+        return item;
+      }).toList();
+    }
+
+    widget.setPageData({name!: items});
   }
 
   @override

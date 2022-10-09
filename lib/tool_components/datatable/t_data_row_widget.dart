@@ -127,6 +127,14 @@ class T_RowData extends DataTableSource {
 
   @override
   int get selectedRowCount => _selectedCount;
+
+  void selectAll(bool? checked) {
+    for (final rowData in tableData) {
+      rowData["selected"] = checked ?? false;
+    }
+    _selectedCount = (checked ?? false) ? tableData.length : 0;
+    notifyListeners();
+  }
 }
 
 int _selectedCount = 0;
