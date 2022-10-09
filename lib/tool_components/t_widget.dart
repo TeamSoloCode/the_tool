@@ -126,7 +126,7 @@ mixin BaseStateWidget on Widget {
 
   Future<void> setPageData(Map<String, dynamic> newData) async {
     await executeJSWithPagePath(
-      "setPageData(JSON.parse('${json.encode(newData)}'));",
+      "setPageData(JSON.parse(`${json.encode(newData)}`));",
     );
   }
 

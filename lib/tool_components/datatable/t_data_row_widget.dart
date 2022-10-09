@@ -4,11 +4,13 @@ import 'package:intl/intl.dart';
 import 'package:the_tool/t_widget_interface/data_table_props/data_cell_props/data_cell_props.dart';
 import 'package:the_tool/t_widget_interface/data_table_props/data_row_props/data_row_props.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
+import 'package:the_tool/utils.dart';
 
 class T_RowData extends DataTableSource {
   final BuildContext context;
   late List<DataRowProps> rows;
-  late List<dynamic> rowData;
+  late List<dynamic> tableData;
+  late Function(int rowIndex, bool isSelected) handleSelectRow;
   late String pagePath;
   // Add row tap handlers and show snackbar
   bool hasRowTaps = false;
@@ -20,8 +22,9 @@ class T_RowData extends DataTableSource {
   T_RowData(
     this.context, {
     required this.rows,
-    required this.rowData,
+    required this.tableData,
     required this.pagePath,
+    required this.handleSelectRow,
     sortedByCalories = false,
     this.hasRowTaps = false,
     this.hasRowHeightOverrides = false,
@@ -29,7 +32,7 @@ class T_RowData extends DataTableSource {
   }) {
     void sort<T>(
         Comparable<T> Function(DataRowProps d) getField, bool ascending) {
-      rowData.sort((a, b) {
+      tableData.sort((a, b) {
         final aValue = getField(a);
         final bValue = getField(b);
         return ascending
@@ -46,7 +49,7 @@ class T_RowData extends DataTableSource {
   }
 
   T_RowData.empty(this.context) {
-    rowData = [];
+    tableData = [];
   }
 
   @override
@@ -56,21 +59,22 @@ class T_RowData extends DataTableSource {
       decimalDigits: 0,
     );
     assert(index >= 0);
-    if (index >= rowData.length) throw 'index > _desserts.length';
-    final row = rowData[index];
+    if (index >= tableData.length) throw 'index > _desserts.length';
+    final rowData = tableData[index];
     return DataRow2.byIndex(
       index: index,
-      // selected: row.selected,
+      selected: UtilsManager.isTruthy(rowData["selected"]),
       // color: color != null
       //     ? MaterialStateProperty.all(color)
       //     : (hasZebraStripes && index.isEven
       //         ? MaterialStateProperty.all(Theme.of(context).highlightColor)
       //         : null),
       onSelectChanged: (value) {
-        if (row.selected != value) {
+        if (UtilsManager.isTruthy(rowData["selected"]) != value) {
           _selectedCount += value! ? 1 : -1;
           assert(_selectedCount >= 0);
-          // dessert.selected = value;
+          // rowData["selected"].selected = value;
+          handleSelectRow(index, value);
           notifyListeners();
         }
       },
@@ -89,7 +93,7 @@ class T_RowData extends DataTableSource {
           : null,
       // specificRowHeight:
       //     hasRowHeightOverrides && dessert.fat >= 25 ? 100 : null,
-      cells: _computeCells(rows[0].cells, rowData[index]),
+      cells: _computeCells(rows[0].cells, tableData[index]),
     );
   }
 
@@ -116,7 +120,7 @@ class T_RowData extends DataTableSource {
   }
 
   @override
-  int get rowCount => rowData.length;
+  int get rowCount => tableData.length;
 
   @override
   bool get isRowCountApproximate => false;

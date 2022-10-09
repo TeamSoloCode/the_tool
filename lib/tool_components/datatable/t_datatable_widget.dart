@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:the_tool/t_widget_interface/data_table_props/data_cell_props/data_cell_props.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
+import 'package:the_tool/tool_components/datatable/custom_pagination.dart';
 import 'package:the_tool/tool_components/datatable/t_data_row_widget.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
@@ -49,9 +50,8 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
       // _rowDataSource = T_RowData(
       //     context, );
 
-      // _controller = PaginatorController();
-
-      // _initialized = true;
+      _controller = PaginatorController();
+      _initialized = true;
     }
   }
 
@@ -109,22 +109,59 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
 
     return T_RowData(
       context,
+      handleSelectRow: _handleSelectRow,
       pagePath: widget.pagePath,
-      rowData: items,
+      tableData: items,
       rows: widgetProps!.rows!,
     );
+  }
+
+  void _handleSelectRow(int rowIndex, bool isSelected) {
+    var name = widget.widgetProps.name;
+    var items = widget.contextData[name];
+    if (items == null) return;
+
+    if (items is List) {
+      var item = items.elementAt(rowIndex);
+      if (item is Map) {
+        item["selected"] = isSelected;
+        items[rowIndex] = item;
+      }
+    }
+
+    widget.setPageData({name!: items});
   }
 
   Widget _computeTable(
     LayoutProps? widgetProps,
     Map<String, dynamic> contextData,
   ) {
-    return PaginatedDataTable2(
-      rowsPerPage: 20,
-      minWidth: widgetProps?.minWidth,
-      sortColumnIndex: 1,
-      columns: _computeColumns(widgetProps, contextData),
-      source: _computeRows(widgetProps, contextData),
+    return Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+        PaginatedDataTable2(
+          controller: _controller,
+          rowsPerPage: _rowsPerPage,
+          minWidth: widgetProps?.minWidth,
+          sortColumnIndex: 1,
+          initialFirstRowIndex: 60,
+          columns: _computeColumns(widgetProps, contextData),
+          source: _computeRows(widgetProps, contextData),
+          onRowsPerPageChanged: (value) {
+            // No need to wrap into setState, it will be called inside the widget
+            // and trigger rebuild
+            //setState(() {
+            _rowsPerPage = value!;
+            print(_rowsPerPage);
+            //});
+          },
+          onPageChanged: (rowIndex) {
+            print(rowIndex / _rowsPerPage);
+          },
+        ),
+        //Custom Pagination
+        // Positioned(bottom: 16, child: CustomPager(_controller!))
+      ],
     );
   }
 
