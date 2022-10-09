@@ -144,7 +144,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
           rowsPerPage: _rowsPerPage,
           minWidth: widgetProps?.minWidth,
           sortColumnIndex: 1,
-          initialFirstRowIndex: 60,
+          initialFirstRowIndex: 0,
           columns: _computeColumns(widgetProps, contextData),
           source: _computeRows(widgetProps, contextData),
           onRowsPerPageChanged: (value) {

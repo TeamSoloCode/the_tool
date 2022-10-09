@@ -149,6 +149,10 @@ abstract class BaseEvalJS {
           return _pageData;
         }, [_pageData])
 
+        const \$root = React.useMemo(() => {
+          return _pageData;
+        }, [_pageData])
+
         // Export page context
         const exportPageContext = React.useCallback((exportedContext = {}) => {
           context['$pagePath'] = context['$pagePath'] || {}
