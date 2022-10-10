@@ -89,7 +89,19 @@ mixin BaseStateWidget on Widget {
     // }
 
     var newBindingValues = widgetBindingStrings.map((widgetBindingString) {
-      return gato.get(contextData, widgetBindingString).toString();
+      String bindingField = widgetBindingString;
+
+      var rootData = getIt<ContextStateProvider>().rootPageData;
+      var useRootData = bindingField.startsWith(UtilsManager.rootPrefix);
+      var selectedData = useRootData ? rootData : contextData;
+
+      if (useRootData) {
+        bindingField = bindingField.substring(UtilsManager.rootPrefix.length);
+      }
+
+      var bindingData = gato.get(selectedData, bindingField);
+
+      return bindingData;
     }).toList();
 
     var isChanged = !const DeepCollectionEquality().equals(

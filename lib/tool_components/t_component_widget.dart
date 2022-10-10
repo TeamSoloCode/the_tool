@@ -108,6 +108,7 @@ class _T_ComponentState extends State<T_Component>
   bool get wantKeepAlive => true;
 
   bool didBuild = false;
+
   @override
   Widget build(BuildContext context) {
     super.build(context);

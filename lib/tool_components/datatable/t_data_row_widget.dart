@@ -59,7 +59,7 @@ class T_RowData extends DataTableSource {
       decimalDigits: 0,
     );
     assert(index >= 0);
-    if (index >= tableData.length) throw 'index > _desserts.length';
+    if (index >= tableData.length) throw 'index > rowData.length';
     final rowData = tableData[index];
     return DataRow2.byIndex(
       index: index,
@@ -73,7 +73,6 @@ class T_RowData extends DataTableSource {
         if (UtilsManager.isTruthy(rowData["selected"]) != value) {
           _selectedCount += value! ? 1 : -1;
           assert(_selectedCount >= 0);
-          // rowData["selected"].selected = value;
           handleSelectRow(index, value);
           notifyListeners();
         }

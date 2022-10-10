@@ -173,7 +173,9 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     var name = widget.widgetProps.name;
     var items = widget.contextData[name];
     if (items == null) return;
+
     _rowDataSource?.selectAll(value);
+
     if (items is List) {
       items.map((item) {
         if (item is Map) {
