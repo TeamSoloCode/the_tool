@@ -76,7 +76,7 @@ class EvalJS extends BaseEvalJS {
         const { _pageData, getPageData } = context['$pagePath'] ?? {}
 
         const returnedValue = await $code 
-        if(_.isPlainObject(returnedValue)) {
+        if(_.isPlainObject(returnedValue) || _.isArrayLikeObject(returnedValue)) {
           return JSON.stringify(returnedValue)
         }
         return returnedValue;

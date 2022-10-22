@@ -102,6 +102,8 @@ class LayoutProps with _$LayoutProps {
     // Table Start================================================
     List<DataColumnProps>? columns,
     List<DataRowProps>? rows,
+    String? onSort,
+    String? loadDataFunction,
     // Table End==================================================
 
     String? component,

@@ -8,6 +8,7 @@ class DataColumnProps with _$DataColumnProps {
   factory DataColumnProps({
     required String label,
     String? tooltip,
+    String? fieldData,
     @Default(false) bool numeric,
     String? onSort,
   }) = _DataColumnProps;

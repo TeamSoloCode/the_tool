@@ -102,7 +102,9 @@ mixin _$LayoutProps {
       throw _privateConstructorUsedError; // Form End==================================================
 // Table Start================================================
   List<DataColumnProps>? get columns => throw _privateConstructorUsedError;
-  List<DataRowProps>? get rows =>
+  List<DataRowProps>? get rows => throw _privateConstructorUsedError;
+  String? get onSort => throw _privateConstructorUsedError;
+  String? get loadDataFunction =>
       throw _privateConstructorUsedError; // Table End==================================================
   String? get component => throw _privateConstructorUsedError;
   LayoutProps? get child => throw _privateConstructorUsedError;
@@ -175,6 +177,8 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? autovalidateMode,
       List<DataColumnProps>? columns,
       List<DataRowProps>? rows,
+      String? onSort,
+      String? loadDataFunction,
       String? component,
       LayoutProps? child,
       LayoutProps? content,
@@ -254,6 +258,8 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
     Object? autovalidateMode = freezed,
     Object? columns = freezed,
     Object? rows = freezed,
+    Object? onSort = freezed,
+    Object? loadDataFunction = freezed,
     Object? component = freezed,
     Object? child = freezed,
     Object? content = freezed,
@@ -458,6 +464,14 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
           ? _value.rows
           : rows // ignore: cast_nullable_to_non_nullable
               as List<DataRowProps>?,
+      onSort: onSort == freezed
+          ? _value.onSort
+          : onSort // ignore: cast_nullable_to_non_nullable
+              as String?,
+      loadDataFunction: loadDataFunction == freezed
+          ? _value.loadDataFunction
+          : loadDataFunction // ignore: cast_nullable_to_non_nullable
+              as String?,
       component: component == freezed
           ? _value.component
           : component // ignore: cast_nullable_to_non_nullable
@@ -646,6 +660,8 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       String? autovalidateMode,
       List<DataColumnProps>? columns,
       List<DataRowProps>? rows,
+      String? onSort,
+      String? loadDataFunction,
       String? component,
       LayoutProps? child,
       LayoutProps? content,
@@ -735,6 +751,8 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
     Object? autovalidateMode = freezed,
     Object? columns = freezed,
     Object? rows = freezed,
+    Object? onSort = freezed,
+    Object? loadDataFunction = freezed,
     Object? component = freezed,
     Object? child = freezed,
     Object? content = freezed,
@@ -939,6 +957,14 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
           ? _value._rows
           : rows // ignore: cast_nullable_to_non_nullable
               as List<DataRowProps>?,
+      onSort: onSort == freezed
+          ? _value.onSort
+          : onSort // ignore: cast_nullable_to_non_nullable
+              as String?,
+      loadDataFunction: loadDataFunction == freezed
+          ? _value.loadDataFunction
+          : loadDataFunction // ignore: cast_nullable_to_non_nullable
+              as String?,
       component: component == freezed
           ? _value.component
           : component // ignore: cast_nullable_to_non_nullable
@@ -1035,6 +1061,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.autovalidateMode,
       final List<DataColumnProps>? columns,
       final List<DataRowProps>? rows,
+      this.onSort,
+      this.loadDataFunction,
       this.component,
       this.child,
       this.content,
@@ -1239,6 +1267,10 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
     return EqualUnmodifiableListView(value);
   }
 
+  @override
+  final String? onSort;
+  @override
+  final String? loadDataFunction;
 // Table End==================================================
   @override
   final String? component;
@@ -1270,7 +1302,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, fit: $fit, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, fit: $fit, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
   }
 
   @override
@@ -1327,6 +1359,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('autovalidateMode', autovalidateMode))
       ..add(DiagnosticsProperty('columns', columns))
       ..add(DiagnosticsProperty('rows', rows))
+      ..add(DiagnosticsProperty('onSort', onSort))
+      ..add(DiagnosticsProperty('loadDataFunction', loadDataFunction))
       ..add(DiagnosticsProperty('component', component))
       ..add(DiagnosticsProperty('child', child))
       ..add(DiagnosticsProperty('content', content))
@@ -1402,6 +1436,8 @@ abstract class _LayoutProps implements LayoutProps {
       final String? autovalidateMode,
       final List<DataColumnProps>? columns,
       final List<DataRowProps>? rows,
+      final String? onSort,
+      final String? loadDataFunction,
       final String? component,
       final LayoutProps? child,
       final LayoutProps? content,
@@ -1541,6 +1577,10 @@ abstract class _LayoutProps implements LayoutProps {
   List<DataColumnProps>? get columns;
   @override
   List<DataRowProps>? get rows;
+  @override
+  String? get onSort;
+  @override
+  String? get loadDataFunction;
   @override // Table End==================================================
   String? get component;
   @override

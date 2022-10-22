@@ -66,6 +66,8 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       rows: (json['rows'] as List<dynamic>?)
           ?.map((e) => DataRowProps.fromJson(e as Map<String, dynamic>))
           .toList(),
+      onSort: json['onSort'] as String?,
+      loadDataFunction: json['loadDataFunction'] as String?,
       component: json['component'] as String?,
       child: json['child'] == null
           ? null
@@ -148,6 +150,8 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'autovalidateMode': instance.autovalidateMode,
       'columns': instance.columns,
       'rows': instance.rows,
+      'onSort': instance.onSort,
+      'loadDataFunction': instance.loadDataFunction,
       'component': instance.component,
       'child': instance.child,
       'content': instance.content,

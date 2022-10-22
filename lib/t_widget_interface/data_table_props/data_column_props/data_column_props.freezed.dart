@@ -22,6 +22,7 @@ DataColumnProps _$DataColumnPropsFromJson(Map<String, dynamic> json) {
 mixin _$DataColumnProps {
   String get label => throw _privateConstructorUsedError;
   String? get tooltip => throw _privateConstructorUsedError;
+  String? get fieldData => throw _privateConstructorUsedError;
   bool get numeric => throw _privateConstructorUsedError;
   String? get onSort => throw _privateConstructorUsedError;
 
@@ -36,7 +37,12 @@ abstract class $DataColumnPropsCopyWith<$Res> {
   factory $DataColumnPropsCopyWith(
           DataColumnProps value, $Res Function(DataColumnProps) then) =
       _$DataColumnPropsCopyWithImpl<$Res>;
-  $Res call({String label, String? tooltip, bool numeric, String? onSort});
+  $Res call(
+      {String label,
+      String? tooltip,
+      String? fieldData,
+      bool numeric,
+      String? onSort});
 }
 
 /// @nodoc
@@ -52,6 +58,7 @@ class _$DataColumnPropsCopyWithImpl<$Res>
   $Res call({
     Object? label = freezed,
     Object? tooltip = freezed,
+    Object? fieldData = freezed,
     Object? numeric = freezed,
     Object? onSort = freezed,
   }) {
@@ -63,6 +70,10 @@ class _$DataColumnPropsCopyWithImpl<$Res>
       tooltip: tooltip == freezed
           ? _value.tooltip
           : tooltip // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fieldData: fieldData == freezed
+          ? _value.fieldData
+          : fieldData // ignore: cast_nullable_to_non_nullable
               as String?,
       numeric: numeric == freezed
           ? _value.numeric
@@ -83,7 +94,12 @@ abstract class _$$_DataColumnPropsCopyWith<$Res>
           _$_DataColumnProps value, $Res Function(_$_DataColumnProps) then) =
       __$$_DataColumnPropsCopyWithImpl<$Res>;
   @override
-  $Res call({String label, String? tooltip, bool numeric, String? onSort});
+  $Res call(
+      {String label,
+      String? tooltip,
+      String? fieldData,
+      bool numeric,
+      String? onSort});
 }
 
 /// @nodoc
@@ -101,6 +117,7 @@ class __$$_DataColumnPropsCopyWithImpl<$Res>
   $Res call({
     Object? label = freezed,
     Object? tooltip = freezed,
+    Object? fieldData = freezed,
     Object? numeric = freezed,
     Object? onSort = freezed,
   }) {
@@ -112,6 +129,10 @@ class __$$_DataColumnPropsCopyWithImpl<$Res>
       tooltip: tooltip == freezed
           ? _value.tooltip
           : tooltip // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fieldData: fieldData == freezed
+          ? _value.fieldData
+          : fieldData // ignore: cast_nullable_to_non_nullable
               as String?,
       numeric: numeric == freezed
           ? _value.numeric
@@ -129,7 +150,11 @@ class __$$_DataColumnPropsCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_DataColumnProps implements _DataColumnProps {
   _$_DataColumnProps(
-      {required this.label, this.tooltip, this.numeric = false, this.onSort});
+      {required this.label,
+      this.tooltip,
+      this.fieldData,
+      this.numeric = false,
+      this.onSort});
 
   factory _$_DataColumnProps.fromJson(Map<String, dynamic> json) =>
       _$$_DataColumnPropsFromJson(json);
@@ -138,6 +163,8 @@ class _$_DataColumnProps implements _DataColumnProps {
   final String label;
   @override
   final String? tooltip;
+  @override
+  final String? fieldData;
   @override
   @JsonKey()
   final bool numeric;
@@ -161,6 +188,7 @@ abstract class _DataColumnProps implements DataColumnProps {
   factory _DataColumnProps(
       {required final String label,
       final String? tooltip,
+      final String? fieldData,
       final bool numeric,
       final String? onSort}) = _$_DataColumnProps;
 
@@ -171,6 +199,8 @@ abstract class _DataColumnProps implements DataColumnProps {
   String get label;
   @override
   String? get tooltip;
+  @override
+  String? get fieldData;
   @override
   bool get numeric;
   @override
