@@ -36,6 +36,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
   T_RowData? _rowDataSource;
   dynamic _oldRowData;
   bool _initialized = false;
+  bool _selectAll = false;
   PaginatorController? _paginationController;
 
   @override
@@ -135,14 +136,14 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
   }
 
   Future<SourceRowDataResponse> _getData(
-    int start,
-    int end,
+    int offset,
+    int limit,
     String? sortColumn,
     bool? isSortAscending,
   ) async {
     var tableInfo = json.encode({
-      "start": start,
-      "end": end,
+      "offset": offset,
+      "limit": limit,
       "sortColumn": sortColumn,
       "isSortAscending": isSortAscending,
     });
@@ -226,6 +227,12 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     }
 
     widget.setPageData({name!: items});
+    _selectAll = !_selectAll;
+    if (_selectAll) {
+      _rowDataSource?.selectAllOnThePage();
+    } else {
+      _rowDataSource?.deselectAllOnThePage();
+    }
   }
 
   @override

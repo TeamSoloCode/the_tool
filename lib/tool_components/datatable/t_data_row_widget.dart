@@ -1,9 +1,5 @@
-import 'dart:convert';
-import 'dart:js';
-
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:the_tool/t_widget_interface/data_table_props/data_cell_props/data_cell_props.dart';
 import 'package:the_tool/t_widget_interface/data_table_props/data_row_props/data_row_props.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
@@ -39,63 +35,14 @@ class T_RowData extends AsyncDataTableSource {
     this.hasRowTaps = false,
     this.hasRowHeightOverrides = false,
     this.hasZebraStripes = false,
-  }) {
-    // if (sortedByCalories) {
-    //   sort((d) => d.calories, true);
-    // }
-  }
+  }) {}
 
   T_RowData.empty(this.context) {
     tableData = [];
   }
 
-  // @override
-  // DataRow? getRow(int index) {
-  //   final format = NumberFormat.decimalPercentPattern(
-  //     locale: 'en',
-  //     decimalDigits: 0,
-  //   );
-  //   assert(index >= 0);
-  //   if (index >= tableData.length) throw 'index > rowData.length';
-  //   final rowData = tableData[index];
-  //   return DataRow2.byIndex(
-  //     index: index,
-  //     selected: UtilsManager.isTruthy(rowData["selected"]),
-  //     // color: color != null
-  //     //     ? MaterialStateProperty.all(color)
-  //     //     : (hasZebraStripes && index.isEven
-  //     //         ? MaterialStateProperty.all(Theme.of(context).highlightColor)
-  //     //         : null),
-  //     onSelectChanged: (value) {
-  //       if (UtilsManager.isTruthy(rowData["selected"]) != value) {
-  //         _selectedCount += value! ? 1 : -1;
-  //         assert(_selectedCount >= 0);
-  //         handleSelectRow(index, value);
-  //         notifyListeners();
-  //       }
-  //     },
-  //     onTap: hasRowTaps ? () => _showSnackbar(context, 'Tapped on row') : null,
-  //     onDoubleTap: hasRowTaps
-  //         ? () => _showSnackbar(context, 'Double Tapped on row')
-  //         : null,
-  //     onLongPress: hasRowTaps
-  //         ? () => _showSnackbar(context, 'Long pressed on row')
-  //         : null,
-  //     onSecondaryTap: hasRowTaps
-  //         ? () => _showSnackbar(context, 'Right clicked on row')
-  //         : null,
-  //     onSecondaryTapDown: hasRowTaps
-  //         ? (d) => _showSnackbar(context, 'Right button down on row')
-  //         : null,
-  //     // specificRowHeight:
-  //     //     hasRowHeightOverrides && dessert.fat >= 25 ? 100 : null,
-  //     cells: _computeCells(rows[0].cells, tableData[index]),
-  //   );
-  // }
-
   @override
-  Future<AsyncRowsResponse> getRows(int start, int end) async {
-    print('getRows($start, $end)');
+  Future<AsyncRowsResponse> getRows(int offset, int limit) async {
     if (_errorCounter != null) {
       _errorCounter = _errorCounter! + 1;
 
@@ -105,34 +52,32 @@ class T_RowData extends AsyncDataTableSource {
       }
     }
 
-    var index = start;
-    // final format = NumberFormat.decimalPercentPattern(
-    //   locale: 'en',
-    //   decimalDigits: 0,
-    // );
-    assert(index >= 0);
+    assert(offset >= 0);
 
     // List returned will be empty is there're fewer items than startingAt
     var tableData = await getDataFunction(
-      start,
-      end,
+      offset,
+      limit,
       _sortColumn,
       _sortAscending,
     );
 
-    print(
-      "abcd tableData ${tableData.data} ${tableData.data.toList()}",
-    );
-
+    var index = 0;
     var row = AsyncRowsResponse(
         tableData.total,
         tableData.data.map((rowData) {
+          ++index;
           return DataRow(
-            key: ValueKey<int>(rowData["id"]),
+            key: ValueKey<dynamic>(rowData["id"] ?? index),
             selected: rowData["selected"] ?? false,
             onSelectChanged: (value) {
               if (value != null) {
-                setRowSelection(ValueKey<int>(rowData["id"]), value);
+                setRowSelection(
+                  ValueKey<dynamic>(rowData["id"] ?? index),
+                  value,
+                );
+
+                handleSelectRow(index, value);
               }
             },
             cells: _computeCells(rows[0].cells, rowData),
@@ -178,14 +123,6 @@ class T_RowData extends AsyncDataTableSource {
 
   @override
   int get selectedRowCount => _selectedCount;
-
-  // void selectAll(bool? checked) {
-  //   for (final rowData in tableData) {
-  //     rowData["selected"] = checked ?? false;
-  //   }
-  //   _selectedCount = (checked ?? false) ? tableData.length : 0;
-  //   notifyListeners();
-  // }
 
   void dataUpdated(List<dynamic> updatedData) {
     tableData.clear();
