@@ -8,11 +8,10 @@ import 'package:the_tool/utils.dart';
 class T_RowData extends AsyncDataTableSource {
   final BuildContext context;
   late List<DataRowProps> rows;
-  late List<dynamic> tableData;
+  late SourceRowDataResponse tableData;
   late Function(int rowIndex, bool isSelected) handleSelectRow;
   late String pagePath;
-  late Future<SourceRowDataResponse> Function(int, int, String?, bool?)
-      getDataFunction;
+  late Future<void> Function(int, int, String?, bool?) getDataFunction;
   // Add row tap handlers and show snackbar
   bool hasRowTaps = false;
   // Override height values for certain rows
@@ -35,10 +34,10 @@ class T_RowData extends AsyncDataTableSource {
     this.hasRowTaps = false,
     this.hasRowHeightOverrides = false,
     this.hasZebraStripes = false,
-  }) {}
+  });
 
   T_RowData.empty(this.context) {
-    tableData = [];
+    tableData = SourceRowDataResponse(0, []);
   }
 
   @override
@@ -55,12 +54,7 @@ class T_RowData extends AsyncDataTableSource {
     assert(offset >= 0);
 
     // List returned will be empty is there're fewer items than startingAt
-    var tableData = await getDataFunction(
-      offset,
-      limit,
-      _sortColumn,
-      _sortAscending,
-    );
+    getDataFunction(offset, limit, _sortColumn, _sortAscending);
 
     var index = 0;
     var row = AsyncRowsResponse(
@@ -116,7 +110,7 @@ class T_RowData extends AsyncDataTableSource {
   }
 
   @override
-  int get rowCount => tableData.length;
+  int get rowCount => tableData.total;
 
   @override
   bool get isRowCountApproximate => false;
@@ -124,10 +118,10 @@ class T_RowData extends AsyncDataTableSource {
   @override
   int get selectedRowCount => _selectedCount;
 
-  void dataUpdated(List<dynamic> updatedData) {
-    tableData.clear();
-    tableData.addAll(updatedData);
-    notifyListeners();
+  void updateTableData(SourceRowDataResponse data) {
+    tableData = data;
+    
+    refreshDatasource();
   }
 }
 

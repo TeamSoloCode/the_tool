@@ -1,14 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:the_tool/t_widget_interface/data_table_props/data_cell_props/data_cell_props.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
-import 'package:the_tool/tool_components/datatable/custom_pagination.dart';
 import 'package:the_tool/tool_components/datatable/t_data_row_widget.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
-import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:data_table_2/data_table_2.dart';
-import 'package:the_tool/utils.dart';
 
 class T_DataTable extends TWidget {
   T_DataTable({
@@ -44,7 +40,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     if (widget.widgetProps.name == null) {
       throw Exception("Table must have name property to binding data");
     }
-
+    _rowDataSource = _computeRows(widget.widgetProps, widget.contextData);
     super.initState();
   }
 
@@ -54,17 +50,16 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     var items = widget.contextData[widget.widgetProps.name];
 
     if (_initialized && items != null && items != _oldRowData) {
-      // _rowDataSource?.dispose();
-      // _rowDataSource?.dataUpdated(items);
-      _rowDataSource?.addListener(() {
-        setState(() {});
-      });
-      // setState(() {});
+      var dataCount =
+          widget.contextData[widget.widgetProps.tableTotal] ?? items.length;
+      var tableTable = SourceRowDataResponse(dataCount, items);
+      print("abcd items $items");
+      print("abcd items.length ${items.length}");
+      _rowDataSource?.updateTableData(tableTable);
+      _oldRowData = items;
     }
+
     if (!_initialized) {
-      // _rowDataSource = T_RowData(
-      //     context, );
-      // _rowDataSource = _computeRows(widget.widgetProps, widget.contextData);
       _paginationController = PaginatorController();
       _initialized = true;
     }
@@ -122,20 +117,22 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
       return T_RowData.empty(context);
     }
 
+    var dataCount = contextData[widgetProps?.tableTotal] ?? items.length;
+    var tableTable = SourceRowDataResponse(dataCount, items);
+
     var dataSource = T_RowData(
       context,
       handleSelectRow: _handleSelectRow,
       pagePath: widget.pagePath,
-      tableData: items,
+      tableData: tableTable,
       rows: widgetProps!.rows!,
       getDataFunction: _getData,
     );
 
-    _oldRowData = items;
     return dataSource;
   }
 
-  Future<SourceRowDataResponse> _getData(
+  Future<void> _getData(
     int offset,
     int limit,
     String? sortColumn,
@@ -147,21 +144,26 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
       "sortColumn": sortColumn,
       "isSortAscending": isSortAscending,
     });
+
     if (widget.widgetProps.loadDataFunction == null) {
       throw Exception("Missing \"loadDataFunction\" property in table widget");
     }
 
     var jsLoadDataFunction =
         widget.widgetProps.loadDataFunction! + "(JSON.parse('$tableInfo'))";
-    var data = await widget.executeJSWithPagePath(jsLoadDataFunction);
-    return SourceRowDataResponse(data.length, data);
+
+    widget.executeJSWithPagePath(jsLoadDataFunction);
   }
 
   Widget _computeTable(
     LayoutProps? widgetProps,
     Map<String, dynamic> contextData,
   ) {
-    _rowDataSource = _computeRows(widgetProps, contextData);
+    if (_rowDataSource == null) {
+      return const SizedBox();
+    }
+    // _rowDataSource = _computeRows(widgetProps, contextData);
+
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [

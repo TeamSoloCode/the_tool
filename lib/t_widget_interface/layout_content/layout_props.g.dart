@@ -68,6 +68,7 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
           .toList(),
       onSort: json['onSort'] as String?,
       loadDataFunction: json['loadDataFunction'] as String?,
+      tableTotal: json['tableTotal'] as String?,
       component: json['component'] as String?,
       child: json['child'] == null
           ? null
@@ -152,6 +153,7 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'rows': instance.rows,
       'onSort': instance.onSort,
       'loadDataFunction': instance.loadDataFunction,
+      'tableTotal': instance.tableTotal,
       'component': instance.component,
       'child': instance.child,
       'content': instance.content,
