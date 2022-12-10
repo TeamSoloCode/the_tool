@@ -49,14 +49,11 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     super.didChangeDependencies();
     var items = widget.contextData[widget.widgetProps.name];
 
-    if (_initialized && items != null && items != _oldRowData) {
+    if (items != null && items?.isNotEmpty) {
       var dataCount =
           widget.contextData[widget.widgetProps.tableTotal] ?? items.length;
-      var tableTable = SourceRowDataResponse(dataCount, items);
-      print("abcd items $items");
-      print("abcd items.length ${items.length}");
-      _rowDataSource?.updateTableData(tableTable);
-      _oldRowData = items;
+      var tableTable = SourceRowDataResponse(100, items);
+      _rowDataSource?.updateTableData(tableTable, true);
     }
 
     if (!_initialized) {
@@ -159,9 +156,6 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     LayoutProps? widgetProps,
     Map<String, dynamic> contextData,
   ) {
-    if (_rowDataSource == null) {
-      return const SizedBox();
-    }
     // _rowDataSource = _computeRows(widgetProps, contextData);
 
     return Stack(

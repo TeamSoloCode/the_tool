@@ -23,6 +23,7 @@ class T_RowData extends AsyncDataTableSource {
   int? _errorCounter;
   String? _sortColumn;
   bool? _sortAscending;
+  bool _onlyUpdateData = false;
 
   T_RowData(
     this.context, {
@@ -52,9 +53,9 @@ class T_RowData extends AsyncDataTableSource {
     }
 
     assert(offset >= 0);
-
-    // List returned will be empty is there're fewer items than startingAt
-    getDataFunction(offset, limit, _sortColumn, _sortAscending);
+    !_onlyUpdateData
+        ? getDataFunction(offset, limit, _sortColumn, _sortAscending)
+        : _onlyUpdateData = false;
 
     var index = 0;
     var row = AsyncRowsResponse(
@@ -118,9 +119,9 @@ class T_RowData extends AsyncDataTableSource {
   @override
   int get selectedRowCount => _selectedCount;
 
-  void updateTableData(SourceRowDataResponse data) {
+  void updateTableData(SourceRowDataResponse data, bool onlyUpdateData) {
     tableData = data;
-    
+    _onlyUpdateData = onlyUpdateData;
     refreshDatasource();
   }
 }
