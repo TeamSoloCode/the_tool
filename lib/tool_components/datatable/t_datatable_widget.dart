@@ -30,7 +30,6 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
   bool _sortAscending = true;
   int? _sortColumnIndex;
   T_RowData? _rowDataSource;
-  dynamic _oldRowData;
   bool _initialized = false;
   bool _selectAll = false;
   PaginatorController? _paginationController;
@@ -51,8 +50,8 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
 
     if (items != null && items?.isNotEmpty) {
       var dataCount =
-          widget.contextData[widget.widgetProps.tableTotal] ?? items.length;
-      var tableTable = SourceRowDataResponse(100, items);
+          widget.contextData[widget.widgetProps.total] ?? items.length;
+      var tableTable = SourceRowDataResponse(dataCount, items);
       _rowDataSource?.updateTableData(tableTable, true);
     }
 
@@ -114,7 +113,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
       return T_RowData.empty(context);
     }
 
-    var dataCount = contextData[widgetProps?.tableTotal] ?? items.length;
+    var dataCount = contextData[widgetProps?.total] ?? items.length;
     var tableTable = SourceRowDataResponse(dataCount, items);
 
     var dataSource = T_RowData(

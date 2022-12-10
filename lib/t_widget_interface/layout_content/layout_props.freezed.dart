@@ -105,7 +105,7 @@ mixin _$LayoutProps {
   List<DataRowProps>? get rows => throw _privateConstructorUsedError;
   String? get onSort => throw _privateConstructorUsedError;
   String? get loadDataFunction => throw _privateConstructorUsedError;
-  String? get tableTotal =>
+  String? get total =>
       throw _privateConstructorUsedError; // Table End==================================================
   String? get component => throw _privateConstructorUsedError;
   LayoutProps? get child => throw _privateConstructorUsedError;
@@ -180,7 +180,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       List<DataRowProps>? rows,
       String? onSort,
       String? loadDataFunction,
-      String? tableTotal,
+      String? total,
       String? component,
       LayoutProps? child,
       LayoutProps? content,
@@ -262,7 +262,7 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
     Object? rows = freezed,
     Object? onSort = freezed,
     Object? loadDataFunction = freezed,
-    Object? tableTotal = freezed,
+    Object? total = freezed,
     Object? component = freezed,
     Object? child = freezed,
     Object? content = freezed,
@@ -475,9 +475,9 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
           ? _value.loadDataFunction
           : loadDataFunction // ignore: cast_nullable_to_non_nullable
               as String?,
-      tableTotal: tableTotal == freezed
-          ? _value.tableTotal
-          : tableTotal // ignore: cast_nullable_to_non_nullable
+      total: total == freezed
+          ? _value.total
+          : total // ignore: cast_nullable_to_non_nullable
               as String?,
       component: component == freezed
           ? _value.component
@@ -669,7 +669,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       List<DataRowProps>? rows,
       String? onSort,
       String? loadDataFunction,
-      String? tableTotal,
+      String? total,
       String? component,
       LayoutProps? child,
       LayoutProps? content,
@@ -761,7 +761,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
     Object? rows = freezed,
     Object? onSort = freezed,
     Object? loadDataFunction = freezed,
-    Object? tableTotal = freezed,
+    Object? total = freezed,
     Object? component = freezed,
     Object? child = freezed,
     Object? content = freezed,
@@ -974,9 +974,9 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
           ? _value.loadDataFunction
           : loadDataFunction // ignore: cast_nullable_to_non_nullable
               as String?,
-      tableTotal: tableTotal == freezed
-          ? _value.tableTotal
-          : tableTotal // ignore: cast_nullable_to_non_nullable
+      total: total == freezed
+          ? _value.total
+          : total // ignore: cast_nullable_to_non_nullable
               as String?,
       component: component == freezed
           ? _value.component
@@ -1076,7 +1076,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       final List<DataRowProps>? rows,
       this.onSort,
       this.loadDataFunction,
-      this.tableTotal,
+      this.total,
       this.component,
       this.child,
       this.content,
@@ -1286,7 +1286,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   @override
   final String? loadDataFunction;
   @override
-  final String? tableTotal;
+  final String? total;
 // Table End==================================================
   @override
   final String? component;
@@ -1318,7 +1318,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, fit: $fit, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, tableTotal: $tableTotal, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, fit: $fit, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
   }
 
   @override
@@ -1377,7 +1377,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('rows', rows))
       ..add(DiagnosticsProperty('onSort', onSort))
       ..add(DiagnosticsProperty('loadDataFunction', loadDataFunction))
-      ..add(DiagnosticsProperty('tableTotal', tableTotal))
+      ..add(DiagnosticsProperty('total', total))
       ..add(DiagnosticsProperty('component', component))
       ..add(DiagnosticsProperty('child', child))
       ..add(DiagnosticsProperty('content', content))
@@ -1455,7 +1455,7 @@ abstract class _LayoutProps implements LayoutProps {
       final List<DataRowProps>? rows,
       final String? onSort,
       final String? loadDataFunction,
-      final String? tableTotal,
+      final String? total,
       final String? component,
       final LayoutProps? child,
       final LayoutProps? content,
@@ -1600,7 +1600,7 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   String? get loadDataFunction;
   @override
-  String? get tableTotal;
+  String? get total;
   @override // Table End==================================================
   String? get component;
   @override
