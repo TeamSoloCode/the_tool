@@ -106,21 +106,11 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     var rows = widgetProps?.rows;
 
     if (rows == null) return T_RowData.empty(context);
-    var items = contextData[widgetProps?.name];
-
-    if (items is! List) {
-      items = [];
-      return T_RowData.empty(context);
-    }
-
-    var dataCount = contextData[widgetProps?.total] ?? items.length;
-    var tableTable = SourceRowDataResponse(dataCount, items);
 
     var dataSource = T_RowData(
       context,
       handleSelectRow: _handleSelectRow,
       pagePath: widget.pagePath,
-      tableData: tableTable,
       rows: widgetProps!.rows!,
       getDataFunction: _getData,
     );
@@ -155,8 +145,6 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     LayoutProps? widgetProps,
     Map<String, dynamic> contextData,
   ) {
-    // _rowDataSource = _computeRows(widgetProps, contextData);
-
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
@@ -199,7 +187,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     if (items is List) {
       var item = items.elementAt(rowIndex);
       if (item is Map) {
-        item["selected"] = isSelected;
+        item["_selected"] = isSelected;
         items[rowIndex] = item;
       }
     }

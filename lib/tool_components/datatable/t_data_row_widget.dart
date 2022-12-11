@@ -8,7 +8,7 @@ import 'package:the_tool/utils.dart';
 class T_RowData extends AsyncDataTableSource {
   final BuildContext context;
   late List<DataRowProps> rows;
-  late SourceRowDataResponse tableData;
+
   late Function(int rowIndex, bool isSelected) handleSelectRow;
   late String pagePath;
   late Future<void> Function(int, int, String?, bool?) getDataFunction;
@@ -19,6 +19,8 @@ class T_RowData extends AsyncDataTableSource {
   // Color each Row by index's parity
   bool hasZebraStripes = false;
 
+  SourceRowDataResponse tableData = SourceRowDataResponse(0, []);
+
   bool _empty = false;
   int? _errorCounter;
   String? _sortColumn;
@@ -28,7 +30,6 @@ class T_RowData extends AsyncDataTableSource {
   T_RowData(
     this.context, {
     required this.rows,
-    required this.tableData,
     required this.pagePath,
     required this.getDataFunction,
     required this.handleSelectRow,
@@ -61,18 +62,18 @@ class T_RowData extends AsyncDataTableSource {
     var row = AsyncRowsResponse(
         tableData.total,
         tableData.data.map((rowData) {
+          rowData["_index"] = index;
           ++index;
           return DataRow(
             key: ValueKey<dynamic>(rowData["id"] ?? index),
-            selected: rowData["selected"] ?? false,
+            selected: rowData["_selected"] ?? false,
             onSelectChanged: (value) {
               if (value != null) {
                 setRowSelection(
                   ValueKey<dynamic>(rowData["id"] ?? index),
                   value,
                 );
-
-                handleSelectRow(index, value);
+                handleSelectRow(rowData["_index"], value);
               }
             },
             cells: _computeCells(rows[0].cells, rowData),
