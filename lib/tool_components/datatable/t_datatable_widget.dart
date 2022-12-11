@@ -203,13 +203,14 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     if (items is List) {
       items.map((item) {
         if (item is Map) {
-          item["selected"] = value;
+          item["_selected"] = value;
         }
         return item;
       }).toList();
     }
 
     widget.setPageData({name!: items});
+
     _selectAll = !_selectAll;
     if (_selectAll) {
       _rowDataSource?.selectAllOnThePage();
