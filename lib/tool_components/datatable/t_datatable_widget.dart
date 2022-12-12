@@ -83,13 +83,22 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
               numeric: column.numeric,
               tooltip: column.tooltip,
               onSort: (columnIndex, ascending) {
-                // sort<num>(columnIndex, ascending);
-                // var onSort = column.onSort ?? widgetProps.onSort;
-                // if (onSort != null) {
-                //   var code =
-                //       "$onSort($columnIndex, '${column.fieldData}', $ascending)";
-                //   widget.executeJSWithPagePath(code);
-                // }
+                var onSort = column.onSort ?? widgetProps.onSort;
+                if (onSort != null) {
+                  var code =
+                      "$onSort($columnIndex, '${column.fieldData}', $ascending)";
+                  widget.executeJSWithPagePath(code);
+                } else {
+                  _rowDataSource?.sort(
+                    column.fieldData ?? columnIndex.toString(),
+                    ascending,
+                  );
+                }
+
+                setState(() {
+                  _sortColumnIndex = columnIndex;
+                  _sortAscending = ascending;
+                });
               },
             ))
           },
@@ -156,8 +165,10 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
           initialFirstRowIndex: 0,
           sortColumnIndex: _sortColumnIndex,
           sortAscending: _sortAscending,
+          sortArrowIcon: Icons.keyboard_arrow_up,
           columns: _computeColumns(widgetProps, contextData),
           source: _rowDataSource!,
+
           onSelectAll: (value) {
             _handleSelectAll(value);
           },
