@@ -20,6 +20,7 @@ import 'package:the_tool/tool_components/t_scrollview_widget.dart'
     deferred as t_scrollview;
 import 'package:the_tool/tool_components/datatable/t_datatable_widget.dart'
     deferred as t_table;
+import 'package:the_tool/tool_components/t_stack_widget.dart';
 import 'package:the_tool/tool_components/t_text_widget.dart';
 import 'package:the_tool/utils.dart';
 import 'package:uuid/uuid.dart';
@@ -132,6 +133,14 @@ class _TWidgetsState extends State<TWidgets> {
           pagePath: widget.pagePath,
           childData: childData,
           widgetUuid: widgetUuid,
+        );
+      case "stack":
+        return T_Stack(
+          key: ValueKey(widgetUuid),
+          widgetProps: content,
+          pagePath: widget.pagePath,
+          widgetUuid: widgetUuid,
+          childData: childData,
         );
       case "grid":
         await t_grid.loadLibrary();

@@ -45,6 +45,7 @@ class LayoutProps with _$LayoutProps {
     double? borderRight,
     double? borderLeft,
     int? flex,
+    Map<String, dynamic>? positioned,
     String? fit,
     dynamic alignment,
     /**

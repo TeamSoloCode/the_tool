@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:json_theme/json_theme.dart';
-import 'package:the_tool/page_utils/style_utils.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
-import 'package:the_tool/utils.dart';
 
-class T_Column extends TStatelessWidget {
-  T_Column({
+class T_Stack extends TStatelessWidget {
+  T_Stack({
     Key? key,
     required widgetProps,
     required pagePath,
-    required widgetUuid,
     childData = const {},
+    required widgetUuid,
   }) : super(
           key: key,
           widgetProps: widgetProps,
@@ -34,10 +31,17 @@ class T_Column extends TStatelessWidget {
         childData: childData,
       );
 
-      if (child.flex != null) {
-        item = Expanded(
+      if (child.positioned != null) {
+        var left = child.positioned?["left"];
+        var right = child.positioned?["right"];
+        var top = child.positioned?["top"];
+        var bottom = child.positioned?["bottom"];
+        item = Positioned(
           key: ValueKey(index),
-          flex: child.flex ?? 1,
+          left: utils.computeNumberValue(left, contextData),
+          right: utils.computeNumberValue(right, contextData),
+          top: utils.computeNumberValue(top, contextData),
+          bottom: utils.computeNumberValue(bottom, contextData),
           child: item,
         );
       }
@@ -48,29 +52,8 @@ class T_Column extends TStatelessWidget {
 
   @override
   Widget buildWidget(BuildContext context) {
-    var mainAxisAlignment = ThemeDecoder.decodeMainAxisAlignment(
-          props?.mainAxisAlignment,
-        ) ??
-        MainAxisAlignment.start;
-
-    if (props != null) {
-      snapshot = Column(
-        key: getBindingKey(),
-        mainAxisAlignment: mainAxisAlignment,
-        children: _getChildren(),
-      );
-
-      if (props?.scrollable == true) {
-        snapshot = ScrollConfiguration(
-          behavior: MyCustomScrollBehavior(),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: snapshot,
-          ),
-        );
-      }
-    }
-
-    return snapshot;
+    return Stack(
+      children: _getChildren(),
+    );
   }
 }

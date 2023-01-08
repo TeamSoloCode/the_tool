@@ -7,7 +7,6 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/datatable/t_data_row_widget.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:data_table_2/data_table_2.dart';
-import 'package:collection/collection.dart' show DeepCollectionEquality;
 
 Timer? _debounce;
 
@@ -69,13 +68,11 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
   void _updateTableSource() {
     var items = widget.contextData[widget.widgetProps.name];
 
-    // print("table ${items}");
     if (items != null && items?.isNotEmpty) {
       var dataCount =
           widget.contextData[widget.widgetProps.total] ?? items.length;
       var tableTable = SourceRowDataResponse(dataCount, items);
       _rowDataSource?.updateTableData(tableTable, true);
-      print("table eq2 ${prevValue} ${items}");
       prevValue = items;
     }
   }

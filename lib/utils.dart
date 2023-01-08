@@ -290,14 +290,14 @@ class UtilsManager {
     dynamic width = widgetProps.width;
 
     double maxHeightResult =
-        _computeValue(maxHeight, contextData) ?? double.infinity;
+        computeNumberValue(maxHeight, contextData) ?? double.infinity;
     double maxWidthResult =
-        _computeValue(maxWidth, contextData) ?? double.infinity;
-    double minHeightResult = _computeValue(minHeight, contextData) ?? 0.0;
-    double minWidthResult = _computeValue(minWidth, contextData) ?? 0.0;
+        computeNumberValue(maxWidth, contextData) ?? double.infinity;
+    double minHeightResult = computeNumberValue(minHeight, contextData) ?? 0.0;
+    double minWidthResult = computeNumberValue(minWidth, contextData) ?? 0.0;
 
-    heightResult = _computeValue(height, contextData);
-    widthResult = _computeValue(width, contextData);
+    heightResult = computeNumberValue(height, contextData);
+    widthResult = computeNumberValue(width, contextData);
 
     assert(
       heightResult is num || heightResult == null,
@@ -319,7 +319,7 @@ class UtilsManager {
     );
   }
 
-  dynamic _computeValue(
+  dynamic computeNumberValue(
     dynamic value,
     Map<String, dynamic> contextData,
   ) {
