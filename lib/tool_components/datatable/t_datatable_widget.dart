@@ -1,10 +1,15 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:the_tool/t_widget_interface/data_table_props/data_column_props/data_column_props.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/datatable/t_data_row_widget.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:data_table_2/data_table_2.dart';
+import 'package:collection/collection.dart' show DeepCollectionEquality;
+
+Timer? _debounce;
 
 class T_DataTable extends TWidget {
   T_DataTable({
@@ -33,6 +38,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
   bool _initialized = false;
   bool _selectAll = false;
   PaginatorController? _paginationController;
+  var debounceDuration = const Duration(milliseconds: 300);
 
   @override
   void initState() {
@@ -43,28 +49,35 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     super.initState();
   }
 
+  var prevValue = [];
+
   @override
   void didChangeDependencies() {
-    super.didChangeDependencies();
-    var items = widget.contextData[widget.widgetProps.name];
-
-    if (items != null && items?.isNotEmpty) {
-      var dataCount =
-          widget.contextData[widget.widgetProps.total] ?? items.length;
-      var tableTable = SourceRowDataResponse(dataCount, items);
-      _rowDataSource?.updateTableData(tableTable, true);
-    }
-
     if (!_initialized) {
       _paginationController = PaginatorController();
       _initialized = true;
     }
+    super.didChangeDependencies();
   }
 
   @override
   void dispose() {
     _rowDataSource?.dispose();
     super.dispose();
+  }
+
+  void _updateTableSource() {
+    var items = widget.contextData[widget.widgetProps.name];
+
+    // print("table ${items}");
+    if (items != null && items?.isNotEmpty) {
+      var dataCount =
+          widget.contextData[widget.widgetProps.total] ?? items.length;
+      var tableTable = SourceRowDataResponse(dataCount, items);
+      _rowDataSource?.updateTableData(tableTable, true);
+      print("table eq2 ${prevValue} ${items}");
+      prevValue = items;
+    }
   }
 
   List<DataColumn> _computeColumns(
@@ -83,22 +96,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
               numeric: column.numeric,
               tooltip: column.tooltip,
               onSort: (columnIndex, ascending) {
-                var onSort = column.onSort ?? widgetProps.onSort;
-                if (onSort != null) {
-                  var code =
-                      "$onSort($columnIndex, '${column.fieldData}', $ascending)";
-                  widget.executeJSWithPagePath(code);
-                } else {
-                  _rowDataSource?.sort(
-                    column.fieldData ?? columnIndex.toString(),
-                    ascending,
-                  );
-                }
-
-                setState(() {
-                  _sortColumnIndex = columnIndex;
-                  _sortAscending = ascending;
-                });
+                _sortByColumn(widgetProps, column, columnIndex, ascending);
               },
             ))
           },
@@ -106,6 +104,32 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
         .toList();
 
     return computedColumns;
+  }
+
+  void _sortByColumn(
+    LayoutProps? widgetProps,
+    DataColumnProps column,
+    int columnIndex,
+    bool ascending,
+  ) {
+    if (_debounce?.isActive ?? false) _debounce?.cancel();
+    var onSort = column.onSort ?? widgetProps?.onSort;
+    _debounce = Timer(debounceDuration, () {
+      if (onSort != null) {
+        var code = "$onSort($columnIndex, '${column.fieldData}', $ascending)";
+        widget.executeJSWithPagePath(code);
+      } else {
+        _rowDataSource?.sort(
+          column.fieldData ?? columnIndex.toString(),
+          ascending,
+        );
+      }
+
+      setState(() {
+        _sortColumnIndex = columnIndex;
+        _sortAscending = ascending;
+      });
+    });
   }
 
   T_RowData _computeRows(
@@ -168,7 +192,6 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
           sortArrowIcon: Icons.keyboard_arrow_up,
           columns: _computeColumns(widgetProps, contextData),
           source: _rowDataSource!,
-
           onSelectAll: (value) {
             _handleSelectAll(value);
           },
@@ -234,7 +257,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
   Widget buildWidget(BuildContext context) {
     Widget _snapshot = widget.snapshot;
     LayoutProps? _props = widget.props;
-
+    _updateTableSource();
     if (_props != null) {
       _snapshot = _computeTable(_props, widget.contextData);
     }

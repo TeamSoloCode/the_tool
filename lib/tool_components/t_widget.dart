@@ -29,7 +29,6 @@ mixin BaseStateWidget on Widget {
   int? _prevThemeRefreshToken;
 
   void watchContextState(BuildContext context, {String? providedPagePath}) {
-    var prevData = contextData;
     var path = providedPagePath ?? pagePath;
 
     _themeRefreshToken = context.select(
@@ -47,7 +46,7 @@ mixin BaseStateWidget on Widget {
             newPageData,
             providedPagePath: path,
           )) {
-        return prevData;
+        return contextData;
       }
 
       contextData = newPageData;
@@ -218,6 +217,7 @@ abstract class TStatelessWidget extends StatelessWidget with BaseStateWidget {
 
   Widget buildWidget(BuildContext context);
   bool isWatchContextState = true;
+
   @override
   Widget build(BuildContext context) {
     if (isWatchContextState) {
