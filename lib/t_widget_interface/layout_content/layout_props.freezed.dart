@@ -41,6 +41,7 @@ mixin _$LayoutProps {
   dynamic get minWidth => throw _privateConstructorUsedError;
   dynamic get minHeight => throw _privateConstructorUsedError;
   dynamic get margin => throw _privateConstructorUsedError;
+  dynamic get padding => throw _privateConstructorUsedError;
   double? get borderTop => throw _privateConstructorUsedError;
   double? get borderBottom => throw _privateConstructorUsedError;
   double? get borderRight => throw _privateConstructorUsedError;
@@ -152,6 +153,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       dynamic minWidth,
       dynamic minHeight,
       dynamic margin,
+      dynamic padding,
       double? borderTop,
       double? borderBottom,
       double? borderRight,
@@ -235,6 +237,7 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
     Object? minWidth = freezed,
     Object? minHeight = freezed,
     Object? margin = freezed,
+    Object? padding = freezed,
     Object? borderTop = freezed,
     Object? borderBottom = freezed,
     Object? borderRight = freezed,
@@ -361,6 +364,10 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
       margin: margin == freezed
           ? _value.margin
           : margin // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      padding: padding == freezed
+          ? _value.padding
+          : padding // ignore: cast_nullable_to_non_nullable
               as dynamic,
       borderTop: borderTop == freezed
           ? _value.borderTop
@@ -647,6 +654,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       dynamic minWidth,
       dynamic minHeight,
       dynamic margin,
+      dynamic padding,
       double? borderTop,
       double? borderBottom,
       double? borderRight,
@@ -740,6 +748,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
     Object? minWidth = freezed,
     Object? minHeight = freezed,
     Object? margin = freezed,
+    Object? padding = freezed,
     Object? borderTop = freezed,
     Object? borderBottom = freezed,
     Object? borderRight = freezed,
@@ -866,6 +875,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
       margin: margin == freezed
           ? _value.margin
           : margin // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      padding: padding == freezed
+          ? _value.padding
+          : padding // ignore: cast_nullable_to_non_nullable
               as dynamic,
       borderTop: borderTop == freezed
           ? _value.borderTop
@@ -1060,6 +1073,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.minWidth,
       this.minHeight,
       this.margin,
+      this.padding,
       this.borderTop,
       this.borderBottom,
       this.borderRight,
@@ -1155,6 +1169,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   final dynamic minHeight;
   @override
   final dynamic margin;
+  @override
+  final dynamic padding;
   @override
   final double? borderTop;
   @override
@@ -1342,7 +1358,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
   }
 
   @override
@@ -1371,6 +1387,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('minWidth', minWidth))
       ..add(DiagnosticsProperty('minHeight', minHeight))
       ..add(DiagnosticsProperty('margin', margin))
+      ..add(DiagnosticsProperty('padding', padding))
       ..add(DiagnosticsProperty('borderTop', borderTop))
       ..add(DiagnosticsProperty('borderBottom', borderBottom))
       ..add(DiagnosticsProperty('borderRight', borderRight))
@@ -1451,6 +1468,7 @@ abstract class _LayoutProps implements LayoutProps {
       final dynamic minWidth,
       final dynamic minHeight,
       final dynamic margin,
+      final dynamic padding,
       final double? borderTop,
       final double? borderBottom,
       final double? borderRight,
@@ -1538,6 +1556,8 @@ abstract class _LayoutProps implements LayoutProps {
   dynamic get minHeight;
   @override
   dynamic get margin;
+  @override
+  dynamic get padding;
   @override
   double? get borderTop;
   @override

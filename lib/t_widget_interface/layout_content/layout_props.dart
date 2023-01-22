@@ -40,6 +40,7 @@ class LayoutProps with _$LayoutProps {
     dynamic minWidth,
     dynamic minHeight,
     dynamic margin,
+    dynamic padding,
     double? borderTop,
     double? borderBottom,
     double? borderRight,

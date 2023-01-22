@@ -27,6 +27,7 @@ class T_Container extends TStatelessWidget with ContainerMixin {
       height: props?.height,
       width: props?.width,
       margin: ThemeDecoder.decodeEdgeInsetsGeometry(props?.margin),
+      padding: ThemeDecoder.decodeEdgeInsetsGeometry(props?.padding),
       constraints: BoxConstraints(
         maxHeight: props?.maxHeight,
         maxWidth: props?.maxWidth,

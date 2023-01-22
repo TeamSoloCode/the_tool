@@ -182,7 +182,10 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
           // key: ValueKey("${_sortAscending}_$_sortColumnIndex"),
           controller: _paginationController,
           rowsPerPage: _rowsPerPage,
-          minWidth: widgetProps?.minWidth,
+          minWidth: widget.utils.computeNumberValue(
+            widgetProps?.minWidth,
+            contextData,
+          ),
           initialFirstRowIndex: 0,
           sortColumnIndex: _sortColumnIndex,
           sortAscending: _sortAscending,
