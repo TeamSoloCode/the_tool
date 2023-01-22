@@ -16,6 +16,8 @@ import 'package:the_tool/tool_components/t_expanded_widget.dart'
 import 'package:the_tool/tool_components/t_grid_widget.dart' deferred as t_grid;
 import 'package:the_tool/tool_components/t_icon_widget.dart' deferred as t_icon;
 import 'package:the_tool/tool_components/t_row_widget.dart' deferred as t_row;
+import 'package:the_tool/tool_components/t_drawer.widget.dart'
+    deferred as t_drawer;
 import 'package:the_tool/tool_components/t_scrollview_widget.dart'
     deferred as t_scrollview;
 import 'package:the_tool/tool_components/datatable/t_datatable_widget.dart'
@@ -182,6 +184,15 @@ class _TWidgetsState extends State<TWidgets> {
       case "table":
         await t_table.loadLibrary();
         return t_table.T_DataTable(
+          key: ValueKey(widgetUuid),
+          widgetProps: content,
+          pagePath: widget.pagePath,
+          childData: childData,
+          widgetUuid: widgetUuid,
+        );
+      case "drawer":
+        await t_drawer.loadLibrary();
+        return t_drawer.T_Drawer(
           key: ValueKey(widgetUuid),
           widgetProps: content,
           pagePath: widget.pagePath,

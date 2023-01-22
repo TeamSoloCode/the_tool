@@ -7,6 +7,8 @@ import 'package:the_tool/tool_components/t_appbar_widget.dart'
     deferred as t_appbar;
 import 'package:the_tool/tool_components/t_bottom_nav_widget.dart'
     deferred as t_bottom_nav;
+import 'package:the_tool/tool_components/t_drawer.widget.dart'
+    deferred as t_drawer;
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
@@ -69,6 +71,9 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     if (_pageLayout?.bottomNav != null) {
       await t_bottom_nav.loadLibrary();
     }
+    if (_pageLayout?.drawer != null) {
+      await t_drawer.loadLibrary();
+    }
   }
 
   ThemeMode? prevThemeMode;
@@ -102,6 +107,14 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
           child: Scaffold(
             appBar: _getAppBar(pageData),
             bottomNavigationBar: _getBottomNavigation(pageData),
+            drawer: _pageLayout?.drawer != null
+                ? t_drawer.T_Drawer(
+                    pagePath: widget.pagePath,
+                    widgetProps: _pageLayout?.drawer?.child,
+                    widgetUuid: _pageId,
+                    childData: pageData,
+                  )
+                : null,
             body: _getSelectedPage(
               pageData,
               _selectedBottomNavIndex,

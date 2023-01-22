@@ -10,6 +10,7 @@ import 'package:the_tool/t_widget_interface/box_decoration_props/border_radius_p
 import 'package:the_tool/t_widget_interface/box_decoration_props/box_shadow_props/box_shadow_props.dart';
 import 'package:the_tool/t_widget_interface/data_table_props/data_column_props/data_column_props.dart';
 import 'package:the_tool/t_widget_interface/data_table_props/data_row_props/data_row_props.dart';
+import 'package:the_tool/t_widget_interface/drawer_props/drawer_props.dart';
 import 'package:the_tool/t_widget_interface/image_content/image_provider.dart';
 import 'package:the_tool/utils.dart';
 
@@ -74,6 +75,7 @@ class LayoutProps with _$LayoutProps {
      * if scrollable = true and widget is Column => Axix.vertical
      */
     bool? scrollable,
+    T_DrawerProps? drawer,
 
     // Field Start================================================
     String? hintText,
@@ -157,6 +159,8 @@ extension MergeLayoutProps on LayoutProps {
     return copyWith(
       height: other.height ?? height,
       width: other.width ?? width,
+      margin: other.margin ?? margin,
+      padding: other.padding ?? padding,
       maxWidth: other.maxWidth ?? maxWidth,
       maxHeight: other.maxHeight ?? maxHeight,
       minWidth: other.minWidth ?? minWidth,

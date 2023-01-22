@@ -77,7 +77,8 @@ mixin _$LayoutProps {
      * if scrollable = true and widget is Row => Axix.horizontal
      * if scrollable = true and widget is Column => Axix.vertical
      */
-  bool? get scrollable =>
+  bool? get scrollable => throw _privateConstructorUsedError;
+  T_DrawerProps? get drawer =>
       throw _privateConstructorUsedError; // Field Start================================================
   String? get hintText => throw _privateConstructorUsedError;
   String? get labelText => throw _privateConstructorUsedError;
@@ -168,6 +169,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       Map<String, dynamic>? computedComponentProps,
       Map<String, LayoutProps?>? components,
       bool? scrollable,
+      T_DrawerProps? drawer,
       String? hintText,
       String? labelText,
       bool? obscureText,
@@ -196,6 +198,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       BorderRadiusProps? borderRadius,
       BoxShadowProps? boxShadow});
 
+  $T_DrawerPropsCopyWith<$Res>? get drawer;
   $LayoutPropsCopyWith<$Res>? get child;
   $LayoutPropsCopyWith<$Res>? get content;
   $BottomNavigationPropsCopyWith<$Res>? get bottomNav;
@@ -252,6 +255,7 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
     Object? computedComponentProps = freezed,
     Object? components = freezed,
     Object? scrollable = freezed,
+    Object? drawer = freezed,
     Object? hintText = freezed,
     Object? labelText = freezed,
     Object? obscureText = freezed,
@@ -425,6 +429,10 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
           ? _value.scrollable
           : scrollable // ignore: cast_nullable_to_non_nullable
               as bool?,
+      drawer: drawer == freezed
+          ? _value.drawer
+          : drawer // ignore: cast_nullable_to_non_nullable
+              as T_DrawerProps?,
       hintText: hintText == freezed
           ? _value.hintText
           : hintText // ignore: cast_nullable_to_non_nullable
@@ -534,6 +542,17 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
           : boxShadow // ignore: cast_nullable_to_non_nullable
               as BoxShadowProps?,
     ));
+  }
+
+  @override
+  $T_DrawerPropsCopyWith<$Res>? get drawer {
+    if (_value.drawer == null) {
+      return null;
+    }
+
+    return $T_DrawerPropsCopyWith<$Res>(_value.drawer!, (value) {
+      return _then(_value.copyWith(drawer: value));
+    });
   }
 
   @override
@@ -669,6 +688,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       Map<String, dynamic>? computedComponentProps,
       Map<String, LayoutProps?>? components,
       bool? scrollable,
+      T_DrawerProps? drawer,
       String? hintText,
       String? labelText,
       bool? obscureText,
@@ -697,6 +717,8 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       BorderRadiusProps? borderRadius,
       BoxShadowProps? boxShadow});
 
+  @override
+  $T_DrawerPropsCopyWith<$Res>? get drawer;
   @override
   $LayoutPropsCopyWith<$Res>? get child;
   @override
@@ -763,6 +785,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
     Object? computedComponentProps = freezed,
     Object? components = freezed,
     Object? scrollable = freezed,
+    Object? drawer = freezed,
     Object? hintText = freezed,
     Object? labelText = freezed,
     Object? obscureText = freezed,
@@ -936,6 +959,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
           ? _value.scrollable
           : scrollable // ignore: cast_nullable_to_non_nullable
               as bool?,
+      drawer: drawer == freezed
+          ? _value.drawer
+          : drawer // ignore: cast_nullable_to_non_nullable
+              as T_DrawerProps?,
       hintText: hintText == freezed
           ? _value.hintText
           : hintText // ignore: cast_nullable_to_non_nullable
@@ -1088,6 +1115,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       final Map<String, dynamic>? computedComponentProps,
       final Map<String, LayoutProps?>? components,
       this.scrollable,
+      this.drawer,
       this.hintText,
       this.labelText,
       this.obscureText,
@@ -1257,6 +1285,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
      */
   @override
   final bool? scrollable;
+  @override
+  final T_DrawerProps? drawer;
 // Field Start================================================
   @override
   final String? hintText;
@@ -1358,7 +1388,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
   }
 
   @override
@@ -1403,6 +1433,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
           DiagnosticsProperty('computedComponentProps', computedComponentProps))
       ..add(DiagnosticsProperty('components', components))
       ..add(DiagnosticsProperty('scrollable', scrollable))
+      ..add(DiagnosticsProperty('drawer', drawer))
       ..add(DiagnosticsProperty('hintText', hintText))
       ..add(DiagnosticsProperty('labelText', labelText))
       ..add(DiagnosticsProperty('obscureText', obscureText))
@@ -1483,6 +1514,7 @@ abstract class _LayoutProps implements LayoutProps {
       final Map<String, dynamic>? computedComponentProps,
       final Map<String, LayoutProps?>? components,
       final bool? scrollable,
+      final T_DrawerProps? drawer,
       final String? hintText,
       final String? labelText,
       final bool? obscureText,
@@ -1605,6 +1637,8 @@ abstract class _LayoutProps implements LayoutProps {
      * if scrollable = true and widget is Column => Axix.vertical
      */
   bool? get scrollable;
+  @override
+  T_DrawerProps? get drawer;
   @override // Field Start================================================
   String? get hintText;
   @override

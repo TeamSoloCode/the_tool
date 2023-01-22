@@ -48,6 +48,9 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
             e == null ? null : LayoutProps.fromJson(e as Map<String, dynamic>)),
       ),
       scrollable: json['scrollable'] as bool?,
+      drawer: json['drawer'] == null
+          ? null
+          : T_DrawerProps.fromJson(json['drawer'] as Map<String, dynamic>),
       hintText: json['hintText'] as String?,
       labelText: json['labelText'] as String?,
       obscureText: json['obscureText'] as bool?,
@@ -141,6 +144,7 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'computedComponentProps': instance.computedComponentProps,
       'components': instance.components,
       'scrollable': instance.scrollable,
+      'drawer': instance.drawer,
       'hintText': instance.hintText,
       'labelText': instance.labelText,
       'obscureText': instance.obscureText,
