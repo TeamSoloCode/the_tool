@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:permission_handler_platform_interface/permission_handler_platform_interface.dart';
 import 'package:provider/provider.dart';
 import 'package:the_tool/api_client.dart';
@@ -133,6 +134,17 @@ void registerJavascriptHandler(
           return await permissionManager.requestOpenAppSettings();
       }
       return permissionManager.permissionStatusToMap(permissionStatus);
+    },
+  );
+
+  webViewController?.addJavaScriptHandler(
+    handlerName: "open_drawer",
+    callback: (args) async {
+      var pageStateKey =
+          getIt<ContextStateProvider>().mapKeyScaffoldState[args[0]];
+      if (pageStateKey != null) {
+        pageStateKey.currentState?.openDrawer();
+      }
     },
   );
 }

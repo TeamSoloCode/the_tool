@@ -55,6 +55,9 @@ external set dispathFormAction(
   void Function(String eventName, String eventData) f,
 );
 
+@JS("open_drawer")
+external set openDrawer(void Function(String pageId) f);
+
 /// It takes a JSON string, decodes it into a Map, and then merges it with the existing context data
 ///
 /// Args:
@@ -111,6 +114,13 @@ void _dispatchFormAction(String eventName, String eventData) {
   getIt<UtilsManager>().emitter.emit(eventName, _context, eventData);
 }
 
+void _openPageDrawer(String pageId) {
+  var pageStateKey = getIt<ContextStateProvider>().mapKeyScaffoldState[pageId];
+  if (pageStateKey != null) {
+    pageStateKey.currentState?.openDrawer();
+  }
+}
+
 void emitFormActionResponse(String id, dynamic data) {
   js.context.callMethod("__ondataresponse", [
     id,
@@ -146,4 +156,5 @@ void main() {
   toogleChangeTheme = allowInterop(_toogleChangeTheme);
   fetchData = allowInterop(_fetchData);
   dispathFormAction = allowInterop(_dispatchFormAction);
+  openDrawer = allowInterop(_openPageDrawer);
 }

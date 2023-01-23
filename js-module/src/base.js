@@ -199,6 +199,16 @@ const permissionEvent = async (action, permissionName = "") => {
   );
 };
 
+const _openDrawer = (pageId) => {
+  switch (context._platform) {
+    case "web":
+      return open_drawer(pageId);
+
+    case "mobile":
+      return window.flutter_inappwebview.callHandler("open_drawer", pageId);
+  }
+};
+
 Object.assign(window, {
   setContextData,
   usePrevious,
@@ -217,6 +227,10 @@ Object.assign(window, {
   navigateBack,
   navigateBackAndGoTo,
   /**End Navigation ------------*/
+
+  /**Start Drawer ----------*/
+  _openDrawer,
+  /**End Drawer ------------*/
 
   /**Start Form context ----------*/
   dispatchFormAction,

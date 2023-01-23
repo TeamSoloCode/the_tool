@@ -27,11 +27,15 @@ class _T_DrawerState extends TStatefulWidget<T_Drawer> {
   Widget buildWidget(BuildContext context) {
     Widget _snapshot = widget.snapshot;
     LayoutProps? _props = widget.props;
-    return Drawer(
-      child: TWidgets(
-        layout: _props ?? const LayoutProps(),
-        pagePath: widget.pagePath,
-      ),
-    );
+
+    if (_props != null) {
+      _snapshot = Drawer(
+        child: TWidgets(
+          layout: _props,
+          pagePath: widget.pagePath,
+        ),
+      );
+    }
+    return _snapshot;
   }
 }

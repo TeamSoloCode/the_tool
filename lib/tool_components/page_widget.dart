@@ -36,6 +36,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
   List<Widget> _pages = [];
 
   int _selectedBottomNavIndex = 0;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   late Future<void> _loadNecessaryWidget;
   @override
@@ -57,6 +58,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
   @override
   void dispose() {
     utils.evalJS?.unmountClientCode(_pageId);
+    getIt<ContextStateProvider>().unregisterKeyScaffoldState(_pageId);
     super.dispose();
   }
 
@@ -85,8 +87,8 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     var pageData = context.select((ContextStateProvider value) {
       return value.contextData[_pageId] ?? UtilsManager.emptyMapStringDynamic;
     });
-
-    getIt<ContextStateProvider>().setRootPageData(pageData);
+    var contextStateProvider = getIt<ContextStateProvider>();
+    contextStateProvider.setRootPageData(pageData);
 
     if (_isReadyToRun == false ||
         !UtilsManager.isTruthy(gato.get(pageData, "_tLoaded"))) {
@@ -103,8 +105,10 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
         if (snapshot.connectionState != ConnectionState.done) {
           return const SizedBox();
         }
-        return SafeArea(
+
+        var page = SafeArea(
           child: Scaffold(
+            key: _scaffoldKey,
             appBar: _getAppBar(pageData),
             bottomNavigationBar: _getBottomNavigation(pageData),
             drawer: _pageLayout?.drawer != null
@@ -121,6 +125,11 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
             ),
           ),
         );
+
+        // register page context
+        contextStateProvider.registerKeyScaffoldState(_pageId, _scaffoldKey);
+
+        return page;
       },
       future: _loadNecessaryWidget,
     );

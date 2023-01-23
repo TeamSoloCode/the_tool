@@ -198,12 +198,17 @@ abstract class BaseEvalJS {
           return promiseResult;
         }, [])
 
+        const openDrawer = React.useCallback(() => {
+          _openDrawer('$pagePath')
+        }, [_openDrawer, context['$pagePath']])
+
         React.useEffect(() => {
           exportPageContext({
             validateForm,
             setPageData,
             getPageData,
-            registerSubComponent
+            registerSubComponent,
+            openDrawer
           })
           context['$pagePath'].exportPageContext = exportPageContext
         }, [
@@ -211,7 +216,8 @@ abstract class BaseEvalJS {
           getPageData, 
           registerSubComponent, 
           exportPageContext,
-          validateForm
+          validateForm,
+          openDrawer
         ])
 
         //==========================Start Page Code==========================================

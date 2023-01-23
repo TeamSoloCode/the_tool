@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 import 'package:the_tool/t_widget_interface/client_config/client_config.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
@@ -27,6 +28,22 @@ class ContextStateProvider with ChangeNotifier, DiagnosticableTreeMixin {
   void updateCacheCheckTWidgetDepsChanged(String depsKey, bool isDepsChanged) {
     _cacheCheckTWidgetDepsChanged.putIfAbsent(depsKey, () => isDepsChanged);
   }
+  // ==========================================================================
+
+  // ==========================================================================
+  final Map<String, GlobalKey<ScaffoldState>> _mapKeyScaffoldState = {};
+  Map<String, GlobalKey<ScaffoldState>> get mapKeyScaffoldState =>
+      _mapKeyScaffoldState;
+
+  void registerKeyScaffoldState(
+      String pagePath, GlobalKey<ScaffoldState> context) {
+    _mapKeyScaffoldState.putIfAbsent(pagePath, () => context);
+  }
+
+  void unregisterKeyScaffoldState(String pagePath) {
+    _mapKeyScaffoldState.remove(pagePath);
+  }
+
   // ==========================================================================
 
   // ==========================================================================
