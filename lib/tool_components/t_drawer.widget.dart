@@ -30,13 +30,14 @@ class _T_DrawerState extends TStatefulWidget<T_Drawer> {
     Widget _snapshot = widget.snapshot;
     LayoutProps? _props = widget.props;
     T_DrawerProps? _drawerProps = widget.drawerProps;
+    var drawerWidth = widget.utils.computeSizeValue(
+      _drawerProps?.width,
+      widget.contextData,
+    );
 
     if (_props != null) {
       _snapshot = Drawer(
-        width: widget.utils.computeSizeValue(
-          _drawerProps?.width,
-          widget.contextData,
-        ),
+        width: drawerWidth,
         child: TWidgets(
           layout: _props,
           pagePath: widget.pagePath,
