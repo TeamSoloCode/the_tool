@@ -38,10 +38,10 @@ class T_Stack extends TStatelessWidget {
         var bottom = child.positioned?["bottom"];
         item = Positioned(
           key: ValueKey(index),
-          left: utils.computeNumberValue(left, contextData),
-          right: utils.computeNumberValue(right, contextData),
-          top: utils.computeNumberValue(top, contextData),
-          bottom: utils.computeNumberValue(bottom, contextData),
+          left: utils.computeSizeValue(left, contextData),
+          right: utils.computeSizeValue(right, contextData),
+          top: utils.computeSizeValue(top, contextData),
+          bottom: utils.computeSizeValue(bottom, contextData),
           child: item,
         );
       }

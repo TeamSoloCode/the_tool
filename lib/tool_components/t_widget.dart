@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
+import 'package:the_tool/t_widget_interface/drawer_props/drawer_props.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,7 @@ mixin BaseStateWidget on Widget {
   final UtilsManager utils = getIt<UtilsManager>();
   final contextStateProvider = getIt<ContextStateProvider>();
   late final String? widgetUuid;
+  T_DrawerProps? drawerProps;
 
   LayoutProps? props;
   LayoutProps? prevProps;
@@ -153,11 +155,13 @@ abstract class TWidget extends StatefulWidget with BaseStateWidget {
     childData,
     required pagePath,
     required widgetUuid,
+    T_DrawerProps? drawerProps,
   }) : super(key: key) {
     this.widgetProps = widgetProps;
     this.childData = childData;
     this.pagePath = pagePath;
     this.widgetUuid = widgetUuid;
+    this.drawerProps = drawerProps;
 
     contextData = getIt<ContextStateProvider>().contextData[pagePath] ??
         UtilsManager.emptyMapStringDynamic;

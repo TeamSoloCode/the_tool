@@ -194,7 +194,7 @@ class _TWidgetsState extends State<TWidgets> {
         await t_drawer.loadLibrary();
         return t_drawer.T_Drawer(
           key: ValueKey(widgetUuid),
-          widgetProps: content,
+          childProps: content,
           pagePath: widget.pagePath,
           childData: childData,
           widgetUuid: widgetUuid,
