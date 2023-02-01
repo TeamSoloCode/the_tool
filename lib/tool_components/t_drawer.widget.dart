@@ -13,12 +13,13 @@ class T_Drawer extends TWidget {
     childData = const {},
     T_DrawerProps? drawerProps,
   }) : super(
-            key: key,
-            childData: childData,
-            widgetUuid: widgetUuid,
-            pagePath: pagePath,
-            widgetProps: childProps,
-            drawerProps: drawerProps);
+          key: key,
+          childData: childData,
+          widgetUuid: widgetUuid,
+          pagePath: pagePath,
+          widgetProps: childProps,
+          drawerProps: drawerProps,
+        );
 
   @override
   State<T_Drawer> createState() => _T_DrawerState();

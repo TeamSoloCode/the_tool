@@ -14,6 +14,7 @@ import 'package:the_tool/tool_components/t_expanded_widget.dart'
     deferred as t_expanded;
 import 'package:the_tool/tool_components/t_grid_widget.dart' deferred as t_grid;
 import 'package:the_tool/tool_components/t_icon_widget.dart' deferred as t_icon;
+import 'package:the_tool/tool_components/t_layout_builder.widget.dart';
 import 'package:the_tool/tool_components/t_row_widget.dart' deferred as t_row;
 import 'package:the_tool/tool_components/t_scrollview_widget.dart'
     deferred as t_scrollview;
@@ -186,6 +187,18 @@ class _TWidgetsState extends State<TWidgets> {
           pagePath: widget.pagePath,
           childData: childData,
           widgetUuid: widgetUuid,
+        );
+      case "layout_builder":
+        assert(
+          content.layoutBuilder != null,
+          "layout_builder must have properties",
+        );
+        return T_LayoutBuilder(
+          widgetUuid: widgetUuid,
+          pagePath: widget.pagePath,
+          childData: childData,
+          widgetProps: content,
+          layoutBuilder: content.layoutBuilder!,
         );
       default:
         return _computeNotBuiltInWidget(childData, content);

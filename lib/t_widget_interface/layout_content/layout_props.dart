@@ -12,6 +12,8 @@ import 'package:the_tool/t_widget_interface/data_table_props/data_column_props/d
 import 'package:the_tool/t_widget_interface/data_table_props/data_row_props/data_row_props.dart';
 import 'package:the_tool/t_widget_interface/drawer_props/drawer_props.dart';
 import 'package:the_tool/t_widget_interface/image_content/image_provider.dart';
+import 'package:the_tool/t_widget_interface/layout_builder_item_props/layout_builder_item_props.dart';
+import 'package:the_tool/t_widget_interface/layout_builder_props/layout_builder_props.dart';
 import 'package:the_tool/utils.dart';
 
 part 'layout_props.freezed.dart';
@@ -76,6 +78,7 @@ class LayoutProps with _$LayoutProps {
      */
     bool? scrollable,
     T_DrawerProps? drawer,
+    T_LayoutBuilderProps? layoutBuilder,
 
     // Field Start================================================
     String? hintText,

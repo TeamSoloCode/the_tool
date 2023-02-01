@@ -1,9 +1,9 @@
+Support LayoutBuilder for responsive layout
+
+#-------------------------------------------------
 Support format number for t_textfield
 Reduce bundle size
 Fix bug: User press button home and go back to the app => cannot use emit to js side
-
-Add paging for DataTable
-#-------------------------------------------------
 
 Appbar not display properly
 Move base react component , app.js, vendor.js and js-module to server
@@ -69,3 +69,5 @@ Support alert, dialog, snackbar
 -Support common validators for t_selectfield
 -Support field date time picker
 -Support get root page data
+-Support drawer for page
+-Add paging for DataTable
