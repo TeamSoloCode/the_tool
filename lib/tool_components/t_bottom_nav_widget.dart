@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:the_tool/t_widget_interface/bottom_nav_props.dart';
 import 'package:the_tool/t_widget_interface/bottom_navigation_props/bottom_navigation_props.dart';
 import 'package:the_tool/tool_components/page_widget.dart';
-import 'package:uuid/uuid.dart';
 
 List<Widget> computeBottomNavigationPages(
   BuildContext context,

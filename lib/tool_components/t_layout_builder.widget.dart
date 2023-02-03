@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:the_tool/t_widget_interface/layout_builder_item_props/layout_builder_item_props.dart';
 import 'package:the_tool/t_widget_interface/layout_builder_props/layout_builder_props.dart';
+import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
+import 'package:uuid/uuid.dart';
+import 'package:collection/collection.dart' show DeepCollectionEquality;
 
 class T_LayoutBuilder extends TWidget {
   T_LayoutBuilder({
@@ -26,6 +29,9 @@ class T_LayoutBuilder extends TWidget {
 }
 
 class _T_LayoutBuilderState extends TStatefulWidget<T_LayoutBuilder> {
+  LayoutProps? _selectedLayout;
+  String? layoutKey = const Uuid().v4();
+
   Widget _prepareLayout(
     BoxConstraints boxConstraints,
   ) {
@@ -70,17 +76,23 @@ class _T_LayoutBuilderState extends TStatefulWidget<T_LayoutBuilder> {
       },
     );
 
-    print("boxConstraints.maxWidth ${boxConstraints.maxWidth}");
-    print("boxConstraints.minWidth ${boxConstraints.minWidth}");
-    print("boxConstraints.maxHeight ${boxConstraints.maxHeight}");
-    print("boxConstraints.minHeight ${boxConstraints.minHeight}");
-    print("boxConstraints.minHeight ${boxConstraints}");
+    print("boxConstraints ${boxConstraints}");
 
     if (itemProps == null || itemProps.child == null) {
       return const SizedBox();
     }
 
+    if (!const DeepCollectionEquality()
+        .equals(_selectedLayout, itemProps.child!)) {
+      layoutKey = const Uuid().v4();
+    }
+    print(
+      "boxConstraints.maxWidth ${boxConstraints.maxWidth} ${itemProps.maxWidth} ${layoutKey}",
+    );
+    _selectedLayout = itemProps.child;
+
     return TWidgets(
+      key: ValueKey(layoutKey),
       layout: itemProps.child!,
       pagePath: widget.pagePath,
     );
@@ -88,7 +100,6 @@ class _T_LayoutBuilderState extends TStatefulWidget<T_LayoutBuilder> {
 
   @override
   Widget buildWidget(BuildContext context) {
-    // MediaQuery.of(context);
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         return _prepareLayout(constraints);
