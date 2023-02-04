@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import 'package:the_tool/api_client.dart';
@@ -13,8 +16,8 @@ import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:gato/gato.dart' as gato;
-import 'package:flutter_spinkit/src/fading_circle.dart';
 import 'package:uuid/uuid.dart';
+import 'package:collection/collection.dart' show DeepCollectionEquality;
 
 class T_Page extends StatefulWidget {
   String pagePath;
@@ -29,6 +32,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
   final Map<String, dynamic> _initPageState = {};
   LayoutProps? _pageLayout;
   bool _isReadyToRun = false;
+
   late String _pageId;
   final Map<String, String> _pageIdMap = {};
 
@@ -39,6 +43,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   late Future<void> _loadNecessaryWidget;
+  MediaQueryData? _prevMediaQueryData;
   @override
   void initState() {
     _pageId = widget.pagePath + const Uuid().v4();
@@ -78,8 +83,36 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     }
   }
 
+  void _updateMediaQueryInJS(MediaQueryData mediaQuery) {
+    var size = mediaQuery.size;
+    var height = size.height;
+    var width = size.width;
+    var orientation = mediaQuery.orientation.name;
+
+    if (const DeepCollectionEquality().equals(
+      _prevMediaQueryData,
+      mediaQuery,
+    )) {
+      return;
+    }
+
+    _prevMediaQueryData = mediaQuery;
+    utils.evalJS?.executeJS(
+      """
+        _onMediaQueryChanged(
+          { 
+            height: $height,
+            width: $width,
+            orientation: "$orientation",
+          }
+        )
+      """,
+      _pageId,
+    );
+  }
+
   ThemeMode? prevThemeMode;
-  bool abcd = false;
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -89,6 +122,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     });
     var contextStateProvider = getIt<ContextStateProvider>();
     contextStateProvider.setRootPageData(pageData);
+    var mediaQueryData = MediaQuery.of(context);
 
     if (_isReadyToRun == false ||
         !UtilsManager.isTruthy(gato.get(pageData, "_tLoaded"))) {
@@ -129,7 +163,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
 
         // register page context
         contextStateProvider.registerKeyScaffoldState(_pageId, _scaffoldKey);
-
+        _updateMediaQueryInJS(mediaQueryData);
         return page;
       },
       future: _loadNecessaryWidget,

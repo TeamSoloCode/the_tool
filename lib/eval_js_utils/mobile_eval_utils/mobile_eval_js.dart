@@ -39,9 +39,9 @@ class EvalJS extends BaseEvalJS {
 
     var result = await webViewController?.callAsyncJavaScript(
       functionBody: """return await (async () => {
-        const { _pageData, getPageData } = context['$pagePath'] ?? {}
+        const { _pageData, getPageData, _onMediaQueryChanged } = context['$pagePath'] ?? {}
 
-        const returnedValue = await $code 
+        const returnedValue = await $code
         return returnedValue;
       })()""",
     );

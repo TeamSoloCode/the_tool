@@ -115,6 +115,7 @@ abstract class BaseEvalJS {
         
         const [_subComponents] = React.useState([])
         const [_updateSubComponentToken, _setUpdateSubComponentToken] = React.useState()
+        const [\$mediaQuery, _updateMediaQuery] = React.useState(null)
         
         let [_pageData, _setPageData] = React.useState({ 
             _tLoaded: true,
@@ -202,13 +203,30 @@ abstract class BaseEvalJS {
           _openDrawer('$pagePath')
         }, [_openDrawer, context['$pagePath']])
 
+        const _onDebounceMediaQuery = React.useMemo(() => {
+          return _.debounce((mediaQueryData) => {
+            _updateMediaQuery(mediaQueryData)
+          }, 200)
+        }, [])
+
+        const _onMediaQueryChanged = React.useCallback(
+        ({ 
+            width, 
+            height, 
+            orientation
+        }) => {
+          _onDebounceMediaQuery({ width, height, orientation })
+        }, [_onDebounceMediaQuery])
+
+        // export pages util function
         React.useEffect(() => {
           exportPageContext({
             validateForm,
             setPageData,
             getPageData,
             registerSubComponent,
-            openDrawer
+            openDrawer,
+            _onMediaQueryChanged
           })
           context['$pagePath'].exportPageContext = exportPageContext
         }, [
@@ -217,7 +235,8 @@ abstract class BaseEvalJS {
           registerSubComponent, 
           exportPageContext,
           validateForm,
-          openDrawer
+          openDrawer,
+          _onMediaQueryChanged
         ])
 
         //==========================Start Page Code==========================================
