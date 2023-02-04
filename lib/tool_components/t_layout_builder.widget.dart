@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:the_tool/t_widget_interface/layout_builder_item_props/layout_builder_item_props.dart';
 import 'package:the_tool/t_widget_interface/layout_builder_props/layout_builder_props.dart';
@@ -30,7 +32,7 @@ class T_LayoutBuilder extends TWidget {
 
 class _T_LayoutBuilderState extends TStatefulWidget<T_LayoutBuilder> {
   LayoutProps? _selectedLayout;
-  String? layoutKey = const Uuid().v4();
+  String? layoutKey;
 
   Widget _prepareLayout(
     BoxConstraints boxConstraints,
@@ -43,8 +45,19 @@ class _T_LayoutBuilderState extends TStatefulWidget<T_LayoutBuilder> {
       );
     }
 
-    var itemProps = layouts.firstWhere(
+    var layoutBuilderProps = layouts.firstWhere(
       (item) {
+        LayoutProps? layoutProps = LayoutProps.fromJson(
+          json.decode(jsonEncode(item)),
+        );
+
+        layoutProps = widget.utils.themeProvider
+            .mergeClasses(layoutProps, widget.contextData);
+
+        item = T_LayoutBuilderItemProps.fromJson(
+          json.decode(jsonEncode(layoutProps)),
+        );
+
         var maxHeight = widget.utils.computeSizeValue(
           item.maxHeight,
           widget.contextData,
@@ -78,22 +91,20 @@ class _T_LayoutBuilderState extends TStatefulWidget<T_LayoutBuilder> {
 
     print("boxConstraints ${boxConstraints}");
 
-    if (itemProps == null || itemProps.child == null) {
+    if (layoutBuilderProps == null || layoutBuilderProps.child == null) {
       return const SizedBox();
     }
 
     if (!const DeepCollectionEquality()
-        .equals(_selectedLayout, itemProps.child!)) {
+        .equals(_selectedLayout, layoutBuilderProps.child!)) {
       layoutKey = const Uuid().v4();
     }
-    print(
-      "boxConstraints.maxWidth ${boxConstraints.maxWidth} ${itemProps.maxWidth} ${layoutKey}",
-    );
-    _selectedLayout = itemProps.child;
+    print("boxConstraints.maxWidth ${boxConstraints.maxWidth}");
+    _selectedLayout = layoutBuilderProps.child;
 
     return TWidgets(
       key: ValueKey(layoutKey),
-      layout: itemProps.child!,
+      layout: layoutBuilderProps.child!,
       pagePath: widget.pagePath,
     );
   }
