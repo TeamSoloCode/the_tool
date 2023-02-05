@@ -1,4 +1,4 @@
-Support LayoutBuilder for responsive layout
+Support MediaScreenOnly for all t_widgets
 
 #-------------------------------------------------
 Support format number for t_textfield
@@ -71,3 +71,4 @@ Support alert, dialog, snackbar
 -Support get root page data
 -Support drawer for page
 -Add paging for DataTable
+-Support LayoutBuilder for responsive layout

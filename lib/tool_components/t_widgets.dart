@@ -222,7 +222,7 @@ class _TWidgetsState extends State<TWidgets> {
       );
     }
     if (content.type == null && content.component == null) {
-      return const SizedBox();
+      return const SizedBox.shrink();
     }
     return Text(
         "Unsupported widget. Type: ${content.type ?? content.component}");

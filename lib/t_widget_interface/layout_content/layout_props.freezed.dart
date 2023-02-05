@@ -79,7 +79,8 @@ mixin _$LayoutProps {
      */
   bool? get scrollable => throw _privateConstructorUsedError;
   T_DrawerProps? get drawer => throw _privateConstructorUsedError;
-  T_LayoutBuilderProps? get layoutBuilder =>
+  T_LayoutBuilderProps? get layoutBuilder => throw _privateConstructorUsedError;
+  T_MediaScreenOnlyProps? get mediaScreenOnly =>
       throw _privateConstructorUsedError; // Field Start================================================
   String? get hintText => throw _privateConstructorUsedError;
   String? get labelText => throw _privateConstructorUsedError;
@@ -172,6 +173,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       bool? scrollable,
       T_DrawerProps? drawer,
       T_LayoutBuilderProps? layoutBuilder,
+      T_MediaScreenOnlyProps? mediaScreenOnly,
       String? hintText,
       String? labelText,
       bool? obscureText,
@@ -202,6 +204,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
 
   $T_DrawerPropsCopyWith<$Res>? get drawer;
   $T_LayoutBuilderPropsCopyWith<$Res>? get layoutBuilder;
+  $T_MediaScreenOnlyPropsCopyWith<$Res>? get mediaScreenOnly;
   $LayoutPropsCopyWith<$Res>? get child;
   $LayoutPropsCopyWith<$Res>? get content;
   $BottomNavigationPropsCopyWith<$Res>? get bottomNav;
@@ -260,6 +263,7 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
     Object? scrollable = freezed,
     Object? drawer = freezed,
     Object? layoutBuilder = freezed,
+    Object? mediaScreenOnly = freezed,
     Object? hintText = freezed,
     Object? labelText = freezed,
     Object? obscureText = freezed,
@@ -441,6 +445,10 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
           ? _value.layoutBuilder
           : layoutBuilder // ignore: cast_nullable_to_non_nullable
               as T_LayoutBuilderProps?,
+      mediaScreenOnly: mediaScreenOnly == freezed
+          ? _value.mediaScreenOnly
+          : mediaScreenOnly // ignore: cast_nullable_to_non_nullable
+              as T_MediaScreenOnlyProps?,
       hintText: hintText == freezed
           ? _value.hintText
           : hintText // ignore: cast_nullable_to_non_nullable
@@ -571,6 +579,18 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
 
     return $T_LayoutBuilderPropsCopyWith<$Res>(_value.layoutBuilder!, (value) {
       return _then(_value.copyWith(layoutBuilder: value));
+    });
+  }
+
+  @override
+  $T_MediaScreenOnlyPropsCopyWith<$Res>? get mediaScreenOnly {
+    if (_value.mediaScreenOnly == null) {
+      return null;
+    }
+
+    return $T_MediaScreenOnlyPropsCopyWith<$Res>(_value.mediaScreenOnly!,
+        (value) {
+      return _then(_value.copyWith(mediaScreenOnly: value));
     });
   }
 
@@ -709,6 +729,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       bool? scrollable,
       T_DrawerProps? drawer,
       T_LayoutBuilderProps? layoutBuilder,
+      T_MediaScreenOnlyProps? mediaScreenOnly,
       String? hintText,
       String? labelText,
       bool? obscureText,
@@ -741,6 +762,8 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
   $T_DrawerPropsCopyWith<$Res>? get drawer;
   @override
   $T_LayoutBuilderPropsCopyWith<$Res>? get layoutBuilder;
+  @override
+  $T_MediaScreenOnlyPropsCopyWith<$Res>? get mediaScreenOnly;
   @override
   $LayoutPropsCopyWith<$Res>? get child;
   @override
@@ -809,6 +832,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
     Object? scrollable = freezed,
     Object? drawer = freezed,
     Object? layoutBuilder = freezed,
+    Object? mediaScreenOnly = freezed,
     Object? hintText = freezed,
     Object? labelText = freezed,
     Object? obscureText = freezed,
@@ -990,6 +1014,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
           ? _value.layoutBuilder
           : layoutBuilder // ignore: cast_nullable_to_non_nullable
               as T_LayoutBuilderProps?,
+      mediaScreenOnly: mediaScreenOnly == freezed
+          ? _value.mediaScreenOnly
+          : mediaScreenOnly // ignore: cast_nullable_to_non_nullable
+              as T_MediaScreenOnlyProps?,
       hintText: hintText == freezed
           ? _value.hintText
           : hintText // ignore: cast_nullable_to_non_nullable
@@ -1144,6 +1172,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.scrollable,
       this.drawer,
       this.layoutBuilder,
+      this.mediaScreenOnly,
       this.hintText,
       this.labelText,
       this.obscureText,
@@ -1317,6 +1346,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   final T_DrawerProps? drawer;
   @override
   final T_LayoutBuilderProps? layoutBuilder;
+  @override
+  final T_MediaScreenOnlyProps? mediaScreenOnly;
 // Field Start================================================
   @override
   final String? hintText;
@@ -1418,7 +1449,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
   }
 
   @override
@@ -1465,6 +1496,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('scrollable', scrollable))
       ..add(DiagnosticsProperty('drawer', drawer))
       ..add(DiagnosticsProperty('layoutBuilder', layoutBuilder))
+      ..add(DiagnosticsProperty('mediaScreenOnly', mediaScreenOnly))
       ..add(DiagnosticsProperty('hintText', hintText))
       ..add(DiagnosticsProperty('labelText', labelText))
       ..add(DiagnosticsProperty('obscureText', obscureText))
@@ -1547,6 +1579,7 @@ abstract class _LayoutProps implements LayoutProps {
       final bool? scrollable,
       final T_DrawerProps? drawer,
       final T_LayoutBuilderProps? layoutBuilder,
+      final T_MediaScreenOnlyProps? mediaScreenOnly,
       final String? hintText,
       final String? labelText,
       final bool? obscureText,
@@ -1673,6 +1706,8 @@ abstract class _LayoutProps implements LayoutProps {
   T_DrawerProps? get drawer;
   @override
   T_LayoutBuilderProps? get layoutBuilder;
+  @override
+  T_MediaScreenOnlyProps? get mediaScreenOnly;
   @override // Field Start================================================
   String? get hintText;
   @override

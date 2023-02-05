@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gato/gato.dart' as gato;
@@ -12,6 +13,7 @@ import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/style_utils.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
+import 'package:the_tool/t_widget_interface/media_screen_only/media_screen_only.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -29,6 +31,13 @@ class UtilsManager {
 
   EvalJS? _evalJS;
   EvalJS? get evalJS => _evalJS;
+
+  MediaQueryData? _pageMediaQueryData;
+
+  MediaQueryData? get pageMediaQueryData => _pageMediaQueryData;
+  set pageMediaQueryData(MediaQueryData? pageMediaQueryData) {
+    _pageMediaQueryData = pageMediaQueryData;
+  }
 
   set evalJS(EvalJS? evalJS) {
     _evalJS = evalJS;
@@ -145,21 +154,33 @@ class UtilsManager {
   static isTruthy(dynamic data) =>
       !["", "false", "null", "0", "undefined", null, false].contains(data);
 
+  bool _isMatchMediaScreenOnlyCondition(
+    T_MediaScreenOnlyProps mediaScreenOnlyProps,
+  ) {
+    print("abcd _isMatchMediaScreenOnlyCondition ${pageMediaQueryData?.size}");
+    return false;
+  }
+
   LayoutProps computeWidgetProps(
-    LayoutProps content,
+    LayoutProps layoutProps,
     Map<String, dynamic> contextData,
   ) {
     var hidden = bindingValueToProp(
       contextData,
-      content.hidden,
+      layoutProps.hidden,
     );
 
     if (UtilsManager.isTruthy(hidden)) {
       return const LayoutProps(hidden: true);
     }
 
+    if (layoutProps.mediaScreenOnly != null) {
+      _isMatchMediaScreenOnlyCondition(layoutProps.mediaScreenOnly!);
+    }
+
     LayoutProps? widgetProps =
-        themeProvider.mergeClasses(content, contextData) ?? const LayoutProps();
+        themeProvider.mergeClasses(layoutProps, contextData) ??
+            const LayoutProps();
 
     if (widgetProps.color != null) {
       widgetProps = widgetProps.copyWith(

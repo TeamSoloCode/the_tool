@@ -92,7 +92,7 @@ class _T_LayoutBuilderState extends TStatefulWidget<T_LayoutBuilder> {
     print("boxConstraints ${boxConstraints}");
 
     if (layoutBuilderProps == null || layoutBuilderProps.child == null) {
-      return const SizedBox();
+      return const SizedBox.shrink();
     }
 
     if (!const DeepCollectionEquality()

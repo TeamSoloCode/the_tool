@@ -83,6 +83,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     }
   }
 
+  /// Set media query data into React component state at $mediaQuery state
   void _updateMediaQueryInJS(MediaQueryData mediaQuery) {
     var size = mediaQuery.size;
     var height = size.height;
@@ -97,6 +98,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     }
 
     _prevMediaQueryData = mediaQuery;
+    utils.pageMediaQueryData = mediaQuery;
     utils.evalJS?.executeJS(
       """
         _onMediaQueryChanged(
@@ -137,8 +139,10 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
       // key: ValueKey(_pageId),
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
-          return const SizedBox();
+          return const SizedBox.shrink();
         }
+
+        _updateMediaQueryInJS(mediaQueryData);
 
         var page = SafeArea(
           child: Scaffold(
@@ -163,7 +167,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
 
         // register page context
         contextStateProvider.registerKeyScaffoldState(_pageId, _scaffoldKey);
-        _updateMediaQueryInJS(mediaQueryData);
+
         return page;
       },
       future: _loadNecessaryWidget,

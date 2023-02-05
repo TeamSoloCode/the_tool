@@ -55,6 +55,10 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
           ? null
           : T_LayoutBuilderProps.fromJson(
               json['layoutBuilder'] as Map<String, dynamic>),
+      mediaScreenOnly: json['mediaScreenOnly'] == null
+          ? null
+          : T_MediaScreenOnlyProps.fromJson(
+              json['mediaScreenOnly'] as Map<String, dynamic>),
       hintText: json['hintText'] as String?,
       labelText: json['labelText'] as String?,
       obscureText: json['obscureText'] as bool?,
@@ -150,6 +154,7 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'scrollable': instance.scrollable,
       'drawer': instance.drawer,
       'layoutBuilder': instance.layoutBuilder,
+      'mediaScreenOnly': instance.mediaScreenOnly,
       'hintText': instance.hintText,
       'labelText': instance.labelText,
       'obscureText': instance.obscureText,

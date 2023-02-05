@@ -72,7 +72,7 @@ class CustomPagerState extends State<CustomPager> {
   @override
   Widget build(BuildContext context) {
     // skip this build pass
-    if (!widget.controller.isAttached) return const SizedBox();
+    if (!widget.controller.isAttached) return const SizedBox.shrink();
     return Container(
       width: 220,
       height: 40,
