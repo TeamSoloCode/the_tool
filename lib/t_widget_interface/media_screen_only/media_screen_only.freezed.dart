@@ -26,6 +26,7 @@ mixin _$T_MediaScreenOnlyProps {
   num? get maxHeight => throw _privateConstructorUsedError;
   num? get minHeight => throw _privateConstructorUsedError;
   String? get orientation => throw _privateConstructorUsedError;
+  LayoutProps? get style => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,7 +44,10 @@ abstract class $T_MediaScreenOnlyPropsCopyWith<$Res> {
       num? minWidth,
       num? maxHeight,
       num? minHeight,
-      String? orientation});
+      String? orientation,
+      LayoutProps? style});
+
+  $LayoutPropsCopyWith<$Res>? get style;
 }
 
 /// @nodoc
@@ -62,6 +66,7 @@ class _$T_MediaScreenOnlyPropsCopyWithImpl<$Res>
     Object? maxHeight = freezed,
     Object? minHeight = freezed,
     Object? orientation = freezed,
+    Object? style = freezed,
   }) {
     return _then(_value.copyWith(
       maxWidth: maxWidth == freezed
@@ -84,7 +89,22 @@ class _$T_MediaScreenOnlyPropsCopyWithImpl<$Res>
           ? _value.orientation
           : orientation // ignore: cast_nullable_to_non_nullable
               as String?,
+      style: style == freezed
+          ? _value.style
+          : style // ignore: cast_nullable_to_non_nullable
+              as LayoutProps?,
     ));
+  }
+
+  @override
+  $LayoutPropsCopyWith<$Res>? get style {
+    if (_value.style == null) {
+      return null;
+    }
+
+    return $LayoutPropsCopyWith<$Res>(_value.style!, (value) {
+      return _then(_value.copyWith(style: value));
+    });
   }
 }
 
@@ -100,7 +120,11 @@ abstract class _$$_T_MediaScreenOnlyPropsCopyWith<$Res>
       num? minWidth,
       num? maxHeight,
       num? minHeight,
-      String? orientation});
+      String? orientation,
+      LayoutProps? style});
+
+  @override
+  $LayoutPropsCopyWith<$Res>? get style;
 }
 
 /// @nodoc
@@ -122,6 +146,7 @@ class __$$_T_MediaScreenOnlyPropsCopyWithImpl<$Res>
     Object? maxHeight = freezed,
     Object? minHeight = freezed,
     Object? orientation = freezed,
+    Object? style = freezed,
   }) {
     return _then(_$_T_MediaScreenOnlyProps(
       maxWidth: maxWidth == freezed
@@ -144,6 +169,10 @@ class __$$_T_MediaScreenOnlyPropsCopyWithImpl<$Res>
           ? _value.orientation
           : orientation // ignore: cast_nullable_to_non_nullable
               as String?,
+      style: style == freezed
+          ? _value.style
+          : style // ignore: cast_nullable_to_non_nullable
+              as LayoutProps?,
     ));
   }
 }
@@ -156,7 +185,8 @@ class _$_T_MediaScreenOnlyProps implements _T_MediaScreenOnlyProps {
       this.minWidth,
       this.maxHeight,
       this.minHeight,
-      this.orientation});
+      this.orientation,
+      this.style});
 
   factory _$_T_MediaScreenOnlyProps.fromJson(Map<String, dynamic> json) =>
       _$$_T_MediaScreenOnlyPropsFromJson(json);
@@ -171,6 +201,8 @@ class _$_T_MediaScreenOnlyProps implements _T_MediaScreenOnlyProps {
   final num? minHeight;
   @override
   final String? orientation;
+  @override
+  final LayoutProps? style;
 
   @JsonKey(ignore: true)
   @override
@@ -192,7 +224,8 @@ abstract class _T_MediaScreenOnlyProps implements T_MediaScreenOnlyProps {
       final num? minWidth,
       final num? maxHeight,
       final num? minHeight,
-      final String? orientation}) = _$_T_MediaScreenOnlyProps;
+      final String? orientation,
+      final LayoutProps? style}) = _$_T_MediaScreenOnlyProps;
 
   factory _T_MediaScreenOnlyProps.fromJson(Map<String, dynamic> json) =
       _$_T_MediaScreenOnlyProps.fromJson;
@@ -207,6 +240,8 @@ abstract class _T_MediaScreenOnlyProps implements T_MediaScreenOnlyProps {
   num? get minHeight;
   @override
   String? get orientation;
+  @override
+  LayoutProps? get style;
   @override
   @JsonKey(ignore: true)
   _$$_T_MediaScreenOnlyPropsCopyWith<_$_T_MediaScreenOnlyProps> get copyWith =>

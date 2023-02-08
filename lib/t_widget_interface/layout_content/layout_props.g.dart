@@ -55,10 +55,10 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
           ? null
           : T_LayoutBuilderProps.fromJson(
               json['layoutBuilder'] as Map<String, dynamic>),
-      mediaScreenOnly: json['mediaScreenOnly'] == null
-          ? null
-          : T_MediaScreenOnlyProps.fromJson(
-              json['mediaScreenOnly'] as Map<String, dynamic>),
+      mediaScreenOnly: (json['mediaScreenOnly'] as List<dynamic>?)
+          ?.map(
+              (e) => T_MediaScreenOnlyProps.fromJson(e as Map<String, dynamic>))
+          .toList(),
       hintText: json['hintText'] as String?,
       labelText: json['labelText'] as String?,
       obscureText: json['obscureText'] as bool?,

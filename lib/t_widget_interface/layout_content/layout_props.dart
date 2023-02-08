@@ -79,7 +79,7 @@ class LayoutProps with _$LayoutProps {
     bool? scrollable,
     T_DrawerProps? drawer,
     T_LayoutBuilderProps? layoutBuilder,
-    T_MediaScreenOnlyProps? mediaScreenOnly,
+    List<T_MediaScreenOnlyProps>? mediaScreenOnly,
 
     // Field Start================================================
     String? hintText,

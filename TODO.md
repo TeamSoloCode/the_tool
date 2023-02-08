@@ -1,4 +1,5 @@
 Support MediaScreenOnly for all t_widgets
+Fix bug: rows of table in state have selected = true but not show select when use with Layout Builder
 
 #-------------------------------------------------
 Support format number for t_textfield

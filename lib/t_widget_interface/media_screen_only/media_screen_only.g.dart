@@ -14,6 +14,9 @@ _$_T_MediaScreenOnlyProps _$$_T_MediaScreenOnlyPropsFromJson(
       maxHeight: json['maxHeight'] as num?,
       minHeight: json['minHeight'] as num?,
       orientation: json['orientation'] as String?,
+      style: json['style'] == null
+          ? null
+          : LayoutProps.fromJson(json['style'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_T_MediaScreenOnlyPropsToJson(
@@ -24,4 +27,5 @@ Map<String, dynamic> _$$_T_MediaScreenOnlyPropsToJson(
       'maxHeight': instance.maxHeight,
       'minHeight': instance.minHeight,
       'orientation': instance.orientation,
+      'style': instance.style,
     };

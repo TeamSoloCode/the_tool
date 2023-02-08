@@ -32,13 +32,6 @@ class UtilsManager {
   EvalJS? _evalJS;
   EvalJS? get evalJS => _evalJS;
 
-  MediaQueryData? _pageMediaQueryData;
-
-  MediaQueryData? get pageMediaQueryData => _pageMediaQueryData;
-  set pageMediaQueryData(MediaQueryData? pageMediaQueryData) {
-    _pageMediaQueryData = pageMediaQueryData;
-  }
-
   set evalJS(EvalJS? evalJS) {
     _evalJS = evalJS;
     themeProvider = getIt<ThemeProvider>();
@@ -154,13 +147,6 @@ class UtilsManager {
   static isTruthy(dynamic data) =>
       !["", "false", "null", "0", "undefined", null, false].contains(data);
 
-  bool _isMatchMediaScreenOnlyCondition(
-    T_MediaScreenOnlyProps mediaScreenOnlyProps,
-  ) {
-    print("abcd _isMatchMediaScreenOnlyCondition ${pageMediaQueryData?.size}");
-    return false;
-  }
-
   LayoutProps computeWidgetProps(
     LayoutProps layoutProps,
     Map<String, dynamic> contextData,
@@ -172,10 +158,6 @@ class UtilsManager {
 
     if (UtilsManager.isTruthy(hidden)) {
       return const LayoutProps(hidden: true);
-    }
-
-    if (layoutProps.mediaScreenOnly != null) {
-      _isMatchMediaScreenOnlyCondition(layoutProps.mediaScreenOnly!);
     }
 
     LayoutProps? widgetProps =
@@ -411,5 +393,39 @@ class UtilsManager {
     });
 
     return result;
+  }
+
+  LayoutProps? getMediaScreeStyle(
+    MediaQueryData mediaQueryData,
+    Map<String, dynamic> contextData,
+    List<T_MediaScreenOnlyProps> mediaScreenProps,
+  ) {
+    var screenWidth = mediaQueryData.size.width;
+    var screenHeight = mediaQueryData.size.height;
+    var matchMediaScreen = mediaScreenProps.firstWhere(
+      (mediaScreen) {
+        var maxHeight = mediaScreen.maxHeight;
+        var minHeight = mediaScreen.minHeight;
+        var maxWidth = mediaScreen.maxWidth;
+        var minWidth = mediaScreen.minWidth;
+
+        if (maxHeight != null && maxHeight >= screenHeight) {
+          return true;
+        } else if (maxWidth != null && maxWidth >= screenWidth) {
+          return true;
+        } else if (minHeight != null && minHeight <= screenHeight) {
+          return true;
+        } else if (minWidth != null && minWidth <= screenWidth) {
+          return true;
+        }
+
+        return false;
+      },
+      orElse: () => const T_MediaScreenOnlyProps(
+        style: null,
+      ),
+    );
+
+    return matchMediaScreen.style;
   }
 }

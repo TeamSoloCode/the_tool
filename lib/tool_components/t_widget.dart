@@ -35,6 +35,14 @@ mixin BaseStateWidget on Widget {
 
   void watchContextState(BuildContext context, {String? providedPagePath}) {
     var path = providedPagePath ?? pagePath;
+    props = widgetProps;
+
+    if (widgetProps.mediaScreenOnly != null) {
+      var applyProps = computePropsFromMediaScreen(context);
+      if (applyProps != null) {
+        props = widgetProps.merge(applyProps);
+      }
+    }
 
     _themeRefreshToken = context.select(
       (ThemeProvider theme) {
@@ -65,7 +73,7 @@ mixin BaseStateWidget on Widget {
     }
 
     props = utils.computeWidgetProps(
-      widgetProps,
+      props!,
       childData.isEmpty ? contextData : childData,
     );
 
@@ -73,6 +81,17 @@ mixin BaseStateWidget on Widget {
     _prevThemeRefreshToken = _themeRefreshToken;
 
     return;
+  }
+
+  LayoutProps? computePropsFromMediaScreen(BuildContext context) {
+    var mediaQuery = MediaQuery.of(context);
+    var applyProps = utils.getMediaScreeStyle(
+      mediaQuery,
+      contextData,
+      widgetProps.mediaScreenOnly!,
+    );
+
+    return applyProps;
   }
 
   void updateWidgetBindingStrings(String bindingString) {

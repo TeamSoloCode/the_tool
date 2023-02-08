@@ -83,36 +83,6 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     }
   }
 
-  /// Set media query data into React component state at $mediaQuery state
-  void _updateMediaQueryInJS(MediaQueryData mediaQuery) {
-    var size = mediaQuery.size;
-    var height = size.height;
-    var width = size.width;
-    var orientation = mediaQuery.orientation.name;
-
-    if (const DeepCollectionEquality().equals(
-      _prevMediaQueryData,
-      mediaQuery,
-    )) {
-      return;
-    }
-
-    _prevMediaQueryData = mediaQuery;
-    utils.pageMediaQueryData = mediaQuery;
-    utils.evalJS?.executeJS(
-      """
-        _onMediaQueryChanged(
-          { 
-            height: $height,
-            width: $width,
-            orientation: "$orientation",
-          }
-        )
-      """,
-      _pageId,
-    );
-  }
-
   ThemeMode? prevThemeMode;
 
   @override
@@ -240,6 +210,35 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
       _pageLayout?.bottomNav,
       currentIndex: _selectedBottomNavIndex,
       onTap: _onBottomNavItemTapped,
+    );
+  }
+
+  /// Set media query data into React component state at $mediaQuery state
+  void _updateMediaQueryInJS(MediaQueryData mediaQuery) {
+    var size = mediaQuery.size;
+    var height = size.height;
+    var width = size.width;
+    var orientation = mediaQuery.orientation.name;
+
+    if (const DeepCollectionEquality().equals(
+      _prevMediaQueryData,
+      mediaQuery,
+    )) {
+      return;
+    }
+
+    _prevMediaQueryData = mediaQuery;
+    utils.evalJS?.executeJS(
+      """
+        _onMediaQueryChanged(
+          { 
+            height: $height,
+            width: $width,
+            orientation: "$orientation",
+          }
+        )
+      """,
+      _pageId,
     );
   }
 

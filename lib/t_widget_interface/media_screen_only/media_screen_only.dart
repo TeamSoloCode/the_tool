@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:the_tool/t_widget_interface/layout_builder_item_props/layout_builder_item_props.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 
 part 'media_screen_only.freezed.dart';
@@ -13,6 +12,7 @@ class T_MediaScreenOnlyProps with _$T_MediaScreenOnlyProps {
     num? maxHeight,
     num? minHeight,
     String? orientation,
+    LayoutProps? style,
   }) = _T_MediaScreenOnlyProps;
 
   factory T_MediaScreenOnlyProps.fromJson(Map<String, Object?> json) =>

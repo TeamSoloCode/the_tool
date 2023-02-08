@@ -80,7 +80,7 @@ mixin _$LayoutProps {
   bool? get scrollable => throw _privateConstructorUsedError;
   T_DrawerProps? get drawer => throw _privateConstructorUsedError;
   T_LayoutBuilderProps? get layoutBuilder => throw _privateConstructorUsedError;
-  T_MediaScreenOnlyProps? get mediaScreenOnly =>
+  List<T_MediaScreenOnlyProps>? get mediaScreenOnly =>
       throw _privateConstructorUsedError; // Field Start================================================
   String? get hintText => throw _privateConstructorUsedError;
   String? get labelText => throw _privateConstructorUsedError;
@@ -173,7 +173,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       bool? scrollable,
       T_DrawerProps? drawer,
       T_LayoutBuilderProps? layoutBuilder,
-      T_MediaScreenOnlyProps? mediaScreenOnly,
+      List<T_MediaScreenOnlyProps>? mediaScreenOnly,
       String? hintText,
       String? labelText,
       bool? obscureText,
@@ -204,7 +204,6 @@ abstract class $LayoutPropsCopyWith<$Res> {
 
   $T_DrawerPropsCopyWith<$Res>? get drawer;
   $T_LayoutBuilderPropsCopyWith<$Res>? get layoutBuilder;
-  $T_MediaScreenOnlyPropsCopyWith<$Res>? get mediaScreenOnly;
   $LayoutPropsCopyWith<$Res>? get child;
   $LayoutPropsCopyWith<$Res>? get content;
   $BottomNavigationPropsCopyWith<$Res>? get bottomNav;
@@ -448,7 +447,7 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
       mediaScreenOnly: mediaScreenOnly == freezed
           ? _value.mediaScreenOnly
           : mediaScreenOnly // ignore: cast_nullable_to_non_nullable
-              as T_MediaScreenOnlyProps?,
+              as List<T_MediaScreenOnlyProps>?,
       hintText: hintText == freezed
           ? _value.hintText
           : hintText // ignore: cast_nullable_to_non_nullable
@@ -579,18 +578,6 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
 
     return $T_LayoutBuilderPropsCopyWith<$Res>(_value.layoutBuilder!, (value) {
       return _then(_value.copyWith(layoutBuilder: value));
-    });
-  }
-
-  @override
-  $T_MediaScreenOnlyPropsCopyWith<$Res>? get mediaScreenOnly {
-    if (_value.mediaScreenOnly == null) {
-      return null;
-    }
-
-    return $T_MediaScreenOnlyPropsCopyWith<$Res>(_value.mediaScreenOnly!,
-        (value) {
-      return _then(_value.copyWith(mediaScreenOnly: value));
     });
   }
 
@@ -729,7 +716,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       bool? scrollable,
       T_DrawerProps? drawer,
       T_LayoutBuilderProps? layoutBuilder,
-      T_MediaScreenOnlyProps? mediaScreenOnly,
+      List<T_MediaScreenOnlyProps>? mediaScreenOnly,
       String? hintText,
       String? labelText,
       bool? obscureText,
@@ -762,8 +749,6 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
   $T_DrawerPropsCopyWith<$Res>? get drawer;
   @override
   $T_LayoutBuilderPropsCopyWith<$Res>? get layoutBuilder;
-  @override
-  $T_MediaScreenOnlyPropsCopyWith<$Res>? get mediaScreenOnly;
   @override
   $LayoutPropsCopyWith<$Res>? get child;
   @override
@@ -1015,9 +1000,9 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
           : layoutBuilder // ignore: cast_nullable_to_non_nullable
               as T_LayoutBuilderProps?,
       mediaScreenOnly: mediaScreenOnly == freezed
-          ? _value.mediaScreenOnly
+          ? _value._mediaScreenOnly
           : mediaScreenOnly // ignore: cast_nullable_to_non_nullable
-              as T_MediaScreenOnlyProps?,
+              as List<T_MediaScreenOnlyProps>?,
       hintText: hintText == freezed
           ? _value.hintText
           : hintText // ignore: cast_nullable_to_non_nullable
@@ -1172,7 +1157,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.scrollable,
       this.drawer,
       this.layoutBuilder,
-      this.mediaScreenOnly,
+      final List<T_MediaScreenOnlyProps>? mediaScreenOnly,
       this.hintText,
       this.labelText,
       this.obscureText,
@@ -1204,6 +1189,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
         _componentProps = componentProps,
         _computedComponentProps = computedComponentProps,
         _components = components,
+        _mediaScreenOnly = mediaScreenOnly,
         _validators = validators,
         _columns = columns,
         _rows = rows,
@@ -1346,8 +1332,15 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   final T_DrawerProps? drawer;
   @override
   final T_LayoutBuilderProps? layoutBuilder;
+  final List<T_MediaScreenOnlyProps>? _mediaScreenOnly;
   @override
-  final T_MediaScreenOnlyProps? mediaScreenOnly;
+  List<T_MediaScreenOnlyProps>? get mediaScreenOnly {
+    final value = _mediaScreenOnly;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
 // Field Start================================================
   @override
   final String? hintText;
@@ -1579,7 +1572,7 @@ abstract class _LayoutProps implements LayoutProps {
       final bool? scrollable,
       final T_DrawerProps? drawer,
       final T_LayoutBuilderProps? layoutBuilder,
-      final T_MediaScreenOnlyProps? mediaScreenOnly,
+      final List<T_MediaScreenOnlyProps>? mediaScreenOnly,
       final String? hintText,
       final String? labelText,
       final bool? obscureText,
@@ -1707,7 +1700,7 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   T_LayoutBuilderProps? get layoutBuilder;
   @override
-  T_MediaScreenOnlyProps? get mediaScreenOnly;
+  List<T_MediaScreenOnlyProps>? get mediaScreenOnly;
   @override // Field Start================================================
   String? get hintText;
   @override

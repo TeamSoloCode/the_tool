@@ -89,8 +89,6 @@ class _T_LayoutBuilderState extends TStatefulWidget<T_LayoutBuilder> {
       },
     );
 
-    print("boxConstraints ${boxConstraints}");
-
     if (layoutBuilderProps == null || layoutBuilderProps.child == null) {
       return const SizedBox.shrink();
     }
@@ -99,7 +97,6 @@ class _T_LayoutBuilderState extends TStatefulWidget<T_LayoutBuilder> {
         .equals(_selectedLayout, layoutBuilderProps.child!)) {
       layoutKey = const Uuid().v4();
     }
-    print("boxConstraints.maxWidth ${boxConstraints.maxWidth}");
     _selectedLayout = layoutBuilderProps.child;
 
     return TWidgets(

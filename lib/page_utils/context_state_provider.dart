@@ -79,11 +79,4 @@ class ContextStateProvider with ChangeNotifier, DiagnosticableTreeMixin {
     _pageComponents.putIfAbsent(pagePath, () => components);
   }
   // ==========================================================================
-
-  /// Makes `Counter` readable inside the devtools by listing all of its properties
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    // properties.add(IntProperty('_contextData', _contextData));
-  }
 }
