@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:the_tool/t_widget_interface/data_table_props/data_cell_props/data_cell_props.dart';
 import 'package:the_tool/t_widget_interface/data_table_props/data_row_props/data_row_props.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
-import 'package:the_tool/utils.dart';
 
 class T_RowData extends AsyncDataTableSource {
   final BuildContext context;
@@ -64,9 +63,12 @@ class T_RowData extends AsyncDataTableSource {
         tableData.data.map((rowData) {
           rowData["_index"] = index;
           ++index;
+          var isSelected = rowData["_selected"] ?? false;
+          var rowKey = ValueKey<dynamic>(rowData["id"] ?? index);
+
           return DataRow(
-            key: ValueKey<dynamic>(rowData["id"] ?? index),
-            selected: rowData["_selected"] ?? false,
+            key: rowKey,
+            selected: isSelected,
             onSelectChanged: (value) {
               if (value != null) {
                 setRowSelection(
@@ -81,6 +83,10 @@ class T_RowData extends AsyncDataTableSource {
         }).toList());
 
     return row;
+  }
+
+  void setSelect(LocalKey rowKey, bool selected) {
+    setRowSelection(rowKey, selected);
   }
 
   List<DataCell> _computeCells(
@@ -120,10 +126,19 @@ class T_RowData extends AsyncDataTableSource {
   @override
   int get selectedRowCount => _selectedCount;
 
-  void updateTableData(SourceRowDataResponse data, bool onlyUpdateData) {
-    tableData = data;
-    _onlyUpdateData = onlyUpdateData;
-    refreshDatasource();
+  bool get onlyUpdateData => _onlyUpdateData;
+
+  void updateTableData(
+    SourceRowDataResponse sourceRow,
+    bool onlyUpdateData,
+    bool isTheSamedata,
+  ) {
+    tableData = sourceRow;
+
+    if (!isTheSamedata) {
+      _onlyUpdateData = onlyUpdateData;
+      refreshDatasource();
+    }
   }
 }
 

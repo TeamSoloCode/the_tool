@@ -7,6 +7,7 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/datatable/t_data_row_widget.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:data_table_2/data_table_2.dart';
+import 'package:collection/collection.dart' show DeepCollectionEquality;
 
 Timer? _debounce;
 
@@ -48,7 +49,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     super.initState();
   }
 
-  var prevValue = [];
+  List<dynamic>? prevValue;
 
   @override
   void didChangeDependencies() {
@@ -72,9 +73,51 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
       var dataCount =
           widget.contextData[widget.widgetProps.total] ?? items.length;
       var tableTable = SourceRowDataResponse(dataCount, items);
-      _rowDataSource?.updateTableData(tableTable, true);
+
+      _updateTableSelection(tableTable.data);
+
+      var isTheSameData = false;
+      if (items != null && prevValue != null) {
+        var nextData = _removeRowExtentedKeys(items);
+        var prevData = _removeRowExtentedKeys(prevValue);
+
+        isTheSameData = const DeepCollectionEquality().equals(
+          nextData,
+          prevData,
+        );
+      }
+
+      _rowDataSource?.updateTableData(
+        tableTable,
+        true,
+        isTheSameData,
+      );
+
       prevValue = items;
     }
+  }
+
+  dynamic _removeRowExtentedKeys(dynamic items) {
+    items = items.map((item) {
+      item.remove("_selected");
+      item.remove("_index");
+      return item;
+    }).toList();
+
+    return items;
+  }
+
+  void _updateTableSelection(List<dynamic> data) {
+    data.asMap().forEach((index, record) {
+      var isSelected = record["_selected"];
+
+      if (isSelected is bool) {
+        _rowDataSource?.setSelect(
+          ValueKey<dynamic>(record["id"] ?? index),
+          isSelected,
+        );
+      }
+    });
   }
 
   List<DataColumn> _computeColumns(
@@ -192,8 +235,12 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
           sortArrowIcon: Icons.keyboard_arrow_up,
           columns: _computeColumns(widgetProps, contextData),
           source: _rowDataSource!,
+          // loading: _prepareLoadingWidget(
+          //   _rowDataSource?.onlyUpdateData ?? false,
+          // ),
           onSelectAll: (value) {
             _handleSelectAll(value);
+            _updateTableSource();
           },
           onRowsPerPageChanged: (value) {
             // No need to wrap into setState, it will be called inside the widget
@@ -210,6 +257,21 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
         //Custom Pagination
         // Positioned(bottom: 16, child: CustomPager(_controller!))
       ],
+    );
+  }
+
+  Widget _prepareLoadingWidget(bool onlyUpdateData) {
+    print("abcd onlyUpdateData ${onlyUpdateData}");
+    if (onlyUpdateData) {
+      return const SizedBox.shrink();
+    }
+
+    return const Center(
+      child: SizedBox(
+        width: 64,
+        height: 16,
+        child: LinearProgressIndicator(),
+      ),
     );
   }
 
@@ -258,6 +320,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     Widget _snapshot = widget.snapshot;
     LayoutProps? _props = widget.props;
     _updateTableSource();
+
     if (_props != null) {
       _snapshot = _computeTable(_props, widget.contextData);
     }
