@@ -50,6 +50,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
   }
 
   List<dynamic>? prevValue;
+  Timer? _debounce;
 
   @override
   void didChangeDependencies() {
@@ -74,7 +75,10 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
           widget.contextData[widget.widgetProps.total] ?? items.length;
       var tableTable = SourceRowDataResponse(dataCount, items);
 
-      _updateTableSelection(tableTable.data);
+      if (_debounce?.isActive ?? false) _debounce?.cancel();
+      _debounce = Timer(const Duration(milliseconds: 100), () {
+        _updateTableSelection(items);
+      });
 
       var isTheSameData = false;
       if (items != null && prevValue != null) {

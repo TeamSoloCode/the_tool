@@ -23,6 +23,7 @@ class T_Row extends TStatelessWidget {
   List<Widget> _computeChildren(
     List<LayoutProps>? children,
     Map<String, dynamic> childData,
+    BuildContext context,
   ) {
     var index = 0;
     return (children ?? []).map((child) {
@@ -36,6 +37,17 @@ class T_Row extends TStatelessWidget {
       );
 
       if (child.flex != null) {
+        var mediaScreen = child.mediaScreenOnly;
+        if (mediaScreen != null) {
+          var mediaQueryData = MediaQuery.of(context);
+          var selectedMediaStyle = utils.getMediaScreeStyle(
+            mediaQueryData,
+            childData,
+            mediaScreen,
+          );
+          child = child.merge(selectedMediaStyle);
+        }
+
         item = Expanded(
           key: ValueKey(index),
           flex: child.flex ?? 1,
@@ -49,6 +61,7 @@ class T_Row extends TStatelessWidget {
 
   @override
   Widget buildWidget(BuildContext context) {
+    MediaQuery.of(context).size;
     var mainAxisAlignment = ThemeDecoder.decodeMainAxisAlignment(
           props?.mainAxisAlignment,
         ) ??
@@ -60,6 +73,7 @@ class T_Row extends TStatelessWidget {
       children: _computeChildren(
         props?.children,
         childData,
+        context,
       ),
     );
 
