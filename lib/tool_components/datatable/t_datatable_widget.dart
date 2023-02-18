@@ -78,7 +78,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
 
       var isTheSameData = false;
       if (items != null && prevValue != null) {
-        isTheSameData = _isRecordEquals(items, prevValue!);
+        isTheSameData = _areRecordsEqual(items, prevValue!);
       }
 
       _rowDataSource?.updateTableData(
@@ -91,7 +91,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     }
   }
 
-  bool _isRecordEquals(List<dynamic> nextRecords, List<dynamic> prevRecords) {
+  bool _areRecordsEqual(List<dynamic> nextRecords, List<dynamic> prevRecords) {
     if (nextRecords.length != prevRecords.length) return false;
 
     for (var index = 0; index < nextRecords.length; index++) {
@@ -99,6 +99,9 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
       var nextRecord = nextRecords[index];
 
       List keysOfNextRecord = nextRecord.keys.toList();
+      List keysOfPrevRecord = nextRecord.keys.toList();
+
+      if (keysOfNextRecord.length != keysOfPrevRecord.length) return false;
 
       var notEqualsKey = keysOfNextRecord.firstWhere((key) {
         if (["_selected", "_index"].contains(key)) return false;
