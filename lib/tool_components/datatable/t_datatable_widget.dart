@@ -78,13 +78,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
 
       var isTheSameData = false;
       if (items != null && prevValue != null) {
-        var nextData = _removeRowExtentedKeys(items);
-        var prevData = _removeRowExtentedKeys(prevValue);
-
-        isTheSameData = const DeepCollectionEquality().equals(
-          nextData,
-          prevData,
-        );
+        isTheSameData = _isRecordEquals(items, prevValue!);
       }
 
       _rowDataSource?.updateTableData(
@@ -97,14 +91,36 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     }
   }
 
-  dynamic _removeRowExtentedKeys(dynamic items) {
-    items = items.map((item) {
-      item.remove("_selected");
-      item.remove("_index");
-      return item;
-    }).toList();
+  bool _isRecordEquals(List<dynamic> nextRecords, List<dynamic> prevRecords) {
+    if (nextRecords.length != prevRecords.length) return false;
 
-    return items;
+    for (var index = 0; index < nextRecords.length; index++) {
+      var prevRecord = prevRecords[index];
+      var nextRecord = nextRecords[index];
+
+      List keysOfNextRecord = nextRecord.keys.toList();
+
+      var notEqualsKey = keysOfNextRecord.firstWhere((key) {
+        if (["_selected", "_index"].contains(key)) return false;
+        var nextValue = nextRecord[key];
+        var prevValue = prevRecord[key];
+        if (nextValue is Map && prevValue is Map) {
+          return const DeepCollectionEquality().equals(
+            nextValue,
+            prevValue,
+          );
+        }
+
+        if (nextValue != prevValue) return true;
+        return false;
+      }, orElse: () => "");
+
+      if (notEqualsKey != "") {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   void _updateTableSelection(List<dynamic> data) {

@@ -65,7 +65,7 @@ dependencies:
   json_annotation: ^4.7.0
   uuid: ^3.0.6
 
-  permission_handler: ^9.2.0
+  permission_handler: ^10.2.0
 
 dev_dependencies:
   flutter_test:
