@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/t_widget_interface/drawer_props/drawer_props.dart';
-import 'package:the_tool/t_widget_interface/layout_builder_item_props/layout_builder_item_props.dart';
 import 'package:the_tool/t_widget_interface/layout_builder_props/layout_builder_props.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/utils.dart';
@@ -25,6 +25,7 @@ mixin BaseStateWidget on Widget {
   T_LayoutBuilderProps? layoutBuilder;
   LayoutProps? props;
   LayoutProps? prevProps;
+  LayoutProps? mediaScreenApplyWidgetProps;
   Widget snapshot = const SizedBox.shrink();
   Map<String, dynamic> contextData = {};
   final Set<String> widgetBindingStrings = {};
@@ -33,15 +34,16 @@ mixin BaseStateWidget on Widget {
   int? _themeRefreshToken;
   int? _prevThemeRefreshToken;
 
+  bool mediaScreenApplied = false;
+
   void watchContextState(BuildContext context, {String? providedPagePath}) {
     var path = providedPagePath ?? pagePath;
-    props = widgetProps;
 
     if (widgetProps.mediaScreenOnly != null) {
       var applyProps = computePropsFromMediaScreen(context);
-      if (applyProps != null) {
-        props = widgetProps.merge(applyProps);
-      }
+      mediaScreenApplyWidgetProps =
+          applyProps != null ? widgetProps.merge(applyProps) : null;
+      mediaScreenApplied = true;
     }
 
     _themeRefreshToken = context.select(
@@ -68,12 +70,15 @@ mixin BaseStateWidget on Widget {
 
     if (prevProps != null &&
         !hasBindingValue &&
+        !mediaScreenApplied &&
         _prevThemeRefreshToken == _themeRefreshToken) {
       return;
     }
 
+    mediaScreenApplied = false;
+
     props = utils.computeWidgetProps(
-      props!,
+      mediaScreenApplyWidgetProps ?? widgetProps,
       childData.isEmpty ? contextData : childData,
     );
 

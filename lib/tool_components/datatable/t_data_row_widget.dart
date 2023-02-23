@@ -70,13 +70,9 @@ class T_RowData extends AsyncDataTableSource {
             key: rowKey,
             selected: isSelected,
             onSelectChanged: (value) {
-              if (value != null) {
-                setRowSelection(
-                  ValueKey<dynamic>(rowData["id"] ?? index),
-                  value,
-                );
-                handleSelectRow(rowData["_index"], value);
-              }
+              if (value == null) return;
+              setSelect(ValueKey<dynamic>(rowData["id"] ?? index), value);
+              handleSelectRow(rowData["_index"], value);
             },
             cells: _computeCells(rows[0].cells, rowData),
           );

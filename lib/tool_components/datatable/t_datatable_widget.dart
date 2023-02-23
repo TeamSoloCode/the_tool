@@ -103,7 +103,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
       var nextRecord = nextRecords[index];
 
       List keysOfNextRecord = nextRecord.keys.toList();
-      List keysOfPrevRecord = nextRecord.keys.toList();
+      List keysOfPrevRecord = prevRecord.keys.toList();
 
       if (keysOfNextRecord.length != keysOfPrevRecord.length) return false;
 
@@ -238,7 +238,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
   }
 
   Widget _computeTable(
-    LayoutProps? widgetProps,
+    LayoutProps? props,
     Map<String, dynamic> contextData,
   ) {
     return Stack(
@@ -249,14 +249,14 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
           controller: _paginationController,
           rowsPerPage: _rowsPerPage,
           minWidth: widget.utils.computeSizeValue(
-            widgetProps?.minWidth,
+            props?.minWidth,
             contextData,
           ),
           initialFirstRowIndex: 0,
           sortColumnIndex: _sortColumnIndex,
           sortAscending: _sortAscending,
           sortArrowIcon: Icons.keyboard_arrow_up,
-          columns: _computeColumns(widgetProps, contextData),
+          columns: _computeColumns(props, contextData),
           source: _rowDataSource!,
           // loading: _prepareLoadingWidget(
           //   _rowDataSource?.onlyUpdateData ?? false,
