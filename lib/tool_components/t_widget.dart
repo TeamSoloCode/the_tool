@@ -8,6 +8,7 @@ import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/t_widget_interface/drawer_props/drawer_props.dart';
 import 'package:the_tool/t_widget_interface/layout_builder_props/layout_builder_props.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
+import 'package:the_tool/t_widget_interface/media_screen_only/media_screen_only.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:collection/collection.dart' show DeepCollectionEquality;
@@ -39,13 +40,6 @@ mixin BaseStateWidget on Widget {
   void watchContextState(BuildContext context, {String? providedPagePath}) {
     var path = providedPagePath ?? pagePath;
 
-    if (widgetProps.mediaScreenOnly != null) {
-      var applyProps = computePropsFromMediaScreen(context);
-      mediaScreenApplyWidgetProps =
-          applyProps != null ? widgetProps.merge(applyProps) : null;
-      mediaScreenApplied = true;
-    }
-
     _themeRefreshToken = context.select(
       (ThemeProvider theme) {
         return theme.themeRefreshToken;
@@ -68,6 +62,22 @@ mixin BaseStateWidget on Widget {
       return newPageData;
     });
 
+    /**
+     * Apply mediaScreenOnly into widget props
+     */
+    if (widgetProps.mediaScreenOnly != null) {
+      var applyProps = computePropsFromMediaScreen(
+        context,
+        contextData,
+        widgetProps.mediaScreenOnly!,
+      );
+
+      mediaScreenApplyWidgetProps =
+          applyProps != null ? widgetProps.merge(applyProps) : null;
+
+      mediaScreenApplied = true;
+    }
+
     if (prevProps != null &&
         !hasBindingValue &&
         !mediaScreenApplied &&
@@ -88,13 +98,13 @@ mixin BaseStateWidget on Widget {
     return;
   }
 
-  LayoutProps? computePropsFromMediaScreen(BuildContext context) {
+  LayoutProps? computePropsFromMediaScreen(
+    BuildContext context,
+    Map<String, dynamic> data,
+    List<T_MediaScreenOnlyProps> mediaScreen,
+  ) {
     var mediaQuery = MediaQuery.of(context);
-    var applyProps = utils.getMediaScreeStyle(
-      mediaQuery,
-      contextData,
-      widgetProps.mediaScreenOnly!,
-    );
+    var applyProps = utils.getMediaScreeStyle(mediaQuery, data, mediaScreen);
 
     return applyProps;
   }

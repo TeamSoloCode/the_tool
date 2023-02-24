@@ -4,7 +4,6 @@ import 'package:the_tool/page_utils/style_utils.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
-import 'package:the_tool/utils.dart';
 
 class T_Column extends TStatelessWidget {
   T_Column({
@@ -21,7 +20,7 @@ class T_Column extends TStatelessWidget {
           widgetUuid: widgetUuid,
         );
 
-  List<Widget> _getChildren() {
+  List<Widget> _getChildren(BuildContext context) {
     var index = 0;
     List<LayoutProps> children = props?.children ?? [];
     return children.map((child) {
@@ -35,6 +34,13 @@ class T_Column extends TStatelessWidget {
       );
 
       if (child.flex != null) {
+        var mediaScreen = child.mediaScreenOnly;
+        if (mediaScreen != null) {
+          var selectedMediaStyle =
+              computePropsFromMediaScreen(context, childData, mediaScreen);
+          child = child.merge(selectedMediaStyle);
+        }
+
         item = Expanded(
           key: ValueKey(index),
           flex: child.flex ?? 1,
@@ -57,7 +63,7 @@ class T_Column extends TStatelessWidget {
       snapshot = Column(
         key: getBindingKey(),
         mainAxisAlignment: mainAxisAlignment,
-        children: _getChildren(),
+        children: _getChildren(context),
       );
 
       if (props?.scrollable == true) {

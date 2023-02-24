@@ -1,4 +1,5 @@
-Fix bug: rows of table in state have selected = true but not show select when use with Layout Builder
+Support className for mediaScreenOnly item
+Support mediaScreenOnly when children have Expanded/Flexible on Row/Column/Stack
 
 #-------------------------------------------------
 Support format number for t_textfield
@@ -75,3 +76,4 @@ Support MediaScreenOnly for all t_widgets
 -Support drawer for page
 -Add paging for DataTable
 -Support LayoutBuilder for responsive layout
+-Fix bug: rows of table in state have selected = true but not show select when use with Layout Builder
