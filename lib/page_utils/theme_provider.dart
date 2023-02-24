@@ -6,6 +6,7 @@ import 'package:from_css_color/from_css_color.dart';
 import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/extensions/input_decoration_theme.extension.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
+import 'package:the_tool/t_widget_interface/media_screen_only/media_screen_only.dart';
 import 'package:the_tool/utils.dart';
 
 class ThemeProvider with ChangeNotifier {
@@ -230,46 +231,41 @@ class ThemeProvider with ChangeNotifier {
     }
   }
 
-  LayoutProps? mergeClasses(
-    LayoutProps? widgetProps,
+  T_MediaScreenOnlyProps margerClassesIntoMediaScreen(
+    T_MediaScreenOnlyProps mediaScreen,
     Map<String, dynamic> contextData,
   ) {
-    var className = widgetProps?.className;
-    LayoutProps? updatedWidgetProps = widgetProps;
+    var className = mediaScreen.className;
+
+    T_MediaScreenOnlyProps updatedMediaScreen = mediaScreen;
 
     if (className == null) {
-      return widgetProps;
+      return mediaScreen;
     }
 
     updateWidgetProps(
-      LayoutProps? classData,
+      dynamic classData,
       String className,
     ) {
       if (classData != null) {
-        updatedWidgetProps = updatedWidgetProps?.merge(classData);
+        var appliedClassProps = T_MediaScreenOnlyProps.fromJson(
+          Map<String, dynamic>.from(
+            classData,
+          ),
+        );
+
+        updatedMediaScreen = updatedMediaScreen.merge(appliedClassProps);
       } else {
         log("Warning: Class $className is not exist !");
       }
     }
 
     if (className is String) {
-      updateWidgetProps(
-          LayoutProps.fromJson(
-            Map<String, dynamic>.from(
-              classes?[className],
-            ),
-          ),
-          className);
+      updateWidgetProps(classes?[className], className);
     } else if (className is List) {
       for (var cls in className) {
         if (cls is String) {
-          updateWidgetProps(
-              LayoutProps.fromJson(
-                Map<String, dynamic>.from(
-                  classes?[cls],
-                ),
-              ),
-              cls);
+          updateWidgetProps(classes?[cls], cls);
         } else if (cls is Map) {
           cls.forEach((classname, value) {
             var result = value;
@@ -282,13 +278,63 @@ class ThemeProvider with ChangeNotifier {
             }
 
             if (UtilsManager.isTruthy(result)) {
-              updateWidgetProps(
-                  LayoutProps.fromJson(
-                    Map<String, dynamic>.from(
-                      classes?[classname],
-                    ),
-                  ),
-                  classname);
+              updateWidgetProps(classes?[classname], classname);
+            }
+          });
+        }
+      }
+    }
+
+    return updatedMediaScreen;
+  }
+
+  LayoutProps? mergeClasses(
+    LayoutProps? widgetProps,
+    Map<String, dynamic> contextData,
+  ) {
+    var className = widgetProps?.className;
+    LayoutProps? updatedWidgetProps = widgetProps;
+
+    if (className == null) {
+      return widgetProps;
+    }
+
+    updateWidgetProps(
+      dynamic classData,
+      String className,
+    ) {
+      if (classData != null) {
+        var appliedClassProps = LayoutProps.fromJson(
+          Map<String, dynamic>.from(
+            classData,
+          ),
+        );
+
+        updatedWidgetProps = updatedWidgetProps?.merge(appliedClassProps);
+      } else {
+        log("Warning: Class $className is not exist !");
+      }
+    }
+
+    if (className is String) {
+      updateWidgetProps(classes?[className], className);
+    } else if (className is List) {
+      for (var cls in className) {
+        if (cls is String) {
+          updateWidgetProps(classes?[cls], cls);
+        } else if (cls is Map) {
+          cls.forEach((classname, value) {
+            var result = value;
+
+            if (UtilsManager.isValueBinding(value)) {
+              result = utils.bindingValueToProp(
+                contextData,
+                value,
+              );
+            }
+
+            if (UtilsManager.isTruthy(result)) {
+              updateWidgetProps(classes?[classname], classname);
             }
           });
         }

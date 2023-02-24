@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'data_row_props.dart';
 
@@ -36,7 +36,8 @@ mixin _$DataRowProps {
 abstract class $DataRowPropsCopyWith<$Res> {
   factory $DataRowPropsCopyWith(
           DataRowProps value, $Res Function(DataRowProps) then) =
-      _$DataRowPropsCopyWithImpl<$Res>;
+      _$DataRowPropsCopyWithImpl<$Res, DataRowProps>;
+  @useResult
   $Res call(
       {bool selected,
       String? onSelectChanged,
@@ -46,43 +47,46 @@ abstract class $DataRowPropsCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$DataRowPropsCopyWithImpl<$Res> implements $DataRowPropsCopyWith<$Res> {
+class _$DataRowPropsCopyWithImpl<$Res, $Val extends DataRowProps>
+    implements $DataRowPropsCopyWith<$Res> {
   _$DataRowPropsCopyWithImpl(this._value, this._then);
 
-  final DataRowProps _value;
   // ignore: unused_field
-  final $Res Function(DataRowProps) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? selected = freezed,
+    Object? selected = null,
     Object? onSelectChanged = freezed,
     Object? onLongPress = freezed,
     Object? color = freezed,
-    Object? cells = freezed,
+    Object? cells = null,
   }) {
     return _then(_value.copyWith(
-      selected: selected == freezed
+      selected: null == selected
           ? _value.selected
           : selected // ignore: cast_nullable_to_non_nullable
               as bool,
-      onSelectChanged: onSelectChanged == freezed
+      onSelectChanged: freezed == onSelectChanged
           ? _value.onSelectChanged
           : onSelectChanged // ignore: cast_nullable_to_non_nullable
               as String?,
-      onLongPress: onLongPress == freezed
+      onLongPress: freezed == onLongPress
           ? _value.onLongPress
           : onLongPress // ignore: cast_nullable_to_non_nullable
               as String?,
-      color: color == freezed
+      color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String?,
-      cells: cells == freezed
+      cells: null == cells
           ? _value.cells
           : cells // ignore: cast_nullable_to_non_nullable
               as List<DataCellProps>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -93,6 +97,7 @@ abstract class _$$_DataRowPropsCopyWith<$Res>
           _$_DataRowProps value, $Res Function(_$_DataRowProps) then) =
       __$$_DataRowPropsCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {bool selected,
       String? onSelectChanged,
@@ -103,41 +108,39 @@ abstract class _$$_DataRowPropsCopyWith<$Res>
 
 /// @nodoc
 class __$$_DataRowPropsCopyWithImpl<$Res>
-    extends _$DataRowPropsCopyWithImpl<$Res>
+    extends _$DataRowPropsCopyWithImpl<$Res, _$_DataRowProps>
     implements _$$_DataRowPropsCopyWith<$Res> {
   __$$_DataRowPropsCopyWithImpl(
       _$_DataRowProps _value, $Res Function(_$_DataRowProps) _then)
-      : super(_value, (v) => _then(v as _$_DataRowProps));
+      : super(_value, _then);
 
-  @override
-  _$_DataRowProps get _value => super._value as _$_DataRowProps;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? selected = freezed,
+    Object? selected = null,
     Object? onSelectChanged = freezed,
     Object? onLongPress = freezed,
     Object? color = freezed,
-    Object? cells = freezed,
+    Object? cells = null,
   }) {
     return _then(_$_DataRowProps(
-      selected: selected == freezed
+      selected: null == selected
           ? _value.selected
           : selected // ignore: cast_nullable_to_non_nullable
               as bool,
-      onSelectChanged: onSelectChanged == freezed
+      onSelectChanged: freezed == onSelectChanged
           ? _value.onSelectChanged
           : onSelectChanged // ignore: cast_nullable_to_non_nullable
               as String?,
-      onLongPress: onLongPress == freezed
+      onLongPress: freezed == onLongPress
           ? _value.onLongPress
           : onLongPress // ignore: cast_nullable_to_non_nullable
               as String?,
-      color: color == freezed
+      color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String?,
-      cells: cells == freezed
+      cells: null == cells
           ? _value._cells
           : cells // ignore: cast_nullable_to_non_nullable
               as List<DataCellProps>,
@@ -171,12 +174,14 @@ class _$_DataRowProps implements _DataRowProps {
   final List<DataCellProps> _cells;
   @override
   List<DataCellProps> get cells {
+    if (_cells is EqualUnmodifiableListView) return _cells;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_cells);
   }
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_DataRowPropsCopyWith<_$_DataRowProps> get copyWith =>
       __$$_DataRowPropsCopyWithImpl<_$_DataRowProps>(this, _$identity);
 

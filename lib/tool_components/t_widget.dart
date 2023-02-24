@@ -100,11 +100,20 @@ mixin BaseStateWidget on Widget {
 
   LayoutProps? computePropsFromMediaScreen(
     BuildContext context,
-    Map<String, dynamic> data,
+    Map<String, dynamic> contextData,
     List<T_MediaScreenOnlyProps> mediaScreen,
   ) {
     var mediaQuery = MediaQuery.of(context);
-    var applyProps = utils.getMediaScreeStyle(mediaQuery, data, mediaScreen);
+    var margedClassesMediaScreen = mediaScreen.map((media) {
+      return utils.themeProvider
+          .margerClassesIntoMediaScreen(media, contextData);
+    }).toList();
+
+    var applyProps = utils.getMediaScreeStyle(
+      mediaQuery,
+      contextData,
+      margedClassesMediaScreen,
+    );
 
     return applyProps;
   }

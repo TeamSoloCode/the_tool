@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'data_cell_props.dart';
 
@@ -39,7 +39,8 @@ mixin _$DataCellProps {
 abstract class $DataCellPropsCopyWith<$Res> {
   factory $DataCellPropsCopyWith(
           DataCellProps value, $Res Function(DataCellProps) then) =
-      _$DataCellPropsCopyWithImpl<$Res>;
+      _$DataCellPropsCopyWithImpl<$Res, DataCellProps>;
+  @useResult
   $Res call(
       {LayoutProps child,
       bool placeholder,
@@ -54,19 +55,21 @@ abstract class $DataCellPropsCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$DataCellPropsCopyWithImpl<$Res>
+class _$DataCellPropsCopyWithImpl<$Res, $Val extends DataCellProps>
     implements $DataCellPropsCopyWith<$Res> {
   _$DataCellPropsCopyWithImpl(this._value, this._then);
 
-  final DataCellProps _value;
   // ignore: unused_field
-  final $Res Function(DataCellProps) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? child = freezed,
-    Object? placeholder = freezed,
-    Object? showEditIcon = freezed,
+    Object? child = null,
+    Object? placeholder = null,
+    Object? showEditIcon = null,
     Object? onTap = freezed,
     Object? onLongPress = freezed,
     Object? onTapDown = freezed,
@@ -74,45 +77,46 @@ class _$DataCellPropsCopyWithImpl<$Res>
     Object? onTapCancel = freezed,
   }) {
     return _then(_value.copyWith(
-      child: child == freezed
+      child: null == child
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
               as LayoutProps,
-      placeholder: placeholder == freezed
+      placeholder: null == placeholder
           ? _value.placeholder
           : placeholder // ignore: cast_nullable_to_non_nullable
               as bool,
-      showEditIcon: showEditIcon == freezed
+      showEditIcon: null == showEditIcon
           ? _value.showEditIcon
           : showEditIcon // ignore: cast_nullable_to_non_nullable
               as bool,
-      onTap: onTap == freezed
+      onTap: freezed == onTap
           ? _value.onTap
           : onTap // ignore: cast_nullable_to_non_nullable
               as String?,
-      onLongPress: onLongPress == freezed
+      onLongPress: freezed == onLongPress
           ? _value.onLongPress
           : onLongPress // ignore: cast_nullable_to_non_nullable
               as String?,
-      onTapDown: onTapDown == freezed
+      onTapDown: freezed == onTapDown
           ? _value.onTapDown
           : onTapDown // ignore: cast_nullable_to_non_nullable
               as String?,
-      onDoubleTap: onDoubleTap == freezed
+      onDoubleTap: freezed == onDoubleTap
           ? _value.onDoubleTap
           : onDoubleTap // ignore: cast_nullable_to_non_nullable
               as String?,
-      onTapCancel: onTapCancel == freezed
+      onTapCancel: freezed == onTapCancel
           ? _value.onTapCancel
           : onTapCancel // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $LayoutPropsCopyWith<$Res> get child {
     return $LayoutPropsCopyWith<$Res>(_value.child, (value) {
-      return _then(_value.copyWith(child: value));
+      return _then(_value.copyWith(child: value) as $Val);
     });
   }
 }
@@ -124,6 +128,7 @@ abstract class _$$_DataCellPropsCopyWith<$Res>
           _$_DataCellProps value, $Res Function(_$_DataCellProps) then) =
       __$$_DataCellPropsCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {LayoutProps child,
       bool placeholder,
@@ -140,20 +145,18 @@ abstract class _$$_DataCellPropsCopyWith<$Res>
 
 /// @nodoc
 class __$$_DataCellPropsCopyWithImpl<$Res>
-    extends _$DataCellPropsCopyWithImpl<$Res>
+    extends _$DataCellPropsCopyWithImpl<$Res, _$_DataCellProps>
     implements _$$_DataCellPropsCopyWith<$Res> {
   __$$_DataCellPropsCopyWithImpl(
       _$_DataCellProps _value, $Res Function(_$_DataCellProps) _then)
-      : super(_value, (v) => _then(v as _$_DataCellProps));
+      : super(_value, _then);
 
-  @override
-  _$_DataCellProps get _value => super._value as _$_DataCellProps;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? child = freezed,
-    Object? placeholder = freezed,
-    Object? showEditIcon = freezed,
+    Object? child = null,
+    Object? placeholder = null,
+    Object? showEditIcon = null,
     Object? onTap = freezed,
     Object? onLongPress = freezed,
     Object? onTapDown = freezed,
@@ -161,35 +164,35 @@ class __$$_DataCellPropsCopyWithImpl<$Res>
     Object? onTapCancel = freezed,
   }) {
     return _then(_$_DataCellProps(
-      child: child == freezed
+      child: null == child
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
               as LayoutProps,
-      placeholder: placeholder == freezed
+      placeholder: null == placeholder
           ? _value.placeholder
           : placeholder // ignore: cast_nullable_to_non_nullable
               as bool,
-      showEditIcon: showEditIcon == freezed
+      showEditIcon: null == showEditIcon
           ? _value.showEditIcon
           : showEditIcon // ignore: cast_nullable_to_non_nullable
               as bool,
-      onTap: onTap == freezed
+      onTap: freezed == onTap
           ? _value.onTap
           : onTap // ignore: cast_nullable_to_non_nullable
               as String?,
-      onLongPress: onLongPress == freezed
+      onLongPress: freezed == onLongPress
           ? _value.onLongPress
           : onLongPress // ignore: cast_nullable_to_non_nullable
               as String?,
-      onTapDown: onTapDown == freezed
+      onTapDown: freezed == onTapDown
           ? _value.onTapDown
           : onTapDown // ignore: cast_nullable_to_non_nullable
               as String?,
-      onDoubleTap: onDoubleTap == freezed
+      onDoubleTap: freezed == onDoubleTap
           ? _value.onDoubleTap
           : onDoubleTap // ignore: cast_nullable_to_non_nullable
               as String?,
-      onTapCancel: onTapCancel == freezed
+      onTapCancel: freezed == onTapCancel
           ? _value.onTapCancel
           : onTapCancel // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -234,6 +237,7 @@ class _$_DataCellProps implements _DataCellProps {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_DataCellPropsCopyWith<_$_DataCellProps> get copyWith =>
       __$$_DataCellPropsCopyWithImpl<_$_DataCellProps>(this, _$identity);
 

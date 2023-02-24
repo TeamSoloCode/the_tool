@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'drawer_props.dart';
 
@@ -35,7 +35,8 @@ mixin _$T_DrawerProps {
 abstract class $T_DrawerPropsCopyWith<$Res> {
   factory $T_DrawerPropsCopyWith(
           T_DrawerProps value, $Res Function(T_DrawerProps) then) =
-      _$T_DrawerPropsCopyWithImpl<$Res>;
+      _$T_DrawerPropsCopyWithImpl<$Res, T_DrawerProps>;
+  @useResult
   $Res call(
       {LayoutProps? child,
       String? backgroundColor,
@@ -46,14 +47,16 @@ abstract class $T_DrawerPropsCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$T_DrawerPropsCopyWithImpl<$Res>
+class _$T_DrawerPropsCopyWithImpl<$Res, $Val extends T_DrawerProps>
     implements $T_DrawerPropsCopyWith<$Res> {
   _$T_DrawerPropsCopyWithImpl(this._value, this._then);
 
-  final T_DrawerProps _value;
   // ignore: unused_field
-  final $Res Function(T_DrawerProps) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? child = freezed,
@@ -62,33 +65,34 @@ class _$T_DrawerPropsCopyWithImpl<$Res>
     Object? elevation = freezed,
   }) {
     return _then(_value.copyWith(
-      child: child == freezed
+      child: freezed == child
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
               as LayoutProps?,
-      backgroundColor: backgroundColor == freezed
+      backgroundColor: freezed == backgroundColor
           ? _value.backgroundColor
           : backgroundColor // ignore: cast_nullable_to_non_nullable
               as String?,
-      width: width == freezed
+      width: freezed == width
           ? _value.width
           : width // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      elevation: elevation == freezed
+      elevation: freezed == elevation
           ? _value.elevation
           : elevation // ignore: cast_nullable_to_non_nullable
               as double?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $LayoutPropsCopyWith<$Res>? get child {
     if (_value.child == null) {
       return null;
     }
 
     return $LayoutPropsCopyWith<$Res>(_value.child!, (value) {
-      return _then(_value.copyWith(child: value));
+      return _then(_value.copyWith(child: value) as $Val);
     });
   }
 }
@@ -100,6 +104,7 @@ abstract class _$$_T_DrawerPropsCopyWith<$Res>
           _$_T_DrawerProps value, $Res Function(_$_T_DrawerProps) then) =
       __$$_T_DrawerPropsCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {LayoutProps? child,
       String? backgroundColor,
@@ -112,15 +117,13 @@ abstract class _$$_T_DrawerPropsCopyWith<$Res>
 
 /// @nodoc
 class __$$_T_DrawerPropsCopyWithImpl<$Res>
-    extends _$T_DrawerPropsCopyWithImpl<$Res>
+    extends _$T_DrawerPropsCopyWithImpl<$Res, _$_T_DrawerProps>
     implements _$$_T_DrawerPropsCopyWith<$Res> {
   __$$_T_DrawerPropsCopyWithImpl(
       _$_T_DrawerProps _value, $Res Function(_$_T_DrawerProps) _then)
-      : super(_value, (v) => _then(v as _$_T_DrawerProps));
+      : super(_value, _then);
 
-  @override
-  _$_T_DrawerProps get _value => super._value as _$_T_DrawerProps;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? child = freezed,
@@ -129,19 +132,19 @@ class __$$_T_DrawerPropsCopyWithImpl<$Res>
     Object? elevation = freezed,
   }) {
     return _then(_$_T_DrawerProps(
-      child: child == freezed
+      child: freezed == child
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
               as LayoutProps?,
-      backgroundColor: backgroundColor == freezed
+      backgroundColor: freezed == backgroundColor
           ? _value.backgroundColor
           : backgroundColor // ignore: cast_nullable_to_non_nullable
               as String?,
-      width: width == freezed
+      width: freezed == width
           ? _value.width
           : width // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      elevation: elevation == freezed
+      elevation: freezed == elevation
           ? _value.elevation
           : elevation // ignore: cast_nullable_to_non_nullable
               as double?,
@@ -169,6 +172,7 @@ class _$_T_DrawerProps implements _T_DrawerProps {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_T_DrawerPropsCopyWith<_$_T_DrawerProps> get copyWith =>
       __$$_T_DrawerPropsCopyWithImpl<_$_T_DrawerProps>(this, _$identity);
 

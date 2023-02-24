@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'layout_builder_item_props.dart';
 
@@ -39,7 +39,8 @@ mixin _$T_LayoutBuilderItemProps {
 abstract class $T_LayoutBuilderItemPropsCopyWith<$Res> {
   factory $T_LayoutBuilderItemPropsCopyWith(T_LayoutBuilderItemProps value,
           $Res Function(T_LayoutBuilderItemProps) then) =
-      _$T_LayoutBuilderItemPropsCopyWithImpl<$Res>;
+      _$T_LayoutBuilderItemPropsCopyWithImpl<$Res, T_LayoutBuilderItemProps>;
+  @useResult
   $Res call(
       {LayoutProps? child,
       dynamic maxHeight,
@@ -53,14 +54,17 @@ abstract class $T_LayoutBuilderItemPropsCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$T_LayoutBuilderItemPropsCopyWithImpl<$Res>
+class _$T_LayoutBuilderItemPropsCopyWithImpl<$Res,
+        $Val extends T_LayoutBuilderItemProps>
     implements $T_LayoutBuilderItemPropsCopyWith<$Res> {
   _$T_LayoutBuilderItemPropsCopyWithImpl(this._value, this._then);
 
-  final T_LayoutBuilderItemProps _value;
   // ignore: unused_field
-  final $Res Function(T_LayoutBuilderItemProps) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? child = freezed,
@@ -72,45 +76,46 @@ class _$T_LayoutBuilderItemPropsCopyWithImpl<$Res>
     Object? isDefault = freezed,
   }) {
     return _then(_value.copyWith(
-      child: child == freezed
+      child: freezed == child
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
               as LayoutProps?,
-      maxHeight: maxHeight == freezed
+      maxHeight: freezed == maxHeight
           ? _value.maxHeight
           : maxHeight // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      minHeight: minHeight == freezed
+      minHeight: freezed == minHeight
           ? _value.minHeight
           : minHeight // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      maxWidth: maxWidth == freezed
+      maxWidth: freezed == maxWidth
           ? _value.maxWidth
           : maxWidth // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      minWidth: minWidth == freezed
+      minWidth: freezed == minWidth
           ? _value.minWidth
           : minWidth // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      className: className == freezed
+      className: freezed == className
           ? _value.className
           : className // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      isDefault: isDefault == freezed
+      isDefault: freezed == isDefault
           ? _value.isDefault
           : isDefault // ignore: cast_nullable_to_non_nullable
               as bool?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $LayoutPropsCopyWith<$Res>? get child {
     if (_value.child == null) {
       return null;
     }
 
     return $LayoutPropsCopyWith<$Res>(_value.child!, (value) {
-      return _then(_value.copyWith(child: value));
+      return _then(_value.copyWith(child: value) as $Val);
     });
   }
 }
@@ -123,6 +128,7 @@ abstract class _$$_T_LayoutBuilderItemPropsCopyWith<$Res>
           $Res Function(_$_T_LayoutBuilderItemProps) then) =
       __$$_T_LayoutBuilderItemPropsCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {LayoutProps? child,
       dynamic maxHeight,
@@ -138,16 +144,14 @@ abstract class _$$_T_LayoutBuilderItemPropsCopyWith<$Res>
 
 /// @nodoc
 class __$$_T_LayoutBuilderItemPropsCopyWithImpl<$Res>
-    extends _$T_LayoutBuilderItemPropsCopyWithImpl<$Res>
+    extends _$T_LayoutBuilderItemPropsCopyWithImpl<$Res,
+        _$_T_LayoutBuilderItemProps>
     implements _$$_T_LayoutBuilderItemPropsCopyWith<$Res> {
   __$$_T_LayoutBuilderItemPropsCopyWithImpl(_$_T_LayoutBuilderItemProps _value,
       $Res Function(_$_T_LayoutBuilderItemProps) _then)
-      : super(_value, (v) => _then(v as _$_T_LayoutBuilderItemProps));
+      : super(_value, _then);
 
-  @override
-  _$_T_LayoutBuilderItemProps get _value =>
-      super._value as _$_T_LayoutBuilderItemProps;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? child = freezed,
@@ -159,31 +163,31 @@ class __$$_T_LayoutBuilderItemPropsCopyWithImpl<$Res>
     Object? isDefault = freezed,
   }) {
     return _then(_$_T_LayoutBuilderItemProps(
-      child: child == freezed
+      child: freezed == child
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
               as LayoutProps?,
-      maxHeight: maxHeight == freezed
+      maxHeight: freezed == maxHeight
           ? _value.maxHeight
           : maxHeight // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      minHeight: minHeight == freezed
+      minHeight: freezed == minHeight
           ? _value.minHeight
           : minHeight // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      maxWidth: maxWidth == freezed
+      maxWidth: freezed == maxWidth
           ? _value.maxWidth
           : maxWidth // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      minWidth: minWidth == freezed
+      minWidth: freezed == minWidth
           ? _value.minWidth
           : minWidth // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      className: className == freezed
+      className: freezed == className
           ? _value.className
           : className // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      isDefault: isDefault == freezed
+      isDefault: freezed == isDefault
           ? _value.isDefault
           : isDefault // ignore: cast_nullable_to_non_nullable
               as bool?,
@@ -223,6 +227,7 @@ class _$_T_LayoutBuilderItemProps implements _T_LayoutBuilderItemProps {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_T_LayoutBuilderItemPropsCopyWith<_$_T_LayoutBuilderItemProps>
       get copyWith => __$$_T_LayoutBuilderItemPropsCopyWithImpl<
           _$_T_LayoutBuilderItemProps>(this, _$identity);

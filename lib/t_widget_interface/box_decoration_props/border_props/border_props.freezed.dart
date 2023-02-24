@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'border_props.dart';
 
@@ -38,7 +38,8 @@ mixin _$BorderProps {
 abstract class $BorderPropsCopyWith<$Res> {
   factory $BorderPropsCopyWith(
           BorderProps value, $Res Function(BorderProps) then) =
-      _$BorderPropsCopyWithImpl<$Res>;
+      _$BorderPropsCopyWithImpl<$Res, BorderProps>;
+  @useResult
   $Res call(
       {int? width,
       String? color,
@@ -50,13 +51,16 @@ abstract class $BorderPropsCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$BorderPropsCopyWithImpl<$Res> implements $BorderPropsCopyWith<$Res> {
+class _$BorderPropsCopyWithImpl<$Res, $Val extends BorderProps>
+    implements $BorderPropsCopyWith<$Res> {
   _$BorderPropsCopyWithImpl(this._value, this._then);
 
-  final BorderProps _value;
   // ignore: unused_field
-  final $Res Function(BorderProps) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? width = freezed,
@@ -68,35 +72,35 @@ class _$BorderPropsCopyWithImpl<$Res> implements $BorderPropsCopyWith<$Res> {
     Object? top = freezed,
   }) {
     return _then(_value.copyWith(
-      width: width == freezed
+      width: freezed == width
           ? _value.width
           : width // ignore: cast_nullable_to_non_nullable
               as int?,
-      color: color == freezed
+      color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String?,
-      style: style == freezed
+      style: freezed == style
           ? _value.style
           : style // ignore: cast_nullable_to_non_nullable
               as String?,
-      left: left == freezed
+      left: freezed == left
           ? _value.left
           : left // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
-      right: right == freezed
+      right: freezed == right
           ? _value.right
           : right // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
-      bottom: bottom == freezed
+      bottom: freezed == bottom
           ? _value.bottom
           : bottom // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
-      top: top == freezed
+      top: freezed == top
           ? _value.top
           : top // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -107,6 +111,7 @@ abstract class _$$_BorderPropsCopyWith<$Res>
           _$_BorderProps value, $Res Function(_$_BorderProps) then) =
       __$$_BorderPropsCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int? width,
       String? color,
@@ -118,15 +123,14 @@ abstract class _$$_BorderPropsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_BorderPropsCopyWithImpl<$Res> extends _$BorderPropsCopyWithImpl<$Res>
+class __$$_BorderPropsCopyWithImpl<$Res>
+    extends _$BorderPropsCopyWithImpl<$Res, _$_BorderProps>
     implements _$$_BorderPropsCopyWith<$Res> {
   __$$_BorderPropsCopyWithImpl(
       _$_BorderProps _value, $Res Function(_$_BorderProps) _then)
-      : super(_value, (v) => _then(v as _$_BorderProps));
+      : super(_value, _then);
 
-  @override
-  _$_BorderProps get _value => super._value as _$_BorderProps;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? width = freezed,
@@ -138,31 +142,31 @@ class __$$_BorderPropsCopyWithImpl<$Res> extends _$BorderPropsCopyWithImpl<$Res>
     Object? top = freezed,
   }) {
     return _then(_$_BorderProps(
-      width: width == freezed
+      width: freezed == width
           ? _value.width
           : width // ignore: cast_nullable_to_non_nullable
               as int?,
-      color: color == freezed
+      color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String?,
-      style: style == freezed
+      style: freezed == style
           ? _value.style
           : style // ignore: cast_nullable_to_non_nullable
               as String?,
-      left: left == freezed
+      left: freezed == left
           ? _value._left
           : left // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
-      right: right == freezed
+      right: freezed == right
           ? _value._right
           : right // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
-      bottom: bottom == freezed
+      bottom: freezed == bottom
           ? _value._bottom
           : bottom // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
-      top: top == freezed
+      top: freezed == top
           ? _value._top
           : top // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
@@ -200,6 +204,7 @@ class _$_BorderProps implements _BorderProps {
   Map<String, dynamic>? get left {
     final value = _left;
     if (value == null) return null;
+    if (_left is EqualUnmodifiableMapView) return _left;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(value);
   }
@@ -209,6 +214,7 @@ class _$_BorderProps implements _BorderProps {
   Map<String, dynamic>? get right {
     final value = _right;
     if (value == null) return null;
+    if (_right is EqualUnmodifiableMapView) return _right;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(value);
   }
@@ -218,6 +224,7 @@ class _$_BorderProps implements _BorderProps {
   Map<String, dynamic>? get bottom {
     final value = _bottom;
     if (value == null) return null;
+    if (_bottom is EqualUnmodifiableMapView) return _bottom;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(value);
   }
@@ -227,12 +234,14 @@ class _$_BorderProps implements _BorderProps {
   Map<String, dynamic>? get top {
     final value = _top;
     if (value == null) return null;
+    if (_top is EqualUnmodifiableMapView) return _top;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(value);
   }
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_BorderPropsCopyWith<_$_BorderProps> get copyWith =>
       __$$_BorderPropsCopyWithImpl<_$_BorderProps>(this, _$identity);
 

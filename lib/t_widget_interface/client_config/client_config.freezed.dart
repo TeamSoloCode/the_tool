@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'client_config.dart';
 
@@ -36,7 +36,8 @@ mixin _$ClientConfig {
 abstract class $ClientConfigCopyWith<$Res> {
   factory $ClientConfigCopyWith(
           ClientConfig value, $Res Function(ClientConfig) then) =
-      _$ClientConfigCopyWithImpl<$Res>;
+      _$ClientConfigCopyWithImpl<$Res, ClientConfig>;
+  @useResult
   $Res call(
       {String? initialPage,
       List<Map<String, dynamic>>? routes,
@@ -46,13 +47,16 @@ abstract class $ClientConfigCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ClientConfigCopyWithImpl<$Res> implements $ClientConfigCopyWith<$Res> {
+class _$ClientConfigCopyWithImpl<$Res, $Val extends ClientConfig>
+    implements $ClientConfigCopyWith<$Res> {
   _$ClientConfigCopyWithImpl(this._value, this._then);
 
-  final ClientConfig _value;
   // ignore: unused_field
-  final $Res Function(ClientConfig) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? initialPage = freezed,
@@ -62,27 +66,27 @@ class _$ClientConfigCopyWithImpl<$Res> implements $ClientConfigCopyWith<$Res> {
     Object? beAPI = freezed,
   }) {
     return _then(_value.copyWith(
-      initialPage: initialPage == freezed
+      initialPage: freezed == initialPage
           ? _value.initialPage
           : initialPage // ignore: cast_nullable_to_non_nullable
               as String?,
-      routes: routes == freezed
+      routes: freezed == routes
           ? _value.routes
           : routes // ignore: cast_nullable_to_non_nullable
               as List<Map<String, dynamic>>?,
-      themePath: themePath == freezed
+      themePath: freezed == themePath
           ? _value.themePath
           : themePath // ignore: cast_nullable_to_non_nullable
               as String?,
-      pageAPI: pageAPI == freezed
+      pageAPI: freezed == pageAPI
           ? _value.pageAPI
           : pageAPI // ignore: cast_nullable_to_non_nullable
               as String?,
-      beAPI: beAPI == freezed
+      beAPI: freezed == beAPI
           ? _value.beAPI
           : beAPI // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -93,6 +97,7 @@ abstract class _$$_ClientConfigCopyWith<$Res>
           _$_ClientConfig value, $Res Function(_$_ClientConfig) then) =
       __$$_ClientConfigCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String? initialPage,
       List<Map<String, dynamic>>? routes,
@@ -103,15 +108,13 @@ abstract class _$$_ClientConfigCopyWith<$Res>
 
 /// @nodoc
 class __$$_ClientConfigCopyWithImpl<$Res>
-    extends _$ClientConfigCopyWithImpl<$Res>
+    extends _$ClientConfigCopyWithImpl<$Res, _$_ClientConfig>
     implements _$$_ClientConfigCopyWith<$Res> {
   __$$_ClientConfigCopyWithImpl(
       _$_ClientConfig _value, $Res Function(_$_ClientConfig) _then)
-      : super(_value, (v) => _then(v as _$_ClientConfig));
+      : super(_value, _then);
 
-  @override
-  _$_ClientConfig get _value => super._value as _$_ClientConfig;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? initialPage = freezed,
@@ -121,23 +124,23 @@ class __$$_ClientConfigCopyWithImpl<$Res>
     Object? beAPI = freezed,
   }) {
     return _then(_$_ClientConfig(
-      initialPage: initialPage == freezed
+      initialPage: freezed == initialPage
           ? _value.initialPage
           : initialPage // ignore: cast_nullable_to_non_nullable
               as String?,
-      routes: routes == freezed
+      routes: freezed == routes
           ? _value._routes
           : routes // ignore: cast_nullable_to_non_nullable
               as List<Map<String, dynamic>>?,
-      themePath: themePath == freezed
+      themePath: freezed == themePath
           ? _value.themePath
           : themePath // ignore: cast_nullable_to_non_nullable
               as String?,
-      pageAPI: pageAPI == freezed
+      pageAPI: freezed == pageAPI
           ? _value.pageAPI
           : pageAPI // ignore: cast_nullable_to_non_nullable
               as String?,
-      beAPI: beAPI == freezed
+      beAPI: freezed == beAPI
           ? _value.beAPI
           : beAPI // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -166,6 +169,7 @@ class _$_ClientConfig implements _ClientConfig {
   List<Map<String, dynamic>>? get routes {
     final value = _routes;
     if (value == null) return null;
+    if (_routes is EqualUnmodifiableListView) return _routes;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -179,6 +183,7 @@ class _$_ClientConfig implements _ClientConfig {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ClientConfigCopyWith<_$_ClientConfig> get copyWith =>
       __$$_ClientConfigCopyWithImpl<_$_ClientConfig>(this, _$identity);
 

@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'image_provider.dart';
 
@@ -37,7 +37,8 @@ mixin _$ImageProviderProps {
 abstract class $ImageProviderPropsCopyWith<$Res> {
   factory $ImageProviderPropsCopyWith(
           ImageProviderProps value, $Res Function(ImageProviderProps) then) =
-      _$ImageProviderPropsCopyWithImpl<$Res>;
+      _$ImageProviderPropsCopyWithImpl<$Res, ImageProviderProps>;
+  @useResult
   $Res call(
       {String? type,
       Map<String, dynamic>? headers,
@@ -48,14 +49,16 @@ abstract class $ImageProviderPropsCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ImageProviderPropsCopyWithImpl<$Res>
+class _$ImageProviderPropsCopyWithImpl<$Res, $Val extends ImageProviderProps>
     implements $ImageProviderPropsCopyWith<$Res> {
   _$ImageProviderPropsCopyWithImpl(this._value, this._then);
 
-  final ImageProviderProps _value;
   // ignore: unused_field
-  final $Res Function(ImageProviderProps) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? type = freezed,
@@ -66,31 +69,31 @@ class _$ImageProviderPropsCopyWithImpl<$Res>
     Object? fit = freezed,
   }) {
     return _then(_value.copyWith(
-      type: type == freezed
+      type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String?,
-      headers: headers == freezed
+      headers: freezed == headers
           ? _value.headers
           : headers // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
-      url: url == freezed
+      url: freezed == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String?,
-      asset: asset == freezed
+      asset: freezed == asset
           ? _value.asset
           : asset // ignore: cast_nullable_to_non_nullable
               as String?,
-      scale: scale == freezed
+      scale: freezed == scale
           ? _value.scale
           : scale // ignore: cast_nullable_to_non_nullable
               as int?,
-      fit: fit == freezed
+      fit: freezed == fit
           ? _value.fit
           : fit // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -101,6 +104,7 @@ abstract class _$$_ImageProviderPropsCopyWith<$Res>
           $Res Function(_$_ImageProviderProps) then) =
       __$$_ImageProviderPropsCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String? type,
       Map<String, dynamic>? headers,
@@ -112,15 +116,13 @@ abstract class _$$_ImageProviderPropsCopyWith<$Res>
 
 /// @nodoc
 class __$$_ImageProviderPropsCopyWithImpl<$Res>
-    extends _$ImageProviderPropsCopyWithImpl<$Res>
+    extends _$ImageProviderPropsCopyWithImpl<$Res, _$_ImageProviderProps>
     implements _$$_ImageProviderPropsCopyWith<$Res> {
   __$$_ImageProviderPropsCopyWithImpl(
       _$_ImageProviderProps _value, $Res Function(_$_ImageProviderProps) _then)
-      : super(_value, (v) => _then(v as _$_ImageProviderProps));
+      : super(_value, _then);
 
-  @override
-  _$_ImageProviderProps get _value => super._value as _$_ImageProviderProps;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? type = freezed,
@@ -131,27 +133,27 @@ class __$$_ImageProviderPropsCopyWithImpl<$Res>
     Object? fit = freezed,
   }) {
     return _then(_$_ImageProviderProps(
-      type: type == freezed
+      type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String?,
-      headers: headers == freezed
+      headers: freezed == headers
           ? _value._headers
           : headers // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
-      url: url == freezed
+      url: freezed == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String?,
-      asset: asset == freezed
+      asset: freezed == asset
           ? _value.asset
           : asset // ignore: cast_nullable_to_non_nullable
               as String?,
-      scale: scale == freezed
+      scale: freezed == scale
           ? _value.scale
           : scale // ignore: cast_nullable_to_non_nullable
               as int?,
-      fit: fit == freezed
+      fit: freezed == fit
           ? _value.fit
           : fit // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -181,6 +183,7 @@ class _$_ImageProviderProps implements _ImageProviderProps {
   Map<String, dynamic>? get headers {
     final value = _headers;
     if (value == null) return null;
+    if (_headers is EqualUnmodifiableMapView) return _headers;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(value);
   }
@@ -196,6 +199,7 @@ class _$_ImageProviderProps implements _ImageProviderProps {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ImageProviderPropsCopyWith<_$_ImageProviderProps> get copyWith =>
       __$$_ImageProviderPropsCopyWithImpl<_$_ImageProviderProps>(
           this, _$identity);

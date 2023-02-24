@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'data_column_props.dart';
 
@@ -36,7 +36,8 @@ mixin _$DataColumnProps {
 abstract class $DataColumnPropsCopyWith<$Res> {
   factory $DataColumnPropsCopyWith(
           DataColumnProps value, $Res Function(DataColumnProps) then) =
-      _$DataColumnPropsCopyWithImpl<$Res>;
+      _$DataColumnPropsCopyWithImpl<$Res, DataColumnProps>;
+  @useResult
   $Res call(
       {String label,
       String? tooltip,
@@ -46,44 +47,46 @@ abstract class $DataColumnPropsCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$DataColumnPropsCopyWithImpl<$Res>
+class _$DataColumnPropsCopyWithImpl<$Res, $Val extends DataColumnProps>
     implements $DataColumnPropsCopyWith<$Res> {
   _$DataColumnPropsCopyWithImpl(this._value, this._then);
 
-  final DataColumnProps _value;
   // ignore: unused_field
-  final $Res Function(DataColumnProps) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? label = freezed,
+    Object? label = null,
     Object? tooltip = freezed,
     Object? fieldData = freezed,
-    Object? numeric = freezed,
+    Object? numeric = null,
     Object? onSort = freezed,
   }) {
     return _then(_value.copyWith(
-      label: label == freezed
+      label: null == label
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
               as String,
-      tooltip: tooltip == freezed
+      tooltip: freezed == tooltip
           ? _value.tooltip
           : tooltip // ignore: cast_nullable_to_non_nullable
               as String?,
-      fieldData: fieldData == freezed
+      fieldData: freezed == fieldData
           ? _value.fieldData
           : fieldData // ignore: cast_nullable_to_non_nullable
               as String?,
-      numeric: numeric == freezed
+      numeric: null == numeric
           ? _value.numeric
           : numeric // ignore: cast_nullable_to_non_nullable
               as bool,
-      onSort: onSort == freezed
+      onSort: freezed == onSort
           ? _value.onSort
           : onSort // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -94,6 +97,7 @@ abstract class _$$_DataColumnPropsCopyWith<$Res>
           _$_DataColumnProps value, $Res Function(_$_DataColumnProps) then) =
       __$$_DataColumnPropsCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String label,
       String? tooltip,
@@ -104,41 +108,39 @@ abstract class _$$_DataColumnPropsCopyWith<$Res>
 
 /// @nodoc
 class __$$_DataColumnPropsCopyWithImpl<$Res>
-    extends _$DataColumnPropsCopyWithImpl<$Res>
+    extends _$DataColumnPropsCopyWithImpl<$Res, _$_DataColumnProps>
     implements _$$_DataColumnPropsCopyWith<$Res> {
   __$$_DataColumnPropsCopyWithImpl(
       _$_DataColumnProps _value, $Res Function(_$_DataColumnProps) _then)
-      : super(_value, (v) => _then(v as _$_DataColumnProps));
+      : super(_value, _then);
 
-  @override
-  _$_DataColumnProps get _value => super._value as _$_DataColumnProps;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? label = freezed,
+    Object? label = null,
     Object? tooltip = freezed,
     Object? fieldData = freezed,
-    Object? numeric = freezed,
+    Object? numeric = null,
     Object? onSort = freezed,
   }) {
     return _then(_$_DataColumnProps(
-      label: label == freezed
+      label: null == label
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
               as String,
-      tooltip: tooltip == freezed
+      tooltip: freezed == tooltip
           ? _value.tooltip
           : tooltip // ignore: cast_nullable_to_non_nullable
               as String?,
-      fieldData: fieldData == freezed
+      fieldData: freezed == fieldData
           ? _value.fieldData
           : fieldData // ignore: cast_nullable_to_non_nullable
               as String?,
-      numeric: numeric == freezed
+      numeric: null == numeric
           ? _value.numeric
           : numeric // ignore: cast_nullable_to_non_nullable
               as bool,
-      onSort: onSort == freezed
+      onSort: freezed == onSort
           ? _value.onSort
           : onSort // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -173,6 +175,7 @@ class _$_DataColumnProps implements _DataColumnProps {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_DataColumnPropsCopyWith<_$_DataColumnProps> get copyWith =>
       __$$_DataColumnPropsCopyWithImpl<_$_DataColumnProps>(this, _$identity);
 

@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'box_shadow_props.dart';
 
@@ -37,7 +37,8 @@ mixin _$BoxShadowProps {
 abstract class $BoxShadowPropsCopyWith<$Res> {
   factory $BoxShadowPropsCopyWith(
           BoxShadowProps value, $Res Function(BoxShadowProps) then) =
-      _$BoxShadowPropsCopyWithImpl<$Res>;
+      _$BoxShadowPropsCopyWithImpl<$Res, BoxShadowProps>;
+  @useResult
   $Res call(
       {String? color,
       int? blurRadius,
@@ -48,14 +49,16 @@ abstract class $BoxShadowPropsCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$BoxShadowPropsCopyWithImpl<$Res>
+class _$BoxShadowPropsCopyWithImpl<$Res, $Val extends BoxShadowProps>
     implements $BoxShadowPropsCopyWith<$Res> {
   _$BoxShadowPropsCopyWithImpl(this._value, this._then);
 
-  final BoxShadowProps _value;
   // ignore: unused_field
-  final $Res Function(BoxShadowProps) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? color = freezed,
@@ -66,31 +69,31 @@ class _$BoxShadowPropsCopyWithImpl<$Res>
     Object? spreadRadius = freezed,
   }) {
     return _then(_value.copyWith(
-      color: color == freezed
+      color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String?,
-      blurRadius: blurRadius == freezed
+      blurRadius: freezed == blurRadius
           ? _value.blurRadius
           : blurRadius // ignore: cast_nullable_to_non_nullable
               as int?,
-      blurStyle: blurStyle == freezed
+      blurStyle: freezed == blurStyle
           ? _value.blurStyle
           : blurStyle // ignore: cast_nullable_to_non_nullable
               as String?,
-      colorBoxShadow: colorBoxShadow == freezed
+      colorBoxShadow: freezed == colorBoxShadow
           ? _value.colorBoxShadow
           : colorBoxShadow // ignore: cast_nullable_to_non_nullable
               as String?,
-      offset: offset == freezed
+      offset: freezed == offset
           ? _value.offset
           : offset // ignore: cast_nullable_to_non_nullable
               as Map<String, double>?,
-      spreadRadius: spreadRadius == freezed
+      spreadRadius: freezed == spreadRadius
           ? _value.spreadRadius
           : spreadRadius // ignore: cast_nullable_to_non_nullable
               as int?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -101,6 +104,7 @@ abstract class _$$_BoxShadowPropsCopyWith<$Res>
           _$_BoxShadowProps value, $Res Function(_$_BoxShadowProps) then) =
       __$$_BoxShadowPropsCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String? color,
       int? blurRadius,
@@ -112,15 +116,13 @@ abstract class _$$_BoxShadowPropsCopyWith<$Res>
 
 /// @nodoc
 class __$$_BoxShadowPropsCopyWithImpl<$Res>
-    extends _$BoxShadowPropsCopyWithImpl<$Res>
+    extends _$BoxShadowPropsCopyWithImpl<$Res, _$_BoxShadowProps>
     implements _$$_BoxShadowPropsCopyWith<$Res> {
   __$$_BoxShadowPropsCopyWithImpl(
       _$_BoxShadowProps _value, $Res Function(_$_BoxShadowProps) _then)
-      : super(_value, (v) => _then(v as _$_BoxShadowProps));
+      : super(_value, _then);
 
-  @override
-  _$_BoxShadowProps get _value => super._value as _$_BoxShadowProps;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? color = freezed,
@@ -131,27 +133,27 @@ class __$$_BoxShadowPropsCopyWithImpl<$Res>
     Object? spreadRadius = freezed,
   }) {
     return _then(_$_BoxShadowProps(
-      color: color == freezed
+      color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String?,
-      blurRadius: blurRadius == freezed
+      blurRadius: freezed == blurRadius
           ? _value.blurRadius
           : blurRadius // ignore: cast_nullable_to_non_nullable
               as int?,
-      blurStyle: blurStyle == freezed
+      blurStyle: freezed == blurStyle
           ? _value.blurStyle
           : blurStyle // ignore: cast_nullable_to_non_nullable
               as String?,
-      colorBoxShadow: colorBoxShadow == freezed
+      colorBoxShadow: freezed == colorBoxShadow
           ? _value.colorBoxShadow
           : colorBoxShadow // ignore: cast_nullable_to_non_nullable
               as String?,
-      offset: offset == freezed
+      offset: freezed == offset
           ? _value._offset
           : offset // ignore: cast_nullable_to_non_nullable
               as Map<String, double>?,
-      spreadRadius: spreadRadius == freezed
+      spreadRadius: freezed == spreadRadius
           ? _value.spreadRadius
           : spreadRadius // ignore: cast_nullable_to_non_nullable
               as int?,
@@ -187,6 +189,7 @@ class _$_BoxShadowProps implements _BoxShadowProps {
   Map<String, double>? get offset {
     final value = _offset;
     if (value == null) return null;
+    if (_offset is EqualUnmodifiableMapView) return _offset;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(value);
   }
@@ -196,6 +199,7 @@ class _$_BoxShadowProps implements _BoxShadowProps {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_BoxShadowPropsCopyWith<_$_BoxShadowProps> get copyWith =>
       __$$_BoxShadowPropsCopyWithImpl<_$_BoxShadowProps>(this, _$identity);
 

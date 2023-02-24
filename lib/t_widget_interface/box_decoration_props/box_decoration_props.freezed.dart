@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'box_decoration_props.dart';
 
@@ -27,41 +27,45 @@ mixin _$BoxDecorationProps {
 abstract class $BoxDecorationPropsCopyWith<$Res> {
   factory $BoxDecorationPropsCopyWith(
           BoxDecorationProps value, $Res Function(BoxDecorationProps) then) =
-      _$BoxDecorationPropsCopyWithImpl<$Res>;
+      _$BoxDecorationPropsCopyWithImpl<$Res, BoxDecorationProps>;
+  @useResult
   $Res call({BorderProps? borderProps});
 
   $BorderPropsCopyWith<$Res>? get borderProps;
 }
 
 /// @nodoc
-class _$BoxDecorationPropsCopyWithImpl<$Res>
+class _$BoxDecorationPropsCopyWithImpl<$Res, $Val extends BoxDecorationProps>
     implements $BoxDecorationPropsCopyWith<$Res> {
   _$BoxDecorationPropsCopyWithImpl(this._value, this._then);
 
-  final BoxDecorationProps _value;
   // ignore: unused_field
-  final $Res Function(BoxDecorationProps) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? borderProps = freezed,
   }) {
     return _then(_value.copyWith(
-      borderProps: borderProps == freezed
+      borderProps: freezed == borderProps
           ? _value.borderProps
           : borderProps // ignore: cast_nullable_to_non_nullable
               as BorderProps?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $BorderPropsCopyWith<$Res>? get borderProps {
     if (_value.borderProps == null) {
       return null;
     }
 
     return $BorderPropsCopyWith<$Res>(_value.borderProps!, (value) {
-      return _then(_value.copyWith(borderProps: value));
+      return _then(_value.copyWith(borderProps: value) as $Val);
     });
   }
 }
@@ -73,6 +77,7 @@ abstract class _$$_BoxDecorationPropsCopyWith<$Res>
           $Res Function(_$_BoxDecorationProps) then) =
       __$$_BoxDecorationPropsCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({BorderProps? borderProps});
 
   @override
@@ -81,21 +86,19 @@ abstract class _$$_BoxDecorationPropsCopyWith<$Res>
 
 /// @nodoc
 class __$$_BoxDecorationPropsCopyWithImpl<$Res>
-    extends _$BoxDecorationPropsCopyWithImpl<$Res>
+    extends _$BoxDecorationPropsCopyWithImpl<$Res, _$_BoxDecorationProps>
     implements _$$_BoxDecorationPropsCopyWith<$Res> {
   __$$_BoxDecorationPropsCopyWithImpl(
       _$_BoxDecorationProps _value, $Res Function(_$_BoxDecorationProps) _then)
-      : super(_value, (v) => _then(v as _$_BoxDecorationProps));
+      : super(_value, _then);
 
-  @override
-  _$_BoxDecorationProps get _value => super._value as _$_BoxDecorationProps;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? borderProps = freezed,
   }) {
     return _then(_$_BoxDecorationProps(
-      borderProps: borderProps == freezed
+      borderProps: freezed == borderProps
           ? _value.borderProps
           : borderProps // ignore: cast_nullable_to_non_nullable
               as BorderProps?,
@@ -131,16 +134,16 @@ class _$_BoxDecorationProps
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_BoxDecorationProps &&
-            const DeepCollectionEquality()
-                .equals(other.borderProps, borderProps));
+            (identical(other.borderProps, borderProps) ||
+                other.borderProps == borderProps));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(borderProps));
+  int get hashCode => Object.hash(runtimeType, borderProps);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_BoxDecorationPropsCopyWith<_$_BoxDecorationProps> get copyWith =>
       __$$_BoxDecorationPropsCopyWithImpl<_$_BoxDecorationProps>(
           this, _$identity);

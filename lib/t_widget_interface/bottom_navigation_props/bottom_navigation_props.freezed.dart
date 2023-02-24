@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'bottom_navigation_props.dart';
 
@@ -36,7 +36,8 @@ mixin _$BottomNavigationProps {
 abstract class $BottomNavigationPropsCopyWith<$Res> {
   factory $BottomNavigationPropsCopyWith(BottomNavigationProps value,
           $Res Function(BottomNavigationProps) then) =
-      _$BottomNavigationPropsCopyWithImpl<$Res>;
+      _$BottomNavigationPropsCopyWithImpl<$Res, BottomNavigationProps>;
+  @useResult
   $Res call(
       {String? selectedItemColor,
       String? navType,
@@ -44,14 +45,17 @@ abstract class $BottomNavigationPropsCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$BottomNavigationPropsCopyWithImpl<$Res>
+class _$BottomNavigationPropsCopyWithImpl<$Res,
+        $Val extends BottomNavigationProps>
     implements $BottomNavigationPropsCopyWith<$Res> {
   _$BottomNavigationPropsCopyWithImpl(this._value, this._then);
 
-  final BottomNavigationProps _value;
   // ignore: unused_field
-  final $Res Function(BottomNavigationProps) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? selectedItemColor = freezed,
@@ -59,19 +63,19 @@ class _$BottomNavigationPropsCopyWithImpl<$Res>
     Object? items = freezed,
   }) {
     return _then(_value.copyWith(
-      selectedItemColor: selectedItemColor == freezed
+      selectedItemColor: freezed == selectedItemColor
           ? _value.selectedItemColor
           : selectedItemColor // ignore: cast_nullable_to_non_nullable
               as String?,
-      navType: navType == freezed
+      navType: freezed == navType
           ? _value.navType
           : navType // ignore: cast_nullable_to_non_nullable
               as String?,
-      items: items == freezed
+      items: freezed == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
               as List<BottomNavigationItemProps>?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -82,6 +86,7 @@ abstract class _$$_BottomNavigationPropsCopyWith<$Res>
           $Res Function(_$_BottomNavigationProps) then) =
       __$$_BottomNavigationPropsCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String? selectedItemColor,
       String? navType,
@@ -90,16 +95,13 @@ abstract class _$$_BottomNavigationPropsCopyWith<$Res>
 
 /// @nodoc
 class __$$_BottomNavigationPropsCopyWithImpl<$Res>
-    extends _$BottomNavigationPropsCopyWithImpl<$Res>
+    extends _$BottomNavigationPropsCopyWithImpl<$Res, _$_BottomNavigationProps>
     implements _$$_BottomNavigationPropsCopyWith<$Res> {
   __$$_BottomNavigationPropsCopyWithImpl(_$_BottomNavigationProps _value,
       $Res Function(_$_BottomNavigationProps) _then)
-      : super(_value, (v) => _then(v as _$_BottomNavigationProps));
+      : super(_value, _then);
 
-  @override
-  _$_BottomNavigationProps get _value =>
-      super._value as _$_BottomNavigationProps;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? selectedItemColor = freezed,
@@ -107,15 +109,15 @@ class __$$_BottomNavigationPropsCopyWithImpl<$Res>
     Object? items = freezed,
   }) {
     return _then(_$_BottomNavigationProps(
-      selectedItemColor: selectedItemColor == freezed
+      selectedItemColor: freezed == selectedItemColor
           ? _value.selectedItemColor
           : selectedItemColor // ignore: cast_nullable_to_non_nullable
               as String?,
-      navType: navType == freezed
+      navType: freezed == navType
           ? _value.navType
           : navType // ignore: cast_nullable_to_non_nullable
               as String?,
-      items: items == freezed
+      items: freezed == items
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
               as List<BottomNavigationItemProps>?,
@@ -144,12 +146,14 @@ class _$_BottomNavigationProps implements _BottomNavigationProps {
   List<BottomNavigationItemProps>? get items {
     final value = _items;
     if (value == null) return null;
+    if (_items is EqualUnmodifiableListView) return _items;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_BottomNavigationPropsCopyWith<_$_BottomNavigationProps> get copyWith =>
       __$$_BottomNavigationPropsCopyWithImpl<_$_BottomNavigationProps>(
           this, _$identity);

@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'app_bar_props.dart';
 
@@ -33,7 +33,8 @@ mixin _$AppBarProps {
 abstract class $AppBarPropsCopyWith<$Res> {
   factory $AppBarPropsCopyWith(
           AppBarProps value, $Res Function(AppBarProps) then) =
-      _$AppBarPropsCopyWithImpl<$Res>;
+      _$AppBarPropsCopyWithImpl<$Res, AppBarProps>;
+  @useResult
   $Res call({LayoutProps? content, LayoutProps? custom});
 
   $LayoutPropsCopyWith<$Res>? get content;
@@ -41,49 +42,54 @@ abstract class $AppBarPropsCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$AppBarPropsCopyWithImpl<$Res> implements $AppBarPropsCopyWith<$Res> {
+class _$AppBarPropsCopyWithImpl<$Res, $Val extends AppBarProps>
+    implements $AppBarPropsCopyWith<$Res> {
   _$AppBarPropsCopyWithImpl(this._value, this._then);
 
-  final AppBarProps _value;
   // ignore: unused_field
-  final $Res Function(AppBarProps) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? content = freezed,
     Object? custom = freezed,
   }) {
     return _then(_value.copyWith(
-      content: content == freezed
+      content: freezed == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as LayoutProps?,
-      custom: custom == freezed
+      custom: freezed == custom
           ? _value.custom
           : custom // ignore: cast_nullable_to_non_nullable
               as LayoutProps?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $LayoutPropsCopyWith<$Res>? get content {
     if (_value.content == null) {
       return null;
     }
 
     return $LayoutPropsCopyWith<$Res>(_value.content!, (value) {
-      return _then(_value.copyWith(content: value));
+      return _then(_value.copyWith(content: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $LayoutPropsCopyWith<$Res>? get custom {
     if (_value.custom == null) {
       return null;
     }
 
     return $LayoutPropsCopyWith<$Res>(_value.custom!, (value) {
-      return _then(_value.copyWith(custom: value));
+      return _then(_value.copyWith(custom: value) as $Val);
     });
   }
 }
@@ -95,6 +101,7 @@ abstract class _$$_AppBarPropsCopyWith<$Res>
           _$_AppBarProps value, $Res Function(_$_AppBarProps) then) =
       __$$_AppBarPropsCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({LayoutProps? content, LayoutProps? custom});
 
   @override
@@ -104,26 +111,25 @@ abstract class _$$_AppBarPropsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_AppBarPropsCopyWithImpl<$Res> extends _$AppBarPropsCopyWithImpl<$Res>
+class __$$_AppBarPropsCopyWithImpl<$Res>
+    extends _$AppBarPropsCopyWithImpl<$Res, _$_AppBarProps>
     implements _$$_AppBarPropsCopyWith<$Res> {
   __$$_AppBarPropsCopyWithImpl(
       _$_AppBarProps _value, $Res Function(_$_AppBarProps) _then)
-      : super(_value, (v) => _then(v as _$_AppBarProps));
+      : super(_value, _then);
 
-  @override
-  _$_AppBarProps get _value => super._value as _$_AppBarProps;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? content = freezed,
     Object? custom = freezed,
   }) {
     return _then(_$_AppBarProps(
-      content: content == freezed
+      content: freezed == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as LayoutProps?,
-      custom: custom == freezed
+      custom: freezed == custom
           ? _value.custom
           : custom // ignore: cast_nullable_to_non_nullable
               as LayoutProps?,
@@ -146,6 +152,7 @@ class _$_AppBarProps implements _AppBarProps {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_AppBarPropsCopyWith<_$_AppBarProps> get copyWith =>
       __$$_AppBarPropsCopyWithImpl<_$_AppBarProps>(this, _$identity);
 

@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'border_radius_props.dart';
 
@@ -47,7 +47,8 @@ mixin _$BorderRadiusProps {
 abstract class $BorderRadiusPropsCopyWith<$Res> {
   factory $BorderRadiusPropsCopyWith(
           BorderRadiusProps value, $Res Function(BorderRadiusProps) then) =
-      _$BorderRadiusPropsCopyWithImpl<$Res>;
+      _$BorderRadiusPropsCopyWithImpl<$Res, BorderRadiusProps>;
+  @useResult
   $Res call(
       {String? colors,
       int? width,
@@ -68,14 +69,16 @@ abstract class $BorderRadiusPropsCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$BorderRadiusPropsCopyWithImpl<$Res>
+class _$BorderRadiusPropsCopyWithImpl<$Res, $Val extends BorderRadiusProps>
     implements $BorderRadiusPropsCopyWith<$Res> {
   _$BorderRadiusPropsCopyWithImpl(this._value, this._then);
 
-  final BorderRadiusProps _value;
   // ignore: unused_field
-  final $Res Function(BorderRadiusProps) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? colors = freezed,
@@ -96,71 +99,71 @@ class _$BorderRadiusPropsCopyWithImpl<$Res>
     Object? spreadRadius = freezed,
   }) {
     return _then(_value.copyWith(
-      colors: colors == freezed
+      colors: freezed == colors
           ? _value.colors
           : colors // ignore: cast_nullable_to_non_nullable
               as String?,
-      width: width == freezed
+      width: freezed == width
           ? _value.width
           : width // ignore: cast_nullable_to_non_nullable
               as int?,
-      type: type == freezed
+      type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String?,
-      radius: radius == freezed
+      radius: freezed == radius
           ? _value.radius
           : radius // ignore: cast_nullable_to_non_nullable
               as int?,
-      left: left == freezed
+      left: freezed == left
           ? _value.left
           : left // ignore: cast_nullable_to_non_nullable
               as int?,
-      right: right == freezed
+      right: freezed == right
           ? _value.right
           : right // ignore: cast_nullable_to_non_nullable
               as int?,
-      bottomLeft: bottomLeft == freezed
+      bottomLeft: freezed == bottomLeft
           ? _value.bottomLeft
           : bottomLeft // ignore: cast_nullable_to_non_nullable
               as int?,
-      bottomRight: bottomRight == freezed
+      bottomRight: freezed == bottomRight
           ? _value.bottomRight
           : bottomRight // ignore: cast_nullable_to_non_nullable
               as int?,
-      topLeft: topLeft == freezed
+      topLeft: freezed == topLeft
           ? _value.topLeft
           : topLeft // ignore: cast_nullable_to_non_nullable
               as int?,
-      topRight: topRight == freezed
+      topRight: freezed == topRight
           ? _value.topRight
           : topRight // ignore: cast_nullable_to_non_nullable
               as int?,
-      bottom: bottom == freezed
+      bottom: freezed == bottom
           ? _value.bottom
           : bottom // ignore: cast_nullable_to_non_nullable
               as int?,
-      top: top == freezed
+      top: freezed == top
           ? _value.top
           : top // ignore: cast_nullable_to_non_nullable
               as int?,
-      blurRadius: blurRadius == freezed
+      blurRadius: freezed == blurRadius
           ? _value.blurRadius
           : blurRadius // ignore: cast_nullable_to_non_nullable
               as int?,
-      colorBoxShadow: colorBoxShadow == freezed
+      colorBoxShadow: freezed == colorBoxShadow
           ? _value.colorBoxShadow
           : colorBoxShadow // ignore: cast_nullable_to_non_nullable
               as String?,
-      offset: offset == freezed
+      offset: freezed == offset
           ? _value.offset
           : offset // ignore: cast_nullable_to_non_nullable
               as int?,
-      spreadRadius: spreadRadius == freezed
+      spreadRadius: freezed == spreadRadius
           ? _value.spreadRadius
           : spreadRadius // ignore: cast_nullable_to_non_nullable
               as int?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -171,6 +174,7 @@ abstract class _$$_BorderRadiusPropsCopyWith<$Res>
           $Res Function(_$_BorderRadiusProps) then) =
       __$$_BorderRadiusPropsCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String? colors,
       int? width,
@@ -192,15 +196,13 @@ abstract class _$$_BorderRadiusPropsCopyWith<$Res>
 
 /// @nodoc
 class __$$_BorderRadiusPropsCopyWithImpl<$Res>
-    extends _$BorderRadiusPropsCopyWithImpl<$Res>
+    extends _$BorderRadiusPropsCopyWithImpl<$Res, _$_BorderRadiusProps>
     implements _$$_BorderRadiusPropsCopyWith<$Res> {
   __$$_BorderRadiusPropsCopyWithImpl(
       _$_BorderRadiusProps _value, $Res Function(_$_BorderRadiusProps) _then)
-      : super(_value, (v) => _then(v as _$_BorderRadiusProps));
+      : super(_value, _then);
 
-  @override
-  _$_BorderRadiusProps get _value => super._value as _$_BorderRadiusProps;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? colors = freezed,
@@ -221,67 +223,67 @@ class __$$_BorderRadiusPropsCopyWithImpl<$Res>
     Object? spreadRadius = freezed,
   }) {
     return _then(_$_BorderRadiusProps(
-      colors: colors == freezed
+      colors: freezed == colors
           ? _value.colors
           : colors // ignore: cast_nullable_to_non_nullable
               as String?,
-      width: width == freezed
+      width: freezed == width
           ? _value.width
           : width // ignore: cast_nullable_to_non_nullable
               as int?,
-      type: type == freezed
+      type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String?,
-      radius: radius == freezed
+      radius: freezed == radius
           ? _value.radius
           : radius // ignore: cast_nullable_to_non_nullable
               as int?,
-      left: left == freezed
+      left: freezed == left
           ? _value.left
           : left // ignore: cast_nullable_to_non_nullable
               as int?,
-      right: right == freezed
+      right: freezed == right
           ? _value.right
           : right // ignore: cast_nullable_to_non_nullable
               as int?,
-      bottomLeft: bottomLeft == freezed
+      bottomLeft: freezed == bottomLeft
           ? _value.bottomLeft
           : bottomLeft // ignore: cast_nullable_to_non_nullable
               as int?,
-      bottomRight: bottomRight == freezed
+      bottomRight: freezed == bottomRight
           ? _value.bottomRight
           : bottomRight // ignore: cast_nullable_to_non_nullable
               as int?,
-      topLeft: topLeft == freezed
+      topLeft: freezed == topLeft
           ? _value.topLeft
           : topLeft // ignore: cast_nullable_to_non_nullable
               as int?,
-      topRight: topRight == freezed
+      topRight: freezed == topRight
           ? _value.topRight
           : topRight // ignore: cast_nullable_to_non_nullable
               as int?,
-      bottom: bottom == freezed
+      bottom: freezed == bottom
           ? _value.bottom
           : bottom // ignore: cast_nullable_to_non_nullable
               as int?,
-      top: top == freezed
+      top: freezed == top
           ? _value.top
           : top // ignore: cast_nullable_to_non_nullable
               as int?,
-      blurRadius: blurRadius == freezed
+      blurRadius: freezed == blurRadius
           ? _value.blurRadius
           : blurRadius // ignore: cast_nullable_to_non_nullable
               as int?,
-      colorBoxShadow: colorBoxShadow == freezed
+      colorBoxShadow: freezed == colorBoxShadow
           ? _value.colorBoxShadow
           : colorBoxShadow // ignore: cast_nullable_to_non_nullable
               as String?,
-      offset: offset == freezed
+      offset: freezed == offset
           ? _value.offset
           : offset // ignore: cast_nullable_to_non_nullable
               as int?,
-      spreadRadius: spreadRadius == freezed
+      spreadRadius: freezed == spreadRadius
           ? _value.spreadRadius
           : spreadRadius // ignore: cast_nullable_to_non_nullable
               as int?,
@@ -348,6 +350,7 @@ class _$_BorderRadiusProps implements _BorderRadiusProps {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_BorderRadiusPropsCopyWith<_$_BorderRadiusProps> get copyWith =>
       __$$_BorderRadiusPropsCopyWithImpl<_$_BorderRadiusProps>(
           this, _$identity);

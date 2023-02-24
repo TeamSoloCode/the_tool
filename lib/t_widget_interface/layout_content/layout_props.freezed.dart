@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'layout_props.dart';
 
@@ -133,7 +133,8 @@ mixin _$LayoutProps {
 abstract class $LayoutPropsCopyWith<$Res> {
   factory $LayoutPropsCopyWith(
           LayoutProps value, $Res Function(LayoutProps) then) =
-      _$LayoutPropsCopyWithImpl<$Res>;
+      _$LayoutPropsCopyWithImpl<$Res, LayoutProps>;
+  @useResult
   $Res call(
       {String? type,
       String? color,
@@ -215,13 +216,16 @@ abstract class $LayoutPropsCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
+class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
+    implements $LayoutPropsCopyWith<$Res> {
   _$LayoutPropsCopyWithImpl(this._value, this._then);
 
-  final LayoutProps _value;
   // ignore: unused_field
-  final $Res Function(LayoutProps) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? type = freezed,
@@ -292,380 +296,390 @@ class _$LayoutPropsCopyWithImpl<$Res> implements $LayoutPropsCopyWith<$Res> {
     Object? boxShadow = freezed,
   }) {
     return _then(_value.copyWith(
-      type: type == freezed
+      type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String?,
-      color: color == freezed
+      color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String?,
-      backgroundColor: backgroundColor == freezed
+      backgroundColor: freezed == backgroundColor
           ? _value.backgroundColor
           : backgroundColor // ignore: cast_nullable_to_non_nullable
               as String?,
-      text: text == freezed
+      text: freezed == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String?,
-      fontSize: fontSize == freezed
+      fontSize: freezed == fontSize
           ? _value.fontSize
           : fontSize // ignore: cast_nullable_to_non_nullable
               as double?,
-      hidden: hidden == freezed
+      hidden: freezed == hidden
           ? _value.hidden
           : hidden // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      icon: icon == freezed
+      icon: freezed == icon
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
               as String?,
-      mainAxisAlignment: mainAxisAlignment == freezed
+      mainAxisAlignment: freezed == mainAxisAlignment
           ? _value.mainAxisAlignment
           : mainAxisAlignment // ignore: cast_nullable_to_non_nullable
               as String?,
-      path: path == freezed
+      path: freezed == path
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
               as String?,
-      onClick: onClick == freezed
+      onClick: freezed == onClick
           ? _value.onClick
           : onClick // ignore: cast_nullable_to_non_nullable
               as String?,
-      buttonType: buttonType == freezed
+      buttonType: freezed == buttonType
           ? _value.buttonType
           : buttonType // ignore: cast_nullable_to_non_nullable
               as String?,
-      key: key == freezed
+      key: freezed == key
           ? _value.key
           : key // ignore: cast_nullable_to_non_nullable
               as String?,
-      name: name == freezed
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      className: className == freezed
+      className: freezed == className
           ? _value.className
           : className // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      height: height == freezed
+      height: freezed == height
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      width: width == freezed
+      width: freezed == width
           ? _value.width
           : width // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      maxWidth: maxWidth == freezed
+      maxWidth: freezed == maxWidth
           ? _value.maxWidth
           : maxWidth // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      maxHeight: maxHeight == freezed
+      maxHeight: freezed == maxHeight
           ? _value.maxHeight
           : maxHeight // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      minWidth: minWidth == freezed
+      minWidth: freezed == minWidth
           ? _value.minWidth
           : minWidth // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      minHeight: minHeight == freezed
+      minHeight: freezed == minHeight
           ? _value.minHeight
           : minHeight // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      margin: margin == freezed
+      margin: freezed == margin
           ? _value.margin
           : margin // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      padding: padding == freezed
+      padding: freezed == padding
           ? _value.padding
           : padding // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      borderTop: borderTop == freezed
+      borderTop: freezed == borderTop
           ? _value.borderTop
           : borderTop // ignore: cast_nullable_to_non_nullable
               as double?,
-      borderBottom: borderBottom == freezed
+      borderBottom: freezed == borderBottom
           ? _value.borderBottom
           : borderBottom // ignore: cast_nullable_to_non_nullable
               as double?,
-      borderRight: borderRight == freezed
+      borderRight: freezed == borderRight
           ? _value.borderRight
           : borderRight // ignore: cast_nullable_to_non_nullable
               as double?,
-      borderLeft: borderLeft == freezed
+      borderLeft: freezed == borderLeft
           ? _value.borderLeft
           : borderLeft // ignore: cast_nullable_to_non_nullable
               as double?,
-      flex: flex == freezed
+      flex: freezed == flex
           ? _value.flex
           : flex // ignore: cast_nullable_to_non_nullable
               as int?,
-      positioned: positioned == freezed
+      positioned: freezed == positioned
           ? _value.positioned
           : positioned // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
-      fit: fit == freezed
+      fit: freezed == fit
           ? _value.fit
           : fit // ignore: cast_nullable_to_non_nullable
               as String?,
-      alignment: alignment == freezed
+      alignment: freezed == alignment
           ? _value.alignment
           : alignment // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      sliverListType: sliverListType == freezed
+      sliverListType: freezed == sliverListType
           ? _value.sliverListType
           : sliverListType // ignore: cast_nullable_to_non_nullable
               as String?,
-      itemExtent: itemExtent == freezed
+      itemExtent: freezed == itemExtent
           ? _value.itemExtent
           : itemExtent // ignore: cast_nullable_to_non_nullable
               as double?,
-      componentProps: componentProps == freezed
+      componentProps: freezed == componentProps
           ? _value.componentProps
           : componentProps // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
-      computedComponentProps: computedComponentProps == freezed
+      computedComponentProps: freezed == computedComponentProps
           ? _value.computedComponentProps
           : computedComponentProps // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
-      components: components == freezed
+      components: freezed == components
           ? _value.components
           : components // ignore: cast_nullable_to_non_nullable
               as Map<String, LayoutProps?>?,
-      scrollable: scrollable == freezed
+      scrollable: freezed == scrollable
           ? _value.scrollable
           : scrollable // ignore: cast_nullable_to_non_nullable
               as bool?,
-      drawer: drawer == freezed
+      drawer: freezed == drawer
           ? _value.drawer
           : drawer // ignore: cast_nullable_to_non_nullable
               as T_DrawerProps?,
-      layoutBuilder: layoutBuilder == freezed
+      layoutBuilder: freezed == layoutBuilder
           ? _value.layoutBuilder
           : layoutBuilder // ignore: cast_nullable_to_non_nullable
               as T_LayoutBuilderProps?,
-      mediaScreenOnly: mediaScreenOnly == freezed
+      mediaScreenOnly: freezed == mediaScreenOnly
           ? _value.mediaScreenOnly
           : mediaScreenOnly // ignore: cast_nullable_to_non_nullable
               as List<T_MediaScreenOnlyProps>?,
-      hintText: hintText == freezed
+      hintText: freezed == hintText
           ? _value.hintText
           : hintText // ignore: cast_nullable_to_non_nullable
               as String?,
-      labelText: labelText == freezed
+      labelText: freezed == labelText
           ? _value.labelText
           : labelText // ignore: cast_nullable_to_non_nullable
               as String?,
-      obscureText: obscureText == freezed
+      obscureText: freezed == obscureText
           ? _value.obscureText
           : obscureText // ignore: cast_nullable_to_non_nullable
               as bool?,
-      defaultValue: defaultValue == freezed
+      defaultValue: freezed == defaultValue
           ? _value.defaultValue
           : defaultValue // ignore: cast_nullable_to_non_nullable
               as String?,
-      items: items == freezed
+      items: freezed == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      allowClear: allowClear == freezed
+      allowClear: freezed == allowClear
           ? _value.allowClear
           : allowClear // ignore: cast_nullable_to_non_nullable
               as bool?,
-      fieldType: fieldType == freezed
+      fieldType: freezed == fieldType
           ? _value.fieldType
           : fieldType // ignore: cast_nullable_to_non_nullable
               as String?,
-      numeric: numeric == freezed
+      numeric: freezed == numeric
           ? _value.numeric
           : numeric // ignore: cast_nullable_to_non_nullable
               as bool?,
-      validationFunction: validationFunction == freezed
+      validationFunction: freezed == validationFunction
           ? _value.validationFunction
           : validationFunction // ignore: cast_nullable_to_non_nullable
               as String?,
-      autovalidate: autovalidate == freezed
+      autovalidate: freezed == autovalidate
           ? _value.autovalidate
           : autovalidate // ignore: cast_nullable_to_non_nullable
               as bool?,
-      validators: validators == freezed
+      validators: freezed == validators
           ? _value.validators
           : validators // ignore: cast_nullable_to_non_nullable
               as List<Map<String, dynamic>>?,
-      autovalidateMode: autovalidateMode == freezed
+      autovalidateMode: freezed == autovalidateMode
           ? _value.autovalidateMode
           : autovalidateMode // ignore: cast_nullable_to_non_nullable
               as String?,
-      columns: columns == freezed
+      columns: freezed == columns
           ? _value.columns
           : columns // ignore: cast_nullable_to_non_nullable
               as List<DataColumnProps>?,
-      rows: rows == freezed
+      rows: freezed == rows
           ? _value.rows
           : rows // ignore: cast_nullable_to_non_nullable
               as List<DataRowProps>?,
-      onSort: onSort == freezed
+      onSort: freezed == onSort
           ? _value.onSort
           : onSort // ignore: cast_nullable_to_non_nullable
               as String?,
-      loadDataFunction: loadDataFunction == freezed
+      loadDataFunction: freezed == loadDataFunction
           ? _value.loadDataFunction
           : loadDataFunction // ignore: cast_nullable_to_non_nullable
               as String?,
-      total: total == freezed
+      total: freezed == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
               as String?,
-      component: component == freezed
+      component: freezed == component
           ? _value.component
           : component // ignore: cast_nullable_to_non_nullable
               as String?,
-      child: child == freezed
+      child: freezed == child
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
               as LayoutProps?,
-      content: content == freezed
+      content: freezed == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as LayoutProps?,
-      children: children == freezed
+      children: freezed == children
           ? _value.children
           : children // ignore: cast_nullable_to_non_nullable
               as List<LayoutProps>?,
-      bottomNav: bottomNav == freezed
+      bottomNav: freezed == bottomNav
           ? _value.bottomNav
           : bottomNav // ignore: cast_nullable_to_non_nullable
               as BottomNavigationProps?,
-      appBar: appBar == freezed
+      appBar: freezed == appBar
           ? _value.appBar
           : appBar // ignore: cast_nullable_to_non_nullable
               as AppBarProps?,
-      image: image == freezed
+      image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as ImageProviderProps?,
-      boxBorder: boxBorder == freezed
+      boxBorder: freezed == boxBorder
           ? _value.boxBorder
           : boxBorder // ignore: cast_nullable_to_non_nullable
               as BorderProps?,
-      borderRadius: borderRadius == freezed
+      borderRadius: freezed == borderRadius
           ? _value.borderRadius
           : borderRadius // ignore: cast_nullable_to_non_nullable
               as BorderRadiusProps?,
-      boxShadow: boxShadow == freezed
+      boxShadow: freezed == boxShadow
           ? _value.boxShadow
           : boxShadow // ignore: cast_nullable_to_non_nullable
               as BoxShadowProps?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $T_DrawerPropsCopyWith<$Res>? get drawer {
     if (_value.drawer == null) {
       return null;
     }
 
     return $T_DrawerPropsCopyWith<$Res>(_value.drawer!, (value) {
-      return _then(_value.copyWith(drawer: value));
+      return _then(_value.copyWith(drawer: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $T_LayoutBuilderPropsCopyWith<$Res>? get layoutBuilder {
     if (_value.layoutBuilder == null) {
       return null;
     }
 
     return $T_LayoutBuilderPropsCopyWith<$Res>(_value.layoutBuilder!, (value) {
-      return _then(_value.copyWith(layoutBuilder: value));
+      return _then(_value.copyWith(layoutBuilder: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $LayoutPropsCopyWith<$Res>? get child {
     if (_value.child == null) {
       return null;
     }
 
     return $LayoutPropsCopyWith<$Res>(_value.child!, (value) {
-      return _then(_value.copyWith(child: value));
+      return _then(_value.copyWith(child: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $LayoutPropsCopyWith<$Res>? get content {
     if (_value.content == null) {
       return null;
     }
 
     return $LayoutPropsCopyWith<$Res>(_value.content!, (value) {
-      return _then(_value.copyWith(content: value));
+      return _then(_value.copyWith(content: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $BottomNavigationPropsCopyWith<$Res>? get bottomNav {
     if (_value.bottomNav == null) {
       return null;
     }
 
     return $BottomNavigationPropsCopyWith<$Res>(_value.bottomNav!, (value) {
-      return _then(_value.copyWith(bottomNav: value));
+      return _then(_value.copyWith(bottomNav: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $AppBarPropsCopyWith<$Res>? get appBar {
     if (_value.appBar == null) {
       return null;
     }
 
     return $AppBarPropsCopyWith<$Res>(_value.appBar!, (value) {
-      return _then(_value.copyWith(appBar: value));
+      return _then(_value.copyWith(appBar: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ImageProviderPropsCopyWith<$Res>? get image {
     if (_value.image == null) {
       return null;
     }
 
     return $ImageProviderPropsCopyWith<$Res>(_value.image!, (value) {
-      return _then(_value.copyWith(image: value));
+      return _then(_value.copyWith(image: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $BorderPropsCopyWith<$Res>? get boxBorder {
     if (_value.boxBorder == null) {
       return null;
     }
 
     return $BorderPropsCopyWith<$Res>(_value.boxBorder!, (value) {
-      return _then(_value.copyWith(boxBorder: value));
+      return _then(_value.copyWith(boxBorder: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $BorderRadiusPropsCopyWith<$Res>? get borderRadius {
     if (_value.borderRadius == null) {
       return null;
     }
 
     return $BorderRadiusPropsCopyWith<$Res>(_value.borderRadius!, (value) {
-      return _then(_value.copyWith(borderRadius: value));
+      return _then(_value.copyWith(borderRadius: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $BoxShadowPropsCopyWith<$Res>? get boxShadow {
     if (_value.boxShadow == null) {
       return null;
     }
 
     return $BoxShadowPropsCopyWith<$Res>(_value.boxShadow!, (value) {
-      return _then(_value.copyWith(boxShadow: value));
+      return _then(_value.copyWith(boxShadow: value) as $Val);
     });
   }
 }
@@ -677,6 +691,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
           _$_LayoutProps value, $Res Function(_$_LayoutProps) then) =
       __$$_LayoutPropsCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String? type,
       String? color,
@@ -768,15 +783,14 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
+class __$$_LayoutPropsCopyWithImpl<$Res>
+    extends _$LayoutPropsCopyWithImpl<$Res, _$_LayoutProps>
     implements _$$_LayoutPropsCopyWith<$Res> {
   __$$_LayoutPropsCopyWithImpl(
       _$_LayoutProps _value, $Res Function(_$_LayoutProps) _then)
-      : super(_value, (v) => _then(v as _$_LayoutProps));
+      : super(_value, _then);
 
-  @override
-  _$_LayoutProps get _value => super._value as _$_LayoutProps;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? type = freezed,
@@ -847,267 +861,267 @@ class __$$_LayoutPropsCopyWithImpl<$Res> extends _$LayoutPropsCopyWithImpl<$Res>
     Object? boxShadow = freezed,
   }) {
     return _then(_$_LayoutProps(
-      type: type == freezed
+      type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String?,
-      color: color == freezed
+      color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String?,
-      backgroundColor: backgroundColor == freezed
+      backgroundColor: freezed == backgroundColor
           ? _value.backgroundColor
           : backgroundColor // ignore: cast_nullable_to_non_nullable
               as String?,
-      text: text == freezed
+      text: freezed == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String?,
-      fontSize: fontSize == freezed
+      fontSize: freezed == fontSize
           ? _value.fontSize
           : fontSize // ignore: cast_nullable_to_non_nullable
               as double?,
-      hidden: hidden == freezed
+      hidden: freezed == hidden
           ? _value.hidden
           : hidden // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      icon: icon == freezed
+      icon: freezed == icon
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
               as String?,
-      mainAxisAlignment: mainAxisAlignment == freezed
+      mainAxisAlignment: freezed == mainAxisAlignment
           ? _value.mainAxisAlignment
           : mainAxisAlignment // ignore: cast_nullable_to_non_nullable
               as String?,
-      path: path == freezed
+      path: freezed == path
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
               as String?,
-      onClick: onClick == freezed
+      onClick: freezed == onClick
           ? _value.onClick
           : onClick // ignore: cast_nullable_to_non_nullable
               as String?,
-      buttonType: buttonType == freezed
+      buttonType: freezed == buttonType
           ? _value.buttonType
           : buttonType // ignore: cast_nullable_to_non_nullable
               as String?,
-      key: key == freezed
+      key: freezed == key
           ? _value.key
           : key // ignore: cast_nullable_to_non_nullable
               as String?,
-      name: name == freezed
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      className: className == freezed
+      className: freezed == className
           ? _value.className
           : className // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      height: height == freezed
+      height: freezed == height
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      width: width == freezed
+      width: freezed == width
           ? _value.width
           : width // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      maxWidth: maxWidth == freezed
+      maxWidth: freezed == maxWidth
           ? _value.maxWidth
           : maxWidth // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      maxHeight: maxHeight == freezed
+      maxHeight: freezed == maxHeight
           ? _value.maxHeight
           : maxHeight // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      minWidth: minWidth == freezed
+      minWidth: freezed == minWidth
           ? _value.minWidth
           : minWidth // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      minHeight: minHeight == freezed
+      minHeight: freezed == minHeight
           ? _value.minHeight
           : minHeight // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      margin: margin == freezed
+      margin: freezed == margin
           ? _value.margin
           : margin // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      padding: padding == freezed
+      padding: freezed == padding
           ? _value.padding
           : padding // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      borderTop: borderTop == freezed
+      borderTop: freezed == borderTop
           ? _value.borderTop
           : borderTop // ignore: cast_nullable_to_non_nullable
               as double?,
-      borderBottom: borderBottom == freezed
+      borderBottom: freezed == borderBottom
           ? _value.borderBottom
           : borderBottom // ignore: cast_nullable_to_non_nullable
               as double?,
-      borderRight: borderRight == freezed
+      borderRight: freezed == borderRight
           ? _value.borderRight
           : borderRight // ignore: cast_nullable_to_non_nullable
               as double?,
-      borderLeft: borderLeft == freezed
+      borderLeft: freezed == borderLeft
           ? _value.borderLeft
           : borderLeft // ignore: cast_nullable_to_non_nullable
               as double?,
-      flex: flex == freezed
+      flex: freezed == flex
           ? _value.flex
           : flex // ignore: cast_nullable_to_non_nullable
               as int?,
-      positioned: positioned == freezed
+      positioned: freezed == positioned
           ? _value._positioned
           : positioned // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
-      fit: fit == freezed
+      fit: freezed == fit
           ? _value.fit
           : fit // ignore: cast_nullable_to_non_nullable
               as String?,
-      alignment: alignment == freezed
+      alignment: freezed == alignment
           ? _value.alignment
           : alignment // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      sliverListType: sliverListType == freezed
+      sliverListType: freezed == sliverListType
           ? _value.sliverListType
           : sliverListType // ignore: cast_nullable_to_non_nullable
               as String?,
-      itemExtent: itemExtent == freezed
+      itemExtent: freezed == itemExtent
           ? _value.itemExtent
           : itemExtent // ignore: cast_nullable_to_non_nullable
               as double?,
-      componentProps: componentProps == freezed
+      componentProps: freezed == componentProps
           ? _value._componentProps
           : componentProps // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
-      computedComponentProps: computedComponentProps == freezed
+      computedComponentProps: freezed == computedComponentProps
           ? _value._computedComponentProps
           : computedComponentProps // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
-      components: components == freezed
+      components: freezed == components
           ? _value._components
           : components // ignore: cast_nullable_to_non_nullable
               as Map<String, LayoutProps?>?,
-      scrollable: scrollable == freezed
+      scrollable: freezed == scrollable
           ? _value.scrollable
           : scrollable // ignore: cast_nullable_to_non_nullable
               as bool?,
-      drawer: drawer == freezed
+      drawer: freezed == drawer
           ? _value.drawer
           : drawer // ignore: cast_nullable_to_non_nullable
               as T_DrawerProps?,
-      layoutBuilder: layoutBuilder == freezed
+      layoutBuilder: freezed == layoutBuilder
           ? _value.layoutBuilder
           : layoutBuilder // ignore: cast_nullable_to_non_nullable
               as T_LayoutBuilderProps?,
-      mediaScreenOnly: mediaScreenOnly == freezed
+      mediaScreenOnly: freezed == mediaScreenOnly
           ? _value._mediaScreenOnly
           : mediaScreenOnly // ignore: cast_nullable_to_non_nullable
               as List<T_MediaScreenOnlyProps>?,
-      hintText: hintText == freezed
+      hintText: freezed == hintText
           ? _value.hintText
           : hintText // ignore: cast_nullable_to_non_nullable
               as String?,
-      labelText: labelText == freezed
+      labelText: freezed == labelText
           ? _value.labelText
           : labelText // ignore: cast_nullable_to_non_nullable
               as String?,
-      obscureText: obscureText == freezed
+      obscureText: freezed == obscureText
           ? _value.obscureText
           : obscureText // ignore: cast_nullable_to_non_nullable
               as bool?,
-      defaultValue: defaultValue == freezed
+      defaultValue: freezed == defaultValue
           ? _value.defaultValue
           : defaultValue // ignore: cast_nullable_to_non_nullable
               as String?,
-      items: items == freezed
+      items: freezed == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      allowClear: allowClear == freezed
+      allowClear: freezed == allowClear
           ? _value.allowClear
           : allowClear // ignore: cast_nullable_to_non_nullable
               as bool?,
-      fieldType: fieldType == freezed
+      fieldType: freezed == fieldType
           ? _value.fieldType
           : fieldType // ignore: cast_nullable_to_non_nullable
               as String?,
-      numeric: numeric == freezed
+      numeric: freezed == numeric
           ? _value.numeric
           : numeric // ignore: cast_nullable_to_non_nullable
               as bool?,
-      validationFunction: validationFunction == freezed
+      validationFunction: freezed == validationFunction
           ? _value.validationFunction
           : validationFunction // ignore: cast_nullable_to_non_nullable
               as String?,
-      autovalidate: autovalidate == freezed
+      autovalidate: freezed == autovalidate
           ? _value.autovalidate
           : autovalidate // ignore: cast_nullable_to_non_nullable
               as bool?,
-      validators: validators == freezed
+      validators: freezed == validators
           ? _value._validators
           : validators // ignore: cast_nullable_to_non_nullable
               as List<Map<String, dynamic>>?,
-      autovalidateMode: autovalidateMode == freezed
+      autovalidateMode: freezed == autovalidateMode
           ? _value.autovalidateMode
           : autovalidateMode // ignore: cast_nullable_to_non_nullable
               as String?,
-      columns: columns == freezed
+      columns: freezed == columns
           ? _value._columns
           : columns // ignore: cast_nullable_to_non_nullable
               as List<DataColumnProps>?,
-      rows: rows == freezed
+      rows: freezed == rows
           ? _value._rows
           : rows // ignore: cast_nullable_to_non_nullable
               as List<DataRowProps>?,
-      onSort: onSort == freezed
+      onSort: freezed == onSort
           ? _value.onSort
           : onSort // ignore: cast_nullable_to_non_nullable
               as String?,
-      loadDataFunction: loadDataFunction == freezed
+      loadDataFunction: freezed == loadDataFunction
           ? _value.loadDataFunction
           : loadDataFunction // ignore: cast_nullable_to_non_nullable
               as String?,
-      total: total == freezed
+      total: freezed == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
               as String?,
-      component: component == freezed
+      component: freezed == component
           ? _value.component
           : component // ignore: cast_nullable_to_non_nullable
               as String?,
-      child: child == freezed
+      child: freezed == child
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
               as LayoutProps?,
-      content: content == freezed
+      content: freezed == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as LayoutProps?,
-      children: children == freezed
+      children: freezed == children
           ? _value._children
           : children // ignore: cast_nullable_to_non_nullable
               as List<LayoutProps>?,
-      bottomNav: bottomNav == freezed
+      bottomNav: freezed == bottomNav
           ? _value.bottomNav
           : bottomNav // ignore: cast_nullable_to_non_nullable
               as BottomNavigationProps?,
-      appBar: appBar == freezed
+      appBar: freezed == appBar
           ? _value.appBar
           : appBar // ignore: cast_nullable_to_non_nullable
               as AppBarProps?,
-      image: image == freezed
+      image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as ImageProviderProps?,
-      boxBorder: boxBorder == freezed
+      boxBorder: freezed == boxBorder
           ? _value.boxBorder
           : boxBorder // ignore: cast_nullable_to_non_nullable
               as BorderProps?,
-      borderRadius: borderRadius == freezed
+      borderRadius: freezed == borderRadius
           ? _value.borderRadius
           : borderRadius // ignore: cast_nullable_to_non_nullable
               as BorderRadiusProps?,
-      boxShadow: boxShadow == freezed
+      boxShadow: freezed == boxShadow
           ? _value.boxShadow
           : boxShadow // ignore: cast_nullable_to_non_nullable
               as BoxShadowProps?,
@@ -1257,6 +1271,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   Map<String, dynamic>? get positioned {
     final value = _positioned;
     if (value == null) return null;
+    if (_positioned is EqualUnmodifiableMapView) return _positioned;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(value);
   }
@@ -1285,6 +1300,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   Map<String, dynamic>? get componentProps {
     final value = _componentProps;
     if (value == null) return null;
+    if (_componentProps is EqualUnmodifiableMapView) return _componentProps;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(value);
   }
@@ -1302,6 +1318,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   Map<String, dynamic>? get computedComponentProps {
     final value = _computedComponentProps;
     if (value == null) return null;
+    if (_computedComponentProps is EqualUnmodifiableMapView)
+      return _computedComponentProps;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(value);
   }
@@ -1317,6 +1335,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   Map<String, LayoutProps?>? get components {
     final value = _components;
     if (value == null) return null;
+    if (_components is EqualUnmodifiableMapView) return _components;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(value);
   }
@@ -1337,6 +1356,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   List<T_MediaScreenOnlyProps>? get mediaScreenOnly {
     final value = _mediaScreenOnly;
     if (value == null) return null;
+    if (_mediaScreenOnly is EqualUnmodifiableListView) return _mediaScreenOnly;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -1375,6 +1395,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   List<Map<String, dynamic>>? get validators {
     final value = _validators;
     if (value == null) return null;
+    if (_validators is EqualUnmodifiableListView) return _validators;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -1392,6 +1413,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   List<DataColumnProps>? get columns {
     final value = _columns;
     if (value == null) return null;
+    if (_columns is EqualUnmodifiableListView) return _columns;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -1401,6 +1423,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   List<DataRowProps>? get rows {
     final value = _rows;
     if (value == null) return null;
+    if (_rows is EqualUnmodifiableListView) return _rows;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -1423,6 +1446,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   List<LayoutProps>? get children {
     final value = _children;
     if (value == null) return null;
+    if (_children is EqualUnmodifiableListView) return _children;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -1521,6 +1545,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_LayoutPropsCopyWith<_$_LayoutProps> get copyWith =>
       __$$_LayoutPropsCopyWithImpl<_$_LayoutProps>(this, _$identity);
 
