@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:from_css_color/from_css_color.dart';
 import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/page_utils/style_utils.dart';
-import 'package:the_tool/t_widget_interface/gradient_props/gradient_props.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 
 mixin ContainerMixin {
@@ -45,7 +43,7 @@ mixin ContainerMixin {
         props?.boxShadow != null ? [computeBoxShadow(props)] : [],
       ),
       "image": computeImage(props),
-      "gradient": _computeGradient(props?.gradient),
+      "gradient": ThemeDecoder.decodeGradient(props?.gradient?.toJson()),
       //  "shape": <BoxShape>
     }, validate: false);
   }
@@ -53,10 +51,5 @@ mixin ContainerMixin {
   AlignmentGeometry? computeAlignment(LayoutProps? props) {
     if (props?.alignment == null) return null;
     return ThemeDecoder.decodeAlignment(props?.alignment);
-  }
-
-  Gradient? _computeGradient(T_GradientProps? gradient) {
-    if (gradient == null) return null;
-    return ThemeDecoder.decodeGradient(gradient.toJson());
   }
 }
