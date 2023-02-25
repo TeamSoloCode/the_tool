@@ -122,6 +122,7 @@ mixin _$LayoutProps {
   BorderProps? get boxBorder => throw _privateConstructorUsedError;
   BorderRadiusProps? get borderRadius => throw _privateConstructorUsedError;
   BoxShadowProps? get boxShadow => throw _privateConstructorUsedError;
+  T_GradientProps? get gradient => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -201,7 +202,8 @@ abstract class $LayoutPropsCopyWith<$Res> {
       ImageProviderProps? image,
       BorderProps? boxBorder,
       BorderRadiusProps? borderRadius,
-      BoxShadowProps? boxShadow});
+      BoxShadowProps? boxShadow,
+      T_GradientProps? gradient});
 
   $T_DrawerPropsCopyWith<$Res>? get drawer;
   $T_LayoutBuilderPropsCopyWith<$Res>? get layoutBuilder;
@@ -213,6 +215,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
   $BorderPropsCopyWith<$Res>? get boxBorder;
   $BorderRadiusPropsCopyWith<$Res>? get borderRadius;
   $BoxShadowPropsCopyWith<$Res>? get boxShadow;
+  $T_GradientPropsCopyWith<$Res>? get gradient;
 }
 
 /// @nodoc
@@ -294,6 +297,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? boxBorder = freezed,
     Object? borderRadius = freezed,
     Object? boxShadow = freezed,
+    Object? gradient = freezed,
   }) {
     return _then(_value.copyWith(
       type: freezed == type
@@ -560,6 +564,10 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.boxShadow
           : boxShadow // ignore: cast_nullable_to_non_nullable
               as BoxShadowProps?,
+      gradient: freezed == gradient
+          ? _value.gradient
+          : gradient // ignore: cast_nullable_to_non_nullable
+              as T_GradientProps?,
     ) as $Val);
   }
 
@@ -682,6 +690,18 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
       return _then(_value.copyWith(boxShadow: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $T_GradientPropsCopyWith<$Res>? get gradient {
+    if (_value.gradient == null) {
+      return null;
+    }
+
+    return $T_GradientPropsCopyWith<$Res>(_value.gradient!, (value) {
+      return _then(_value.copyWith(gradient: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -758,7 +778,8 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       ImageProviderProps? image,
       BorderProps? boxBorder,
       BorderRadiusProps? borderRadius,
-      BoxShadowProps? boxShadow});
+      BoxShadowProps? boxShadow,
+      T_GradientProps? gradient});
 
   @override
   $T_DrawerPropsCopyWith<$Res>? get drawer;
@@ -780,6 +801,8 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
   $BorderRadiusPropsCopyWith<$Res>? get borderRadius;
   @override
   $BoxShadowPropsCopyWith<$Res>? get boxShadow;
+  @override
+  $T_GradientPropsCopyWith<$Res>? get gradient;
 }
 
 /// @nodoc
@@ -859,6 +882,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? boxBorder = freezed,
     Object? borderRadius = freezed,
     Object? boxShadow = freezed,
+    Object? gradient = freezed,
   }) {
     return _then(_$_LayoutProps(
       type: freezed == type
@@ -1125,6 +1149,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value.boxShadow
           : boxShadow // ignore: cast_nullable_to_non_nullable
               as BoxShadowProps?,
+      gradient: freezed == gradient
+          ? _value.gradient
+          : gradient // ignore: cast_nullable_to_non_nullable
+              as T_GradientProps?,
     ));
   }
 }
@@ -1198,7 +1226,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.image,
       this.boxBorder,
       this.borderRadius,
-      this.boxShadow})
+      this.boxShadow,
+      this.gradient})
       : _positioned = positioned,
         _componentProps = componentProps,
         _computedComponentProps = computedComponentProps,
@@ -1463,10 +1492,12 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   final BorderRadiusProps? borderRadius;
   @override
   final BoxShadowProps? boxShadow;
+  @override
+  final T_GradientProps? gradient;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow, gradient: $gradient)';
   }
 
   @override
@@ -1540,7 +1571,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('image', image))
       ..add(DiagnosticsProperty('boxBorder', boxBorder))
       ..add(DiagnosticsProperty('borderRadius', borderRadius))
-      ..add(DiagnosticsProperty('boxShadow', boxShadow));
+      ..add(DiagnosticsProperty('boxShadow', boxShadow))
+      ..add(DiagnosticsProperty('gradient', gradient));
   }
 
   @JsonKey(ignore: true)
@@ -1624,7 +1656,8 @@ abstract class _LayoutProps implements LayoutProps {
       final ImageProviderProps? image,
       final BorderProps? boxBorder,
       final BorderRadiusProps? borderRadius,
-      final BoxShadowProps? boxShadow}) = _$_LayoutProps;
+      final BoxShadowProps? boxShadow,
+      final T_GradientProps? gradient}) = _$_LayoutProps;
 
   factory _LayoutProps.fromJson(Map<String, dynamic> json) =
       _$_LayoutProps.fromJson;
@@ -1790,6 +1823,8 @@ abstract class _LayoutProps implements LayoutProps {
   BorderRadiusProps? get borderRadius;
   @override
   BoxShadowProps? get boxShadow;
+  @override
+  T_GradientProps? get gradient;
   @override
   @JsonKey(ignore: true)
   _$$_LayoutPropsCopyWith<_$_LayoutProps> get copyWith =>

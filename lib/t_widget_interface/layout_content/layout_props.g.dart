@@ -112,6 +112,9 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       boxShadow: json['boxShadow'] == null
           ? null
           : BoxShadowProps.fromJson(json['boxShadow'] as Map<String, dynamic>),
+      gradient: json['gradient'] == null
+          ? null
+          : T_GradientProps.fromJson(json['gradient'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
@@ -182,4 +185,5 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'boxBorder': instance.boxBorder,
       'borderRadius': instance.borderRadius,
       'boxShadow': instance.boxShadow,
+      'gradient': instance.gradient,
     };

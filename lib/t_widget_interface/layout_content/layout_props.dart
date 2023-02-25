@@ -11,6 +11,7 @@ import 'package:the_tool/t_widget_interface/box_decoration_props/box_shadow_prop
 import 'package:the_tool/t_widget_interface/data_table_props/data_column_props/data_column_props.dart';
 import 'package:the_tool/t_widget_interface/data_table_props/data_row_props/data_row_props.dart';
 import 'package:the_tool/t_widget_interface/drawer_props/drawer_props.dart';
+import 'package:the_tool/t_widget_interface/gradient_props/gradient_props.dart';
 import 'package:the_tool/t_widget_interface/image_content/image_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_builder_props/layout_builder_props.dart';
 import 'package:the_tool/t_widget_interface/media_screen_only/media_screen_only.dart';
@@ -125,6 +126,7 @@ class LayoutProps with _$LayoutProps {
     BorderProps? boxBorder,
     BorderRadiusProps? borderRadius,
     BoxShadowProps? boxShadow,
+    T_GradientProps? gradient,
   }) = _LayoutProps;
 
   factory LayoutProps.fromJson(Map<String, Object?> json) =>
@@ -201,6 +203,7 @@ extension MergeLayoutProps on LayoutProps {
       hintText: other.hintText ?? hintText,
       labelText: other.labelText ?? labelText,
       alignment: other.alignment ?? alignment,
+      gradient: other.gradient ?? gradient,
       // validators: other.validators ?? validators,
       componentProps: other.componentProps != null
           ? {
