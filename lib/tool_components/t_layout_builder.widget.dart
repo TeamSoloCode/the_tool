@@ -90,7 +90,7 @@ class _T_LayoutBuilderState extends TStatefulWidget<T_LayoutBuilder> {
     );
 
     if (layoutBuilderProps == null || layoutBuilderProps.child == null) {
-      return const SizedBox.shrink();
+      return const Offstage();
     }
 
     if (!const DeepCollectionEquality()

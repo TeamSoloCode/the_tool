@@ -109,7 +109,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
       // key: ValueKey(_pageId),
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
-          return const SizedBox.shrink();
+          return const Offstage();
         }
 
         _updateMediaQueryInJS(mediaQueryData);

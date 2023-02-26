@@ -128,7 +128,7 @@ class _MyAppState extends State<MyApp> {
       key: ValueKey(_selectedProjectName),
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
-          return const SizedBox.shrink();
+          return const Offstage();
         }
         if (_selectedProjectName == null) {
           return select_project.SelectProjectPage(

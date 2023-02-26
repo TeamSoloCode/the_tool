@@ -62,7 +62,7 @@ class _TWidgetsState extends State<TWidgets> {
     // );
 
     if (tWidgets != null) {
-      return tWidgets ?? const SizedBox.shrink();
+      return tWidgets ?? const Offstage();
     }
 
     switch (content.type) {
@@ -222,7 +222,7 @@ class _TWidgetsState extends State<TWidgets> {
       );
     }
     if (content.type == null && content.component == null) {
-      return const SizedBox.shrink();
+      return const Offstage();
     }
     return Text(
         "Unsupported widget. Type: ${content.type ?? content.component}");
@@ -249,6 +249,6 @@ class _TWidgetsState extends State<TWidgets> {
   @override
   Widget build(BuildContext context) {
     _updateTWidgets(context);
-    return tWidgets ?? const SizedBox.shrink();
+    return tWidgets ?? const Offstage();
   }
 }

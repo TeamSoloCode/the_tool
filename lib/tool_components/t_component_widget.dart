@@ -115,7 +115,7 @@ class _T_ComponentState extends State<T_Component>
     var path = _props?.path;
 
     if (path == null || !_isReady) {
-      return const SizedBox.shrink();
+      return const Offstage();
     }
 
     if (didBuild) {

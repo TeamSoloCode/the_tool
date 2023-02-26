@@ -27,7 +27,7 @@ mixin BaseStateWidget on Widget {
   LayoutProps? props;
   LayoutProps? prevProps;
   LayoutProps? mediaScreenApplyWidgetProps;
-  Widget snapshot = const SizedBox.shrink();
+  Widget snapshot = const Offstage();
   Map<String, dynamic> contextData = {};
   final Set<String> widgetBindingStrings = {};
   List<dynamic> prevBindingValues = [];
@@ -46,21 +46,22 @@ mixin BaseStateWidget on Widget {
       },
     );
 
-    context.select((ContextStateProvider value) {
-      var newPageData =
-          value.contextData[path] ?? UtilsManager.emptyMapStringDynamic;
+    if (hasBindingValue) {
+      context.select((ContextStateProvider value) {
+        var newPageData =
+            value.contextData[path] ?? UtilsManager.emptyMapStringDynamic;
 
-      if (!hasBindingValue ||
-          !isTWidgetDependenciesChanged(
-            newPageData,
-            providedPagePath: path,
-          )) {
-        return contextData;
-      }
+        if (!isTWidgetDependenciesChanged(
+          newPageData,
+          providedPagePath: path,
+        )) {
+          return contextData;
+        }
 
-      contextData = newPageData;
-      return newPageData;
-    });
+        contextData = newPageData;
+        return newPageData;
+      });
+    }
 
     /**
      * Apply mediaScreenOnly into widget props
@@ -233,7 +234,7 @@ abstract class TStatefulWidget<Page extends TWidget> extends State<Page> {
     }
 
     if (widget.props?.hidden == true) {
-      return const SizedBox.shrink();
+      return const Offstage();
     }
 
     if (widget.props == null) {
@@ -277,7 +278,7 @@ abstract class TStatelessWidget extends StatelessWidget with BaseStateWidget {
     }
 
     if (props?.hidden == true) {
-      return const SizedBox.shrink();
+      return const Offstage();
     }
 
     if (props == null) {

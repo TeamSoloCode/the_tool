@@ -128,6 +128,6 @@ class _T_FieldsState extends TStatefulWidget<T_Fields> {
 
       return _snapshot;
     }
-    return const SizedBox.shrink();
+    return const Offstage();
   }
 }

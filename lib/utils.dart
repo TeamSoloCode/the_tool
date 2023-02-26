@@ -227,6 +227,20 @@ class UtilsManager {
       );
     }
 
+    var imageUrl = widgetProps.image?.url;
+    if (UtilsManager.isValueBinding(imageUrl)) {
+      var newImage = widgetProps.image?.copyWith(
+        url: bindingValueToProp(
+          contextData,
+          imageUrl,
+        ),
+      );
+
+      widgetProps = widgetProps.copyWith(
+        image: newImage,
+      );
+    }
+
     if (widgetProps.type == "component" && widgetProps.componentProps != null) {
       Map<String, dynamic>? updatedComponentProps = {};
       widgetProps.componentProps?.forEach((key, value) {

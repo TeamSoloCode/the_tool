@@ -286,7 +286,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
   Widget _prepareLoadingWidget(bool onlyUpdateData) {
     print("abcd onlyUpdateData ${onlyUpdateData}");
     if (onlyUpdateData) {
-      return const SizedBox.shrink();
+      return const Offstage();
     }
 
     return const Center(
