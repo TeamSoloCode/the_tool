@@ -1,21 +1,14 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:the_tool/t_widget_interface/layout_builder_item_props/layout_builder_item_props.dart';
-import 'package:the_tool/t_widget_interface/layout_builder_props/layout_builder_props.dart';
-import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
+import 'package:json_theme/json_theme.dart';
+import 'package:the_tool/tool_components/mixin_component/container_mixin.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
-import 'package:the_tool/tool_components/t_widgets.dart';
-import 'package:uuid/uuid.dart';
-import 'package:collection/collection.dart' show DeepCollectionEquality;
 
-class T_Avatar extends TWidget {
+class T_Avatar extends TWidget with ContainerMixin {
   T_Avatar({
     Key? key,
     required widgetUuid,
     required widgetProps,
     required pagePath,
-    required T_LayoutBuilderProps layoutBuilder,
     childData = const {},
   }) : super(
           key: key,
@@ -32,6 +25,11 @@ class T_Avatar extends TWidget {
 class _T_AvatarState extends TStatefulWidget<T_Avatar> {
   @override
   Widget buildWidget(BuildContext context) {
-    return SizedBox();
+    return CircleAvatar(
+      radius: widget.props?.radius,
+      key: widget.getBindingKey(),
+      backgroundColor: ThemeDecoder.decodeColor(widget.props?.backgroundColor),
+      backgroundImage: ThemeDecoder.decodeImageProvider(widget.props?.image),
+    );
   }
 }

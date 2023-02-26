@@ -5,7 +5,10 @@ import 'package:the_tool/tool_components/fields/t_fields_widget.dart'
     deferred as t_fields;
 import 'package:the_tool/tool_components/fields/t_form_widget.dart'
     deferred as t_form;
+import 'package:the_tool/tool_components/t_avatar.widget.dart';
 import 'package:the_tool/tool_components/t_button_widget.dart';
+import 'package:the_tool/tool_components/t_clickable.widget.dart';
+import 'package:the_tool/tool_components/t_clipoval.widget.dart';
 import 'package:the_tool/tool_components/t_column_widget.dart';
 import 'package:the_tool/tool_components/t_container_widget.dart';
 import 'package:the_tool/tool_components/t_component_widget.dart'
@@ -199,6 +202,27 @@ class _TWidgetsState extends State<TWidgets> {
           childData: childData,
           widgetProps: content,
           layoutBuilder: content.layoutBuilder!,
+        );
+      case "clickable":
+        return T_Clickable(
+          widgetUuid: widgetUuid,
+          widgetProps: content,
+          pagePath: widget.pagePath,
+          childData: childData,
+        );
+      case "circle_avatar":
+        return T_Avatar(
+          widgetUuid: widgetUuid,
+          widgetProps: content,
+          pagePath: widget.pagePath,
+          childData: childData,
+        );
+      case "clip_oval":
+        return T_ClipOval(
+          widgetUuid: widgetUuid,
+          widgetProps: content,
+          pagePath: widget.pagePath,
+          childData: childData,
         );
       default:
         return _computeNotBuiltInWidget(childData, content);

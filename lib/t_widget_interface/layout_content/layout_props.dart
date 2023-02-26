@@ -32,7 +32,6 @@ class LayoutProps with _$LayoutProps {
     String? icon,
     String? mainAxisAlignment,
     String? path,
-    String? onClick,
     String? buttonType,
     String? key,
     String? name,
@@ -52,8 +51,11 @@ class LayoutProps with _$LayoutProps {
     int? flex,
     Map<String, dynamic>? positioned,
     String? fit,
+    double? radius,
     String? shape,
+    String? splashColor,
     dynamic alignment,
+
     /**
      * 
      */
@@ -82,6 +84,16 @@ class LayoutProps with _$LayoutProps {
     T_DrawerProps? drawer,
     T_LayoutBuilderProps? layoutBuilder,
     List<T_MediaScreenOnlyProps>? mediaScreenOnly,
+
+    // Click Properties Start================================================
+    String? onClick,
+    String? onLongClick,
+    String? onDoubleClick,
+    String? onClickDown,
+    String? onClickUp,
+    String? onFocus,
+    String? onHover,
+    // Click Properties End==================================================
 
     // Field Start================================================
     String? hintText,

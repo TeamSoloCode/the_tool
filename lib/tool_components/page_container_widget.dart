@@ -62,6 +62,7 @@ class _PageContainerState extends State<PageContainer> {
       theme: _themeData,
       themeMode: _currentThemeMode,
       routes: _computeRoutes(),
+      debugShowCheckedModeBanner: false,
       home: FutureBuilder<bool>(
         builder: (context, snapshot) {
           const loadingPage = Scaffold(

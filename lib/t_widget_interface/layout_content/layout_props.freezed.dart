@@ -29,7 +29,6 @@ mixin _$LayoutProps {
   String? get icon => throw _privateConstructorUsedError;
   String? get mainAxisAlignment => throw _privateConstructorUsedError;
   String? get path => throw _privateConstructorUsedError;
-  String? get onClick => throw _privateConstructorUsedError;
   String? get buttonType => throw _privateConstructorUsedError;
   String? get key => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
@@ -49,7 +48,9 @@ mixin _$LayoutProps {
   int? get flex => throw _privateConstructorUsedError;
   Map<String, dynamic>? get positioned => throw _privateConstructorUsedError;
   String? get fit => throw _privateConstructorUsedError;
+  double? get radius => throw _privateConstructorUsedError;
   String? get shape => throw _privateConstructorUsedError;
+  String? get splashColor => throw _privateConstructorUsedError;
   dynamic get alignment => throw _privateConstructorUsedError;
   /**
      * 
@@ -82,7 +83,16 @@ mixin _$LayoutProps {
   T_DrawerProps? get drawer => throw _privateConstructorUsedError;
   T_LayoutBuilderProps? get layoutBuilder => throw _privateConstructorUsedError;
   List<T_MediaScreenOnlyProps>? get mediaScreenOnly =>
-      throw _privateConstructorUsedError; // Field Start================================================
+      throw _privateConstructorUsedError; // Click Properties Start================================================
+  String? get onClick => throw _privateConstructorUsedError;
+  String? get onLongClick => throw _privateConstructorUsedError;
+  String? get onDoubleClick => throw _privateConstructorUsedError;
+  String? get onClickDown => throw _privateConstructorUsedError;
+  String? get onClickUp => throw _privateConstructorUsedError;
+  String? get onFocus => throw _privateConstructorUsedError;
+  String? get onHover =>
+      throw _privateConstructorUsedError; // Click Properties End==================================================
+// Field Start================================================
   String? get hintText => throw _privateConstructorUsedError;
   String? get labelText => throw _privateConstructorUsedError;
   bool? get obscureText => throw _privateConstructorUsedError;
@@ -147,7 +157,6 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? icon,
       String? mainAxisAlignment,
       String? path,
-      String? onClick,
       String? buttonType,
       String? key,
       String? name,
@@ -167,7 +176,9 @@ abstract class $LayoutPropsCopyWith<$Res> {
       int? flex,
       Map<String, dynamic>? positioned,
       String? fit,
+      double? radius,
       String? shape,
+      String? splashColor,
       dynamic alignment,
       String? sliverListType,
       double? itemExtent,
@@ -178,6 +189,13 @@ abstract class $LayoutPropsCopyWith<$Res> {
       T_DrawerProps? drawer,
       T_LayoutBuilderProps? layoutBuilder,
       List<T_MediaScreenOnlyProps>? mediaScreenOnly,
+      String? onClick,
+      String? onLongClick,
+      String? onDoubleClick,
+      String? onClickDown,
+      String? onClickUp,
+      String? onFocus,
+      String? onHover,
       String? hintText,
       String? labelText,
       bool? obscureText,
@@ -242,7 +260,6 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? icon = freezed,
     Object? mainAxisAlignment = freezed,
     Object? path = freezed,
-    Object? onClick = freezed,
     Object? buttonType = freezed,
     Object? key = freezed,
     Object? name = freezed,
@@ -262,7 +279,9 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? flex = freezed,
     Object? positioned = freezed,
     Object? fit = freezed,
+    Object? radius = freezed,
     Object? shape = freezed,
+    Object? splashColor = freezed,
     Object? alignment = freezed,
     Object? sliverListType = freezed,
     Object? itemExtent = freezed,
@@ -273,6 +292,13 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? drawer = freezed,
     Object? layoutBuilder = freezed,
     Object? mediaScreenOnly = freezed,
+    Object? onClick = freezed,
+    Object? onLongClick = freezed,
+    Object? onDoubleClick = freezed,
+    Object? onClickDown = freezed,
+    Object? onClickUp = freezed,
+    Object? onFocus = freezed,
+    Object? onHover = freezed,
     Object? hintText = freezed,
     Object? labelText = freezed,
     Object? obscureText = freezed,
@@ -338,10 +364,6 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
       path: freezed == path
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
-              as String?,
-      onClick: freezed == onClick
-          ? _value.onClick
-          : onClick // ignore: cast_nullable_to_non_nullable
               as String?,
       buttonType: freezed == buttonType
           ? _value.buttonType
@@ -419,9 +441,17 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.fit
           : fit // ignore: cast_nullable_to_non_nullable
               as String?,
+      radius: freezed == radius
+          ? _value.radius
+          : radius // ignore: cast_nullable_to_non_nullable
+              as double?,
       shape: freezed == shape
           ? _value.shape
           : shape // ignore: cast_nullable_to_non_nullable
+              as String?,
+      splashColor: freezed == splashColor
+          ? _value.splashColor
+          : splashColor // ignore: cast_nullable_to_non_nullable
               as String?,
       alignment: freezed == alignment
           ? _value.alignment
@@ -463,6 +493,34 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.mediaScreenOnly
           : mediaScreenOnly // ignore: cast_nullable_to_non_nullable
               as List<T_MediaScreenOnlyProps>?,
+      onClick: freezed == onClick
+          ? _value.onClick
+          : onClick // ignore: cast_nullable_to_non_nullable
+              as String?,
+      onLongClick: freezed == onLongClick
+          ? _value.onLongClick
+          : onLongClick // ignore: cast_nullable_to_non_nullable
+              as String?,
+      onDoubleClick: freezed == onDoubleClick
+          ? _value.onDoubleClick
+          : onDoubleClick // ignore: cast_nullable_to_non_nullable
+              as String?,
+      onClickDown: freezed == onClickDown
+          ? _value.onClickDown
+          : onClickDown // ignore: cast_nullable_to_non_nullable
+              as String?,
+      onClickUp: freezed == onClickUp
+          ? _value.onClickUp
+          : onClickUp // ignore: cast_nullable_to_non_nullable
+              as String?,
+      onFocus: freezed == onFocus
+          ? _value.onFocus
+          : onFocus // ignore: cast_nullable_to_non_nullable
+              as String?,
+      onHover: freezed == onHover
+          ? _value.onHover
+          : onHover // ignore: cast_nullable_to_non_nullable
+              as String?,
       hintText: freezed == hintText
           ? _value.hintText
           : hintText // ignore: cast_nullable_to_non_nullable
@@ -729,7 +787,6 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       String? icon,
       String? mainAxisAlignment,
       String? path,
-      String? onClick,
       String? buttonType,
       String? key,
       String? name,
@@ -749,7 +806,9 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       int? flex,
       Map<String, dynamic>? positioned,
       String? fit,
+      double? radius,
       String? shape,
+      String? splashColor,
       dynamic alignment,
       String? sliverListType,
       double? itemExtent,
@@ -760,6 +819,13 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       T_DrawerProps? drawer,
       T_LayoutBuilderProps? layoutBuilder,
       List<T_MediaScreenOnlyProps>? mediaScreenOnly,
+      String? onClick,
+      String? onLongClick,
+      String? onDoubleClick,
+      String? onClickDown,
+      String? onClickUp,
+      String? onFocus,
+      String? onHover,
       String? hintText,
       String? labelText,
       bool? obscureText,
@@ -833,7 +899,6 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? icon = freezed,
     Object? mainAxisAlignment = freezed,
     Object? path = freezed,
-    Object? onClick = freezed,
     Object? buttonType = freezed,
     Object? key = freezed,
     Object? name = freezed,
@@ -853,7 +918,9 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? flex = freezed,
     Object? positioned = freezed,
     Object? fit = freezed,
+    Object? radius = freezed,
     Object? shape = freezed,
+    Object? splashColor = freezed,
     Object? alignment = freezed,
     Object? sliverListType = freezed,
     Object? itemExtent = freezed,
@@ -864,6 +931,13 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? drawer = freezed,
     Object? layoutBuilder = freezed,
     Object? mediaScreenOnly = freezed,
+    Object? onClick = freezed,
+    Object? onLongClick = freezed,
+    Object? onDoubleClick = freezed,
+    Object? onClickDown = freezed,
+    Object? onClickUp = freezed,
+    Object? onFocus = freezed,
+    Object? onHover = freezed,
     Object? hintText = freezed,
     Object? labelText = freezed,
     Object? obscureText = freezed,
@@ -929,10 +1003,6 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
       path: freezed == path
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
-              as String?,
-      onClick: freezed == onClick
-          ? _value.onClick
-          : onClick // ignore: cast_nullable_to_non_nullable
               as String?,
       buttonType: freezed == buttonType
           ? _value.buttonType
@@ -1010,9 +1080,17 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value.fit
           : fit // ignore: cast_nullable_to_non_nullable
               as String?,
+      radius: freezed == radius
+          ? _value.radius
+          : radius // ignore: cast_nullable_to_non_nullable
+              as double?,
       shape: freezed == shape
           ? _value.shape
           : shape // ignore: cast_nullable_to_non_nullable
+              as String?,
+      splashColor: freezed == splashColor
+          ? _value.splashColor
+          : splashColor // ignore: cast_nullable_to_non_nullable
               as String?,
       alignment: freezed == alignment
           ? _value.alignment
@@ -1054,6 +1132,34 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value._mediaScreenOnly
           : mediaScreenOnly // ignore: cast_nullable_to_non_nullable
               as List<T_MediaScreenOnlyProps>?,
+      onClick: freezed == onClick
+          ? _value.onClick
+          : onClick // ignore: cast_nullable_to_non_nullable
+              as String?,
+      onLongClick: freezed == onLongClick
+          ? _value.onLongClick
+          : onLongClick // ignore: cast_nullable_to_non_nullable
+              as String?,
+      onDoubleClick: freezed == onDoubleClick
+          ? _value.onDoubleClick
+          : onDoubleClick // ignore: cast_nullable_to_non_nullable
+              as String?,
+      onClickDown: freezed == onClickDown
+          ? _value.onClickDown
+          : onClickDown // ignore: cast_nullable_to_non_nullable
+              as String?,
+      onClickUp: freezed == onClickUp
+          ? _value.onClickUp
+          : onClickUp // ignore: cast_nullable_to_non_nullable
+              as String?,
+      onFocus: freezed == onFocus
+          ? _value.onFocus
+          : onFocus // ignore: cast_nullable_to_non_nullable
+              as String?,
+      onHover: freezed == onHover
+          ? _value.onHover
+          : onHover // ignore: cast_nullable_to_non_nullable
+              as String?,
       hintText: freezed == hintText
           ? _value.hintText
           : hintText // ignore: cast_nullable_to_non_nullable
@@ -1183,7 +1289,6 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.icon,
       this.mainAxisAlignment,
       this.path,
-      this.onClick,
       this.buttonType,
       this.key,
       this.name,
@@ -1203,7 +1308,9 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.flex,
       final Map<String, dynamic>? positioned,
       this.fit,
+      this.radius,
       this.shape,
+      this.splashColor,
       this.alignment,
       this.sliverListType,
       this.itemExtent,
@@ -1214,6 +1321,13 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.drawer,
       this.layoutBuilder,
       final List<T_MediaScreenOnlyProps>? mediaScreenOnly,
+      this.onClick,
+      this.onLongClick,
+      this.onDoubleClick,
+      this.onClickDown,
+      this.onClickUp,
+      this.onFocus,
+      this.onHover,
       this.hintText,
       this.labelText,
       this.obscureText,
@@ -1274,8 +1388,6 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   @override
   final String? path;
   @override
-  final String? onClick;
-  @override
   final String? buttonType;
   @override
   final String? key;
@@ -1322,7 +1434,11 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   @override
   final String? fit;
   @override
+  final double? radius;
+  @override
   final String? shape;
+  @override
+  final String? splashColor;
   @override
   final dynamic alignment;
 /**
@@ -1406,6 +1522,22 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
     return EqualUnmodifiableListView(value);
   }
 
+// Click Properties Start================================================
+  @override
+  final String? onClick;
+  @override
+  final String? onLongClick;
+  @override
+  final String? onDoubleClick;
+  @override
+  final String? onClickDown;
+  @override
+  final String? onClickUp;
+  @override
+  final String? onFocus;
+  @override
+  final String? onHover;
+// Click Properties End==================================================
 // Field Start================================================
   @override
   final String? hintText;
@@ -1513,7 +1645,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, onClick: $onClick, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, shape: $shape, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow, gradient: $gradient)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, shape: $shape, splashColor: $splashColor, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow, gradient: $gradient)';
   }
 
   @override
@@ -1530,7 +1662,6 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('icon', icon))
       ..add(DiagnosticsProperty('mainAxisAlignment', mainAxisAlignment))
       ..add(DiagnosticsProperty('path', path))
-      ..add(DiagnosticsProperty('onClick', onClick))
       ..add(DiagnosticsProperty('buttonType', buttonType))
       ..add(DiagnosticsProperty('key', key))
       ..add(DiagnosticsProperty('name', name))
@@ -1550,7 +1681,9 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('flex', flex))
       ..add(DiagnosticsProperty('positioned', positioned))
       ..add(DiagnosticsProperty('fit', fit))
+      ..add(DiagnosticsProperty('radius', radius))
       ..add(DiagnosticsProperty('shape', shape))
+      ..add(DiagnosticsProperty('splashColor', splashColor))
       ..add(DiagnosticsProperty('alignment', alignment))
       ..add(DiagnosticsProperty('sliverListType', sliverListType))
       ..add(DiagnosticsProperty('itemExtent', itemExtent))
@@ -1562,6 +1695,13 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('drawer', drawer))
       ..add(DiagnosticsProperty('layoutBuilder', layoutBuilder))
       ..add(DiagnosticsProperty('mediaScreenOnly', mediaScreenOnly))
+      ..add(DiagnosticsProperty('onClick', onClick))
+      ..add(DiagnosticsProperty('onLongClick', onLongClick))
+      ..add(DiagnosticsProperty('onDoubleClick', onDoubleClick))
+      ..add(DiagnosticsProperty('onClickDown', onClickDown))
+      ..add(DiagnosticsProperty('onClickUp', onClickUp))
+      ..add(DiagnosticsProperty('onFocus', onFocus))
+      ..add(DiagnosticsProperty('onHover', onHover))
       ..add(DiagnosticsProperty('hintText', hintText))
       ..add(DiagnosticsProperty('labelText', labelText))
       ..add(DiagnosticsProperty('obscureText', obscureText))
@@ -1617,7 +1757,6 @@ abstract class _LayoutProps implements LayoutProps {
       final String? icon,
       final String? mainAxisAlignment,
       final String? path,
-      final String? onClick,
       final String? buttonType,
       final String? key,
       final String? name,
@@ -1637,7 +1776,9 @@ abstract class _LayoutProps implements LayoutProps {
       final int? flex,
       final Map<String, dynamic>? positioned,
       final String? fit,
+      final double? radius,
       final String? shape,
+      final String? splashColor,
       final dynamic alignment,
       final String? sliverListType,
       final double? itemExtent,
@@ -1648,6 +1789,13 @@ abstract class _LayoutProps implements LayoutProps {
       final T_DrawerProps? drawer,
       final T_LayoutBuilderProps? layoutBuilder,
       final List<T_MediaScreenOnlyProps>? mediaScreenOnly,
+      final String? onClick,
+      final String? onLongClick,
+      final String? onDoubleClick,
+      final String? onClickDown,
+      final String? onClickUp,
+      final String? onFocus,
+      final String? onHover,
       final String? hintText,
       final String? labelText,
       final bool? obscureText,
@@ -1699,8 +1847,6 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   String? get path;
   @override
-  String? get onClick;
-  @override
   String? get buttonType;
   @override
   String? get key;
@@ -1739,7 +1885,11 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   String? get fit;
   @override
+  double? get radius;
+  @override
   String? get shape;
+  @override
+  String? get splashColor;
   @override
   dynamic get alignment;
   @override
@@ -1779,7 +1929,22 @@ abstract class _LayoutProps implements LayoutProps {
   T_LayoutBuilderProps? get layoutBuilder;
   @override
   List<T_MediaScreenOnlyProps>? get mediaScreenOnly;
-  @override // Field Start================================================
+  @override // Click Properties Start================================================
+  String? get onClick;
+  @override
+  String? get onLongClick;
+  @override
+  String? get onDoubleClick;
+  @override
+  String? get onClickDown;
+  @override
+  String? get onClickUp;
+  @override
+  String? get onFocus;
+  @override
+  String? get onHover;
+  @override // Click Properties End==================================================
+// Field Start================================================
   String? get hintText;
   @override
   String? get labelText;

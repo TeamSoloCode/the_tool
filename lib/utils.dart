@@ -173,6 +173,15 @@ class UtilsManager {
       );
     }
 
+    if (widgetProps.splashColor != null) {
+      widgetProps = widgetProps.copyWith(
+        splashColor: parseColor(
+          widgetProps.splashColor,
+          contextData,
+        ),
+      );
+    }
+
     if (widgetProps.backgroundColor != null) {
       var backgroundColor = widgetProps.backgroundColor;
       var isBindingValue = UtilsManager.isValueBinding(backgroundColor);
@@ -260,7 +269,7 @@ class UtilsManager {
 
     widgetProps = widgetProps.parseCssColors(widgetProps);
 
-    if (["container", "table"].contains(widgetProps.type)) {
+    if (["container", "table", "clickable"].contains(widgetProps.type)) {
       widgetProps = _computeHeightAndWidth(widgetProps, contextData);
     }
 
