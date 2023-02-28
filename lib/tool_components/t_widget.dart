@@ -26,7 +26,8 @@ mixin BaseStateWidget on Widget {
   T_LayoutBuilderProps? layoutBuilder;
   LayoutProps? props;
   LayoutProps? prevProps;
-  LayoutProps? mediaScreenApplyWidgetProps;
+  LayoutProps? appliedMediaScreen;
+  LayoutProps? prevSelectedMediaScreen;
   Widget snapshot = const Offstage();
   Map<String, dynamic> contextData = {};
   final Set<String> widgetBindingStrings = {};
@@ -39,6 +40,7 @@ mixin BaseStateWidget on Widget {
 
   void watchContextState(BuildContext context, {String? providedPagePath}) {
     var path = providedPagePath ?? pagePath;
+    var dependenciesChanged = false;
 
     _themeRefreshToken = context.select(
       (ThemeProvider theme) {
@@ -51,10 +53,12 @@ mixin BaseStateWidget on Widget {
         var newPageData =
             value.contextData[path] ?? UtilsManager.emptyMapStringDynamic;
 
-        if (!isTWidgetDependenciesChanged(
+        dependenciesChanged = isTWidgetDependenciesChanged(
           newPageData,
           providedPagePath: path,
-        )) {
+        );
+
+        if (!dependenciesChanged) {
           return contextData;
         }
 
@@ -67,20 +71,28 @@ mixin BaseStateWidget on Widget {
      * Apply mediaScreenOnly into widget props
      */
     if (widgetProps.mediaScreenOnly != null) {
-      var applyProps = computePropsFromMediaScreen(
+      var selectedMediaScreen = computePropsFromMediaScreen(
         context,
         contextData,
         widgetProps.mediaScreenOnly!,
       );
 
-      mediaScreenApplyWidgetProps =
-          applyProps != null ? widgetProps.merge(applyProps) : null;
+      appliedMediaScreen = selectedMediaScreen != null
+          ? widgetProps.merge(selectedMediaScreen)
+          : null;
 
-      mediaScreenApplied = true;
+      if (!const DeepCollectionEquality()
+          .equals(prevSelectedMediaScreen, selectedMediaScreen)) {
+        prevSelectedMediaScreen = selectedMediaScreen;
+        mediaScreenApplied = true;
+      }
     }
+
+    var propsHasUnit = utils.isPropsHasAdaptiveScreenUnit(widgetProps);
 
     if (prevProps != null &&
         !hasBindingValue &&
+        !propsHasUnit &&
         !mediaScreenApplied &&
         _prevThemeRefreshToken == _themeRefreshToken) {
       return;
@@ -89,7 +101,7 @@ mixin BaseStateWidget on Widget {
     mediaScreenApplied = false;
 
     props = utils.computeWidgetProps(
-      mediaScreenApplyWidgetProps ?? widgetProps,
+      appliedMediaScreen ?? widgetProps,
       childData.isEmpty ? contextData : childData,
     );
 

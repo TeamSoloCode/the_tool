@@ -270,10 +270,32 @@ class UtilsManager {
     widgetProps = widgetProps.parseCssColors(widgetProps);
 
     if (["container", "table", "clickable"].contains(widgetProps.type)) {
-      widgetProps = _computeHeightAndWidth(widgetProps, contextData);
+      widgetProps = computeHeightAndWidth(widgetProps, contextData);
     }
 
     return widgetProps;
+  }
+
+  bool isPropsHasAdaptiveScreenUnit(LayoutProps widgetProps) {
+    var hasAdaptiveScreenUnit = false;
+
+    widgetProps.toJson().forEach((propName, value) {
+      if (!["child", "children", "computedComponentProps", "text", "label"]
+          .contains(propName)) {
+        if (value is String) {
+          var result = ["sw", "sh", "w", "h", "r", "sp"].firstWhere(
+            (unit) {
+              return value.endsWith(unit);
+            },
+            orElse: () => "",
+          );
+
+          if (result != "") hasAdaptiveScreenUnit = true;
+        }
+      }
+    });
+
+    return hasAdaptiveScreenUnit;
   }
 
   double? _parseAdaptiveScreenUnit(String adaptiveUnit) {
@@ -300,7 +322,7 @@ class UtilsManager {
     return 0.0;
   }
 
-  LayoutProps _computeHeightAndWidth(
+  LayoutProps computeHeightAndWidth(
     LayoutProps widgetProps,
     Map<String, dynamic> contextData,
   ) {

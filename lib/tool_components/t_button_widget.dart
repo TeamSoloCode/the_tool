@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:json_theme/json_theme.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
@@ -36,7 +37,9 @@ class _T_ButtonState extends TStatefulWidget<T_Button> {
 
     if (buttonType == "icon_button") {
       return IconButton(
+        color: ThemeDecoder.decodeColor(widget.props?.color),
         icon: Icon(MdiIcons.fromString(widgetProps.icon ?? "")),
+        iconSize: widgetProps.iconSize,
         onPressed: onClick,
       );
     } else if (buttonType == "text_button") {

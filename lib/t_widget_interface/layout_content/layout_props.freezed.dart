@@ -49,6 +49,7 @@ mixin _$LayoutProps {
   Map<String, dynamic>? get positioned => throw _privateConstructorUsedError;
   String? get fit => throw _privateConstructorUsedError;
   double? get radius => throw _privateConstructorUsedError;
+  double? get iconSize => throw _privateConstructorUsedError;
   String? get shape => throw _privateConstructorUsedError;
   String? get splashColor => throw _privateConstructorUsedError;
   dynamic get alignment => throw _privateConstructorUsedError;
@@ -177,6 +178,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       Map<String, dynamic>? positioned,
       String? fit,
       double? radius,
+      double? iconSize,
       String? shape,
       String? splashColor,
       dynamic alignment,
@@ -280,6 +282,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? positioned = freezed,
     Object? fit = freezed,
     Object? radius = freezed,
+    Object? iconSize = freezed,
     Object? shape = freezed,
     Object? splashColor = freezed,
     Object? alignment = freezed,
@@ -444,6 +447,10 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
       radius: freezed == radius
           ? _value.radius
           : radius // ignore: cast_nullable_to_non_nullable
+              as double?,
+      iconSize: freezed == iconSize
+          ? _value.iconSize
+          : iconSize // ignore: cast_nullable_to_non_nullable
               as double?,
       shape: freezed == shape
           ? _value.shape
@@ -807,6 +814,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       Map<String, dynamic>? positioned,
       String? fit,
       double? radius,
+      double? iconSize,
       String? shape,
       String? splashColor,
       dynamic alignment,
@@ -919,6 +927,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? positioned = freezed,
     Object? fit = freezed,
     Object? radius = freezed,
+    Object? iconSize = freezed,
     Object? shape = freezed,
     Object? splashColor = freezed,
     Object? alignment = freezed,
@@ -1083,6 +1092,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
       radius: freezed == radius
           ? _value.radius
           : radius // ignore: cast_nullable_to_non_nullable
+              as double?,
+      iconSize: freezed == iconSize
+          ? _value.iconSize
+          : iconSize // ignore: cast_nullable_to_non_nullable
               as double?,
       shape: freezed == shape
           ? _value.shape
@@ -1309,6 +1322,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       final Map<String, dynamic>? positioned,
       this.fit,
       this.radius,
+      this.iconSize,
       this.shape,
       this.splashColor,
       this.alignment,
@@ -1435,6 +1449,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   final String? fit;
   @override
   final double? radius;
+  @override
+  final double? iconSize;
   @override
   final String? shape;
   @override
@@ -1645,7 +1661,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, shape: $shape, splashColor: $splashColor, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow, gradient: $gradient)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow, gradient: $gradient)';
   }
 
   @override
@@ -1682,6 +1698,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('positioned', positioned))
       ..add(DiagnosticsProperty('fit', fit))
       ..add(DiagnosticsProperty('radius', radius))
+      ..add(DiagnosticsProperty('iconSize', iconSize))
       ..add(DiagnosticsProperty('shape', shape))
       ..add(DiagnosticsProperty('splashColor', splashColor))
       ..add(DiagnosticsProperty('alignment', alignment))
@@ -1777,6 +1794,7 @@ abstract class _LayoutProps implements LayoutProps {
       final Map<String, dynamic>? positioned,
       final String? fit,
       final double? radius,
+      final double? iconSize,
       final String? shape,
       final String? splashColor,
       final dynamic alignment,
@@ -1886,6 +1904,8 @@ abstract class _LayoutProps implements LayoutProps {
   String? get fit;
   @override
   double? get radius;
+  @override
+  double? get iconSize;
   @override
   String? get shape;
   @override

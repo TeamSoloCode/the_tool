@@ -45,7 +45,7 @@ dependencies:
   flutter_screenutil: ^5.5.3+2
 
   gato: ^0.0.5+1
-  material_design_icons_flutter: ^5.0.6595
+  material_design_icons_flutter: ^6.0.7096
   flutter_spinkit: ^5.1.0
   json_theme:
     path: "./lib_modules/json_theme"

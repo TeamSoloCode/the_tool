@@ -5,10 +5,12 @@ import 'package:the_tool/tool_components/fields/t_fields_widget.dart'
     deferred as t_fields;
 import 'package:the_tool/tool_components/fields/t_form_widget.dart'
     deferred as t_form;
-import 'package:the_tool/tool_components/t_avatar.widget.dart';
+import 'package:the_tool/tool_components/t_avatar.widget.dart'
+    deferred as t_avatar;
 import 'package:the_tool/tool_components/t_button_widget.dart';
 import 'package:the_tool/tool_components/t_clickable.widget.dart';
-import 'package:the_tool/tool_components/t_clipoval.widget.dart';
+import 'package:the_tool/tool_components/t_clipoval.widget.dart'
+    deferred as t_clipoval;
 import 'package:the_tool/tool_components/t_column_widget.dart';
 import 'package:the_tool/tool_components/t_container_widget.dart';
 import 'package:the_tool/tool_components/t_component_widget.dart'
@@ -17,7 +19,8 @@ import 'package:the_tool/tool_components/t_expanded_widget.dart'
     deferred as t_expanded;
 import 'package:the_tool/tool_components/t_grid_widget.dart' deferred as t_grid;
 import 'package:the_tool/tool_components/t_icon_widget.dart' deferred as t_icon;
-import 'package:the_tool/tool_components/t_layout_builder.widget.dart';
+import 'package:the_tool/tool_components/t_layout_builder.widget.dart'
+    deferred as t_layout_builder;
 import 'package:the_tool/tool_components/t_row_widget.dart' deferred as t_row;
 import 'package:the_tool/tool_components/t_scrollview_widget.dart'
     deferred as t_scrollview;
@@ -196,7 +199,8 @@ class _TWidgetsState extends State<TWidgets> {
           content.layoutBuilder != null,
           "layout_builder must have properties",
         );
-        return T_LayoutBuilder(
+        await t_layout_builder.loadLibrary();
+        return t_layout_builder.T_LayoutBuilder(
           widgetUuid: widgetUuid,
           pagePath: widget.pagePath,
           childData: childData,
@@ -211,14 +215,16 @@ class _TWidgetsState extends State<TWidgets> {
           childData: childData,
         );
       case "circle_avatar":
-        return T_Avatar(
+        await t_avatar.loadLibrary();
+        return t_avatar.T_Avatar(
           widgetUuid: widgetUuid,
           widgetProps: content,
           pagePath: widget.pagePath,
           childData: childData,
         );
       case "clip_oval":
-        return T_ClipOval(
+        await t_clipoval.loadLibrary();
+        return t_clipoval.T_ClipOval(
           widgetUuid: widgetUuid,
           widgetProps: content,
           pagePath: widget.pagePath,
