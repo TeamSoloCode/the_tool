@@ -7,7 +7,8 @@ import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/permission_manager.dart';
 import 'package:the_tool/page_utils/storage_manager.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
-import 'package:the_tool/tool_components/page_container_widget.dart';
+import 'package:the_tool/tool_components/page_container_widget.dart'
+    deferred as page_container;
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
 import 't_widget_interface/client_config/client_config.dart';
@@ -110,6 +111,8 @@ class _MyAppState extends State<MyApp> {
       ClientConfig config = await apiClient.getClientConfig();
       getIt<ContextStateProvider>().appConfig = config;
 
+      await page_container.loadLibrary();
+
       if (kIsWeb) _loadWebCoreJSCode(context);
       return true;
     });
@@ -135,7 +138,7 @@ class _MyAppState extends State<MyApp> {
             loadProject: _loadProject,
           );
         } else {
-          return const PageContainer();
+          return page_container.PageContainer();
         }
       },
       future: _selectedProjectName == null
