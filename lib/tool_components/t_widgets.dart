@@ -26,6 +26,8 @@ import 'package:the_tool/tool_components/t_scrollview_widget.dart'
     deferred as t_scrollview;
 import 'package:the_tool/tool_components/datatable/t_datatable_widget.dart'
     deferred as t_table;
+import 'package:the_tool/tool_components/t_listview.widget.dart'
+    deferred as t_listview;
 import 'package:the_tool/tool_components/t_stack_widget.dart';
 import 'package:the_tool/tool_components/t_text_widget.dart';
 import 'package:the_tool/utils.dart';
@@ -225,6 +227,14 @@ class _TWidgetsState extends State<TWidgets> {
       case "clip_oval":
         await t_clipoval.loadLibrary();
         return t_clipoval.T_ClipOval(
+          widgetUuid: widgetUuid,
+          widgetProps: content,
+          pagePath: widget.pagePath,
+          childData: childData,
+        );
+      case "list":
+        await t_listview.loadLibrary();
+        return t_listview.T_ListView(
           widgetUuid: widgetUuid,
           widgetProps: content,
           pagePath: widget.pagePath,

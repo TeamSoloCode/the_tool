@@ -1,4 +1,4 @@
-- Support Avatar widget
+Support ListView builder
 
 #-------------------------------------------------
 Support format number for t_textfield
@@ -26,7 +26,6 @@ Support alert, dialog, snackbar
 #-------------------------------------------------
 
 Support MediaScreenOnly for all t_widgets
-
 \_index and \_selected key being removed after click select all button on table
 -Support call api from dart (mobile)
 -Support call api from dart (web) (Cant return data to js side from dart side)
@@ -78,3 +77,4 @@ Support MediaScreenOnly for all t_widgets
 -Fix bug: rows of table in state have selected = true but not show select when use with Layout Builder
 -Support className for mediaScreenOnly item
 -Support mediaScreenOnly when children have Expanded/Flexible on Row/Column/Stack
+-Support Avatar widget

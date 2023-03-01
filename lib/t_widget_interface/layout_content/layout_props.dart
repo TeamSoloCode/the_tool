@@ -133,6 +133,7 @@ class LayoutProps with _$LayoutProps {
     String? component,
     LayoutProps? child,
     LayoutProps? content,
+    LayoutProps? itemLayout,
     List<LayoutProps>? children,
     BottomNavigationProps? bottomNav,
     AppBarProps? appBar,

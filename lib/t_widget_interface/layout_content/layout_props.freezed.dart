@@ -127,6 +127,7 @@ mixin _$LayoutProps {
   String? get component => throw _privateConstructorUsedError;
   LayoutProps? get child => throw _privateConstructorUsedError;
   LayoutProps? get content => throw _privateConstructorUsedError;
+  LayoutProps? get itemLayout => throw _privateConstructorUsedError;
   List<LayoutProps>? get children => throw _privateConstructorUsedError;
   BottomNavigationProps? get bottomNav => throw _privateConstructorUsedError;
   AppBarProps? get appBar => throw _privateConstructorUsedError;
@@ -218,6 +219,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? component,
       LayoutProps? child,
       LayoutProps? content,
+      LayoutProps? itemLayout,
       List<LayoutProps>? children,
       BottomNavigationProps? bottomNav,
       AppBarProps? appBar,
@@ -231,6 +233,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
   $T_LayoutBuilderPropsCopyWith<$Res>? get layoutBuilder;
   $LayoutPropsCopyWith<$Res>? get child;
   $LayoutPropsCopyWith<$Res>? get content;
+  $LayoutPropsCopyWith<$Res>? get itemLayout;
   $BottomNavigationPropsCopyWith<$Res>? get bottomNav;
   $AppBarPropsCopyWith<$Res>? get appBar;
   $ImageProviderPropsCopyWith<$Res>? get image;
@@ -322,6 +325,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? component = freezed,
     Object? child = freezed,
     Object? content = freezed,
+    Object? itemLayout = freezed,
     Object? children = freezed,
     Object? bottomNav = freezed,
     Object? appBar = freezed,
@@ -608,6 +612,10 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as LayoutProps?,
+      itemLayout: freezed == itemLayout
+          ? _value.itemLayout
+          : itemLayout // ignore: cast_nullable_to_non_nullable
+              as LayoutProps?,
       children: freezed == children
           ? _value.children
           : children // ignore: cast_nullable_to_non_nullable
@@ -688,6 +696,18 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
 
     return $LayoutPropsCopyWith<$Res>(_value.content!, (value) {
       return _then(_value.copyWith(content: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LayoutPropsCopyWith<$Res>? get itemLayout {
+    if (_value.itemLayout == null) {
+      return null;
+    }
+
+    return $LayoutPropsCopyWith<$Res>(_value.itemLayout!, (value) {
+      return _then(_value.copyWith(itemLayout: value) as $Val);
     });
   }
 
@@ -854,6 +874,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       String? component,
       LayoutProps? child,
       LayoutProps? content,
+      LayoutProps? itemLayout,
       List<LayoutProps>? children,
       BottomNavigationProps? bottomNav,
       AppBarProps? appBar,
@@ -871,6 +892,8 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
   $LayoutPropsCopyWith<$Res>? get child;
   @override
   $LayoutPropsCopyWith<$Res>? get content;
+  @override
+  $LayoutPropsCopyWith<$Res>? get itemLayout;
   @override
   $BottomNavigationPropsCopyWith<$Res>? get bottomNav;
   @override
@@ -967,6 +990,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? component = freezed,
     Object? child = freezed,
     Object? content = freezed,
+    Object? itemLayout = freezed,
     Object? children = freezed,
     Object? bottomNav = freezed,
     Object? appBar = freezed,
@@ -1253,6 +1277,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as LayoutProps?,
+      itemLayout: freezed == itemLayout
+          ? _value.itemLayout
+          : itemLayout // ignore: cast_nullable_to_non_nullable
+              as LayoutProps?,
       children: freezed == children
           ? _value._children
           : children // ignore: cast_nullable_to_non_nullable
@@ -1362,6 +1390,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.component,
       this.child,
       this.content,
+      this.itemLayout,
       final List<LayoutProps>? children,
       this.bottomNav,
       this.appBar,
@@ -1634,6 +1663,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   final LayoutProps? child;
   @override
   final LayoutProps? content;
+  @override
+  final LayoutProps? itemLayout;
   final List<LayoutProps>? _children;
   @override
   List<LayoutProps>? get children {
@@ -1661,7 +1692,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, component: $component, child: $child, content: $content, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow, gradient: $gradient)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, component: $component, child: $child, content: $content, itemLayout: $itemLayout, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow, gradient: $gradient)';
   }
 
   @override
@@ -1739,6 +1770,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('component', component))
       ..add(DiagnosticsProperty('child', child))
       ..add(DiagnosticsProperty('content', content))
+      ..add(DiagnosticsProperty('itemLayout', itemLayout))
       ..add(DiagnosticsProperty('children', children))
       ..add(DiagnosticsProperty('bottomNav', bottomNav))
       ..add(DiagnosticsProperty('appBar', appBar))
@@ -1834,6 +1866,7 @@ abstract class _LayoutProps implements LayoutProps {
       final String? component,
       final LayoutProps? child,
       final LayoutProps? content,
+      final LayoutProps? itemLayout,
       final List<LayoutProps>? children,
       final BottomNavigationProps? bottomNav,
       final AppBarProps? appBar,
@@ -2014,6 +2047,8 @@ abstract class _LayoutProps implements LayoutProps {
   LayoutProps? get child;
   @override
   LayoutProps? get content;
+  @override
+  LayoutProps? get itemLayout;
   @override
   List<LayoutProps>? get children;
   @override
