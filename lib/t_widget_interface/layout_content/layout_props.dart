@@ -56,6 +56,7 @@ class LayoutProps with _$LayoutProps {
     String? shape,
     String? splashColor,
     dynamic alignment,
+    double? elevation,
 
     /**
      * 
@@ -130,10 +131,16 @@ class LayoutProps with _$LayoutProps {
     String? total,
     // Table End==================================================
 
+    // Expansion Start================================================
+    dynamic selected,
+    // Expansion End==================================================
+
     String? component,
     LayoutProps? child,
     LayoutProps? content,
     LayoutProps? itemLayout,
+    LayoutProps? head,
+    LayoutProps? body,
     List<LayoutProps>? children,
     BottomNavigationProps? bottomNav,
     AppBarProps? appBar,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
+import 'package:the_tool/tool_components/expansion/t_expansion_list.widget.dart'
+    deferred as t_expansion_list;
 import 'package:the_tool/tool_components/fields/t_fields_widget.dart'
     deferred as t_fields;
 import 'package:the_tool/tool_components/fields/t_form_widget.dart'
@@ -235,6 +237,14 @@ class _TWidgetsState extends State<TWidgets> {
       case "list":
         await t_listview.loadLibrary();
         return t_listview.T_ListView(
+          widgetUuid: widgetUuid,
+          widgetProps: content,
+          pagePath: widget.pagePath,
+          childData: childData,
+        );
+      case "expansion_list":
+        await t_expansion_list.loadLibrary();
+        return t_expansion_list.T_ExpansionList(
           widgetUuid: widgetUuid,
           widgetProps: content,
           pagePath: widget.pagePath,

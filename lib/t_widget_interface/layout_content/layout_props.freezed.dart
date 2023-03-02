@@ -53,6 +53,7 @@ mixin _$LayoutProps {
   String? get shape => throw _privateConstructorUsedError;
   String? get splashColor => throw _privateConstructorUsedError;
   dynamic get alignment => throw _privateConstructorUsedError;
+  double? get elevation => throw _privateConstructorUsedError;
   /**
      * 
      */
@@ -124,10 +125,15 @@ mixin _$LayoutProps {
   String? get loadDataFunction => throw _privateConstructorUsedError;
   String? get total =>
       throw _privateConstructorUsedError; // Table End==================================================
+// Expansion Start================================================
+  dynamic get selected =>
+      throw _privateConstructorUsedError; // Expansion End==================================================
   String? get component => throw _privateConstructorUsedError;
   LayoutProps? get child => throw _privateConstructorUsedError;
   LayoutProps? get content => throw _privateConstructorUsedError;
   LayoutProps? get itemLayout => throw _privateConstructorUsedError;
+  LayoutProps? get head => throw _privateConstructorUsedError;
+  LayoutProps? get body => throw _privateConstructorUsedError;
   List<LayoutProps>? get children => throw _privateConstructorUsedError;
   BottomNavigationProps? get bottomNav => throw _privateConstructorUsedError;
   AppBarProps? get appBar => throw _privateConstructorUsedError;
@@ -183,6 +189,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? shape,
       String? splashColor,
       dynamic alignment,
+      double? elevation,
       String? sliverListType,
       double? itemExtent,
       Map<String, dynamic>? componentProps,
@@ -216,10 +223,13 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? onSort,
       String? loadDataFunction,
       String? total,
+      dynamic selected,
       String? component,
       LayoutProps? child,
       LayoutProps? content,
       LayoutProps? itemLayout,
+      LayoutProps? head,
+      LayoutProps? body,
       List<LayoutProps>? children,
       BottomNavigationProps? bottomNav,
       AppBarProps? appBar,
@@ -234,6 +244,8 @@ abstract class $LayoutPropsCopyWith<$Res> {
   $LayoutPropsCopyWith<$Res>? get child;
   $LayoutPropsCopyWith<$Res>? get content;
   $LayoutPropsCopyWith<$Res>? get itemLayout;
+  $LayoutPropsCopyWith<$Res>? get head;
+  $LayoutPropsCopyWith<$Res>? get body;
   $BottomNavigationPropsCopyWith<$Res>? get bottomNav;
   $AppBarPropsCopyWith<$Res>? get appBar;
   $ImageProviderPropsCopyWith<$Res>? get image;
@@ -289,6 +301,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? shape = freezed,
     Object? splashColor = freezed,
     Object? alignment = freezed,
+    Object? elevation = freezed,
     Object? sliverListType = freezed,
     Object? itemExtent = freezed,
     Object? componentProps = freezed,
@@ -322,10 +335,13 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? onSort = freezed,
     Object? loadDataFunction = freezed,
     Object? total = freezed,
+    Object? selected = freezed,
     Object? component = freezed,
     Object? child = freezed,
     Object? content = freezed,
     Object? itemLayout = freezed,
+    Object? head = freezed,
+    Object? body = freezed,
     Object? children = freezed,
     Object? bottomNav = freezed,
     Object? appBar = freezed,
@@ -468,6 +484,10 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.alignment
           : alignment // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      elevation: freezed == elevation
+          ? _value.elevation
+          : elevation // ignore: cast_nullable_to_non_nullable
+              as double?,
       sliverListType: freezed == sliverListType
           ? _value.sliverListType
           : sliverListType // ignore: cast_nullable_to_non_nullable
@@ -600,6 +620,10 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
               as String?,
+      selected: freezed == selected
+          ? _value.selected
+          : selected // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       component: freezed == component
           ? _value.component
           : component // ignore: cast_nullable_to_non_nullable
@@ -615,6 +639,14 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
       itemLayout: freezed == itemLayout
           ? _value.itemLayout
           : itemLayout // ignore: cast_nullable_to_non_nullable
+              as LayoutProps?,
+      head: freezed == head
+          ? _value.head
+          : head // ignore: cast_nullable_to_non_nullable
+              as LayoutProps?,
+      body: freezed == body
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
               as LayoutProps?,
       children: freezed == children
           ? _value.children
@@ -708,6 +740,30 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
 
     return $LayoutPropsCopyWith<$Res>(_value.itemLayout!, (value) {
       return _then(_value.copyWith(itemLayout: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LayoutPropsCopyWith<$Res>? get head {
+    if (_value.head == null) {
+      return null;
+    }
+
+    return $LayoutPropsCopyWith<$Res>(_value.head!, (value) {
+      return _then(_value.copyWith(head: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LayoutPropsCopyWith<$Res>? get body {
+    if (_value.body == null) {
+      return null;
+    }
+
+    return $LayoutPropsCopyWith<$Res>(_value.body!, (value) {
+      return _then(_value.copyWith(body: value) as $Val);
     });
   }
 
@@ -838,6 +894,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       String? shape,
       String? splashColor,
       dynamic alignment,
+      double? elevation,
       String? sliverListType,
       double? itemExtent,
       Map<String, dynamic>? componentProps,
@@ -871,10 +928,13 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       String? onSort,
       String? loadDataFunction,
       String? total,
+      dynamic selected,
       String? component,
       LayoutProps? child,
       LayoutProps? content,
       LayoutProps? itemLayout,
+      LayoutProps? head,
+      LayoutProps? body,
       List<LayoutProps>? children,
       BottomNavigationProps? bottomNav,
       AppBarProps? appBar,
@@ -894,6 +954,10 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
   $LayoutPropsCopyWith<$Res>? get content;
   @override
   $LayoutPropsCopyWith<$Res>? get itemLayout;
+  @override
+  $LayoutPropsCopyWith<$Res>? get head;
+  @override
+  $LayoutPropsCopyWith<$Res>? get body;
   @override
   $BottomNavigationPropsCopyWith<$Res>? get bottomNav;
   @override
@@ -954,6 +1018,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? shape = freezed,
     Object? splashColor = freezed,
     Object? alignment = freezed,
+    Object? elevation = freezed,
     Object? sliverListType = freezed,
     Object? itemExtent = freezed,
     Object? componentProps = freezed,
@@ -987,10 +1052,13 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? onSort = freezed,
     Object? loadDataFunction = freezed,
     Object? total = freezed,
+    Object? selected = freezed,
     Object? component = freezed,
     Object? child = freezed,
     Object? content = freezed,
     Object? itemLayout = freezed,
+    Object? head = freezed,
+    Object? body = freezed,
     Object? children = freezed,
     Object? bottomNav = freezed,
     Object? appBar = freezed,
@@ -1133,6 +1201,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value.alignment
           : alignment // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      elevation: freezed == elevation
+          ? _value.elevation
+          : elevation // ignore: cast_nullable_to_non_nullable
+              as double?,
       sliverListType: freezed == sliverListType
           ? _value.sliverListType
           : sliverListType // ignore: cast_nullable_to_non_nullable
@@ -1265,6 +1337,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
               as String?,
+      selected: freezed == selected
+          ? _value.selected
+          : selected // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       component: freezed == component
           ? _value.component
           : component // ignore: cast_nullable_to_non_nullable
@@ -1280,6 +1356,14 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
       itemLayout: freezed == itemLayout
           ? _value.itemLayout
           : itemLayout // ignore: cast_nullable_to_non_nullable
+              as LayoutProps?,
+      head: freezed == head
+          ? _value.head
+          : head // ignore: cast_nullable_to_non_nullable
+              as LayoutProps?,
+      body: freezed == body
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
               as LayoutProps?,
       children: freezed == children
           ? _value._children
@@ -1354,6 +1438,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.shape,
       this.splashColor,
       this.alignment,
+      this.elevation,
       this.sliverListType,
       this.itemExtent,
       final Map<String, dynamic>? componentProps,
@@ -1387,10 +1472,13 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.onSort,
       this.loadDataFunction,
       this.total,
+      this.selected,
       this.component,
       this.child,
       this.content,
       this.itemLayout,
+      this.head,
+      this.body,
       final List<LayoutProps>? children,
       this.bottomNav,
       this.appBar,
@@ -1486,6 +1574,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   final String? splashColor;
   @override
   final dynamic alignment;
+  @override
+  final double? elevation;
 /**
      * 
      */
@@ -1657,6 +1747,10 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   @override
   final String? total;
 // Table End==================================================
+// Expansion Start================================================
+  @override
+  final dynamic selected;
+// Expansion End==================================================
   @override
   final String? component;
   @override
@@ -1665,6 +1759,10 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   final LayoutProps? content;
   @override
   final LayoutProps? itemLayout;
+  @override
+  final LayoutProps? head;
+  @override
+  final LayoutProps? body;
   final List<LayoutProps>? _children;
   @override
   List<LayoutProps>? get children {
@@ -1692,7 +1790,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, component: $component, child: $child, content: $content, itemLayout: $itemLayout, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow, gradient: $gradient)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, selected: $selected, component: $component, child: $child, content: $content, itemLayout: $itemLayout, head: $head, body: $body, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow, gradient: $gradient)';
   }
 
   @override
@@ -1733,6 +1831,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('shape', shape))
       ..add(DiagnosticsProperty('splashColor', splashColor))
       ..add(DiagnosticsProperty('alignment', alignment))
+      ..add(DiagnosticsProperty('elevation', elevation))
       ..add(DiagnosticsProperty('sliverListType', sliverListType))
       ..add(DiagnosticsProperty('itemExtent', itemExtent))
       ..add(DiagnosticsProperty('componentProps', componentProps))
@@ -1767,10 +1866,13 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('onSort', onSort))
       ..add(DiagnosticsProperty('loadDataFunction', loadDataFunction))
       ..add(DiagnosticsProperty('total', total))
+      ..add(DiagnosticsProperty('selected', selected))
       ..add(DiagnosticsProperty('component', component))
       ..add(DiagnosticsProperty('child', child))
       ..add(DiagnosticsProperty('content', content))
       ..add(DiagnosticsProperty('itemLayout', itemLayout))
+      ..add(DiagnosticsProperty('head', head))
+      ..add(DiagnosticsProperty('body', body))
       ..add(DiagnosticsProperty('children', children))
       ..add(DiagnosticsProperty('bottomNav', bottomNav))
       ..add(DiagnosticsProperty('appBar', appBar))
@@ -1830,6 +1932,7 @@ abstract class _LayoutProps implements LayoutProps {
       final String? shape,
       final String? splashColor,
       final dynamic alignment,
+      final double? elevation,
       final String? sliverListType,
       final double? itemExtent,
       final Map<String, dynamic>? componentProps,
@@ -1863,10 +1966,13 @@ abstract class _LayoutProps implements LayoutProps {
       final String? onSort,
       final String? loadDataFunction,
       final String? total,
+      final dynamic selected,
       final String? component,
       final LayoutProps? child,
       final LayoutProps? content,
       final LayoutProps? itemLayout,
+      final LayoutProps? head,
+      final LayoutProps? body,
       final List<LayoutProps>? children,
       final BottomNavigationProps? bottomNav,
       final AppBarProps? appBar,
@@ -1945,6 +2051,8 @@ abstract class _LayoutProps implements LayoutProps {
   String? get splashColor;
   @override
   dynamic get alignment;
+  @override
+  double? get elevation;
   @override
   /**
      * 
@@ -2042,6 +2150,9 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   String? get total;
   @override // Table End==================================================
+// Expansion Start================================================
+  dynamic get selected;
+  @override // Expansion End==================================================
   String? get component;
   @override
   LayoutProps? get child;
@@ -2049,6 +2160,10 @@ abstract class _LayoutProps implements LayoutProps {
   LayoutProps? get content;
   @override
   LayoutProps? get itemLayout;
+  @override
+  LayoutProps? get head;
+  @override
+  LayoutProps? get body;
   @override
   List<LayoutProps>? get children;
   @override

@@ -41,6 +41,7 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       shape: json['shape'] as String?,
       splashColor: json['splashColor'] as String?,
       alignment: json['alignment'],
+      elevation: (json['elevation'] as num?)?.toDouble(),
       sliverListType: json['sliverListType'] as String?,
       itemExtent: (json['itemExtent'] as num?)?.toDouble(),
       componentProps: json['componentProps'] as Map<String, dynamic>?,
@@ -92,6 +93,7 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       onSort: json['onSort'] as String?,
       loadDataFunction: json['loadDataFunction'] as String?,
       total: json['total'] as String?,
+      selected: json['selected'],
       component: json['component'] as String?,
       child: json['child'] == null
           ? null
@@ -102,6 +104,12 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       itemLayout: json['itemLayout'] == null
           ? null
           : LayoutProps.fromJson(json['itemLayout'] as Map<String, dynamic>),
+      head: json['head'] == null
+          ? null
+          : LayoutProps.fromJson(json['head'] as Map<String, dynamic>),
+      body: json['body'] == null
+          ? null
+          : LayoutProps.fromJson(json['body'] as Map<String, dynamic>),
       children: (json['children'] as List<dynamic>?)
           ?.map((e) => LayoutProps.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -165,6 +173,7 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'shape': instance.shape,
       'splashColor': instance.splashColor,
       'alignment': instance.alignment,
+      'elevation': instance.elevation,
       'sliverListType': instance.sliverListType,
       'itemExtent': instance.itemExtent,
       'componentProps': instance.componentProps,
@@ -198,10 +207,13 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'onSort': instance.onSort,
       'loadDataFunction': instance.loadDataFunction,
       'total': instance.total,
+      'selected': instance.selected,
       'component': instance.component,
       'child': instance.child,
       'content': instance.content,
       'itemLayout': instance.itemLayout,
+      'head': instance.head,
+      'body': instance.body,
       'children': instance.children,
       'bottomNav': instance.bottomNav,
       'appBar': instance.appBar,

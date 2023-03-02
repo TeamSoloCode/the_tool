@@ -236,12 +236,22 @@ class UtilsManager {
       );
     }
 
-    var imageUrl = widgetProps.image?.url;
-    if (UtilsManager.isValueBinding(imageUrl)) {
+    if (UtilsManager.isValueBinding(widgetProps.selected)) {
+      var selected = UtilsManager.isTruthy(
+        bindingValueToProp(
+          contextData,
+          widgetProps.selected,
+        ),
+      );
+
+      widgetProps = widgetProps.copyWith(selected: selected);
+    }
+
+    if (UtilsManager.isValueBinding(widgetProps.image?.url)) {
       var newImage = widgetProps.image?.copyWith(
         url: bindingValueToProp(
           contextData,
-          imageUrl,
+          widgetProps.image?.url,
         ),
       );
 
