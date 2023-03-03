@@ -164,40 +164,7 @@ class UtilsManager {
         themeProvider.mergeClasses(layoutProps, contextData) ??
             const LayoutProps();
 
-    if (widgetProps.color != null) {
-      widgetProps = widgetProps.copyWith(
-        color: parseColor(
-          widgetProps.color,
-          contextData,
-        ),
-      );
-    }
-
-    if (widgetProps.splashColor != null) {
-      widgetProps = widgetProps.copyWith(
-        splashColor: parseColor(
-          widgetProps.splashColor,
-          contextData,
-        ),
-      );
-    }
-
-    if (widgetProps.backgroundColor != null) {
-      var backgroundColor = widgetProps.backgroundColor;
-      var isBindingValue = UtilsManager.isValueBinding(backgroundColor);
-      widgetProps = widgetProps.copyWith(
-        backgroundColor: parseColor(
-          isBindingValue
-              ? bindingValueToProp(
-                  contextData,
-                  backgroundColor,
-                )
-              : backgroundColor,
-          contextData,
-        ),
-      );
-    }
-
+    widgetProps = parseAndBindingColor(widgetProps, contextData);
     widgetProps = themeProvider.mergeBaseColor(widgetProps);
 
     if (widgetProps.icon != null &&
@@ -284,6 +251,43 @@ class UtilsManager {
     }
 
     return widgetProps;
+  }
+
+  LayoutProps parseAndBindingColor(
+    LayoutProps layoutProps,
+    Map<String, dynamic> contextData,
+  ) {
+    Map<String, String?> unparsedColors = {
+      "color": layoutProps.color,
+      "backgroundColor": layoutProps.backgroundColor,
+      "dividerColor": layoutProps.dividerColor,
+      "splashColor": layoutProps.splashColor,
+    };
+    Map<String, String?> parsedColors = {};
+
+    unparsedColors.forEach((key, color) {
+      if (color != null) {
+        var isBindingValue = UtilsManager.isValueBinding(color);
+        parsedColors[key] = parseColor(
+          isBindingValue
+              ? bindingValueToProp(
+                  contextData,
+                  color,
+                )
+              : color,
+          contextData,
+        );
+      }
+    });
+
+    layoutProps = layoutProps.copyWith(
+      color: parsedColors["color"],
+      backgroundColor: parsedColors["backgroundColor"],
+      dividerColor: parsedColors["dividerColor"],
+      splashColor: parsedColors["splashColor"],
+    );
+
+    return layoutProps;
   }
 
   bool isPropsHasAdaptiveScreenUnit(LayoutProps widgetProps) {

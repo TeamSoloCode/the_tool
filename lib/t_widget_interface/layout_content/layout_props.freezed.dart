@@ -126,7 +126,8 @@ mixin _$LayoutProps {
   String? get total =>
       throw _privateConstructorUsedError; // Table End==================================================
 // Expansion Start================================================
-  dynamic get selected =>
+  dynamic get selected => throw _privateConstructorUsedError;
+  String? get dividerColor =>
       throw _privateConstructorUsedError; // Expansion End==================================================
   String? get component => throw _privateConstructorUsedError;
   LayoutProps? get child => throw _privateConstructorUsedError;
@@ -224,6 +225,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? loadDataFunction,
       String? total,
       dynamic selected,
+      String? dividerColor,
       String? component,
       LayoutProps? child,
       LayoutProps? content,
@@ -336,6 +338,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? loadDataFunction = freezed,
     Object? total = freezed,
     Object? selected = freezed,
+    Object? dividerColor = freezed,
     Object? component = freezed,
     Object? child = freezed,
     Object? content = freezed,
@@ -624,6 +627,10 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.selected
           : selected // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      dividerColor: freezed == dividerColor
+          ? _value.dividerColor
+          : dividerColor // ignore: cast_nullable_to_non_nullable
+              as String?,
       component: freezed == component
           ? _value.component
           : component // ignore: cast_nullable_to_non_nullable
@@ -929,6 +936,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       String? loadDataFunction,
       String? total,
       dynamic selected,
+      String? dividerColor,
       String? component,
       LayoutProps? child,
       LayoutProps? content,
@@ -1053,6 +1061,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? loadDataFunction = freezed,
     Object? total = freezed,
     Object? selected = freezed,
+    Object? dividerColor = freezed,
     Object? component = freezed,
     Object? child = freezed,
     Object? content = freezed,
@@ -1341,6 +1350,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value.selected
           : selected // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      dividerColor: freezed == dividerColor
+          ? _value.dividerColor
+          : dividerColor // ignore: cast_nullable_to_non_nullable
+              as String?,
       component: freezed == component
           ? _value.component
           : component // ignore: cast_nullable_to_non_nullable
@@ -1473,6 +1486,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.loadDataFunction,
       this.total,
       this.selected,
+      this.dividerColor,
       this.component,
       this.child,
       this.content,
@@ -1750,6 +1764,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 // Expansion Start================================================
   @override
   final dynamic selected;
+  @override
+  final String? dividerColor;
 // Expansion End==================================================
   @override
   final String? component;
@@ -1790,7 +1806,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, selected: $selected, component: $component, child: $child, content: $content, itemLayout: $itemLayout, head: $head, body: $body, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow, gradient: $gradient)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, selected: $selected, dividerColor: $dividerColor, component: $component, child: $child, content: $content, itemLayout: $itemLayout, head: $head, body: $body, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow, gradient: $gradient)';
   }
 
   @override
@@ -1867,6 +1883,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('loadDataFunction', loadDataFunction))
       ..add(DiagnosticsProperty('total', total))
       ..add(DiagnosticsProperty('selected', selected))
+      ..add(DiagnosticsProperty('dividerColor', dividerColor))
       ..add(DiagnosticsProperty('component', component))
       ..add(DiagnosticsProperty('child', child))
       ..add(DiagnosticsProperty('content', content))
@@ -1967,6 +1984,7 @@ abstract class _LayoutProps implements LayoutProps {
       final String? loadDataFunction,
       final String? total,
       final dynamic selected,
+      final String? dividerColor,
       final String? component,
       final LayoutProps? child,
       final LayoutProps? content,
@@ -2152,6 +2170,8 @@ abstract class _LayoutProps implements LayoutProps {
   @override // Table End==================================================
 // Expansion Start================================================
   dynamic get selected;
+  @override
+  String? get dividerColor;
   @override // Expansion End==================================================
   String? get component;
   @override

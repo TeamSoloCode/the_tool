@@ -45,7 +45,7 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField>
   void didChangeDependencies() {
     String? name = widget.widgetProps.name;
     dynamic currentValue = _dropDownKey.currentState?.value;
-    selectedValue = widget.getData()[name];
+    selectedValue = widget.getContexData()[name];
     if (selectedValue != currentValue && name != null) {
       Future.delayed(Duration.zero, () async {
         _dropDownKey.currentState?.setValue(selectedValue);
@@ -139,7 +139,7 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField>
     LayoutProps? _props = widget.props;
 
     if (_props != null) {
-      _snapshot = _computeSelectField(_props, widget.getData());
+      _snapshot = _computeSelectField(_props, widget.getContexData());
     }
     return _snapshot;
   }

@@ -31,7 +31,7 @@ class _T_ListViewState extends TStatefulWidget<T_ListView> {
       );
     }
 
-    var listData = widget.contextData[props.name];
+    var listData = widget.getContexData()[props.name];
 
     if (listData is! List) {
       throw Exception(

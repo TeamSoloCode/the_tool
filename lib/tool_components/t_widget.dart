@@ -29,7 +29,7 @@ mixin BaseStateWidget on Widget {
   LayoutProps? appliedMediaScreen;
   LayoutProps? prevSelectedMediaScreen;
   Widget snapshot = const Offstage();
-  Map<String, dynamic> contextData = {};
+  Map<String, dynamic> _contextData = {};
   final Set<String> widgetBindingStrings = {};
   List<dynamic> prevBindingValues = [];
   var hasBindingValue = false;
@@ -59,10 +59,10 @@ mixin BaseStateWidget on Widget {
         );
 
         if (!dependenciesChanged) {
-          return contextData;
+          return _contextData;
         }
 
-        contextData = newPageData;
+        _contextData = newPageData;
         return newPageData;
       });
     }
@@ -73,7 +73,7 @@ mixin BaseStateWidget on Widget {
     if (widgetProps.mediaScreenOnly != null) {
       var selectedMediaScreen = computePropsFromMediaScreen(
         context,
-        contextData,
+        _contextData,
         widgetProps.mediaScreenOnly!,
       );
 
@@ -102,7 +102,7 @@ mixin BaseStateWidget on Widget {
 
     props = utils.computeWidgetProps(
       appliedMediaScreen ?? widgetProps,
-      childData.isEmpty ? contextData : childData,
+      childData.isEmpty ? _contextData : childData,
     );
 
     prevProps = props;
@@ -202,8 +202,8 @@ mixin BaseStateWidget on Widget {
     );
   }
 
-  Map<String, dynamic> getData() {
-    return childData.isEmpty ? contextData : childData;
+  Map<String, dynamic> getContexData() {
+    return childData.isEmpty ? _contextData : childData;
   }
 }
 
@@ -224,7 +224,7 @@ abstract class TWidget extends StatefulWidget with BaseStateWidget {
     this.drawerProps = drawerProps;
     this.layoutBuilder = layoutBuilder;
 
-    contextData = getIt<ContextStateProvider>().contextData[pagePath] ??
+    _contextData = getIt<ContextStateProvider>().contextData[pagePath] ??
         UtilsManager.emptyMapStringDynamic;
 
     if (prevProps == null) {
@@ -270,7 +270,7 @@ abstract class TStatelessWidget extends StatelessWidget with BaseStateWidget {
     this.pagePath = pagePath;
     this.widgetUuid = widgetUuid;
 
-    contextData = getIt<ContextStateProvider>().contextData[pagePath] ??
+    _contextData = getIt<ContextStateProvider>().contextData[pagePath] ??
         UtilsManager.emptyMapStringDynamic;
     if (prevProps == null) {
       hasBindingValue = utils.hasBindingValue(

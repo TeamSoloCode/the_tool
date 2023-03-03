@@ -46,12 +46,12 @@ class _T_DatetimeState extends TStatefulWidget<T_Datetime> with FieldMixin {
     String? name = widget.widgetProps.name;
     dynamic currentValue = _datetimeKey.currentState?.value;
     try {
-      selectedValue = widget.getData()[name] != null
-          ? DateTime.parse(widget.getData()[name].toString())
+      selectedValue = widget.getContexData()[name] != null
+          ? DateTime.parse(widget.getContexData()[name].toString())
           : null;
     } catch (e) {
       throw Exception(
-        "Fail to parse ${widget.getData()[name].toString()}. Please use \"yyyy-MM-dd hh:mm:ss\" format",
+        "Fail to parse ${widget.getContexData()[name].toString()}. Please use \"yyyy-MM-dd hh:mm:ss\" format",
       );
     }
 
@@ -150,7 +150,7 @@ class _T_DatetimeState extends TStatefulWidget<T_Datetime> with FieldMixin {
     LayoutProps? _props = widget.props;
 
     if (_props != null) {
-      _snapshot = _computeDatetimeField(_props, widget.getData());
+      _snapshot = _computeDatetimeField(_props, widget.getContexData());
     }
     return _snapshot;
   }

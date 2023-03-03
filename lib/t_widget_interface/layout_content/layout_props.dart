@@ -133,6 +133,7 @@ class LayoutProps with _$LayoutProps {
 
     // Expansion Start================================================
     dynamic selected,
+    String? dividerColor,
     // Expansion End==================================================
 
     String? component,

@@ -52,7 +52,7 @@ class _T_LayoutBuilderState extends TStatefulWidget<T_LayoutBuilder> {
         );
 
         layoutProps = widget.utils.themeProvider
-            .mergeClasses(layoutProps, widget.contextData);
+            .mergeClasses(layoutProps, widget.getContexData());
 
         item = T_LayoutBuilderItemProps.fromJson(
           json.decode(jsonEncode(layoutProps)),
@@ -60,22 +60,22 @@ class _T_LayoutBuilderState extends TStatefulWidget<T_LayoutBuilder> {
 
         var maxHeight = widget.utils.computeSizeValue(
           item.maxHeight,
-          widget.contextData,
+          widget.getContexData(),
         );
 
         var minHeight = widget.utils.computeSizeValue(
           item.minHeight,
-          widget.contextData,
+          widget.getContexData(),
         );
 
         var maxWidth = widget.utils.computeSizeValue(
           item.maxWidth,
-          widget.contextData,
+          widget.getContexData(),
         );
 
         var minWidth = widget.utils.computeSizeValue(
           item.minWidth,
-          widget.contextData,
+          widget.getContexData(),
         );
 
         return boxConstraints.maxWidth > maxWidth;

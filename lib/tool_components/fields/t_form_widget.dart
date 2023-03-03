@@ -102,9 +102,10 @@ class _T_FormState extends TStatefulWidget<T_Form> {
     var fields = _formKey.currentState?.fields;
     fields?.forEach((key, field) {
       if (field.runtimeType.toString() == "_FormBuilderDateTimePickerState") {
-        field.setValue(DateTime.tryParse(widget.getData()[key].toString()));
+        field.setValue(
+            DateTime.tryParse(widget.getContexData()[key].toString()));
       } else {
-        field.setValue(widget.getData()[key]);
+        field.setValue(widget.getContexData()[key]);
       }
     });
 

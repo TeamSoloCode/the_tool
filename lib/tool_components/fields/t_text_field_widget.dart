@@ -43,7 +43,7 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> with FieldMixin {
   void initState() {
     String? name = widget.widgetProps.name;
     assert(name != null, "Missing \"name\" in field widget");
-    var text = widget.getData()[name] ?? "";
+    var text = widget.getContexData()[name] ?? "";
     textFieldController.text = text;
     currentValue = text;
     _showObscureText = widget.widgetProps.obscureText ?? false;
@@ -61,7 +61,7 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> with FieldMixin {
   void didChangeDependencies() {
     String? name = widget.widgetProps.name;
     String currentText = textFieldController.text;
-    currentValue = widget.getData()[name];
+    currentValue = widget.getContexData()[name];
 
     if (currentValue != currentText && name != null) {
       if (_isUserTying) {
@@ -180,7 +180,7 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> with FieldMixin {
     LayoutProps? _props = widget.props;
 
     if (_props != null) {
-      _snapshot = _computeTextField(_props, widget.getData());
+      _snapshot = _computeTextField(_props, widget.getContexData());
     }
 
     return _snapshot;

@@ -45,7 +45,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     if (widget.widgetProps.name == null) {
       throw Exception("Table must have name property to binding data");
     }
-    _rowDataSource = _computeRows(widget.widgetProps, widget.contextData);
+    _rowDataSource = _computeRows(widget.widgetProps, widget.getContexData());
     super.initState();
   }
 
@@ -68,11 +68,11 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
   }
 
   void _updateTableSource() {
-    var items = widget.contextData[widget.widgetProps.name];
+    var items = widget.getContexData()[widget.widgetProps.name];
 
     if (items != null && items?.isNotEmpty) {
       var dataCount =
-          widget.contextData[widget.widgetProps.total] ?? items.length;
+          widget.getContexData()[widget.widgetProps.total] ?? items.length;
       var tableTable = SourceRowDataResponse(dataCount, items);
 
       if (_debounce?.isActive ?? false) _debounce?.cancel();
@@ -300,7 +300,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
 
   void _handleSelectRow(int rowIndex, bool isSelected) {
     var name = widget.widgetProps.name;
-    var items = widget.contextData[name];
+    var items = widget.getContexData()[name];
     if (items == null) return;
 
     if (items is List) {
@@ -316,7 +316,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
 
   void _handleSelectAll(bool? value) {
     var name = widget.widgetProps.name;
-    var items = widget.contextData[name];
+    var items = widget.getContexData()[name];
     if (items == null) return;
 
     if (items is List) {
@@ -345,7 +345,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     _updateTableSource();
 
     if (_props != null) {
-      _snapshot = _computeTable(_props, widget.contextData);
+      _snapshot = _computeTable(_props, widget.getContexData());
     }
 
     return _snapshot;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
@@ -28,8 +29,11 @@ class _T_ExpansionListState extends TStatefulWidget<T_ExpansionList> {
 
   @override
   void initState() {
-    _expansionIndex =
-        List.filled(widget.widgetProps.children?.length ?? 0, false);
+    _expansionIndex = List.filled(
+      widget.widgetProps.children?.length ?? 0,
+      false,
+    );
+
     super.initState();
   }
 
@@ -46,6 +50,9 @@ class _T_ExpansionListState extends TStatefulWidget<T_ExpansionList> {
             : _expansionIndex[index];
 
         var result = ExpansionPanel(
+          backgroundColor: ThemeDecoder.decodeColor(
+            child.head?.backgroundColor,
+          ),
           isExpanded: _expansionIndex[index],
           canTapOnHeader: true,
           headerBuilder: (context, isExpanded) {
@@ -77,13 +84,14 @@ class _T_ExpansionListState extends TStatefulWidget<T_ExpansionList> {
 
     var childData = UtilsManager.emptyMapStringDynamic;
     if (props.name != null) {
-      childData =
-          widget.getData()[props.name] ?? UtilsManager.emptyMapStringDynamic;
+      childData = widget.getContexData()[props.name] ??
+          UtilsManager.emptyMapStringDynamic;
     }
     var elevation = props.elevation;
 
     return SingleChildScrollView(
       child: ExpansionPanelList(
+        dividerColor: ThemeDecoder.decodeColor(props.dividerColor),
         elevation: elevation != null ? elevation : 2.0,
         expansionCallback: (panelIndex, isExpanded) {
           setState(() {

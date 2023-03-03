@@ -34,7 +34,7 @@ class _T_DrawerState extends TStatefulWidget<T_Drawer> {
 
     var drawerWidth = widget.utils.computeSizeValue(
       _drawerProps?.width,
-      widget.contextData,
+      widget.getContexData(),
     );
 
     if (_props != null) {
