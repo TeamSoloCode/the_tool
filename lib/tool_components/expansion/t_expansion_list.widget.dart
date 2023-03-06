@@ -30,19 +30,16 @@ class T_ExpansionList extends TWidget {
 
 class _T_ExpansionListState extends TStatefulWidget<T_ExpansionList> {
   late List<bool> _expansionIndex;
+  late List<bool> _defaultExpansionIndex;
 
   @override
   void initState() {
-    var name = widget.widgetProps.name;
-
-    _expansionIndex = List.filled(
+    _defaultExpansionIndex = List.filled(
       widget.widgetProps.children?.length ?? 0,
       false,
     );
+    _expansionIndex = _defaultExpansionIndex;
 
-    if (name != null) {
-      widget.setPageData({name: _expansionIndex});
-    }
     super.initState();
   }
 
@@ -61,9 +58,13 @@ class _T_ExpansionListState extends TStatefulWidget<T_ExpansionList> {
     if (name != null) {
       var data = widget.getContexData()[name];
       if (data != null &&
-          !const DeepCollectionEquality().equals(data, _expansionIndex)) {
+          !const DeepCollectionEquality().equals(
+            data,
+            _expansionIndex,
+          )) {
         setState(() {
-          _expansionIndex = data;
+          _expansionIndex =
+              data is! List ? _defaultExpansionIndex : List<bool>.from(data);
         });
       }
     }

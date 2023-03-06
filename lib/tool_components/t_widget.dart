@@ -181,7 +181,6 @@ mixin BaseStateWidget on Widget {
   }
 
   Future<dynamic> executeJSWithPagePath(String jsCode) async {
-    print("abcd T_Drawer JS ${pagePath}");
     return await utils.evalJS?.executeJS(jsCode, pagePath);
   }
 
