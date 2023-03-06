@@ -120,7 +120,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
             bottomNavigationBar: _getBottomNavigation(pageData),
             drawer: _pageLayout?.drawer != null
                 ? t_drawer.T_Drawer(
-                    pagePath: widget.pagePath,
+                    pagePath: _pageId,
                     childProps: _pageLayout?.drawer?.child,
                     drawerProps: _pageLayout?.drawer,
                     widgetUuid: _pageId,

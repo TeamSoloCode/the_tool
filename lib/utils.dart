@@ -414,6 +414,10 @@ class UtilsManager {
     void Function(String bindingString) updateWidgetBindingStrings,
   ) {
     var result = false;
+    /**
+     * type "component" don't need to check for binding value
+     * Anh it shouldn't be use with binding value
+     */
     if (uncomputedProps.type == "component") return false;
     uncomputedProps.toJson().forEach((propName, value) {
       if (value != null) {

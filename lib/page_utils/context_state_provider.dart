@@ -11,7 +11,6 @@ class ContextStateProvider with ChangeNotifier, DiagnosticableTreeMixin {
   Map<String, bool> _cacheCheckTWidgetDepsChanged = {};
   ClientConfig? _appConfig;
   Map<String, dynamic> initData;
-  int dataChangedToken = 0;
 
   ContextStateProvider({this.initData = const {}}) : super() {
     _contextData.addAll(initData);
@@ -22,7 +21,6 @@ class ContextStateProvider with ChangeNotifier, DiagnosticableTreeMixin {
   Future<void> updateContextData(Map<String, dynamic> contextData) async {
     _contextData.addAll(contextData);
     _cacheCheckTWidgetDepsChanged = {};
-    dataChangedToken = DateTime.now().millisecondsSinceEpoch;
     // getIt<PageContextProvider>().updateTWidgetProps(_contextData);
     notifyListeners();
   }

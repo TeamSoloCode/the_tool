@@ -35,11 +35,11 @@ mixin BaseStateWidget on Widget {
   var hasBindingValue = false;
   int? _themeRefreshToken;
   int? _prevThemeRefreshToken;
-  int? _dataChangedToken;
 
   bool mediaScreenApplied = false;
 
-  int? watchContextState(BuildContext context, {String? providedPagePath}) {
+  Map<String, dynamic> watchContextState(BuildContext context,
+      {String? providedPagePath}) {
     var path = providedPagePath ?? pagePath;
 
     _themeRefreshToken = context.select(
@@ -49,7 +49,7 @@ mixin BaseStateWidget on Widget {
     );
 
     if (hasBindingValue) {
-      _dataChangedToken = context.select((ContextStateProvider value) {
+      context.select((ContextStateProvider value) {
         var newPageData =
             value.contextData[path] ?? UtilsManager.emptyMapStringDynamic;
         var dependenciesChanged = false;
@@ -60,11 +60,11 @@ mixin BaseStateWidget on Widget {
         );
 
         if (!dependenciesChanged) {
-          return _dataChangedToken;
+          return _contextData;
         }
 
         _contextData = newPageData;
-        return value.dataChangedToken;
+        return newPageData;
       });
     }
     /**
@@ -95,7 +95,7 @@ mixin BaseStateWidget on Widget {
         !propsHasUnit &&
         !mediaScreenApplied &&
         _prevThemeRefreshToken == _themeRefreshToken) {
-      return _dataChangedToken;
+      return _contextData;
     }
 
     mediaScreenApplied = false;
@@ -107,7 +107,7 @@ mixin BaseStateWidget on Widget {
     prevProps = props;
     _prevThemeRefreshToken = _themeRefreshToken;
 
-    return _dataChangedToken;
+    return _contextData;
   }
 
   LayoutProps? computePropsFromMediaScreen(
@@ -181,6 +181,7 @@ mixin BaseStateWidget on Widget {
   }
 
   Future<dynamic> executeJSWithPagePath(String jsCode) async {
+    print("abcd T_Drawer JS ${pagePath}");
     return await utils.evalJS?.executeJS(jsCode, pagePath);
   }
 
