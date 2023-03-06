@@ -414,6 +414,7 @@ class UtilsManager {
     void Function(String bindingString) updateWidgetBindingStrings,
   ) {
     var result = false;
+    if (uncomputedProps.type == "component") return false;
     uncomputedProps.toJson().forEach((propName, value) {
       if (value != null) {
         if (![
@@ -424,9 +425,7 @@ class UtilsManager {
           String valueAsString = (value is Map || value is List)
               ? jsonEncode(value)
               : value.toString();
-          if (propName == "name") {
-            result = true;
-          } else if (isValueBinding(valueAsString)) {
+          if (propName == "name" || isValueBinding(valueAsString)) {
             result = true;
           }
 

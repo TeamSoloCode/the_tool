@@ -35,12 +35,12 @@ mixin BaseStateWidget on Widget {
   var hasBindingValue = false;
   int? _themeRefreshToken;
   int? _prevThemeRefreshToken;
+  int? _dataChangedToken;
 
   bool mediaScreenApplied = false;
 
-  void watchContextState(BuildContext context, {String? providedPagePath}) {
+  int? watchContextState(BuildContext context, {String? providedPagePath}) {
     var path = providedPagePath ?? pagePath;
-    var dependenciesChanged = false;
 
     _themeRefreshToken = context.select(
       (ThemeProvider theme) {
@@ -49,9 +49,10 @@ mixin BaseStateWidget on Widget {
     );
 
     if (hasBindingValue) {
-      context.select((ContextStateProvider value) {
+      _dataChangedToken = context.select((ContextStateProvider value) {
         var newPageData =
             value.contextData[path] ?? UtilsManager.emptyMapStringDynamic;
+        var dependenciesChanged = false;
 
         dependenciesChanged = isTWidgetDependenciesChanged(
           newPageData,
@@ -59,14 +60,13 @@ mixin BaseStateWidget on Widget {
         );
 
         if (!dependenciesChanged) {
-          return _contextData;
+          return _dataChangedToken;
         }
 
         _contextData = newPageData;
-        return newPageData;
+        return value.dataChangedToken;
       });
     }
-
     /**
      * Apply mediaScreenOnly into widget props
      */
@@ -95,11 +95,10 @@ mixin BaseStateWidget on Widget {
         !propsHasUnit &&
         !mediaScreenApplied &&
         _prevThemeRefreshToken == _themeRefreshToken) {
-      return;
+      return _dataChangedToken;
     }
 
     mediaScreenApplied = false;
-
     props = utils.computeWidgetProps(
       appliedMediaScreen ?? widgetProps,
       childData.isEmpty ? _contextData : childData,
@@ -108,7 +107,7 @@ mixin BaseStateWidget on Widget {
     prevProps = props;
     _prevThemeRefreshToken = _themeRefreshToken;
 
-    return;
+    return _dataChangedToken;
   }
 
   LayoutProps? computePropsFromMediaScreen(
@@ -210,7 +209,7 @@ mixin BaseStateWidget on Widget {
 abstract class TWidget extends StatefulWidget with BaseStateWidget {
   TWidget({
     Key? key,
-    required widgetProps,
+    required LayoutProps widgetProps,
     childData,
     required pagePath,
     required widgetUuid,
@@ -236,11 +235,18 @@ abstract class TWidget extends StatefulWidget with BaseStateWidget {
   }
 }
 
-abstract class TStatefulWidget<Page extends TWidget> extends State<Page> {
+abstract class TStatefulWidget<Page extends TWidget> extends State<Page>
+    with AutomaticKeepAliveClientMixin {
   Widget buildWidget(BuildContext context);
   bool isWatchContextState = true;
+
+  @override
+  bool get wantKeepAlive => false;
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     if (isWatchContextState) {
       widget.watchContextState(context);
     }

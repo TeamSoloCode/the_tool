@@ -48,7 +48,7 @@ abstract class BaseEvalJS {
             if(prevProps && !_.isEqual(prevProps, props)) {
               setPageData({props: {...props}})
             }
-          }, [props])
+          }, [props, prevProps])
 
     ${_commonBaseComponentCode(
       pagePath: componentPath,
@@ -62,8 +62,15 @@ abstract class BaseEvalJS {
         const computedComponentProps = JSON.parse('$computedComponentPropsAsJSON' || "{}")
         
         /** Add subcomponent into parent component by its register function */
-        _.get(context, `$parentPagePath.registerSubComponent`)
-                  ?.("$componentPath", SubComponent, rawComponentProps, computedComponentProps)
+        _.get(
+            context, 
+            `$parentPagePath.registerSubComponent`
+          )?.(
+              "$componentPath", 
+              SubComponent, 
+              rawComponentProps, 
+              computedComponentProps
+            )
          
       }
       catch(e) {
@@ -179,7 +186,12 @@ abstract class BaseEvalJS {
           rawComponentProps,
           computedComponentProps,
         ) => {
-          _subComponents.push({subComponentName, newComponent, rawComponentProps, computedComponentProps})
+          _subComponents.push({
+            subComponentName, 
+            newComponent, 
+            rawComponentProps, 
+            computedComponentProps
+          })
           _setUpdateSubComponentToken(Date.now())
         }
 

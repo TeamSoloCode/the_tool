@@ -28,8 +28,7 @@ class T_Component extends TWidget {
   State<T_Component> createState() => _T_ComponentState();
 }
 
-class _T_ComponentState extends State<T_Component>
-    with AutomaticKeepAliveClientMixin {
+class _T_ComponentState extends TStatefulWidget<T_Component> {
   LayoutProps? _pageLayout;
   String _componentId = "";
   Map<String, dynamic> _pageInfo = {};
@@ -106,14 +105,13 @@ class _T_ComponentState extends State<T_Component>
     });
   }
 
-  @override
-  bool get wantKeepAlive => true;
-
   bool didBuild = false;
 
   @override
-  Widget build(BuildContext context) {
-    super.build(context);
+  bool get wantKeepAlive => true;
+
+  @override
+  Widget buildWidget(BuildContext context) {
     var path = _props?.path;
 
     if (path == null || !_isReady) {
