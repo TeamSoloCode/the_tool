@@ -17,7 +17,7 @@ import 'package:provider/provider.dart';
 import 'package:gato/gato.dart' as gato;
 import 'package:uuid/uuid.dart';
 import 'package:collection/collection.dart' show DeepCollectionEquality;
-import 'package:the_tool/common_interfaces.dart';
+import 'package:the_tool/twidget_props.dart';
 
 class T_Page extends StatefulWidget {
   String pagePath;

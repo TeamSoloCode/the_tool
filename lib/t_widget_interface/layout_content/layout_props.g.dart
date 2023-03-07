@@ -95,6 +95,24 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       total: json['total'] as String?,
       selected: json['selected'],
       dividerColor: json['dividerColor'] as String?,
+      head: json['head'] == null
+          ? null
+          : LayoutProps.fromJson(json['head'] as Map<String, dynamic>),
+      body: json['body'] == null
+          ? null
+          : LayoutProps.fromJson(json['body'] as Map<String, dynamic>),
+      leading: json['leading'] == null
+          ? null
+          : LayoutProps.fromJson(json['leading'] as Map<String, dynamic>),
+      title: json['title'] == null
+          ? null
+          : LayoutProps.fromJson(json['title'] as Map<String, dynamic>),
+      trailing: json['trailing'] == null
+          ? null
+          : LayoutProps.fromJson(json['trailing'] as Map<String, dynamic>),
+      subtitle: json['subtitle'] == null
+          ? null
+          : LayoutProps.fromJson(json['subtitle'] as Map<String, dynamic>),
       component: json['component'] as String?,
       child: json['child'] == null
           ? null
@@ -105,12 +123,6 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       itemLayout: json['itemLayout'] == null
           ? null
           : LayoutProps.fromJson(json['itemLayout'] as Map<String, dynamic>),
-      head: json['head'] == null
-          ? null
-          : LayoutProps.fromJson(json['head'] as Map<String, dynamic>),
-      body: json['body'] == null
-          ? null
-          : LayoutProps.fromJson(json['body'] as Map<String, dynamic>),
       children: (json['children'] as List<dynamic>?)
           ?.map((e) => LayoutProps.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -210,12 +222,16 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'total': instance.total,
       'selected': instance.selected,
       'dividerColor': instance.dividerColor,
+      'head': instance.head,
+      'body': instance.body,
+      'leading': instance.leading,
+      'title': instance.title,
+      'trailing': instance.trailing,
+      'subtitle': instance.subtitle,
       'component': instance.component,
       'child': instance.child,
       'content': instance.content,
       'itemLayout': instance.itemLayout,
-      'head': instance.head,
-      'body': instance.body,
       'children': instance.children,
       'bottomNav': instance.bottomNav,
       'appBar': instance.appBar,

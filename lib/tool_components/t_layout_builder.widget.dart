@@ -7,7 +7,7 @@ import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:uuid/uuid.dart';
 import 'package:collection/collection.dart' show DeepCollectionEquality;
-import 'package:the_tool/common_interfaces.dart';
+import 'package:the_tool/twidget_props.dart';
 
 class T_LayoutBuilder extends TWidget {
   T_LayoutBuilder(TWidgetProps twidget) : super(twidget);

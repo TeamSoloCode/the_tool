@@ -127,14 +127,20 @@ mixin _$LayoutProps {
       throw _privateConstructorUsedError; // Table End==================================================
 // Expansion Start================================================
   dynamic get selected => throw _privateConstructorUsedError;
-  String? get dividerColor =>
+  String? get dividerColor => throw _privateConstructorUsedError;
+  LayoutProps? get head => throw _privateConstructorUsedError;
+  LayoutProps? get body =>
       throw _privateConstructorUsedError; // Expansion End==================================================
+// ListTile Start================================================
+  LayoutProps? get leading => throw _privateConstructorUsedError;
+  LayoutProps? get title => throw _privateConstructorUsedError;
+  LayoutProps? get trailing => throw _privateConstructorUsedError;
+  LayoutProps? get subtitle =>
+      throw _privateConstructorUsedError; // ListTile End==================================================
   String? get component => throw _privateConstructorUsedError;
   LayoutProps? get child => throw _privateConstructorUsedError;
   LayoutProps? get content => throw _privateConstructorUsedError;
   LayoutProps? get itemLayout => throw _privateConstructorUsedError;
-  LayoutProps? get head => throw _privateConstructorUsedError;
-  LayoutProps? get body => throw _privateConstructorUsedError;
   List<LayoutProps>? get children => throw _privateConstructorUsedError;
   BottomNavigationProps? get bottomNav => throw _privateConstructorUsedError;
   AppBarProps? get appBar => throw _privateConstructorUsedError;
@@ -226,12 +232,16 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? total,
       dynamic selected,
       String? dividerColor,
+      LayoutProps? head,
+      LayoutProps? body,
+      LayoutProps? leading,
+      LayoutProps? title,
+      LayoutProps? trailing,
+      LayoutProps? subtitle,
       String? component,
       LayoutProps? child,
       LayoutProps? content,
       LayoutProps? itemLayout,
-      LayoutProps? head,
-      LayoutProps? body,
       List<LayoutProps>? children,
       BottomNavigationProps? bottomNav,
       AppBarProps? appBar,
@@ -243,11 +253,15 @@ abstract class $LayoutPropsCopyWith<$Res> {
 
   $T_DrawerPropsCopyWith<$Res>? get drawer;
   $T_LayoutBuilderPropsCopyWith<$Res>? get layoutBuilder;
+  $LayoutPropsCopyWith<$Res>? get head;
+  $LayoutPropsCopyWith<$Res>? get body;
+  $LayoutPropsCopyWith<$Res>? get leading;
+  $LayoutPropsCopyWith<$Res>? get title;
+  $LayoutPropsCopyWith<$Res>? get trailing;
+  $LayoutPropsCopyWith<$Res>? get subtitle;
   $LayoutPropsCopyWith<$Res>? get child;
   $LayoutPropsCopyWith<$Res>? get content;
   $LayoutPropsCopyWith<$Res>? get itemLayout;
-  $LayoutPropsCopyWith<$Res>? get head;
-  $LayoutPropsCopyWith<$Res>? get body;
   $BottomNavigationPropsCopyWith<$Res>? get bottomNav;
   $AppBarPropsCopyWith<$Res>? get appBar;
   $ImageProviderPropsCopyWith<$Res>? get image;
@@ -339,12 +353,16 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? total = freezed,
     Object? selected = freezed,
     Object? dividerColor = freezed,
+    Object? head = freezed,
+    Object? body = freezed,
+    Object? leading = freezed,
+    Object? title = freezed,
+    Object? trailing = freezed,
+    Object? subtitle = freezed,
     Object? component = freezed,
     Object? child = freezed,
     Object? content = freezed,
     Object? itemLayout = freezed,
-    Object? head = freezed,
-    Object? body = freezed,
     Object? children = freezed,
     Object? bottomNav = freezed,
     Object? appBar = freezed,
@@ -631,6 +649,30 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.dividerColor
           : dividerColor // ignore: cast_nullable_to_non_nullable
               as String?,
+      head: freezed == head
+          ? _value.head
+          : head // ignore: cast_nullable_to_non_nullable
+              as LayoutProps?,
+      body: freezed == body
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
+              as LayoutProps?,
+      leading: freezed == leading
+          ? _value.leading
+          : leading // ignore: cast_nullable_to_non_nullable
+              as LayoutProps?,
+      title: freezed == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as LayoutProps?,
+      trailing: freezed == trailing
+          ? _value.trailing
+          : trailing // ignore: cast_nullable_to_non_nullable
+              as LayoutProps?,
+      subtitle: freezed == subtitle
+          ? _value.subtitle
+          : subtitle // ignore: cast_nullable_to_non_nullable
+              as LayoutProps?,
       component: freezed == component
           ? _value.component
           : component // ignore: cast_nullable_to_non_nullable
@@ -646,14 +688,6 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
       itemLayout: freezed == itemLayout
           ? _value.itemLayout
           : itemLayout // ignore: cast_nullable_to_non_nullable
-              as LayoutProps?,
-      head: freezed == head
-          ? _value.head
-          : head // ignore: cast_nullable_to_non_nullable
-              as LayoutProps?,
-      body: freezed == body
-          ? _value.body
-          : body // ignore: cast_nullable_to_non_nullable
               as LayoutProps?,
       children: freezed == children
           ? _value.children
@@ -716,6 +750,78 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
 
   @override
   @pragma('vm:prefer-inline')
+  $LayoutPropsCopyWith<$Res>? get head {
+    if (_value.head == null) {
+      return null;
+    }
+
+    return $LayoutPropsCopyWith<$Res>(_value.head!, (value) {
+      return _then(_value.copyWith(head: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LayoutPropsCopyWith<$Res>? get body {
+    if (_value.body == null) {
+      return null;
+    }
+
+    return $LayoutPropsCopyWith<$Res>(_value.body!, (value) {
+      return _then(_value.copyWith(body: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LayoutPropsCopyWith<$Res>? get leading {
+    if (_value.leading == null) {
+      return null;
+    }
+
+    return $LayoutPropsCopyWith<$Res>(_value.leading!, (value) {
+      return _then(_value.copyWith(leading: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LayoutPropsCopyWith<$Res>? get title {
+    if (_value.title == null) {
+      return null;
+    }
+
+    return $LayoutPropsCopyWith<$Res>(_value.title!, (value) {
+      return _then(_value.copyWith(title: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LayoutPropsCopyWith<$Res>? get trailing {
+    if (_value.trailing == null) {
+      return null;
+    }
+
+    return $LayoutPropsCopyWith<$Res>(_value.trailing!, (value) {
+      return _then(_value.copyWith(trailing: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LayoutPropsCopyWith<$Res>? get subtitle {
+    if (_value.subtitle == null) {
+      return null;
+    }
+
+    return $LayoutPropsCopyWith<$Res>(_value.subtitle!, (value) {
+      return _then(_value.copyWith(subtitle: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
   $LayoutPropsCopyWith<$Res>? get child {
     if (_value.child == null) {
       return null;
@@ -747,30 +853,6 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
 
     return $LayoutPropsCopyWith<$Res>(_value.itemLayout!, (value) {
       return _then(_value.copyWith(itemLayout: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $LayoutPropsCopyWith<$Res>? get head {
-    if (_value.head == null) {
-      return null;
-    }
-
-    return $LayoutPropsCopyWith<$Res>(_value.head!, (value) {
-      return _then(_value.copyWith(head: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $LayoutPropsCopyWith<$Res>? get body {
-    if (_value.body == null) {
-      return null;
-    }
-
-    return $LayoutPropsCopyWith<$Res>(_value.body!, (value) {
-      return _then(_value.copyWith(body: value) as $Val);
     });
   }
 
@@ -937,12 +1019,16 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       String? total,
       dynamic selected,
       String? dividerColor,
+      LayoutProps? head,
+      LayoutProps? body,
+      LayoutProps? leading,
+      LayoutProps? title,
+      LayoutProps? trailing,
+      LayoutProps? subtitle,
       String? component,
       LayoutProps? child,
       LayoutProps? content,
       LayoutProps? itemLayout,
-      LayoutProps? head,
-      LayoutProps? body,
       List<LayoutProps>? children,
       BottomNavigationProps? bottomNav,
       AppBarProps? appBar,
@@ -957,15 +1043,23 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
   @override
   $T_LayoutBuilderPropsCopyWith<$Res>? get layoutBuilder;
   @override
+  $LayoutPropsCopyWith<$Res>? get head;
+  @override
+  $LayoutPropsCopyWith<$Res>? get body;
+  @override
+  $LayoutPropsCopyWith<$Res>? get leading;
+  @override
+  $LayoutPropsCopyWith<$Res>? get title;
+  @override
+  $LayoutPropsCopyWith<$Res>? get trailing;
+  @override
+  $LayoutPropsCopyWith<$Res>? get subtitle;
+  @override
   $LayoutPropsCopyWith<$Res>? get child;
   @override
   $LayoutPropsCopyWith<$Res>? get content;
   @override
   $LayoutPropsCopyWith<$Res>? get itemLayout;
-  @override
-  $LayoutPropsCopyWith<$Res>? get head;
-  @override
-  $LayoutPropsCopyWith<$Res>? get body;
   @override
   $BottomNavigationPropsCopyWith<$Res>? get bottomNav;
   @override
@@ -1062,12 +1156,16 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? total = freezed,
     Object? selected = freezed,
     Object? dividerColor = freezed,
+    Object? head = freezed,
+    Object? body = freezed,
+    Object? leading = freezed,
+    Object? title = freezed,
+    Object? trailing = freezed,
+    Object? subtitle = freezed,
     Object? component = freezed,
     Object? child = freezed,
     Object? content = freezed,
     Object? itemLayout = freezed,
-    Object? head = freezed,
-    Object? body = freezed,
     Object? children = freezed,
     Object? bottomNav = freezed,
     Object? appBar = freezed,
@@ -1354,6 +1452,30 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value.dividerColor
           : dividerColor // ignore: cast_nullable_to_non_nullable
               as String?,
+      head: freezed == head
+          ? _value.head
+          : head // ignore: cast_nullable_to_non_nullable
+              as LayoutProps?,
+      body: freezed == body
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
+              as LayoutProps?,
+      leading: freezed == leading
+          ? _value.leading
+          : leading // ignore: cast_nullable_to_non_nullable
+              as LayoutProps?,
+      title: freezed == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as LayoutProps?,
+      trailing: freezed == trailing
+          ? _value.trailing
+          : trailing // ignore: cast_nullable_to_non_nullable
+              as LayoutProps?,
+      subtitle: freezed == subtitle
+          ? _value.subtitle
+          : subtitle // ignore: cast_nullable_to_non_nullable
+              as LayoutProps?,
       component: freezed == component
           ? _value.component
           : component // ignore: cast_nullable_to_non_nullable
@@ -1369,14 +1491,6 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
       itemLayout: freezed == itemLayout
           ? _value.itemLayout
           : itemLayout // ignore: cast_nullable_to_non_nullable
-              as LayoutProps?,
-      head: freezed == head
-          ? _value.head
-          : head // ignore: cast_nullable_to_non_nullable
-              as LayoutProps?,
-      body: freezed == body
-          ? _value.body
-          : body // ignore: cast_nullable_to_non_nullable
               as LayoutProps?,
       children: freezed == children
           ? _value._children
@@ -1487,12 +1601,16 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.total,
       this.selected,
       this.dividerColor,
+      this.head,
+      this.body,
+      this.leading,
+      this.title,
+      this.trailing,
+      this.subtitle,
       this.component,
       this.child,
       this.content,
       this.itemLayout,
-      this.head,
-      this.body,
       final List<LayoutProps>? children,
       this.bottomNav,
       this.appBar,
@@ -1766,7 +1884,21 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   final dynamic selected;
   @override
   final String? dividerColor;
+  @override
+  final LayoutProps? head;
+  @override
+  final LayoutProps? body;
 // Expansion End==================================================
+// ListTile Start================================================
+  @override
+  final LayoutProps? leading;
+  @override
+  final LayoutProps? title;
+  @override
+  final LayoutProps? trailing;
+  @override
+  final LayoutProps? subtitle;
+// ListTile End==================================================
   @override
   final String? component;
   @override
@@ -1775,10 +1907,6 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   final LayoutProps? content;
   @override
   final LayoutProps? itemLayout;
-  @override
-  final LayoutProps? head;
-  @override
-  final LayoutProps? body;
   final List<LayoutProps>? _children;
   @override
   List<LayoutProps>? get children {
@@ -1806,7 +1934,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, selected: $selected, dividerColor: $dividerColor, component: $component, child: $child, content: $content, itemLayout: $itemLayout, head: $head, body: $body, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow, gradient: $gradient)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, selected: $selected, dividerColor: $dividerColor, head: $head, body: $body, leading: $leading, title: $title, trailing: $trailing, subtitle: $subtitle, component: $component, child: $child, content: $content, itemLayout: $itemLayout, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow, gradient: $gradient)';
   }
 
   @override
@@ -1884,12 +2012,16 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('total', total))
       ..add(DiagnosticsProperty('selected', selected))
       ..add(DiagnosticsProperty('dividerColor', dividerColor))
+      ..add(DiagnosticsProperty('head', head))
+      ..add(DiagnosticsProperty('body', body))
+      ..add(DiagnosticsProperty('leading', leading))
+      ..add(DiagnosticsProperty('title', title))
+      ..add(DiagnosticsProperty('trailing', trailing))
+      ..add(DiagnosticsProperty('subtitle', subtitle))
       ..add(DiagnosticsProperty('component', component))
       ..add(DiagnosticsProperty('child', child))
       ..add(DiagnosticsProperty('content', content))
       ..add(DiagnosticsProperty('itemLayout', itemLayout))
-      ..add(DiagnosticsProperty('head', head))
-      ..add(DiagnosticsProperty('body', body))
       ..add(DiagnosticsProperty('children', children))
       ..add(DiagnosticsProperty('bottomNav', bottomNav))
       ..add(DiagnosticsProperty('appBar', appBar))
@@ -1985,12 +2117,16 @@ abstract class _LayoutProps implements LayoutProps {
       final String? total,
       final dynamic selected,
       final String? dividerColor,
+      final LayoutProps? head,
+      final LayoutProps? body,
+      final LayoutProps? leading,
+      final LayoutProps? title,
+      final LayoutProps? trailing,
+      final LayoutProps? subtitle,
       final String? component,
       final LayoutProps? child,
       final LayoutProps? content,
       final LayoutProps? itemLayout,
-      final LayoutProps? head,
-      final LayoutProps? body,
       final List<LayoutProps>? children,
       final BottomNavigationProps? bottomNav,
       final AppBarProps? appBar,
@@ -2172,7 +2308,20 @@ abstract class _LayoutProps implements LayoutProps {
   dynamic get selected;
   @override
   String? get dividerColor;
+  @override
+  LayoutProps? get head;
+  @override
+  LayoutProps? get body;
   @override // Expansion End==================================================
+// ListTile Start================================================
+  LayoutProps? get leading;
+  @override
+  LayoutProps? get title;
+  @override
+  LayoutProps? get trailing;
+  @override
+  LayoutProps? get subtitle;
+  @override // ListTile End==================================================
   String? get component;
   @override
   LayoutProps? get child;
@@ -2180,10 +2329,6 @@ abstract class _LayoutProps implements LayoutProps {
   LayoutProps? get content;
   @override
   LayoutProps? get itemLayout;
-  @override
-  LayoutProps? get head;
-  @override
-  LayoutProps? get body;
   @override
   List<LayoutProps>? get children;
   @override

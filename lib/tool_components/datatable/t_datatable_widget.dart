@@ -8,7 +8,7 @@ import 'package:the_tool/tool_components/datatable/t_data_row_widget.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:collection/collection.dart' show DeepCollectionEquality;
-import 'package:the_tool/common_interfaces.dart';
+import 'package:the_tool/twidget_props.dart';
 
 Timer? _debounce;
 

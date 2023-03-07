@@ -134,14 +134,21 @@ class LayoutProps with _$LayoutProps {
     // Expansion Start================================================
     dynamic selected,
     String? dividerColor,
+    LayoutProps? head,
+    LayoutProps? body,
     // Expansion End==================================================
+
+    // ListTile Start================================================
+    LayoutProps? leading,
+    LayoutProps? title,
+    LayoutProps? trailing,
+    LayoutProps? subtitle,
+    // ListTile End==================================================
 
     String? component,
     LayoutProps? child,
     LayoutProps? content,
     LayoutProps? itemLayout,
-    LayoutProps? head,
-    LayoutProps? body,
     List<LayoutProps>? children,
     BottomNavigationProps? bottomNav,
     AppBarProps? appBar,

@@ -10,7 +10,7 @@ import 'package:the_tool/tool_components/fields/t_text_field_widget.dart'
     deferred as field_text;
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/utils.dart';
-import 'package:the_tool/common_interfaces.dart';
+import 'package:the_tool/twidget_props.dart';
 
 class T_Fields extends TWidget {
   @override

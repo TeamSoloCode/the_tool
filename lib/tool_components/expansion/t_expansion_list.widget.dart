@@ -8,7 +8,7 @@ import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
 import 'package:collection/collection.dart' show DeepCollectionEquality;
-import 'package:the_tool/common_interfaces.dart';
+import 'package:the_tool/twidget_props.dart';
 
 class T_ExpansionList extends TWidget {
   T_ExpansionList(TWidgetProps twidget) : super(twidget);

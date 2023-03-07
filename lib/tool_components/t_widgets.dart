@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:the_tool/common_interfaces.dart';
+
+import 'package:the_tool/twidget_props.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
+import 'package:the_tool/tool_components/list/t_list_tile.widget.dart'
+    deferred as t_list_tile;
 import 'package:the_tool/tool_components/expansion/t_expansion_list.widget.dart'
     deferred as t_expansion_list;
 import 'package:the_tool/tool_components/fields/t_fields_widget.dart'
@@ -33,6 +36,7 @@ import 'package:the_tool/tool_components/list/t_listview.widget.dart'
     deferred as t_listview;
 import 'package:the_tool/tool_components/t_stack_widget.dart';
 import 'package:the_tool/tool_components/t_text_widget.dart';
+import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/utils.dart';
 import 'package:uuid/uuid.dart';
 import 'package:gato/gato.dart' as gato;
@@ -125,7 +129,7 @@ class _TWidgetsState extends State<TWidgets> {
         return t_table.T_DataTable(tWidgetProps);
       case "layout_builder":
         assert(
-          content.layoutBuilder != null,
+          tWidgetProps.layoutBuilder != null,
           "layout_builder must have properties",
         );
         await t_layout_builder.loadLibrary();
@@ -144,6 +148,9 @@ class _TWidgetsState extends State<TWidgets> {
       case "expansion_list":
         await t_expansion_list.loadLibrary();
         return t_expansion_list.T_ExpansionList(tWidgetProps);
+      case "list_tile":
+        await t_list_tile.loadLibrary();
+        return t_list_tile.TListTile(tWidgetProps);
       default:
         return _computeNotBuiltInWidget(childData, content);
     }
