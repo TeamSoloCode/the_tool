@@ -4,21 +4,10 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/mixin_component/container_mixin.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
+import 'package:the_tool/common_interfaces.dart';
 
 class T_Clickable extends TWidget {
-  T_Clickable({
-    Key? key,
-    required widgetUuid,
-    required widgetProps,
-    required pagePath,
-    childData = const {},
-  }) : super(
-          key: key,
-          childData: childData,
-          widgetUuid: widgetUuid,
-          pagePath: pagePath,
-          widgetProps: widgetProps,
-        );
+  T_Clickable(TWidgetProps twidget) : super(twidget);
 
   @override
   State<T_Clickable> createState() => _T_Clickable();

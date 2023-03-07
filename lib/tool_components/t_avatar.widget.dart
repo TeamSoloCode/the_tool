@@ -2,21 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/tool_components/mixin_component/container_mixin.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
+import 'package:the_tool/common_interfaces.dart';
 
 class T_Avatar extends TWidget with ContainerMixin {
-  T_Avatar({
-    Key? key,
-    required widgetUuid,
-    required widgetProps,
-    required pagePath,
-    childData = const {},
-  }) : super(
-          key: key,
-          childData: childData,
-          widgetUuid: widgetUuid,
-          pagePath: pagePath,
-          widgetProps: widgetProps,
-        );
+  T_Avatar(TWidgetProps twidget) : super(twidget);
 
   @override
   State<T_Avatar> createState() => _T_AvatarState();

@@ -4,21 +4,10 @@ import 'package:the_tool/page_utils/style_utils.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
+import 'package:the_tool/common_interfaces.dart';
 
 class T_Row extends TStatelessWidget {
-  T_Row({
-    Key? key,
-    required widgetProps,
-    required pagePath,
-    childData = const {},
-    required widgetUuid,
-  }) : super(
-          key: key,
-          widgetProps: widgetProps,
-          childData: childData,
-          pagePath: pagePath,
-          widgetUuid: widgetUuid,
-        );
+  T_Row(TWidgetProps twidget) : super(twidget);
 
   List<Widget> _computeChildren(
     List<LayoutProps>? children,

@@ -4,21 +4,10 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/mixin_component/container_mixin.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
+import 'package:the_tool/common_interfaces.dart';
 
 class T_Container extends TStatelessWidget with ContainerMixin {
-  T_Container({
-    Key? key,
-    required widgetProps,
-    required pagePath,
-    childData = const {},
-    required widgetUuid,
-  }) : super(
-          key: key,
-          widgetProps: widgetProps,
-          childData: childData,
-          pagePath: pagePath,
-          widgetUuid: widgetUuid,
-        );
+  T_Container(TWidgetProps twidget) : super(twidget);
   @override
   Widget buildWidget(BuildContext context) {
     snapshot = Container(

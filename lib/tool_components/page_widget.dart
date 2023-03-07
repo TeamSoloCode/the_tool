@@ -17,6 +17,7 @@ import 'package:provider/provider.dart';
 import 'package:gato/gato.dart' as gato;
 import 'package:uuid/uuid.dart';
 import 'package:collection/collection.dart' show DeepCollectionEquality;
+import 'package:the_tool/common_interfaces.dart';
 
 class T_Page extends StatefulWidget {
   String pagePath;
@@ -112,20 +113,20 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
         }
 
         _updateMediaQueryInJS(mediaQueryData);
-
         var page = SafeArea(
           child: Scaffold(
             key: _scaffoldKey,
             appBar: _getAppBar(pageData),
             bottomNavigationBar: _getBottomNavigation(pageData),
             drawer: _pageLayout?.drawer != null
-                ? t_drawer.T_Drawer(
+                ? t_drawer.T_Drawer(TWidgetProps(
                     pagePath: _pageId,
-                    childProps: _pageLayout?.drawer?.child,
+                    widgetProps:
+                        _pageLayout?.drawer?.child ?? const LayoutProps(),
                     drawerProps: _pageLayout?.drawer,
                     widgetUuid: _pageId,
                     childData: pageData,
-                  )
+                  ))
                 : null,
             body: _getSelectedPage(
               pageData,

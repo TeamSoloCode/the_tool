@@ -10,24 +10,13 @@ import 'package:the_tool/tool_components/fields/t_text_field_widget.dart'
     deferred as field_text;
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/utils.dart';
+import 'package:the_tool/common_interfaces.dart';
 
 class T_Fields extends TWidget {
   @override
   UtilsManager utils = getIt<UtilsManager>();
 
-  T_Fields({
-    Key? key,
-    required widgetProps,
-    childData = const {},
-    required pagePath,
-    required widgetUuid,
-  }) : super(
-          key: key,
-          widgetProps: widgetProps,
-          childData: childData,
-          pagePath: pagePath,
-          widgetUuid: widgetUuid,
-        );
+  T_Fields(TWidgetProps twidget) : super(twidget);
 
   @override
   State<T_Fields> createState() => _T_FieldsState();
@@ -89,28 +78,21 @@ class _T_FieldsState extends TStatefulWidget<T_Fields> {
 
     prevValue = value;
 
+    var tWidgetProps = TWidgetProps(
+      key: Key(widget.widgetUuid),
+      widgetProps: widget.widgetProps,
+      pagePath: widget.pagePath,
+      widgetUuid: widget.widgetUuid,
+      childData: widget.childData,
+    );
+
     switch (fieldType) {
       case "text":
-        return field_text.T_TextField(
-          pagePath: widget.pagePath,
-          widgetProps: widget.widgetProps,
-          childData: widget.childData,
-          widgetUuid: widget.widgetUuid,
-        );
+        return field_text.T_TextField(tWidgetProps);
       case "select":
-        return field_select.T_SelectField(
-          pagePath: widget.pagePath,
-          widgetProps: widget.widgetProps,
-          childData: widget.childData,
-          widgetUuid: widget.widgetUuid,
-        );
+        return field_select.T_SelectField(tWidgetProps);
       case "datetime":
-        return field_datetime.T_Datetime(
-          widgetProps: widgetProps,
-          childData: widget.childData,
-          pagePath: widget.pagePath,
-          widgetUuid: widget.widgetUuid,
-        );
+        return field_datetime.T_Datetime(tWidgetProps);
       default:
         throw Exception("$fieldType field type is not supported!");
     }

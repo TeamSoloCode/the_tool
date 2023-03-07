@@ -3,23 +3,10 @@ import 'package:the_tool/t_widget_interface/drawer_props/drawer_props.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
+import 'package:the_tool/common_interfaces.dart';
 
 class T_Drawer extends TWidget {
-  T_Drawer({
-    Key? key,
-    required widgetUuid,
-    required childProps,
-    required pagePath,
-    childData = const {},
-    T_DrawerProps? drawerProps,
-  }) : super(
-          key: key,
-          childData: childData,
-          widgetUuid: widgetUuid,
-          pagePath: pagePath,
-          widgetProps: childProps,
-          drawerProps: drawerProps,
-        );
+  T_Drawer(TWidgetProps twidget) : super(twidget);
 
   @override
   State<T_Drawer> createState() => _T_DrawerState();

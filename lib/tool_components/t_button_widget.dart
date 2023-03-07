@@ -3,21 +3,10 @@ import 'package:json_theme/json_theme.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
+import 'package:the_tool/common_interfaces.dart';
 
 class T_Button extends TWidget {
-  T_Button({
-    Key? key,
-    required widgetUuid,
-    required widgetProps,
-    required pagePath,
-    childData = const {},
-  }) : super(
-          key: key,
-          childData: childData,
-          widgetUuid: widgetUuid,
-          pagePath: pagePath,
-          widgetProps: widgetProps,
-        );
+  T_Button(TWidgetProps twidget) : super(twidget);
 
   @override
   State<T_Button> createState() => _T_ButtonState();

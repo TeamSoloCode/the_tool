@@ -1,22 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:the_tool/common_interfaces.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 
 class T_Stack extends TStatelessWidget {
-  T_Stack({
-    Key? key,
-    required widgetProps,
-    required pagePath,
-    childData = const {},
-    required widgetUuid,
-  }) : super(
-          key: key,
-          widgetProps: widgetProps,
-          childData: childData,
-          pagePath: pagePath,
-          widgetUuid: widgetUuid,
-        );
+  T_Stack(TWidgetProps twidget) : super(twidget);
 
   List<Widget> _getChildren() {
     var index = 0;

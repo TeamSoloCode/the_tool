@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:the_tool/common_interfaces.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/t_widget_interface/drawer_props/drawer_props.dart';
@@ -20,7 +21,7 @@ mixin BaseStateWidget on Widget {
   late final String pagePath;
   final UtilsManager utils = getIt<UtilsManager>();
   final contextStateProvider = getIt<ContextStateProvider>();
-  late final String? widgetUuid;
+  late final String widgetUuid;
 
   T_DrawerProps? drawerProps;
   T_LayoutBuilderProps? layoutBuilder;
@@ -207,21 +208,13 @@ mixin BaseStateWidget on Widget {
 }
 
 abstract class TWidget extends StatefulWidget with BaseStateWidget {
-  TWidget({
-    Key? key,
-    required LayoutProps widgetProps,
-    childData,
-    required pagePath,
-    required widgetUuid,
-    T_DrawerProps? drawerProps,
-    T_LayoutBuilderProps? layoutBuilder,
-  }) : super(key: key) {
-    this.widgetProps = widgetProps;
-    this.childData = childData;
-    this.pagePath = pagePath;
-    this.widgetUuid = widgetUuid;
-    this.drawerProps = drawerProps;
-    this.layoutBuilder = layoutBuilder;
+  TWidget(TWidgetProps twidget) : super(key: twidget.key) {
+    widgetProps = twidget.widgetProps;
+    childData = twidget.childData;
+    pagePath = twidget.pagePath;
+    widgetUuid = twidget.widgetUuid;
+    drawerProps = twidget.drawerProps;
+    layoutBuilder = twidget.layoutBuilder;
 
     _contextData = getIt<ContextStateProvider>().contextData[pagePath] ??
         UtilsManager.emptyMapStringDynamic;
@@ -264,17 +257,11 @@ abstract class TStatefulWidget<Page extends TWidget> extends State<Page>
 }
 
 abstract class TStatelessWidget extends StatelessWidget with BaseStateWidget {
-  TStatelessWidget({
-    Key? key,
-    required widgetProps,
-    childData,
-    required pagePath,
-    required widgetUuid,
-  }) : super(key: key) {
-    this.widgetProps = widgetProps;
-    this.childData = childData;
-    this.pagePath = pagePath;
-    this.widgetUuid = widgetUuid;
+  TStatelessWidget(TWidgetProps twidget) : super(key: twidget.key) {
+    widgetProps = twidget.widgetProps;
+    childData = twidget.childData;
+    pagePath = twidget.pagePath;
+    widgetUuid = twidget.widgetUuid;
 
     _contextData = getIt<ContextStateProvider>().contextData[pagePath] ??
         UtilsManager.emptyMapStringDynamic;

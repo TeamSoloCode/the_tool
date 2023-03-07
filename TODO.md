@@ -1,5 +1,5 @@
 Support ListTile
-Update input of all t_widgets into a Map to reduce code in t_widgets.dart
+The widget type component in the drawer did not unmount on React when close drawer, but it mount new node in React when drawer opened
 
 #-------------------------------------------------
 Support format number for t_textfield
@@ -80,3 +80,4 @@ Support MediaScreenOnly for all t_widgets
 -Support mediaScreenOnly when children have Expanded/Flexible on Row/Column/Stack
 -Support Avatar widget
 -Support ListView builder
+-Update input of all t_widgets into a Map to reduce code in t_widgets.dart

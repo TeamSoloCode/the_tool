@@ -1,21 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:the_tool/common_interfaces.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 
 class T_ScrollView extends TStatelessWidget {
-  T_ScrollView({
-    Key? key,
-    required widgetProps,
-    required pagePath,
-    childData = const {},
-    required widgetUuid,
-  }) : super(
-          key: key,
-          widgetProps: widgetProps,
-          childData: childData,
-          pagePath: pagePath,
-          widgetUuid: widgetUuid,
-        );
+  T_ScrollView(TWidgetProps twidget) : super(twidget);
 
   List<Widget> _items = [];
 

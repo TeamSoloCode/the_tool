@@ -2,29 +2,15 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:the_tool/t_widget_interface/layout_builder_item_props/layout_builder_item_props.dart';
-import 'package:the_tool/t_widget_interface/layout_builder_props/layout_builder_props.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:uuid/uuid.dart';
 import 'package:collection/collection.dart' show DeepCollectionEquality;
+import 'package:the_tool/common_interfaces.dart';
 
 class T_LayoutBuilder extends TWidget {
-  T_LayoutBuilder({
-    Key? key,
-    required widgetUuid,
-    required widgetProps,
-    required pagePath,
-    required T_LayoutBuilderProps layoutBuilder,
-    childData = const {},
-  }) : super(
-          key: key,
-          childData: childData,
-          widgetUuid: widgetUuid,
-          pagePath: pagePath,
-          widgetProps: widgetProps,
-          layoutBuilder: layoutBuilder,
-        );
+  T_LayoutBuilder(TWidgetProps twidget) : super(twidget);
 
   @override
   State<T_LayoutBuilder> createState() => _T_LayoutBuilderState();

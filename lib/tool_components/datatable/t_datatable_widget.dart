@@ -8,23 +8,12 @@ import 'package:the_tool/tool_components/datatable/t_data_row_widget.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:collection/collection.dart' show DeepCollectionEquality;
+import 'package:the_tool/common_interfaces.dart';
 
 Timer? _debounce;
 
 class T_DataTable extends TWidget {
-  T_DataTable({
-    Key? key,
-    required widgetProps,
-    required pagePath,
-    required widgetUuid,
-    childData = const {},
-  }) : super(
-          key: key,
-          widgetProps: widgetProps,
-          childData: childData,
-          pagePath: pagePath,
-          widgetUuid: widgetUuid,
-        );
+  T_DataTable(TWidgetProps twidget) : super(twidget);
 
   @override
   State<T_DataTable> createState() => _T_DataTableState();

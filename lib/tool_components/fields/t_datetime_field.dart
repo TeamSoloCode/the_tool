@@ -8,21 +8,10 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/mixin_component/field_mixin.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/utils.dart';
+import 'package:the_tool/common_interfaces.dart';
 
 class T_Datetime extends TWidget {
-  T_Datetime({
-    Key? key,
-    required widgetProps,
-    childData = const {},
-    required pagePath,
-    required widgetUuid,
-  }) : super(
-          key: key,
-          widgetProps: widgetProps,
-          childData: childData,
-          pagePath: pagePath,
-          widgetUuid: widgetUuid,
-        );
+  T_Datetime(TWidgetProps twidget) : super(twidget);
 
   @override
   State<T_Datetime> createState() => _T_DatetimeState();

@@ -2,20 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
+import 'package:the_tool/common_interfaces.dart';
 
 class T_ListView extends TWidget {
-  T_ListView({
-    Key? key,
-    required widgetProps,
-    required widgetUuid,
-    required pagePath,
-    childData = const {},
-  }) : super(
-          key: key,
-          widgetUuid: widgetUuid,
-          pagePath: pagePath,
-          widgetProps: widgetProps,
-        );
+  T_ListView(TWidgetProps twidget) : super(twidget);
 
   @override
   State<T_ListView> createState() => _T_ListViewState();

@@ -8,21 +8,10 @@ import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
 import 'package:collection/collection.dart' show DeepCollectionEquality;
+import 'package:the_tool/common_interfaces.dart';
 
 class T_ExpansionList extends TWidget {
-  T_ExpansionList({
-    Key? key,
-    required widgetProps,
-    required widgetUuid,
-    required pagePath,
-    childData = const {},
-  }) : super(
-          key: key,
-          widgetUuid: widgetUuid,
-          pagePath: pagePath,
-          widgetProps: widgetProps,
-          childData: childData,
-        );
+  T_ExpansionList(TWidgetProps twidget) : super(twidget);
 
   @override
   State<T_ExpansionList> createState() => _T_ExpansionListState();

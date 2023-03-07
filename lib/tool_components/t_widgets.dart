@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:the_tool/common_interfaces.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/expansion/t_expansion_list.widget.dart'
@@ -74,182 +75,75 @@ class _TWidgetsState extends State<TWidgets> {
     if (tWidgets != null) {
       return tWidgets ?? const Offstage();
     }
+    var tWidgetProps = TWidgetProps(
+      key: Key(widgetUuid),
+      widgetProps: content,
+      pagePath: widget.pagePath,
+      widgetUuid: widgetUuid,
+      childData: childData,
+      layoutBuilder: content.layoutBuilder,
+    );
 
     switch (content.type) {
       case "text":
-        return T_Text(
-          key: Key(widgetUuid),
-          widgetProps: content,
-          childData: childData,
-          pagePath: widget.pagePath,
-          widgetUuid: widgetUuid,
-        );
+        return T_Text(tWidgetProps);
       case "button":
-        return T_Button(
-          key: ValueKey(widgetUuid),
-          widgetUuid: widgetUuid,
-          widgetProps: content,
-          pagePath: widget.pagePath,
-          childData: childData,
-        );
+        return T_Button(tWidgetProps);
       case "icon":
         await t_icon.loadLibrary();
-        return t_icon.T_Icon(
-          key: ValueKey(widgetUuid),
-          widgetProps: content,
-          childData: childData,
-          pagePath: widget.pagePath,
-          widgetUuid: widgetUuid,
-        );
+        return t_icon.T_Icon(tWidgetProps);
       case "row":
         await t_row.loadLibrary();
-        return t_row.T_Row(
-          key: ValueKey(widgetUuid),
-          widgetProps: content,
-          pagePath: widget.pagePath,
-          childData: childData,
-          widgetUuid: widgetUuid,
-        );
+        return t_row.T_Row(tWidgetProps);
       case "form":
         await t_form.loadLibrary();
-        return t_form.T_Form(
-          key: ValueKey(widgetUuid),
-          widgetProps: content,
-          pagePath: widget.pagePath,
-          childData: childData,
-          widgetUuid: widgetUuid,
-        );
+        return t_form.T_Form(tWidgetProps);
       case "component":
         await t_component.loadLibrary();
-        return t_component.T_Component(
-          key: ValueKey(widgetUuid),
-          widgetProps: content,
-          childData: childData,
-          pagePath: widget.pagePath,
-          widgetUuid: widgetUuid,
-        );
+        return t_component.T_Component(tWidgetProps);
       case "container":
-        return T_Container(
-          key: ValueKey(widgetUuid),
-          widgetProps: content,
-          pagePath: widget.pagePath,
-          childData: childData,
-          widgetUuid: widgetUuid,
-        );
+        return T_Container(tWidgetProps);
       case "column":
-        return T_Column(
-          key: ValueKey(widgetUuid),
-          widgetProps: content,
-          pagePath: widget.pagePath,
-          childData: childData,
-          widgetUuid: widgetUuid,
-        );
+        return T_Column(tWidgetProps);
       case "stack":
-        return T_Stack(
-          key: ValueKey(widgetUuid),
-          widgetProps: content,
-          pagePath: widget.pagePath,
-          widgetUuid: widgetUuid,
-          childData: childData,
-        );
+        return T_Stack(tWidgetProps);
       case "grid":
         await t_grid.loadLibrary();
-        return t_grid.T_Grid(
-          key: ValueKey(widgetUuid),
-          widgetProps: content,
-          pagePath: widget.pagePath,
-          childData: childData,
-          widgetUuid: widgetUuid,
-        );
+        return t_grid.T_Grid(tWidgetProps);
       case "scroll_view":
         await t_scrollview.loadLibrary();
-        return t_scrollview.T_ScrollView(
-          key: ValueKey(widgetUuid),
-          widgetProps: content,
-          pagePath: widget.pagePath,
-          childData: childData,
-          widgetUuid: widgetUuid,
-        );
+        return t_scrollview.T_ScrollView(tWidgetProps);
 
       case "expanded":
         await t_expanded.loadLibrary();
-        return t_expanded.T_Expanded(
-          key: ValueKey(widgetUuid),
-          widgetProps: content,
-          pagePath: widget.pagePath,
-          childData: childData,
-          widgetUuid: widgetUuid,
-        );
+        return t_expanded.T_Expanded(tWidgetProps);
       case "field":
         await t_fields.loadLibrary();
-        return t_fields.T_Fields(
-          key: ValueKey(widgetUuid),
-          widgetProps: content,
-          pagePath: widget.pagePath,
-          childData: childData,
-          widgetUuid: widgetUuid,
-        );
+        return t_fields.T_Fields(tWidgetProps);
       case "table":
         await t_table.loadLibrary();
-        return t_table.T_DataTable(
-          key: ValueKey(widgetUuid),
-          widgetProps: content,
-          pagePath: widget.pagePath,
-          childData: childData,
-          widgetUuid: widgetUuid,
-        );
+        return t_table.T_DataTable(tWidgetProps);
       case "layout_builder":
         assert(
           content.layoutBuilder != null,
           "layout_builder must have properties",
         );
         await t_layout_builder.loadLibrary();
-        return t_layout_builder.T_LayoutBuilder(
-          widgetUuid: widgetUuid,
-          pagePath: widget.pagePath,
-          childData: childData,
-          widgetProps: content,
-          layoutBuilder: content.layoutBuilder!,
-        );
+        return t_layout_builder.T_LayoutBuilder(tWidgetProps);
       case "clickable":
-        return T_Clickable(
-          widgetUuid: widgetUuid,
-          widgetProps: content,
-          pagePath: widget.pagePath,
-          childData: childData,
-        );
+        return T_Clickable(tWidgetProps);
       case "circle_avatar":
         await t_avatar.loadLibrary();
-        return t_avatar.T_Avatar(
-          widgetUuid: widgetUuid,
-          widgetProps: content,
-          pagePath: widget.pagePath,
-          childData: childData,
-        );
+        return t_avatar.T_Avatar(tWidgetProps);
       case "clip_oval":
         await t_clipoval.loadLibrary();
-        return t_clipoval.T_ClipOval(
-          widgetUuid: widgetUuid,
-          widgetProps: content,
-          pagePath: widget.pagePath,
-          childData: childData,
-        );
+        return t_clipoval.T_ClipOval(tWidgetProps);
       case "list":
         await t_listview.loadLibrary();
-        return t_listview.T_ListView(
-          widgetUuid: widgetUuid,
-          widgetProps: content,
-          pagePath: widget.pagePath,
-          childData: childData,
-        );
+        return t_listview.T_ListView(tWidgetProps);
       case "expansion_list":
         await t_expansion_list.loadLibrary();
-        return t_expansion_list.T_ExpansionList(
-          widgetUuid: widgetUuid,
-          widgetProps: content,
-          pagePath: widget.pagePath,
-          childData: childData,
-        );
+        return t_expansion_list.T_ExpansionList(tWidgetProps);
       default:
         return _computeNotBuiltInWidget(childData, content);
     }

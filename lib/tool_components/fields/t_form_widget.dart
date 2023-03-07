@@ -8,22 +8,10 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
+import 'package:the_tool/common_interfaces.dart';
 
 class T_Form extends TWidget {
-  T_Form({
-    Key? key,
-    required widgetProps,
-    childData = const {},
-    required pagePath,
-    required widgetUuid,
-  }) : super(
-          key: key,
-          widgetProps: widgetProps,
-          childData: childData,
-          pagePath: pagePath,
-          widgetUuid: widgetUuid,
-        );
-
+  T_Form(TWidgetProps twidget) : super(twidget);
   @override
   State<T_Form> createState() => _T_FormState();
 }
