@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:the_tool/twidget_props.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
@@ -34,9 +33,14 @@ import 'package:the_tool/tool_components/datatable/t_datatable_widget.dart'
     deferred as t_table;
 import 'package:the_tool/tool_components/list/t_listview.widget.dart'
     deferred as t_listview;
+import 'package:the_tool/tool_components/t_card.widget.dart' deferred as t_card;
+import 'package:the_tool/tool_components/t_center.widget.dart'
+    deferred as t_center;
+import 'package:the_tool/tool_components/t_padding.widget.dart'
+    deferred as t_padding;
+
 import 'package:the_tool/tool_components/t_stack_widget.dart';
 import 'package:the_tool/tool_components/t_text_widget.dart';
-import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/utils.dart';
 import 'package:uuid/uuid.dart';
 import 'package:gato/gato.dart' as gato;
@@ -117,7 +121,6 @@ class _TWidgetsState extends State<TWidgets> {
       case "scroll_view":
         await t_scrollview.loadLibrary();
         return t_scrollview.T_ScrollView(tWidgetProps);
-
       case "expanded":
         await t_expanded.loadLibrary();
         return t_expanded.T_Expanded(tWidgetProps);
@@ -151,6 +154,15 @@ class _TWidgetsState extends State<TWidgets> {
       case "list_tile":
         await t_list_tile.loadLibrary();
         return t_list_tile.TListTile(tWidgetProps);
+      case "card":
+        await t_card.loadLibrary();
+        return t_card.TCard(tWidgetProps);
+      case "center":
+        await t_center.loadLibrary();
+        return t_center.TCenter(tWidgetProps);
+      case "padding":
+        await t_padding.loadLibrary();
+        return t_padding.TPadding(tWidgetProps);
       default:
         return _computeNotBuiltInWidget(childData, content);
     }

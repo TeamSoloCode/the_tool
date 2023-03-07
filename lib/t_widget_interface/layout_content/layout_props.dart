@@ -57,6 +57,9 @@ class LayoutProps with _$LayoutProps {
     String? splashColor,
     dynamic alignment,
     double? elevation,
+    String? shadowColor,
+    double? heightFactor,
+    double? widthFactor,
 
     /**
      * 
@@ -205,6 +208,11 @@ extension MergeLayoutProps on LayoutProps {
       flex: other.flex ?? flex,
       fit: other.fit ?? fit,
       iconSize: other.iconSize ?? iconSize,
+      leading: other.leading ?? leading,
+      title: other.title ?? title,
+      trailing: other.trailing ?? trailing,
+      subtitle: other.subtitle ?? subtitle,
+      shadowColor: other.shadowColor ?? shadowColor,
       // type: other.type ?? type,
       color: other.color ?? color,
       backgroundColor: other.backgroundColor ?? backgroundColor,

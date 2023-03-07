@@ -54,6 +54,9 @@ mixin _$LayoutProps {
   String? get splashColor => throw _privateConstructorUsedError;
   dynamic get alignment => throw _privateConstructorUsedError;
   double? get elevation => throw _privateConstructorUsedError;
+  String? get shadowColor => throw _privateConstructorUsedError;
+  double? get heightFactor => throw _privateConstructorUsedError;
+  double? get widthFactor => throw _privateConstructorUsedError;
   /**
      * 
      */
@@ -197,6 +200,9 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? splashColor,
       dynamic alignment,
       double? elevation,
+      String? shadowColor,
+      double? heightFactor,
+      double? widthFactor,
       String? sliverListType,
       double? itemExtent,
       Map<String, dynamic>? componentProps,
@@ -318,6 +324,9 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? splashColor = freezed,
     Object? alignment = freezed,
     Object? elevation = freezed,
+    Object? shadowColor = freezed,
+    Object? heightFactor = freezed,
+    Object? widthFactor = freezed,
     Object? sliverListType = freezed,
     Object? itemExtent = freezed,
     Object? componentProps = freezed,
@@ -508,6 +517,18 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
       elevation: freezed == elevation
           ? _value.elevation
           : elevation // ignore: cast_nullable_to_non_nullable
+              as double?,
+      shadowColor: freezed == shadowColor
+          ? _value.shadowColor
+          : shadowColor // ignore: cast_nullable_to_non_nullable
+              as String?,
+      heightFactor: freezed == heightFactor
+          ? _value.heightFactor
+          : heightFactor // ignore: cast_nullable_to_non_nullable
+              as double?,
+      widthFactor: freezed == widthFactor
+          ? _value.widthFactor
+          : widthFactor // ignore: cast_nullable_to_non_nullable
               as double?,
       sliverListType: freezed == sliverListType
           ? _value.sliverListType
@@ -984,6 +1005,9 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       String? splashColor,
       dynamic alignment,
       double? elevation,
+      String? shadowColor,
+      double? heightFactor,
+      double? widthFactor,
       String? sliverListType,
       double? itemExtent,
       Map<String, dynamic>? componentProps,
@@ -1121,6 +1145,9 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? splashColor = freezed,
     Object? alignment = freezed,
     Object? elevation = freezed,
+    Object? shadowColor = freezed,
+    Object? heightFactor = freezed,
+    Object? widthFactor = freezed,
     Object? sliverListType = freezed,
     Object? itemExtent = freezed,
     Object? componentProps = freezed,
@@ -1311,6 +1338,18 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
       elevation: freezed == elevation
           ? _value.elevation
           : elevation // ignore: cast_nullable_to_non_nullable
+              as double?,
+      shadowColor: freezed == shadowColor
+          ? _value.shadowColor
+          : shadowColor // ignore: cast_nullable_to_non_nullable
+              as String?,
+      heightFactor: freezed == heightFactor
+          ? _value.heightFactor
+          : heightFactor // ignore: cast_nullable_to_non_nullable
+              as double?,
+      widthFactor: freezed == widthFactor
+          ? _value.widthFactor
+          : widthFactor // ignore: cast_nullable_to_non_nullable
               as double?,
       sliverListType: freezed == sliverListType
           ? _value.sliverListType
@@ -1566,6 +1605,9 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.splashColor,
       this.alignment,
       this.elevation,
+      this.shadowColor,
+      this.heightFactor,
+      this.widthFactor,
       this.sliverListType,
       this.itemExtent,
       final Map<String, dynamic>? componentProps,
@@ -1708,6 +1750,12 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   final dynamic alignment;
   @override
   final double? elevation;
+  @override
+  final String? shadowColor;
+  @override
+  final double? heightFactor;
+  @override
+  final double? widthFactor;
 /**
      * 
      */
@@ -1934,7 +1982,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, selected: $selected, dividerColor: $dividerColor, head: $head, body: $body, leading: $leading, title: $title, trailing: $trailing, subtitle: $subtitle, component: $component, child: $child, content: $content, itemLayout: $itemLayout, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow, gradient: $gradient)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, shadowColor: $shadowColor, heightFactor: $heightFactor, widthFactor: $widthFactor, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, selected: $selected, dividerColor: $dividerColor, head: $head, body: $body, leading: $leading, title: $title, trailing: $trailing, subtitle: $subtitle, component: $component, child: $child, content: $content, itemLayout: $itemLayout, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow, gradient: $gradient)';
   }
 
   @override
@@ -1976,6 +2024,9 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('splashColor', splashColor))
       ..add(DiagnosticsProperty('alignment', alignment))
       ..add(DiagnosticsProperty('elevation', elevation))
+      ..add(DiagnosticsProperty('shadowColor', shadowColor))
+      ..add(DiagnosticsProperty('heightFactor', heightFactor))
+      ..add(DiagnosticsProperty('widthFactor', widthFactor))
       ..add(DiagnosticsProperty('sliverListType', sliverListType))
       ..add(DiagnosticsProperty('itemExtent', itemExtent))
       ..add(DiagnosticsProperty('componentProps', componentProps))
@@ -2082,6 +2133,9 @@ abstract class _LayoutProps implements LayoutProps {
       final String? splashColor,
       final dynamic alignment,
       final double? elevation,
+      final String? shadowColor,
+      final double? heightFactor,
+      final double? widthFactor,
       final String? sliverListType,
       final double? itemExtent,
       final Map<String, dynamic>? componentProps,
@@ -2207,6 +2261,12 @@ abstract class _LayoutProps implements LayoutProps {
   dynamic get alignment;
   @override
   double? get elevation;
+  @override
+  String? get shadowColor;
+  @override
+  double? get heightFactor;
+  @override
+  double? get widthFactor;
   @override
   /**
      * 

@@ -32,7 +32,7 @@ class _TListTileState extends TStatefulWidget<TListTile> {
     return TWidgets(
       layout: content,
       pagePath: widget.pagePath,
-      childData: widget.getContexData(),
+      childData: widget.childData,
     );
   }
 

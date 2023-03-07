@@ -4,18 +4,13 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/twidget_props.dart';
 
-class T_Icon extends TWidget {
+class T_Icon extends TStatelessWidget {
   T_Icon(TWidgetProps twidget) : super(twidget);
 
   @override
-  State<T_Icon> createState() => _T_IconState();
-}
-
-class _T_IconState extends TStatefulWidget<T_Icon> {
-  @override
   Widget buildWidget(BuildContext context) {
-    Widget _snapshot = widget.snapshot;
-    LayoutProps? _props = widget.props;
+    Widget _snapshot = snapshot;
+    LayoutProps? _props = props;
 
     if (_props != null) {
       var path = _props.icon ?? "";
