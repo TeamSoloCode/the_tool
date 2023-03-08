@@ -19,7 +19,9 @@ class TCard extends TStatelessWidget {
         color: ThemeDecoder.decodeColor(_props.color),
         elevation: _props.elevation,
         // TODO: Support shapeBorder
-        // shape: ThemeDecoder.decodeShapeBorder(_props.shapeBorder),
+        shape: ThemeDecoder.decodeShapeBorder(
+          _props.shapeBorder?.toJson() ?? {},
+        ),
         margin: ThemeDecoder.decodeEdgeInsetsGeometry(_props.margin),
         shadowColor: ThemeDecoder.decodeColor(_props.shadowColor),
         child: _props.child == null

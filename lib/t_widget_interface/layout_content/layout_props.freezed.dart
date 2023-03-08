@@ -150,6 +150,7 @@ mixin _$LayoutProps {
   ImageProviderProps? get image => throw _privateConstructorUsedError;
   BorderProps? get boxBorder => throw _privateConstructorUsedError;
   BorderRadiusProps? get borderRadius => throw _privateConstructorUsedError;
+  TShapeBorderProps? get shapeBorder => throw _privateConstructorUsedError;
   BoxShadowProps? get boxShadow => throw _privateConstructorUsedError;
   T_GradientProps? get gradient => throw _privateConstructorUsedError;
 
@@ -254,6 +255,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       ImageProviderProps? image,
       BorderProps? boxBorder,
       BorderRadiusProps? borderRadius,
+      TShapeBorderProps? shapeBorder,
       BoxShadowProps? boxShadow,
       T_GradientProps? gradient});
 
@@ -273,6 +275,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
   $ImageProviderPropsCopyWith<$Res>? get image;
   $BorderPropsCopyWith<$Res>? get boxBorder;
   $BorderRadiusPropsCopyWith<$Res>? get borderRadius;
+  $TShapeBorderPropsCopyWith<$Res>? get shapeBorder;
   $BoxShadowPropsCopyWith<$Res>? get boxShadow;
   $T_GradientPropsCopyWith<$Res>? get gradient;
 }
@@ -378,6 +381,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? image = freezed,
     Object? boxBorder = freezed,
     Object? borderRadius = freezed,
+    Object? shapeBorder = freezed,
     Object? boxShadow = freezed,
     Object? gradient = freezed,
   }) {
@@ -734,6 +738,10 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.borderRadius
           : borderRadius // ignore: cast_nullable_to_non_nullable
               as BorderRadiusProps?,
+      shapeBorder: freezed == shapeBorder
+          ? _value.shapeBorder
+          : shapeBorder // ignore: cast_nullable_to_non_nullable
+              as TShapeBorderProps?,
       boxShadow: freezed == boxShadow
           ? _value.boxShadow
           : boxShadow // ignore: cast_nullable_to_non_nullable
@@ -939,6 +947,18 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
 
   @override
   @pragma('vm:prefer-inline')
+  $TShapeBorderPropsCopyWith<$Res>? get shapeBorder {
+    if (_value.shapeBorder == null) {
+      return null;
+    }
+
+    return $TShapeBorderPropsCopyWith<$Res>(_value.shapeBorder!, (value) {
+      return _then(_value.copyWith(shapeBorder: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
   $BoxShadowPropsCopyWith<$Res>? get boxShadow {
     if (_value.boxShadow == null) {
       return null;
@@ -1059,6 +1079,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       ImageProviderProps? image,
       BorderProps? boxBorder,
       BorderRadiusProps? borderRadius,
+      TShapeBorderProps? shapeBorder,
       BoxShadowProps? boxShadow,
       T_GradientProps? gradient});
 
@@ -1094,6 +1115,8 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
   $BorderPropsCopyWith<$Res>? get boxBorder;
   @override
   $BorderRadiusPropsCopyWith<$Res>? get borderRadius;
+  @override
+  $TShapeBorderPropsCopyWith<$Res>? get shapeBorder;
   @override
   $BoxShadowPropsCopyWith<$Res>? get boxShadow;
   @override
@@ -1199,6 +1222,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? image = freezed,
     Object? boxBorder = freezed,
     Object? borderRadius = freezed,
+    Object? shapeBorder = freezed,
     Object? boxShadow = freezed,
     Object? gradient = freezed,
   }) {
@@ -1555,6 +1579,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value.borderRadius
           : borderRadius // ignore: cast_nullable_to_non_nullable
               as BorderRadiusProps?,
+      shapeBorder: freezed == shapeBorder
+          ? _value.shapeBorder
+          : shapeBorder // ignore: cast_nullable_to_non_nullable
+              as TShapeBorderProps?,
       boxShadow: freezed == boxShadow
           ? _value.boxShadow
           : boxShadow // ignore: cast_nullable_to_non_nullable
@@ -1659,6 +1687,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.image,
       this.boxBorder,
       this.borderRadius,
+      this.shapeBorder,
       this.boxShadow,
       this.gradient})
       : _positioned = positioned,
@@ -1976,13 +2005,15 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   @override
   final BorderRadiusProps? borderRadius;
   @override
+  final TShapeBorderProps? shapeBorder;
+  @override
   final BoxShadowProps? boxShadow;
   @override
   final T_GradientProps? gradient;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, shadowColor: $shadowColor, heightFactor: $heightFactor, widthFactor: $widthFactor, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, selected: $selected, dividerColor: $dividerColor, head: $head, body: $body, leading: $leading, title: $title, trailing: $trailing, subtitle: $subtitle, component: $component, child: $child, content: $content, itemLayout: $itemLayout, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, boxShadow: $boxShadow, gradient: $gradient)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, shadowColor: $shadowColor, heightFactor: $heightFactor, widthFactor: $widthFactor, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, selected: $selected, dividerColor: $dividerColor, head: $head, body: $body, leading: $leading, title: $title, trailing: $trailing, subtitle: $subtitle, component: $component, child: $child, content: $content, itemLayout: $itemLayout, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, shapeBorder: $shapeBorder, boxShadow: $boxShadow, gradient: $gradient)';
   }
 
   @override
@@ -2079,6 +2110,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('image', image))
       ..add(DiagnosticsProperty('boxBorder', boxBorder))
       ..add(DiagnosticsProperty('borderRadius', borderRadius))
+      ..add(DiagnosticsProperty('shapeBorder', shapeBorder))
       ..add(DiagnosticsProperty('boxShadow', boxShadow))
       ..add(DiagnosticsProperty('gradient', gradient));
   }
@@ -2187,6 +2219,7 @@ abstract class _LayoutProps implements LayoutProps {
       final ImageProviderProps? image,
       final BorderProps? boxBorder,
       final BorderRadiusProps? borderRadius,
+      final TShapeBorderProps? shapeBorder,
       final BoxShadowProps? boxShadow,
       final T_GradientProps? gradient}) = _$_LayoutProps;
 
@@ -2401,6 +2434,8 @@ abstract class _LayoutProps implements LayoutProps {
   BorderProps? get boxBorder;
   @override
   BorderRadiusProps? get borderRadius;
+  @override
+  TShapeBorderProps? get shapeBorder;
   @override
   BoxShadowProps? get boxShadow;
   @override

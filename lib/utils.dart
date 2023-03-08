@@ -340,44 +340,23 @@ class UtilsManager {
     LayoutProps widgetProps,
     Map<String, dynamic> contextData,
   ) {
-    double? heightResult;
-    double? widthResult;
+    var maxHeight =
+        computeSizeValue(widgetProps.maxHeight, contextData) ?? double.infinity;
+    var maxWidth =
+        computeSizeValue(widgetProps.maxWidth, contextData) ?? double.infinity;
+    var minHeight = computeSizeValue(widgetProps.minHeight, contextData) ?? 0.0;
+    var minWidth = computeSizeValue(widgetProps.minWidth, contextData) ?? 0.0;
 
-    dynamic maxHeight = widgetProps.maxHeight;
-    dynamic maxWidth = widgetProps.maxWidth;
-    dynamic minHeight = widgetProps.minHeight;
-    dynamic minWidth = widgetProps.minWidth;
-
-    dynamic height = widgetProps.height;
-    dynamic width = widgetProps.width;
-
-    double maxHeightResult =
-        computeSizeValue(maxHeight, contextData) ?? double.infinity;
-    double maxWidthResult =
-        computeSizeValue(maxWidth, contextData) ?? double.infinity;
-    double minHeightResult = computeSizeValue(minHeight, contextData) ?? 0.0;
-    double minWidthResult = computeSizeValue(minWidth, contextData) ?? 0.0;
-
-    heightResult = computeSizeValue(height, contextData);
-    widthResult = computeSizeValue(width, contextData);
-
-    assert(
-      heightResult is num || heightResult == null,
-      "\"height\" must be a number or bound with number value ($height)",
-    );
-
-    assert(
-      widthResult is num || widthResult == null,
-      "\"width\" must be a number or bound with number value ($width)",
-    );
+    var height = computeSizeValue(widgetProps.height, contextData);
+    var width = computeSizeValue(widgetProps.width, contextData);
 
     return widgetProps.copyWith(
-      height: heightResult,
-      width: widthResult,
-      maxHeight: maxHeightResult,
-      maxWidth: maxWidthResult,
-      minHeight: minHeightResult,
-      minWidth: minWidthResult,
+      height: height,
+      width: width,
+      maxHeight: maxHeight,
+      maxWidth: maxWidth,
+      minHeight: minHeight,
+      minWidth: minWidth,
     );
   }
 
@@ -413,43 +392,54 @@ class UtilsManager {
     LayoutProps uncomputedProps,
     void Function(String bindingString) updateWidgetBindingStrings,
   ) {
-    var result = false;
     /**
      * type "component" don't need to check for binding value
      * Anh it shouldn't be use with binding value
      */
-    if (uncomputedProps.type == "component") return false;
+    if (uncomputedProps.type == "component") {
+      return false;
+    }
+
+    var result = false;
     uncomputedProps.toJson().forEach((propName, value) {
-      if (value != null) {
-        if (![
-          "child",
-          "children",
-          "computedComponentProps",
-        ].contains(propName)) {
-          String valueAsString = (value is Map || value is List)
-              ? jsonEncode(value)
-              : value.toString();
-          if (propName == "name" || isValueBinding(valueAsString)) {
+      if (value == null ||
+          propName == "child" ||
+          propName == "children" ||
+          propName == "computedComponentProps") {
+        return;
+      }
+
+      final valueAsString = (value is Map || value is List)
+          ? jsonEncode(value)
+          : value.toString();
+
+      switch (propName) {
+        case "name":
+        case "value":
+          result = true;
+          break;
+        default:
+          if (isValueBinding(valueAsString)) {
             result = true;
           }
+          break;
+      }
 
-          if (result) {
-            UtilsManager.regexPattern.allMatches(valueAsString).map(
-              (match) {
-                var bindString = valueAsString
-                    .substring(
-                      match.start,
-                      match.end,
-                    )
-                    .trim();
-                updateWidgetBindingStrings(bindString);
-              },
-            ).toList();
+      if (result) {
+        UtilsManager.regexPattern.allMatches(valueAsString).map(
+          (match) {
+            final bindString = valueAsString
+                .substring(
+                  match.start,
+                  match.end,
+                )
+                .trim();
+            updateWidgetBindingStrings(bindString);
+          },
+        ).toList();
 
-            if (propName == "name") {
-              updateWidgetBindingStrings(value);
-            }
-          }
+        if (propName == "name") {
+          updateWidgetBindingStrings(value);
         }
       }
     });

@@ -146,6 +146,10 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
           ? null
           : BorderRadiusProps.fromJson(
               json['borderRadius'] as Map<String, dynamic>),
+      shapeBorder: json['shapeBorder'] == null
+          ? null
+          : TShapeBorderProps.fromJson(
+              json['shapeBorder'] as Map<String, dynamic>),
       boxShadow: json['boxShadow'] == null
           ? null
           : BoxShadowProps.fromJson(json['boxShadow'] as Map<String, dynamic>),
@@ -244,6 +248,7 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'image': instance.image,
       'boxBorder': instance.boxBorder,
       'borderRadius': instance.borderRadius,
+      'shapeBorder': instance.shapeBorder,
       'boxShadow': instance.boxShadow,
       'gradient': instance.gradient,
     };

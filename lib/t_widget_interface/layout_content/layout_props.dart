@@ -6,6 +6,7 @@ import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/t_widget_interface/app_bar_props/app_bar_props.dart';
 import 'package:the_tool/t_widget_interface/bottom_navigation_props/bottom_navigation_props.dart';
 import 'package:the_tool/t_widget_interface/box_decoration_props/border_props/border_props.dart';
+import 'package:the_tool/t_widget_interface/shape_border_props/shape_border_props.dart';
 import 'package:the_tool/t_widget_interface/box_decoration_props/border_radius_props/border_radius_props.dart';
 import 'package:the_tool/t_widget_interface/box_decoration_props/box_shadow_props/box_shadow_props.dart';
 import 'package:the_tool/t_widget_interface/data_table_props/data_column_props/data_column_props.dart';
@@ -158,6 +159,7 @@ class LayoutProps with _$LayoutProps {
     ImageProviderProps? image,
     BorderProps? boxBorder,
     BorderRadiusProps? borderRadius,
+    TShapeBorderProps? shapeBorder,
     BoxShadowProps? boxShadow,
     T_GradientProps? gradient,
   }) = _LayoutProps;
