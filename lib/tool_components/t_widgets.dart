@@ -38,6 +38,7 @@ import 'package:the_tool/tool_components/t_center.widget.dart'
     deferred as t_center;
 import 'package:the_tool/tool_components/t_padding.widget.dart'
     deferred as t_padding;
+import 'package:the_tool/tool_components/t_align.widget.dart';
 
 import 'package:the_tool/tool_components/t_stack_widget.dart';
 import 'package:the_tool/tool_components/t_text_widget.dart';
@@ -163,6 +164,8 @@ class _TWidgetsState extends State<TWidgets> {
       case "padding":
         await t_padding.loadLibrary();
         return t_padding.TPadding(tWidgetProps);
+      case "align":
+        return TAlign(tWidgetProps);
       default:
         return _computeNotBuiltInWidget(childData, content);
     }
@@ -172,11 +175,12 @@ class _TWidgetsState extends State<TWidgets> {
     Map<String, dynamic> childData,
     LayoutProps content,
   ) {
-    var contextStateProvider = getIt<ContextStateProvider>();
+    final contextStateProvider = getIt<ContextStateProvider>();
     LayoutProps? innerComponent = gato.get(
       contextStateProvider.pageComponents,
       "${widget.pagePath}.${content.component}",
     );
+
     if (innerComponent != null) {
       return TWidgets(
         childData: childData,
@@ -184,6 +188,7 @@ class _TWidgetsState extends State<TWidgets> {
         pagePath: widget.pagePath,
       );
     }
+
     if (content.type == null && content.component == null) {
       return const Offstage();
     }

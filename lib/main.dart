@@ -104,21 +104,31 @@ class _MyAppState extends State<MyApp> {
 
   Future<bool> _isReadyToRun() async {
     return Future<bool>.microtask(() async {
-      var apiClient = getIt<APIClientManager>();
-
-      apiClient.projectName = _selectedProjectName ??
-          getIt<StorageManager>().getLocalBox("projectName");
+      final apiClient = getIt<APIClientManager>();
+      final storage = getIt<StorageManager>();
+      final cacheProjectName = storage.getLocalBox("projectName");
+      apiClient.projectName = _selectedProjectName ?? cacheProjectName;
       ClientConfig config = await apiClient.getClientConfig();
       getIt<ContextStateProvider>().appConfig = config;
-
       await page_container.loadLibrary();
 
       if (kIsWeb) _loadWebCoreJSCode(context);
+
       return true;
     });
   }
 
   Future<bool> _loadSelectProjectPage() async {
+    final storage = getIt<StorageManager>();
+    final cacheProjectName = storage.getLocalBox("projectName");
+    if (storage.getLocalBox("remember") == true && cacheProjectName != null) {
+      _selectedProjectName = cacheProjectName;
+      return Future<bool>.microtask(() async {
+        await _isReadyToRun();
+        return true;
+      });
+    }
+
     return Future<bool>.microtask(() async {
       await select_project.loadLibrary();
       return true;

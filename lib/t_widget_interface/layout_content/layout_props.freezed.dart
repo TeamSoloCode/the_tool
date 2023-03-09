@@ -57,6 +57,7 @@ mixin _$LayoutProps {
   String? get shadowColor => throw _privateConstructorUsedError;
   double? get heightFactor => throw _privateConstructorUsedError;
   double? get widthFactor => throw _privateConstructorUsedError;
+  double? get weight => throw _privateConstructorUsedError;
   /**
      * 
      */
@@ -138,7 +139,8 @@ mixin _$LayoutProps {
   LayoutProps? get leading => throw _privateConstructorUsedError;
   LayoutProps? get title => throw _privateConstructorUsedError;
   LayoutProps? get trailing => throw _privateConstructorUsedError;
-  LayoutProps? get subtitle =>
+  LayoutProps? get subtitle => throw _privateConstructorUsedError;
+  double? get horizontalTitleGap =>
       throw _privateConstructorUsedError; // ListTile End==================================================
   String? get component => throw _privateConstructorUsedError;
   LayoutProps? get child => throw _privateConstructorUsedError;
@@ -204,6 +206,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? shadowColor,
       double? heightFactor,
       double? widthFactor,
+      double? weight,
       String? sliverListType,
       double? itemExtent,
       Map<String, dynamic>? componentProps,
@@ -245,6 +248,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       LayoutProps? title,
       LayoutProps? trailing,
       LayoutProps? subtitle,
+      double? horizontalTitleGap,
       String? component,
       LayoutProps? child,
       LayoutProps? content,
@@ -330,6 +334,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? shadowColor = freezed,
     Object? heightFactor = freezed,
     Object? widthFactor = freezed,
+    Object? weight = freezed,
     Object? sliverListType = freezed,
     Object? itemExtent = freezed,
     Object? componentProps = freezed,
@@ -371,6 +376,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? title = freezed,
     Object? trailing = freezed,
     Object? subtitle = freezed,
+    Object? horizontalTitleGap = freezed,
     Object? component = freezed,
     Object? child = freezed,
     Object? content = freezed,
@@ -533,6 +539,10 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
       widthFactor: freezed == widthFactor
           ? _value.widthFactor
           : widthFactor // ignore: cast_nullable_to_non_nullable
+              as double?,
+      weight: freezed == weight
+          ? _value.weight
+          : weight // ignore: cast_nullable_to_non_nullable
               as double?,
       sliverListType: freezed == sliverListType
           ? _value.sliverListType
@@ -698,6 +708,10 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.subtitle
           : subtitle // ignore: cast_nullable_to_non_nullable
               as LayoutProps?,
+      horizontalTitleGap: freezed == horizontalTitleGap
+          ? _value.horizontalTitleGap
+          : horizontalTitleGap // ignore: cast_nullable_to_non_nullable
+              as double?,
       component: freezed == component
           ? _value.component
           : component // ignore: cast_nullable_to_non_nullable
@@ -1028,6 +1042,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       String? shadowColor,
       double? heightFactor,
       double? widthFactor,
+      double? weight,
       String? sliverListType,
       double? itemExtent,
       Map<String, dynamic>? componentProps,
@@ -1069,6 +1084,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       LayoutProps? title,
       LayoutProps? trailing,
       LayoutProps? subtitle,
+      double? horizontalTitleGap,
       String? component,
       LayoutProps? child,
       LayoutProps? content,
@@ -1171,6 +1187,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? shadowColor = freezed,
     Object? heightFactor = freezed,
     Object? widthFactor = freezed,
+    Object? weight = freezed,
     Object? sliverListType = freezed,
     Object? itemExtent = freezed,
     Object? componentProps = freezed,
@@ -1212,6 +1229,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? title = freezed,
     Object? trailing = freezed,
     Object? subtitle = freezed,
+    Object? horizontalTitleGap = freezed,
     Object? component = freezed,
     Object? child = freezed,
     Object? content = freezed,
@@ -1374,6 +1392,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
       widthFactor: freezed == widthFactor
           ? _value.widthFactor
           : widthFactor // ignore: cast_nullable_to_non_nullable
+              as double?,
+      weight: freezed == weight
+          ? _value.weight
+          : weight // ignore: cast_nullable_to_non_nullable
               as double?,
       sliverListType: freezed == sliverListType
           ? _value.sliverListType
@@ -1539,6 +1561,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value.subtitle
           : subtitle // ignore: cast_nullable_to_non_nullable
               as LayoutProps?,
+      horizontalTitleGap: freezed == horizontalTitleGap
+          ? _value.horizontalTitleGap
+          : horizontalTitleGap // ignore: cast_nullable_to_non_nullable
+              as double?,
       component: freezed == component
           ? _value.component
           : component // ignore: cast_nullable_to_non_nullable
@@ -1636,6 +1662,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.shadowColor,
       this.heightFactor,
       this.widthFactor,
+      this.weight,
       this.sliverListType,
       this.itemExtent,
       final Map<String, dynamic>? componentProps,
@@ -1677,6 +1704,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.title,
       this.trailing,
       this.subtitle,
+      this.horizontalTitleGap,
       this.component,
       this.child,
       this.content,
@@ -1785,6 +1813,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   final double? heightFactor;
   @override
   final double? widthFactor;
+  @override
+  final double? weight;
 /**
      * 
      */
@@ -1975,6 +2005,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   final LayoutProps? trailing;
   @override
   final LayoutProps? subtitle;
+  @override
+  final double? horizontalTitleGap;
 // ListTile End==================================================
   @override
   final String? component;
@@ -2013,7 +2045,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, shadowColor: $shadowColor, heightFactor: $heightFactor, widthFactor: $widthFactor, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, selected: $selected, dividerColor: $dividerColor, head: $head, body: $body, leading: $leading, title: $title, trailing: $trailing, subtitle: $subtitle, component: $component, child: $child, content: $content, itemLayout: $itemLayout, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, shapeBorder: $shapeBorder, boxShadow: $boxShadow, gradient: $gradient)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, shadowColor: $shadowColor, heightFactor: $heightFactor, widthFactor: $widthFactor, weight: $weight, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, selected: $selected, dividerColor: $dividerColor, head: $head, body: $body, leading: $leading, title: $title, trailing: $trailing, subtitle: $subtitle, horizontalTitleGap: $horizontalTitleGap, component: $component, child: $child, content: $content, itemLayout: $itemLayout, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, shapeBorder: $shapeBorder, boxShadow: $boxShadow, gradient: $gradient)';
   }
 
   @override
@@ -2058,6 +2090,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('shadowColor', shadowColor))
       ..add(DiagnosticsProperty('heightFactor', heightFactor))
       ..add(DiagnosticsProperty('widthFactor', widthFactor))
+      ..add(DiagnosticsProperty('weight', weight))
       ..add(DiagnosticsProperty('sliverListType', sliverListType))
       ..add(DiagnosticsProperty('itemExtent', itemExtent))
       ..add(DiagnosticsProperty('componentProps', componentProps))
@@ -2100,6 +2133,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('title', title))
       ..add(DiagnosticsProperty('trailing', trailing))
       ..add(DiagnosticsProperty('subtitle', subtitle))
+      ..add(DiagnosticsProperty('horizontalTitleGap', horizontalTitleGap))
       ..add(DiagnosticsProperty('component', component))
       ..add(DiagnosticsProperty('child', child))
       ..add(DiagnosticsProperty('content', content))
@@ -2168,6 +2202,7 @@ abstract class _LayoutProps implements LayoutProps {
       final String? shadowColor,
       final double? heightFactor,
       final double? widthFactor,
+      final double? weight,
       final String? sliverListType,
       final double? itemExtent,
       final Map<String, dynamic>? componentProps,
@@ -2209,6 +2244,7 @@ abstract class _LayoutProps implements LayoutProps {
       final LayoutProps? title,
       final LayoutProps? trailing,
       final LayoutProps? subtitle,
+      final double? horizontalTitleGap,
       final String? component,
       final LayoutProps? child,
       final LayoutProps? content,
@@ -2300,6 +2336,8 @@ abstract class _LayoutProps implements LayoutProps {
   double? get heightFactor;
   @override
   double? get widthFactor;
+  @override
+  double? get weight;
   @override
   /**
      * 
@@ -2414,6 +2452,8 @@ abstract class _LayoutProps implements LayoutProps {
   LayoutProps? get trailing;
   @override
   LayoutProps? get subtitle;
+  @override
+  double? get horizontalTitleGap;
   @override // ListTile End==================================================
   String? get component;
   @override

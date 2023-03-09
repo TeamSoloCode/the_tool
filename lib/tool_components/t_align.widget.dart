@@ -5,8 +5,8 @@ import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/twidget_props.dart';
 
-class TCard extends TStatelessWidget {
-  TCard(TWidgetProps twidget) : super(twidget);
+class TAlign extends TStatelessWidget {
+  TAlign(TWidgetProps twidget) : super(twidget);
 
   @override
   Widget buildWidget(BuildContext context) {
@@ -14,15 +14,12 @@ class TCard extends TStatelessWidget {
     LayoutProps? _props = props;
 
     if (_props != null) {
-      _snapshot = Card(
+      _snapshot = Align(
         key: getBindingKey(),
-        color: ThemeDecoder.decodeColor(_props.color),
-        elevation: _props.elevation,
-        shape: ThemeDecoder.decodeShapeBorder(
-          _props.shapeBorder?.toJson(),
-        ),
-        margin: ThemeDecoder.decodeEdgeInsetsGeometry(_props.margin),
-        shadowColor: ThemeDecoder.decodeColor(_props.shadowColor),
+        heightFactor: _props.heightFactor,
+        widthFactor: _props.widthFactor,
+        alignment:
+            ThemeDecoder.decodeAlignment(_props.alignment) ?? Alignment.center,
         child: TWidgets(
           layout: _props.child!,
           pagePath: pagePath,

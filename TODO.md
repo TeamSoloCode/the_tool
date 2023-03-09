@@ -1,5 +1,6 @@
-Support Card widget
+Support SVG widget
 The widget type component in the drawer did not unmount on React when close drawer, but it mount new node in React when drawer opened
+Support merge deep nested when using built-in json component
 
 #-------------------------------------------------
 Support format number for t_textfield
@@ -82,3 +83,4 @@ Support MediaScreenOnly for all t_widgets
 -Support ListView builder
 -Update input of all t_widgets into a Map to reduce code in t_widgets.dart
 -Support ListTile
+-Support Card widget

@@ -121,6 +121,7 @@ class _T_ExpansionListState extends TStatefulWidget<T_ExpansionList> {
 
     return SingleChildScrollView(
       child: ExpansionPanelList(
+        // expandedHeaderPadding: ,
         dividerColor: ThemeDecoder.decodeColor(props.dividerColor),
         elevation: elevation != null ? elevation : 2.0,
         expansionCallback: _onExpansionCallback,

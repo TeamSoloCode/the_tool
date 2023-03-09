@@ -51,9 +51,4 @@ mixin ContainerMixin {
       "shape": ThemeDecoder.decodeBoxShape(props?.shape),
     }, validate: false);
   }
-
-  AlignmentGeometry? computeAlignment(LayoutProps? props) {
-    if (props?.alignment == null) return null;
-    return ThemeDecoder.decodeAlignment(props?.alignment);
-  }
 }

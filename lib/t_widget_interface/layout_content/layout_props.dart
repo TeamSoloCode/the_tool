@@ -61,6 +61,7 @@ class LayoutProps with _$LayoutProps {
     String? shadowColor,
     double? heightFactor,
     double? widthFactor,
+    double? weight,
 
     /**
      * 
@@ -147,6 +148,7 @@ class LayoutProps with _$LayoutProps {
     LayoutProps? title,
     LayoutProps? trailing,
     LayoutProps? subtitle,
+    double? horizontalTitleGap,
     // ListTile End==================================================
 
     String? component,

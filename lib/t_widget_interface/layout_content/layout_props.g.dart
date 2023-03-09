@@ -45,6 +45,7 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       shadowColor: json['shadowColor'] as String?,
       heightFactor: (json['heightFactor'] as num?)?.toDouble(),
       widthFactor: (json['widthFactor'] as num?)?.toDouble(),
+      weight: (json['weight'] as num?)?.toDouble(),
       sliverListType: json['sliverListType'] as String?,
       itemExtent: (json['itemExtent'] as num?)?.toDouble(),
       componentProps: json['componentProps'] as Map<String, dynamic>?,
@@ -116,6 +117,7 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       subtitle: json['subtitle'] == null
           ? null
           : LayoutProps.fromJson(json['subtitle'] as Map<String, dynamic>),
+      horizontalTitleGap: (json['horizontalTitleGap'] as num?)?.toDouble(),
       component: json['component'] as String?,
       child: json['child'] == null
           ? null
@@ -197,6 +199,7 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'shadowColor': instance.shadowColor,
       'heightFactor': instance.heightFactor,
       'widthFactor': instance.widthFactor,
+      'weight': instance.weight,
       'sliverListType': instance.sliverListType,
       'itemExtent': instance.itemExtent,
       'componentProps': instance.componentProps,
@@ -238,6 +241,7 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'title': instance.title,
       'trailing': instance.trailing,
       'subtitle': instance.subtitle,
+      'horizontalTitleGap': instance.horizontalTitleGap,
       'component': instance.component,
       'child': instance.child,
       'content': instance.content,

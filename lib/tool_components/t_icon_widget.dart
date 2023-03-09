@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:json_theme/json_theme.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
@@ -14,7 +15,13 @@ class T_Icon extends TStatelessWidget {
 
     if (_props != null) {
       var path = _props.icon ?? "";
-      _snapshot = Icon(MdiIcons.fromString(path));
+      _snapshot = Icon(
+        MdiIcons.fromString(path),
+        key: getBindingKey(),
+        color: ThemeDecoder.decodeColor(_props.color),
+        size: _props.iconSize,
+        weight: _props.weight,
+      );
     }
 
     return _snapshot;

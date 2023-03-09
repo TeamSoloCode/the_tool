@@ -12,7 +12,7 @@ class T_Container extends TStatelessWidget with ContainerMixin {
   Widget buildWidget(BuildContext context) {
     snapshot = Container(
       key: getBindingKey(),
-      alignment: computeAlignment(props),
+      alignment: ThemeDecoder.decodeAlignment(props?.alignment),
       height: props?.height,
       width: props?.width,
       margin: ThemeDecoder.decodeEdgeInsetsGeometry(props?.margin),

@@ -44,6 +44,7 @@ class _TListTileState extends TStatefulWidget<TListTile> {
     if (_props != null) {
       _snapshot = ListTile(
         key: widget.getBindingKey(),
+        horizontalTitleGap: _props.horizontalTitleGap,
         leading: _computeListTileWidget(_props.leading),
         title: _computeListTileWidget(_props.title),
         subtitle: _computeListTileWidget(_props.subtitle),
