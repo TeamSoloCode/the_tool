@@ -236,7 +236,9 @@ extension MergeLayoutProps on LayoutProps {
       autovalidateMode: other.autovalidateMode ?? autovalidateMode,
       fieldType: other.fieldType ?? fieldType,
       className: other.className ?? className,
-      child: other.child ?? child,
+      child: other.child == null
+          ? child
+          : (child?.merge(other.child) ?? other.child),
       content: other.content ?? content,
       scrollable: other.scrollable ?? scrollable,
       children: other.children ?? children,

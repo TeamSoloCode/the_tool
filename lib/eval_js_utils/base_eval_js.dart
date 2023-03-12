@@ -1,5 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:json_theme/json_theme.dart';
 
 abstract class BaseEvalJS {
   BuildContext context;
@@ -123,6 +125,7 @@ abstract class BaseEvalJS {
         const [_subComponents] = React.useState([])
         const [_updateSubComponentToken, _setUpdateSubComponentToken] = React.useState()
         const [\$mediaQuery, _updateMediaQuery] = React.useState(null)
+        const [\$themeData, _setThemeData] = React.useState(null)
         
         let [_pageData, _setPageData] = React.useState({ 
             _tLoaded: true,
@@ -230,6 +233,20 @@ abstract class BaseEvalJS {
           _onDebounceMediaQuery({ width, height, orientation })
         }, [_onDebounceMediaQuery])
 
+        // Update current ThemeData from flutter to js side into \$themeData variable
+        const _onUpdateThemeData = React.useCallback((themeDataAsJSON) => {
+          
+          if(!_.isString(themeDataAsJSON)) return
+
+          try {
+            const themeData = JSON.parse(themeDataAsJSON)
+            _setThemeData(themeData)
+          }
+          catch(err){
+            console.error("Input theme data is not JSON")
+          }
+        }, [])
+
         // export pages util function
         React.useEffect(() => {
           exportPageContext({
@@ -238,7 +255,8 @@ abstract class BaseEvalJS {
             getPageData,
             registerSubComponent,
             openDrawer,
-            _onMediaQueryChanged
+            _onMediaQueryChanged,
+            _onUpdateThemeData,
           })
           context['$pagePath'].exportPageContext = exportPageContext
         }, [
@@ -248,7 +266,8 @@ abstract class BaseEvalJS {
           exportPageContext,
           validateForm,
           openDrawer,
-          _onMediaQueryChanged
+          _onMediaQueryChanged,
+          _onUpdateThemeData
         ])
 
         //==========================Start Page Code==========================================
@@ -333,5 +352,13 @@ abstract class BaseEvalJS {
       }, 200)
     """;
     return unregisterComponentCode;
+  }
+
+  String getUpdateJSThemeDataCode(ThemeData? themeData) {
+    String updateJSThemeData = """_onUpdateThemeData('${jsonEncode(
+      ThemeEncoder.encodeThemeData(themeData),
+    )}')
+    """;
+    return updateJSThemeData;
   }
 }

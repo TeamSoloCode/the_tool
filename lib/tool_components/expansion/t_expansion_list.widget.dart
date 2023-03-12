@@ -86,7 +86,7 @@ class _T_ExpansionListState extends TStatefulWidget<T_ExpansionList> {
 
         return ExpansionPanel(
           backgroundColor: ThemeDecoder.decodeColor(
-            child.head?.backgroundColor,
+            child.backgroundColor,
           ),
           isExpanded: _expansionIndex[index],
           canTapOnHeader: true,
@@ -121,9 +121,9 @@ class _T_ExpansionListState extends TStatefulWidget<T_ExpansionList> {
 
     return SingleChildScrollView(
       child: ExpansionPanelList(
-        // expandedHeaderPadding: ,
+        // expandedHeaderPadding: EdgeInsets.all(0.0),
         dividerColor: ThemeDecoder.decodeColor(props.dividerColor),
-        elevation: elevation != null ? elevation : 2.0,
+        elevation: elevation ?? 2.0,
         expansionCallback: _onExpansionCallback,
         children: _computeExpansionItems(panelChildren, childData),
       ),

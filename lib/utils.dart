@@ -24,6 +24,8 @@ class UtilsManager {
       Map<String, dynamic>.from({});
   static final regexPattern = RegExp(r"[^{{\}}]+(?=}})");
   static const rootPrefix = "\$root.";
+  static const mediaQueryPrefix = "\$mediaQuery.";
+  static const themeDataPrefix = "\$themeData.";
   late ThemeProvider themeProvider;
 
   final eventify.EventEmitter _emitter = eventify.EventEmitter();

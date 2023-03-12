@@ -129,28 +129,30 @@ class APIClientManager {
   }
 
   Future<ClientConfig> getClientConfig() async {
+    var url = "";
     try {
       if (_beAPI!.contains("localhost")) {
-        _beAPI = _beAPI!.replaceFirst("localhost", host);
+        var uri = Uri.parse(_beAPI!);
+        _beAPI = uri.replace(host: host).toString();
       }
-
-      var response =
-          await _dio.get('$_beAPI/pages/client-config/$_projectName');
-      var clientConfig = ClientConfig.fromJson(json.decode(response.data));
+      url = '$_beAPI/pages/client-config/$_projectName';
+      final response = await _dio.get(url);
+      final clientConfig = ClientConfig.fromJson(json.decode(response.data));
 
       _pageAPI = clientConfig.pageAPI ?? _beAPI;
       if (_pageAPI!.contains("localhost")) {
-        _pageAPI = _pageAPI!.replaceFirst("localhost", host);
+        var uri = Uri.parse(_pageAPI!);
+        _pageAPI = uri.replace(host: host).toString();
       }
-      return Future.value(clientConfig);
+      return clientConfig;
     } on DioError catch (e) {
       if (e.response != null) {
-        throw Exception(e.response?.data);
+        throw Exception(e.response!.data.toString());
       } else {
         throw Exception(e.message);
       }
     } catch (e) {
-      rethrow;
+      throw Exception("Cannot load '$_projectName' project config. URL: $url");
     }
   }
 

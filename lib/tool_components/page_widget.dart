@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_appbar_widget.dart'
     deferred as t_appbar;
@@ -84,8 +85,6 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     }
   }
 
-  ThemeMode? prevThemeMode;
-
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -95,7 +94,11 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     });
     var contextStateProvider = getIt<ContextStateProvider>();
     contextStateProvider.setRootPageData(pageData);
-    var mediaQueryData = MediaQuery.of(context);
+    final mediaQueryData = MediaQuery.of(context);
+    final themeProvider = getIt<ThemeProvider>();
+    if (themeProvider.themeRefreshToken != 0) {
+      _updateThemeDataOnJSSide(themeProvider.themeData);
+    }
 
     if (_isReadyToRun == false ||
         !UtilsManager.isTruthy(gato.get(pageData, "_tLoaded"))) {
@@ -220,6 +223,22 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
       _pageLayout?.bottomNav,
       currentIndex: _selectedBottomNavIndex,
       onTap: _onBottomNavItemTapped,
+    );
+  }
+
+  void _updateThemeDataOnJSSide(ThemeData? themeData) {
+    if (themeData == null) {
+      return;
+    }
+
+    final executedCode = utils.evalJS?.getUpdateJSThemeDataCode(themeData);
+    if (executedCode == null) {
+      return;
+    }
+
+    utils.evalJS?.executeJS(
+      executedCode,
+      _pageId,
     );
   }
 
