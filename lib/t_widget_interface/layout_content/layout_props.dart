@@ -200,18 +200,32 @@ extension MergeLayoutProps on LayoutProps {
     List<LayoutProps> nextChildren,
     List<LayoutProps>? prevChildren,
   ) {
-    final results = <LayoutProps>[];
+    final mergedChildren = <LayoutProps>[];
     final prevChildrenMap = Map<int, LayoutProps>.fromEntries(
-      prevChildren?.asMap()?.entries ?? [],
+      prevChildren?.asMap().entries ?? [],
     );
+
     for (var i = 0; i < nextChildren.length; i++) {
       final child = nextChildren[i];
       final prevChild = prevChildrenMap[i];
       if (prevChild != null) {
-        results.add(prevChild.merge(child));
+        mergedChildren.add(prevChild.merge(child));
       }
     }
-    return results;
+
+    final result = <LayoutProps>[];
+    final mergedChildrenMap = Map<int, LayoutProps>.fromEntries(
+      mergedChildren.asMap().entries,
+    );
+
+    for (var i = 0; i < prevChildrenMap.length; i++) {
+      final prevChild = prevChildrenMap[i];
+      final mergedChild = mergedChildrenMap[i];
+      result.add(
+          mergedChild != null ? prevChild!.merge(mergedChild) : prevChild!);
+    }
+
+    return result;
   }
 
   LayoutProps merge(LayoutProps? other) {
@@ -271,15 +285,13 @@ extension MergeLayoutProps on LayoutProps {
       gradient: other.gradient ?? gradient,
       // validators: other.validators ?? validators,
       componentProps: {
-            ...?componentProps,
-            ...?other.componentProps,
-          } ??
-          emptyMapStringDynamic,
+        ...?componentProps,
+        ...?other.componentProps,
+      },
       computedComponentProps: {
-            ...?computedComponentProps,
-            ...?other.computedComponentProps,
-          } ??
-          emptyMapStringDynamic,
+        ...?computedComponentProps,
+        ...?other.computedComponentProps,
+      },
       sliverListType: other.sliverListType ?? sliverListType,
       itemExtent: other.itemExtent ?? itemExtent,
     );
