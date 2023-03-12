@@ -29,12 +29,13 @@ class T_Column extends TStatelessWidget {
               computePropsFromMediaScreen(context, childData, mediaScreen);
           child = child.merge(selectedMediaStyle);
         }
-
-        item = Expanded(
-          key: ValueKey(index),
-          flex: child.flex ?? 1,
-          child: item,
-        );
+        if (child.type != "expanded") {
+          item = Expanded(
+            key: ValueKey(index),
+            flex: child.flex ?? 1,
+            child: item,
+          );
+        }
       }
 
       return item;

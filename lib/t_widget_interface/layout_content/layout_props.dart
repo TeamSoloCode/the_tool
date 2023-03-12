@@ -196,6 +196,24 @@ extension MergeLayoutProps on LayoutProps {
     return merge(LayoutProps.fromJson(newProps));
   }
 
+  List<LayoutProps>? _mergeChildren(
+    List<LayoutProps> nextChildren,
+    List<LayoutProps>? prevChildren,
+  ) {
+    final results = <LayoutProps>[];
+    final prevChildrenMap = Map<int, LayoutProps>.fromEntries(
+      prevChildren?.asMap()?.entries ?? [],
+    );
+    for (var i = 0; i < nextChildren.length; i++) {
+      final child = nextChildren[i];
+      final prevChild = prevChildrenMap[i];
+      if (prevChild != null) {
+        results.add(prevChild.merge(child));
+      }
+    }
+    return results;
+  }
+
   LayoutProps merge(LayoutProps? other) {
     if (other == null) return this;
     var emptyMapStringDynamic = UtilsManager.emptyMapStringDynamic;
@@ -241,7 +259,9 @@ extension MergeLayoutProps on LayoutProps {
           : (child?.merge(other.child) ?? other.child),
       content: other.content ?? content,
       scrollable: other.scrollable ?? scrollable,
-      children: other.children ?? children,
+      children: other.children == null
+          ? children
+          : _mergeChildren(other.children!, children),
       bottomNav: other.bottomNav ?? bottomNav,
       obscureText: other.obscureText ?? obscureText,
       appBar: other.appBar ?? appBar,
@@ -250,18 +270,16 @@ extension MergeLayoutProps on LayoutProps {
       alignment: other.alignment ?? alignment,
       gradient: other.gradient ?? gradient,
       // validators: other.validators ?? validators,
-      componentProps: other.componentProps != null
-          ? {
-              ...{...componentProps ?? emptyMapStringDynamic},
-              ...{...other.componentProps ?? emptyMapStringDynamic},
-            }
-          : componentProps,
-      computedComponentProps: other.computedComponentProps != null
-          ? {
-              ...{...computedComponentProps ?? emptyMapStringDynamic},
-              ...{...other.computedComponentProps ?? emptyMapStringDynamic},
-            }
-          : computedComponentProps,
+      componentProps: {
+            ...?componentProps,
+            ...?other.componentProps,
+          } ??
+          emptyMapStringDynamic,
+      computedComponentProps: {
+            ...?computedComponentProps,
+            ...?other.computedComponentProps,
+          } ??
+          emptyMapStringDynamic,
       sliverListType: other.sliverListType ?? sliverListType,
       itemExtent: other.itemExtent ?? itemExtent,
     );
