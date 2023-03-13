@@ -151,7 +151,7 @@ class _TWidgetsState extends State<TWidgets> {
         return t_listview.T_ListView(tWidgetProps);
       case "expansion_list":
         await t_expansion_list.loadLibrary();
-        return t_expansion_list.T_ExpansionList(tWidgetProps);
+        return t_expansion_list.TExpansionList(tWidgetProps);
       case "list_tile":
         await t_list_tile.loadLibrary();
         return t_list_tile.TListTile(tWidgetProps);

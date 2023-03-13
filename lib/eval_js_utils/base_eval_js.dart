@@ -76,6 +76,7 @@ abstract class BaseEvalJS {
          
       }
       catch(e) {
+        console.log(`Error: \${JSON.stringify(e)}`)
         console.error(e)
       }
     """;
@@ -107,6 +108,7 @@ abstract class BaseEvalJS {
         document.getElementById("$pagePath")
       );
     } catch (err) {
+      console.log(`Error: \${JSON.stringify(err)}`)
       console.error(err);
     }
     """;
@@ -151,8 +153,9 @@ abstract class BaseEvalJS {
           // To prevent multi call when pageData not update yet
           _pageData = nextData;
 
+          const updatedData = {..._contextData['$pagePath'], ...nextData}
           setContextData({
-            ['$pagePath']: {..._contextData['$pagePath'], ...nextData}
+            ['$pagePath']: _.isEmpty(updatedData) ? null : updatedData
           })
         }, [_pageData, _contextData])
 
@@ -243,6 +246,7 @@ abstract class BaseEvalJS {
             _setThemeData(themeData)
           }
           catch(err){
+            console.log(`Error: Input theme data is not JSON`)
             console.error("Input theme data is not JSON")
           }
         }, [])
@@ -285,10 +289,12 @@ abstract class BaseEvalJS {
 
           return () => {
             logger.log(`Unmounted $pagePath`)
-            delete context['$pagePath']
-            setPageData({})
+            setContextData({
+              ['$pagePath']: null
+            })
+            setPageData(null)
           }
-        }, [])
+        }, [context])
         
         return subComponents.map(({ 
           subComponentName, 

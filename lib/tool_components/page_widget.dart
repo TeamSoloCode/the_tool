@@ -48,7 +48,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
   MediaQueryData? _prevMediaQueryData;
   @override
   void initState() {
-    _pageId = widget.pagePath + const Uuid().v4();
+    _pageId = "${widget.pagePath}_${const Uuid().v4()}";
     utils = getIt<UtilsManager>();
 
     /// Only load necessary widget base on page json

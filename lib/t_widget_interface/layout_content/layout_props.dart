@@ -230,7 +230,6 @@ extension MergeLayoutProps on LayoutProps {
 
   LayoutProps merge(LayoutProps? other) {
     if (other == null) return this;
-    var emptyMapStringDynamic = UtilsManager.emptyMapStringDynamic;
     return copyWith(
       mediaScreenOnly: other.mediaScreenOnly ?? mediaScreenOnly,
       height: other.height ?? height,

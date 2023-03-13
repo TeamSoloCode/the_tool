@@ -346,24 +346,15 @@ class ThemeProvider with ChangeNotifier {
 
   static dynamic transformColorFromCSS(dynamic inputValue) {
     if (inputValue is Map) {
-      var updateValue = {};
-      inputValue.forEach((key, value) {
-        updateValue[key] = transformColorFromCSS(value);
-      });
-      return updateValue;
+      return inputValue
+          .map((key, value) => MapEntry(key, transformColorFromCSS(value)));
     } else if (inputValue is List) {
-      var updateValue = [];
-      for (var value in inputValue) {
-        updateValue.add(transformColorFromCSS(value));
-      }
-      return updateValue;
+      return inputValue.map((value) => transformColorFromCSS(value)).toList();
     } else if (inputValue is String) {
-      if (isCssColor(inputValue)) {
-        return fromCssColor(inputValue).toCssString();
-      }
-      return inputValue;
-    } else {
-      return inputValue;
+      return isCssColor(inputValue)
+          ? fromCssColor(inputValue).toCssString()
+          : inputValue;
     }
+    return inputValue;
   }
 }

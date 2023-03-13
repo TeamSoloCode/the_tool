@@ -10,14 +10,14 @@ import 'package:the_tool/utils.dart';
 import 'package:collection/collection.dart' show DeepCollectionEquality;
 import 'package:the_tool/twidget_props.dart';
 
-class T_ExpansionList extends TWidget {
-  T_ExpansionList(TWidgetProps twidget) : super(twidget);
+class TExpansionList extends TWidget {
+  TExpansionList(TWidgetProps twidget) : super(twidget);
 
   @override
-  State<T_ExpansionList> createState() => _T_ExpansionListState();
+  State<TExpansionList> createState() => _TExpansionListState();
 }
 
-class _T_ExpansionListState extends TStatefulWidget<T_ExpansionList> {
+class _TExpansionListState extends TStatefulWidget<TExpansionList> {
   late List<bool> _expansionIndex;
   late List<bool> _defaultExpansionIndex;
 
@@ -135,7 +135,6 @@ class _T_ExpansionListState extends TStatefulWidget<T_ExpansionList> {
   @override
   Widget buildWidget(BuildContext context) {
     Widget _snapshot = widget.snapshot;
-
     // FIXME: This because on web platform it not triggered didChangeDependencies when contextData change
     if (kIsWeb) {
       _updateStateBaseOnContextData();

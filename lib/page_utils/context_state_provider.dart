@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import 'package:the_tool/t_widget_interface/client_config/client_config.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
-import 'package:the_tool/utils.dart';
 
 class ContextStateProvider with ChangeNotifier, DiagnosticableTreeMixin {
   final Map<String, dynamic> _contextData = {};

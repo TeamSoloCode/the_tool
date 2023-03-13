@@ -8,6 +8,7 @@ import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_js_invoke.dart'
 
 class EvalJS extends BaseEvalJS {
   dynamic webViewController;
+  late ContextStateProvider contextState;
 
   EvalJS({
     this.webViewController,
@@ -15,12 +16,10 @@ class EvalJS extends BaseEvalJS {
   }) : super(
           context: context,
         ) {
+    contextState = getIt<ContextStateProvider>();
     mobilejs.main();
     mobilejs.registerJavascriptHandler(
-      context,
-      getIt<ContextStateProvider>(),
-      webViewController,
-    );
+        context, contextState, webViewController);
   }
 
   @override

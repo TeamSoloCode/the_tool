@@ -1,7 +1,6 @@
 Support SVG widget
+Support ExpansionPanel widget
 The widget type component in the drawer did not unmount on React when close drawer, but it mount new node in React when drawer opened
-Support merge deep nested when using built-in json component(children)
-Support get current ThemeData in JS side
 
 #-------------------------------------------------
 Support format number for t_textfield
@@ -86,3 +85,7 @@ Support MediaScreenOnly for all t_widgets
 -Support ListTile
 -Support Card widget
 -Support merge deep nested when using built-in json component(child)
+-Support merge deep nested when using built-in json component(children)
+-Support get current ThemeData in JS side
+-Fix bug: Cannot setPageData in dashboard when open drawer and expanting one nav
+-Fix bug: contextData still hold unmounted pageData
