@@ -92,9 +92,6 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
       var nextRecord = nextRecords[index];
 
       List keysOfNextRecord = nextRecord.keys.toList();
-      List keysOfPrevRecord = prevRecord.keys.toList();
-
-      if (keysOfNextRecord.length != keysOfPrevRecord.length) return false;
 
       var notEqualsKey = keysOfNextRecord.firstWhere((key) {
         if (["_selected", "_index"].contains(key)) return false;

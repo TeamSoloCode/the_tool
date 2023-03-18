@@ -1,7 +1,7 @@
 Support SVG widget
 Support ExpansionPanel widget
 
-Fixbug: Table still show loading indicator on the first select all row
+
 Fixbug: The Drawer is too slow and laggy when open it on release/debug mode
 Fixbug: The widget type component in the drawer did not unmount on React when close drawer, but it mount new node in React when drawer opened
 
@@ -96,3 +96,4 @@ Support MediaScreenOnly for all t_widgets
 -Fix bug: Cannot setPageData in dashboard when open drawer and expanting one nav
 -Fix bug: contextData still hold unmounted pageData
 -setPageData shouldn't depenpended on any dependencies in js side
+-Fixbug: Table still show loading indicator on the first select all row

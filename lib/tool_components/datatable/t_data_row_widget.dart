@@ -42,7 +42,7 @@ class T_RowData extends AsyncDataTableSource {
   }
 
   @override
-  Future<AsyncRowsResponse> getRows(int offset, int limit) async {
+  Future<AsyncRowsResponse> getRows(int start, int end) async {
     if (_errorCounter != null) {
       _errorCounter = _errorCounter! + 1;
 
@@ -52,9 +52,9 @@ class T_RowData extends AsyncDataTableSource {
       }
     }
 
-    assert(offset >= 0);
+    assert(start >= 0);
     !_onlyUpdateData
-        ? getDataFunction(offset, limit, _sortColumn, _sortAscending)
+        ? getDataFunction(start, end, _sortColumn, _sortAscending)
         : _onlyUpdateData = false;
 
     var index = 0;
@@ -66,13 +66,19 @@ class T_RowData extends AsyncDataTableSource {
           var isSelected = rowData["_selected"] ?? false;
           var rowKey = ValueKey<dynamic>(rowData["id"] ?? index);
 
-          return DataRow(
+          return DataRow2(
             key: rowKey,
             selected: isSelected,
             onSelectChanged: (value) {
               if (value == null) return;
-              setSelect(ValueKey<dynamic>(rowData["id"] ?? index), value);
-              handleSelectRow(rowData["_index"], value);
+              final selectedIndex = rowData["_index"];
+
+              setSelect(
+                ValueKey<dynamic>(rowData["id"] ?? selectedIndex),
+                value,
+              );
+
+              handleSelectRow(selectedIndex, value);
             },
             cells: _computeCells(rows[0].cells, rowData),
           );
