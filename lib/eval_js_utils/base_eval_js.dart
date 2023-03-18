@@ -124,6 +124,7 @@ abstract class BaseEvalJS {
         context._prevData = Object.assign({}, _prevContextData);
         context._data = Object.assign({}, context._data, _contextData);
         
+        const isMounted = hooks.useIsMounted()
         const [_subComponents] = React.useState([])
         const [_updateSubComponentToken, _setUpdateSubComponentToken] = React.useState()
         const [\$mediaQuery, _updateMediaQuery] = React.useState(null)
@@ -138,11 +139,14 @@ abstract class BaseEvalJS {
             props
           },
         )
+
+        const [_nextState, setPageData] = React.useState({})
+        const _prevState = usePrevious(_nextState);
         
         const prevPageData = usePrevious(_pageData)
 
-        // This will use to set data for layout code
-        const setPageData = React.useCallback((data) => {
+        // This function will update data into context and component state
+        const updatePageData = React.useCallback((data) => {
           const nextData = {..._pageData }
           Object.entries(data).forEach(([key, value]) => {
             _.set(nextData, key, value)
@@ -159,8 +163,12 @@ abstract class BaseEvalJS {
           })
         }, [_pageData, _contextData])
 
-        const getPageData = React.useCallback(() => {
-          return _pageData;
+        React.useEffect(() => {
+          updatePageData(_nextState)
+        }, [_nextState])
+
+        const getPageData = React.useMemo(() => {
+          return () => _pageData;
         }, [_pageData])
 
         const \$root = React.useMemo(() => {
@@ -281,12 +289,14 @@ abstract class BaseEvalJS {
         //==========================End Page Code============================================
 
         React.useEffect(() => {
-          logger.log(`Didmount $pagePath`)
-          // init data for page
-          setTimeout(() => {
-            setPageData({_tLoaded: true,})
-          })
+          if (isMounted()) {
+            // init data for page
+            setPageData({ _tLoaded: true })
+          }
+        }, [isMounted])
 
+        React.useEffect(() => {
+          logger.log(`Didmount $pagePath`)
           return () => {
             logger.log(`Unmounted $pagePath`)
             setContextData({
@@ -294,7 +304,7 @@ abstract class BaseEvalJS {
             })
             setPageData(null)
           }
-        }, [context])
+        }, [])
         
         return subComponents.map(({ 
           subComponentName, 
@@ -303,26 +313,26 @@ abstract class BaseEvalJS {
         }) => {
           
           const componentProps = Object.entries(rawComponentProps)
-          .reduce((result, [key, value]) => {
-            let propFromParentContext = _.get(context, `$pagePath.\${value}`)
-            
-            result[key] = propFromParentContext != undefined ? propFromParentContext : value
+            .reduce((result, [key, value]) => {
+              let propFromParentContext = _.get(context, `$pagePath.\${value}`)
+              
+              result[key] = propFromParentContext != undefined ? propFromParentContext : value
 
-            if(value && isValueBinding(value)) {
-              const propsFromParentData = getBindingValue(getPageData(), value)
+              if(value && isValueBinding(value)) {
+                const propsFromParentData = getBindingValue(getPageData(), value)
 
-              /** 
-               * If the props not in parent data then we 
-               * will get from parent context 
-               */
-              if(!propsFromParentData) {
-                propsFromParentContext = getBindingValue(_.get(context, '$pagePath'), value)
+                /** 
+                 * If the props not in parent data then we 
+                 * will get from parent context 
+                 */
+                if(!propsFromParentData) {
+                  propsFromParentContext = getBindingValue(_.get(context, '$pagePath'), value)
+                }
+                result[key] =  propsFromParentData ?? result[key]
               }
-              result[key] =  propsFromParentData || propsFromParentContext
-            }
 
-            return result
-          }, {})
+              return result
+            }, {})
 
           return React.createElement(
             "div", 

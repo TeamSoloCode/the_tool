@@ -1,8 +1,14 @@
 Support SVG widget
 Support ExpansionPanel widget
-The widget type component in the drawer did not unmount on React when close drawer, but it mount new node in React when drawer opened
+
+Fixbug: Table still show loading indicator on the first select all row
+Fixbug: The Drawer is too slow and laggy when open it on release/debug mode
+Fixbug: The widget type component in the drawer did not unmount on React when close drawer, but it mount new node in React when drawer opened
 
 #-------------------------------------------------
+implement flutter_modular (make the routing easier)
+implement url_strategy (remove the # in the link)
+
 Support format number for t_textfield
 Reduce bundle size
 Fix bug: User press button home and go back to the app => cannot use emit to js side
@@ -89,3 +95,4 @@ Support MediaScreenOnly for all t_widgets
 -Support get current ThemeData in JS side
 -Fix bug: Cannot setPageData in dashboard when open drawer and expanting one nav
 -Fix bug: contextData still hold unmounted pageData
+-setPageData shouldn't depenpended on any dependencies in js side
