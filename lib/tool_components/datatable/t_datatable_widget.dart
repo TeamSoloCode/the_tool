@@ -195,6 +195,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
       pagePath: widget.pagePath,
       rows: widgetProps!.rows!,
       getDataFunction: _getData,
+      getContextData: widget.getContexData,
     );
 
     return dataSource;

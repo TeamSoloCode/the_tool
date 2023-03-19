@@ -115,7 +115,9 @@ class _TExpansionListState extends TStatefulWidget<TExpansionList> {
 
     var childData = UtilsManager.emptyMapStringDynamic;
     if (props.name != null) {
-      childData = {"${props.name}": widget.getContexData()[props.name]};
+      final contextData = widget.getContexData();
+      childData["${props.name}"] = contextData[props.name];
+      childData[UtilsManager.parentPrefix] = contextData;
     }
     var elevation = props.elevation;
 

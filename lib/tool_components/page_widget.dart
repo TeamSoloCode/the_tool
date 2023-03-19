@@ -175,6 +175,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
       return TWidgets(
         layout: _pageLayout ?? const LayoutProps(),
         pagePath: _pageId,
+        childData: const {},
       );
     }
     _pages = t_bottom_nav.computeBottomNavigationPages(

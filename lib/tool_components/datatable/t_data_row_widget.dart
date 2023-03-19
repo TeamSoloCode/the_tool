@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:the_tool/t_widget_interface/data_table_props/data_cell_props/data_cell_props.dart';
 import 'package:the_tool/t_widget_interface/data_table_props/data_row_props/data_row_props.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
+import 'package:the_tool/utils.dart';
 
 class T_RowData extends AsyncDataTableSource {
   final BuildContext context;
@@ -11,6 +12,7 @@ class T_RowData extends AsyncDataTableSource {
   late Function(int rowIndex, bool isSelected) handleSelectRow;
   late String pagePath;
   late Future<void> Function(int, int, String?, bool?) getDataFunction;
+  late Map<String, dynamic> Function() getContextData;
   // Add row tap handlers and show snackbar
   bool hasRowTaps = false;
   // Override height values for certain rows
@@ -32,6 +34,7 @@ class T_RowData extends AsyncDataTableSource {
     required this.pagePath,
     required this.getDataFunction,
     required this.handleSelectRow,
+    required this.getContextData,
     this.hasRowTaps = false,
     this.hasRowHeightOverrides = false,
     this.hasZebraStripes = false,
@@ -80,7 +83,10 @@ class T_RowData extends AsyncDataTableSource {
 
               handleSelectRow(selectedIndex, value);
             },
-            cells: _computeCells(rows[0].cells, rowData),
+            cells: _computeCells(
+              rows[0].cells,
+              Map<String, dynamic>.from(rowData),
+            ),
           );
         }).toList());
 
@@ -93,9 +99,12 @@ class T_RowData extends AsyncDataTableSource {
 
   List<DataCell> _computeCells(
     List<DataCellProps>? dataCellProps,
-    Map<String, dynamic> item,
+    Map<String, dynamic> rowData,
   ) {
     if (dataCellProps == null) return [];
+    final childData = rowData;
+    childData[UtilsManager.parentPrefix] = getContextData();
+
     List<DataCell> computedCells = [];
     dataCellProps.map(
       (cell) {
@@ -103,7 +112,7 @@ class T_RowData extends AsyncDataTableSource {
           TWidgets(
             layout: cell.child,
             pagePath: pagePath,
-            childData: item,
+            childData: childData,
           ),
           placeholder: true,
         ));

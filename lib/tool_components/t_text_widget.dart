@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/twidget_props.dart';
@@ -11,16 +10,19 @@ class T_Text extends TStatelessWidget {
 
   @override
   Widget buildWidget(BuildContext context) {
-    if (kIsWeb) {
+    final textAlign = ThemeDecoder.decodeTextAlign(props?.textAlign);
+    if (props?.selectable == true) {
       snapshot = SelectableText(
         props?.text ?? "",
         key: getBindingKey(),
+        textAlign: textAlign,
         style: ThemeDecoder.decodeTextStyle(props?.toJson()),
       );
     } else {
       snapshot = Text(
         props?.text ?? "",
         key: getBindingKey(),
+        textAlign: textAlign,
         style: ThemeDecoder.decodeTextStyle(props?.toJson()),
       );
     }

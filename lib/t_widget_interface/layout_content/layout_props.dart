@@ -102,7 +102,11 @@ class LayoutProps with _$LayoutProps {
     String? onHover,
     // Click Properties End==================================================
 
-    // Field Start================================================
+    // Text Start================================================
+    String? textAlign,
+    bool? selectable,
+    // Text Start================================================
+
     String? hintText,
     String? labelText,
     bool? obscureText,
@@ -252,6 +256,8 @@ extension MergeLayoutProps on LayoutProps {
       color: other.color ?? color,
       backgroundColor: other.backgroundColor ?? backgroundColor,
       text: other.text ?? text,
+      textAlign: other.textAlign ?? textAlign,
+      selectable: other.selectable ?? selectable,
       fontSize: other.fontSize ?? fontSize,
       hidden: other.hidden ?? hidden,
       icon: other.icon ?? icon,

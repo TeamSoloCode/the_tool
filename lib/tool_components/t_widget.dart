@@ -101,7 +101,7 @@ mixin BaseStateWidget on Widget {
     mediaScreenApplied = false;
     props = utils.computeWidgetProps(
       appliedMediaScreen ?? widgetProps,
-      childData.isEmpty ? _contextData : childData,
+      getContexData(),
     );
 
     prevProps = props;

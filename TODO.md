@@ -4,6 +4,7 @@ implement seo_renderer, meta_seo
 
 Fixbug: The Drawer is too slow and laggy when open it on release/debug mode
 Fixbug: The widget type component in the drawer did not unmount on React when close drawer, but it mount new node in React when drawer opened
+Fixbug: The child component in block_page is not display text properly
 
 #-------------------------------------------------
 implement flutter_modular (make the routing easier)

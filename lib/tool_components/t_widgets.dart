@@ -57,7 +57,7 @@ class TWidgets extends StatefulWidget {
     Key? key,
     required this.layout,
     required this.pagePath,
-    this.childData = const {},
+    required this.childData,
   }) : super(key: key);
 
   @override

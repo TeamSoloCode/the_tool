@@ -17,6 +17,7 @@ PreferredSizeWidget? computeAppBar(
     Widget title = TWidgets(
       layout: appBarConfig.content!,
       pagePath: pageId,
+      childData: const {},
     );
 
     // List<Widget> actions = (appBarConfig["actions"] as List<dynamic>).map(
@@ -42,6 +43,7 @@ PreferredSizeWidget? computeAppBar(
     child: TWidgets(
       layout: customContent,
       pagePath: pageId,
+      childData: const {},
     ),
   );
 }

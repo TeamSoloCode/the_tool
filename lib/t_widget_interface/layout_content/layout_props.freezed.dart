@@ -98,7 +98,10 @@ mixin _$LayoutProps {
   String? get onFocus => throw _privateConstructorUsedError;
   String? get onHover =>
       throw _privateConstructorUsedError; // Click Properties End==================================================
-// Field Start================================================
+// Text Start================================================
+  String? get textAlign => throw _privateConstructorUsedError;
+  bool? get selectable =>
+      throw _privateConstructorUsedError; // Text Start================================================
   String? get hintText => throw _privateConstructorUsedError;
   String? get labelText => throw _privateConstructorUsedError;
   bool? get obscureText => throw _privateConstructorUsedError;
@@ -223,6 +226,8 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? onClickUp,
       String? onFocus,
       String? onHover,
+      String? textAlign,
+      bool? selectable,
       String? hintText,
       String? labelText,
       bool? obscureText,
@@ -351,6 +356,8 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? onClickUp = freezed,
     Object? onFocus = freezed,
     Object? onHover = freezed,
+    Object? textAlign = freezed,
+    Object? selectable = freezed,
     Object? hintText = freezed,
     Object? labelText = freezed,
     Object? obscureText = freezed,
@@ -608,6 +615,14 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.onHover
           : onHover // ignore: cast_nullable_to_non_nullable
               as String?,
+      textAlign: freezed == textAlign
+          ? _value.textAlign
+          : textAlign // ignore: cast_nullable_to_non_nullable
+              as String?,
+      selectable: freezed == selectable
+          ? _value.selectable
+          : selectable // ignore: cast_nullable_to_non_nullable
+              as bool?,
       hintText: freezed == hintText
           ? _value.hintText
           : hintText // ignore: cast_nullable_to_non_nullable
@@ -1059,6 +1074,8 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       String? onClickUp,
       String? onFocus,
       String? onHover,
+      String? textAlign,
+      bool? selectable,
       String? hintText,
       String? labelText,
       bool? obscureText,
@@ -1204,6 +1221,8 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? onClickUp = freezed,
     Object? onFocus = freezed,
     Object? onHover = freezed,
+    Object? textAlign = freezed,
+    Object? selectable = freezed,
     Object? hintText = freezed,
     Object? labelText = freezed,
     Object? obscureText = freezed,
@@ -1461,6 +1480,14 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value.onHover
           : onHover // ignore: cast_nullable_to_non_nullable
               as String?,
+      textAlign: freezed == textAlign
+          ? _value.textAlign
+          : textAlign // ignore: cast_nullable_to_non_nullable
+              as String?,
+      selectable: freezed == selectable
+          ? _value.selectable
+          : selectable // ignore: cast_nullable_to_non_nullable
+              as bool?,
       hintText: freezed == hintText
           ? _value.hintText
           : hintText // ignore: cast_nullable_to_non_nullable
@@ -1679,6 +1706,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.onClickUp,
       this.onFocus,
       this.onHover,
+      this.textAlign,
+      this.selectable,
       this.hintText,
       this.labelText,
       this.obscureText,
@@ -1912,7 +1941,12 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   @override
   final String? onHover;
 // Click Properties End==================================================
-// Field Start================================================
+// Text Start================================================
+  @override
+  final String? textAlign;
+  @override
+  final bool? selectable;
+// Text Start================================================
   @override
   final String? hintText;
   @override
@@ -2045,7 +2079,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, shadowColor: $shadowColor, heightFactor: $heightFactor, widthFactor: $widthFactor, weight: $weight, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, selected: $selected, dividerColor: $dividerColor, head: $head, body: $body, leading: $leading, title: $title, trailing: $trailing, subtitle: $subtitle, horizontalTitleGap: $horizontalTitleGap, component: $component, child: $child, content: $content, itemLayout: $itemLayout, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, shapeBorder: $shapeBorder, boxShadow: $boxShadow, gradient: $gradient)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, shadowColor: $shadowColor, heightFactor: $heightFactor, widthFactor: $widthFactor, weight: $weight, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, textAlign: $textAlign, selectable: $selectable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, selected: $selected, dividerColor: $dividerColor, head: $head, body: $body, leading: $leading, title: $title, trailing: $trailing, subtitle: $subtitle, horizontalTitleGap: $horizontalTitleGap, component: $component, child: $child, content: $content, itemLayout: $itemLayout, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, shapeBorder: $shapeBorder, boxShadow: $boxShadow, gradient: $gradient)';
   }
 
   @override
@@ -2108,6 +2142,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('onClickUp', onClickUp))
       ..add(DiagnosticsProperty('onFocus', onFocus))
       ..add(DiagnosticsProperty('onHover', onHover))
+      ..add(DiagnosticsProperty('textAlign', textAlign))
+      ..add(DiagnosticsProperty('selectable', selectable))
       ..add(DiagnosticsProperty('hintText', hintText))
       ..add(DiagnosticsProperty('labelText', labelText))
       ..add(DiagnosticsProperty('obscureText', obscureText))
@@ -2219,6 +2255,8 @@ abstract class _LayoutProps implements LayoutProps {
       final String? onClickUp,
       final String? onFocus,
       final String? onHover,
+      final String? textAlign,
+      final bool? selectable,
       final String? hintText,
       final String? labelText,
       final bool? obscureText,
@@ -2390,7 +2428,11 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   String? get onHover;
   @override // Click Properties End==================================================
-// Field Start================================================
+// Text Start================================================
+  String? get textAlign;
+  @override
+  bool? get selectable;
+  @override // Text Start================================================
   String? get hintText;
   @override
   String? get labelText;

@@ -89,6 +89,7 @@ class _T_LayoutBuilderState extends TStatefulWidget<T_LayoutBuilder> {
       key: ValueKey(layoutKey),
       layout: layoutBuilderProps.child!,
       pagePath: widget.pagePath,
+      childData: widget.childData,
     );
   }
 

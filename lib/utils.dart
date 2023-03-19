@@ -23,6 +23,7 @@ class UtilsManager {
   static Map<String, dynamic> emptyMapStringDynamic =
       Map<String, dynamic>.from({});
   static final regexPattern = RegExp(r"[^{{\}}]+(?=}})");
+  static const parentPrefix = "\$parent";
   static const rootPrefix = "\$root.";
   static const mediaQueryPrefix = "\$mediaQuery.";
   static const themeDataPrefix = "\$themeData.";
