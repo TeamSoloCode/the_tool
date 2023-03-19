@@ -13,6 +13,7 @@ import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
 import 't_widget_interface/client_config/client_config.dart';
 import 'dart:io' if (dart.library.html) "dart:html";
+import 'package:url_strategy/url_strategy.dart';
 import 'package:the_tool/static_pages/select_project.dart'
     deferred as select_project;
 import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
@@ -27,6 +28,9 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   SchemaValidator.enabled = false;
+  // Here we set the URL strategy for our web app.
+  // It is safe to call this function when running on mobile or desktop as well.
+  setPathUrlStrategy();
 
   // if (Platform.isAndroid) {
   //   await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);

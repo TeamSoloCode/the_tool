@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:the_tool/tool_components/expansion/t_expansion_tile.widget.dart'
+    deferred as t_expansion_tile;
 import 'package:the_tool/twidget_props.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
@@ -166,6 +168,9 @@ class _TWidgetsState extends State<TWidgets> {
         return t_padding.TPadding(tWidgetProps);
       case "align":
         return TAlign(tWidgetProps);
+      case "expansion_tile":
+        await t_expansion_tile.loadLibrary();
+        return t_expansion_tile.TExpansionTitle(tWidgetProps);
       default:
         return _computeNotBuiltInWidget(childData, content);
     }

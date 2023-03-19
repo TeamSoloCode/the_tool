@@ -101,6 +101,14 @@
         // Service workers not supported. Just drop the <script> tag.
         loadMainDartJs();
       }
+      
+      /**
+       * When seo bot detected then render as html
+       * */
+      const regExp = /bot|google|baidu|bing|msn|teoma|slurp|yandex|lighthouse/i;;
+      if (regExp.test(navigator.userAgent)) {
+        window.flutterWebRenderer = "html";
+      }
     </script>
   </body>
 </html>
