@@ -51,11 +51,11 @@ dependencies:
   json_theme:
     path: "./lib_modules/json_theme"
   eventify: ^1.0.1
-  
+
   expansion_tile_card: ^2.0.0
 
   # http
-  dio: ^4.0.6
+  dio: ^5.0.3
   dio_cache_interceptor: ^3.3.0
 
   # field packages

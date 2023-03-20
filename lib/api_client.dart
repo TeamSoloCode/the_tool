@@ -64,7 +64,9 @@ class APIClientManager {
 
       var response = await _dio.request(
         path,
-        options: Options(method: requestOptions.method),
+        options: Options(
+          method: requestOptions.method,
+        ),
         data: requestOptions.data,
       );
 
@@ -89,6 +91,8 @@ class APIClientManager {
           "response": {"error": "Fail to fetch"}
         };
       }
+    } catch (e) {
+      throw Exception(e.toString());
     }
   }
 
@@ -98,7 +102,7 @@ class APIClientManager {
           await _dio.get('$_pageAPI/pages/layout/$_projectName/core');
       return Future.value(response.data["code"]);
     } on DioError catch (e) {
-      log("Core not found => " + e.message);
+      log("Core not found => ${e.message}");
       return Future.value("");
     } catch (e) {
       throw Exception(e.toString());
@@ -137,7 +141,7 @@ class APIClientManager {
       }
       url = '$_beAPI/pages/client-config/$_projectName';
       final response = await _dio.get(url);
-      final clientConfig = ClientConfig.fromJson(json.decode(response.data));
+      final clientConfig = ClientConfig.fromJson(response.data);
 
       _pageAPI = clientConfig.pageAPI ?? _beAPI;
       if (_pageAPI!.contains("localhost")) {
@@ -164,7 +168,7 @@ class APIClientManager {
           .get('$_pageAPI/${themePath ?? "theme"}/$_projectName');
       return Future.value(response.data);
     } on DioError catch (e) {
-      log("Theme not found => " + e.message);
+      log("Theme not found => ${e.message}");
       return Future.value({});
     } catch (e) {
       rethrow;
