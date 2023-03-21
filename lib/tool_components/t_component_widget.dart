@@ -121,6 +121,7 @@ class _T_ComponentState extends TStatefulWidget<T_Component> {
       pagePath: _componentId,
       childData: widget.childData,
     );
+
     didBuild = true;
     return widget.snapshot;
   }

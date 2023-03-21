@@ -125,10 +125,14 @@ abstract class BaseEvalJS {
         context._data = Object.assign({}, context._data, _contextData);
         
         const isMounted = hooks.useIsMounted()
-        const [_subComponents] = React.useState([])
-        const [_updateSubComponentToken, _setUpdateSubComponentToken] = React.useState()
+
         const [\$mediaQuery, _updateMediaQuery] = React.useState(null)
         const [\$themeData, _setThemeData] = React.useState(null)
+
+        const [_subComponents, _setSubComponent] = React.useState([])
+        const [_unregisterSubComponents, _updateUnregisterSubComponent] = React.useState([])
+        const _debounceUnregisterSubComponent = hooks.useDebounce(_unregisterSubComponents, 200)
+        const _debounceRegisterSubComponent = hooks.useDebounce(_subComponents, 100)
         
         let [_pageData, _setPageData] = React.useState({ 
             _tLoaded: true,
@@ -193,6 +197,12 @@ abstract class BaseEvalJS {
           }
         }, [setPageData, didInitState])
 
+        const _debouceRegisterSubComponent = React.useMemo(() => {
+          return _.debounce((subComponents) => {
+            _setSubComponent([...subComponents])
+          }, 100)
+        }, [])
+
         // adding sub component when using t_component
         const registerSubComponent = (
           subComponentName, 
@@ -206,12 +216,39 @@ abstract class BaseEvalJS {
             rawComponentProps, 
             computedComponentProps
           })
-          _setUpdateSubComponentToken(Date.now())
+          // Debounce to avoid re-render
+          _debouceRegisterSubComponent(_subComponents)
         }
+
+        const _debouceUnregisterSubComponent = React.useMemo(() => {
+          return _.debounce((unregisterSubComponents) => {
+            _updateUnregisterSubComponent([...unregisterSubComponents])
+          }, 200)
+        }, [])
+        
+        const _unregisterSubComponent = React.useCallback(
+          (unregisterComponentName) => 
+        {
+          _unregisterSubComponents.push(unregisterComponentName)
+          // Debounce to avoid re-render
+          _debouceUnregisterSubComponent(_unregisterSubComponents)
+        }, 
+          [_unregisterSubComponents]
+        )
+
+        React.useEffect(() => {
+          if(_unregisterSubComponents.length == 0) return
+          const updatedSubComponents = (_subComponents || []).filter((comp) => {
+            return !_unregisterSubComponents.includes(comp.subComponentName);
+          })
+
+          _setSubComponent(updatedSubComponents)
+          _updateUnregisterSubComponent([])
+        }, [_debounceUnregisterSubComponent])
 
         const subComponents = React.useMemo(() => {
           return _subComponents
-        }, [_updateSubComponentToken])
+        }, [_debounceRegisterSubComponent])
 
         const validateForm = React.useCallback(async (formName) => {
           const actionId = uuidv4();
@@ -266,6 +303,7 @@ abstract class BaseEvalJS {
             setPageData,
             getPageData,
             registerSubComponent,
+            _unregisterSubComponent,
             openDrawer,
             _onMediaQueryChanged,
             _onUpdateThemeData,
@@ -275,6 +313,7 @@ abstract class BaseEvalJS {
           setPageData, 
           getPageData, 
           registerSubComponent, 
+          _unregisterSubComponent,
           exportPageContext,
           validateForm,
           openDrawer,
@@ -357,15 +396,7 @@ abstract class BaseEvalJS {
     required String componentPath,
   }) {
     String unregisterComponentCode = """
-      /** set timeout to wait for parent unmounted  */
-      setTimeout(() => {
-        const componentEl = document.getElementById("$componentPath")
-        const parentEl = document.getElementById("$parentPagePath")
-        if(parentEl) {
-          parentEl.removeChild(componentEl);
-          ReactDOM.unmountComponentAtNode(componentEl);
-        }
-      }, 200)
+      context['$parentPagePath']?._unregisterSubComponent?.("$componentPath")
     """;
     return unregisterComponentCode;
   }

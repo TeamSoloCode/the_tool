@@ -1,14 +1,13 @@
-Support SVG widget
-Support ExpansionPanel widget
-implement seo_renderer, meta_seo
-
-Fixbug: The Drawer is too slow and laggy when open it on release/debug mode
 Fixbug: The widget type component in the drawer did not unmount on React when close drawer, but it mount new node in React when drawer opened
+Fixbug: The Drawer is too slow and laggy when open it on release/debug mode
 Fixbug: The child component in block_page is not display text properly
+
+Support SVG widget
+implement seo_renderer, meta_seo
 
 #-------------------------------------------------
 implement flutter_modular (make the routing easier)
-
+implement vm2 package on js side to run js code
 
 Support format number for t_textfield
 Reduce bundle size
@@ -99,3 +98,4 @@ Support MediaScreenOnly for all t_widgets
 -setPageData shouldn't depenpended on any dependencies in js side
 -Fixbug: Table still show loading indicator on the first select all row
 -implement url_strategy (remove the # in the link)
+-Support ExpansionPanel widget
