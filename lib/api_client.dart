@@ -21,7 +21,7 @@ class APIClientManager {
   final _dioCached = Dio();
 
   APIClientManager() : super() {
-    _dio.interceptors.add(PrettyDioLogger(
+    var prettyDioLogger = PrettyDioLogger(
       logPrint: (object) {
         log("$object");
       },
@@ -32,7 +32,10 @@ class APIClientManager {
       error: true,
       compact: true,
       maxWidth: 90,
-    ));
+    );
+
+    _dio.interceptors.add(prettyDioLogger);
+    _dioCached.interceptors.add(prettyDioLogger);
 
     var cacheStore = MemCacheStore();
     var cacheOptions = CacheOptions(

@@ -132,7 +132,7 @@ abstract class BaseEvalJS {
         const [_subComponents, _setSubComponent] = React.useState([])
         const [_unregisterSubComponents, _updateUnregisterSubComponent] = React.useState([])
         const _debounceUnregisterSubComponent = hooks.useDebounce(_unregisterSubComponents, 200)
-        const _debounceRegisterSubComponent = hooks.useDebounce(_subComponents, 100)
+        const _debounceRegisterSubComponent = hooks.useDebounce(_subComponents, 50)
         
         let [_pageData, _setPageData] = React.useState({ 
             _tLoaded: true,
@@ -200,7 +200,7 @@ abstract class BaseEvalJS {
         const _debouceRegisterSubComponent = React.useMemo(() => {
           return _.debounce((subComponents) => {
             _setSubComponent([...subComponents])
-          }, 100)
+          }, 50)
         }, [])
 
         // adding sub component when using t_component

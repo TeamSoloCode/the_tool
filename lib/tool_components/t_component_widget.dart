@@ -23,14 +23,15 @@ class _T_ComponentState extends TStatefulWidget<T_Component> {
   Map<String, dynamic> _pageInfo = {};
   bool _isReady = false;
   LayoutProps? _props;
+  late Future<void> _loadClientComponent;
   var emptyMapStringDynamic = UtilsManager.emptyMapStringDynamic;
 
   @override
   void initState() {
-    super.initState();
     if (widget.widgetProps.path != null) {
-      _loadComponentInfo(widget.widgetProps.path!);
+      _loadClientComponent = _loadComponentInfo(widget.widgetProps.path!);
     }
+    super.initState();
   }
 
   @override
@@ -87,42 +88,34 @@ class _T_ComponentState extends TStatefulWidget<T_Component> {
       computedComponentPropsAsJSON: _props?.computedComponentProps ?? {},
     );
 
-    Future.delayed(Duration.zero, () async {
-      setState(() {
-        _isReady = true;
-      });
-    });
-  }
+    await Future.delayed(const Duration(milliseconds: 10));
 
-  bool didBuild = false;
+    return;
+  }
 
   @override
   bool get wantKeepAlive => true;
 
   @override
   Widget buildWidget(BuildContext context) {
-    var path = _props?.path;
-
-    if (path == null || !_isReady) {
-      return const Offstage();
-    }
-
-    if (didBuild) {
-      return widget.snapshot;
-    }
-
     // var contextData =
     //     getIt<ContextStateProvider>().contextData[widget.pagePath] ??
     //         emptyMapStringDynamic;
 
-    widget.snapshot = TWidgets(
-      key: Key(_componentId),
-      layout: _pageLayout ?? const LayoutProps(),
-      pagePath: _componentId,
-      childData: widget.childData,
+    return FutureBuilder(
+      // key: ValueKey(_pageId),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return const Offstage();
+        }
+        return TWidgets(
+          key: Key(_componentId),
+          layout: _pageLayout ?? const LayoutProps(),
+          pagePath: _componentId,
+          childData: widget.childData,
+        );
+      },
+      future: _loadClientComponent,
     );
-
-    didBuild = true;
-    return widget.snapshot;
   }
 }
