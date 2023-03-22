@@ -367,7 +367,8 @@ abstract class BaseEvalJS {
                 if(!propsFromParentData) {
                   propsFromParentContext = getBindingValue(_.get(context, '$pagePath'), value)
                 }
-                result[key] =  propsFromParentData ?? result[key]
+
+                result[key] =  propsFromParentData
               }
 
               return result

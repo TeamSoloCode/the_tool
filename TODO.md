@@ -1,7 +1,3 @@
-Fixbug: The widget type component in the drawer did not unmount on React when close drawer, but it mount new node in React when drawer opened
-Fixbug: The Drawer is too slow and laggy when open it on release/debug mode
-Fixbug: The child component in block_page is not display text properly
-
 Support SVG widget
 implement seo_renderer, meta_seo
 
@@ -99,3 +95,6 @@ Support MediaScreenOnly for all t_widgets
 -Fixbug: Table still show loading indicator on the first select all row
 -implement url_strategy (remove the # in the link)
 -Support ExpansionPanel widget
+-Fixbug: The widget type component in the drawer did not unmount on React when close drawer, but it mount new node in React when drawer opened
+-Fixbug: The Drawer is too slow and laggy when open it on release/debug mode
+-Fixbug: The child component in block_page is not display text properly
