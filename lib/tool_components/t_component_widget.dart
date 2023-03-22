@@ -70,14 +70,9 @@ class _T_ComponentState extends TStatefulWidget<T_Component> {
       );
     }
 
-    var contextData = contextStateProvider.contextData[widget.pagePath] ??
-        emptyMapStringDynamic;
-
     _props = widget.utils.computeWidgetProps(
       widget.widgetProps,
-      widget.childData.isEmpty
-          ? contextData
-          : Map<String, dynamic>.from(widget.childData),
+      widget.getContexData(),
     );
 
     await widget.utils.evalJS?.registerSubComponent(

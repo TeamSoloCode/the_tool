@@ -29,6 +29,7 @@ class _TExpansionListState extends TStatefulWidget<TExpansionList> {
     );
     _expansionIndex = _defaultExpansionIndex;
 
+    _updateStateBaseOnContextData();
     super.initState();
   }
 

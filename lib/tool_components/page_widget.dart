@@ -202,7 +202,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
   ) {
     if (_pageLayout?.drawer == null) return null;
     if (_builtDrawer != null) return _builtDrawer;
-    _builtDrawer = t_drawer.T_Drawer(
+    _builtDrawer = t_drawer.TDrawer(
       TWidgetProps(
         pagePath: _pageId,
         widgetProps: _pageLayout?.drawer?.child ?? const LayoutProps(),

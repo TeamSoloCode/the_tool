@@ -118,7 +118,7 @@ abstract class BaseEvalJS {
       {required String pagePath, required String clientCode}) {
     return """
         const [_contextData, _setContextData] = React.useState(context._data);
-        let [didInitState, setDidInitState] = React.useState(false)
+        let [_didInitState] = React.useState(false)
         const _prevContextData = usePrevious(_contextData);
         context._updateContextData = _setContextData;
         context._prevData = Object.assign({}, _prevContextData);
@@ -132,7 +132,7 @@ abstract class BaseEvalJS {
         const [_subComponents, _setSubComponent] = React.useState([])
         const [_unregisterSubComponents, _updateUnregisterSubComponent] = React.useState([])
         const _debounceUnregisterSubComponent = hooks.useDebounce(_unregisterSubComponents, 200)
-        const _debounceRegisterSubComponent = hooks.useDebounce(_subComponents, 50)
+        const _debounceRegisterSubComponent = hooks.useDebounce(_subComponents, 10)
         
         let [_pageData, _setPageData] = React.useState({ 
             _tLoaded: true,
@@ -191,16 +191,16 @@ abstract class BaseEvalJS {
 
         // Use to init state before render the widget
         const useInitState = React.useCallback((initData = {}) => {
-          if(!didInitState) {
+          if(!_didInitState) {
             Object.assign(_pageData, {...initData})
-            setDidInitState(true);
+            _didInitState = true;
           }
-        }, [setPageData, didInitState])
+        }, [setPageData, _didInitState])
 
         const _debouceRegisterSubComponent = React.useMemo(() => {
           return _.debounce((subComponents) => {
             _setSubComponent([...subComponents])
-          }, 50)
+          }, 10)
         }, [])
 
         // adding sub component when using t_component

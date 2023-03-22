@@ -5,14 +5,14 @@ import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/twidget_props.dart';
 
-class T_Drawer extends TWidget {
-  T_Drawer(TWidgetProps twidget) : super(twidget);
+class TDrawer extends TWidget {
+  TDrawer(TWidgetProps twidget) : super(twidget);
 
   @override
-  State<T_Drawer> createState() => _T_DrawerState();
+  State<TDrawer> createState() => _TDrawerState();
 }
 
-class _T_DrawerState extends TStatefulWidget<T_Drawer> {
+class _TDrawerState extends TStatefulWidget<TDrawer> {
   @override
   Widget buildWidget(BuildContext context) {
     Widget _snapshot = widget.snapshot;
