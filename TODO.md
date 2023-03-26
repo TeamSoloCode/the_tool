@@ -1,4 +1,5 @@
 Try to use ThemeData in json layout and js code
+Update t_container not hidden when child property is not provided
 
 Support Error Widget for twidgets
 Support SVG widget

@@ -20,6 +20,7 @@ mixin BaseStateWidget on Widget {
   late final String pagePath;
   final UtilsManager utils = getIt<UtilsManager>();
   final contextStateProvider = getIt<ContextStateProvider>();
+  final themeProvider = getIt<ThemeProvider>();
   late final String widgetUuid;
 
   T_DrawerProps? drawerProps;

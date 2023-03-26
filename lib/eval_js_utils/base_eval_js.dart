@@ -402,9 +402,9 @@ abstract class BaseEvalJS {
     return unregisterComponentCode;
   }
 
-  String getUpdateJSThemeDataCode(ThemeData? themeData) {
+  String getUpdateJSThemeDataCode(Map<String, dynamic>? themeData) {
     String updateJSThemeData = """_onUpdateThemeData('${jsonEncode(
-      ThemeEncoder.encodeThemeData(themeData),
+      themeData,
     )}')
     """;
     return updateJSThemeData;

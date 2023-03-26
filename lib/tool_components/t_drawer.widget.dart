@@ -18,8 +18,8 @@ class _TDrawerState extends TStatefulWidget<TDrawer> {
       layout: widget.props!,
       pagePath: widget.pagePath,
       childData: const {},
-    ).createElement().build();
-    await Future.delayed(const Duration(milliseconds: 500));
+    );
+    await Future.delayed(const Duration(milliseconds: 10));
     return drawerContent;
   }
 

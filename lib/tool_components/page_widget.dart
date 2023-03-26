@@ -96,7 +96,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     final mediaQueryData = MediaQuery.of(context);
     final themeProvider = getIt<ThemeProvider>();
     if (themeProvider.themeRefreshToken != 0) {
-      _updateThemeDataOnJSSide(themeProvider.themeData);
+      _updateThemeDataOnJSSide(themeProvider.themeDataAsJSON);
     }
 
     if (_isReadyToRun == false ||
@@ -224,7 +224,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     );
   }
 
-  void _updateThemeDataOnJSSide(ThemeData? themeData) {
+  void _updateThemeDataOnJSSide(Map<String, dynamic>? themeData) {
     if (themeData == null) {
       return;
     }

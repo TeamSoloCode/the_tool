@@ -36,8 +36,12 @@ class ThemeProvider with ChangeNotifier {
   ThemeMode get currentThemeMode => _theme ?? ThemeMode.light;
   ThemeData? get themeData => _themeData;
   int? get themeRefreshToken => _themeRefreshToken;
+
   Map<String, dynamic>? get classes => _classes;
   Map<String, dynamic>? get baseColor => _baseColor;
+
+  Map<String, dynamic>? _themeDataAsJSON;
+  Map<String, dynamic>? get themeDataAsJSON => _themeDataAsJSON ?? const {};
 
   void toogleChangeThemeMode(ThemeMode? mode) {
     if (mode == null) {
@@ -118,6 +122,8 @@ class ThemeProvider with ChangeNotifier {
           textTheme: defaultTextTheme.merge(textTheme),
         );
       }
+
+      _themeDataAsJSON = ThemeEncoder.encodeThemeData(_themeData);
       return _themeData;
     } catch (e) {
       rethrow;
