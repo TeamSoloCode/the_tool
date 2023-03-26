@@ -6,8 +6,8 @@ import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/twidget_props.dart';
 
-class T_Container extends TStatelessWidget with ContainerMixin {
-  T_Container(TWidgetProps twidget) : super(twidget);
+class TContainer extends TStatelessWidget with ContainerMixin {
+  TContainer(TWidgetProps twidget) : super(twidget);
   @override
   Widget buildWidget(BuildContext context) {
     snapshot = Container(
@@ -24,11 +24,13 @@ class T_Container extends TStatelessWidget with ContainerMixin {
         minWidth: props?.minWidth,
       ),
       decoration: computeBoxDecoration(props),
-      child: TWidgets(
-        layout: props?.child ?? const LayoutProps(),
-        pagePath: pagePath,
-        childData: childData,
-      ),
+      child: props?.child == null
+          ? null
+          : TWidgets(
+              layout: props?.child ?? const LayoutProps(),
+              pagePath: pagePath,
+              childData: childData,
+            ),
     );
 
     if (props?.scrollable == true) {

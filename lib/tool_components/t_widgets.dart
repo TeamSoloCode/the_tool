@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:the_tool/tool_components/expansion/t_expansion_tile.widget.dart'
     deferred as t_expansion_tile;
+import 'package:the_tool/tool_components/t_flexible.widget.dart';
 import 'package:the_tool/twidget_props.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
@@ -117,7 +118,7 @@ class _TWidgetsState extends State<TWidgets> {
         await t_component.loadLibrary();
         return t_component.TComponent(tWidgetProps);
       case "container":
-        return T_Container(tWidgetProps);
+        return TContainer(tWidgetProps);
       case "column":
         return T_Column(tWidgetProps);
       case "stack":
@@ -131,6 +132,8 @@ class _TWidgetsState extends State<TWidgets> {
       case "expanded":
         await t_expanded.loadLibrary();
         return t_expanded.T_Expanded(tWidgetProps);
+      case "flexible":
+        return TFlexible(tWidgetProps);
       case "field":
         await t_fields.loadLibrary();
         return t_fields.T_Fields(tWidgetProps);
