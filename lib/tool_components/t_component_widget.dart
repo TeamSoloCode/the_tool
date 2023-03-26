@@ -10,18 +10,17 @@ import 'package:the_tool/utils.dart';
 import 'package:uuid/uuid.dart';
 import 'package:the_tool/twidget_props.dart';
 
-class T_Component extends TWidget {
-  T_Component(TWidgetProps twidget) : super(twidget);
+class TComponent extends TWidget {
+  TComponent(TWidgetProps twidget) : super(twidget);
 
   @override
-  State<T_Component> createState() => _T_ComponentState();
+  State<TComponent> createState() => _TComponentState();
 }
 
-class _T_ComponentState extends TStatefulWidget<T_Component> {
+class _TComponentState extends TStatefulWidget<TComponent> {
   LayoutProps? _pageLayout;
   String _componentId = "";
   Map<String, dynamic> _pageInfo = {};
-  bool _isReady = false;
   LayoutProps? _props;
   late Future<void> _loadClientComponent;
   var emptyMapStringDynamic = UtilsManager.emptyMapStringDynamic;
@@ -83,6 +82,7 @@ class _T_ComponentState extends TStatefulWidget<T_Component> {
       computedComponentPropsAsJSON: _props?.computedComponentProps ?? {},
     );
 
+    // waiting for the sub component successfully registered
     await Future.delayed(const Duration(milliseconds: 10));
 
     return;

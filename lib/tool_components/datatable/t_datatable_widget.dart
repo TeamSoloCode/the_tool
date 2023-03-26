@@ -231,38 +231,40 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
-        AsyncPaginatedDataTable2(
-          // key: ValueKey("${_sortAscending}_$_sortColumnIndex"),
-          controller: _paginationController,
-          rowsPerPage: _rowsPerPage,
-          minWidth: widget.utils.computeSizeValue(
-            props?.minWidth,
-            contextData,
+        RepaintBoundary(
+          child: AsyncPaginatedDataTable2(
+            // key: ValueKey("${_sortAscending}_$_sortColumnIndex"),
+            controller: _paginationController,
+            rowsPerPage: _rowsPerPage,
+            minWidth: widget.utils.computeSizeValue(
+              props?.minWidth,
+              contextData,
+            ),
+            initialFirstRowIndex: 0,
+            sortColumnIndex: _sortColumnIndex,
+            sortAscending: _sortAscending,
+            sortArrowIcon: Icons.keyboard_arrow_up,
+            columns: _computeColumns(props, contextData),
+            source: _rowDataSource!,
+            // loading: _prepareLoadingWidget(
+            //   _rowDataSource?.onlyUpdateData ?? false,
+            // ),
+            onSelectAll: (value) {
+              _handleSelectAll(value);
+              _updateTableSource();
+            },
+            onRowsPerPageChanged: (value) {
+              // No need to wrap into setState, it will be called inside the widget
+              // and trigger rebuild
+              //setState(() {
+              _rowsPerPage = value!;
+              print(_rowsPerPage);
+              //});
+            },
+            onPageChanged: (rowIndex) {
+              print(rowIndex / _rowsPerPage);
+            },
           ),
-          initialFirstRowIndex: 0,
-          sortColumnIndex: _sortColumnIndex,
-          sortAscending: _sortAscending,
-          sortArrowIcon: Icons.keyboard_arrow_up,
-          columns: _computeColumns(props, contextData),
-          source: _rowDataSource!,
-          // loading: _prepareLoadingWidget(
-          //   _rowDataSource?.onlyUpdateData ?? false,
-          // ),
-          onSelectAll: (value) {
-            _handleSelectAll(value);
-            _updateTableSource();
-          },
-          onRowsPerPageChanged: (value) {
-            // No need to wrap into setState, it will be called inside the widget
-            // and trigger rebuild
-            //setState(() {
-            _rowsPerPage = value!;
-            print(_rowsPerPage);
-            //});
-          },
-          onPageChanged: (rowIndex) {
-            print(rowIndex / _rowsPerPage);
-          },
         ),
         //Custom Pagination
         // Positioned(bottom: 16, child: CustomPager(_controller!))

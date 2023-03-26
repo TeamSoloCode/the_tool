@@ -84,16 +84,20 @@ class _TWidgetsState extends State<TWidgets> {
     // );
 
     if (tWidgets != null) {
-      return tWidgets ?? const Offstage();
+      return tWidgets!;
     }
-    var tWidgetProps = TWidgetProps(
-      key: Key(widgetUuid),
-      widgetProps: content,
-      pagePath: widget.pagePath,
-      widgetUuid: widgetUuid,
-      childData: childData,
-      layoutBuilder: content.layoutBuilder,
-    );
+
+    var tWidgetProps;
+    if (content.type != null) {
+      tWidgetProps = TWidgetProps(
+        key: Key(widgetUuid),
+        widgetProps: content,
+        pagePath: widget.pagePath,
+        widgetUuid: widgetUuid,
+        childData: childData,
+        layoutBuilder: content.layoutBuilder,
+      );
+    }
 
     switch (content.type) {
       case "text":
@@ -111,7 +115,7 @@ class _TWidgetsState extends State<TWidgets> {
         return t_form.T_Form(tWidgetProps);
       case "component":
         await t_component.loadLibrary();
-        return t_component.T_Component(tWidgetProps);
+        return t_component.TComponent(tWidgetProps);
       case "container":
         return T_Container(tWidgetProps);
       case "column":

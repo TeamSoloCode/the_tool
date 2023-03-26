@@ -1,3 +1,6 @@
+Try to use ThemeData in json layout and js code
+
+Support Error Widget for twidgets
 Support SVG widget
 implement seo_renderer, meta_seo
 

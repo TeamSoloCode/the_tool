@@ -88,21 +88,23 @@ class _TExapnsionTitle extends TStatefulWidget<TExpansionTitle> {
   Widget buildWidget(BuildContext context) {
     Widget _snapshot = widget.snapshot;
     LayoutProps? _props = widget.props;
-
     if (_props != null) {
       _snapshot = ExpansionTileCard(
         key: expansionKey,
         initiallyExpanded: _expanded,
         // TODO: Implement me
         // borderRadius: BorderRadius.all(ThemeDecoder.decodeRadius(_props.radius)),
+        contentPadding: const EdgeInsets.symmetric(vertical: 0),
         borderRadius: const BorderRadius.all(Radius.circular(0.0)),
         baseColor: ThemeDecoder.decodeColor(_props.backgroundColor),
+        finalPadding: const EdgeInsets.only(bottom: 0),
         elevation: _props.elevation ?? 2.0,
         onExpansionChanged: _onExpansionChanged,
         leading: _computeListTileWidget(_props.leading),
         title: _computeListTileWidget(_props.title)!,
         subtitle: _computeListTileWidget(_props.subtitle),
         trailing: _computeListTileWidget(_props.trailing),
+
         children: _computeExpansionTitleChildren(_props.children),
       );
     }

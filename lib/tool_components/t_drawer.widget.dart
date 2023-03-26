@@ -13,6 +13,16 @@ class TDrawer extends TWidget {
 }
 
 class _TDrawerState extends TStatefulWidget<TDrawer> {
+  Future<Widget> _loadDrawerData() async {
+    var drawerContent = TWidgets(
+      layout: widget.props!,
+      pagePath: widget.pagePath,
+      childData: const {},
+    ).createElement().build();
+    await Future.delayed(const Duration(milliseconds: 500));
+    return drawerContent;
+  }
+
   @override
   Widget buildWidget(BuildContext context) {
     Widget _snapshot = widget.snapshot;
@@ -27,10 +37,14 @@ class _TDrawerState extends TStatefulWidget<TDrawer> {
     if (_props != null) {
       _snapshot = Drawer(
         width: drawerWidth,
-        child: TWidgets(
-          layout: _props,
-          pagePath: widget.pagePath,
-          childData: const {},
+        child: FutureBuilder<Widget>(
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return snapshot.data!;
+            }
+            return const Offstage();
+          },
+          future: _loadDrawerData(),
         ),
       );
     }

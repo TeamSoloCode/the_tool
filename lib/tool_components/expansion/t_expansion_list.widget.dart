@@ -29,7 +29,13 @@ class _TExpansionListState extends TStatefulWidget<TExpansionList> {
     );
     _expansionIndex = _defaultExpansionIndex;
 
-    _updateStateBaseOnContextData();
+    final result = _compareStateAndData();
+    final isEqual = result.elementAt(0);
+    final value = result.elementAt(1);
+    if (isEqual == false) {
+      _expansionIndex = value;
+    }
+
     super.initState();
   }
 
@@ -42,21 +48,34 @@ class _TExpansionListState extends TStatefulWidget<TExpansionList> {
     super.didChangeDependencies();
   }
 
-  void _updateStateBaseOnContextData() {
-    var name = widget.widgetProps.name;
+  List<dynamic> _compareStateAndData() {
+    final name = widget.widgetProps.name;
 
-    if (name != null) {
-      var data = widget.getContexData()[name];
-      if (data != null &&
-          !const DeepCollectionEquality().equals(
-            data,
-            _expansionIndex,
-          )) {
-        setState(() {
-          _expansionIndex =
-              data is! List ? _defaultExpansionIndex : List<bool>.from(data);
-        });
-      }
+    if (name == null) return [true, null];
+
+    final data = widget.getContexData()[name];
+    if (data == null) return [true, null];
+
+    if (const DeepCollectionEquality().equals(
+      data,
+      _expansionIndex,
+    )) return [true, null];
+
+    return [
+      false,
+      data is! List ? _defaultExpansionIndex : List<bool>.from(data),
+    ];
+  }
+
+  void _updateStateBaseOnContextData() {
+    final result = _compareStateAndData();
+    final isEqual = result.elementAt(0);
+    final value = result.elementAt(1);
+
+    if (isEqual != true) {
+      setState(() {
+        _expansionIndex = List<bool>.from(value);
+      });
     }
   }
 
@@ -84,7 +103,18 @@ class _TExpansionListState extends TStatefulWidget<TExpansionList> {
         _expansionIndex[index] = child.selected != null
             ? UtilsManager.isTruthy(child.selected)
             : _expansionIndex[index];
-
+        var abcd = TWidgets(
+          layout: child.head!,
+          pagePath: widget.pagePath,
+          childData: childData ?? const {},
+        );
+        var abcd1 = child.body == null
+            ? const Offstage()
+            : TWidgets(
+                layout: child.body!,
+                pagePath: widget.pagePath,
+                childData: childData ?? const {},
+              );
         return ExpansionPanel(
           backgroundColor: ThemeDecoder.decodeColor(
             child.backgroundColor,
@@ -93,19 +123,10 @@ class _TExpansionListState extends TStatefulWidget<TExpansionList> {
           canTapOnHeader: true,
           headerBuilder: (context, isExpanded) {
             if (child.head == null) return const Offstage();
-            return TWidgets(
-              layout: child.head!,
-              pagePath: widget.pagePath,
-              childData: childData ?? const {},
-            );
+
+            return abcd;
           },
-          body: child.body == null
-              ? const Offstage()
-              : TWidgets(
-                  layout: child.body!,
-                  pagePath: widget.pagePath,
-                  childData: childData ?? const {},
-                ),
+          body: abcd1,
         );
       },
     ).toList();
@@ -123,14 +144,16 @@ class _TExpansionListState extends TStatefulWidget<TExpansionList> {
     var elevation = props.elevation;
 
     return SingleChildScrollView(
-      child: ExpansionPanelList(
-        expandedHeaderPadding: const EdgeInsets.symmetric(
-          vertical: 1.0,
+      child: RepaintBoundary(
+        child: ExpansionPanelList(
+          expandedHeaderPadding: const EdgeInsets.symmetric(
+            vertical: 1.0,
+          ),
+          dividerColor: ThemeDecoder.decodeColor(props.dividerColor),
+          elevation: elevation ?? 2.0,
+          expansionCallback: _onExpansionCallback,
+          children: _computeExpansionItems(panelChildren, childData),
         ),
-        dividerColor: ThemeDecoder.decodeColor(props.dividerColor),
-        elevation: elevation ?? 2.0,
-        expansionCallback: _onExpansionCallback,
-        children: _computeExpansionItems(panelChildren, childData),
       ),
     );
   }

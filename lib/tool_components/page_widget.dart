@@ -42,7 +42,6 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
 
   int _selectedBottomNavIndex = 0;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  Widget? _builtDrawer;
 
   late Future<void> _loadNecessaryWidget;
   MediaQueryData? _prevMediaQueryData;
@@ -201,8 +200,8 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     Map<String, dynamic> contextData,
   ) {
     if (_pageLayout?.drawer == null) return null;
-    if (_builtDrawer != null) return _builtDrawer;
-    _builtDrawer = t_drawer.TDrawer(
+
+    return t_drawer.TDrawer(
       TWidgetProps(
         pagePath: _pageId,
         widgetProps: _pageLayout?.drawer?.child ?? const LayoutProps(),
@@ -211,8 +210,6 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
         childData: contextData,
       ),
     );
-
-    return _builtDrawer;
   }
 
   Widget? _getBottomNavigation(Map<String, dynamic> contextData) {
