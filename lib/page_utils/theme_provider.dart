@@ -42,6 +42,9 @@ class ThemeProvider with ChangeNotifier {
 
   Map<String, dynamic>? _themeDataAsJSON;
   Map<String, dynamic>? get themeDataAsJSON => _themeDataAsJSON ?? const {};
+  set themeDataAsJSON(Map<String, dynamic>? themeData) {
+    _themeDataAsJSON = themeData;
+  }
 
   void toogleChangeThemeMode(ThemeMode? mode) {
     if (mode == null) {
@@ -123,7 +126,6 @@ class ThemeProvider with ChangeNotifier {
         );
       }
 
-      _themeDataAsJSON = ThemeEncoder.encodeThemeData(_themeData);
       return _themeData;
     } catch (e) {
       rethrow;

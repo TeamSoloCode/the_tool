@@ -62,6 +62,7 @@ class LayoutProps with _$LayoutProps {
     double? heightFactor,
     double? widthFactor,
     double? weight,
+    dynamic style,
 
     /**
      * 

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:json_theme/json_theme.dart';
 
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
@@ -45,6 +46,8 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
 
   late Future<void> _loadNecessaryWidget;
   MediaQueryData? _prevMediaQueryData;
+  int? _prevThemeRefreshToken = 0;
+
   @override
   void initState() {
     _pageId = "${widget.pagePath}_${const Uuid().v4()}";
@@ -95,8 +98,15 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     contextStateProvider.setRootPageData(pageData);
     final mediaQueryData = MediaQuery.of(context);
     final themeProvider = getIt<ThemeProvider>();
-    if (themeProvider.themeRefreshToken != 0) {
-      _updateThemeDataOnJSSide(themeProvider.themeDataAsJSON);
+
+    // Update ThemeData as json into js side
+    final themeRefreshToken = themeProvider.themeRefreshToken;
+    if (themeRefreshToken != 0 && themeRefreshToken != _prevThemeRefreshToken) {
+      _prevThemeRefreshToken = themeRefreshToken;
+
+      final themeDataAsJSON = ThemeEncoder.encodeThemeData(Theme.of(context));
+      themeProvider.themeDataAsJSON = themeDataAsJSON;
+      _updateThemeDataOnJSSide(themeDataAsJSON);
     }
 
     if (_isReadyToRun == false ||

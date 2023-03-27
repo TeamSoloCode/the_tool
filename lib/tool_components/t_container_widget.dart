@@ -24,13 +24,11 @@ class TContainer extends TStatelessWidget with ContainerMixin {
         minWidth: props?.minWidth,
       ),
       decoration: computeBoxDecoration(props),
-      child: props?.child == null
-          ? null
-          : TWidgets(
-              layout: props?.child ?? const LayoutProps(),
-              pagePath: pagePath,
-              childData: childData,
-            ),
+      child: TWidgets(
+        layout: props?.child ?? const LayoutProps(),
+        pagePath: pagePath,
+        childData: childData,
+      ),
     );
 
     if (props?.scrollable == true) {

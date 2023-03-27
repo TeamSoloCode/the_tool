@@ -2240,11 +2240,47 @@ class ThemeDecoder {
       return null;
     }
 
-    if (isCssColor(value)) {
+    if (value is String && !value.startsWith("#") && isCssColor(value)) {
       return fromCssColor(value);
     }
 
-    return Colors.black;
+    Color? result;
+
+    if (value is Color) {
+      result = value;
+    } else if (value != null) {
+      assert(SchemaValidator.validate(
+        schemaId: '$_baseSchemaUrl/color',
+        value: value,
+        validate: validate,
+      ));
+      var i = 0;
+
+      if (value?.startsWith('#') == true) {
+        value = value.substring(1);
+      }
+
+      if (value?.length == 3) {
+        value = value.substring(0, 1) +
+            value.substring(0, 1) +
+            value.substring(1, 2) +
+            value.substring(1, 2) +
+            value.substring(2, 3) +
+            value.substring(2, 3);
+      }
+
+      if (value?.length == 6 || value?.length == 8) {
+        i = int.parse(value, radix: 16);
+
+        if (value?.length != 8) {
+          i = 0xff000000 + i;
+        }
+
+        result = Color(i);
+      }
+    }
+
+    return result;
   }
 
   /// Decodes the given [value] to an [CardTheme].  This expects the given
