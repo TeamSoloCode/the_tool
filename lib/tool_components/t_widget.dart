@@ -34,7 +34,6 @@ mixin BaseStateWidget on Widget {
   final Set<String> widgetBindingStrings = {};
   List<dynamic> prevBindingValues = [];
   var hasBindingValue = false;
-  int? _themeRefreshToken;
   int? _prevThemeRefreshToken;
 
   bool mediaScreenApplied = false;
@@ -42,12 +41,7 @@ mixin BaseStateWidget on Widget {
   Map<String, dynamic> watchContextState(BuildContext context,
       {String? providedPagePath}) {
     var path = providedPagePath ?? pagePath;
-
-    _themeRefreshToken = context.select(
-      (ThemeProvider theme) {
-        return theme.themeRefreshToken;
-      },
-    );
+    Theme.of(context);
 
     if (hasBindingValue) {
       context.select((ContextStateProvider value) {
@@ -95,7 +89,7 @@ mixin BaseStateWidget on Widget {
         !hasBindingValue &&
         !propsHasUnit &&
         !mediaScreenApplied &&
-        _prevThemeRefreshToken == _themeRefreshToken) {
+        _prevThemeRefreshToken == themeProvider.themeRefreshToken) {
       return _contextData;
     }
 
@@ -106,7 +100,7 @@ mixin BaseStateWidget on Widget {
     );
 
     prevProps = props;
-    _prevThemeRefreshToken = _themeRefreshToken;
+    _prevThemeRefreshToken = themeProvider.themeRefreshToken;
 
     return _contextData;
   }

@@ -236,6 +236,7 @@ extension MergeLayoutProps on LayoutProps {
   LayoutProps merge(LayoutProps? other) {
     if (other == null) return this;
     return copyWith(
+      style: other.style ?? style,
       mediaScreenOnly: other.mediaScreenOnly ?? mediaScreenOnly,
       height: other.height ?? height,
       width: other.width ?? width,

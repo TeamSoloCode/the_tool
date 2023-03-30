@@ -46,7 +46,6 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
 
   late Future<void> _loadNecessaryWidget;
   MediaQueryData? _prevMediaQueryData;
-  int? _prevThemeRefreshToken = 0;
 
   @override
   void initState() {
@@ -97,17 +96,13 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     var contextStateProvider = getIt<ContextStateProvider>();
     contextStateProvider.setRootPageData(pageData);
     final mediaQueryData = MediaQuery.of(context);
-    final themeProvider = getIt<ThemeProvider>();
 
+    final themeProvider = context.read<ThemeProvider>();
+    final theme = Theme.of(context);
+    final themeDataAsJSON = ThemeEncoder.encodeThemeData(theme);
+    themeProvider.themeDataAsJSON = themeDataAsJSON;
     // Update ThemeData as json into js side
-    final themeRefreshToken = themeProvider.themeRefreshToken;
-    if (themeRefreshToken != 0 && themeRefreshToken != _prevThemeRefreshToken) {
-      _prevThemeRefreshToken = themeRefreshToken;
-
-      final themeDataAsJSON = ThemeEncoder.encodeThemeData(Theme.of(context));
-      themeProvider.themeDataAsJSON = themeDataAsJSON;
-      _updateThemeDataOnJSSide(themeDataAsJSON);
-    }
+    _updateThemeDataOnJSSide(themeDataAsJSON);
 
     if (_isReadyToRun == false ||
         !UtilsManager.isTruthy(gato.get(pageData, "_tLoaded"))) {

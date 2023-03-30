@@ -88,7 +88,7 @@ class _TWidgetsState extends State<TWidgets> {
       return tWidgets!;
     }
 
-    var tWidgetProps;
+    late TWidgetProps tWidgetProps;
     if (content.type != null) {
       tWidgetProps = TWidgetProps(
         key: Key(widgetUuid),
@@ -102,7 +102,7 @@ class _TWidgetsState extends State<TWidgets> {
 
     switch (content.type) {
       case "text":
-        return T_Text(tWidgetProps);
+        return TText(tWidgetProps);
       case "button":
         return T_Button(tWidgetProps);
       case "icon":

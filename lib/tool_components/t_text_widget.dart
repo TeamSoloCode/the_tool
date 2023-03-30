@@ -6,8 +6,8 @@ import 'package:the_tool/twidget_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:gato/gato.dart' as gato;
 
-class T_Text extends TStatelessWidget {
-  T_Text(TWidgetProps twidget) : super(twidget);
+class TText extends TStatelessWidget {
+  TText(TWidgetProps twidget) : super(twidget);
 
   var text = "";
 
@@ -26,7 +26,7 @@ class T_Text extends TStatelessWidget {
         ),
       );
 
-      style?.merge(inlineStyle);
+      style = style?.merge(inlineStyle);
     }
 
     if (props?.selectable == true) {

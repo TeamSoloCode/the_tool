@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:json_theme/json_theme_schemas.dart';
 import 'package:the_tool/api_client.dart';
@@ -20,6 +21,8 @@ import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
     if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_utils/web_eval_js.dart';
 
 void main() async {
+  // debugRepaintRainbowEnabled = true;
+
   if (!kIsWeb) {
     // if (Platform.isAndroid || Platform.isIOS) {
     await ScreenUtil.ensureScreenSize();
@@ -107,19 +110,17 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<bool> _isReadyToRun() async {
-    return Future<bool>.microtask(() async {
-      final apiClient = getIt<APIClientManager>();
-      final storage = getIt<StorageManager>();
-      final cacheProjectName = storage.getLocalBox("projectName");
-      apiClient.projectName = _selectedProjectName ?? cacheProjectName;
-      ClientConfig config = await apiClient.getClientConfig();
-      getIt<ContextStateProvider>().appConfig = config;
-      await page_container.loadLibrary();
+    final apiClient = getIt<APIClientManager>();
+    final storage = getIt<StorageManager>();
+    final cacheProjectName = storage.getLocalBox("projectName");
+    apiClient.projectName = _selectedProjectName ?? cacheProjectName;
+    ClientConfig config = await apiClient.getClientConfig();
+    getIt<ContextStateProvider>().appConfig = config;
+    await page_container.loadLibrary();
 
-      if (kIsWeb) _loadWebCoreJSCode(context);
+    if (kIsWeb) _loadWebCoreJSCode(context);
 
-      return true;
-    });
+    return true;
   }
 
   Future<bool> _loadSelectProjectPage() async {
@@ -127,16 +128,12 @@ class _MyAppState extends State<MyApp> {
     final cacheProjectName = storage.getLocalBox("projectName");
     if (storage.getLocalBox("remember") == true && cacheProjectName != null) {
       _selectedProjectName = cacheProjectName;
-      return Future<bool>.microtask(() async {
-        await _isReadyToRun();
-        return true;
-      });
+      await _isReadyToRun();
+      return true;
     }
 
-    return Future<bool>.microtask(() async {
-      await select_project.loadLibrary();
-      return true;
-    });
+    await select_project.loadLibrary();
+    return true;
   }
 
   @override

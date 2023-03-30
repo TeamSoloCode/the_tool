@@ -1,5 +1,5 @@
-Try to use ThemeData in json layout and js code
-Update t_container not hidden when child property is not provided
+Fix performance issue of the twidget when the theme changing
+Update the function that update the theme json into js side
 
 Support Error Widget for twidgets
 Support SVG widget
@@ -29,7 +29,7 @@ Support child config for t_button type that has child property
 Support simple operator for binding data ( {{ !state.isGood | eq(state.isGood, "bad") }} )
 Support pages app bar custom actions
 Support a js hook that with call when widget size change
-Support alert, dialog, snackbar
+Support alert, dialog, snackbar, ScaffoldMessenger
 
 #-------------------------------------------------
 
@@ -102,3 +102,6 @@ Support MediaScreenOnly for all t_widgets
 -Fixbug: The widget type component in the drawer did not unmount on React when close drawer, but it mount new node in React when drawer opened
 -Fixbug: The Drawer is too slow and laggy when open it on release/debug mode
 -Fixbug: The child component in block_page is not display text properly
+-Try to use ThemeData in json layout and js code
+-Fixbug: TextTheme not merge properly when change theme in SideNavigation
+-Try to use #theme.textTheme.bodyLarge.color, ... in json layout property
