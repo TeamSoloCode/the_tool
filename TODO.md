@@ -1,5 +1,6 @@
 Update the function that update the theme json into js side
 Support dynamic for using "style" property in json layout
+FIXME: Do not update theme JSON on every time context state changed
 
 Support Error Widget for twidgets
 Support SVG widget

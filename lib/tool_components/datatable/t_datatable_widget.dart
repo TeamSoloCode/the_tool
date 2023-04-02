@@ -93,7 +93,7 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
       var prevRecord = prevRecords[index];
       var nextRecord = nextRecords[index];
 
-      var notEqualsKey = nextRecord.keys.firstWhere(
+      String notEqualsKey = nextRecord.keys.firstWhere(
         (key) {
           if (["_selected", "_index"].contains(key)) {
             return false;
@@ -105,10 +105,10 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
               ? const DeepCollectionEquality().equals(nextValue, prevValue)
               : nextValue != prevValue;
         },
-        orElse: () => null,
+        orElse: () => "",
       );
 
-      if (notEqualsKey != null) {
+      if (notEqualsKey.isNotEmpty) {
         return false;
       }
     }

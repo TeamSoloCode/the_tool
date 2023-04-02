@@ -5,6 +5,7 @@ import 'package:json_theme/json_theme.dart';
 
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:the_tool/page_utils/debouncer.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_appbar_widget.dart'
@@ -47,6 +48,9 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
   late Future<void> _loadNecessaryWidget;
   MediaQueryData? _prevMediaQueryData;
 
+  final updateThemeDataJSON =
+      Debouncer(delay: const Duration(milliseconds: 500));
+
   @override
   void initState() {
     _pageId = "${widget.pagePath}_${const Uuid().v4()}";
@@ -86,6 +90,18 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     }
   }
 
+  void _updateThemeDataJSON(
+    ThemeData theme,
+  ) {
+    updateThemeDataJSON.run(() {
+      print("abcd _updateThemeDataJSON");
+
+      final themeProvider = context.read<ThemeProvider>();
+      final themeDataAsJSON = ThemeEncoder.encodeThemeData(theme);
+      themeProvider.themeDataAsJSON = themeDataAsJSON;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -97,10 +113,9 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     contextStateProvider.setRootPageData(pageData);
     final mediaQueryData = MediaQuery.of(context);
 
-    final themeProvider = context.read<ThemeProvider>();
     final theme = Theme.of(context);
-    final themeDataAsJSON = ThemeEncoder.encodeThemeData(theme);
-    themeProvider.themeDataAsJSON = themeDataAsJSON;
+    // FIXME: Do not update theme JSON on every time context state changed
+    _updateThemeDataJSON(theme);
 
     // FIXME: Do we need this. Find the way to let user have dynamic style select
     // _updateThemeOnJSSide(themeDataAsJSON);
