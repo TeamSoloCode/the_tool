@@ -293,28 +293,6 @@ class UtilsManager {
     return layoutProps;
   }
 
-  bool isPropsHasAdaptiveScreenUnit(LayoutProps widgetProps) {
-    var hasAdaptiveScreenUnit = false;
-
-    widgetProps.toJson().forEach((propName, value) {
-      if (!["child", "children", "computedComponentProps", "text", "label"]
-          .contains(propName)) {
-        if (value is String) {
-          var result = ["sw", "sh", "w", "h", "r", "sp"].firstWhere(
-            (unit) {
-              return value.endsWith(unit);
-            },
-            orElse: () => "",
-          );
-
-          if (result != "") hasAdaptiveScreenUnit = true;
-        }
-      }
-    });
-
-    return hasAdaptiveScreenUnit;
-  }
-
   double? _parseAdaptiveScreenUnit(String adaptiveUnit) {
     double? computeValue(String unit) {
       var valueAsString = adaptiveUnit.replaceAll(unit, "");
@@ -393,8 +371,10 @@ class UtilsManager {
 
   bool hasBindingValue(
     LayoutProps uncomputedProps,
-    void Function(String bindingString) updateWidgetBindingStrings,
-  ) {
+    void Function(String bindingString) updateWidgetBindingStrings, {
+    void Function()? hasThemeBindingValue,
+    void Function()? isPropsHasAdaptiveScreenUnit,
+  }) {
     /**
      * type "component" don't need to check for binding value
      * Anh it shouldn't be use with binding value
@@ -412,6 +392,17 @@ class UtilsManager {
         return;
       }
 
+      if (!["text", "label"].contains(propName) && value is String) {
+        var unit = ["sw", "sh", "w", "h", "r", "sp"].firstWhere(
+          (unit) => value.endsWith(unit),
+          orElse: () => "",
+        );
+
+        if (unit.isNotEmpty) {
+          isPropsHasAdaptiveScreenUnit?.call();
+        }
+      }
+
       final valueAsString = (value is Map || value is List)
           ? jsonEncode(value)
           : value.toString();
@@ -420,6 +411,9 @@ class UtilsManager {
         case "name":
         case "value":
           result = true;
+          break;
+        case "style":
+          hasThemeBindingValue?.call();
           break;
         default:
           if (isValueBinding(valueAsString)) {

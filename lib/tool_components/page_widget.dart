@@ -101,8 +101,9 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     final theme = Theme.of(context);
     final themeDataAsJSON = ThemeEncoder.encodeThemeData(theme);
     themeProvider.themeDataAsJSON = themeDataAsJSON;
-    // Update ThemeData as json into js side
-    _updateThemeDataOnJSSide(themeDataAsJSON);
+
+    // FIXME: Do we need this. Find the way to let user have dynamic style select
+    // _updateThemeOnJSSide(themeDataAsJSON);
 
     if (_isReadyToRun == false ||
         !UtilsManager.isTruthy(gato.get(pageData, "_tLoaded"))) {

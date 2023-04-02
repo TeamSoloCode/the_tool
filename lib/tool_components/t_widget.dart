@@ -34,6 +34,8 @@ mixin BaseStateWidget on Widget {
   final Set<String> widgetBindingStrings = {};
   List<dynamic> prevBindingValues = [];
   var hasBindingValue = false;
+  var hasThemeBindingValue = false;
+  var propsHasAdaptiveScreenUnit = false;
   int? _prevThemeRefreshToken;
 
   bool mediaScreenApplied = false;
@@ -41,7 +43,10 @@ mixin BaseStateWidget on Widget {
   Map<String, dynamic> watchContextState(BuildContext context,
       {String? providedPagePath}) {
     var path = providedPagePath ?? pagePath;
-    Theme.of(context);
+
+    if (hasThemeBindingValue) {
+      Theme.of(context);
+    }
 
     if (hasBindingValue) {
       context.select((ContextStateProvider value) {
@@ -83,11 +88,9 @@ mixin BaseStateWidget on Widget {
       }
     }
 
-    var propsHasUnit = utils.isPropsHasAdaptiveScreenUnit(widgetProps);
-
     if (prevProps != null &&
         !hasBindingValue &&
-        !propsHasUnit &&
+        !propsHasAdaptiveScreenUnit &&
         !mediaScreenApplied &&
         _prevThemeRefreshToken == themeProvider.themeRefreshToken) {
       return _contextData;
@@ -217,6 +220,12 @@ abstract class TWidget extends StatefulWidget with BaseStateWidget {
       hasBindingValue = utils.hasBindingValue(
         widgetProps,
         updateWidgetBindingStrings,
+        hasThemeBindingValue: () {
+          hasThemeBindingValue = true;
+        },
+        isPropsHasAdaptiveScreenUnit: () {
+          propsHasAdaptiveScreenUnit = true;
+        },
       );
     }
   }
@@ -263,6 +272,12 @@ abstract class TStatelessWidget extends StatelessWidget with BaseStateWidget {
       hasBindingValue = utils.hasBindingValue(
         widgetProps,
         updateWidgetBindingStrings,
+        hasThemeBindingValue: () {
+          hasThemeBindingValue = true;
+        },
+        isPropsHasAdaptiveScreenUnit: () {
+          propsHasAdaptiveScreenUnit = true;
+        },
       );
     }
   }

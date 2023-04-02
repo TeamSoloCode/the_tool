@@ -85,30 +85,30 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
   }
 
   bool _areRecordsEqual(List<dynamic> nextRecords, List<dynamic> prevRecords) {
-    if (nextRecords.length != prevRecords.length) return false;
+    if (nextRecords.length != prevRecords.length) {
+      return false;
+    }
 
     for (var index = 0; index < nextRecords.length; index++) {
       var prevRecord = prevRecords[index];
       var nextRecord = nextRecords[index];
 
-      List keysOfNextRecord = nextRecord.keys.toList();
+      var notEqualsKey = nextRecord.keys.firstWhere(
+        (key) {
+          if (["_selected", "_index"].contains(key)) {
+            return false;
+          }
 
-      var notEqualsKey = keysOfNextRecord.firstWhere((key) {
-        if (["_selected", "_index"].contains(key)) return false;
-        var nextValue = nextRecord[key];
-        var prevValue = prevRecord[key];
-        if (nextValue is Map && prevValue is Map) {
-          return const DeepCollectionEquality().equals(
-            nextValue,
-            prevValue,
-          );
-        }
+          var nextValue = nextRecord[key];
+          var prevValue = prevRecord[key];
+          return (nextValue is Map && prevValue is Map)
+              ? const DeepCollectionEquality().equals(nextValue, prevValue)
+              : nextValue != prevValue;
+        },
+        orElse: () => null,
+      );
 
-        if (nextValue != prevValue) return true;
-        return false;
-      }, orElse: () => "");
-
-      if (notEqualsKey != "") {
+      if (notEqualsKey != null) {
         return false;
       }
     }

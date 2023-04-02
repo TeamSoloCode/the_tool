@@ -1,5 +1,5 @@
-Fix performance issue of the twidget when the theme changing
 Update the function that update the theme json into js side
+Support dynamic for using "style" property in json layout
 
 Support Error Widget for twidgets
 Support SVG widget
@@ -105,3 +105,4 @@ Support MediaScreenOnly for all t_widgets
 -Try to use ThemeData in json layout and js code
 -Fixbug: TextTheme not merge properly when change theme in SideNavigation
 -Try to use #theme.textTheme.bodyLarge.color, ... in json layout property
+-Fix performance issue of the twidget when the theme changing
