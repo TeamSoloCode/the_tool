@@ -11,6 +11,7 @@ import 'package:the_tool/tool_components/expansion/t_expansion_list.widget.dart'
     deferred as t_expansion_list;
 import 'package:the_tool/tool_components/fields/t_fields_widget.dart'
     deferred as t_fields;
+import 'package:the_tool/tool_components/t_sized_box.dart';
 import 'package:the_tool/tool_components/fields/t_form_widget.dart'
     deferred as t_form;
 import 'package:the_tool/tool_components/t_avatar.widget.dart'
@@ -178,6 +179,8 @@ class _TWidgetsState extends State<TWidgets> {
       case "expansion_tile":
         await t_expansion_tile.loadLibrary();
         return t_expansion_tile.TExpansionTitle(tWidgetProps);
+      case "sized_box":
+        return TSizedBox(tWidgetProps);
       default:
         return _computeNotBuiltInWidget(childData, content);
     }
