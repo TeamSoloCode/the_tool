@@ -5,7 +5,8 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:permission_handler_platform_interface/permission_handler_platform_interface.dart';
+// import 'package:permission_handler_platform_interface/permission_handler_platform_interface.dart';
+import 'package:provider/provider.dart';
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/js_utils/base_invoke_is.dart';
 import 'package:the_tool/page_provider/context_state_provider.dart';
@@ -101,20 +102,20 @@ void registerJavascriptHandler(
   webViewController?.addJavaScriptHandler(
     handlerName: "permission_event",
     callback: (args) async {
-      var permissionManager = getIt<PermissionManager>();
-      PermissionStatus? permissionStatus;
-      switch (args[0]) {
-        case "request":
-          permissionStatus = await permissionManager.requestPermission(args[1]);
-          break;
-        case "status":
-          permissionStatus =
-              await permissionManager.getPermissionStatus(args[1]);
-          break;
-        case "open_app_settings":
-          return await permissionManager.requestOpenAppSettings();
-      }
-      return permissionManager.permissionStatusToMap(permissionStatus);
+      // var permissionManager = getIt<PermissionManager>();
+      // PermissionStatus? permissionStatus;
+      // switch (args[0]) {
+      //   case "request":
+      //     permissionStatus = await permissionManager.requestPermission(args[1]);
+      //     break;
+      //   case "status":
+      //     permissionStatus =
+      //         await permissionManager.getPermissionStatus(args[1]);
+      //     break;
+      //   case "open_app_settings":
+      //     return await permissionManager.requestOpenAppSettings();
+      // }
+      // return permissionManager.permissionStatusToMap(permissionStatus);
     },
   );
 
