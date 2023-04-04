@@ -3,7 +3,7 @@
 
 const path = require("path");
 const fs = require("fs");
-var webpack = require("webpack");
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
@@ -43,7 +43,6 @@ module.exports = {
   module: {
     rules: [
       {
-        // JavaScript
         test: /\.(js|jsx)$/,
         exclude: "/node_modules/",
         use: {

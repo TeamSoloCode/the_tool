@@ -115,15 +115,12 @@ class _PageContainerState extends State<PageContainer> {
 
   bool didMount = false;
   Future<bool> _isReadyToRun() async {
-    return Future<bool>.microtask(() async {
-      if (didMount || _utils.staticContent.isNotEmpty) return true;
-      if (!kIsWeb) {
-        await webview.loadLibrary();
-        await getIt<UtilsManager>().loadStaticContent();
-      }
-      didMount = true;
-      return true;
-    });
+    if (didMount) return true;
+    if (!kIsWeb) {
+      await webview.loadLibrary();
+    }
+    didMount = true;
+    return true;
   }
 
   Future<void> _updateTheme() async {

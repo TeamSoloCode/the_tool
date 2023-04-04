@@ -20,7 +20,6 @@ GetIt getIt = GetIt.instance;
 
 class UtilsManager {
   UtilsManager() : super();
-  Map<String, String> _staticContent = {};
   final envConfig = EnvironmentConfig();
 
   static Map<String, dynamic> emptyMapStringDynamic =
@@ -44,24 +43,6 @@ class UtilsManager {
     _evalJS = evalJS;
     themeProvider = getIt<ThemeProvider>();
   }
-
-  Future<void> loadStaticContent() async {
-    List<String> content = await Future.wait<String>(
-      [
-        rootBundle.loadString('js-module/dist/vendors.js'),
-        rootBundle.loadString('js-module/dist/app.js'),
-        rootBundle.loadString('js-module/dist/index.html')
-      ],
-    );
-
-    _staticContent = {
-      "vendor": content[0],
-      "app": content[1],
-      "htmlContent": content[2]
-    };
-  }
-
-  Map<String, String> get staticContent => _staticContent;
 
   static bool isValueBinding(String? value) {
     if (value == null) return false;
