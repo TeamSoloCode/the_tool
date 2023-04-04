@@ -182,18 +182,15 @@ class _PageContainerState extends State<PageContainer> {
     if (_isWebViewReady || _headlessWebView != null) return;
 
     _headlessWebView = webview.HeadlessInAppWebView(
+      initialUrlRequest: webview.URLRequest(
+        url: Uri.parse(_utils.envConfig.MOBILE_WEBVIEW_URL),
+      ),
       onWebViewCreated: (webViewController) async {
         try {
           _evalJS = EvalJS(
             context: context,
             webViewController: webViewController,
           );
-
-          String clientCore = await _apiClient.getClientCore();
-          String htmlContent =
-              (await _evalJS.setupReactForClientCode(clientCore));
-
-          await webViewController.loadData(data: htmlContent);
 
           _utils.evalJS = _evalJS;
         } catch (error) {

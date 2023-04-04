@@ -142,10 +142,10 @@ class _TWidgetsState extends State<TWidgets> {
         await t_table.loadLibrary();
         return t_table.T_DataTable(tWidgetProps);
       case "layout_builder":
-        assert(
-          tWidgetProps.layoutBuilder != null,
-          "layout_builder must have properties",
-        );
+        if (tWidgetProps.layoutBuilder == null) {
+          throw Exception("layout_builder must have properties");
+        }
+
         await t_layout_builder.loadLibrary();
         return t_layout_builder.T_LayoutBuilder(tWidgetProps);
       case "clickable":

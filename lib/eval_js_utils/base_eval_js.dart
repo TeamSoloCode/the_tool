@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:json_theme/json_theme.dart';
 
 abstract class BaseEvalJS {
   BuildContext context;
@@ -10,8 +9,6 @@ abstract class BaseEvalJS {
   BaseEvalJS({required this.context});
 
   Future<dynamic> executeJS(String jsCode, String pagePath);
-
-  Future<String> setupReactForClientCode(String clientCoreCode);
 
   void unmountClientCode(String pagePath);
 

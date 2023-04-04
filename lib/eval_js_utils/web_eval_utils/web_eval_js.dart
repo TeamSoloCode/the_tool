@@ -49,15 +49,6 @@ class EvalJS extends BaseEvalJS {
   }
 
   @override
-  Future<String> setupReactForClientCode(
-    String clientCoreCode,
-  ) async {
-    js.context.callMethod("eval", [clientCoreCode]);
-
-    return Future.value("");
-  }
-
-  @override
   Future<dynamic> executeJS(String jsCode, String pagePath) async {
     var index = jsCode.indexOf('(');
 

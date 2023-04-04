@@ -14,19 +14,24 @@ import 'package:the_tool/page_utils/style_utils.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/t_widget_interface/media_screen_only/media_screen_only.dart';
+import 'package:the_tool/config/config.dart';
 
 GetIt getIt = GetIt.instance;
 
 class UtilsManager {
   UtilsManager() : super();
   Map<String, String> _staticContent = {};
+  final envConfig = EnvironmentConfig();
+
   static Map<String, dynamic> emptyMapStringDynamic =
       Map<String, dynamic>.from({});
+
   static final regexPattern = RegExp(r"[^{{\}}]+(?=}})");
   static const parentPrefix = "\$parent";
   static const rootPrefix = "\$root.";
   static const mediaQueryPrefix = "\$mediaQuery.";
   static const themeDataPrefix = "\$themeData.";
+
   late ThemeProvider themeProvider;
 
   final eventify.EventEmitter _emitter = eventify.EventEmitter();

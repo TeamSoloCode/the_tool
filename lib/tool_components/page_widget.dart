@@ -94,8 +94,6 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     ThemeData theme,
   ) {
     updateThemeDataJSON.run(() {
-      print("abcd _updateThemeDataJSON");
-
       final themeProvider = context.read<ThemeProvider>();
       final themeDataAsJSON = ThemeEncoder.encodeThemeData(theme);
       themeProvider.themeDataAsJSON = themeDataAsJSON;

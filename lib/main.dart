@@ -89,15 +89,9 @@ class _MyAppState extends State<MyApp> {
   Future<void> _loadWebCoreJSCode(BuildContext context) async {
     UtilsManager utils = getIt<UtilsManager>();
     EvalJS evalJS;
-    APIClientManager apiClient = getIt<APIClientManager>();
 
     evalJS = EvalJS(
       context: context,
-    );
-    String clientCore = await apiClient.getClientCore();
-
-    await evalJS.setupReactForClientCode(
-      clientCore,
     );
 
     utils.evalJS = evalJS;

@@ -63,34 +63,6 @@ class EvalJS extends BaseEvalJS {
   }
 
   @override
-  Future<String> setupReactForClientCode(
-    String clientCoreCode,
-  ) async {
-    var staticContent = getIt<UtilsManager>().staticContent;
-
-    String vendorContent = staticContent["vendor"] ?? "";
-    String appContent = staticContent["app"] ?? "";
-    String fileContent = staticContent["htmlContent"] ?? "";
-
-    String replacedContent = fileContent.replaceAll(
-      "// <vendor_code>",
-      vendorContent,
-    );
-
-    replacedContent = replacedContent.replaceAll(
-      "// <app_code>",
-      appContent,
-    );
-
-    replacedContent = replacedContent.replaceAll(
-      "// <client_core_code>",
-      clientCoreCode,
-    );
-
-    return replacedContent;
-  }
-
-  @override
   void unmountClientCode(String pagePath) {
     String unmountClientCodeJS = """
     (() => {

@@ -1,0 +1,1 @@
+- Remove android:usesCleartextTraffic="true" in AndroidManifest.xml to not allow loading non-https website
