@@ -31,8 +31,9 @@
 
     <title>the_tool</title>
     <link rel="manifest" href="manifest.json" />
-    <script src="vendors.js" defer></script>
-    <script src="app.js" defer></script>
+
+    <script src="http://localhost:8081/vendors.js" defer></script>
+    <script src="http://localhost:8081/app.js" defer></script>
   </head>
   <body>
     <script></script>
@@ -101,11 +102,11 @@
         // Service workers not supported. Just drop the <script> tag.
         loadMainDartJs();
       }
-      
+
       /**
        * When seo bot detected then render as html
        * */
-      const regExp = /bot|google|baidu|bing|msn|teoma|slurp|yandex|lighthouse/i;;
+      const regExp = /bot|google|baidu|bing|msn|teoma|slurp|yandex|lighthouse/i;
       if (regExp.test(navigator.userAgent)) {
         window.flutterWebRenderer = "html";
       }

@@ -43,13 +43,13 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
   List<Widget> _pages = [];
 
   int _selectedBottomNavIndex = 0;
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   late Future<void> _loadNecessaryWidget;
   MediaQueryData? _prevMediaQueryData;
 
   final updateThemeDataJSON =
-      Debouncer(delay: const Duration(milliseconds: 500));
+      Debouncer(delay: const Duration(milliseconds: 200));
 
   @override
   void initState() {

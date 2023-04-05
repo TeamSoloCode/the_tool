@@ -1,23 +1,23 @@
 Update the function that update the theme json into js side
 Support dynamic for using "style" property in json layout
 FIXME: Do not update theme JSON on every time context state changed
+FIXME: When theme changed there are 8 times contextState update
 
 Support Error Widget for twidgets
 Support SVG widget
-implement seo_renderer, meta_seo
+implement flutter_modular (make the routing easier)
 
 #-------------------------------------------------
-implement flutter_modular (make the routing easier)
 implement vm2 package on js side to run js code
+implement seo_renderer, meta_seo
 
 Support format number for t_textfield
 Reduce bundle size
 Fix bug: User press button home and go back to the app => cannot use emit to js side
 
 Appbar not display properly
-Move base react component , app.js, vendor.js and js-module to server
-Load all needed page in isolate thread
 
+Load all needed page in isolate thread
 Add refresh page button for development mode
 
 Support customizable UI for t_select_field items
@@ -107,3 +107,4 @@ Support MediaScreenOnly for all t_widgets
 -Fixbug: TextTheme not merge properly when change theme in SideNavigation
 -Try to use #theme.textTheme.bodyLarge.color, ... in json layout property
 -Fix performance issue of the twidget when the theme changing
+-Move base react component , app.js, vendor.js and js-module to server
