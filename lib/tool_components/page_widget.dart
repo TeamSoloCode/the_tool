@@ -115,7 +115,6 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
 
     final theme = Theme.of(context);
     if (_prevThemeMode != theme.brightness) {
-      // FIXME: Do not update theme JSON on every time context state changed
       _updateThemeDataJSON(theme);
     }
 

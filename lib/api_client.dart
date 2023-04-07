@@ -1,10 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
-import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:the_tool/config/config.dart';
 import 'package:the_tool/page_utils/storage_manager.dart';
@@ -15,12 +13,11 @@ import 'package:the_tool/utils.dart';
 class APIClientManager {
   final _envConfig = getIt<EnvironmentConfig>();
   late final String host;
+  final Dio _dio = Dio();
+  final _dioCached = Dio();
+
   String _projectName =
       getIt<StorageManager>().getLocalBox("projectName") ?? "";
-
-  final Dio _dio = Dio();
-
-  final _dioCached = Dio();
 
   APIClientManager() : super() {
     host = _envConfig.localhost;
