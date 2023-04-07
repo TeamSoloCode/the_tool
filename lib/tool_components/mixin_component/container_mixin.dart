@@ -21,12 +21,6 @@ mixin ContainerMixin {
     return ThemeDecoder.decodeBoxBorder(props?.boxBorder?.toJson());
   }
 
-  BorderRadiusGeometry? _computeBorderRadius(LayoutProps? props) {
-    return props?.borderRadius != null
-        ? ThemeDecoder.decodeBorderRadius(props)
-        : null;
-  }
-
   BoxShadow? computeBoxShadow(LayoutProps? props) {
     return ThemeDecoder.decodeBoxShadow({
       "blurRadius": props?.boxShadow?.blurRadius,
@@ -42,7 +36,8 @@ mixin ContainerMixin {
       "color": props?.backgroundColor,
       //  "backgroundBlendMode": <BlendMode>,
       "border": computeBoxBorder(props),
-      "borderRadius": _computeBorderRadius(props),
+      "borderRadius":
+          ThemeDecoder.decodeBorderRadius(props?.borderRadius?.toJson()),
       "boxShadow": StyleUtils.decodeDynamicList(
         props?.boxShadow != null ? [computeBoxShadow(props)] : [],
       ),

@@ -21,17 +21,17 @@ BorderRadiusProps _$BorderRadiusPropsFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$BorderRadiusProps {
   String? get colors => throw _privateConstructorUsedError;
-  int? get width => throw _privateConstructorUsedError;
+  double? get width => throw _privateConstructorUsedError;
   String? get type => throw _privateConstructorUsedError;
-  int? get radius => throw _privateConstructorUsedError;
-  int? get left => throw _privateConstructorUsedError;
-  int? get right => throw _privateConstructorUsedError;
-  int? get bottomLeft => throw _privateConstructorUsedError;
-  int? get bottomRight => throw _privateConstructorUsedError;
-  int? get topLeft => throw _privateConstructorUsedError;
-  int? get topRight => throw _privateConstructorUsedError;
-  int? get bottom => throw _privateConstructorUsedError;
-  int? get top => throw _privateConstructorUsedError;
+  double? get radius => throw _privateConstructorUsedError;
+  double? get left => throw _privateConstructorUsedError;
+  double? get right => throw _privateConstructorUsedError;
+  dynamic get bottomLeft => throw _privateConstructorUsedError;
+  dynamic get bottomRight => throw _privateConstructorUsedError;
+  dynamic get topLeft => throw _privateConstructorUsedError;
+  dynamic get topRight => throw _privateConstructorUsedError;
+  double? get bottom => throw _privateConstructorUsedError;
+  double? get top => throw _privateConstructorUsedError;
   int? get blurRadius => throw _privateConstructorUsedError;
   String? get colorBoxShadow => throw _privateConstructorUsedError;
   int? get offset => throw _privateConstructorUsedError;
@@ -51,17 +51,17 @@ abstract class $BorderRadiusPropsCopyWith<$Res> {
   @useResult
   $Res call(
       {String? colors,
-      int? width,
+      double? width,
       String? type,
-      int? radius,
-      int? left,
-      int? right,
-      int? bottomLeft,
-      int? bottomRight,
-      int? topLeft,
-      int? topRight,
-      int? bottom,
-      int? top,
+      double? radius,
+      double? left,
+      double? right,
+      dynamic bottomLeft,
+      dynamic bottomRight,
+      dynamic topLeft,
+      dynamic topRight,
+      double? bottom,
+      double? top,
       int? blurRadius,
       String? colorBoxShadow,
       int? offset,
@@ -106,7 +106,7 @@ class _$BorderRadiusPropsCopyWithImpl<$Res, $Val extends BorderRadiusProps>
       width: freezed == width
           ? _value.width
           : width // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -114,39 +114,39 @@ class _$BorderRadiusPropsCopyWithImpl<$Res, $Val extends BorderRadiusProps>
       radius: freezed == radius
           ? _value.radius
           : radius // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       left: freezed == left
           ? _value.left
           : left // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       right: freezed == right
           ? _value.right
           : right // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       bottomLeft: freezed == bottomLeft
           ? _value.bottomLeft
           : bottomLeft // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as dynamic,
       bottomRight: freezed == bottomRight
           ? _value.bottomRight
           : bottomRight // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as dynamic,
       topLeft: freezed == topLeft
           ? _value.topLeft
           : topLeft // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as dynamic,
       topRight: freezed == topRight
           ? _value.topRight
           : topRight // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as dynamic,
       bottom: freezed == bottom
           ? _value.bottom
           : bottom // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       top: freezed == top
           ? _value.top
           : top // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       blurRadius: freezed == blurRadius
           ? _value.blurRadius
           : blurRadius // ignore: cast_nullable_to_non_nullable
@@ -177,17 +177,17 @@ abstract class _$$_BorderRadiusPropsCopyWith<$Res>
   @useResult
   $Res call(
       {String? colors,
-      int? width,
+      double? width,
       String? type,
-      int? radius,
-      int? left,
-      int? right,
-      int? bottomLeft,
-      int? bottomRight,
-      int? topLeft,
-      int? topRight,
-      int? bottom,
-      int? top,
+      double? radius,
+      double? left,
+      double? right,
+      dynamic bottomLeft,
+      dynamic bottomRight,
+      dynamic topLeft,
+      dynamic topRight,
+      double? bottom,
+      double? top,
       int? blurRadius,
       String? colorBoxShadow,
       int? offset,
@@ -230,7 +230,7 @@ class __$$_BorderRadiusPropsCopyWithImpl<$Res>
       width: freezed == width
           ? _value.width
           : width // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -238,39 +238,39 @@ class __$$_BorderRadiusPropsCopyWithImpl<$Res>
       radius: freezed == radius
           ? _value.radius
           : radius // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       left: freezed == left
           ? _value.left
           : left // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       right: freezed == right
           ? _value.right
           : right // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       bottomLeft: freezed == bottomLeft
           ? _value.bottomLeft
           : bottomLeft // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as dynamic,
       bottomRight: freezed == bottomRight
           ? _value.bottomRight
           : bottomRight // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as dynamic,
       topLeft: freezed == topLeft
           ? _value.topLeft
           : topLeft // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as dynamic,
       topRight: freezed == topRight
           ? _value.topRight
           : topRight // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as dynamic,
       bottom: freezed == bottom
           ? _value.bottom
           : bottom // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       top: freezed == top
           ? _value.top
           : top // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as double?,
       blurRadius: freezed == blurRadius
           ? _value.blurRadius
           : blurRadius // ignore: cast_nullable_to_non_nullable
@@ -318,27 +318,27 @@ class _$_BorderRadiusProps implements _BorderRadiusProps {
   @override
   final String? colors;
   @override
-  final int? width;
+  final double? width;
   @override
   final String? type;
   @override
-  final int? radius;
+  final double? radius;
   @override
-  final int? left;
+  final double? left;
   @override
-  final int? right;
+  final double? right;
   @override
-  final int? bottomLeft;
+  final dynamic bottomLeft;
   @override
-  final int? bottomRight;
+  final dynamic bottomRight;
   @override
-  final int? topLeft;
+  final dynamic topLeft;
   @override
-  final int? topRight;
+  final dynamic topRight;
   @override
-  final int? bottom;
+  final double? bottom;
   @override
-  final int? top;
+  final double? top;
   @override
   final int? blurRadius;
   @override
@@ -366,17 +366,17 @@ class _$_BorderRadiusProps implements _BorderRadiusProps {
 abstract class _BorderRadiusProps implements BorderRadiusProps {
   factory _BorderRadiusProps(
       {final String? colors,
-      final int? width,
+      final double? width,
       final String? type,
-      final int? radius,
-      final int? left,
-      final int? right,
-      final int? bottomLeft,
-      final int? bottomRight,
-      final int? topLeft,
-      final int? topRight,
-      final int? bottom,
-      final int? top,
+      final double? radius,
+      final double? left,
+      final double? right,
+      final dynamic bottomLeft,
+      final dynamic bottomRight,
+      final dynamic topLeft,
+      final dynamic topRight,
+      final double? bottom,
+      final double? top,
       final int? blurRadius,
       final String? colorBoxShadow,
       final int? offset,
@@ -388,27 +388,27 @@ abstract class _BorderRadiusProps implements BorderRadiusProps {
   @override
   String? get colors;
   @override
-  int? get width;
+  double? get width;
   @override
   String? get type;
   @override
-  int? get radius;
+  double? get radius;
   @override
-  int? get left;
+  double? get left;
   @override
-  int? get right;
+  double? get right;
   @override
-  int? get bottomLeft;
+  dynamic get bottomLeft;
   @override
-  int? get bottomRight;
+  dynamic get bottomRight;
   @override
-  int? get topLeft;
+  dynamic get topLeft;
   @override
-  int? get topRight;
+  dynamic get topRight;
   @override
-  int? get bottom;
+  double? get bottom;
   @override
-  int? get top;
+  double? get top;
   @override
   int? get blurRadius;
   @override

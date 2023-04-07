@@ -2,6 +2,14 @@ Update the function that update the theme json into js side
 Support dynamic for using "style" property in json layout
 FIXME: Do not update theme JSON on every time context state changed
 FIXME: When theme changed there are 8 times contextState update
+FIXME: DO not use this in index.html===============================
+
+<!--
+    <script src="http://localhost:8081/vendors.js" defer></script>
+    <script src="http://localhost:8081/app.js" defer></script>
+-->
+
+===================================================================
 
 Support Error Widget for twidgets
 Support SVG widget

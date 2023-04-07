@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_builder_validators/form_builder_validators.dart'
     show FormBuilderLocalizations;
 import 'package:the_tool/api_client.dart';
+import 'package:the_tool/config/config.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/storage_manager.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
@@ -43,7 +44,9 @@ class _PageContainerState extends State<PageContainer> {
   @override
   void dispose() {
     getIt<StorageManager>().closeStorageBox();
-    _headlessWebView?.dispose();
+    if (_headlessWebView?.isRunning()) {
+      _headlessWebView?.dispose();
+    }
     super.dispose();
   }
 
@@ -85,8 +88,11 @@ class _PageContainerState extends State<PageContainer> {
             if (!kIsWeb) {
               _initWebViewForMobile(context);
               if (!_isWebViewReady) {
-                _headlessWebView?.dispose();
-                _headlessWebView?.run();
+                if (_headlessWebView?.isRunning()) {
+                  _headlessWebView?.dispose();
+                } else {
+                  _headlessWebView?.run();
+                }
               }
             } else {
               _updateWebEvalContext(context);
@@ -180,9 +186,17 @@ class _PageContainerState extends State<PageContainer> {
 
     _headlessWebView = webview.HeadlessInAppWebView(
       initialUrlRequest: webview.URLRequest(
-        url: Uri.parse(_utils.envConfig.MOBILE_WEBVIEW_URL),
+        url: Uri.parse(getIt<EnvironmentConfig>().MOBILE_WEBVIEW_URL),
       ),
-      onWebViewCreated: (webViewController) async {
+      onWebViewCreated: (webViewController) async {},
+      onLoadStart: (controller, url) {},
+      androidOnPermissionRequest: (controller, origin, resources) async {
+        return webview.PermissionRequestResponse(
+          resources: resources,
+          action: webview.PermissionRequestResponseAction.GRANT,
+        );
+      },
+      onLoadStop: (webViewController, url) async {
         try {
           _evalJS = EvalJS(
             context: context,
@@ -198,15 +212,6 @@ class _PageContainerState extends State<PageContainer> {
             _isWebViewReady = false;
           });
         }
-      },
-      onLoadStart: (controller, url) {},
-      androidOnPermissionRequest: (controller, origin, resources) async {
-        return webview.PermissionRequestResponse(
-          resources: resources,
-          action: webview.PermissionRequestResponseAction.GRANT,
-        );
-      },
-      onLoadStop: (controller, url) async {
         setState(() {
           _isWebViewReady = true;
         });

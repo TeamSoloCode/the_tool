@@ -94,12 +94,14 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     ThemeData theme,
   ) {
     updateThemeDataJSON.run(() {
-      final themeProvider = context.read<ThemeProvider>();
+      final themeProvider = getIt<ThemeProvider>();
       final themeDataAsJSON = ThemeEncoder.encodeThemeData(theme);
       themeProvider.themeDataAsJSON = themeDataAsJSON;
+      themeProvider.refreshThemeData();
     });
   }
 
+  Brightness? _prevThemeMode;
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -112,9 +114,12 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     final mediaQueryData = MediaQuery.of(context);
 
     final theme = Theme.of(context);
-    // FIXME: Do not update theme JSON on every time context state changed
-    _updateThemeDataJSON(theme);
+    if (_prevThemeMode != theme.brightness) {
+      // FIXME: Do not update theme JSON on every time context state changed
+      _updateThemeDataJSON(theme);
+    }
 
+    _prevThemeMode = theme.brightness;
     // FIXME: Do we need this. Find the way to let user have dynamic style select
     // _updateThemeOnJSSide(themeDataAsJSON);
 

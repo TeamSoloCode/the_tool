@@ -218,19 +218,19 @@ class ThemeProvider with ChangeNotifier {
       var rawContent = content.toJson();
 
       rawContent.forEach((propName, propValue) {
-        if (![
+        if ([
               "child",
               "children",
-            ].contains(propName) &&
-            propValue is String) {
-          baseColor?.forEach((baseColorName, baseColorValue) {
-            if (!baseColorName.startsWith("--")) {
-              if (baseColorName == propValue) {
-                rawContent[propName] = baseColorValue;
-              }
+            ].contains(propName) ||
+            propValue is! String) return;
+
+        baseColor?.forEach((baseColorName, baseColorValue) {
+          if (!baseColorName.startsWith("--")) {
+            if (baseColorName == propValue) {
+              rawContent[propName] = baseColorValue;
             }
-          });
-        }
+          }
+        });
       });
 
       return LayoutProps.fromJson(json.decode(json.encode(rawContent)));

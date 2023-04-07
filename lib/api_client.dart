@@ -6,21 +6,25 @@ import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:the_tool/config/config.dart';
 import 'package:the_tool/page_utils/storage_manager.dart';
 
 import 'package:the_tool/t_widget_interface/client_config/client_config.dart';
 import 'package:the_tool/utils.dart';
 
 class APIClientManager {
-  final String host =
-      kIsWeb ? "localhost" : (Platform.isAndroid ? "10.0.2.2" : "localhost");
+  final _envConfig = getIt<EnvironmentConfig>();
+  late final String host;
   String _projectName =
       getIt<StorageManager>().getLocalBox("projectName") ?? "";
+
   final Dio _dio = Dio();
 
   final _dioCached = Dio();
 
   APIClientManager() : super() {
+    host = _envConfig.localhost;
+
     var prettyDioLogger = PrettyDioLogger(
       logPrint: (object) {
         log("$object");

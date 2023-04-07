@@ -20,7 +20,7 @@ GetIt getIt = GetIt.instance;
 
 class UtilsManager {
   UtilsManager() : super();
-  final envConfig = EnvironmentConfig();
+  final envConfig = getIt<EnvironmentConfig>();
 
   static Map<String, dynamic> emptyMapStringDynamic =
       Map<String, dynamic>.from({});

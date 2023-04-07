@@ -44,9 +44,15 @@ mixin BaseStateWidget on Widget {
       {String? providedPagePath}) {
     var path = providedPagePath ?? pagePath;
 
-    if (hasThemeBindingValue) {
-      Theme.of(context);
-    }
+    // if (hasThemeBindingValue) {
+    //   Theme.of(context);
+    // }
+
+    context.select(
+      (ThemeProvider theme) {
+        return theme.themeRefreshToken;
+      },
+    );
 
     if (hasBindingValue) {
       context.select((ContextStateProvider value) {

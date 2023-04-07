@@ -19,6 +19,7 @@ import 'package:the_tool/static_pages/select_project.dart'
     deferred as select_project;
 import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
     if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_utils/web_eval_js.dart';
+import 'package:the_tool/config/config.dart';
 
 void main() async {
   // debugRepaintRainbowEnabled = true;
@@ -38,8 +39,13 @@ void main() async {
   // if (Platform.isAndroid) {
   //   await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
   // }
+  getIt.registerSingleton<EnvironmentConfig>(
+    EnvironmentConfig(),
+    signalsReady: true,
+  );
   getIt.registerSingleton<UtilsManager>(UtilsManager(), signalsReady: true);
   getIt.registerSingleton<StorageManager>(StorageManager(), signalsReady: true);
+
   await getIt<StorageManager>().initStorageBox();
 
   getIt.registerSingleton<APIClientManager>(

@@ -7,23 +7,24 @@ part 'border_radius_props.g.dart';
 @Freezed(equal: false, toStringOverride: false)
 // @JsonSerializable()
 class BorderRadiusProps with _$BorderRadiusProps {
-  factory BorderRadiusProps(
-      {String? colors,
-      int? width,
-      String? type,
-      int? radius,
-      int? left,
-      int? right,
-      int? bottomLeft,
-      int? bottomRight,
-      int? topLeft,
-      int? topRight,
-      int? bottom,
-      int? top,
-      int? blurRadius,
-      String? colorBoxShadow,
-      int? offset,
-      int? spreadRadius}) = _BorderRadiusProps;
+  factory BorderRadiusProps({
+    String? colors,
+    double? width,
+    String? type,
+    double? radius,
+    double? left,
+    double? right,
+    dynamic bottomLeft,
+    dynamic bottomRight,
+    dynamic topLeft,
+    dynamic topRight,
+    double? bottom,
+    double? top,
+    int? blurRadius,
+    String? colorBoxShadow,
+    int? offset,
+    int? spreadRadius,
+  }) = _BorderRadiusProps;
   factory BorderRadiusProps.fromJson(Map<String, Object?> json) =>
       _$BorderRadiusPropsFromJson(json);
 
