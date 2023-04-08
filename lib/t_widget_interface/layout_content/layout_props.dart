@@ -273,6 +273,7 @@ extension MergeLayoutProps on LayoutProps {
       allowClear: other.allowClear ?? allowClear,
       defaultValue: other.defaultValue ?? defaultValue,
       autovalidateMode: other.autovalidateMode ?? autovalidateMode,
+      borderRadius: other.borderRadius ?? borderRadius,
       fieldType: other.fieldType ?? fieldType,
       className: other.className ?? className,
       child: other.child == null

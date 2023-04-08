@@ -1,9 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:json_theme/json_theme_schemas.dart';
 import 'package:the_tool/api_client.dart';
+import 'package:the_tool/app_module.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/permission_manager.dart';
 import 'package:the_tool/page_utils/storage_manager.dart';
@@ -77,30 +79,25 @@ void main() async {
           },
         )
       ],
-      child: const MyApp(),
+      child: const TheTool(),
     ),
   );
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+class TheTool extends StatefulWidget {
+  const TheTool({Key? key}) : super(key: key);
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<TheTool> createState() => _TheToolState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _TheToolState extends State<TheTool> {
   String? _selectedProjectName;
-
   Future<void> _loadWebCoreJSCode(BuildContext context) async {
     UtilsManager utils = getIt<UtilsManager>();
-    EvalJS evalJS;
-
-    evalJS = EvalJS(
+    utils.evalJS = EvalJS(
       context: context,
     );
-
-    utils.evalJS = evalJS;
   }
 
   void _loadProject(String projectName) {
@@ -149,7 +146,12 @@ class _MyAppState extends State<MyApp> {
             loadProject: _loadProject,
           );
         } else {
-          return page_container.PageContainer();
+          var config = getIt<ContextStateProvider>().appConfig;
+
+          return ModularApp(
+            module: AppModule(config!),
+            child: page_container.PageContainer(),
+          );
         }
       },
       future: _selectedProjectName == null

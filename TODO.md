@@ -1,7 +1,7 @@
 Update the function that update the theme json into js side
 Support dynamic for using "style" property in json layout
-FIXME: Do not update theme JSON on every time context state changed
-FIXME: When theme changed there are 8 times contextState update
+
+FIXME: Selected row is not selected when change paging in tDa
 FIXME: DO not use this in index.html===============================
 
 <!--
@@ -13,10 +13,8 @@ FIXME: DO not use this in index.html===============================
 
 Support Error Widget for twidgets
 Support SVG widget
-implement flutter_modular (make the routing easier)
 
 #-------------------------------------------------
-implement vm2 package on js side to run js code
 implement seo_renderer, meta_seo
 
 Support format number for t_textfield
@@ -30,14 +28,12 @@ Add refresh page button for development mode
 
 Support customizable UI for t_select_field items
 Support for basic on SliverAppBar, SliverGrid
-Support common json widget on layout.json
 Support config UI base on platform in layout.json
 Support config theme base on platform in theme.json
 Support build mode (development/production) in context page data
 Support child config for t_button type that has child property
 Support simple operator for binding data ( {{ !state.isGood | eq(state.isGood, "bad") }} )
 Support pages app bar custom actions
-Support a js hook that with call when widget size change
 Support alert, dialog, snackbar, ScaffoldMessenger
 
 #-------------------------------------------------
@@ -116,3 +112,8 @@ Support MediaScreenOnly for all t_widgets
 -Try to use #theme.textTheme.bodyLarge.color, ... in json layout property
 -Fix performance issue of the twidget when the theme changing
 -Move base react component , app.js, vendor.js and js-module to server
+-FIXME: Do not update theme JSON on every time context state changed
+-implement flutter_modular (make the routing easier)
+-FIXME: When theme changed there are 8 times contextState update
+-Support a js hook that with call when widget size change
+-Support common json widget on layout.json

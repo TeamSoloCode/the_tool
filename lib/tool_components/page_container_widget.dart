@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart'
     deferred as webview;
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_builder_validators/form_builder_validators.dart'
     show FormBuilderLocalizations;
@@ -13,7 +14,6 @@ import 'package:the_tool/config/config.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/storage_manager.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
-import 'package:the_tool/tool_components/page_widget.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
@@ -36,10 +36,6 @@ class _PageContainerState extends State<PageContainer> {
   ThemeMode? _currentThemeMode;
 
   late EvalJS _evalJS;
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   void dispose() {
@@ -61,53 +57,13 @@ class _PageContainerState extends State<PageContainer> {
         return theme.currentThemeMode;
       },
     );
-    return MaterialApp(
+
+    return MaterialApp.router(
       theme: _themeData,
       themeMode: _currentThemeMode,
-      routes: _computeRoutes(),
+      routeInformationParser: Modular.routeInformationParser,
+      routerDelegate: Modular.routerDelegate,
       debugShowCheckedModeBanner: false,
-      home: FutureBuilder<bool>(
-        builder: (context, snapshot) {
-          const loadingPage = Scaffold(
-            body: Center(child: Text("Loading...")),
-          );
-
-          if (snapshot.data == true) {
-            if (_errorMessage != null) {
-              return Center(
-                child: Text(
-                  _errorMessage ?? "",
-                  style: const TextStyle(
-                    color: Colors.red,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              );
-            }
-            ScreenUtil.init(context);
-            if (!kIsWeb) {
-              _initWebViewForMobile(context);
-              if (!_isWebViewReady) {
-                if (_headlessWebView?.isRunning()) {
-                  _headlessWebView?.dispose();
-                } else {
-                  _headlessWebView?.run();
-                }
-              }
-            } else {
-              _updateWebEvalContext(context);
-            }
-
-            if (_isWebViewReady || kIsWeb) {
-              return T_Page(
-                pagePath: _getInitialPage(),
-              );
-            }
-          }
-          return loadingPage;
-        },
-        future: _isReadyToRun(),
-      ),
       supportedLocales: const [
         Locale('en'),
       ],
@@ -116,16 +72,56 @@ class _PageContainerState extends State<PageContainer> {
         // GlobalWidgetsLocalizations.delegate,
         FormBuilderLocalizations.delegate,
       ],
+      builder: (context, child) {
+        return FutureBuilder<bool>(
+          builder: (context, snapshot) {
+            const loadingPage = Scaffold(
+              body: Center(child: Text("Loading...")),
+            );
+
+            if (snapshot.data == true) {
+              if (_errorMessage != null) {
+                return Center(
+                  child: Text(
+                    _errorMessage ?? "",
+                    style: const TextStyle(
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                );
+              }
+
+              ScreenUtil.init(context);
+
+              if (kIsWeb) {
+                _updateWebEvalContext(context);
+              } else {
+                if ([false, null].contains(_headlessWebView?.isRunning())) {
+                  _initWebViewForMobile(context);
+                  _headlessWebView?.run();
+                }
+              }
+
+              if (_isWebViewReady || kIsWeb) {
+                return child!;
+              }
+            }
+            return loadingPage;
+          },
+          future: _prepareDependencies(),
+        );
+      },
     );
   }
 
-  bool didMount = false;
-  Future<bool> _isReadyToRun() async {
-    if (didMount) return true;
+  bool _didLoadDeps = false;
+  Future<bool> _prepareDependencies() async {
+    if (_didLoadDeps) return true;
     if (!kIsWeb) {
       await webview.loadLibrary();
     }
-    didMount = true;
+    _didLoadDeps = true;
     return true;
   }
 
@@ -134,44 +130,13 @@ class _PageContainerState extends State<PageContainer> {
     Map<String, dynamic> theme = await _apiClient.getAppTheme(
       themePath: themePath,
     );
-    var themeProvider = context.read<ThemeProvider>();
+    var themeProvider = getIt<ThemeProvider>();
     var currentThemeData = await themeProvider.computeThemeData(theme);
 
     setState(() {
       _themeData = currentThemeData;
       themeProvider.refreshThemeData();
     });
-  }
-
-  Map<String, Widget Function(BuildContext)> _computeRoutes() {
-    var config = context.read<ContextStateProvider>().appConfig;
-    var routeConfig = config?.routes;
-    if (routeConfig == null) return {};
-
-    List<Map<String, dynamic>> routesConfig = routeConfig;
-    Map<String, Widget Function(BuildContext)> routes = {};
-
-    for (var routeConfig in routesConfig) {
-      String path = routeConfig['path'];
-      routes.addAll({
-        "/$path": (context) => T_Page(pagePath: path),
-      });
-    }
-    return routes;
-  }
-
-  String _getInitialPage() {
-    var config = context.read<ContextStateProvider>().appConfig;
-    String? initialPage = config?.initialPage;
-
-    if (initialPage == null || initialPage == "") {
-      setState(() {
-        _errorMessage = "Missing initial page path in config";
-      });
-      return "";
-    }
-
-    return initialPage;
   }
 
   void _updateWebEvalContext(BuildContext context) {
