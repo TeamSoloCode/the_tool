@@ -42,14 +42,11 @@ class AppModule extends Module {
     Map<String, Widget Function(BuildContext)> routes = {};
 
     var initialPath = _getInitialPage(config);
+    Modular.setInitialRoute("/$initialPath");
 
     for (var routeConfig in routesConfig) {
       String routePath = routeConfig['path'];
       String appRoutePath = "/$routePath";
-
-      if (initialPath == routePath) {
-        appRoutePath = "/";
-      }
 
       routes.addAll({
         appRoutePath: (context) => T_Page(pagePath: routePath),

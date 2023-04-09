@@ -9,17 +9,16 @@ import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:collection/collection.dart' show DeepCollectionEquality;
 import 'package:the_tool/twidget_props.dart';
+import 'package:the_tool/page_utils/debouncer.dart';
 
-Timer? _debounce;
-
-class T_DataTable extends TWidget {
-  T_DataTable(TWidgetProps twidget) : super(twidget);
+class TDataTable extends TWidget {
+  TDataTable(TWidgetProps twidget) : super(twidget);
 
   @override
-  State<T_DataTable> createState() => _T_DataTableState();
+  State<TDataTable> createState() => _TDataTableState();
 }
 
-class _T_DataTableState extends TStatefulWidget<T_DataTable> {
+class _TDataTableState extends TStatefulWidget<TDataTable> {
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
   bool _sortAscending = true;
   int? _sortColumnIndex;
@@ -27,19 +26,24 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
   bool _initialized = false;
   bool _selectAll = false;
   PaginatorController? _paginationController;
-  var debounceDuration = const Duration(milliseconds: 300);
+
+  List<dynamic>? prevValue;
+  final _updateTableSelectionDebounce = Debouncer(
+    delay: const Duration(milliseconds: 200),
+  );
+
+  final _sortTableDebounce = Debouncer(
+    delay: const Duration(milliseconds: 100),
+  );
 
   @override
   void initState() {
     if (widget.widgetProps.name == null) {
-      throw Exception("Table must have name property to binding data");
+      throw Exception("Table must have \"name\" property to binding data");
     }
     _rowDataSource = _computeRows(widget.widgetProps, widget.getContexData());
     super.initState();
   }
-
-  List<dynamic>? prevValue;
-  Timer? _debounce;
 
   @override
   void didChangeDependencies() {
@@ -64,12 +68,8 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
           widget.getContexData()[widget.widgetProps.total] ?? items.length;
       var tableTable = SourceRowDataResponse(dataCount, items);
 
-      if (_debounce?.isActive ?? false) _debounce?.cancel();
-      _debounce = Timer(const Duration(milliseconds: 100), () {
-        _updateTableSelection(items);
-      });
-
       var isTheSameData = false;
+
       if (items != null && prevValue != null) {
         isTheSameData = _areRecordsEqual(items, prevValue!);
       }
@@ -79,6 +79,8 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
         true,
         isTheSameData,
       );
+
+      _updateTableSelection(items);
 
       prevValue = items;
     }
@@ -117,16 +119,18 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
   }
 
   void _updateTableSelection(List<dynamic> data) {
-    data.asMap().forEach((index, record) {
-      var isSelected = record["_selected"];
+    _updateTableSelectionDebounce.run(() {
+      data.asMap().forEach((index, record) {
+        var isSelected = record["_selected"] ?? false;
+        debugPrint("abcd isSelected $isSelected");
 
-      if (isSelected is bool) {
         _rowDataSource?.setSelect(
           ValueKey<dynamic>(record["id"] ?? index),
           isSelected,
         );
-      }
+      });
     });
+    // _rowDataSource?.refreshDatasource();
   }
 
   List<DataColumn> _computeColumns(
@@ -161,9 +165,8 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     int columnIndex,
     bool ascending,
   ) {
-    if (_debounce?.isActive ?? false) _debounce?.cancel();
-    var onSort = column.onSort ?? widgetProps?.onSort;
-    _debounce = Timer(debounceDuration, () {
+    _sortTableDebounce.run(() {
+      var onSort = column.onSort ?? widgetProps?.onSort;
       if (onSort != null) {
         var code = "$onSort($columnIndex, '${column.fieldData}', $ascending)";
         widget.executeJSWithPagePath(code);
@@ -301,6 +304,11 @@ class _T_DataTableState extends TStatefulWidget<T_DataTable> {
     }
 
     widget.setPageData({name!: items});
+
+    final onSelectChanged = widget.props?.onSelectChanged;
+    if (onSelectChanged != null) {
+      widget.executeJSWithPagePath("$onSelectChanged($rowIndex, $isSelected)");
+    }
   }
 
   void _handleSelectAll(bool? value) {

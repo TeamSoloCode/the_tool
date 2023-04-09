@@ -139,6 +139,7 @@ class LayoutProps with _$LayoutProps {
     String? onSort,
     String? loadDataFunction,
     String? total,
+    String? onSelectChanged,
     // Table End==================================================
 
     // Expansion Start================================================

@@ -66,10 +66,10 @@ class T_RowData extends AsyncDataTableSource {
         tableData.data.map((rowData) {
           rowData["_index"] = index;
           ++index;
-          var isSelected = rowData["_selected"] ?? false;
-          var rowKey = ValueKey<dynamic>(rowData["id"] ?? index);
+          final isSelected = rowData["_selected"] ?? false;
+          final rowKey = ValueKey<dynamic>(rowData["id"] ?? index);
 
-          return DataRow2(
+          return DataRow(
             key: rowKey,
             selected: isSelected,
             onSelectChanged: (value) {

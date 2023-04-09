@@ -104,6 +104,10 @@ class _PageContainerState extends State<PageContainer> {
               }
 
               if (_isWebViewReady || kIsWeb) {
+                if (!kIsWeb) {
+                  log("Webview: Start render content");
+                }
+
                 return child!;
               }
             }
@@ -153,7 +157,11 @@ class _PageContainerState extends State<PageContainer> {
       initialUrlRequest: webview.URLRequest(
         url: Uri.parse(getIt<EnvironmentConfig>().MOBILE_WEBVIEW_URL),
       ),
-      onWebViewCreated: (webViewController) async {},
+      onWebViewCreated: (webViewController) async {
+        if (!kIsWeb) {
+          log("Webview:Loading webview start");
+        }
+      },
       onLoadStart: (controller, url) {},
       androidOnPermissionRequest: (controller, origin, resources) async {
         return webview.PermissionRequestResponse(
@@ -162,6 +170,10 @@ class _PageContainerState extends State<PageContainer> {
         );
       },
       onLoadStop: (webViewController, url) async {
+        if (!kIsWeb) {
+          log("Webview:Loading webview stop");
+        }
+
         try {
           _evalJS = EvalJS(
             context: context,
@@ -176,6 +188,7 @@ class _PageContainerState extends State<PageContainer> {
           setState(() {
             _isWebViewReady = false;
           });
+          rethrow;
         }
         setState(() {
           _isWebViewReady = true;

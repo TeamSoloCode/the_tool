@@ -140,7 +140,7 @@ class _TWidgetsState extends State<TWidgets> {
         return t_fields.T_Fields(tWidgetProps);
       case "table":
         await t_table.loadLibrary();
-        return t_table.T_DataTable(tWidgetProps);
+        return t_table.TDataTable(tWidgetProps);
       case "layout_builder":
         if (tWidgetProps.layoutBuilder == null) {
           throw Exception("layout_builder must have properties");

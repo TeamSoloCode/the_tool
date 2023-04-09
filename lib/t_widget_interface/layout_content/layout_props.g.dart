@@ -100,6 +100,7 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       onSort: json['onSort'] as String?,
       loadDataFunction: json['loadDataFunction'] as String?,
       total: json['total'] as String?,
+      onSelectChanged: json['onSelectChanged'] as String?,
       selected: json['selected'],
       dividerColor: json['dividerColor'] as String?,
       head: json['head'] == null
@@ -239,6 +240,7 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'onSort': instance.onSort,
       'loadDataFunction': instance.loadDataFunction,
       'total': instance.total,
+      'onSelectChanged': instance.onSelectChanged,
       'selected': instance.selected,
       'dividerColor': instance.dividerColor,
       'head': instance.head,

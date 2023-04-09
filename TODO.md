@@ -1,8 +1,9 @@
 Update the function that update the theme json into js side
 Support dynamic for using "style" property in json layout
 
-FIXME: Selected row is not selected when change paging in tDa
-FIXME: DO not use this in index.html===============================
+FIXME: Add select all row function on js for tdatatable
+FIXME: Modular: Cannot routing in test_pagee project
+FIXME: DO not use http://localhost:8081 in index.html==============
 
 <!--
     <script src="http://localhost:8081/vendors.js" defer></script>

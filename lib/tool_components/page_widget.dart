@@ -49,7 +49,7 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
   MediaQueryData? _prevMediaQueryData;
 
   final updateThemeDataJSON =
-      Debouncer(delay: const Duration(milliseconds: 200));
+      Debouncer(delay: const Duration(milliseconds: 500));
 
   @override
   void initState() {
