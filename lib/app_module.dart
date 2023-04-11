@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:modular_core/modular_core.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/t_widget_interface/client_config/client_config.dart';
@@ -18,7 +19,9 @@ class AppModule extends Module {
     return routeMap.entries
         .map((entry) => ChildRoute(
               entry.key,
-              child: (context, args) => entry.value(context),
+              child: (context, ModularArguments args) {
+                return entry.value(context, args);
+              },
             ))
         .toList();
   }
@@ -33,13 +36,14 @@ class AppModule extends Module {
     return initialPage;
   }
 
-  Map<String, Widget Function(BuildContext)> _computeRoutes() {
+  Map<String, Widget Function(BuildContext, ModularArguments)>
+      _computeRoutes() {
     var config = getIt<ContextStateProvider>().appConfig;
     var routeConfig = config?.routes;
     if (routeConfig == null) return {};
 
     List<Map<String, dynamic>> routesConfig = routeConfig;
-    Map<String, Widget Function(BuildContext)> routes = {};
+    Map<String, Widget Function(BuildContext, ModularArguments)> routes = {};
 
     var initialPath = _getInitialPage(config);
     Modular.setInitialRoute("/$initialPath");
@@ -49,7 +53,10 @@ class AppModule extends Module {
       String appRoutePath = "/$routePath";
 
       routes.addAll({
-        appRoutePath: (context) => T_Page(pagePath: routePath),
+        appRoutePath: (context, args) => TPage(
+              pagePath: routePath,
+              modularArguments: args,
+            ),
       });
     }
 

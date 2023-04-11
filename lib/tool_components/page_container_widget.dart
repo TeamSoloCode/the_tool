@@ -159,7 +159,7 @@ class _PageContainerState extends State<PageContainer> {
       ),
       onWebViewCreated: (webViewController) async {
         if (!kIsWeb) {
-          log("Webview:Loading webview start");
+          log("Webview: Loading webview start");
         }
       },
       onLoadStart: (controller, url) {},
@@ -171,7 +171,7 @@ class _PageContainerState extends State<PageContainer> {
       },
       onLoadStop: (webViewController, url) async {
         if (!kIsWeb) {
-          log("Webview:Loading webview stop");
+          log("Webview: Loading webview stop");
         }
 
         try {

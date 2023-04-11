@@ -35,13 +35,18 @@ class EvalJS extends BaseEvalJS {
   }
 
   @override
-  Future<void> executePageCode(
-    String clientCode,
-    String pagePath,
-  ) async {
+  Future<void> executePageCode({
+    required String clientCode,
+    required String pagePath,
+    Map<String, dynamic>? pageArguments,
+  }) async {
     String pageCode = """
       (() => {
-        ${getBaseComponentCode(pagePath: pagePath, clientCode: clientCode)}
+        ${getBaseComponentCode(
+      pagePath: pagePath,
+      clientCode: clientCode,
+      pageArguments: pageArguments,
+    )}
       })()
       """;
 

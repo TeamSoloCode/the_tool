@@ -12,7 +12,11 @@ abstract class BaseEvalJS {
 
   void unmountClientCode(String pagePath);
 
-  Future<void> executePageCode(String clientCode, String pagePath);
+  Future<void> executePageCode({
+    required String clientCode,
+    required String pagePath,
+    Map<String, dynamic>? pageArguments,
+  });
 
   void setPageArguments(Map<String, dynamic> args, String pagePath);
 
@@ -82,6 +86,7 @@ abstract class BaseEvalJS {
   String getBaseComponentCode({
     required String pagePath,
     required String clientCode,
+    Map<String, dynamic>? pageArguments,
   }) {
     return """
     try {
@@ -89,6 +94,7 @@ abstract class BaseEvalJS {
     ${_commonBaseComponentCode(
       pagePath: pagePath,
       clientCode: clientCode,
+      pageArguments: pageArguments,
     )}
         /** Do not add code under this area*/
       });
@@ -111,10 +117,14 @@ abstract class BaseEvalJS {
     """;
   }
 
-  String _commonBaseComponentCode(
-      {required String pagePath, required String clientCode}) {
+  String _commonBaseComponentCode({
+    required String pagePath,
+    required String clientCode,
+    Map<String, dynamic>? pageArguments,
+  }) {
     return """
         const [_contextData, _setContextData] = React.useState(context._data);
+        const _pageArguments = JSON.parse('${jsonEncode(pageArguments)}')
         let [_didInitState] = React.useState(false)
         const _prevContextData = usePrevious(_contextData);
         context._updateContextData = _setContextData;
@@ -143,7 +153,6 @@ abstract class BaseEvalJS {
 
         const [_nextState, setPageData] = React.useState({})
         const _prevState = usePrevious(_nextState);
-        
         const prevPageData = usePrevious(_pageData)
 
         // This function will update data into context and component state
@@ -183,8 +192,27 @@ abstract class BaseEvalJS {
         }, [_pageData])
 
         const getPageArguments = React.useCallback(() => {
-          return context['$pagePath']?._pageArguments || {};
-        }, [context['$pagePath']])
+          return _pageArguments || {};
+        }, [_pageArguments])
+
+        const navigateTo = React.useCallback((
+          pagePath,
+          pageArguments = {},
+          options = {}
+        ) => {
+          _navigateTo(pagePath, pageArguments, options);
+        }, [_navigateTo])
+
+        const navigateBack = React.useCallback(() => {
+          navigateTo('', {}, { action: 'pop' });
+        }, [navigateTo])
+
+        const navigateBackAndGoTo = React.useCallback((
+          pagePath,
+          pageArguments = {},
+        ) => {
+          _navigateTo(pagePath, pageArguments, { action: 'pop_and_push' });
+        }, [navigateTo])
 
         // Use to init state before render the widget
         const useInitState = React.useCallback((initData = {}) => {
@@ -192,7 +220,7 @@ abstract class BaseEvalJS {
             Object.assign(_pageData, {...initData})
             _didInitState = true;
           }
-        }, [setPageData, _didInitState])
+        }, [_didInitState])
 
         const _debouceRegisterSubComponent = React.useMemo(() => {
           return _.debounce((subComponents) => {
@@ -304,6 +332,10 @@ abstract class BaseEvalJS {
             openDrawer,
             _onMediaQueryChanged,
             _onUpdateThemeData,
+            navigateTo,
+            navigateBackAndGoTo,
+            navigateBack,
+            getPageArguments
           })
           context['$pagePath'].exportPageContext = exportPageContext
         }, [
@@ -315,14 +347,12 @@ abstract class BaseEvalJS {
           validateForm,
           openDrawer,
           _onMediaQueryChanged,
-          _onUpdateThemeData
+          _onUpdateThemeData,
+          navigateTo,
+          navigateBackAndGoTo,
+          navigateBack,
+          getPageArguments
         ])
-
-        //==========================Start Page Code==========================================
-
-        $clientCode
-
-        //==========================End Page Code============================================
 
         React.useEffect(() => {
           if (isMounted()) {
@@ -330,6 +360,13 @@ abstract class BaseEvalJS {
             setPageData({ _tLoaded: true })
           }
         }, [isMounted])
+
+        //==========================Start Page Code==========================================
+
+        $clientCode
+
+        //==========================End Page Code============================================
+
 
         React.useEffect(() => {
           logger.log(`Didmount $pagePath`)
@@ -341,7 +378,7 @@ abstract class BaseEvalJS {
             setPageData(null)
           }
         }, [])
-        
+
         return subComponents.map(({ 
           subComponentName, 
           newComponent, 

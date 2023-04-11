@@ -6,10 +6,10 @@ import 'dart:js' as js;
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:js/js.dart';
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/utils.dart';
 
@@ -75,35 +75,40 @@ void _setState(String dataAsString, Function? callback) {
 }
 
 void _navigator(String routeName, String pageArguments, String optionsAsJSON) {
-  Map<String, dynamic> arguments = json.decode(pageArguments);
+  Map<String, dynamic> data = json.decode(pageArguments);
   Map<String, dynamic>? options = json.decode(optionsAsJSON);
 
-  if (options != null && options["action"] == "replacement_route") {
-    Navigator.of(_context).pushReplacementNamed(
-      "/$routeName",
-      arguments: arguments,
-    );
-    return;
-  }
+  final route = "/$routeName";
 
-  if (options != null && options["action"] == "pop") {
-    Navigator.of(_context).pop();
-    return;
-  }
+  if (options != null) {
+    switch (options["action"]) {
+      case "replacement_route":
+        Modular.to.pushReplacementNamed(
+          route,
+          arguments: data,
+        );
+        break;
 
-  if (options != null && options["action"] == "pop_and_push") {
-    Navigator.of(_context).popAndPushNamed(
-      "/$routeName",
-      arguments: arguments,
-    );
-    return;
-  }
+      case "pop":
+        Modular.to.pop();
+        break;
 
-  Navigator.of(_context).pushNamed("/$routeName", arguments: arguments);
+      case "pop_and_push":
+        Modular.to.popAndPushNamed(
+          route,
+          arguments: data,
+        );
+        break;
+
+      default:
+        Modular.to.pushNamed(route, arguments: data);
+        break;
+    }
+  }
 }
 
 void _toogleChangeTheme(String args) {
-  _context.read<ThemeProvider>().toogleChangeThemeMode(null);
+  getIt<ThemeProvider>().toogleChangeThemeMode(null);
 }
 
 void _fetchData(String id, String path, String optionJSON) {

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:json_theme/json_theme.dart';
-
+import 'package:modular_core/modular_core.dart';
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/debouncer.dart';
@@ -22,15 +22,21 @@ import 'package:uuid/uuid.dart';
 import 'package:collection/collection.dart' show DeepCollectionEquality;
 import 'package:the_tool/twidget_props.dart';
 
-class T_Page extends StatefulWidget {
+class TPage extends StatefulWidget {
   String pagePath;
-  T_Page({Key? key, required this.pagePath}) : super(key: key);
+  ModularArguments? modularArguments;
+
+  TPage({
+    Key? key,
+    required this.pagePath,
+    this.modularArguments,
+  }) : super(key: key);
 
   @override
-  State<T_Page> createState() => _T_Page();
+  State<TPage> createState() => _TPage();
 }
 
-class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
+class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
   final Map<String, dynamic> _prevPageState = {};
   final Map<String, dynamic> _initPageState = {};
   LayoutProps? _pageLayout;
@@ -175,11 +181,16 @@ class _T_Page extends State<T_Page> with AutomaticKeepAliveClientMixin {
     Map<String, dynamic> pageInfo =
         await apiClient.getClientPageInfo(widget.pagePath);
 
-    utils.evalJS?.executePageCode(pageInfo["code"], _pageId);
+    utils.evalJS?.executePageCode(
+      clientCode: pageInfo["code"],
+      pagePath: _pageId,
+      pageArguments: widget.modularArguments?.data,
+    );
 
     var layout = pageInfo["layout"];
 
     _pageLayout = LayoutProps.fromJson(layout);
+
     if (_pageLayout?.components != null) {
       contextStateProvider.addPageComponents(
         pagePath: _pageId,

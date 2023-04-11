@@ -26,7 +26,7 @@ List<Widget> computeBottomNavigationPages(
     return SizedBox(
       height: size.height,
       width: size.width,
-      child: T_Page(
+      child: TPage(
         key: pageKey,
         pagePath: item.path!,
       ),

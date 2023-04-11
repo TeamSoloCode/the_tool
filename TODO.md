@@ -1,7 +1,7 @@
 Update the function that update the theme json into js side
 Support dynamic for using "style" property in json layout
 
-FIXME: Modular: Cannot routing in test_pagee project
+UPDATE: Marge navigator in web/mobile invoke into one place
 UPDATE: DO not use http://localhost:8081 in index.html==============
 
 <!--
@@ -118,3 +118,4 @@ Support MediaScreenOnly for all t_widgets
 -Support a js hook that with call when widget size change
 -Support common json widget on layout.json
 -FIXME: Add select all row function on js for tdatatable, change single row and all row not working properly when change table page
+-FIXME: Modular: Cannot routing in test_page project

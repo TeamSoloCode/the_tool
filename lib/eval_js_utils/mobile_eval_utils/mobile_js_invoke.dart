@@ -5,8 +5,8 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:permission_handler_platform_interface/permission_handler_platform_interface.dart';
-import 'package:provider/provider.dart';
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/permission_manager.dart';
@@ -46,28 +46,33 @@ void registerJavascriptHandler(
       Map<String, dynamic>? pageArguments = navigateData["pageArguments"];
       Map<String, dynamic>? options = navigateData["options"];
 
-      if (options != null && options["action"] == "replacement_route") {
-        Navigator.of(context).pushReplacementNamed(
-          "/$routeName",
-          arguments: pageArguments,
-        );
-        return;
-      }
+      final route = "/$routeName";
 
-      if (options != null && options["action"] == "pop") {
-        Navigator.of(context).pop();
-        return;
-      }
+      if (options != null) {
+        switch (options["action"]) {
+          case "replacement_route":
+            Modular.to.pushReplacementNamed(
+              route,
+              arguments: pageArguments,
+            );
+            break;
 
-      if (options != null && options["action"] == "pop_and_push") {
-        Navigator.of(context).popAndPushNamed(
-          "/$routeName",
-          arguments: pageArguments,
-        );
-        return;
-      }
+          case "pop":
+            Modular.to.pop();
+            break;
 
-      Navigator.of(context).pushNamed("/$routeName", arguments: pageArguments);
+          case "pop_and_push":
+            Modular.to.popAndPushNamed(
+              route,
+              arguments: pageArguments,
+            );
+            break;
+
+          default:
+            Modular.to.pushNamed(route, arguments: pageArguments);
+            break;
+        }
+      }
     },
   );
 
@@ -91,7 +96,7 @@ void registerJavascriptHandler(
   webViewController?.addJavaScriptHandler(
     handlerName: "toggle_change_theme",
     callback: (args) {
-      context.read<ThemeProvider>().toogleChangeThemeMode(null);
+      getIt<ThemeProvider>().toogleChangeThemeMode(null);
     },
   );
 
