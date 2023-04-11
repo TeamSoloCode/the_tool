@@ -1,9 +1,8 @@
 Update the function that update the theme json into js side
 Support dynamic for using "style" property in json layout
 
-FIXME: Add select all row function on js for tdatatable
 FIXME: Modular: Cannot routing in test_pagee project
-FIXME: DO not use http://localhost:8081 in index.html==============
+UPDATE: DO not use http://localhost:8081 in index.html==============
 
 <!--
     <script src="http://localhost:8081/vendors.js" defer></script>
@@ -118,3 +117,4 @@ Support MediaScreenOnly for all t_widgets
 -FIXME: When theme changed there are 8 times contextState update
 -Support a js hook that with call when widget size change
 -Support common json widget on layout.json
+-FIXME: Add select all row function on js for tdatatable, change single row and all row not working properly when change table page

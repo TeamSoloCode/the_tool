@@ -122,7 +122,6 @@ class _TDataTableState extends TStatefulWidget<TDataTable> {
     _updateTableSelectionDebounce.run(() {
       data.asMap().forEach((index, record) {
         var isSelected = record["_selected"] ?? false;
-        debugPrint("abcd isSelected $isSelected");
 
         _rowDataSource?.setSelect(
           ValueKey<dynamic>(record["id"] ?? index),
@@ -311,7 +310,7 @@ class _TDataTableState extends TStatefulWidget<TDataTable> {
     }
   }
 
-  void _handleSelectAll(bool? value) {
+  void _handleSelectAll(bool? selection) {
     var name = widget.widgetProps.name;
     var items = widget.getContexData()[name];
     if (items == null) return;
@@ -319,7 +318,7 @@ class _TDataTableState extends TStatefulWidget<TDataTable> {
     if (items is List) {
       items.map((item) {
         if (item is Map) {
-          item["_selected"] = value;
+          item["_selected"] = selection;
         }
         return item;
       }).toList();
@@ -332,6 +331,11 @@ class _TDataTableState extends TStatefulWidget<TDataTable> {
       _rowDataSource?.selectAllOnThePage();
     } else {
       _rowDataSource?.deselectAllOnThePage();
+    }
+
+    final onSelectAll = widget.props?.onSelectAll;
+    if (onSelectAll != null) {
+      widget.executeJSWithPagePath("$onSelectAll($selection)");
     }
   }
 
