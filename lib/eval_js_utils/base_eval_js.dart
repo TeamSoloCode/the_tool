@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:modular_core/modular_core.dart';
 import 'package:flutter/material.dart';
 
 abstract class BaseEvalJS {
@@ -15,7 +16,7 @@ abstract class BaseEvalJS {
   Future<void> executePageCode({
     required String clientCode,
     required String pagePath,
-    Map<String, dynamic>? pageArguments,
+    ModularArguments? pageArguments,
   });
 
   void setPageArguments(Map<String, dynamic> args, String pagePath);
@@ -86,7 +87,7 @@ abstract class BaseEvalJS {
   String getBaseComponentCode({
     required String pagePath,
     required String clientCode,
-    Map<String, dynamic>? pageArguments,
+    ModularArguments? pageArguments,
   }) {
     return """
     try {
@@ -120,11 +121,17 @@ abstract class BaseEvalJS {
   String _commonBaseComponentCode({
     required String pagePath,
     required String clientCode,
-    Map<String, dynamic>? pageArguments,
+    ModularArguments? pageArguments,
   }) {
+    final data = jsonEncode(pageArguments?.data ?? {});
+    final uriParams = jsonEncode(pageArguments?.params ?? {});
+    final queryParams = jsonEncode(pageArguments?.queryParams ?? {});
+
     return """
         const [_contextData, _setContextData] = React.useState(context._data);
-        const _pageArguments = JSON.parse('${jsonEncode(pageArguments)}')
+        const [_pageArguments] = React.useState(JSON.parse('$data'))
+        const [_uriParams] = React.useState(JSON.parse('$uriParams'))
+        const [_queryParams] = React.useState(JSON.parse('$queryParams'))
         let [_didInitState] = React.useState(false)
         const _prevContextData = usePrevious(_contextData);
         context._updateContextData = _setContextData;
@@ -194,6 +201,14 @@ abstract class BaseEvalJS {
         const getPageArguments = React.useCallback(() => {
           return _pageArguments || {};
         }, [_pageArguments])
+
+        const getUriParams = React.useCallback(() => {
+          return _uriParams || {};
+        }, [_uriParams])
+
+        const getQueryParams = React.useCallback(() => {
+          return _queryParams || {};
+        }, [_queryParams])
 
         const navigateTo = React.useCallback((
           pagePath,
@@ -324,34 +339,36 @@ abstract class BaseEvalJS {
         // export pages util function
         React.useEffect(() => {
           exportPageContext({
+            _onMediaQueryChanged,
+            _onUpdateThemeData,
+            _unregisterSubComponent,
+
             validateForm,
             setPageData,
             getPageData,
             registerSubComponent,
-            _unregisterSubComponent,
             openDrawer,
-            _onMediaQueryChanged,
-            _onUpdateThemeData,
+
             navigateTo,
             navigateBackAndGoTo,
             navigateBack,
-            getPageArguments
           })
           context['$pagePath'].exportPageContext = exportPageContext
         }, [
+          _unregisterSubComponent,
+          _onMediaQueryChanged,
+          _onUpdateThemeData,
+
           setPageData, 
           getPageData, 
           registerSubComponent, 
-          _unregisterSubComponent,
           exportPageContext,
           validateForm,
           openDrawer,
-          _onMediaQueryChanged,
-          _onUpdateThemeData,
+
           navigateTo,
           navigateBackAndGoTo,
           navigateBack,
-          getPageArguments
         ])
 
         React.useEffect(() => {

@@ -12,15 +12,19 @@ import 'package:the_tool/utils.dart';
 
 class APIClientManager {
   final _envConfig = getIt<EnvironmentConfig>();
-  late final String host;
+  late final String localhost;
   final Dio _dio = Dio();
   final _dioCached = Dio();
+
+  late String? _beAPI = _envConfig.beAPI;
+  String? _pageAPI;
 
   String _projectName =
       getIt<StorageManager>().getLocalBox("projectName") ?? "";
 
   APIClientManager() : super() {
-    host = _envConfig.localhost;
+    localhost = _envConfig.localhost;
+    _beAPI = _envConfig.beAPI;
 
     var prettyDioLogger = PrettyDioLogger(
       logPrint: (object) {
@@ -55,15 +59,12 @@ class APIClientManager {
     _projectName = prjName;
   }
 
-  String? _beAPI = "http://localhost:3000";
-  String? _pageAPI;
-
   Future<dynamic> fetchData({required RequestOptions requestOptions}) async {
     try {
       String path = requestOptions.path;
 
       if (path.contains("localhost")) {
-        path = path.replaceFirst("localhost", host);
+        path = path.replaceFirst("localhost", localhost);
       }
 
       var response = await _dio.request(
@@ -141,7 +142,7 @@ class APIClientManager {
     try {
       if (_beAPI!.contains("localhost")) {
         var uri = Uri.parse(_beAPI!);
-        _beAPI = uri.replace(host: host).toString();
+        _beAPI = uri.replace(host: localhost).toString();
       }
       url = '$_beAPI/pages/client-config/$_projectName';
       final response = await _dio.get(url);
@@ -150,7 +151,7 @@ class APIClientManager {
       _pageAPI = clientConfig.pageAPI ?? _beAPI;
       if (_pageAPI!.contains("localhost")) {
         var uri = Uri.parse(_pageAPI!);
-        _pageAPI = uri.replace(host: host).toString();
+        _pageAPI = uri.replace(host: localhost).toString();
       }
       return clientConfig;
     } on DioError catch (e) {

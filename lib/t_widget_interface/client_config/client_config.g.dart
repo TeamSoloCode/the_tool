@@ -10,7 +10,7 @@ _$_ClientConfig _$$_ClientConfigFromJson(Map<String, dynamic> json) =>
     _$_ClientConfig(
       initialPage: json['initialPage'] as String?,
       routes: (json['routes'] as List<dynamic>?)
-          ?.map((e) => e as Map<String, dynamic>)
+          ?.map((e) => AppRouteConfig.fromJson(e as Map<String, dynamic>))
           .toList(),
       themePath: json['themePath'] as String?,
       pageAPI: json['pageAPI'] as String?,

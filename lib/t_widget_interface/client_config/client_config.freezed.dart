@@ -21,7 +21,7 @@ ClientConfig _$ClientConfigFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ClientConfig {
   String? get initialPage => throw _privateConstructorUsedError;
-  List<Map<String, dynamic>>? get routes => throw _privateConstructorUsedError;
+  List<AppRouteConfig>? get routes => throw _privateConstructorUsedError;
   String? get themePath => throw _privateConstructorUsedError;
   String? get pageAPI => throw _privateConstructorUsedError;
   String? get beAPI => throw _privateConstructorUsedError;
@@ -40,7 +40,7 @@ abstract class $ClientConfigCopyWith<$Res> {
   @useResult
   $Res call(
       {String? initialPage,
-      List<Map<String, dynamic>>? routes,
+      List<AppRouteConfig>? routes,
       String? themePath,
       String? pageAPI,
       String? beAPI});
@@ -73,7 +73,7 @@ class _$ClientConfigCopyWithImpl<$Res, $Val extends ClientConfig>
       routes: freezed == routes
           ? _value.routes
           : routes // ignore: cast_nullable_to_non_nullable
-              as List<Map<String, dynamic>>?,
+              as List<AppRouteConfig>?,
       themePath: freezed == themePath
           ? _value.themePath
           : themePath // ignore: cast_nullable_to_non_nullable
@@ -100,7 +100,7 @@ abstract class _$$_ClientConfigCopyWith<$Res>
   @useResult
   $Res call(
       {String? initialPage,
-      List<Map<String, dynamic>>? routes,
+      List<AppRouteConfig>? routes,
       String? themePath,
       String? pageAPI,
       String? beAPI});
@@ -131,7 +131,7 @@ class __$$_ClientConfigCopyWithImpl<$Res>
       routes: freezed == routes
           ? _value._routes
           : routes // ignore: cast_nullable_to_non_nullable
-              as List<Map<String, dynamic>>?,
+              as List<AppRouteConfig>?,
       themePath: freezed == themePath
           ? _value.themePath
           : themePath // ignore: cast_nullable_to_non_nullable
@@ -153,7 +153,7 @@ class __$$_ClientConfigCopyWithImpl<$Res>
 class _$_ClientConfig implements _ClientConfig {
   const _$_ClientConfig(
       {this.initialPage,
-      final List<Map<String, dynamic>>? routes,
+      final List<AppRouteConfig>? routes,
       this.themePath,
       this.pageAPI,
       this.beAPI})
@@ -164,9 +164,9 @@ class _$_ClientConfig implements _ClientConfig {
 
   @override
   final String? initialPage;
-  final List<Map<String, dynamic>>? _routes;
+  final List<AppRouteConfig>? _routes;
   @override
-  List<Map<String, dynamic>>? get routes {
+  List<AppRouteConfig>? get routes {
     final value = _routes;
     if (value == null) return null;
     if (_routes is EqualUnmodifiableListView) return _routes;
@@ -198,7 +198,7 @@ class _$_ClientConfig implements _ClientConfig {
 abstract class _ClientConfig implements ClientConfig {
   const factory _ClientConfig(
       {final String? initialPage,
-      final List<Map<String, dynamic>>? routes,
+      final List<AppRouteConfig>? routes,
       final String? themePath,
       final String? pageAPI,
       final String? beAPI}) = _$_ClientConfig;
@@ -209,7 +209,7 @@ abstract class _ClientConfig implements ClientConfig {
   @override
   String? get initialPage;
   @override
-  List<Map<String, dynamic>>? get routes;
+  List<AppRouteConfig>? get routes;
   @override
   String? get themePath;
   @override

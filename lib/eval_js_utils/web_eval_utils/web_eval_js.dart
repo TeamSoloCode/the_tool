@@ -6,6 +6,7 @@ import 'package:the_tool/eval_js_utils/web_eval_utils/web_js_invoke.dart'
     as webjs;
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/utils.dart';
+import 'package:modular_core/modular_core.dart';
 
 class EvalJS extends BaseEvalJS {
   var webViewController;
@@ -38,7 +39,7 @@ class EvalJS extends BaseEvalJS {
   Future<void> executePageCode({
     required String clientCode,
     required String pagePath,
-    Map<String, dynamic>? pageArguments,
+    ModularArguments? pageArguments,
   }) async {
     String pageCode = """
       (() => {

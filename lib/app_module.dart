@@ -5,6 +5,7 @@ import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/t_widget_interface/client_config/client_config.dart';
 import 'package:the_tool/tool_components/page_widget.dart';
 import 'package:the_tool/utils.dart';
+import 'package:the_tool/t_widget_interface/client_config/app_route_config/app_route_config.dart';
 
 class AppModule extends Module {
   AppModule(ClientConfig config) : super();
@@ -42,19 +43,23 @@ class AppModule extends Module {
     var routeConfig = config?.routes;
     if (routeConfig == null) return {};
 
-    List<Map<String, dynamic>> routesConfig = routeConfig;
+    List<AppRouteConfig> routesConfig = routeConfig;
     Map<String, Widget Function(BuildContext, ModularArguments)> routes = {};
 
     var initialPath = _getInitialPage(config);
     Modular.setInitialRoute("/$initialPath");
 
     for (var routeConfig in routesConfig) {
-      String routePath = routeConfig['path'];
-      String appRoutePath = "/$routePath";
+      if (routeConfig.path == null) {
+        throw Exception("path in routes config cannot be null");
+      }
+
+      String pagePath = routeConfig.path!;
+      String route = "/${routeConfig.route ?? pagePath}";
 
       routes.addAll({
-        appRoutePath: (context, args) => TPage(
-              pagePath: routePath,
+        route: (context, args) => TPage(
+              pagePath: pagePath,
               modularArguments: args,
             ),
       });

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:modular_core/modular_core.dart';
 import 'package:the_tool/eval_js_utils/base_eval_js.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/utils.dart';
@@ -52,7 +53,7 @@ class EvalJS extends BaseEvalJS {
   Future<void> executePageCode({
     required String clientCode,
     required String pagePath,
-    Map<String, dynamic>? pageArguments,
+    ModularArguments? pageArguments,
   }) async {
     String pageCode = """
       (() => {

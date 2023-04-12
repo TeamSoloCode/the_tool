@@ -184,7 +184,7 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
     utils.evalJS?.executePageCode(
       clientCode: pageInfo["code"],
       pagePath: _pageId,
-      pageArguments: widget.modularArguments?.data,
+      pageArguments: widget.modularArguments,
     );
 
     var layout = pageInfo["layout"];

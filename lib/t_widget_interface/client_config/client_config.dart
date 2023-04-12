@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:the_tool/t_widget_interface/client_config/app_route_config/app_route_config.dart';
 
 part 'client_config.freezed.dart';
 part 'client_config.g.dart';
@@ -7,7 +8,7 @@ part 'client_config.g.dart';
 class ClientConfig with _$ClientConfig {
   const factory ClientConfig({
     String? initialPage,
-    List<Map<String, dynamic>>? routes,
+    List<AppRouteConfig>? routes,
     String? themePath,
     String? pageAPI,
     String? beAPI,
