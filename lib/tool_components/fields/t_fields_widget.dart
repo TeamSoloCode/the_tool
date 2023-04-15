@@ -86,7 +86,7 @@ class _T_FieldsState extends TStatefulWidget<T_Fields> {
 
     switch (fieldType) {
       case "text":
-        return field_text.T_TextField(tWidgetProps);
+        return field_text.TTextField(tWidgetProps);
       case "select":
         return field_select.T_SelectField(tWidgetProps);
       case "datetime":

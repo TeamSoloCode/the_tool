@@ -64,6 +64,7 @@ class LayoutProps with _$LayoutProps {
     double? weight,
     dynamic style,
     double? opacity,
+    dynamic enabled,
 
     /**
      * 
@@ -112,16 +113,20 @@ class LayoutProps with _$LayoutProps {
     // Field Start==================================================
     String? hintText,
     String? labelText,
-    bool? obscureText,
+    dynamic obscureText,
     String? defaultValue,
     dynamic items,
     bool? allowClear,
     String? fieldType,
     bool? numeric,
     String? suffixIcon,
+    String? onClickSuffixIcon,
     String? suffixIconColor,
+    String? suffixText,
     String? prefixIcon,
+    String? onClickPrefixIcon,
     String? prefixIconColor,
+    String? prefixText,
     /**
      * @summary This function will be eval for validating field value
      * - Return false if value is valid
@@ -265,6 +270,10 @@ extension MergeLayoutProps on LayoutProps {
 
       image: other.image ?? image,
 
+      enabled: other.enabled ?? enabled,
+
+      prefixText: other.prefixText ?? prefixText,
+      suffixText: other.suffixText ?? suffixText,
       suffixIcon: other.suffixIcon ?? suffixIcon,
       suffixIconColor: other.suffixIconColor ?? suffixIconColor,
       prefixIcon: other.prefixIcon ?? prefixIcon,

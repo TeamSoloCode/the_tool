@@ -103,6 +103,7 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField>
       name: name ?? "",
       decoration: computeFieldDecoration(
         widgetProps,
+        thisWidget: widget,
         errorMessage: _errorMessage,
         suffixIcon: _getSuffixIcon(),
       ),

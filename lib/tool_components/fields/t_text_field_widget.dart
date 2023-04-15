@@ -11,21 +11,20 @@ import 'package:the_tool/tool_components/mixin_component/field_mixin.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/twidget_props.dart';
 
-class T_TextField extends TWidget {
-  T_TextField(TWidgetProps twidget) : super(twidget);
+class TTextField extends TWidget {
+  TTextField(TWidgetProps twidget) : super(twidget);
 
   @override
-  State<T_TextField> createState() => _T_TextFieldState();
+  State<TTextField> createState() => _TTextFieldState();
 }
 
 Timer? _debounce;
 
-class _T_TextFieldState extends TStatefulWidget<T_TextField> with FieldMixin {
+class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
   var textFieldController = TextEditingController();
   String? currentValue;
   var debounceDuration = const Duration(milliseconds: 500);
-  bool _showObscureText = false;
-  String? _errorMessage = null;
+  String? _errorMessage;
   bool _isUserTying = false;
 
   @override
@@ -35,7 +34,6 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> with FieldMixin {
     var text = widget.getContexData()[name] ?? "";
     textFieldController.text = text;
     currentValue = text;
-    _showObscureText = widget.widgetProps.obscureText ?? false;
     super.initState();
   }
 
@@ -89,39 +87,25 @@ class _T_TextFieldState extends TStatefulWidget<T_TextField> with FieldMixin {
     });
   }
 
-  Widget? _generateSuffixIcon(LayoutProps? widgetProps) {
-    if (widgetProps?.obscureText == true) {
-      return IconButton(
-        icon: Icon(_showObscureText ? Icons.visibility_off : Icons.visibility),
-        onPressed: () {
-          setState(() {
-            _showObscureText = !_showObscureText;
-          });
-        },
-      );
-    }
-
-    return null;
-  }
-
   Widget _computeTextField(
-    LayoutProps? widgetProps,
+    LayoutProps? computedProps,
     Map<String, dynamic> contextData,
   ) {
-    String? name = widgetProps?.name;
+    String? name = computedProps?.name;
+
     return FormBuilderTextField(
       controller: textFieldController,
       name: name ?? "",
       inputFormatters: [
         // FilteringTextInputFormatter.digitsOnly,
       ],
-
+      enabled: computedProps?.enabled ?? true,
       decoration: computeFieldDecoration(
-        widgetProps,
-        suffixIcon: _generateSuffixIcon(widgetProps),
+        computedProps,
+        thisWidget: widget,
         errorMessage: _errorMessage,
       ),
-      obscureText: _showObscureText,
+      obscureText: computedProps?.obscureText ?? false,
       // initialValue: contextData[name] ?? "",
       onChanged: (text) {
         _debounceTextChanged(text, contextData);

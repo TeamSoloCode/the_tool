@@ -44,8 +44,10 @@ class UtilsManager {
     themeProvider = getIt<ThemeProvider>();
   }
 
-  static bool isValueBinding(String? value) {
+  static bool isValueBinding(dynamic value) {
     if (value == null) return false;
+    if (value is! String) return false;
+
     var match = UtilsManager.regexPattern.firstMatch(value);
 
     if (match != null) {
@@ -183,6 +185,30 @@ class UtilsManager {
 
     widgetProps = parseAndBindingColor(widgetProps, contextData);
     widgetProps = themeProvider.mergeBaseColor(widgetProps);
+
+    if (widgetProps.obscureText != null &&
+        UtilsManager.isValueBinding(widgetProps.obscureText)) {
+      var obscureText = UtilsManager.isTruthy(
+        bindingValueToProp(
+          contextData,
+          widgetProps.obscureText,
+        ),
+      );
+
+      widgetProps = widgetProps.copyWith(obscureText: obscureText);
+    }
+
+    if (widgetProps.enabled != null &&
+        UtilsManager.isValueBinding(widgetProps.enabled)) {
+      var enabled = UtilsManager.isTruthy(
+        bindingValueToProp(
+          contextData,
+          widgetProps.enabled,
+        ),
+      );
+
+      widgetProps = widgetProps.copyWith(enabled: enabled);
+    }
 
     if (widgetProps.icon != null &&
         UtilsManager.isValueBinding(widgetProps.icon)) {

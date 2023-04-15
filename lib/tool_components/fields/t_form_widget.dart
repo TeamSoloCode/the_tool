@@ -61,17 +61,27 @@ class _T_FormState extends TStatefulWidget<T_Form> {
     if (validationFunction != null && validationFunction.isNotEmpty) {
       errorTextMap = await widget.executeJSWithPagePath(validationFunction);
     }
-    var isValid = false;
-    _formKey.currentState?.fields.forEach((key, field) {
-      var errorText = errorTextMap[key];
-      if (errorText == null) {
-        if (field.validate() == true) {
-          isValid = true;
+
+    var isValid = true;
+
+    if (_formKey.currentState != null) {
+      loop:
+      for (final entry in _formKey.currentState!.fields.entries) {
+        final key = entry.key;
+        final field = entry.value;
+        var errorText = errorTextMap[key];
+
+        if (errorText == null && field.validate()) {
+          continue;
         }
-      } else {
-        field.invalidate(errorText);
+
+        isValid = false;
+        if (errorText != null) {
+          field.invalidate(errorText);
+        }
+        break loop;
       }
-    });
+    }
 
     return isValid;
   }

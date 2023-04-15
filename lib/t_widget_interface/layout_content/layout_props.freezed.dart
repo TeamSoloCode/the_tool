@@ -60,6 +60,7 @@ mixin _$LayoutProps {
   double? get weight => throw _privateConstructorUsedError;
   dynamic get style => throw _privateConstructorUsedError;
   double? get opacity => throw _privateConstructorUsedError;
+  dynamic get enabled => throw _privateConstructorUsedError;
   /**
      * 
      */
@@ -107,16 +108,20 @@ mixin _$LayoutProps {
 // Field Start==================================================
   String? get hintText => throw _privateConstructorUsedError;
   String? get labelText => throw _privateConstructorUsedError;
-  bool? get obscureText => throw _privateConstructorUsedError;
+  dynamic get obscureText => throw _privateConstructorUsedError;
   String? get defaultValue => throw _privateConstructorUsedError;
   dynamic get items => throw _privateConstructorUsedError;
   bool? get allowClear => throw _privateConstructorUsedError;
   String? get fieldType => throw _privateConstructorUsedError;
   bool? get numeric => throw _privateConstructorUsedError;
   String? get suffixIcon => throw _privateConstructorUsedError;
+  String? get onClickSuffixIcon => throw _privateConstructorUsedError;
   String? get suffixIconColor => throw _privateConstructorUsedError;
+  String? get suffixText => throw _privateConstructorUsedError;
   String? get prefixIcon => throw _privateConstructorUsedError;
+  String? get onClickPrefixIcon => throw _privateConstructorUsedError;
   String? get prefixIconColor => throw _privateConstructorUsedError;
+  String? get prefixText => throw _privateConstructorUsedError;
   /**
      * @summary This function will be eval for validating field value
      * - Return false if value is valid
@@ -221,6 +226,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       double? weight,
       dynamic style,
       double? opacity,
+      dynamic enabled,
       String? sliverListType,
       double? itemExtent,
       Map<String, dynamic>? componentProps,
@@ -241,16 +247,20 @@ abstract class $LayoutPropsCopyWith<$Res> {
       bool? selectable,
       String? hintText,
       String? labelText,
-      bool? obscureText,
+      dynamic obscureText,
       String? defaultValue,
       dynamic items,
       bool? allowClear,
       String? fieldType,
       bool? numeric,
       String? suffixIcon,
+      String? onClickSuffixIcon,
       String? suffixIconColor,
+      String? suffixText,
       String? prefixIcon,
+      String? onClickPrefixIcon,
       String? prefixIconColor,
+      String? prefixText,
       String? validationFunction,
       bool? autovalidate,
       List<Map<String, dynamic>>? validators,
@@ -359,6 +369,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? weight = freezed,
     Object? style = freezed,
     Object? opacity = freezed,
+    Object? enabled = freezed,
     Object? sliverListType = freezed,
     Object? itemExtent = freezed,
     Object? componentProps = freezed,
@@ -386,9 +397,13 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? fieldType = freezed,
     Object? numeric = freezed,
     Object? suffixIcon = freezed,
+    Object? onClickSuffixIcon = freezed,
     Object? suffixIconColor = freezed,
+    Object? suffixText = freezed,
     Object? prefixIcon = freezed,
+    Object? onClickPrefixIcon = freezed,
     Object? prefixIconColor = freezed,
+    Object? prefixText = freezed,
     Object? validationFunction = freezed,
     Object? autovalidate = freezed,
     Object? validators = freezed,
@@ -584,6 +599,10 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.opacity
           : opacity // ignore: cast_nullable_to_non_nullable
               as double?,
+      enabled: freezed == enabled
+          ? _value.enabled
+          : enabled // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       sliverListType: freezed == sliverListType
           ? _value.sliverListType
           : sliverListType // ignore: cast_nullable_to_non_nullable
@@ -667,7 +686,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
       obscureText: freezed == obscureText
           ? _value.obscureText
           : obscureText // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as dynamic,
       defaultValue: freezed == defaultValue
           ? _value.defaultValue
           : defaultValue // ignore: cast_nullable_to_non_nullable
@@ -692,17 +711,33 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.suffixIcon
           : suffixIcon // ignore: cast_nullable_to_non_nullable
               as String?,
+      onClickSuffixIcon: freezed == onClickSuffixIcon
+          ? _value.onClickSuffixIcon
+          : onClickSuffixIcon // ignore: cast_nullable_to_non_nullable
+              as String?,
       suffixIconColor: freezed == suffixIconColor
           ? _value.suffixIconColor
           : suffixIconColor // ignore: cast_nullable_to_non_nullable
+              as String?,
+      suffixText: freezed == suffixText
+          ? _value.suffixText
+          : suffixText // ignore: cast_nullable_to_non_nullable
               as String?,
       prefixIcon: freezed == prefixIcon
           ? _value.prefixIcon
           : prefixIcon // ignore: cast_nullable_to_non_nullable
               as String?,
+      onClickPrefixIcon: freezed == onClickPrefixIcon
+          ? _value.onClickPrefixIcon
+          : onClickPrefixIcon // ignore: cast_nullable_to_non_nullable
+              as String?,
       prefixIconColor: freezed == prefixIconColor
           ? _value.prefixIconColor
           : prefixIconColor // ignore: cast_nullable_to_non_nullable
+              as String?,
+      prefixText: freezed == prefixText
+          ? _value.prefixText
+          : prefixText // ignore: cast_nullable_to_non_nullable
               as String?,
       validationFunction: freezed == validationFunction
           ? _value.validationFunction
@@ -1117,6 +1152,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       double? weight,
       dynamic style,
       double? opacity,
+      dynamic enabled,
       String? sliverListType,
       double? itemExtent,
       Map<String, dynamic>? componentProps,
@@ -1137,16 +1173,20 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       bool? selectable,
       String? hintText,
       String? labelText,
-      bool? obscureText,
+      dynamic obscureText,
       String? defaultValue,
       dynamic items,
       bool? allowClear,
       String? fieldType,
       bool? numeric,
       String? suffixIcon,
+      String? onClickSuffixIcon,
       String? suffixIconColor,
+      String? suffixText,
       String? prefixIcon,
+      String? onClickPrefixIcon,
       String? prefixIconColor,
+      String? prefixText,
       String? validationFunction,
       bool? autovalidate,
       List<Map<String, dynamic>>? validators,
@@ -1272,6 +1312,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? weight = freezed,
     Object? style = freezed,
     Object? opacity = freezed,
+    Object? enabled = freezed,
     Object? sliverListType = freezed,
     Object? itemExtent = freezed,
     Object? componentProps = freezed,
@@ -1299,9 +1340,13 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? fieldType = freezed,
     Object? numeric = freezed,
     Object? suffixIcon = freezed,
+    Object? onClickSuffixIcon = freezed,
     Object? suffixIconColor = freezed,
+    Object? suffixText = freezed,
     Object? prefixIcon = freezed,
+    Object? onClickPrefixIcon = freezed,
     Object? prefixIconColor = freezed,
+    Object? prefixText = freezed,
     Object? validationFunction = freezed,
     Object? autovalidate = freezed,
     Object? validators = freezed,
@@ -1497,6 +1542,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value.opacity
           : opacity // ignore: cast_nullable_to_non_nullable
               as double?,
+      enabled: freezed == enabled
+          ? _value.enabled
+          : enabled // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       sliverListType: freezed == sliverListType
           ? _value.sliverListType
           : sliverListType // ignore: cast_nullable_to_non_nullable
@@ -1580,7 +1629,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
       obscureText: freezed == obscureText
           ? _value.obscureText
           : obscureText // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as dynamic,
       defaultValue: freezed == defaultValue
           ? _value.defaultValue
           : defaultValue // ignore: cast_nullable_to_non_nullable
@@ -1605,17 +1654,33 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value.suffixIcon
           : suffixIcon // ignore: cast_nullable_to_non_nullable
               as String?,
+      onClickSuffixIcon: freezed == onClickSuffixIcon
+          ? _value.onClickSuffixIcon
+          : onClickSuffixIcon // ignore: cast_nullable_to_non_nullable
+              as String?,
       suffixIconColor: freezed == suffixIconColor
           ? _value.suffixIconColor
           : suffixIconColor // ignore: cast_nullable_to_non_nullable
+              as String?,
+      suffixText: freezed == suffixText
+          ? _value.suffixText
+          : suffixText // ignore: cast_nullable_to_non_nullable
               as String?,
       prefixIcon: freezed == prefixIcon
           ? _value.prefixIcon
           : prefixIcon // ignore: cast_nullable_to_non_nullable
               as String?,
+      onClickPrefixIcon: freezed == onClickPrefixIcon
+          ? _value.onClickPrefixIcon
+          : onClickPrefixIcon // ignore: cast_nullable_to_non_nullable
+              as String?,
       prefixIconColor: freezed == prefixIconColor
           ? _value.prefixIconColor
           : prefixIconColor // ignore: cast_nullable_to_non_nullable
+              as String?,
+      prefixText: freezed == prefixText
+          ? _value.prefixText
+          : prefixText // ignore: cast_nullable_to_non_nullable
               as String?,
       validationFunction: freezed == validationFunction
           ? _value.validationFunction
@@ -1797,6 +1862,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.weight,
       this.style,
       this.opacity,
+      this.enabled,
       this.sliverListType,
       this.itemExtent,
       final Map<String, dynamic>? componentProps,
@@ -1824,9 +1890,13 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.fieldType,
       this.numeric,
       this.suffixIcon,
+      this.onClickSuffixIcon,
       this.suffixIconColor,
+      this.suffixText,
       this.prefixIcon,
+      this.onClickPrefixIcon,
       this.prefixIconColor,
+      this.prefixText,
       this.validationFunction,
       this.autovalidate,
       final List<Map<String, dynamic>>? validators,
@@ -1961,6 +2031,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   final dynamic style;
   @override
   final double? opacity;
+  @override
+  final dynamic enabled;
 /**
      * 
      */
@@ -2070,7 +2142,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   @override
   final String? labelText;
   @override
-  final bool? obscureText;
+  final dynamic obscureText;
   @override
   final String? defaultValue;
   @override
@@ -2084,11 +2156,19 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   @override
   final String? suffixIcon;
   @override
+  final String? onClickSuffixIcon;
+  @override
   final String? suffixIconColor;
+  @override
+  final String? suffixText;
   @override
   final String? prefixIcon;
   @override
+  final String? onClickPrefixIcon;
+  @override
   final String? prefixIconColor;
+  @override
+  final String? prefixText;
 /**
      * @summary This function will be eval for validating field value
      * - Return false if value is valid
@@ -2209,7 +2289,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, shadowColor: $shadowColor, heightFactor: $heightFactor, widthFactor: $widthFactor, weight: $weight, style: $style, opacity: $opacity, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, textAlign: $textAlign, selectable: $selectable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, suffixIcon: $suffixIcon, suffixIconColor: $suffixIconColor, prefixIcon: $prefixIcon, prefixIconColor: $prefixIconColor, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, onSelectChanged: $onSelectChanged, onSelectAll: $onSelectAll, selected: $selected, dividerColor: $dividerColor, head: $head, body: $body, leading: $leading, title: $title, trailing: $trailing, subtitle: $subtitle, horizontalTitleGap: $horizontalTitleGap, component: $component, child: $child, content: $content, itemLayout: $itemLayout, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, shapeBorder: $shapeBorder, boxShadow: $boxShadow, gradient: $gradient)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, shadowColor: $shadowColor, heightFactor: $heightFactor, widthFactor: $widthFactor, weight: $weight, style: $style, opacity: $opacity, enabled: $enabled, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, textAlign: $textAlign, selectable: $selectable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, suffixIcon: $suffixIcon, onClickSuffixIcon: $onClickSuffixIcon, suffixIconColor: $suffixIconColor, suffixText: $suffixText, prefixIcon: $prefixIcon, onClickPrefixIcon: $onClickPrefixIcon, prefixIconColor: $prefixIconColor, prefixText: $prefixText, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, onSelectChanged: $onSelectChanged, onSelectAll: $onSelectAll, selected: $selected, dividerColor: $dividerColor, head: $head, body: $body, leading: $leading, title: $title, trailing: $trailing, subtitle: $subtitle, horizontalTitleGap: $horizontalTitleGap, component: $component, child: $child, content: $content, itemLayout: $itemLayout, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, shapeBorder: $shapeBorder, boxShadow: $boxShadow, gradient: $gradient)';
   }
 
   @override
@@ -2257,6 +2337,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('weight', weight))
       ..add(DiagnosticsProperty('style', style))
       ..add(DiagnosticsProperty('opacity', opacity))
+      ..add(DiagnosticsProperty('enabled', enabled))
       ..add(DiagnosticsProperty('sliverListType', sliverListType))
       ..add(DiagnosticsProperty('itemExtent', itemExtent))
       ..add(DiagnosticsProperty('componentProps', componentProps))
@@ -2285,9 +2366,13 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('fieldType', fieldType))
       ..add(DiagnosticsProperty('numeric', numeric))
       ..add(DiagnosticsProperty('suffixIcon', suffixIcon))
+      ..add(DiagnosticsProperty('onClickSuffixIcon', onClickSuffixIcon))
       ..add(DiagnosticsProperty('suffixIconColor', suffixIconColor))
+      ..add(DiagnosticsProperty('suffixText', suffixText))
       ..add(DiagnosticsProperty('prefixIcon', prefixIcon))
+      ..add(DiagnosticsProperty('onClickPrefixIcon', onClickPrefixIcon))
       ..add(DiagnosticsProperty('prefixIconColor', prefixIconColor))
+      ..add(DiagnosticsProperty('prefixText', prefixText))
       ..add(DiagnosticsProperty('validationFunction', validationFunction))
       ..add(DiagnosticsProperty('autovalidate', autovalidate))
       ..add(DiagnosticsProperty('validators', validators))
@@ -2379,6 +2464,7 @@ abstract class _LayoutProps implements LayoutProps {
       final double? weight,
       final dynamic style,
       final double? opacity,
+      final dynamic enabled,
       final String? sliverListType,
       final double? itemExtent,
       final Map<String, dynamic>? componentProps,
@@ -2399,16 +2485,20 @@ abstract class _LayoutProps implements LayoutProps {
       final bool? selectable,
       final String? hintText,
       final String? labelText,
-      final bool? obscureText,
+      final dynamic obscureText,
       final String? defaultValue,
       final dynamic items,
       final bool? allowClear,
       final String? fieldType,
       final bool? numeric,
       final String? suffixIcon,
+      final String? onClickSuffixIcon,
       final String? suffixIconColor,
+      final String? suffixText,
       final String? prefixIcon,
+      final String? onClickPrefixIcon,
       final String? prefixIconColor,
+      final String? prefixText,
       final String? validationFunction,
       final bool? autovalidate,
       final List<Map<String, dynamic>>? validators,
@@ -2527,6 +2617,8 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   double? get opacity;
   @override
+  dynamic get enabled;
+  @override
   /**
      * 
      */
@@ -2588,7 +2680,7 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   String? get labelText;
   @override
-  bool? get obscureText;
+  dynamic get obscureText;
   @override
   String? get defaultValue;
   @override
@@ -2602,11 +2694,19 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   String? get suffixIcon;
   @override
+  String? get onClickSuffixIcon;
+  @override
   String? get suffixIconColor;
+  @override
+  String? get suffixText;
   @override
   String? get prefixIcon;
   @override
+  String? get onClickPrefixIcon;
+  @override
   String? get prefixIconColor;
+  @override
+  String? get prefixText;
   @override
   /**
      * @summary This function will be eval for validating field value

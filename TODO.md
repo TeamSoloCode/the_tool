@@ -1,6 +1,10 @@
 Update the function that update the theme json into js side
 Add login page base on design image
 
+SUPPORT: Binding context state into all value binding props in computeWidgetProps
+SUPPORT: Change icon size in prefix/suffix icon of TextField
+SUPPORT: Auth route for the app
+
 UPDATE: Merge navigator in web/mobile invoke into one place
 UPDATE: DO not use http://localhost:8081 in index.html==============
 

@@ -102,6 +102,7 @@ class _T_DatetimeState extends TStatefulWidget<T_Datetime> with FieldMixin {
       locale: Localizations.localeOf(context),
       decoration: computeFieldDecoration(
         widgetProps,
+        thisWidget: widget,
         errorMessage: _errorMessage,
         suffixIcon: _getSuffixIcon(),
       ),
