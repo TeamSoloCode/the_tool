@@ -22,8 +22,6 @@ class T_Fields extends TWidget {
   State<T_Fields> createState() => _T_FieldsState();
 }
 
-Timer? _debounce;
-
 class _T_FieldsState extends TStatefulWidget<T_Fields> {
   final textFieldController = TextEditingController();
   dynamic value;

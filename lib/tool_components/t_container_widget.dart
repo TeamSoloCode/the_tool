@@ -31,6 +31,13 @@ class TContainer extends TStatelessWidget with ContainerMixin {
       ),
     );
 
+    if (props?.opacity != null) {
+      snapshot = Opacity(
+        opacity: props?.opacity ?? 1.0,
+        child: snapshot,
+      );
+    }
+
     if (props?.scrollable == true) {
       snapshot = SingleChildScrollView(
         scrollDirection: Axis.vertical,

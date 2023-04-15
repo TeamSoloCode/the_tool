@@ -257,9 +257,7 @@ class ThemeProvider with ChangeNotifier {
     ) {
       if (classData != null) {
         var appliedClassProps = T_MediaScreenOnlyProps.fromJson(
-          Map<String, dynamic>.from(
-            classData,
-          ),
+          UtilsManager.deepConvertToStringKeyMap(classData),
         );
 
         updatedMediaScreen = updatedMediaScreen.merge(appliedClassProps);
@@ -313,9 +311,7 @@ class ThemeProvider with ChangeNotifier {
     ) {
       if (classData != null) {
         var appliedClassProps = LayoutProps.fromJson(
-          Map<String, dynamic>.from(
-            classData,
-          ),
+          UtilsManager.deepConvertToStringKeyMap(classData),
         );
 
         updatedWidgetProps = updatedWidgetProps?.merge(appliedClassProps);

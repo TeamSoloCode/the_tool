@@ -1,5 +1,5 @@
 Update the function that update the theme json into js side
-Support dynamic for using "style" property in json layout
+Add login page base on design image
 
 UPDATE: Merge navigator in web/mobile invoke into one place
 UPDATE: DO not use http://localhost:8081 in index.html==============
@@ -13,9 +13,11 @@ UPDATE: DO not use http://localhost:8081 in index.html==============
 
 Support Error Widget for twidgets
 Support SVG widget
+Support dynamic for using "style" property in json layout
 
 #-------------------------------------------------
 implement seo_renderer, meta_seo
+UPDATE: Using emitter instead of using eval to call a function
 
 Support format number for t_textfield
 Reduce bundle size

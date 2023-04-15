@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/utils.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:json_theme/json_theme.dart';
 
 mixin FieldMixin {
   final UtilsManager _utils = UtilsManager();
@@ -18,157 +20,141 @@ mixin FieldMixin {
       labelText: widgetProps?.labelText,
       errorText: errorMessage,
       suffixIcon: suffixIcon,
+      suffixIconColor: ThemeDecoder.decodeColor(widgetProps?.suffixIconColor),
+      prefixIcon: widgetProps!.prefixIcon != null
+          ? Icon(MdiIcons.fromString(widgetProps.prefixIcon!))
+          : null,
+      prefixIconColor: ThemeDecoder.decodeColor(widgetProps.prefixIconColor),
     );
   }
 
-  /// This validator compute function is use for SelectField
+  /// This validator compute function is used for SelectField
   List<String? Function(dynamic)> computeFieldValidators(
     List<Map<String, dynamic>>? validatorsMap,
     Map<String, dynamic> contextData,
   ) {
-    List<String? Function(dynamic)> validators = [];
-    validatorsMap?.forEach((validator) {
-      if (validator["type"] == "is_required") {
-        validators.add(
-          FormBuilderValidators.required(errorText: validator["errorText"]),
-        );
-      }
+    return validatorsMap != null
+        ? validatorsMap
+            .map((validator) {
+              dynamic errorText = validator["errorText"];
+              switch (validator["type"]) {
+                case "is_required":
+                  return FormBuilderValidators.required(errorText: errorText);
 
-      if (validator["type"] == "max") {
-        dynamic maxValue;
+                case "max":
+                  dynamic maxValue = UtilsManager.isValueBinding(
+                          validator["maxValue"].toString())
+                      ? double.tryParse(_utils
+                          .bindingValueToProp(
+                              contextData, validator["maxValue"])
+                          .toString())
+                      : double.tryParse(validator["maxValue"].toString());
 
-        if (UtilsManager.isValueBinding(validator["maxValue"].toString())) {
-          maxValue = _utils.bindingValueToProp(
-            contextData,
-            validator["maxValue"],
-          );
-          maxValue = double.tryParse(maxValue.toString());
-        } else {
-          maxValue = double.tryParse(validator["maxValue"].toString());
-        }
+                  if (maxValue == null) {
+                    throw Exception(
+                      "maxValue of max validator must be a number",
+                    );
+                  }
 
-        if (maxValue == null) {
-          throw Exception("maxValue of max validator must be a number");
-        }
+                  var inclusive = UtilsManager.isTruthy(validator["inclusive"]);
 
-        var inclusive = UtilsManager.isTruthy(validator["inclusive"]);
+                  return FormBuilderValidators.max(maxValue,
+                      inclusive: inclusive, errorText: errorText);
 
-        validators.add(
-          FormBuilderValidators.max(
-            maxValue,
-            inclusive: inclusive,
-            errorText: validator["errorText"],
-          ),
-        );
-      }
+                case "min":
+                  dynamic minValue = UtilsManager.isValueBinding(
+                          validator["minValue"].toString())
+                      ? double.tryParse(_utils
+                          .bindingValueToProp(
+                              contextData, validator["minValue"])
+                          .toString())
+                      : double.tryParse(validator["minValue"].toString());
 
-      if (validator["type"] == "min") {
-        dynamic minValue;
-        if (UtilsManager.isValueBinding(validator["maxValue"].toString())) {
-          minValue = _utils.bindingValueToProp(
-            contextData,
-            validator["maxValue"],
-          );
-          minValue = double.tryParse(minValue.toString());
-        } else {
-          minValue = double.tryParse(validator["minValue"].toString());
-        }
+                  if (minValue == null) {
+                    throw Exception(
+                      "minValue of min validator must be a number",
+                    );
+                  }
 
-        if (minValue == null) {
-          throw Exception("minValue of min validator must be a number");
-        }
+                  var inclusive = UtilsManager.isTruthy(validator["inclusive"]);
 
-        var inclusive = UtilsManager.isTruthy(validator["inclusive"]);
+                  return FormBuilderValidators.min(minValue,
+                      inclusive: inclusive, errorText: errorText);
 
-        validators.add(
-          FormBuilderValidators.min(
-            minValue,
-            inclusive: inclusive,
-            errorText: validator["errorText"],
-          ),
-        );
-      }
+                case "max_length":
+                  int? maxValue =
+                      int.tryParse(validator["maxLengthValue"].toString());
 
-      if (validator["type"] == "max_length") {
-        var maxValue = int.tryParse(validator["maxLengthValue"].toString());
+                  if (maxValue == null) {
+                    throw Exception(
+                      "maxLengthValue of max_length validator must be a number",
+                    );
+                  }
 
-        if (maxValue == null) {
-          throw Exception("maxLengthValue of min validator must be a number");
-        }
+                  return FormBuilderValidators.maxLength(maxValue,
+                      errorText: errorText);
 
-        validators.add(
-          FormBuilderValidators.maxLength(
-            maxValue,
-            errorText: validator["errorText"],
-          ),
-        );
-      }
+                case "min_length":
+                  int? minValue =
+                      int.tryParse(validator["minLengthValue"].toString());
 
-      if (validator["type"] == "min_length") {
-        var minValue = int.tryParse(validator["minLengthValue"].toString());
+                  if (minValue == null) {
+                    throw Exception(
+                      "minLengthValue of min_length validator must be a number",
+                    );
+                  }
 
-        if (minValue == null) {
-          throw Exception("minLengthValue of min validator must be a number");
-        }
+                  return FormBuilderValidators.minLength(minValue,
+                      errorText: errorText);
 
-        validators.add(
-          FormBuilderValidators.minLength(
-            minValue,
-            errorText: validator["errorText"],
-          ),
-        );
-      }
+                case "notEqual":
+                  return FormBuilderValidators.notEqual(validator["value"],
+                      errorText: errorText);
 
-      if (validator["type"] == "notEqual") {
-        validators.add(
-          FormBuilderValidators.notEqual(
-            validator["value"],
-            errorText: validator["errorText"],
-          ),
-        );
-      }
-    });
-
-    return validators;
+                default:
+                  return null;
+              }
+            })
+            .where((validator) => validator != null)
+            .cast<String? Function(dynamic)>()
+            .toList()
+        : [];
   }
 
-  /// This validator compute function is use for TextField
+  /// This validator compute function is used for TextField
   List<String? Function(String?)> computeCommonValidators(
     List<Map<String, dynamic>>? validatorsMap,
     Map<String, dynamic> contextData,
   ) {
-    List<String? Function(String?)> validators = [];
-    validatorsMap?.forEach((validator) {
-      if (validator["type"] == "is_email") {
-        validators.add(
-          FormBuilderValidators.email(errorText: validator["errorText"]),
-        );
-      }
+    List<String? Function(String?)> validators = validatorsMap != null
+        ? validatorsMap
+            .map((validator) {
+              switch (validator["type"]) {
+                case "is_email":
+                  return FormBuilderValidators.email(
+                    errorText: validator["errorText"],
+                  );
+                case "numeric":
+                  return FormBuilderValidators.numeric(
+                    errorText: validator["errorText"],
+                  );
+                case "integer":
+                  return FormBuilderValidators.integer(
+                    errorText: validator["errorText"],
+                  );
+                case "dateString":
+                  return FormBuilderValidators.dateString(
+                    errorText: validator["errorText"],
+                  );
+                default:
+                  return null;
+              }
+            })
+            .where((validator) => validator != null)
+            .cast<String? Function(String?)>()
+            .toList()
+        : [];
 
-      if (validator["type"] == "numeric") {
-        validators.add(
-          FormBuilderValidators.numeric(
-            errorText: validator["errorText"],
-          ),
-        );
-      }
-
-      if (validator["type"] == "integer") {
-        validators.add(
-          FormBuilderValidators.integer(
-            errorText: validator["errorText"],
-          ),
-        );
-      }
-
-      if (validator["type"] == "dateString") {
-        validators.add(
-          FormBuilderValidators.dateString(
-            errorText: validator["errorText"],
-          ),
-        );
-      }
-    });
     var fieldValidators = computeFieldValidators(validatorsMap, contextData);
     return [...validators, ...fieldValidators];
   }

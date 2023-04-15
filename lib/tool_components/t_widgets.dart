@@ -43,6 +43,8 @@ import 'package:the_tool/tool_components/t_center.widget.dart'
 import 'package:the_tool/tool_components/t_padding.widget.dart'
     deferred as t_padding;
 import 'package:the_tool/tool_components/t_align.widget.dart';
+import 'package:the_tool/tool_components/t_opacity.widget.dart'
+    deferred as t_opacity;
 
 import 'package:the_tool/tool_components/t_stack_widget.dart';
 import 'package:the_tool/tool_components/t_text_widget.dart';
@@ -181,6 +183,9 @@ class _TWidgetsState extends State<TWidgets> {
         return t_expansion_tile.TExpansionTitle(tWidgetProps);
       case "sized_box":
         return TSizedBox(tWidgetProps);
+      case "opacity":
+        await t_opacity.loadLibrary();
+        return t_opacity.TOpacity(tWidgetProps);
       default:
         return _computeNotBuiltInWidget(childData, content);
     }

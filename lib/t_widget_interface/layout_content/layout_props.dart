@@ -63,6 +63,7 @@ class LayoutProps with _$LayoutProps {
     double? widthFactor,
     double? weight,
     dynamic style,
+    double? opacity,
 
     /**
      * 
@@ -108,6 +109,7 @@ class LayoutProps with _$LayoutProps {
     bool? selectable,
     // Text Start================================================
 
+    // Field Start==================================================
     String? hintText,
     String? labelText,
     bool? obscureText,
@@ -116,6 +118,10 @@ class LayoutProps with _$LayoutProps {
     bool? allowClear,
     String? fieldType,
     bool? numeric,
+    String? suffixIcon,
+    String? suffixIconColor,
+    String? prefixIcon,
+    String? prefixIconColor,
     /**
      * @summary This function will be eval for validating field value
      * - Return false if value is valid
@@ -256,6 +262,14 @@ extension MergeLayoutProps on LayoutProps {
       trailing: other.trailing ?? trailing,
       subtitle: other.subtitle ?? subtitle,
       shadowColor: other.shadowColor ?? shadowColor,
+
+      image: other.image ?? image,
+
+      suffixIcon: other.suffixIcon ?? suffixIcon,
+      suffixIconColor: other.suffixIconColor ?? suffixIconColor,
+      prefixIcon: other.prefixIcon ?? prefixIcon,
+      prefixIconColor: other.prefixIconColor ?? prefixIconColor,
+
       // type: other.type ?? type,
       color: other.color ?? color,
       backgroundColor: other.backgroundColor ?? backgroundColor,

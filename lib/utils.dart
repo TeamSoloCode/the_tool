@@ -136,6 +136,34 @@ class UtilsManager {
   static isTruthy(dynamic data) =>
       !["", "false", "null", "0", "undefined", null, false].contains(data);
 
+  /// Convert deep nestest Map<dynamic, dynamic> to Map<String, dynamic>
+  static Map<String, dynamic> deepConvertToStringKeyMap(
+    Map<dynamic, dynamic> map,
+  ) {
+    Map<String, dynamic> result = {};
+
+    map.forEach((key, value) {
+      if (key is! String) {
+        key = key.toString();
+      }
+
+      if (value is Map) {
+        value = deepConvertToStringKeyMap(value);
+      } else if (value is List) {
+        value = value.map((item) {
+          if (item is Map) {
+            return deepConvertToStringKeyMap(item);
+          }
+          return item;
+        }).toList();
+      }
+
+      result[key] = value;
+    });
+
+    return result;
+  }
+
   LayoutProps computeWidgetProps(
     LayoutProps layoutProps,
     Map<String, dynamic> contextData,
@@ -251,7 +279,10 @@ class UtilsManager {
       "backgroundColor": layoutProps.backgroundColor,
       "dividerColor": layoutProps.dividerColor,
       "splashColor": layoutProps.splashColor,
+      "prefixIconColor": layoutProps.prefixIconColor,
+      "suffixIconColor": layoutProps.suffixIconColor,
     };
+
     Map<String, String?> parsedColors = {};
 
     unparsedColors.forEach((key, color) {
@@ -274,6 +305,8 @@ class UtilsManager {
       backgroundColor: parsedColors["backgroundColor"],
       dividerColor: parsedColors["dividerColor"],
       splashColor: parsedColors["splashColor"],
+      prefixIconColor: parsedColors["prefixIconColor"],
+      suffixIconColor: parsedColors["suffixIconColor"],
     );
 
     return layoutProps;
