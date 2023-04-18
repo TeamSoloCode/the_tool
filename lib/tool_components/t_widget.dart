@@ -32,7 +32,7 @@ mixin BaseStateWidget on Widget {
   Widget snapshot = const Offstage();
   Map<String, dynamic> _contextData = {};
   final Set<String> widgetBindingStrings = {};
-  List<dynamic> prevBindingValues = [];
+  String? prevBindingValues;
   var hasBindingValue = false;
   var hasThemeBindingValue = false;
   var propsHasAdaptiveScreenUnit = false;
@@ -54,6 +54,8 @@ mixin BaseStateWidget on Widget {
       },
     );
 
+    // print("abcd hasBindingValue ${widgetProps.type} ");
+
     if (hasBindingValue) {
       context.select((ContextStateProvider value) {
         var newPageData =
@@ -73,6 +75,7 @@ mixin BaseStateWidget on Widget {
         return newPageData;
       });
     }
+
     /**
      * Apply mediaScreenOnly into widget props
      */
@@ -102,12 +105,12 @@ mixin BaseStateWidget on Widget {
       return _contextData;
     }
 
-    mediaScreenApplied = false;
     props = utils.computeWidgetProps(
       appliedMediaScreen ?? widgetProps,
       getContexData(),
     );
 
+    mediaScreenApplied = false;
     prevProps = props;
     _prevThemeRefreshToken = themeProvider.themeRefreshToken;
 
@@ -150,30 +153,25 @@ mixin BaseStateWidget on Widget {
     // if (caheValue != null) {
     //   return caheValue;
     // }
+    final rootData = getIt<ContextStateProvider>().rootPageData;
+    const rootPrefix = UtilsManager.rootPrefix;
 
     var newBindingValues = widgetBindingStrings.map((widgetBindingString) {
-      String bindingField = widgetBindingString;
-
-      var rootData = getIt<ContextStateProvider>().rootPageData;
-      var useRootData = bindingField.startsWith(UtilsManager.rootPrefix);
+      var useRootData = widgetBindingString.startsWith(rootPrefix);
       var selectedData = useRootData ? rootData : contextData;
 
-      if (useRootData) {
-        bindingField = bindingField.substring(UtilsManager.rootPrefix.length);
-      }
+      var bindingField = useRootData
+          ? widgetBindingString.substring(rootPrefix.length)
+          : widgetBindingString;
 
-      var bindingData = gato.get(selectedData, bindingField);
-
-      return bindingData;
+      return gato.get(selectedData, bindingField);
     }).toList();
 
-    var isChanged = !const DeepCollectionEquality().equals(
-      newBindingValues,
-      prevBindingValues,
-    );
+    var newBindingValuesAsJSON = jsonEncode(newBindingValues);
+    var isChanged = newBindingValuesAsJSON != prevBindingValues;
 
     if (isChanged) {
-      prevBindingValues = newBindingValues;
+      prevBindingValues = newBindingValuesAsJSON;
     }
 
     // Cache the result for later use
@@ -185,7 +183,7 @@ mixin BaseStateWidget on Widget {
   }
 
   Future<dynamic> executeJSWithPagePath(String jsCode) async {
-    return await utils.evalJS?.executeJS(jsCode, pagePath);
+    return await utils.evalJS?.executeAsyncJS(jsCode, pagePath);
   }
 
   Key? getBindingKey() {

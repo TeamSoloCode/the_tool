@@ -17,6 +17,7 @@ class TText extends TStatelessWidget {
 
     TextStyle? inlineStyle = ThemeDecoder.decodeTextStyle(props?.toJson());
     TextStyle? style = inlineStyle;
+    final text = props?.text ?? "";
 
     if (props?.style != null && props?.style is String) {
       style = ThemeDecoder.decodeTextStyle(
@@ -31,14 +32,14 @@ class TText extends TStatelessWidget {
 
     if (props?.selectable == true) {
       snapshot = SelectableText(
-        props?.text ?? "",
+        text,
         key: getBindingKey(),
         textAlign: textAlign,
         style: style,
       );
     } else {
       snapshot = Text(
-        props?.text ?? "",
+        text,
         key: getBindingKey(),
         textAlign: textAlign,
         style: style,

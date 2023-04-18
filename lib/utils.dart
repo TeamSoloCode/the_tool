@@ -104,6 +104,7 @@ class UtilsManager {
     dynamic propValue,
   ) {
     if (propValue is! String) return propValue;
+
     if (!isValueBinding(propValue)) return propValue;
 
     dynamic computedValue = propValue;
@@ -178,10 +179,10 @@ class UtilsManager {
     if (UtilsManager.isTruthy(hidden)) {
       return const LayoutProps(hidden: true);
     }
+    const initLayoutProp = LayoutProps();
 
     LayoutProps? widgetProps =
-        themeProvider.mergeClasses(layoutProps, contextData) ??
-            const LayoutProps();
+        themeProvider.mergeClasses(layoutProps, contextData) ?? initLayoutProp;
 
     widgetProps = parseAndBindingColor(widgetProps, contextData);
     widgetProps = themeProvider.mergeBaseColor(widgetProps);
@@ -259,7 +260,7 @@ class UtilsManager {
 
     if (UtilsManager.isValueBinding(widgetProps.image?.url)) {
       var newImage = widgetProps.image?.copyWith(
-        url: bindingValueToProp(
+        url: bindingValueToText(
           contextData,
           widgetProps.image?.url,
         ),
@@ -289,6 +290,10 @@ class UtilsManager {
 
     widgetProps = widgetProps.parseCssColors(widgetProps);
 
+    /**
+     * Every t_widget that have measure properties should be add
+     * to this array to chech for binding data and computing it
+     */
     if (["container", "table", "clickable"].contains(widgetProps.type)) {
       widgetProps = computeHeightAndWidth(widgetProps, contextData);
     }

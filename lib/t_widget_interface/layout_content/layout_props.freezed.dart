@@ -109,7 +109,7 @@ mixin _$LayoutProps {
   String? get hintText => throw _privateConstructorUsedError;
   String? get labelText => throw _privateConstructorUsedError;
   dynamic get obscureText => throw _privateConstructorUsedError;
-  String? get defaultValue => throw _privateConstructorUsedError;
+  dynamic get defaultValue => throw _privateConstructorUsedError;
   dynamic get items => throw _privateConstructorUsedError;
   bool? get allowClear => throw _privateConstructorUsedError;
   String? get fieldType => throw _privateConstructorUsedError;
@@ -248,7 +248,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? hintText,
       String? labelText,
       dynamic obscureText,
-      String? defaultValue,
+      dynamic defaultValue,
       dynamic items,
       bool? allowClear,
       String? fieldType,
@@ -690,7 +690,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
       defaultValue: freezed == defaultValue
           ? _value.defaultValue
           : defaultValue // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as dynamic,
       items: freezed == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
@@ -1174,7 +1174,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       String? hintText,
       String? labelText,
       dynamic obscureText,
-      String? defaultValue,
+      dynamic defaultValue,
       dynamic items,
       bool? allowClear,
       String? fieldType,
@@ -1633,7 +1633,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
       defaultValue: freezed == defaultValue
           ? _value.defaultValue
           : defaultValue // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as dynamic,
       items: freezed == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
@@ -2144,7 +2144,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   @override
   final dynamic obscureText;
   @override
-  final String? defaultValue;
+  final dynamic defaultValue;
   @override
   final dynamic items;
   @override
@@ -2486,7 +2486,7 @@ abstract class _LayoutProps implements LayoutProps {
       final String? hintText,
       final String? labelText,
       final dynamic obscureText,
-      final String? defaultValue,
+      final dynamic defaultValue,
       final dynamic items,
       final bool? allowClear,
       final String? fieldType,
@@ -2682,7 +2682,7 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   dynamic get obscureText;
   @override
-  String? get defaultValue;
+  dynamic get defaultValue;
   @override
   dynamic get items;
   @override

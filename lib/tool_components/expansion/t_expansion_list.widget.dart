@@ -100,9 +100,8 @@ class _TExpansionListState extends TStatefulWidget<TExpansionList> {
       (child) {
         index++;
 
-        _expansionIndex[index] = child.selected != null
-            ? UtilsManager.isTruthy(child.selected)
-            : _expansionIndex[index];
+        _expansionIndex[index] =
+            child.selected != null ? !!child.selected : _expansionIndex[index];
         var abcd = TWidgets(
           layout: child.head!,
           pagePath: widget.pagePath,

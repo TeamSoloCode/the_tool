@@ -268,7 +268,7 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
       return;
     }
 
-    utils.evalJS?.executeJS(
+    utils.evalJS?.executeAsyncJS(
       executedCode,
       _pageId,
     );
@@ -289,7 +289,7 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
     }
 
     _prevMediaQueryData = mediaQuery;
-    utils.evalJS?.executeJS(
+    utils.evalJS?.executeAsyncJS(
       """
         _onMediaQueryChanged(
           { 

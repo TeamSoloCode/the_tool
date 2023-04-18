@@ -1,6 +1,14 @@
 Update the function that update the theme json into js side
 Add login page base on design image
 
+FIXME: The auto validate in the password field is not working properly when change pwd
+FIXME: After the password correct need to click twice on the Login button to login in
+
+UPDATE: Move bindingValueToProp function to js-module
+UPDATE: Move the compute widget props to js-module
+
+SUPPORT: Support symbol in value binding to specify it is a string or number
+SUPPORT: TS on js-module
 SUPPORT: Binding context state into all value binding props in computeWidgetProps
 SUPPORT: Change icon size in prefix/suffix icon of TextField
 SUPPORT: Auth route for the app
@@ -15,13 +23,15 @@ UPDATE: DO not use http://localhost:8081 in index.html==============
 
 ===================================================================
 
-Support Error Widget for twidgets
-Support SVG widget
-Support dynamic for using "style" property in json layout
+SUPPORT: google_fonts
+SUPPORT: Error Widget for twidgets
+SUPPORT: SVG widget
+SUPPORT: dynamic for using "style" property in json layout
 
 #-------------------------------------------------
 implement seo_renderer, meta_seo
 UPDATE: Using emitter instead of using eval to call a function
+UPDATE: Using custom expansion panel instead of the built-in to test the perf when open side navigation
 
 Support format number for t_textfield
 Reduce bundle size
@@ -32,6 +42,7 @@ Appbar not display properly
 Load all needed page in isolate thread
 Add refresh page button for development mode
 
+SUPPORT: Text animation with flutter_animate, animated_text_kit package
 Support customizable UI for t_select_field items
 Support for basic on SliverAppBar, SliverGrid
 Support config UI base on platform in layout.json

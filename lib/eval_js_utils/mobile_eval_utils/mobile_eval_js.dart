@@ -24,7 +24,10 @@ class EvalJS extends BaseEvalJS {
   }
 
   @override
-  Future<dynamic> executeJS(String jsCode, String pagePath) async {
+  executeJS(String jsCode, String pagePath) {}
+
+  @override
+  Future<dynamic> executeAsyncJS(String jsCode, String pagePath) async {
     var index = jsCode.indexOf('(');
 
     var isFunctionInContext = await webViewController?.evaluateJavascript(

@@ -114,7 +114,7 @@ class LayoutProps with _$LayoutProps {
     String? hintText,
     String? labelText,
     dynamic obscureText,
-    String? defaultValue,
+    dynamic defaultValue,
     dynamic items,
     bool? allowClear,
     String? fieldType,

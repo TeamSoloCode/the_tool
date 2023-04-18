@@ -82,7 +82,7 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       hintText: json['hintText'] as String?,
       labelText: json['labelText'] as String?,
       obscureText: json['obscureText'],
-      defaultValue: json['defaultValue'] as String?,
+      defaultValue: json['defaultValue'],
       items: json['items'],
       allowClear: json['allowClear'] as bool?,
       fieldType: json['fieldType'] as String?,
