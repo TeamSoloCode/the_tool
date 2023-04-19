@@ -203,7 +203,7 @@ extension MergeLayoutProps on LayoutProps {
         if (key == "computedComponentProps") {
           newProps[key] =
               Map<String, dynamic>.from(ThemeProvider.transformColorFromCSS(
-            json.decode(json.encode(value)),
+            value,
           ));
         }
       }

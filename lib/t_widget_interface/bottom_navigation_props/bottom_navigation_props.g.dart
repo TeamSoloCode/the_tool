@@ -22,5 +22,5 @@ Map<String, dynamic> _$$_BottomNavigationPropsToJson(
     <String, dynamic>{
       'selectedItemColor': instance.selectedItemColor,
       'navType': instance.navType,
-      'items': instance.items,
+      'items': instance.items?.map((e) => e.toJson()).toList(),
     };

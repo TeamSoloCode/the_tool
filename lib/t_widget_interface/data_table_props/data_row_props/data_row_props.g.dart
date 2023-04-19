@@ -23,5 +23,5 @@ Map<String, dynamic> _$$_DataRowPropsToJson(_$_DataRowProps instance) =>
       'onSelectChanged': instance.onSelectChanged,
       'onLongPress': instance.onLongPress,
       'color': instance.color,
-      'cells': instance.cells,
+      'cells': instance.cells.map((e) => e.toJson()).toList(),
     };

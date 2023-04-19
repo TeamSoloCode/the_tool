@@ -21,7 +21,7 @@ class _T_DatetimeState extends TStatefulWidget<T_Datetime> with FieldMixin {
   final _datetimeKey = GlobalKey<FormBuilderFieldState>();
   String? _errorMessage;
   DateTime? selectedValue;
-  var _datetimeFieldController = TextEditingController();
+  final _datetimeFieldController = TextEditingController();
 
   @override
   void initState() {

@@ -20,7 +20,7 @@ _$_DataCellProps _$$_DataCellPropsFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_DataCellPropsToJson(_$_DataCellProps instance) =>
     <String, dynamic>{
-      'child': instance.child,
+      'child': instance.child.toJson(),
       'placeholder': instance.placeholder,
       'showEditIcon': instance.showEditIcon,
       'onTap': instance.onTap,

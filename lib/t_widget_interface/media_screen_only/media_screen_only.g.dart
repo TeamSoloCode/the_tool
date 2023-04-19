@@ -28,6 +28,6 @@ Map<String, dynamic> _$$_T_MediaScreenOnlyPropsToJson(
       'maxHeight': instance.maxHeight,
       'minHeight': instance.minHeight,
       'orientation': instance.orientation,
-      'style': instance.style,
+      'style': instance.style?.toJson(),
       'className': instance.className,
     };

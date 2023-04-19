@@ -105,6 +105,8 @@ mixin BaseStateWidget on Widget {
       return _contextData;
     }
 
+    debugPrint("abcd computeWidgetProps ${widgetProps.type}");
+
     props = utils.computeWidgetProps(
       appliedMediaScreen ?? widgetProps,
       getContexData(),

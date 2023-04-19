@@ -23,7 +23,7 @@ _$_T_LayoutBuilderItemProps _$$_T_LayoutBuilderItemPropsFromJson(
 Map<String, dynamic> _$$_T_LayoutBuilderItemPropsToJson(
         _$_T_LayoutBuilderItemProps instance) =>
     <String, dynamic>{
-      'child': instance.child,
+      'child': instance.child?.toJson(),
       'maxHeight': instance.maxHeight,
       'minHeight': instance.minHeight,
       'maxWidth': instance.maxWidth,

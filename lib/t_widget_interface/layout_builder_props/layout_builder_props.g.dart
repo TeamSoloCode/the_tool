@@ -19,6 +19,6 @@ _$_T_LayoutBuilderProps _$$_T_LayoutBuilderPropsFromJson(
 Map<String, dynamic> _$$_T_LayoutBuilderPropsToJson(
         _$_T_LayoutBuilderProps instance) =>
     <String, dynamic>{
-      'layouts': instance.layouts,
+      'layouts': instance.layouts?.map((e) => e.toJson()).toList(),
       'defaultLayoutIndex': instance.defaultLayoutIndex,
     };

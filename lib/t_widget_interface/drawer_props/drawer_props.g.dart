@@ -18,7 +18,7 @@ _$_T_DrawerProps _$$_T_DrawerPropsFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_T_DrawerPropsToJson(_$_T_DrawerProps instance) =>
     <String, dynamic>{
-      'child': instance.child,
+      'child': instance.child?.toJson(),
       'backgroundColor': instance.backgroundColor,
       'width': instance.width,
       'elevation': instance.elevation,

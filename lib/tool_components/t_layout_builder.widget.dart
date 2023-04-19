@@ -34,14 +34,14 @@ class _T_LayoutBuilderState extends TStatefulWidget<T_LayoutBuilder> {
     var layoutBuilderProps = layouts.firstWhere(
       (item) {
         LayoutProps? layoutProps = LayoutProps.fromJson(
-          json.decode(jsonEncode(item)),
+          item.toJson(),
         );
 
         layoutProps = widget.utils.themeProvider
             .mergeClasses(layoutProps, widget.getContexData());
 
         item = T_LayoutBuilderItemProps.fromJson(
-          json.decode(jsonEncode(layoutProps)),
+          layoutProps!.toJson(),
         );
 
         var maxHeight = widget.utils.computeSizeValue(

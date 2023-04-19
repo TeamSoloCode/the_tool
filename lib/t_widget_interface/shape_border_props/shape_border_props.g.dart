@@ -22,6 +22,6 @@ Map<String, dynamic> _$$_TShapeBorderPropsToJson(
         _$_TShapeBorderProps instance) =>
     <String, dynamic>{
       'type': instance.type,
-      'side': instance.side,
-      'borderRadius': instance.borderRadius,
+      'side': instance.side?.toJson(),
+      'borderRadius': instance.borderRadius?.toJson(),
     };

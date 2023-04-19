@@ -1,8 +1,6 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gato/gato.dart' as gato;
 import 'package:get_it/get_it.dart';
@@ -167,12 +165,18 @@ class UtilsManager {
     return result;
   }
 
+  // Those key no need to binding because it will be bound with data in the child widget
   final _excludedBindingKeys = {
     "child",
     "children",
     "componentProps",
     "computedComponentProps",
-    "className",
+    "className", // This key will be handle by ThemeProvider.mergeClasses function
+  }.cast<String>();
+
+  final _textBindingKeys = {
+    "url",
+    "key",
   }.cast<String>();
 
   Map<String, Object?> _bindingWidgetPropValue(
@@ -186,10 +190,14 @@ class UtilsManager {
         propsJson[key] = _bindingWidgetPropValue(value, contextData);
       } else if (value is List) {
         propsJson[key] = _bindingWidgetPropValueList(value, contextData);
-      } else if (value is LayoutProps) {
-        propsJson[key] = _bindingWidgetPropValue(value.toJson(), contextData);
       } else {
-        propsJson[key] = _bindingWidgetPropValueSingle(key, value, contextData);
+        if (UtilsManager.isValueBinding(value)) {
+          propsJson[key] = _bindingWidgetPropValueSingle(
+            key,
+            value,
+            contextData,
+          );
+        }
       }
     });
 
@@ -213,11 +221,8 @@ class UtilsManager {
     dynamic value,
     Map<String, dynamic> contextData,
   ) {
-    final isValueBinding = UtilsManager.isValueBinding(value);
-    if (!isValueBinding) return value;
-
     final lowercasedKey = key.toLowerCase();
-    if (lowercasedKey.contains("text")) {
+    if (lowercasedKey.contains("text") || _textBindingKeys.contains(key)) {
       return bindingValueToText(contextData, value);
     } else if (lowercasedKey.contains("color")) {
       return parseColor(bindingValueToProp(contextData, value), contextData);
@@ -238,15 +243,14 @@ class UtilsManager {
     if (UtilsManager.isTruthy(hidden)) {
       return const LayoutProps(hidden: true);
     }
-    const initLayoutProp = LayoutProps();
 
+    const initLayoutProp = LayoutProps();
     LayoutProps? widgetProps =
         themeProvider.mergeClasses(layoutProps, contextData) ?? initLayoutProp;
-
     widgetProps = themeProvider.mergeBaseColor(widgetProps);
 
     var result = _bindingWidgetPropValue(
-      jsonDecode(jsonEncode(widgetProps)),
+      widgetProps.toJson(),
       contextData,
     );
 

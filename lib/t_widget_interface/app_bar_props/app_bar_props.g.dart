@@ -18,6 +18,6 @@ _$_AppBarProps _$$_AppBarPropsFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_AppBarPropsToJson(_$_AppBarProps instance) =>
     <String, dynamic>{
-      'content': instance.content,
-      'custom': instance.custom,
+      'content': instance.content?.toJson(),
+      'custom': instance.custom?.toJson(),
     };

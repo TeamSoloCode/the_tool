@@ -233,7 +233,7 @@ class ThemeProvider with ChangeNotifier {
         });
       });
 
-      return LayoutProps.fromJson(json.decode(json.encode(rawContent)));
+      return LayoutProps.fromJson(rawContent);
     } catch (e) {
       rethrow;
     }
