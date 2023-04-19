@@ -10,6 +10,7 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/mixin_component/field_mixin.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/twidget_props.dart';
+import 'package:the_tool/utils.dart';
 
 class TTextField extends TWidget {
   TTextField(TWidgetProps twidget) : super(twidget);
@@ -105,7 +106,7 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
         thisWidget: widget,
         errorMessage: _errorMessage,
       ),
-      obscureText: computedProps?.obscureText ?? false,
+      obscureText: UtilsManager.isTruthy(computedProps?.obscureText) ?? false,
       // initialValue: contextData[name] ?? "",
       onChanged: (text) {
         _debounceTextChanged(text, contextData);

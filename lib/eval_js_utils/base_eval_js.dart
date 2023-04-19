@@ -10,7 +10,6 @@ abstract class BaseEvalJS {
   BaseEvalJS({required this.context});
 
   Future<dynamic> executeAsyncJS(String jsCode, String pagePath);
-  dynamic executeJS(String jsCode, String pagePath);
 
   void unmountClientCode(String pagePath);
 

@@ -30,6 +30,7 @@ class _TComponentState extends TStatefulWidget<TComponent> {
     if (widget.widgetProps.path != null) {
       _loadClientComponent = _loadComponentInfo(widget.widgetProps.path!);
     }
+
     super.initState();
   }
 

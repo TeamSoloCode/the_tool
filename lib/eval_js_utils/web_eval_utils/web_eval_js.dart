@@ -55,19 +55,11 @@ class EvalJS extends BaseEvalJS {
   }
 
   @override
-  executeJS(String jsCode, String pagePath) {}
-
-  @override
   Future<dynamic> executeAsyncJS(String jsCode, String pagePath) async {
     var index = jsCode.indexOf('(');
 
-    var isFunctionInContext = await js.context.callMethod(
-      "isFunctionExistsOnContext",
-      [
-        jsCode.substring(0, index),
-        pagePath,
-      ],
-    );
+    var isFunctionInContext = js.context.callMethod(
+        "isFunctionExistsOnContext", [jsCode.substring(0, index), pagePath]);
 
     var code = jsCode;
     if (isFunctionInContext == 1) {

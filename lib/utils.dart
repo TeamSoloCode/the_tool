@@ -167,6 +167,65 @@ class UtilsManager {
     return result;
   }
 
+  final _excludedBindingKeys = {
+    "child",
+    "children",
+    "componentProps",
+    "computedComponentProps",
+    "className",
+  }.cast<String>();
+
+  Map<String, Object?> _bindingWidgetPropValue(
+    dynamic propsJson,
+    Map<String, dynamic> contextData,
+  ) {
+    propsJson.forEach((key, value) {
+      if (_excludedBindingKeys.contains(key)) {
+        propsJson[key] = value;
+      } else if (value is Map) {
+        propsJson[key] = _bindingWidgetPropValue(value, contextData);
+      } else if (value is List) {
+        propsJson[key] = _bindingWidgetPropValueList(value, contextData);
+      } else if (value is LayoutProps) {
+        propsJson[key] = _bindingWidgetPropValue(value.toJson(), contextData);
+      } else {
+        propsJson[key] = _bindingWidgetPropValueSingle(key, value, contextData);
+      }
+    });
+
+    return propsJson;
+  }
+
+  List<dynamic> _bindingWidgetPropValueList(
+    List<dynamic> value,
+    Map<String, dynamic> contextData,
+  ) {
+    return value.map((element) {
+      if (element is String && UtilsManager.isValueBinding(element)) {
+        return _bindingWidgetPropValue(element, contextData);
+      }
+      return element;
+    }).toList();
+  }
+
+  dynamic _bindingWidgetPropValueSingle(
+    String key,
+    dynamic value,
+    Map<String, dynamic> contextData,
+  ) {
+    final isValueBinding = UtilsManager.isValueBinding(value);
+    if (!isValueBinding) return value;
+
+    final lowercasedKey = key.toLowerCase();
+    if (lowercasedKey.contains("text")) {
+      return bindingValueToText(contextData, value);
+    } else if (lowercasedKey.contains("color")) {
+      return parseColor(bindingValueToProp(contextData, value), contextData);
+    } else {
+      return bindingValueToProp(contextData, value);
+    }
+  }
+
   LayoutProps computeWidgetProps(
     LayoutProps layoutProps,
     Map<String, dynamic> contextData,
@@ -184,92 +243,15 @@ class UtilsManager {
     LayoutProps? widgetProps =
         themeProvider.mergeClasses(layoutProps, contextData) ?? initLayoutProp;
 
-    widgetProps = parseAndBindingColor(widgetProps, contextData);
     widgetProps = themeProvider.mergeBaseColor(widgetProps);
 
-    if (widgetProps.obscureText != null &&
-        UtilsManager.isValueBinding(widgetProps.obscureText)) {
-      var obscureText = UtilsManager.isTruthy(
-        bindingValueToProp(
-          contextData,
-          widgetProps.obscureText,
-        ),
-      );
+    var result = _bindingWidgetPropValue(
+      jsonDecode(jsonEncode(widgetProps)),
+      contextData,
+    );
 
-      widgetProps = widgetProps.copyWith(obscureText: obscureText);
-    }
-
-    if (widgetProps.enabled != null &&
-        UtilsManager.isValueBinding(widgetProps.enabled)) {
-      var enabled = UtilsManager.isTruthy(
-        bindingValueToProp(
-          contextData,
-          widgetProps.enabled,
-        ),
-      );
-
-      widgetProps = widgetProps.copyWith(enabled: enabled);
-    }
-
-    if (widgetProps.icon != null &&
-        UtilsManager.isValueBinding(widgetProps.icon)) {
-      widgetProps = widgetProps.copyWith(
-        icon: bindingValueToText(
-          contextData,
-          widgetProps.icon,
-        ),
-      );
-    }
-
-    if (widgetProps.text != null &&
-        UtilsManager.isValueBinding(widgetProps.text)) {
-      var text = bindingValueToText(contextData, widgetProps.text);
-      widgetProps = widgetProps.copyWith(text: text);
-    }
-
-    // if (widgetProps.errorText != null &&
-    //     UtilsManager.isValueBinding(widgetProps.errorText)) {
-    //   widgetProps = widgetProps.copyWith(
-    //     errorText: bindingValueToText(
-    //       contextData,
-    //       widgetProps.errorText,
-    //     ),
-    //   );
-    // }
-
-    if (widgetProps.defaultValue != null &&
-        UtilsManager.isValueBinding(widgetProps.defaultValue)) {
-      widgetProps = widgetProps.copyWith(
-        defaultValue: bindingValueToProp(
-          contextData,
-          widgetProps.defaultValue,
-        ),
-      );
-    }
-
-    if (UtilsManager.isValueBinding(widgetProps.selected)) {
-      var selected = UtilsManager.isTruthy(
-        bindingValueToProp(
-          contextData,
-          widgetProps.selected,
-        ),
-      );
-
-      widgetProps = widgetProps.copyWith(selected: selected);
-    }
-
-    if (UtilsManager.isValueBinding(widgetProps.image?.url)) {
-      var newImage = widgetProps.image?.copyWith(
-        url: bindingValueToText(
-          contextData,
-          widgetProps.image?.url,
-        ),
-      );
-
-      widgetProps = widgetProps.copyWith(
-        image: newImage,
-      );
-    }
+    var boundValueProps = LayoutProps.fromJson(result);
+    widgetProps = widgetProps.merge(boundValueProps);
 
     if (widgetProps.type == "component" && widgetProps.componentProps != null) {
       Map<String, dynamic>? updatedComponentProps = {};
@@ -299,48 +281,6 @@ class UtilsManager {
     }
 
     return widgetProps;
-  }
-
-  LayoutProps parseAndBindingColor(
-    LayoutProps layoutProps,
-    Map<String, dynamic> contextData,
-  ) {
-    Map<String, String?> unparsedColors = {
-      "color": layoutProps.color,
-      "backgroundColor": layoutProps.backgroundColor,
-      "dividerColor": layoutProps.dividerColor,
-      "splashColor": layoutProps.splashColor,
-      "prefixIconColor": layoutProps.prefixIconColor,
-      "suffixIconColor": layoutProps.suffixIconColor,
-    };
-
-    Map<String, String?> parsedColors = {};
-
-    unparsedColors.forEach((key, color) {
-      if (color != null) {
-        var isBindingValue = UtilsManager.isValueBinding(color);
-        parsedColors[key] = parseColor(
-          isBindingValue
-              ? bindingValueToProp(
-                  contextData,
-                  color,
-                )
-              : color,
-          contextData,
-        );
-      }
-    });
-
-    layoutProps = layoutProps.copyWith(
-      color: parsedColors["color"],
-      backgroundColor: parsedColors["backgroundColor"],
-      dividerColor: parsedColors["dividerColor"],
-      splashColor: parsedColors["splashColor"],
-      prefixIconColor: parsedColors["prefixIconColor"],
-      suffixIconColor: parsedColors["suffixIconColor"],
-    );
-
-    return layoutProps;
   }
 
   double? _parseAdaptiveScreenUnit(String adaptiveUnit) {

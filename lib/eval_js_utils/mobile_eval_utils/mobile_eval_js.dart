@@ -24,9 +24,6 @@ class EvalJS extends BaseEvalJS {
   }
 
   @override
-  executeJS(String jsCode, String pagePath) {}
-
-  @override
   Future<dynamic> executeAsyncJS(String jsCode, String pagePath) async {
     var index = jsCode.indexOf('(');
 

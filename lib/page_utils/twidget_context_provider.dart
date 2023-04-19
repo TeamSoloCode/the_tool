@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/utils.dart';
@@ -25,6 +24,7 @@ class PageContextProvider with ChangeNotifier, DiagnosticableTreeMixin {
       "rawProps": props,
       "props": nextProps,
     };
+
     _tWidgetsProps.update(
       key,
       (prevProps) {

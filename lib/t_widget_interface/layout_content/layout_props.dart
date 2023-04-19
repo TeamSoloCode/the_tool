@@ -186,8 +186,6 @@ class LayoutProps with _$LayoutProps {
 
   factory LayoutProps.fromJson(Map<String, Object?> json) =>
       _$LayoutPropsFromJson(json);
-
-  // Map<String, dynamic> toJson() => _$LayoutPropsToJson(this);
 }
 
 extension MergeLayoutProps on LayoutProps {
