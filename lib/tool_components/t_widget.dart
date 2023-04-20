@@ -13,6 +13,7 @@ import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:collection/collection.dart' show DeepCollectionEquality;
 import 'package:gato/gato.dart' as gato;
+import 'package:uuid/uuid.dart';
 
 mixin BaseStateWidget on Widget {
   late final LayoutProps widgetProps;
@@ -32,7 +33,7 @@ mixin BaseStateWidget on Widget {
   Widget snapshot = const Offstage();
   Map<String, dynamic> _contextData = {};
   final Set<String> widgetBindingStrings = {};
-  String? prevBindingValues;
+  List<dynamic>? prevBindingValues;
   var hasBindingValue = false;
   var hasThemeBindingValue = false;
   var propsHasAdaptiveScreenUnit = false;
@@ -57,22 +58,34 @@ mixin BaseStateWidget on Widget {
     // print("abcd hasBindingValue ${widgetProps.type} ");
 
     if (hasBindingValue) {
-      context.select((ContextStateProvider value) {
+      context.select((ContextStateProvider value) async {
         var newPageData =
             value.contextData[path] ?? UtilsManager.emptyMapStringDynamic;
-        var dependenciesChanged = false;
 
-        dependenciesChanged = isTWidgetDependenciesChanged(
+        var dependenciesChanged = isTWidgetDependenciesChanged(
           newPageData,
           providedPagePath: path,
         );
 
         if (!dependenciesChanged) {
-          return _contextData;
+          return false;
         }
 
         _contextData = newPageData;
-        return newPageData;
+
+        if (prevProps != null) {
+          // debugPrint("abcd computeWidgetProps1");
+          // This is run when:
+          //   - dependencies in widget props changed
+          props = utils.computeWidgetProps(
+            appliedMediaScreen ?? widgetProps,
+            getContexData(),
+          );
+
+          prevProps = props;
+        }
+
+        return const Uuid().v4();
       });
     }
 
@@ -98,15 +111,16 @@ mixin BaseStateWidget on Widget {
     }
 
     if (prevProps != null &&
-        !hasBindingValue &&
-        !propsHasAdaptiveScreenUnit &&
+        // !propsHasAdaptiveScreenUnit &&
         !mediaScreenApplied &&
         _prevThemeRefreshToken == themeProvider.themeRefreshToken) {
       return _contextData;
     }
 
-    debugPrint("abcd computeWidgetProps ${widgetProps.type}");
-
+    // This is run when:
+    //   - first render
+    //   - mediaScreen changed
+    //   - theme changed
     props = utils.computeWidgetProps(
       appliedMediaScreen ?? widgetProps,
       getContexData(),
@@ -147,14 +161,6 @@ mixin BaseStateWidget on Widget {
     Map<String, dynamic> contextData, {
     String? providedPagePath,
   }) {
-    // var depsAsString =
-    //     "${providedPagePath ?? pagePath}_${widgetBindingStrings.toString()}";
-    // var caheValue =
-    //     contextStateProvider.cacheCheckTWidgetDepsChanged[depsAsString];
-
-    // if (caheValue != null) {
-    //   return caheValue;
-    // }
     final rootData = getIt<ContextStateProvider>().rootPageData;
     const rootPrefix = UtilsManager.rootPrefix;
 
@@ -169,18 +175,13 @@ mixin BaseStateWidget on Widget {
       return gato.get(selectedData, bindingField);
     }).toList();
 
-    var newBindingValuesAsJSON = jsonEncode(newBindingValues);
-    var isChanged = newBindingValuesAsJSON != prevBindingValues;
+    var isChanged = !const DeepCollectionEquality()
+        .equals(newBindingValues, prevBindingValues);
 
     if (isChanged) {
-      prevBindingValues = newBindingValuesAsJSON;
+      prevBindingValues = newBindingValues;
     }
 
-    // Cache the result for later use
-    // contextStateProvider.updateCacheCheckTWidgetDepsChanged(
-    //   depsAsString,
-    //   isChanged,
-    // );
     return isChanged;
   }
 

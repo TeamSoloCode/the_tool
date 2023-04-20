@@ -405,6 +405,7 @@ class UtilsManager {
         case "name":
         case "value":
           result = true;
+          updateWidgetBindingStrings(value);
           break;
         case "style":
           hasThemeBindingValue?.call();
@@ -428,10 +429,6 @@ class UtilsManager {
             updateWidgetBindingStrings(bindString);
           },
         ).toList();
-
-        if (propName == "name") {
-          updateWidgetBindingStrings(value);
-        }
       }
     });
 
