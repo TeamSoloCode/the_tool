@@ -6,6 +6,7 @@ import 'package:modular_core/modular_core.dart';
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/debouncer.dart';
+import 'package:the_tool/page_utils/resize_provider.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_appbar_widget.dart'
@@ -287,6 +288,8 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
     )) {
       return;
     }
+
+    getIt<ResizeProvider>().resize(size);
 
     _prevMediaQueryData = mediaQuery;
     utils.evalJS?.executeAsyncJS(

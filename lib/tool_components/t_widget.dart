@@ -1,7 +1,8 @@
 import 'dart:convert';
-import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:the_tool/page_utils/resize_provider.dart';
 import 'package:the_tool/twidget_props.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
@@ -38,6 +39,7 @@ mixin BaseStateWidget on Widget {
   var hasThemeBindingValue = false;
   var propsHasAdaptiveScreenUnit = false;
   int? _prevThemeRefreshToken;
+  int? _prevResizeToken;
 
   bool mediaScreenApplied = false;
 
@@ -110,8 +112,28 @@ mixin BaseStateWidget on Widget {
       }
     }
 
+    if (kIsWeb) {
+      if (["container", "table", "clickable"].contains(widgetProps.type)) {
+        var resizeRefreshKey = context.select((ResizeProvider resizeProvider) {
+          if (_prevResizeToken == null ||
+              _prevResizeToken == resizeProvider.resizeRefreshKey) {
+            return resizeProvider.resizeRefreshKey;
+          }
+
+          props = utils.computeWidgetProps(
+            appliedMediaScreen ?? widgetProps,
+            getContexData(),
+          );
+
+          prevProps = props;
+          return resizeProvider.resizeRefreshKey;
+        });
+
+        _prevResizeToken = resizeRefreshKey;
+      }
+    }
+
     if (prevProps != null &&
-        // !propsHasAdaptiveScreenUnit &&
         !mediaScreenApplied &&
         _prevThemeRefreshToken == themeProvider.themeRefreshToken) {
       return _contextData;
@@ -230,9 +252,6 @@ abstract class TWidget extends StatefulWidget with BaseStateWidget {
         hasThemeBindingValue: () {
           hasThemeBindingValue = true;
         },
-        isPropsHasAdaptiveScreenUnit: () {
-          propsHasAdaptiveScreenUnit = true;
-        },
       );
     }
   }
@@ -275,15 +294,13 @@ abstract class TStatelessWidget extends StatelessWidget with BaseStateWidget {
 
     _contextData = getIt<ContextStateProvider>().contextData[pagePath] ??
         UtilsManager.emptyMapStringDynamic;
+
     if (prevProps == null) {
       hasBindingValue = utils.hasBindingValue(
         widgetProps,
         updateWidgetBindingStrings,
         hasThemeBindingValue: () {
           hasThemeBindingValue = true;
-        },
-        isPropsHasAdaptiveScreenUnit: () {
-          propsHasAdaptiveScreenUnit = true;
         },
       );
     }

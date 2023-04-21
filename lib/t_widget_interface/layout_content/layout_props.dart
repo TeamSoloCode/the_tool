@@ -328,3 +328,24 @@ extension MergeLayoutProps on LayoutProps {
     );
   }
 }
+
+T mergeObjects<T>(
+  Map<String, dynamic> Function() obj1ToJson,
+  Map<String, dynamic> Function() obj2ToJson,
+  T Function(Map<String, dynamic>) fromJson, {
+  List<String>? exclude,
+}) {
+  exclude ??= [];
+  var obj1Json = obj1ToJson();
+  var obj2Json = obj2ToJson();
+
+  final mergedJson = obj1Json
+    ..addAll(obj2Json.map((key, value) =>
+        MapEntry(key, exclude!.contains(key) ? obj1Json[key] : value)));
+
+  return fromJson(mergedJson);
+}
+
+// var a = LayoutProps();
+// var b = LayoutProps();
+// var c = mergeObjects<LayoutProps>(a.toJson, b.toJson, LayoutProps.fromJson);

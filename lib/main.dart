@@ -8,6 +8,7 @@ import 'package:the_tool/api_client.dart';
 import 'package:the_tool/app_module.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/permission_manager.dart';
+import 'package:the_tool/page_utils/resize_provider.dart';
 import 'package:the_tool/page_utils/storage_manager.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/tool_components/page_container_widget.dart'
@@ -58,6 +59,10 @@ void main() async {
     ContextStateProvider(),
     signalsReady: true,
   );
+  getIt.registerSingleton<ResizeProvider>(
+    ResizeProvider(),
+    signalsReady: true,
+  );
   getIt.registerSingleton<PermissionManager>(
     PermissionManager(),
     signalsReady: true,
@@ -77,6 +82,9 @@ void main() async {
             );
             return getIt<ThemeProvider>();
           },
+        ),
+        ChangeNotifierProvider(
+          create: (_) => getIt<ResizeProvider>(),
         )
       ],
       child: const TheTool(),
@@ -148,9 +156,14 @@ class _TheToolState extends State<TheTool> {
         } else {
           var config = getIt<ContextStateProvider>().appConfig;
 
-          return ModularApp(
-            module: AppModule(config!),
-            child: page_container.PageContainer(),
+          return ScreenUtilInit(
+            builder: (context, child) {
+              return child!;
+            },
+            child: ModularApp(
+              module: AppModule(config!),
+              child: page_container.PageContainer(),
+            ),
           );
         }
       },

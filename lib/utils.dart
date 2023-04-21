@@ -247,6 +247,7 @@ class UtilsManager {
     const initLayoutProp = LayoutProps();
     LayoutProps? widgetProps =
         themeProvider.mergeClasses(layoutProps, contextData) ?? initLayoutProp;
+
     widgetProps = themeProvider.mergeBaseColor(widgetProps);
 
     var result = _bindingWidgetPropValue(
@@ -367,7 +368,6 @@ class UtilsManager {
     LayoutProps uncomputedProps,
     void Function(String bindingString) updateWidgetBindingStrings, {
     void Function()? hasThemeBindingValue,
-    void Function()? isPropsHasAdaptiveScreenUnit,
   }) {
     /**
      * type "component" don't need to check for binding value
@@ -380,21 +380,11 @@ class UtilsManager {
     var result = false;
     uncomputedProps.toJson().forEach((propName, value) {
       if (value == null ||
+          value is! String ||
           propName == "child" ||
           propName == "children" ||
           propName == "computedComponentProps") {
         return;
-      }
-
-      if (!["text", "label"].contains(propName) && value is String) {
-        var unit = ["sw", "sh", "w", "h", "r", "sp"].firstWhere(
-          (unit) => value.endsWith(unit),
-          orElse: () => "",
-        );
-
-        if (unit.isNotEmpty) {
-          isPropsHasAdaptiveScreenUnit?.call();
-        }
       }
 
       final valueAsString = (value is Map || value is List)

@@ -4,15 +4,14 @@ Add login page base on design image
 FIXME: The auto validate in the password field is not working properly when change pwd
 FIXME: After the password correct need to click twice on the Login button to login in
 
-UPDATE: Move bindingValueToProp function to js-module
-UPDATE: Move the compute widget props to js-module
-
 SUPPORT: Support symbol in value binding to specify it is a string or number
-SUPPORT: TS on js-module
-SUPPORT: Binding context state into all value binding props in computeWidgetProps
+
 SUPPORT: Change icon size in prefix/suffix icon of TextField
 SUPPORT: Auth route for the app
 
+UPDATE: merge function of LayoutProps class to auto merge all simple properties. Check mergeObjects function in layout_props.dart
+
+UPDATE: Check widget props what containt any screen_util unit before start to re-computeWidgetProps in t_widget base
 UPDATE: Merge navigator in web/mobile invoke into one place
 UPDATE: DO not use http://localhost:8081 in index.html==============
 
@@ -137,3 +136,5 @@ Support MediaScreenOnly for all t_widgets
 -FIXME: Add select all row function on js for tdatatable, change single row and all row not working properly when change table page
 -FIXME: Modular: Cannot routing in test_page project
 -SUPPORT: Add queryParams of Modular into js side
+-SUPPORT: TS on js-module
+-SUPPORT: Binding context state into all value binding props in computeWidgetProps
