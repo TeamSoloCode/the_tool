@@ -57,8 +57,6 @@ mixin BaseStateWidget on Widget {
       },
     );
 
-    // print("abcd hasBindingValue ${widgetProps.type} ");
-
     if (hasBindingValue) {
       context.select((ContextStateProvider value) async {
         var newPageData =
@@ -69,6 +67,12 @@ mixin BaseStateWidget on Widget {
           providedPagePath: path,
         );
 
+        // deps of form is not update to the context state
+        // so it need the newest data to validate the fields inside it
+        if (widgetProps.type == "form") {
+          _contextData = newPageData;
+        }
+
         if (!dependenciesChanged) {
           return false;
         }
@@ -76,7 +80,6 @@ mixin BaseStateWidget on Widget {
         _contextData = newPageData;
 
         if (prevProps != null) {
-          // debugPrint("abcd computeWidgetProps1");
           // This is run when:
           //   - dependencies in widget props changed
           props = utils.computeWidgetProps(
@@ -87,7 +90,7 @@ mixin BaseStateWidget on Widget {
           prevProps = props;
         }
 
-        return const Uuid().v4();
+        return DateTime.now().millisecondsSinceEpoch;
       });
     }
 

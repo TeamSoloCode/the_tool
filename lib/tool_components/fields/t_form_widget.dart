@@ -98,6 +98,7 @@ class _T_FormState extends TStatefulWidget<T_Form> {
 
     var autovalidateMode = widget.props?.autovalidateMode;
     var fields = _formKey.currentState?.fields;
+
     fields?.forEach((key, field) {
       if (field.runtimeType.toString() == "_FormBuilderDateTimePickerState") {
         field.setValue(
