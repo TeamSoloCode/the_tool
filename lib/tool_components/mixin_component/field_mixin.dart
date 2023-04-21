@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
+import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:json_theme/json_theme.dart';
 
 mixin FieldMixin {
@@ -23,40 +23,26 @@ mixin FieldMixin {
       hintText: widgetProps?.hintText,
       labelText: widgetProps?.labelText,
       errorText: errorMessage,
-      suffixIcon: suffixIcon ?? _generateSuffixIcon(widgetProps, thisWidget),
+      suffixIcon:
+          suffixIcon ?? _generateIcon(widgetProps?.suffixIcon, thisWidget),
       suffixIconColor: ThemeDecoder.decodeColor(widgetProps?.suffixIconColor),
-      prefixIcon: widgetProps!.prefixIcon != null
-          ? Icon(MdiIcons.fromString(widgetProps.prefixIcon!))
-          : null,
-      prefixIconColor: ThemeDecoder.decodeColor(widgetProps.prefixIconColor),
+      prefixIcon: _generateIcon(widgetProps?.prefixIcon, thisWidget),
+      prefixIconColor: ThemeDecoder.decodeColor(widgetProps?.prefixIconColor),
     );
   }
 
-  Widget? _generateSuffixIcon(LayoutProps? widgetProps, TWidget widget) {
-    Widget? suffixIcon;
-    var suffixIconValue = widgetProps?.suffixIcon;
-    if (suffixIconValue == null) return suffixIcon;
-    if (UtilsManager.isValueBinding(suffixIconValue)) {
-      suffixIconValue = widget.utils.bindingValueToText(
-        widget.getContexData(),
-        suffixIconValue,
-      );
-    }
+  Widget? _generateIcon(LayoutProps? icon, TWidget widget) {
+    Widget? prefixIcon;
+    var prefixIconValue = icon;
+    if (prefixIconValue == null) return null;
 
-    suffixIcon = Icon(MdiIcons.fromString(suffixIconValue));
+    prefixIcon = TWidgets(
+      layout: prefixIconValue,
+      pagePath: widget.pagePath,
+      childData: widget.childData,
+    );
 
-    if (widgetProps?.onClickSuffixIcon != null) {
-      return IconButton(
-        icon: suffixIcon,
-        onPressed: () {
-          if (widgetProps?.onClickSuffixIcon == null) return;
-
-          widget.executeJSWithPagePath("${widgetProps?.onClickSuffixIcon}()");
-        },
-      );
-    }
-
-    return suffixIcon;
+    return prefixIcon;
   }
 
   /// This validator compute function is used for SelectField

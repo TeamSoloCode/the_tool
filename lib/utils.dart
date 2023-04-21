@@ -165,13 +165,16 @@ class UtilsManager {
     return result;
   }
 
-  // Those key no need to binding because it will be bound with data in the child widget
+  // Key that have value LayoutProps type or List<LayoutProps>, shouldn't be binding here
+  // It will be binding when it rendering
   final _excludedBindingKeys = {
     "child",
     "children",
     "componentProps",
     "computedComponentProps",
     "className", // This key will be handle by ThemeProvider.mergeClasses function
+    "suffixIcon",
+    "prefixIcon",
   }.cast<String>();
 
   final _textBindingKeys = {
@@ -365,7 +368,7 @@ class UtilsManager {
   }
 
   bool hasBindingValue(
-    LayoutProps uncomputedProps,
+    Map widgetPropsAsJSON,
     void Function(String bindingString) updateWidgetBindingStrings, {
     void Function()? hasThemeBindingValue,
   }) {
@@ -373,14 +376,13 @@ class UtilsManager {
      * type "component" don't need to check for binding value
      * Anh it shouldn't be use with binding value
      */
-    if (uncomputedProps.type == "component") {
+    if (widgetPropsAsJSON["type"] == "component") {
       return false;
     }
 
     var result = false;
-    uncomputedProps.toJson().forEach((propName, value) {
+    widgetPropsAsJSON.forEach((propName, value) {
       if (value == null ||
-          value is! String ||
           propName == "child" ||
           propName == "children" ||
           propName == "computedComponentProps") {

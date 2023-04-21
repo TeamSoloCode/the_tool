@@ -107,7 +107,7 @@ class _TWidgetsState extends State<TWidgets> {
       case "text":
         return TText(tWidgetProps);
       case "button":
-        return T_Button(tWidgetProps);
+        return TButton(tWidgetProps);
       case "icon":
         await t_icon.loadLibrary();
         return t_icon.T_Icon(tWidgetProps);

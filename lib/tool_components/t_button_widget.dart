@@ -5,14 +5,14 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/twidget_props.dart';
 
-class T_Button extends TWidget {
-  T_Button(TWidgetProps twidget) : super(twidget);
+class TButton extends TWidget {
+  TButton(TWidgetProps twidget) : super(twidget);
 
   @override
-  State<T_Button> createState() => _T_ButtonState();
+  State<TButton> createState() => _TButtonState();
 }
 
-class _T_ButtonState extends TStatefulWidget<T_Button> {
+class _TButtonState extends TStatefulWidget<TButton> {
   Widget _computeButton(LayoutProps widgetProps) {
     String? buttonType = widgetProps.buttonType;
     String text = widgetProps.text ?? "";

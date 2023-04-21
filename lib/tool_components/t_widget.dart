@@ -250,7 +250,7 @@ abstract class TWidget extends StatefulWidget with BaseStateWidget {
 
     if (prevProps == null) {
       hasBindingValue = utils.hasBindingValue(
-        widgetProps,
+        widgetProps.toJson(),
         updateWidgetBindingStrings,
         hasThemeBindingValue: () {
           hasThemeBindingValue = true;
@@ -300,7 +300,7 @@ abstract class TStatelessWidget extends StatelessWidget with BaseStateWidget {
 
     if (prevProps == null) {
       hasBindingValue = utils.hasBindingValue(
-        widgetProps,
+        widgetProps.toJson(),
         updateWidgetBindingStrings,
         hasThemeBindingValue: () {
           hasThemeBindingValue = true;

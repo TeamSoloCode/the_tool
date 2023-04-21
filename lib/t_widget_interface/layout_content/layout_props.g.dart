@@ -87,12 +87,14 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       allowClear: json['allowClear'] as bool?,
       fieldType: json['fieldType'] as String?,
       numeric: json['numeric'] as bool?,
-      suffixIcon: json['suffixIcon'] as String?,
-      onClickSuffixIcon: json['onClickSuffixIcon'] as String?,
+      suffixIcon: json['suffixIcon'] == null
+          ? null
+          : LayoutProps.fromJson(json['suffixIcon'] as Map<String, dynamic>),
       suffixIconColor: json['suffixIconColor'] as String?,
       suffixText: json['suffixText'] as String?,
-      prefixIcon: json['prefixIcon'] as String?,
-      onClickPrefixIcon: json['onClickPrefixIcon'] as String?,
+      prefixIcon: json['prefixIcon'] == null
+          ? null
+          : LayoutProps.fromJson(json['prefixIcon'] as Map<String, dynamic>),
       prefixIconColor: json['prefixIconColor'] as String?,
       prefixText: json['prefixText'] as String?,
       validationFunction: json['validationFunction'] as String?,
@@ -246,12 +248,10 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'allowClear': instance.allowClear,
       'fieldType': instance.fieldType,
       'numeric': instance.numeric,
-      'suffixIcon': instance.suffixIcon,
-      'onClickSuffixIcon': instance.onClickSuffixIcon,
+      'suffixIcon': instance.suffixIcon?.toJson(),
       'suffixIconColor': instance.suffixIconColor,
       'suffixText': instance.suffixText,
-      'prefixIcon': instance.prefixIcon,
-      'onClickPrefixIcon': instance.onClickPrefixIcon,
+      'prefixIcon': instance.prefixIcon?.toJson(),
       'prefixIconColor': instance.prefixIconColor,
       'prefixText': instance.prefixText,
       'validationFunction': instance.validationFunction,

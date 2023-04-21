@@ -119,12 +119,10 @@ class LayoutProps with _$LayoutProps {
     bool? allowClear,
     String? fieldType,
     bool? numeric,
-    String? suffixIcon,
-    String? onClickSuffixIcon,
+    LayoutProps? suffixIcon,
     String? suffixIconColor,
     String? suffixText,
-    String? prefixIcon,
-    String? onClickPrefixIcon,
+    LayoutProps? prefixIcon,
     String? prefixIconColor,
     String? prefixText,
     /**
@@ -272,9 +270,13 @@ extension MergeLayoutProps on LayoutProps {
 
       prefixText: other.prefixText ?? prefixText,
       suffixText: other.suffixText ?? suffixText,
-      suffixIcon: other.suffixIcon ?? suffixIcon,
+      suffixIcon: other.suffixIcon == null
+          ? suffixIcon
+          : (suffixIcon?.merge(other.suffixIcon) ?? other.suffixIcon),
       suffixIconColor: other.suffixIconColor ?? suffixIconColor,
-      prefixIcon: other.prefixIcon ?? prefixIcon,
+      prefixIcon: other.prefixIcon == null
+          ? prefixIcon
+          : (prefixIcon?.merge(other.prefixIcon) ?? other.prefixIcon),
       prefixIconColor: other.prefixIconColor ?? prefixIconColor,
 
       // type: other.type ?? type,

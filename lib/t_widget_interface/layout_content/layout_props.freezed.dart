@@ -114,12 +114,10 @@ mixin _$LayoutProps {
   bool? get allowClear => throw _privateConstructorUsedError;
   String? get fieldType => throw _privateConstructorUsedError;
   bool? get numeric => throw _privateConstructorUsedError;
-  String? get suffixIcon => throw _privateConstructorUsedError;
-  String? get onClickSuffixIcon => throw _privateConstructorUsedError;
+  LayoutProps? get suffixIcon => throw _privateConstructorUsedError;
   String? get suffixIconColor => throw _privateConstructorUsedError;
   String? get suffixText => throw _privateConstructorUsedError;
-  String? get prefixIcon => throw _privateConstructorUsedError;
-  String? get onClickPrefixIcon => throw _privateConstructorUsedError;
+  LayoutProps? get prefixIcon => throw _privateConstructorUsedError;
   String? get prefixIconColor => throw _privateConstructorUsedError;
   String? get prefixText => throw _privateConstructorUsedError;
   /**
@@ -253,12 +251,10 @@ abstract class $LayoutPropsCopyWith<$Res> {
       bool? allowClear,
       String? fieldType,
       bool? numeric,
-      String? suffixIcon,
-      String? onClickSuffixIcon,
+      LayoutProps? suffixIcon,
       String? suffixIconColor,
       String? suffixText,
-      String? prefixIcon,
-      String? onClickPrefixIcon,
+      LayoutProps? prefixIcon,
       String? prefixIconColor,
       String? prefixText,
       String? validationFunction,
@@ -297,6 +293,8 @@ abstract class $LayoutPropsCopyWith<$Res> {
 
   $T_DrawerPropsCopyWith<$Res>? get drawer;
   $T_LayoutBuilderPropsCopyWith<$Res>? get layoutBuilder;
+  $LayoutPropsCopyWith<$Res>? get suffixIcon;
+  $LayoutPropsCopyWith<$Res>? get prefixIcon;
   $LayoutPropsCopyWith<$Res>? get head;
   $LayoutPropsCopyWith<$Res>? get body;
   $LayoutPropsCopyWith<$Res>? get leading;
@@ -397,11 +395,9 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? fieldType = freezed,
     Object? numeric = freezed,
     Object? suffixIcon = freezed,
-    Object? onClickSuffixIcon = freezed,
     Object? suffixIconColor = freezed,
     Object? suffixText = freezed,
     Object? prefixIcon = freezed,
-    Object? onClickPrefixIcon = freezed,
     Object? prefixIconColor = freezed,
     Object? prefixText = freezed,
     Object? validationFunction = freezed,
@@ -710,11 +706,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
       suffixIcon: freezed == suffixIcon
           ? _value.suffixIcon
           : suffixIcon // ignore: cast_nullable_to_non_nullable
-              as String?,
-      onClickSuffixIcon: freezed == onClickSuffixIcon
-          ? _value.onClickSuffixIcon
-          : onClickSuffixIcon // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as LayoutProps?,
       suffixIconColor: freezed == suffixIconColor
           ? _value.suffixIconColor
           : suffixIconColor // ignore: cast_nullable_to_non_nullable
@@ -726,11 +718,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
       prefixIcon: freezed == prefixIcon
           ? _value.prefixIcon
           : prefixIcon // ignore: cast_nullable_to_non_nullable
-              as String?,
-      onClickPrefixIcon: freezed == onClickPrefixIcon
-          ? _value.onClickPrefixIcon
-          : onClickPrefixIcon // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as LayoutProps?,
       prefixIconColor: freezed == prefixIconColor
           ? _value.prefixIconColor
           : prefixIconColor // ignore: cast_nullable_to_non_nullable
@@ -895,6 +883,30 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
 
     return $T_LayoutBuilderPropsCopyWith<$Res>(_value.layoutBuilder!, (value) {
       return _then(_value.copyWith(layoutBuilder: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LayoutPropsCopyWith<$Res>? get suffixIcon {
+    if (_value.suffixIcon == null) {
+      return null;
+    }
+
+    return $LayoutPropsCopyWith<$Res>(_value.suffixIcon!, (value) {
+      return _then(_value.copyWith(suffixIcon: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LayoutPropsCopyWith<$Res>? get prefixIcon {
+    if (_value.prefixIcon == null) {
+      return null;
+    }
+
+    return $LayoutPropsCopyWith<$Res>(_value.prefixIcon!, (value) {
+      return _then(_value.copyWith(prefixIcon: value) as $Val);
     });
   }
 
@@ -1179,12 +1191,10 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       bool? allowClear,
       String? fieldType,
       bool? numeric,
-      String? suffixIcon,
-      String? onClickSuffixIcon,
+      LayoutProps? suffixIcon,
       String? suffixIconColor,
       String? suffixText,
-      String? prefixIcon,
-      String? onClickPrefixIcon,
+      LayoutProps? prefixIcon,
       String? prefixIconColor,
       String? prefixText,
       String? validationFunction,
@@ -1225,6 +1235,10 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
   $T_DrawerPropsCopyWith<$Res>? get drawer;
   @override
   $T_LayoutBuilderPropsCopyWith<$Res>? get layoutBuilder;
+  @override
+  $LayoutPropsCopyWith<$Res>? get suffixIcon;
+  @override
+  $LayoutPropsCopyWith<$Res>? get prefixIcon;
   @override
   $LayoutPropsCopyWith<$Res>? get head;
   @override
@@ -1340,11 +1354,9 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? fieldType = freezed,
     Object? numeric = freezed,
     Object? suffixIcon = freezed,
-    Object? onClickSuffixIcon = freezed,
     Object? suffixIconColor = freezed,
     Object? suffixText = freezed,
     Object? prefixIcon = freezed,
-    Object? onClickPrefixIcon = freezed,
     Object? prefixIconColor = freezed,
     Object? prefixText = freezed,
     Object? validationFunction = freezed,
@@ -1653,11 +1665,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
       suffixIcon: freezed == suffixIcon
           ? _value.suffixIcon
           : suffixIcon // ignore: cast_nullable_to_non_nullable
-              as String?,
-      onClickSuffixIcon: freezed == onClickSuffixIcon
-          ? _value.onClickSuffixIcon
-          : onClickSuffixIcon // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as LayoutProps?,
       suffixIconColor: freezed == suffixIconColor
           ? _value.suffixIconColor
           : suffixIconColor // ignore: cast_nullable_to_non_nullable
@@ -1669,11 +1677,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
       prefixIcon: freezed == prefixIcon
           ? _value.prefixIcon
           : prefixIcon // ignore: cast_nullable_to_non_nullable
-              as String?,
-      onClickPrefixIcon: freezed == onClickPrefixIcon
-          ? _value.onClickPrefixIcon
-          : onClickPrefixIcon // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as LayoutProps?,
       prefixIconColor: freezed == prefixIconColor
           ? _value.prefixIconColor
           : prefixIconColor // ignore: cast_nullable_to_non_nullable
@@ -1890,11 +1894,9 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.fieldType,
       this.numeric,
       this.suffixIcon,
-      this.onClickSuffixIcon,
       this.suffixIconColor,
       this.suffixText,
       this.prefixIcon,
-      this.onClickPrefixIcon,
       this.prefixIconColor,
       this.prefixText,
       this.validationFunction,
@@ -2154,17 +2156,13 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   @override
   final bool? numeric;
   @override
-  final String? suffixIcon;
-  @override
-  final String? onClickSuffixIcon;
+  final LayoutProps? suffixIcon;
   @override
   final String? suffixIconColor;
   @override
   final String? suffixText;
   @override
-  final String? prefixIcon;
-  @override
-  final String? onClickPrefixIcon;
+  final LayoutProps? prefixIcon;
   @override
   final String? prefixIconColor;
   @override
@@ -2289,7 +2287,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, shadowColor: $shadowColor, heightFactor: $heightFactor, widthFactor: $widthFactor, weight: $weight, style: $style, opacity: $opacity, enabled: $enabled, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, textAlign: $textAlign, selectable: $selectable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, suffixIcon: $suffixIcon, onClickSuffixIcon: $onClickSuffixIcon, suffixIconColor: $suffixIconColor, suffixText: $suffixText, prefixIcon: $prefixIcon, onClickPrefixIcon: $onClickPrefixIcon, prefixIconColor: $prefixIconColor, prefixText: $prefixText, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, onSelectChanged: $onSelectChanged, onSelectAll: $onSelectAll, selected: $selected, dividerColor: $dividerColor, head: $head, body: $body, leading: $leading, title: $title, trailing: $trailing, subtitle: $subtitle, horizontalTitleGap: $horizontalTitleGap, component: $component, child: $child, content: $content, itemLayout: $itemLayout, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, shapeBorder: $shapeBorder, boxShadow: $boxShadow, gradient: $gradient)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, shadowColor: $shadowColor, heightFactor: $heightFactor, widthFactor: $widthFactor, weight: $weight, style: $style, opacity: $opacity, enabled: $enabled, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, textAlign: $textAlign, selectable: $selectable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, suffixIcon: $suffixIcon, suffixIconColor: $suffixIconColor, suffixText: $suffixText, prefixIcon: $prefixIcon, prefixIconColor: $prefixIconColor, prefixText: $prefixText, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, onSelectChanged: $onSelectChanged, onSelectAll: $onSelectAll, selected: $selected, dividerColor: $dividerColor, head: $head, body: $body, leading: $leading, title: $title, trailing: $trailing, subtitle: $subtitle, horizontalTitleGap: $horizontalTitleGap, component: $component, child: $child, content: $content, itemLayout: $itemLayout, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, shapeBorder: $shapeBorder, boxShadow: $boxShadow, gradient: $gradient)';
   }
 
   @override
@@ -2366,11 +2364,9 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('fieldType', fieldType))
       ..add(DiagnosticsProperty('numeric', numeric))
       ..add(DiagnosticsProperty('suffixIcon', suffixIcon))
-      ..add(DiagnosticsProperty('onClickSuffixIcon', onClickSuffixIcon))
       ..add(DiagnosticsProperty('suffixIconColor', suffixIconColor))
       ..add(DiagnosticsProperty('suffixText', suffixText))
       ..add(DiagnosticsProperty('prefixIcon', prefixIcon))
-      ..add(DiagnosticsProperty('onClickPrefixIcon', onClickPrefixIcon))
       ..add(DiagnosticsProperty('prefixIconColor', prefixIconColor))
       ..add(DiagnosticsProperty('prefixText', prefixText))
       ..add(DiagnosticsProperty('validationFunction', validationFunction))
@@ -2491,12 +2487,10 @@ abstract class _LayoutProps implements LayoutProps {
       final bool? allowClear,
       final String? fieldType,
       final bool? numeric,
-      final String? suffixIcon,
-      final String? onClickSuffixIcon,
+      final LayoutProps? suffixIcon,
       final String? suffixIconColor,
       final String? suffixText,
-      final String? prefixIcon,
-      final String? onClickPrefixIcon,
+      final LayoutProps? prefixIcon,
       final String? prefixIconColor,
       final String? prefixText,
       final String? validationFunction,
@@ -2692,17 +2686,13 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   bool? get numeric;
   @override
-  String? get suffixIcon;
-  @override
-  String? get onClickSuffixIcon;
+  LayoutProps? get suffixIcon;
   @override
   String? get suffixIconColor;
   @override
   String? get suffixText;
   @override
-  String? get prefixIcon;
-  @override
-  String? get onClickPrefixIcon;
+  LayoutProps? get prefixIcon;
   @override
   String? get prefixIconColor;
   @override
