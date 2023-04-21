@@ -190,23 +190,23 @@ class LayoutProps with _$LayoutProps {
 
 extension MergeLayoutProps on LayoutProps {
   LayoutProps parseCssColors(LayoutProps props) {
-    var propsAsJSON = props.toJson();
+    Map<String, dynamic> newProps = props.toJson().map((key, value) {
+      if (value == null) return MapEntry(key, value);
 
-    Map<String, dynamic> newProps = {};
-    propsAsJSON.forEach((key, value) {
-      if (value != null) {
-        if (key.toLowerCase().contains("color")) {
-          newProps[key] = ThemeProvider.transformColorFromCSS(value);
-        }
-
-        // computedComponentProps could have css color value
-        if (key == "computedComponentProps") {
-          newProps[key] =
-              Map<String, dynamic>.from(ThemeProvider.transformColorFromCSS(
-            value,
-          ));
-        }
+      if (key.toLowerCase().contains('color')) {
+        return MapEntry(key, ThemeProvider.transformColorFromCSS(value));
       }
+
+      if (key == 'computedComponentProps') {
+        return MapEntry(
+          key,
+          Map<String, dynamic>.from(
+            ThemeProvider.transformColorFromCSS(value),
+          ),
+        );
+      }
+
+      return MapEntry(key, value);
     });
 
     return merge(LayoutProps.fromJson(newProps));

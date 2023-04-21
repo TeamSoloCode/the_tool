@@ -1,9 +1,6 @@
 Update the function that update the theme json into js side
 Add login page base on design image
 
-FIXME: The auto validate in the password field is not working properly when change pwd
-FIXME: After the password correct need to click twice on the Login button to login in
-
 SUPPORT: Support symbol in value binding to specify it is a string or number
 
 SUPPORT: Change icon size in prefix/suffix icon of TextField
@@ -138,3 +135,5 @@ Support MediaScreenOnly for all t_widgets
 -SUPPORT: Add queryParams of Modular into js side
 -SUPPORT: TS on js-module
 -SUPPORT: Binding context state into all value binding props in computeWidgetProps
+-FIXME: The auto validate in the password field is not working properly when change pwd
+-FIXME: After the password correct need to click twice on the Login button to login in
