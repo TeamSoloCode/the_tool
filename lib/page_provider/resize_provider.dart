@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:the_tool/utils.dart';
+import 'package:the_tool/page_utils/debouncer.dart';
 
 class ResizeProvider with ChangeNotifier, DiagnosticableTreeMixin {
   final utils = getIt<UtilsManager>();
+  final resizeDebouncer = Debouncer(delay: const Duration(milliseconds: 300));
+
   Size? _size;
   int? _resizeRefreshKey;
   int? _prevResizeRefreshKey;
@@ -13,11 +16,13 @@ class ResizeProvider with ChangeNotifier, DiagnosticableTreeMixin {
   int? get prevResizeRefreshKey => _prevResizeRefreshKey;
 
   void resize(Size size) {
-    if (size != currentSize) {
-      _size = size;
-      _resizeRefreshKey = DateTime.now().millisecondsSinceEpoch;
-      notifyListeners();
-      _prevResizeRefreshKey = _resizeRefreshKey;
-    }
+    resizeDebouncer.run(() {
+      if (size != currentSize) {
+        _size = size;
+        _resizeRefreshKey = DateTime.now().millisecondsSinceEpoch;
+        notifyListeners();
+        _prevResizeRefreshKey = _resizeRefreshKey;
+      }
+    });
   }
 }

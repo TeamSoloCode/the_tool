@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modular_core/modular_core.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/route/auth_route.dart';
 import 'package:the_tool/static_pages/not_found.page.dart';
 import 'package:the_tool/t_widget_interface/client_config/client_config.dart';

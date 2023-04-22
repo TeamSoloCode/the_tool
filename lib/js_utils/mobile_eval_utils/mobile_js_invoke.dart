@@ -8,10 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:permission_handler_platform_interface/permission_handler_platform_interface.dart';
 import 'package:the_tool/api_client.dart';
-import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/page_utils/permission_manager.dart';
 import 'package:the_tool/page_utils/storage_manager.dart';
-import 'package:the_tool/page_utils/theme_provider.dart';
+import 'package:the_tool/page_provider/theme_provider.dart';
 import 'package:the_tool/utils.dart';
 
 external JavaScriptHandler updateState;

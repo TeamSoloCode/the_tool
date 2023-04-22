@@ -3,7 +3,7 @@ import 'package:the_tool/tool_components/expansion/t_expansion_tile.widget.dart'
     deferred as t_expansion_tile;
 import 'package:the_tool/tool_components/t_flexible.widget.dart';
 import 'package:the_tool/twidget_props.dart';
-import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/list/t_list_tile.widget.dart'
     deferred as t_list_tile;

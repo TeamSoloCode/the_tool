@@ -1,5 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:the_tool/page_utils/auth_manager_provider.dart';
+import 'package:the_tool/page_provider/auth_manager_provider.dart';
 import 'package:the_tool/utils.dart';
 
 class AuthGuard extends RouteGuard {

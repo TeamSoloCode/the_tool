@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:json_theme/json_theme.dart';
 import 'package:modular_core/modular_core.dart';
 import 'package:the_tool/api_client.dart';
-import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/page_utils/debouncer.dart';
-import 'package:the_tool/page_utils/resize_provider.dart';
-import 'package:the_tool/page_utils/theme_provider.dart';
+import 'package:the_tool/page_provider/resize_provider.dart';
+import 'package:the_tool/page_provider/theme_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_appbar_widget.dart'
     deferred as t_appbar;
@@ -55,8 +55,9 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
   late Future<void> _loadNecessaryWidget;
   MediaQueryData? _prevMediaQueryData;
 
-  final updateThemeDataJSON =
-      Debouncer(delay: const Duration(milliseconds: 500));
+  final updateThemeDataToJSDebouncer = Debouncer(
+    delay: const Duration(milliseconds: 500),
+  );
 
   @override
   void initState() {
@@ -100,7 +101,7 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
   void _updateThemeDataJSON(
     ThemeData theme,
   ) {
-    updateThemeDataJSON.run(() {
+    updateThemeDataToJSDebouncer.run(() {
       final themeProvider = getIt<ThemeProvider>();
       final themeDataAsJSON = ThemeEncoder.encodeThemeData(theme);
       themeProvider.themeDataAsJSON = themeDataAsJSON;
@@ -116,16 +117,7 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
     var pageData = context.select((ContextStateProvider value) {
       return value.contextData[_pageId] ?? UtilsManager.emptyMapStringDynamic;
     });
-    var contextStateProvider = getIt<ContextStateProvider>();
-    contextStateProvider.setRootPageData(pageData);
-    final mediaQueryData = MediaQuery.of(context);
 
-    final theme = Theme.of(context);
-    if (_prevThemeMode != theme.brightness) {
-      _updateThemeDataJSON(theme);
-    }
-
-    _prevThemeMode = theme.brightness;
     // FIXME: Do we need this. Find the way to let user have dynamic style select
     // _updateThemeOnJSSide(themeDataAsJSON);
 
@@ -136,6 +128,18 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
       );
     }
 
+    var contextStateProvider = getIt<ContextStateProvider>();
+    contextStateProvider.setRootPageData(pageData);
+    final mediaQueryData = MediaQuery.of(context);
+
+    final theme = Theme.of(context);
+    if (_prevThemeMode != theme.brightness) {
+      _updateThemeDataJSON(theme);
+    }
+
+    _prevThemeMode = theme.brightness;
+
+    getIt<ResizeProvider>().resize(mediaQueryData.size);
     // print("Update page: ${_pageId} $pageData");
 
     return FutureBuilder(
@@ -146,6 +150,7 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
         }
 
         _updateMediaQueryInJS(mediaQueryData);
+
         var page = SafeArea(
           child: Scaffold(
             key: _scaffoldKey,
@@ -288,8 +293,6 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
     )) {
       return;
     }
-
-    getIt<ResizeProvider>().resize(size);
 
     _prevMediaQueryData = mediaQuery;
     utils.evalJS?.executeAsyncJS(

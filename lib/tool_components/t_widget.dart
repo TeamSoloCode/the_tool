@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:the_tool/page_utils/resize_provider.dart';
+import 'package:the_tool/page_provider/resize_provider.dart';
 import 'package:the_tool/twidget_props.dart';
-import 'package:the_tool/page_utils/context_state_provider.dart';
-import 'package:the_tool/page_utils/theme_provider.dart';
+import 'package:the_tool/page_provider/context_state_provider.dart';
+import 'package:the_tool/page_provider/theme_provider.dart';
 import 'package:the_tool/t_widget_interface/drawer_props/drawer_props.dart';
 import 'package:the_tool/t_widget_interface/layout_builder_props/layout_builder_props.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
@@ -14,7 +14,6 @@ import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:collection/collection.dart' show DeepCollectionEquality;
 import 'package:gato/gato.dart' as gato;
-import 'package:uuid/uuid.dart';
 
 mixin BaseStateWidget on Widget {
   late final LayoutProps widgetProps;

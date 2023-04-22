@@ -7,9 +7,9 @@ import 'package:get_it/get_it.dart';
 import 'package:the_tool/js_utils/mobile_eval_utils/mobile_eval_js.dart'
     if (dart.library.js) 'package:the_tool/js_utils/web_eval_utils/web_eval_js.dart';
 import 'package:eventify/eventify.dart' as eventify;
-import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/page_utils/style_utils.dart';
-import 'package:the_tool/page_utils/theme_provider.dart';
+import 'package:the_tool/page_provider/theme_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/t_widget_interface/media_screen_only/media_screen_only.dart';
 import 'package:the_tool/config/config.dart';

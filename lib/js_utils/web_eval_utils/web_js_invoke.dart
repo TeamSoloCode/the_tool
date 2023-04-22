@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:js/js.dart';
 import 'package:the_tool/api_client.dart';
-import 'package:the_tool/page_utils/context_state_provider.dart';
-import 'package:the_tool/page_utils/theme_provider.dart';
+import 'package:the_tool/page_provider/context_state_provider.dart';
+import 'package:the_tool/page_provider/theme_provider.dart';
 import 'package:the_tool/utils.dart';
 
 late ContextStateProvider _contextStateProvider;

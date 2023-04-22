@@ -11,9 +11,9 @@ import 'package:form_builder_validators/form_builder_validators.dart'
     show FormBuilderLocalizations;
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/config/config.dart';
-import 'package:the_tool/page_utils/context_state_provider.dart';
+import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/page_utils/storage_manager.dart';
-import 'package:the_tool/page_utils/theme_provider.dart';
+import 'package:the_tool/page_provider/theme_provider.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:the_tool/js_utils/mobile_eval_utils/mobile_eval_js.dart'
