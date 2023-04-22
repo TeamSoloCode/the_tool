@@ -16,8 +16,8 @@ import 'package:the_tool/page_utils/storage_manager.dart';
 import 'package:the_tool/page_utils/theme_provider.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
-import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
-    if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_utils/web_eval_js.dart';
+import 'package:the_tool/js_utils/mobile_eval_utils/mobile_eval_js.dart'
+    if (dart.library.js) 'package:the_tool/js_utils/web_eval_utils/web_eval_js.dart';
 
 class PageContainer extends StatefulWidget {
   const PageContainer({Key? key}) : super(key: key);

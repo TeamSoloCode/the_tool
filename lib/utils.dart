@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gato/gato.dart' as gato;
 import 'package:get_it/get_it.dart';
-import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
-    if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_utils/web_eval_js.dart';
+import 'package:the_tool/js_utils/mobile_eval_utils/mobile_eval_js.dart'
+    if (dart.library.js) 'package:the_tool/js_utils/web_eval_utils/web_eval_js.dart';
 import 'package:eventify/eventify.dart' as eventify;
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/style_utils.dart';

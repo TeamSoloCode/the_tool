@@ -20,8 +20,8 @@ import 'dart:io' if (dart.library.html) "dart:html";
 import 'package:url_strategy/url_strategy.dart';
 import 'package:the_tool/static_pages/select_project.dart'
     deferred as select_project;
-import 'package:the_tool/eval_js_utils/mobile_eval_utils/mobile_eval_js.dart'
-    if (dart.library.js) 'package:the_tool/eval_js_utils/web_eval_utils/web_eval_js.dart';
+import 'package:the_tool/js_utils/mobile_eval_utils/mobile_eval_js.dart'
+    if (dart.library.js) 'package:the_tool/js_utils/web_eval_utils/web_eval_js.dart';
 import 'package:the_tool/config/config.dart';
 
 void main() async {
