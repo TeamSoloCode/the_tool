@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:json_theme/json_theme_schemas.dart';
 import 'package:the_tool/api_client.dart';
-import 'package:the_tool/app_module.dart';
+import 'package:the_tool/page_utils/auth_manager_provider.dart';
+import 'package:the_tool/route/app_module.dart';
 import 'package:the_tool/page_utils/context_state_provider.dart';
 import 'package:the_tool/page_utils/permission_manager.dart';
 import 'package:the_tool/page_utils/resize_provider.dart';
@@ -67,6 +67,15 @@ void main() async {
     PermissionManager(),
     signalsReady: true,
   );
+  getIt.registerSingleton<ThemeProvider>(
+    ThemeProvider(),
+    signalsReady: true,
+  );
+
+  getIt.registerSingleton<AuthManagerProvider>(
+    AuthManagerProvider(),
+    signalsReady: true,
+  );
 
   runApp(
     MultiProvider(
@@ -76,16 +85,17 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (context) {
-            getIt.registerSingleton<ThemeProvider>(
-              ThemeProvider(context: context),
-              signalsReady: true,
-            );
-            return getIt<ThemeProvider>();
+            var themeProvider = getIt<ThemeProvider>();
+            themeProvider.updateProviderContext(context);
+            return themeProvider;
           },
         ),
         ChangeNotifierProvider(
           create: (_) => getIt<ResizeProvider>(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (_) => getIt<AuthManagerProvider>(),
+        ),
       ],
       child: const TheTool(),
     ),
@@ -101,8 +111,10 @@ class TheTool extends StatefulWidget {
 
 class _TheToolState extends State<TheTool> {
   String? _selectedProjectName;
+
   Future<void> _loadWebCoreJSCode(BuildContext context) async {
     UtilsManager utils = getIt<UtilsManager>();
+
     utils.evalJS = EvalJS(
       context: context,
     );

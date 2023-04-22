@@ -23,6 +23,7 @@ mixin _$AppRouteConfig {
   String? get path => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get route => throw _privateConstructorUsedError;
+  List<RouteGuardConfig>? get guards => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +37,11 @@ abstract class $AppRouteConfigCopyWith<$Res> {
           AppRouteConfig value, $Res Function(AppRouteConfig) then) =
       _$AppRouteConfigCopyWithImpl<$Res, AppRouteConfig>;
   @useResult
-  $Res call({String? path, String? name, String? route});
+  $Res call(
+      {String? path,
+      String? name,
+      String? route,
+      List<RouteGuardConfig>? guards});
 }
 
 /// @nodoc
@@ -55,6 +60,7 @@ class _$AppRouteConfigCopyWithImpl<$Res, $Val extends AppRouteConfig>
     Object? path = freezed,
     Object? name = freezed,
     Object? route = freezed,
+    Object? guards = freezed,
   }) {
     return _then(_value.copyWith(
       path: freezed == path
@@ -69,6 +75,10 @@ class _$AppRouteConfigCopyWithImpl<$Res, $Val extends AppRouteConfig>
           ? _value.route
           : route // ignore: cast_nullable_to_non_nullable
               as String?,
+      guards: freezed == guards
+          ? _value.guards
+          : guards // ignore: cast_nullable_to_non_nullable
+              as List<RouteGuardConfig>?,
     ) as $Val);
   }
 }
@@ -81,7 +91,11 @@ abstract class _$$_AppRouteConfigCopyWith<$Res>
       __$$_AppRouteConfigCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? path, String? name, String? route});
+  $Res call(
+      {String? path,
+      String? name,
+      String? route,
+      List<RouteGuardConfig>? guards});
 }
 
 /// @nodoc
@@ -98,6 +112,7 @@ class __$$_AppRouteConfigCopyWithImpl<$Res>
     Object? path = freezed,
     Object? name = freezed,
     Object? route = freezed,
+    Object? guards = freezed,
   }) {
     return _then(_$_AppRouteConfig(
       path: freezed == path
@@ -112,6 +127,10 @@ class __$$_AppRouteConfigCopyWithImpl<$Res>
           ? _value.route
           : route // ignore: cast_nullable_to_non_nullable
               as String?,
+      guards: freezed == guards
+          ? _value._guards
+          : guards // ignore: cast_nullable_to_non_nullable
+              as List<RouteGuardConfig>?,
     ));
   }
 }
@@ -119,7 +138,9 @@ class __$$_AppRouteConfigCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_AppRouteConfig implements _AppRouteConfig {
-  const _$_AppRouteConfig({this.path, this.name, this.route});
+  const _$_AppRouteConfig(
+      {this.path, this.name, this.route, final List<RouteGuardConfig>? guards})
+      : _guards = guards;
 
   factory _$_AppRouteConfig.fromJson(Map<String, dynamic> json) =>
       _$$_AppRouteConfigFromJson(json);
@@ -130,6 +151,15 @@ class _$_AppRouteConfig implements _AppRouteConfig {
   final String? name;
   @override
   final String? route;
+  final List<RouteGuardConfig>? _guards;
+  @override
+  List<RouteGuardConfig>? get guards {
+    final value = _guards;
+    if (value == null) return null;
+    if (_guards is EqualUnmodifiableListView) return _guards;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @JsonKey(ignore: true)
   @override
@@ -149,7 +179,8 @@ abstract class _AppRouteConfig implements AppRouteConfig {
   const factory _AppRouteConfig(
       {final String? path,
       final String? name,
-      final String? route}) = _$_AppRouteConfig;
+      final String? route,
+      final List<RouteGuardConfig>? guards}) = _$_AppRouteConfig;
 
   factory _AppRouteConfig.fromJson(Map<String, dynamic> json) =
       _$_AppRouteConfig.fromJson;
@@ -160,6 +191,8 @@ abstract class _AppRouteConfig implements AppRouteConfig {
   String? get name;
   @override
   String? get route;
+  @override
+  List<RouteGuardConfig>? get guards;
   @override
   @JsonKey(ignore: true)
   _$$_AppRouteConfigCopyWith<_$_AppRouteConfig> get copyWith =>

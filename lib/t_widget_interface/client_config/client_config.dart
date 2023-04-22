@@ -8,10 +8,11 @@ part 'client_config.g.dart';
 class ClientConfig with _$ClientConfig {
   const factory ClientConfig({
     String? initialPage,
-    List<AppRouteConfig>? routes,
     String? themePath,
     String? pageAPI,
     String? beAPI,
+    List<AppRouteConfig>? routes,
+    String? notFoundPagePath,
   }) = _ClientConfig;
 
   factory ClientConfig.fromJson(Map<String, Object?> json) =>

@@ -14,11 +14,11 @@ class ThemeProvider with ChangeNotifier {
   ThemeMode? _theme;
   Map<String, dynamic>? _classes;
   Map<String, dynamic>? _baseColor;
-  BuildContext context;
-  static final UtilsManager utils = getIt<UtilsManager>();
+  late BuildContext context;
   var _themeRefreshToken = 0;
+  static final UtilsManager utils = getIt<UtilsManager>();
 
-  ThemeProvider({required this.context});
+  ThemeProvider();
 
   ThemeMode get currentThemeMode => _theme ?? ThemeMode.light;
   ThemeData? get themeData => _themeData;
@@ -31,6 +31,10 @@ class ThemeProvider with ChangeNotifier {
   Map<String, dynamic>? get themeDataAsJSON => _themeDataAsJSON ?? const {};
   set themeDataAsJSON(Map<String, dynamic>? themeData) {
     _themeDataAsJSON = themeData;
+  }
+
+  void updateProviderContext(BuildContext newContext) {
+    context = newContext;
   }
 
   void toogleChangeThemeMode(ThemeMode? mode) {

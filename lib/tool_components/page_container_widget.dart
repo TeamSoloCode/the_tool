@@ -159,18 +159,6 @@ class _PageContainerState extends State<PageContainer> {
       ),
       onWebViewCreated: (webViewController) async {
         if (!kIsWeb) {
-          log("Webview: Loading webview start");
-        }
-      },
-      onLoadStart: (controller, url) {},
-      androidOnPermissionRequest: (controller, origin, resources) async {
-        return webview.PermissionRequestResponse(
-          resources: resources,
-          action: webview.PermissionRequestResponseAction.GRANT,
-        );
-      },
-      onLoadStop: (webViewController, url) async {
-        if (!kIsWeb) {
           log("Webview: Loading webview stop");
         }
 
@@ -190,6 +178,15 @@ class _PageContainerState extends State<PageContainer> {
           });
           rethrow;
         }
+      },
+      onLoadStart: (controller, url) {},
+      androidOnPermissionRequest: (controller, origin, resources) async {
+        return webview.PermissionRequestResponse(
+          resources: resources,
+          action: webview.PermissionRequestResponseAction.GRANT,
+        );
+      },
+      onLoadStop: (webViewController, url) async {
         setState(() {
           _isWebViewReady = true;
         });

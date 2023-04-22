@@ -21,10 +21,11 @@ ClientConfig _$ClientConfigFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ClientConfig {
   String? get initialPage => throw _privateConstructorUsedError;
-  List<AppRouteConfig>? get routes => throw _privateConstructorUsedError;
   String? get themePath => throw _privateConstructorUsedError;
   String? get pageAPI => throw _privateConstructorUsedError;
   String? get beAPI => throw _privateConstructorUsedError;
+  List<AppRouteConfig>? get routes => throw _privateConstructorUsedError;
+  String? get notFoundPagePath => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -40,10 +41,11 @@ abstract class $ClientConfigCopyWith<$Res> {
   @useResult
   $Res call(
       {String? initialPage,
-      List<AppRouteConfig>? routes,
       String? themePath,
       String? pageAPI,
-      String? beAPI});
+      String? beAPI,
+      List<AppRouteConfig>? routes,
+      String? notFoundPagePath});
 }
 
 /// @nodoc
@@ -60,20 +62,17 @@ class _$ClientConfigCopyWithImpl<$Res, $Val extends ClientConfig>
   @override
   $Res call({
     Object? initialPage = freezed,
-    Object? routes = freezed,
     Object? themePath = freezed,
     Object? pageAPI = freezed,
     Object? beAPI = freezed,
+    Object? routes = freezed,
+    Object? notFoundPagePath = freezed,
   }) {
     return _then(_value.copyWith(
       initialPage: freezed == initialPage
           ? _value.initialPage
           : initialPage // ignore: cast_nullable_to_non_nullable
               as String?,
-      routes: freezed == routes
-          ? _value.routes
-          : routes // ignore: cast_nullable_to_non_nullable
-              as List<AppRouteConfig>?,
       themePath: freezed == themePath
           ? _value.themePath
           : themePath // ignore: cast_nullable_to_non_nullable
@@ -85,6 +84,14 @@ class _$ClientConfigCopyWithImpl<$Res, $Val extends ClientConfig>
       beAPI: freezed == beAPI
           ? _value.beAPI
           : beAPI // ignore: cast_nullable_to_non_nullable
+              as String?,
+      routes: freezed == routes
+          ? _value.routes
+          : routes // ignore: cast_nullable_to_non_nullable
+              as List<AppRouteConfig>?,
+      notFoundPagePath: freezed == notFoundPagePath
+          ? _value.notFoundPagePath
+          : notFoundPagePath // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -100,10 +107,11 @@ abstract class _$$_ClientConfigCopyWith<$Res>
   @useResult
   $Res call(
       {String? initialPage,
-      List<AppRouteConfig>? routes,
       String? themePath,
       String? pageAPI,
-      String? beAPI});
+      String? beAPI,
+      List<AppRouteConfig>? routes,
+      String? notFoundPagePath});
 }
 
 /// @nodoc
@@ -118,20 +126,17 @@ class __$$_ClientConfigCopyWithImpl<$Res>
   @override
   $Res call({
     Object? initialPage = freezed,
-    Object? routes = freezed,
     Object? themePath = freezed,
     Object? pageAPI = freezed,
     Object? beAPI = freezed,
+    Object? routes = freezed,
+    Object? notFoundPagePath = freezed,
   }) {
     return _then(_$_ClientConfig(
       initialPage: freezed == initialPage
           ? _value.initialPage
           : initialPage // ignore: cast_nullable_to_non_nullable
               as String?,
-      routes: freezed == routes
-          ? _value._routes
-          : routes // ignore: cast_nullable_to_non_nullable
-              as List<AppRouteConfig>?,
       themePath: freezed == themePath
           ? _value.themePath
           : themePath // ignore: cast_nullable_to_non_nullable
@@ -144,6 +149,14 @@ class __$$_ClientConfigCopyWithImpl<$Res>
           ? _value.beAPI
           : beAPI // ignore: cast_nullable_to_non_nullable
               as String?,
+      routes: freezed == routes
+          ? _value._routes
+          : routes // ignore: cast_nullable_to_non_nullable
+              as List<AppRouteConfig>?,
+      notFoundPagePath: freezed == notFoundPagePath
+          ? _value.notFoundPagePath
+          : notFoundPagePath // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -153,10 +166,11 @@ class __$$_ClientConfigCopyWithImpl<$Res>
 class _$_ClientConfig implements _ClientConfig {
   const _$_ClientConfig(
       {this.initialPage,
-      final List<AppRouteConfig>? routes,
       this.themePath,
       this.pageAPI,
-      this.beAPI})
+      this.beAPI,
+      final List<AppRouteConfig>? routes,
+      this.notFoundPagePath})
       : _routes = routes;
 
   factory _$_ClientConfig.fromJson(Map<String, dynamic> json) =>
@@ -164,6 +178,12 @@ class _$_ClientConfig implements _ClientConfig {
 
   @override
   final String? initialPage;
+  @override
+  final String? themePath;
+  @override
+  final String? pageAPI;
+  @override
+  final String? beAPI;
   final List<AppRouteConfig>? _routes;
   @override
   List<AppRouteConfig>? get routes {
@@ -175,11 +195,7 @@ class _$_ClientConfig implements _ClientConfig {
   }
 
   @override
-  final String? themePath;
-  @override
-  final String? pageAPI;
-  @override
-  final String? beAPI;
+  final String? notFoundPagePath;
 
   @JsonKey(ignore: true)
   @override
@@ -198,10 +214,11 @@ class _$_ClientConfig implements _ClientConfig {
 abstract class _ClientConfig implements ClientConfig {
   const factory _ClientConfig(
       {final String? initialPage,
-      final List<AppRouteConfig>? routes,
       final String? themePath,
       final String? pageAPI,
-      final String? beAPI}) = _$_ClientConfig;
+      final String? beAPI,
+      final List<AppRouteConfig>? routes,
+      final String? notFoundPagePath}) = _$_ClientConfig;
 
   factory _ClientConfig.fromJson(Map<String, dynamic> json) =
       _$_ClientConfig.fromJson;
@@ -209,13 +226,15 @@ abstract class _ClientConfig implements ClientConfig {
   @override
   String? get initialPage;
   @override
-  List<AppRouteConfig>? get routes;
-  @override
   String? get themePath;
   @override
   String? get pageAPI;
   @override
   String? get beAPI;
+  @override
+  List<AppRouteConfig>? get routes;
+  @override
+  String? get notFoundPagePath;
   @override
   @JsonKey(ignore: true)
   _$$_ClientConfigCopyWith<_$_ClientConfig> get copyWith =>

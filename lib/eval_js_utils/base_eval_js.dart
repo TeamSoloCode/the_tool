@@ -123,7 +123,12 @@ abstract class BaseEvalJS {
     required String clientCode,
     ModularArguments? pageArguments,
   }) {
-    final data = jsonEncode(pageArguments?.data ?? {});
+    // pageArguments?.data?.data :
+    // This because when use RouteGuard the pageArguments?.data is ModularArguments
+    final data = jsonEncode(pageArguments?.data is ModularArguments
+        ? pageArguments?.data?.data
+        : pageArguments?.data ?? {});
+
     final uriParams = jsonEncode(pageArguments?.params ?? {});
     final queryParams = jsonEncode(pageArguments?.queryParams ?? {});
 

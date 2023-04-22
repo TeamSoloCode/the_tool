@@ -1,9 +1,11 @@
 Update the function that update the theme json into js side
-Add login page base on design image
+SUPPORT: Set authContext from js side
+
+FIXME: The text color in the side navigation is not properly when change theme from dark to light
 
 SUPPORT: Support symbol in value binding to specify it is a string or number
 
-SUPPORT: Auth route for the app
+UPDATE: Use reflectable package to avoid compute LayoutProps property in LayoutProps class
 
 UPDATE: Check that if the Map, List property in in widget props can be binding properly
 UPDATE: merge function of LayoutProps class to auto merge all simple properties. Check mergeObjects function in layout_props.dart
@@ -51,6 +53,8 @@ Support alert, dialog, snackbar, ScaffoldMessenger
 
 #-------------------------------------------------
 
+-Add login page base on design image
+-SUPPORT: Auth route for the app
 -SUPPORT: Change icon size in prefix/suffix icon of TextField
 Support MediaScreenOnly for all t_widgets
 \_index and \_selected key being removed after click select all button on table
