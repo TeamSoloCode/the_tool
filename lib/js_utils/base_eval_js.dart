@@ -123,9 +123,8 @@ abstract class BaseEvalJS {
     required String clientCode,
     ModularArguments? pageArguments,
   }) {
-    // pageArguments?.data?.data :
-    // This because when use RouteGuard the pageArguments?.data is ModularArguments
-    final data = jsonEncode(pageArguments?.data is ModularArguments
+    // pageArguments?.data?.data: This because when use RouteGuard the pageArguments?.data is ModularArguments
+    final pageArgumentsData = jsonEncode(pageArguments?.data is ModularArguments
         ? pageArguments?.data?.data
         : pageArguments?.data ?? {});
 
@@ -134,7 +133,7 @@ abstract class BaseEvalJS {
 
     return """
         const [_contextData, _setContextData] = React.useState(context._data);
-        const [_pageArguments] = React.useState(JSON.parse('$data'))
+        const [_pageArguments] = React.useState(JSON.parse('$pageArgumentsData'))
         const [_uriParams] = React.useState(JSON.parse('$uriParams'))
         const [_queryParams] = React.useState(JSON.parse('$queryParams'))
         let [_didInitState] = React.useState(false)

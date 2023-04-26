@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:json_theme/json_theme_schemas.dart';
 import 'package:the_tool/api_client.dart';
+import 'package:the_tool/js_utils/base_invoke_is.dart';
 import 'package:the_tool/page_provider/auth_manager_provider.dart';
 import 'package:the_tool/route/app_module.dart';
 import 'package:the_tool/page_provider/context_state_provider.dart';
@@ -72,8 +73,13 @@ void main() async {
     signalsReady: true,
   );
 
-  getIt.registerSingleton<AuthManagerProvider>(
-    AuthManagerProvider(),
+  getIt.registerSingleton<AuthContextProvider>(
+    AuthContextProvider(),
+    signalsReady: true,
+  );
+
+  getIt.registerSingleton<BaseInvokeJS>(
+    const BaseInvokeJS(),
     signalsReady: true,
   );
 
@@ -94,7 +100,7 @@ void main() async {
           create: (_) => getIt<ResizeProvider>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => getIt<AuthManagerProvider>(),
+          create: (_) => getIt<AuthContextProvider>(),
         ),
       ],
       child: const TheTool(),
@@ -112,7 +118,7 @@ class TheTool extends StatefulWidget {
 class _TheToolState extends State<TheTool> {
   String? _selectedProjectName;
 
-  Future<void> _loadWebCoreJSCode(BuildContext context) async {
+  void _loadWebCoreJSCode(BuildContext context) {
     UtilsManager utils = getIt<UtilsManager>();
 
     utils.evalJS = EvalJS(
@@ -155,8 +161,15 @@ class _TheToolState extends State<TheTool> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
+    context.select((AuthContextProvider value) {
+      return value;
+    });
+
+    return FutureBuilder<bool>(
       key: ValueKey(_selectedProjectName),
+      future: _selectedProjectName == null
+          ? _loadSelectProjectPage()
+          : _isReadyToRun(),
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return const Offstage();
@@ -179,9 +192,6 @@ class _TheToolState extends State<TheTool> {
           );
         }
       },
-      future: _selectedProjectName == null
-          ? _loadSelectProjectPage()
-          : _isReadyToRun(),
     );
   }
 }

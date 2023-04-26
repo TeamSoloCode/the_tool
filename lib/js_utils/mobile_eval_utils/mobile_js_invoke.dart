@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:permission_handler_platform_interface/permission_handler_platform_interface.dart';
 import 'package:the_tool/api_client.dart';
+import 'package:the_tool/js_utils/base_invoke_is.dart';
 import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/page_utils/permission_manager.dart';
 import 'package:the_tool/page_utils/storage_manager.dart';
@@ -150,6 +151,13 @@ void registerJavascriptHandler(
       if (pageStateKey != null) {
         pageStateKey.currentState?.openDrawer();
       }
+    },
+  );
+
+  webViewController?.addJavaScriptHandler(
+    handlerName: "update_route_auth_data",
+    callback: (args) {
+      return getIt<BaseInvokeJS>().updateRouteAuthData(args[0], args[1]);
     },
   );
 }

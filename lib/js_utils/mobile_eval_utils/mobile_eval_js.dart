@@ -20,7 +20,10 @@ class EvalJS extends BaseEvalJS {
     contextState = getIt<ContextStateProvider>();
     mobilejs.main();
     mobilejs.registerJavascriptHandler(
-        context, contextState, webViewController);
+      context,
+      contextState,
+      webViewController,
+    );
   }
 
   @override

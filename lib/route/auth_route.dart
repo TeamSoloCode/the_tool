@@ -14,7 +14,7 @@ class AuthGuard extends RouteGuard {
 
   @override
   Future<bool> canActivate(String path, ModularRoute router) async {
-    var authContext = getIt<AuthManagerProvider>().authContext;
+    var authContext = getIt<AuthContextProvider>().authContext;
     return authContext[authKey] ?? false;
   }
 }
