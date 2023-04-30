@@ -4,14 +4,14 @@ import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/twidget_props.dart';
 
-class T_Grid extends TWidget {
-  T_Grid(TWidgetProps twidget) : super(twidget);
+class TGrid extends TWidget {
+  TGrid(TWidgetProps twidget) : super(twidget);
 
   @override
-  State<T_Grid> createState() => _T_GridState();
+  State<TGrid> createState() => _TGridState();
 }
 
-class _T_GridState extends TStatefulWidget<T_Grid> {
+class _TGridState extends TStatefulWidget<TGrid> {
   List<Widget> _items = [];
 
   List<Widget> _computeChildren(List<dynamic>? children) {

@@ -363,9 +363,9 @@ abstract class BaseEvalJS {
           _onMediaQueryChanged,
           _onUpdateThemeData,
 
-          setPageData, 
-          getPageData, 
-          registerSubComponent, 
+          setPageData,
+          getPageData,
+          registerSubComponent,
           exportPageContext,
           validateForm,
           openDrawer,
@@ -387,7 +387,6 @@ abstract class BaseEvalJS {
         $clientCode
 
         //==========================End Page Code============================================
-
 
         React.useEffect(() => {
           logger.log(`Didmount $pagePath`)
@@ -430,7 +429,7 @@ abstract class BaseEvalJS {
             }, {})
 
           return React.createElement(
-            "div", 
+            "div",
             {
               id: `\${subComponentName}`,
               key: `\${subComponentName}`,

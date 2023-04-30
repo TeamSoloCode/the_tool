@@ -14,6 +14,7 @@ import 'package:the_tool/config/config.dart';
 import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/page_utils/storage_manager.dart';
 import 'package:the_tool/page_provider/theme_provider.dart';
+import 'package:the_tool/route/app_module.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:the_tool/js_utils/mobile_eval_utils/mobile_eval_js.dart'
@@ -30,6 +31,9 @@ class _PageContainerState extends State<PageContainer> {
   bool _isWebViewReady = false;
   final UtilsManager _utils = getIt<UtilsManager>();
   final APIClientManager _apiClient = getIt<APIClientManager>();
+
+  bool _initializedCorePage = false;
+  String? _corePageCode;
   String? _errorMessage;
   dynamic _headlessWebView;
   ThemeData? _themeData;
@@ -58,64 +62,69 @@ class _PageContainerState extends State<PageContainer> {
       },
     );
 
-    return MaterialApp.router(
-      theme: _themeData,
-      themeMode: _currentThemeMode,
-      routeInformationParser: Modular.routeInformationParser,
-      routerDelegate: Modular.routerDelegate,
-      debugShowCheckedModeBanner: false,
-      supportedLocales: const [
-        Locale('en'),
-      ],
-      localizationsDelegates: const [
-        // GlobalMaterialLocalizations.delegate,
-        // GlobalWidgetsLocalizations.delegate,
-        FormBuilderLocalizations.delegate,
-      ],
-      builder: (context, child) {
-        return FutureBuilder<bool>(
-          builder: (context, snapshot) {
-            const loadingPage = Scaffold(
-              body: Center(child: Text("Loading...")),
-            );
+    var config = getIt<ContextStateProvider>().appConfig;
 
-            if (snapshot.data == true) {
-              if (_errorMessage != null) {
-                return Center(
-                  child: Text(
-                    _errorMessage ?? "",
-                    style: const TextStyle(
-                      color: Colors.red,
-                      fontWeight: FontWeight.bold,
+    return ModularApp(
+      module: AppModule(config!),
+      child: MaterialApp.router(
+        theme: _themeData,
+        themeMode: _currentThemeMode,
+        routeInformationParser: Modular.routeInformationParser,
+        routerDelegate: Modular.routerDelegate,
+        debugShowCheckedModeBanner: false,
+        supportedLocales: const [
+          Locale('en'),
+        ],
+        localizationsDelegates: const [
+          // GlobalMaterialLocalizations.delegate,
+          // GlobalWidgetsLocalizations.delegate,
+          FormBuilderLocalizations.delegate,
+        ],
+        builder: (context, child) {
+          return FutureBuilder<bool>(
+            builder: (context, snapshot) {
+              const loadingPage = Scaffold(
+                body: Center(child: Text("Loading...")),
+              );
+
+              if (snapshot.data == true) {
+                if (_errorMessage != null) {
+                  return Center(
+                    child: Text(
+                      _errorMessage ?? "",
+                      style: const TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                );
-              }
-
-              ScreenUtil.init(context);
-
-              if (kIsWeb) {
-                _updateWebEvalContext(context);
-              } else {
-                if ([false, null].contains(_headlessWebView?.isRunning())) {
-                  _initWebViewForMobile(context);
-                  _headlessWebView?.run();
-                }
-              }
-
-              if (_isWebViewReady || kIsWeb) {
-                if (!kIsWeb) {
-                  log("Webview: Start render content");
+                  );
                 }
 
-                return child!;
+                ScreenUtil.init(context);
+
+                if (kIsWeb) {
+                  _updateWebEvalContext(context);
+                } else {
+                  if ([false, null].contains(_headlessWebView?.isRunning())) {
+                    _initWebViewForMobile(context);
+                    _headlessWebView?.run();
+                  }
+                }
+
+                if (_isWebViewReady || kIsWeb) {
+                  if (!kIsWeb) {
+                    log("Webview: Start render content");
+                  }
+
+                  return child!;
+                }
               }
-            }
-            return loadingPage;
-          },
-          future: _prepareDependencies(),
-        );
-      },
+              return loadingPage;
+            },
+            future: _prepareDependencies(),
+          );
+        },
+      ),
     );
   }
 
@@ -125,6 +134,7 @@ class _PageContainerState extends State<PageContainer> {
     if (!kIsWeb) {
       await webview.loadLibrary();
     }
+    _corePageCode = await _apiClient.getClientCore();
     _didLoadDeps = true;
     return true;
   }
@@ -148,6 +158,8 @@ class _PageContainerState extends State<PageContainer> {
       context: context,
     );
     _utils.evalJS = _evalJS;
+
+    _initializeCorePage();
   }
 
   void _initWebViewForMobile(BuildContext context) {
@@ -157,8 +169,7 @@ class _PageContainerState extends State<PageContainer> {
       initialUrlRequest: webview.URLRequest(
         url: Uri.parse(getIt<EnvironmentConfig>().MOBILE_WEBVIEW_URL),
       ),
-      onWebViewCreated: (webViewController) async {},
-      onLoadStart: (webViewController, url) {
+      onWebViewCreated: (webViewController) {
         if (!kIsWeb) {
           log("Webview: Loading webview stop");
         }
@@ -180,16 +191,15 @@ class _PageContainerState extends State<PageContainer> {
           rethrow;
         }
       },
+      onLoadStart: (webViewController, url) {},
       androidOnPermissionRequest: (controller, origin, resources) async {
         return webview.PermissionRequestResponse(
           resources: resources,
           action: webview.PermissionRequestResponseAction.GRANT,
         );
       },
-      onLoadStop: (webViewController, url) async {
-        setState(() {
-          _isWebViewReady = true;
-        });
+      onLoadStop: (webViewController, url) {
+        _onLoadWebViewStop();
       },
       onLoadError: (controller, url, code, message) {
         log("\x1B[31m$message\x1B[31m");
@@ -198,5 +208,25 @@ class _PageContainerState extends State<PageContainer> {
         log("Webview log: ${consoleMessage.message}");
       },
     );
+  }
+
+  Future<void> _onLoadWebViewStop() async {
+    await _initializeCorePage();
+
+    setState(() {
+      _isWebViewReady = true;
+    });
+  }
+
+  Future<void> _initializeCorePage() async {
+    if (_corePageCode != null && !_initializedCorePage) {
+      await _evalJS.executePageCode(
+        clientCode: _corePageCode!,
+        pagePath: "core",
+        pageArguments: Modular.args,
+      );
+
+      _initializedCorePage = true;
+    }
   }
 }

@@ -10,7 +10,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:js/js.dart';
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/js_utils/base_invoke_is.dart';
-import 'package:the_tool/page_provider/auth_manager_provider.dart';
 import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/page_provider/theme_provider.dart';
 import 'package:the_tool/utils.dart';

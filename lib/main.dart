@@ -116,7 +116,7 @@ class TheTool extends StatefulWidget {
 }
 
 class _TheToolState extends State<TheTool> {
-  String? _selectedProjectName;
+  String? _selectedProjectName = "admin";
 
   void _loadWebCoreJSCode(BuildContext context) {
     UtilsManager utils = getIt<UtilsManager>();
@@ -139,6 +139,7 @@ class _TheToolState extends State<TheTool> {
     apiClient.projectName = _selectedProjectName ?? cacheProjectName;
     ClientConfig config = await apiClient.getClientConfig();
     getIt<ContextStateProvider>().appConfig = config;
+
     await page_container.loadLibrary();
 
     if (kIsWeb) _loadWebCoreJSCode(context);
@@ -179,16 +180,11 @@ class _TheToolState extends State<TheTool> {
             loadProject: _loadProject,
           );
         } else {
-          var config = getIt<ContextStateProvider>().appConfig;
-
           return ScreenUtilInit(
             builder: (context, child) {
               return child!;
             },
-            child: ModularApp(
-              module: AppModule(config!),
-              child: page_container.PageContainer(),
-            ),
+            child: page_container.PageContainer(),
           );
         }
       },

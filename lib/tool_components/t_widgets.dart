@@ -128,7 +128,7 @@ class _TWidgetsState extends State<TWidgets> {
         return T_Stack(tWidgetProps);
       case "grid":
         await t_grid.loadLibrary();
-        return t_grid.T_Grid(tWidgetProps);
+        return t_grid.TGrid(tWidgetProps);
       case "scroll_view":
         await t_scrollview.loadLibrary();
         return t_scrollview.T_ScrollView(tWidgetProps);
