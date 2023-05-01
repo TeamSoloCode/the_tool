@@ -6,7 +6,6 @@ import 'dart:js' as js;
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:js/js.dart';
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/js_utils/base_invoke_is.dart';
@@ -93,31 +92,7 @@ void _navigator(String routeName, String pageArguments, String optionsAsJSON) {
 
   final route = "/$routeName";
 
-  if (options != null) {
-    switch (options["action"]) {
-      case "replacement_route":
-        Modular.to.pushReplacementNamed(
-          route,
-          arguments: data,
-        );
-        break;
-
-      case "pop":
-        Modular.to.pop();
-        break;
-
-      case "pop_and_push":
-        Modular.to.popAndPushNamed(
-          route,
-          arguments: data,
-        );
-        break;
-
-      default:
-        Modular.to.pushNamed(route, arguments: data);
-        break;
-    }
-  }
+  getIt<BaseInvokeJS>().processNavigate(route, data, options);
 }
 
 void _toogleChangeTheme(String args) {

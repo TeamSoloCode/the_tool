@@ -5,7 +5,6 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:permission_handler_platform_interface/permission_handler_platform_interface.dart';
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/js_utils/base_invoke_is.dart';
@@ -44,36 +43,12 @@ void registerJavascriptHandler(
     callback: (args) {
       Map<String, dynamic> navigateData = args[0];
       String routeName = navigateData["pagePath"];
-      Map<String, dynamic>? pageArguments = navigateData["pageArguments"];
+      Map<String, dynamic> pageArguments = navigateData["pageArguments"] ?? {};
       Map<String, dynamic>? options = navigateData["options"];
 
       final route = "/$routeName";
 
-      if (options != null) {
-        switch (options["action"]) {
-          case "replacement_route":
-            Modular.to.pushReplacementNamed(
-              route,
-              arguments: pageArguments,
-            );
-            break;
-
-          case "pop":
-            Modular.to.pop();
-            break;
-
-          case "pop_and_push":
-            Modular.to.popAndPushNamed(
-              route,
-              arguments: pageArguments,
-            );
-            break;
-
-          default:
-            Modular.to.pushNamed(route, arguments: pageArguments);
-            break;
-        }
-      }
+      getIt<BaseInvokeJS>().processNavigate(route, pageArguments, options);
     },
   );
 

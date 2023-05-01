@@ -2,13 +2,14 @@ Update the function that update the theme json into js side
 
 FIXME: The text color in the side navigation is not properly when change theme from dark to light
 
-SUPPORT: Support symbol in value binding to specify it is a string or number
+SUPPORT: Use metadata to specify layout property is a string or number
 
 UPDATE: Check that if the Map, List property in in widget props can be binding properly
+
 UPDATE: merge function of LayoutProps class to auto merge all simple properties. Check mergeObjects function in layout_props.dart
 
 UPDATE: Check widget props what containt any screen_util unit before start to re-computeWidgetProps in t_widget base
-UPDATE: Merge navigator in web/mobile invoke into one place
+
 UPDATE: DO not use http://localhost:8081 in index.html==============
 
 <!--
@@ -49,6 +50,7 @@ Support pages app bar custom actions
 Support alert, dialog, snackbar, ScaffoldMessenger
 
 #-------------------------------------------------
+-UPDATE: Merge navigator in web/mobile invoke into one place
 -UPDATE: Use reflectable package to avoid compute LayoutProps property in LayoutProps class
 -SUPPORT: Load core page before loading any other page
 -SUPPORT: Set authContext from js side
