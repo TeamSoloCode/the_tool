@@ -88,8 +88,7 @@ class LayoutProps with _$LayoutProps {
     /**
      * Contains json widget for internal layout.json use only
      */
-    @LayoutPropsMetadata(ignoreComputeProps: true)
-        Map<String, LayoutProps?>? components,
+    Map<String, LayoutProps?>? components,
     /**
      * This use to set scroll on Row or Column
      * if scrollable = true and widget is Row => Axix.horizontal

@@ -32,6 +32,7 @@ mixin _$LayoutProps {
   String? get buttonType => throw _privateConstructorUsedError;
   String? get key => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   dynamic get className => throw _privateConstructorUsedError;
   dynamic get height => throw _privateConstructorUsedError;
   dynamic get width => throw _privateConstructorUsedError;
@@ -70,18 +71,19 @@ mixin _$LayoutProps {
      * This is raw props passed form parent layout to t_component
      * It contains binding value and raw binding value ("{{}}", "@", "!")
      */
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   Map<String, dynamic>? get componentProps =>
       throw _privateConstructorUsedError;
   /**
      * This is the props passed from parent layout to t_component
      * It has been bound all the binding value to context data value
      */
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   Map<String, dynamic>? get computedComponentProps =>
       throw _privateConstructorUsedError;
   /**
      * Contains json widget for internal layout.json use only
      */
-  @LayoutPropsMetadata(ignoreComputeProps: true)
   Map<String, LayoutProps?>? get components =>
       throw _privateConstructorUsedError;
   /**
@@ -209,7 +211,8 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? buttonType,
       String? key,
       String? name,
-      dynamic className,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          dynamic className,
       dynamic height,
       dynamic width,
       dynamic maxWidth,
@@ -240,10 +243,11 @@ abstract class $LayoutPropsCopyWith<$Res> {
       dynamic enabled,
       String? sliverListType,
       double? itemExtent,
-      Map<String, dynamic>? componentProps,
-      Map<String, dynamic>? computedComponentProps,
       @LayoutPropsMetadata(ignoreComputeProps: true)
-          Map<String, LayoutProps?>? components,
+          Map<String, dynamic>? componentProps,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          Map<String, dynamic>? computedComponentProps,
+      Map<String, LayoutProps?>? components,
       bool? scrollable,
       T_DrawerProps? drawer,
       T_LayoutBuilderProps? layoutBuilder,
@@ -1162,7 +1166,8 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       String? buttonType,
       String? key,
       String? name,
-      dynamic className,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          dynamic className,
       dynamic height,
       dynamic width,
       dynamic maxWidth,
@@ -1193,10 +1198,11 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       dynamic enabled,
       String? sliverListType,
       double? itemExtent,
-      Map<String, dynamic>? componentProps,
-      Map<String, dynamic>? computedComponentProps,
       @LayoutPropsMetadata(ignoreComputeProps: true)
-          Map<String, LayoutProps?>? components,
+          Map<String, dynamic>? componentProps,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          Map<String, dynamic>? computedComponentProps,
+      Map<String, LayoutProps?>? components,
       bool? scrollable,
       T_DrawerProps? drawer,
       T_LayoutBuilderProps? layoutBuilder,
@@ -1877,7 +1883,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.buttonType,
       this.key,
       this.name,
-      this.className,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          this.className,
       this.height,
       this.width,
       this.maxWidth,
@@ -1908,10 +1915,11 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.enabled,
       this.sliverListType,
       this.itemExtent,
-      final Map<String, dynamic>? componentProps,
-      final Map<String, dynamic>? computedComponentProps,
       @LayoutPropsMetadata(ignoreComputeProps: true)
-          final Map<String, LayoutProps?>? components,
+          final Map<String, dynamic>? componentProps,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          final Map<String, dynamic>? computedComponentProps,
+      final Map<String, LayoutProps?>? components,
       this.scrollable,
       this.drawer,
       this.layoutBuilder,
@@ -2022,6 +2030,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   @override
   final String? name;
   @override
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   final dynamic className;
   @override
   final dynamic height;
@@ -2104,6 +2113,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
      * It contains binding value and raw binding value ("{{}}", "@", "!")
      */
   @override
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   Map<String, dynamic>? get componentProps {
     final value = _componentProps;
     if (value == null) return null;
@@ -2122,6 +2132,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
      * It has been bound all the binding value to context data value
      */
   @override
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   Map<String, dynamic>? get computedComponentProps {
     final value = _computedComponentProps;
     if (value == null) return null;
@@ -2139,7 +2150,6 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
      * Contains json widget for internal layout.json use only
      */
   @override
-  @LayoutPropsMetadata(ignoreComputeProps: true)
   Map<String, LayoutProps?>? get components {
     final value = _components;
     if (value == null) return null;
@@ -2497,7 +2507,8 @@ abstract class _LayoutProps implements LayoutProps {
       final String? buttonType,
       final String? key,
       final String? name,
-      final dynamic className,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          final dynamic className,
       final dynamic height,
       final dynamic width,
       final dynamic maxWidth,
@@ -2528,10 +2539,11 @@ abstract class _LayoutProps implements LayoutProps {
       final dynamic enabled,
       final String? sliverListType,
       final double? itemExtent,
-      final Map<String, dynamic>? componentProps,
-      final Map<String, dynamic>? computedComponentProps,
       @LayoutPropsMetadata(ignoreComputeProps: true)
-          final Map<String, LayoutProps?>? components,
+          final Map<String, dynamic>? componentProps,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          final Map<String, dynamic>? computedComponentProps,
+      final Map<String, LayoutProps?>? components,
       final bool? scrollable,
       final T_DrawerProps? drawer,
       final T_LayoutBuilderProps? layoutBuilder,
@@ -2633,6 +2645,7 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   String? get name;
   @override
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   dynamic get className;
   @override
   dynamic get height;
@@ -2702,18 +2715,19 @@ abstract class _LayoutProps implements LayoutProps {
      * This is raw props passed form parent layout to t_component
      * It contains binding value and raw binding value ("{{}}", "@", "!")
      */
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   Map<String, dynamic>? get componentProps;
   @override
   /**
      * This is the props passed from parent layout to t_component
      * It has been bound all the binding value to context data value
      */
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   Map<String, dynamic>? get computedComponentProps;
   @override
   /**
      * Contains json widget for internal layout.json use only
      */
-  @LayoutPropsMetadata(ignoreComputeProps: true)
   Map<String, LayoutProps?>? get components;
   @override
   /**

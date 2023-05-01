@@ -779,8 +779,19 @@ final _data = <r.Reflectable, r.ReflectorData>{
             const prefix0.LayoutPropsReflector(), const []),
         r.MethodMirrorImpl(r'name', 2097155, -1, -1, -1, -1, null,
             const <int>[], const prefix0.LayoutPropsReflector(), const []),
-        r.MethodMirrorImpl(r'className', 524291, -1, -1, -1, -1, null,
-            const <int>[], const prefix0.LayoutPropsReflector(), const []),
+        r.MethodMirrorImpl(
+            r'className',
+            524291,
+            -1,
+            -1,
+            -1,
+            -1,
+            null,
+            const <int>[],
+            const prefix0.LayoutPropsReflector(),
+            const <Object>[
+              const prefix3.LayoutPropsMetadata(ignoreComputeProps: true)
+            ]),
         r.MethodMirrorImpl(r'height', 524291, -1, -1, -1, -1, null,
             const <int>[], const prefix0.LayoutPropsReflector(), const []),
         r.MethodMirrorImpl(r'width', 524291, -1, -1, -1, -1, null,
@@ -841,21 +852,8 @@ final _data = <r.Reflectable, r.ReflectorData>{
             const <int>[], const prefix0.LayoutPropsReflector(), const []),
         r.MethodMirrorImpl(r'itemExtent', 2097155, -1, -1, -1, -1, null,
             const <int>[], const prefix0.LayoutPropsReflector(), const []),
-        r.MethodMirrorImpl(r'componentProps', 35651587, -1, -1, -1, -1, null,
-            const <int>[], const prefix0.LayoutPropsReflector(), const []),
         r.MethodMirrorImpl(
-            r'computedComponentProps',
-            35651587,
-            -1,
-            -1,
-            -1,
-            -1,
-            null,
-            const <int>[],
-            const prefix0.LayoutPropsReflector(),
-            const []),
-        r.MethodMirrorImpl(
-            r'components',
+            r'componentProps',
             35651587,
             -1,
             -1,
@@ -867,6 +865,21 @@ final _data = <r.Reflectable, r.ReflectorData>{
             const <Object>[
               const prefix3.LayoutPropsMetadata(ignoreComputeProps: true)
             ]),
+        r.MethodMirrorImpl(
+            r'computedComponentProps',
+            35651587,
+            -1,
+            -1,
+            -1,
+            -1,
+            null,
+            const <int>[],
+            const prefix0.LayoutPropsReflector(),
+            const <Object>[
+              const prefix3.LayoutPropsMetadata(ignoreComputeProps: true)
+            ]),
+        r.MethodMirrorImpl(r'components', 35651587, -1, -1, -1, -1, null,
+            const <int>[], const prefix0.LayoutPropsReflector(), const []),
         r.MethodMirrorImpl(r'scrollable', 2097155, -1, -1, -1, -1, null,
             const <int>[], const prefix0.LayoutPropsReflector(), const []),
         r.MethodMirrorImpl(r'drawer', 2097155, -1, -1, -1, -1, null,
@@ -1285,7 +1298,9 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             null,
-            const [],
+            const <Object>[
+              const prefix3.LayoutPropsMetadata(ignoreComputeProps: true)
+            ],
             null,
             #className),
         r.ParameterMirrorImpl(
@@ -1657,7 +1672,9 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             null,
-            const [],
+            const <Object>[
+              const prefix3.LayoutPropsMetadata(ignoreComputeProps: true)
+            ],
             null,
             #componentProps),
         r.ParameterMirrorImpl(
@@ -1669,7 +1686,9 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             null,
-            const [],
+            const <Object>[
+              const prefix3.LayoutPropsMetadata(ignoreComputeProps: true)
+            ],
             null,
             #computedComponentProps),
         r.ParameterMirrorImpl(
@@ -1681,9 +1700,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
             -1,
             -1,
             null,
-            const <Object>[
-              const prefix3.LayoutPropsMetadata(ignoreComputeProps: true)
-            ],
+            const [],
             null,
             #components),
         r.ParameterMirrorImpl(

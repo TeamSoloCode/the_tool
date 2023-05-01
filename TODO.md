@@ -4,7 +4,6 @@ FIXME: The text color in the side navigation is not properly when change theme f
 
 SUPPORT: Support symbol in value binding to specify it is a string or number
 
-UPDATE: Use reflectable package to avoid compute LayoutProps property in LayoutProps class
 UPDATE: Check that if the Map, List property in in widget props can be binding properly
 UPDATE: merge function of LayoutProps class to auto merge all simple properties. Check mergeObjects function in layout_props.dart
 
@@ -50,7 +49,7 @@ Support pages app bar custom actions
 Support alert, dialog, snackbar, ScaffoldMessenger
 
 #-------------------------------------------------
-
+-UPDATE: Use reflectable package to avoid compute LayoutProps property in LayoutProps class
 -SUPPORT: Load core page before loading any other page
 -SUPPORT: Set authContext from js side
 -Add login page base on design image
