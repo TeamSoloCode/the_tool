@@ -81,6 +81,7 @@ mixin _$LayoutProps {
   /**
      * Contains json widget for internal layout.json use only
      */
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   Map<String, LayoutProps?>? get components =>
       throw _privateConstructorUsedError;
   /**
@@ -114,9 +115,11 @@ mixin _$LayoutProps {
   bool? get allowClear => throw _privateConstructorUsedError;
   String? get fieldType => throw _privateConstructorUsedError;
   bool? get numeric => throw _privateConstructorUsedError;
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   LayoutProps? get suffixIcon => throw _privateConstructorUsedError;
   String? get suffixIconColor => throw _privateConstructorUsedError;
   String? get suffixText => throw _privateConstructorUsedError;
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   LayoutProps? get prefixIcon => throw _privateConstructorUsedError;
   String? get prefixIconColor => throw _privateConstructorUsedError;
   String? get prefixText => throw _privateConstructorUsedError;
@@ -147,20 +150,30 @@ mixin _$LayoutProps {
 // Expansion Start================================================
   dynamic get selected => throw _privateConstructorUsedError;
   String? get dividerColor => throw _privateConstructorUsedError;
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   LayoutProps? get head => throw _privateConstructorUsedError;
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   LayoutProps? get body =>
       throw _privateConstructorUsedError; // Expansion End==================================================
 // ListTile Start================================================
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   LayoutProps? get leading => throw _privateConstructorUsedError;
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   LayoutProps? get title => throw _privateConstructorUsedError;
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   LayoutProps? get trailing => throw _privateConstructorUsedError;
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   LayoutProps? get subtitle => throw _privateConstructorUsedError;
   double? get horizontalTitleGap =>
       throw _privateConstructorUsedError; // ListTile End==================================================
   String? get component => throw _privateConstructorUsedError;
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   LayoutProps? get child => throw _privateConstructorUsedError;
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   LayoutProps? get content => throw _privateConstructorUsedError;
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   LayoutProps? get itemLayout => throw _privateConstructorUsedError;
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   List<LayoutProps>? get children => throw _privateConstructorUsedError;
   BottomNavigationProps? get bottomNav => throw _privateConstructorUsedError;
   AppBarProps? get appBar => throw _privateConstructorUsedError;
@@ -229,7 +242,8 @@ abstract class $LayoutPropsCopyWith<$Res> {
       double? itemExtent,
       Map<String, dynamic>? componentProps,
       Map<String, dynamic>? computedComponentProps,
-      Map<String, LayoutProps?>? components,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          Map<String, LayoutProps?>? components,
       bool? scrollable,
       T_DrawerProps? drawer,
       T_LayoutBuilderProps? layoutBuilder,
@@ -251,10 +265,12 @@ abstract class $LayoutPropsCopyWith<$Res> {
       bool? allowClear,
       String? fieldType,
       bool? numeric,
-      LayoutProps? suffixIcon,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          LayoutProps? suffixIcon,
       String? suffixIconColor,
       String? suffixText,
-      LayoutProps? prefixIcon,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          LayoutProps? prefixIcon,
       String? prefixIconColor,
       String? prefixText,
       String? validationFunction,
@@ -270,18 +286,28 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? onSelectAll,
       dynamic selected,
       String? dividerColor,
-      LayoutProps? head,
-      LayoutProps? body,
-      LayoutProps? leading,
-      LayoutProps? title,
-      LayoutProps? trailing,
-      LayoutProps? subtitle,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          LayoutProps? head,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          LayoutProps? body,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          LayoutProps? leading,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          LayoutProps? title,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          LayoutProps? trailing,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          LayoutProps? subtitle,
       double? horizontalTitleGap,
       String? component,
-      LayoutProps? child,
-      LayoutProps? content,
-      LayoutProps? itemLayout,
-      List<LayoutProps>? children,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          LayoutProps? child,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          LayoutProps? content,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          LayoutProps? itemLayout,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          List<LayoutProps>? children,
       BottomNavigationProps? bottomNav,
       AppBarProps? appBar,
       ImageProviderProps? image,
@@ -1169,7 +1195,8 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       double? itemExtent,
       Map<String, dynamic>? componentProps,
       Map<String, dynamic>? computedComponentProps,
-      Map<String, LayoutProps?>? components,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          Map<String, LayoutProps?>? components,
       bool? scrollable,
       T_DrawerProps? drawer,
       T_LayoutBuilderProps? layoutBuilder,
@@ -1191,10 +1218,12 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       bool? allowClear,
       String? fieldType,
       bool? numeric,
-      LayoutProps? suffixIcon,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          LayoutProps? suffixIcon,
       String? suffixIconColor,
       String? suffixText,
-      LayoutProps? prefixIcon,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          LayoutProps? prefixIcon,
       String? prefixIconColor,
       String? prefixText,
       String? validationFunction,
@@ -1210,18 +1239,28 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       String? onSelectAll,
       dynamic selected,
       String? dividerColor,
-      LayoutProps? head,
-      LayoutProps? body,
-      LayoutProps? leading,
-      LayoutProps? title,
-      LayoutProps? trailing,
-      LayoutProps? subtitle,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          LayoutProps? head,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          LayoutProps? body,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          LayoutProps? leading,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          LayoutProps? title,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          LayoutProps? trailing,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          LayoutProps? subtitle,
       double? horizontalTitleGap,
       String? component,
-      LayoutProps? child,
-      LayoutProps? content,
-      LayoutProps? itemLayout,
-      List<LayoutProps>? children,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          LayoutProps? child,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          LayoutProps? content,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          LayoutProps? itemLayout,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          List<LayoutProps>? children,
       BottomNavigationProps? bottomNav,
       AppBarProps? appBar,
       ImageProviderProps? image,
@@ -1871,7 +1910,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.itemExtent,
       final Map<String, dynamic>? componentProps,
       final Map<String, dynamic>? computedComponentProps,
-      final Map<String, LayoutProps?>? components,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          final Map<String, LayoutProps?>? components,
       this.scrollable,
       this.drawer,
       this.layoutBuilder,
@@ -1893,10 +1933,12 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.allowClear,
       this.fieldType,
       this.numeric,
-      this.suffixIcon,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          this.suffixIcon,
       this.suffixIconColor,
       this.suffixText,
-      this.prefixIcon,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          this.prefixIcon,
       this.prefixIconColor,
       this.prefixText,
       this.validationFunction,
@@ -1912,18 +1954,28 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.onSelectAll,
       this.selected,
       this.dividerColor,
-      this.head,
-      this.body,
-      this.leading,
-      this.title,
-      this.trailing,
-      this.subtitle,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          this.head,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          this.body,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          this.leading,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          this.title,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          this.trailing,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          this.subtitle,
       this.horizontalTitleGap,
       this.component,
-      this.child,
-      this.content,
-      this.itemLayout,
-      final List<LayoutProps>? children,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          this.child,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          this.content,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          this.itemLayout,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          final List<LayoutProps>? children,
       this.bottomNav,
       this.appBar,
       this.image,
@@ -2087,6 +2139,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
      * Contains json widget for internal layout.json use only
      */
   @override
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   Map<String, LayoutProps?>? get components {
     final value = _components;
     if (value == null) return null;
@@ -2156,12 +2209,14 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   @override
   final bool? numeric;
   @override
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   final LayoutProps? suffixIcon;
   @override
   final String? suffixIconColor;
   @override
   final String? suffixText;
   @override
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   final LayoutProps? prefixIcon;
   @override
   final String? prefixIconColor;
@@ -2234,18 +2289,24 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   @override
   final String? dividerColor;
   @override
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   final LayoutProps? head;
   @override
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   final LayoutProps? body;
 // Expansion End==================================================
 // ListTile Start================================================
   @override
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   final LayoutProps? leading;
   @override
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   final LayoutProps? title;
   @override
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   final LayoutProps? trailing;
   @override
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   final LayoutProps? subtitle;
   @override
   final double? horizontalTitleGap;
@@ -2253,13 +2314,17 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   @override
   final String? component;
   @override
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   final LayoutProps? child;
   @override
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   final LayoutProps? content;
   @override
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   final LayoutProps? itemLayout;
   final List<LayoutProps>? _children;
   @override
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   List<LayoutProps>? get children {
     final value = _children;
     if (value == null) return null;
@@ -2465,7 +2530,8 @@ abstract class _LayoutProps implements LayoutProps {
       final double? itemExtent,
       final Map<String, dynamic>? componentProps,
       final Map<String, dynamic>? computedComponentProps,
-      final Map<String, LayoutProps?>? components,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          final Map<String, LayoutProps?>? components,
       final bool? scrollable,
       final T_DrawerProps? drawer,
       final T_LayoutBuilderProps? layoutBuilder,
@@ -2487,10 +2553,12 @@ abstract class _LayoutProps implements LayoutProps {
       final bool? allowClear,
       final String? fieldType,
       final bool? numeric,
-      final LayoutProps? suffixIcon,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          final LayoutProps? suffixIcon,
       final String? suffixIconColor,
       final String? suffixText,
-      final LayoutProps? prefixIcon,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          final LayoutProps? prefixIcon,
       final String? prefixIconColor,
       final String? prefixText,
       final String? validationFunction,
@@ -2506,18 +2574,28 @@ abstract class _LayoutProps implements LayoutProps {
       final String? onSelectAll,
       final dynamic selected,
       final String? dividerColor,
-      final LayoutProps? head,
-      final LayoutProps? body,
-      final LayoutProps? leading,
-      final LayoutProps? title,
-      final LayoutProps? trailing,
-      final LayoutProps? subtitle,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          final LayoutProps? head,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          final LayoutProps? body,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          final LayoutProps? leading,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          final LayoutProps? title,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          final LayoutProps? trailing,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          final LayoutProps? subtitle,
       final double? horizontalTitleGap,
       final String? component,
-      final LayoutProps? child,
-      final LayoutProps? content,
-      final LayoutProps? itemLayout,
-      final List<LayoutProps>? children,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          final LayoutProps? child,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          final LayoutProps? content,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          final LayoutProps? itemLayout,
+      @LayoutPropsMetadata(ignoreComputeProps: true)
+          final List<LayoutProps>? children,
       final BottomNavigationProps? bottomNav,
       final AppBarProps? appBar,
       final ImageProviderProps? image,
@@ -2635,6 +2713,7 @@ abstract class _LayoutProps implements LayoutProps {
   /**
      * Contains json widget for internal layout.json use only
      */
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   Map<String, LayoutProps?>? get components;
   @override
   /**
@@ -2686,12 +2765,14 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   bool? get numeric;
   @override
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   LayoutProps? get suffixIcon;
   @override
   String? get suffixIconColor;
   @override
   String? get suffixText;
   @override
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   LayoutProps? get prefixIcon;
   @override
   String? get prefixIconColor;
@@ -2735,29 +2816,39 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   String? get dividerColor;
   @override
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   LayoutProps? get head;
   @override
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   LayoutProps? get body;
   @override // Expansion End==================================================
 // ListTile Start================================================
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   LayoutProps? get leading;
   @override
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   LayoutProps? get title;
   @override
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   LayoutProps? get trailing;
   @override
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   LayoutProps? get subtitle;
   @override
   double? get horizontalTitleGap;
   @override // ListTile End==================================================
   String? get component;
   @override
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   LayoutProps? get child;
   @override
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   LayoutProps? get content;
   @override
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   LayoutProps? get itemLayout;
   @override
+  @LayoutPropsMetadata(ignoreComputeProps: true)
   List<LayoutProps>? get children;
   @override
   BottomNavigationProps? get bottomNav;

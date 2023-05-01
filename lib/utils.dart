@@ -11,6 +11,7 @@ import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/page_utils/style_utils.dart';
 import 'package:the_tool/page_provider/theme_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
+import 'package:the_tool/t_widget_interface/layout_content/layout_props_reflectable.dart';
 import 'package:the_tool/t_widget_interface/media_screen_only/media_screen_only.dart';
 import 'package:the_tool/config/config.dart';
 
@@ -165,18 +166,6 @@ class UtilsManager {
     return result;
   }
 
-  // Key that have value LayoutProps type or List<LayoutProps>, shouldn't be binding here
-  // It will be binding when it rendering
-  final _excludedBindingKeys = {
-    "child",
-    "children",
-    "componentProps",
-    "computedComponentProps",
-    "className", // This key will be handle by ThemeProvider.mergeClasses function
-    "suffixIcon",
-    "prefixIcon",
-  }.cast<String>();
-
   final _textBindingKeys = {
     "url",
     "key",
@@ -187,7 +176,8 @@ class UtilsManager {
     Map<String, dynamic> contextData,
   ) {
     propsJson.forEach((key, value) {
-      if (_excludedBindingKeys.contains(key)) {
+      final ignored = ignoredComputeProps[key];
+      if (ignored == true) {
         propsJson[key] = value;
       } else if (value is Map) {
         propsJson[key] = _bindingWidgetPropValue(value, contextData);

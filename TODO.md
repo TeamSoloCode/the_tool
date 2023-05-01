@@ -2,8 +2,6 @@ Update the function that update the theme json into js side
 
 FIXME: The text color in the side navigation is not properly when change theme from dark to light
 
-SUPPORT: the HOC that run before run the page logic for update AuthContext
-
 SUPPORT: Support symbol in value binding to specify it is a string or number
 
 UPDATE: Use reflectable package to avoid compute LayoutProps property in LayoutProps class
@@ -53,6 +51,7 @@ Support alert, dialog, snackbar, ScaffoldMessenger
 
 #-------------------------------------------------
 
+-SUPPORT: Load core page before loading any other page
 -SUPPORT: Set authContext from js side
 -Add login page base on design image
 -SUPPORT: Auth route for the app

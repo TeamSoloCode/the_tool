@@ -16,12 +16,14 @@ import 'package:the_tool/t_widget_interface/gradient_props/gradient_props.dart';
 import 'package:the_tool/t_widget_interface/image_content/image_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_builder_props/layout_builder_props.dart';
 import 'package:the_tool/t_widget_interface/media_screen_only/media_screen_only.dart';
-import 'package:the_tool/utils.dart';
+import 'package:the_tool/t_widget_interface/layout_content/layout_props_reflectable.dart';
+import 'package:the_tool/t_widget_interface/layout_content/layout_prop_metadata.dart';
 
 part 'layout_props.freezed.dart';
 part 'layout_props.g.dart';
 
 @Freezed(equal: false)
+@reflector
 class LayoutProps with _$LayoutProps {
   const factory LayoutProps({
     String? type,
@@ -36,7 +38,7 @@ class LayoutProps with _$LayoutProps {
     String? buttonType,
     String? key,
     String? name,
-    dynamic className,
+    @LayoutPropsMetadata(ignoreComputeProps: true) dynamic className,
     dynamic height,
     dynamic width,
     dynamic maxWidth,
@@ -75,16 +77,19 @@ class LayoutProps with _$LayoutProps {
      * This is raw props passed form parent layout to t_component
      * It contains binding value and raw binding value ("{{}}", "@", "!")
      */
-    Map<String, dynamic>? componentProps,
+    @LayoutPropsMetadata(ignoreComputeProps: true)
+        Map<String, dynamic>? componentProps,
     /**
      * This is the props passed from parent layout to t_component
      * It has been bound all the binding value to context data value
      */
-    Map<String, dynamic>? computedComponentProps,
+    @LayoutPropsMetadata(ignoreComputeProps: true)
+        Map<String, dynamic>? computedComponentProps,
     /**
      * Contains json widget for internal layout.json use only
      */
-    Map<String, LayoutProps?>? components,
+    @LayoutPropsMetadata(ignoreComputeProps: true)
+        Map<String, LayoutProps?>? components,
     /**
      * This use to set scroll on Row or Column
      * if scrollable = true and widget is Row => Axix.horizontal
@@ -119,10 +124,10 @@ class LayoutProps with _$LayoutProps {
     bool? allowClear,
     String? fieldType,
     bool? numeric,
-    LayoutProps? suffixIcon,
+    @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? suffixIcon,
     String? suffixIconColor,
     String? suffixText,
-    LayoutProps? prefixIcon,
+    @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? prefixIcon,
     String? prefixIconColor,
     String? prefixText,
     /**
@@ -155,23 +160,23 @@ class LayoutProps with _$LayoutProps {
     // Expansion Start================================================
     dynamic selected,
     String? dividerColor,
-    LayoutProps? head,
-    LayoutProps? body,
+    @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? head,
+    @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? body,
     // Expansion End==================================================
 
     // ListTile Start================================================
-    LayoutProps? leading,
-    LayoutProps? title,
-    LayoutProps? trailing,
-    LayoutProps? subtitle,
+    @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? leading,
+    @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? title,
+    @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? trailing,
+    @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? subtitle,
     double? horizontalTitleGap,
     // ListTile End==================================================
 
     String? component,
-    LayoutProps? child,
-    LayoutProps? content,
-    LayoutProps? itemLayout,
-    List<LayoutProps>? children,
+    @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? child,
+    @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? content,
+    @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? itemLayout,
+    @LayoutPropsMetadata(ignoreComputeProps: true) List<LayoutProps>? children,
     BottomNavigationProps? bottomNav,
     AppBarProps? appBar,
     ImageProviderProps? image,
