@@ -45,6 +45,8 @@ import 'package:the_tool/tool_components/t_padding.widget.dart'
 import 'package:the_tool/tool_components/t_align.widget.dart';
 import 'package:the_tool/tool_components/t_opacity.widget.dart'
     deferred as t_opacity;
+import 'package:the_tool/tool_components/popup/t_bottom_sheet.widget.dart'
+    deferred as t_bottom_sheet;
 
 import 'package:the_tool/tool_components/t_stack_widget.dart';
 import 'package:the_tool/tool_components/t_text_widget.dart';
@@ -186,6 +188,9 @@ class _TWidgetsState extends State<TWidgets> {
       case "opacity":
         await t_opacity.loadLibrary();
         return t_opacity.TOpacity(tWidgetProps);
+      case "bottom_sheet":
+        await t_bottom_sheet.loadLibrary();
+        return t_bottom_sheet.TBottomSheet(tWidgetProps);
       default:
         return _computeNotBuiltInWidget(childData, content);
     }

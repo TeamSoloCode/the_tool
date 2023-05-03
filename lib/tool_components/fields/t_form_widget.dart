@@ -27,11 +27,18 @@ class _T_FormState extends TStatefulWidget<T_Form> {
 
   @override
   void initState() {
+    final name = widget.widgetProps.name;
+
+    if (name == null) {
+      throw Exception("${widget.widgetProps.type} must have 'name' property");
+    }
+
     listener = utils.emitter.on(
-      widget.pagePath + (widget.widgetProps.name ?? ""),
+      "form:${widget.pagePath}:$name",
       context,
       formAction(),
     );
+
     super.initState();
   }
 

@@ -78,4 +78,25 @@ class ContextStateProvider with ChangeNotifier, DiagnosticableTreeMixin {
     _pageComponents.putIfAbsent(pagePath, () => components);
   }
   // ==========================================================================
+
+  // ==========================================================================
+  final Map<String, dynamic> _popupWidgets = Map.of({});
+
+  Map<String, dynamic> get popupWidgets => _popupWidgets;
+
+  void registerPopupWidgets({
+    required String pagePath,
+    required String popupName,
+    required dynamic registerPopupWidget,
+  }) {
+    _popupWidgets["$pagePath:$popupName"] = registerPopupWidget;
+  }
+
+  void unregisterPopupWidgets({
+    required String pagePath,
+    required String popupName,
+  }) {
+    _popupWidgets["$pagePath:$popupName"] = null;
+  }
+  // ==========================================================================
 }

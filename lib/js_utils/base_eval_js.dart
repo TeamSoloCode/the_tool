@@ -294,7 +294,7 @@ abstract class BaseEvalJS {
           return _subComponents
         }, [_debounceRegisterSubComponent])
 
-        const validateForm = React.useCallback(async (formName) => {
+        const __emitEvent__ = React.useCallback( async (eventName, actionName) => {
           const actionId = uuidv4();
           const promiseResult = new Promise((resolve) => {
             webJSChannel.once(actionId, (data) => {
@@ -302,9 +302,17 @@ abstract class BaseEvalJS {
               resolve(result);
             });
           });
-          dispatchFormAction('$pagePath'+ formName, actionId, "validate");
+          dispatchFormAction(eventName, actionId, actionName);
           return promiseResult;
         }, [])
+
+        const validateForm = React.useCallback(async (formName) => {
+          return __emitEvent__(`form:$pagePath:\${formName}`, "validate")
+        }, [__emitEvent__])
+
+        const showPopup = React.useCallback((formName) => {
+          return __emitEvent__(`popup:$pagePath:\${formName}`, 'show')
+        }, [__emitEvent__])
 
         const openDrawer = React.useCallback(() => {
           _openDrawer('$pagePath')

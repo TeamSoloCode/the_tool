@@ -64,6 +64,7 @@ dependencies:
   form_builder_validators: ^8.3.0
 
   data_table_2: ^2.3.7
+  bottom_sheet: ^3.1.2
 
   json_annotation: ^4.7.0
   uuid: ^3.0.6
