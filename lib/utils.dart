@@ -274,7 +274,8 @@ class UtilsManager {
      * Every t_widget that have measure properties should be add
      * to this array to chech for binding data and computing it
      */
-    if (["container", "table", "clickable"].contains(widgetProps.type)) {
+    if (["container", "table", "clickable", "sized_box"]
+        .contains(widgetProps.type)) {
       widgetProps = computeHeightAndWidth(widgetProps, contextData);
     }
 

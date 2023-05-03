@@ -169,7 +169,8 @@ class _PageContainerState extends State<PageContainer> {
       initialUrlRequest: webview.URLRequest(
         url: Uri.parse(getIt<EnvironmentConfig>().MOBILE_WEBVIEW_URL),
       ),
-      onWebViewCreated: (webViewController) {
+      onWebViewCreated: (webViewController) {},
+      onLoadStart: (webViewController, url) {
         if (!kIsWeb) {
           log("Webview: Loading webview stop");
         }
@@ -191,7 +192,6 @@ class _PageContainerState extends State<PageContainer> {
           rethrow;
         }
       },
-      onLoadStart: (webViewController, url) {},
       androidOnPermissionRequest: (controller, origin, resources) async {
         return webview.PermissionRequestResponse(
           resources: resources,

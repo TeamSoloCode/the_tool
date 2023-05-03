@@ -20,6 +20,7 @@ BorderProps _$BorderPropsFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$BorderProps {
+  String? get type => throw _privateConstructorUsedError;
   int? get width => throw _privateConstructorUsedError;
   String? get color => throw _privateConstructorUsedError;
   String? get style => throw _privateConstructorUsedError;
@@ -41,7 +42,8 @@ abstract class $BorderPropsCopyWith<$Res> {
       _$BorderPropsCopyWithImpl<$Res, BorderProps>;
   @useResult
   $Res call(
-      {int? width,
+      {String? type,
+      int? width,
       String? color,
       String? style,
       Map<String, dynamic>? left,
@@ -63,6 +65,7 @@ class _$BorderPropsCopyWithImpl<$Res, $Val extends BorderProps>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? type = freezed,
     Object? width = freezed,
     Object? color = freezed,
     Object? style = freezed,
@@ -72,6 +75,10 @@ class _$BorderPropsCopyWithImpl<$Res, $Val extends BorderProps>
     Object? top = freezed,
   }) {
     return _then(_value.copyWith(
+      type: freezed == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String?,
       width: freezed == width
           ? _value.width
           : width // ignore: cast_nullable_to_non_nullable
@@ -113,7 +120,8 @@ abstract class _$$_BorderPropsCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int? width,
+      {String? type,
+      int? width,
       String? color,
       String? style,
       Map<String, dynamic>? left,
@@ -133,6 +141,7 @@ class __$$_BorderPropsCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? type = freezed,
     Object? width = freezed,
     Object? color = freezed,
     Object? style = freezed,
@@ -142,6 +151,10 @@ class __$$_BorderPropsCopyWithImpl<$Res>
     Object? top = freezed,
   }) {
     return _then(_$_BorderProps(
+      type: freezed == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String?,
       width: freezed == width
           ? _value.width
           : width // ignore: cast_nullable_to_non_nullable
@@ -178,7 +191,8 @@ class __$$_BorderPropsCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_BorderProps implements _BorderProps {
   _$_BorderProps(
-      {this.width,
+      {this.type,
+      this.width,
       this.color,
       this.style,
       final Map<String, dynamic>? left,
@@ -193,6 +207,8 @@ class _$_BorderProps implements _BorderProps {
   factory _$_BorderProps.fromJson(Map<String, dynamic> json) =>
       _$$_BorderPropsFromJson(json);
 
+  @override
+  final String? type;
   @override
   final int? width;
   @override
@@ -255,7 +271,8 @@ class _$_BorderProps implements _BorderProps {
 
 abstract class _BorderProps implements BorderProps {
   factory _BorderProps(
-      {final int? width,
+      {final String? type,
+      final int? width,
       final String? color,
       final String? style,
       final Map<String, dynamic>? left,
@@ -266,6 +283,8 @@ abstract class _BorderProps implements BorderProps {
   factory _BorderProps.fromJson(Map<String, dynamic> json) =
       _$_BorderProps.fromJson;
 
+  @override
+  String? get type;
   @override
   int? get width;
   @override

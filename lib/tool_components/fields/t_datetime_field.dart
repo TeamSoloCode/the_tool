@@ -10,14 +10,14 @@ import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/utils.dart';
 import 'package:the_tool/twidget_props.dart';
 
-class T_Datetime extends TWidget {
-  T_Datetime(TWidgetProps twidget) : super(twidget);
+class TDatetime extends TWidget {
+  TDatetime(TWidgetProps twidget) : super(twidget);
 
   @override
-  State<T_Datetime> createState() => _T_DatetimeState();
+  State<TDatetime> createState() => _TDatetimeState();
 }
 
-class _T_DatetimeState extends TStatefulWidget<T_Datetime> with FieldMixin {
+class _TDatetimeState extends TStatefulWidget<TDatetime> with FieldMixin {
   final _datetimeKey = GlobalKey<FormBuilderFieldState>();
   String? _errorMessage;
   DateTime? selectedValue;
@@ -47,7 +47,7 @@ class _T_DatetimeState extends TStatefulWidget<T_Datetime> with FieldMixin {
       Future.delayed(Duration.zero, () async {
         _datetimeKey.currentState?.setValue(selectedValue);
         _datetimeFieldController.text = selectedValue != null
-            ? DateFormat(DefaultDateFormat).format(selectedValue!)
+            ? DateFormat(DefaultDateTimeFormat).format(selectedValue!)
             : "";
       });
     }
@@ -85,6 +85,32 @@ class _T_DatetimeState extends TStatefulWidget<T_Datetime> with FieldMixin {
     return null;
   }
 
+  InputType _getInputType(String? fieldType) {
+    switch (fieldType) {
+      case "date":
+        return InputType.date;
+      case "time":
+        return InputType.time;
+      default:
+        return InputType.both;
+    }
+  }
+
+  String _getDefaultFormat(String? fieldType, String? format) {
+    if (format != null) {
+      return format;
+    }
+
+    switch (fieldType) {
+      case "date":
+        return DefaultDateFormat;
+      case "time":
+        return DefaultTimeFormat;
+      default:
+        return DefaultDateTimeFormat;
+    }
+  }
+
   Widget _computeDatetimeField(
     LayoutProps? widgetProps,
     Map<String, dynamic> contextData,
@@ -93,11 +119,16 @@ class _T_DatetimeState extends TStatefulWidget<T_Datetime> with FieldMixin {
     var value = contextData[name];
 
     assert(name != null, "Missing \"name\" in field widget");
+
     return FormBuilderDateTimePicker(
       key: _datetimeKey,
       controller: _datetimeFieldController,
       name: name ?? "",
-      format: DateFormat(DefaultDateFormat),
+      inputType: _getInputType(widgetProps?.fieldType),
+      format: DateFormat(_getDefaultFormat(
+        widgetProps?.fieldType,
+        widgetProps?.format,
+      )),
       locale: Localizations.localeOf(context),
       decoration: computeFieldDecoration(
         widgetProps,

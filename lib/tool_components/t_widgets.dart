@@ -139,7 +139,7 @@ class _TWidgetsState extends State<TWidgets> {
         return TFlexible(tWidgetProps);
       case "field":
         await t_fields.loadLibrary();
-        return t_fields.T_Fields(tWidgetProps);
+        return t_fields.TFields(tWidgetProps);
       case "table":
         await t_table.loadLibrary();
         return t_table.TDataTable(tWidgetProps);

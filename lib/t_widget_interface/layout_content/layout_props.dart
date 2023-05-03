@@ -129,6 +129,8 @@ class LayoutProps with _$LayoutProps {
     @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? prefixIcon,
     String? prefixIconColor,
     String? prefixText,
+    String? format,
+    String? fillColor,
     /**
      * @summary This function will be eval for validating field value
      * - Return false if value is valid
@@ -272,6 +274,7 @@ extension MergeLayoutProps on LayoutProps {
 
       enabled: other.enabled ?? enabled,
 
+      format: other.format ?? format,
       prefixText: other.prefixText ?? prefixText,
       suffixText: other.suffixText ?? suffixText,
       suffixIcon: other.suffixIcon == null

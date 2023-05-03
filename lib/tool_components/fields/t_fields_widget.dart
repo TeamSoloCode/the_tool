@@ -8,21 +8,23 @@ import 'package:the_tool/tool_components/fields/t_select_field_widget.dart'
     deferred as field_select;
 import 'package:the_tool/tool_components/fields/t_text_field_widget.dart'
     deferred as field_text;
+import 'package:the_tool/tool_components/fields/t_checkbox_field.dart'
+    deferred as field_checkbox;
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/utils.dart';
 import 'package:the_tool/twidget_props.dart';
 
-class T_Fields extends TWidget {
+class TFields extends TWidget {
   @override
   UtilsManager utils = getIt<UtilsManager>();
 
-  T_Fields(TWidgetProps twidget) : super(twidget);
+  TFields(TWidgetProps twidget) : super(twidget);
 
   @override
-  State<T_Fields> createState() => _T_FieldsState();
+  State<TFields> createState() => _TFieldsState();
 }
 
-class _T_FieldsState extends TStatefulWidget<T_Fields> {
+class _TFieldsState extends TStatefulWidget<TFields> {
   final textFieldController = TextEditingController();
   dynamic value;
   dynamic prevValue;
@@ -51,13 +53,17 @@ class _T_FieldsState extends TStatefulWidget<T_Fields> {
     switch (fieldType) {
       case "text":
         await field_text.loadLibrary();
-
         break;
       case "select":
         await field_select.loadLibrary();
         break;
       case "datetime":
+      case "date":
+      case "time":
         await field_datetime.loadLibrary();
+        break;
+      case "checkbox":
+        await field_checkbox.loadLibrary();
         break;
       default:
         throw Exception("$fieldType field type is not supported!");
@@ -90,7 +96,11 @@ class _T_FieldsState extends TStatefulWidget<T_Fields> {
       case "select":
         return field_select.T_SelectField(tWidgetProps);
       case "datetime":
-        return field_datetime.T_Datetime(tWidgetProps);
+      case "date":
+      case "time":
+        return field_datetime.TDatetime(tWidgetProps);
+      case "checkbox":
+        return field_checkbox.TCheckbox(tWidgetProps);
       default:
         throw Exception("$fieldType field type is not supported!");
     }

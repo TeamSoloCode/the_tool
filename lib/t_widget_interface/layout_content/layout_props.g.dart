@@ -97,6 +97,8 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
           : LayoutProps.fromJson(json['prefixIcon'] as Map<String, dynamic>),
       prefixIconColor: json['prefixIconColor'] as String?,
       prefixText: json['prefixText'] as String?,
+      format: json['format'] as String?,
+      fillColor: json['fillColor'] as String?,
       validationFunction: json['validationFunction'] as String?,
       autovalidate: json['autovalidate'] as bool?,
       validators: (json['validators'] as List<dynamic>?)
@@ -254,6 +256,8 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'prefixIcon': instance.prefixIcon?.toJson(),
       'prefixIconColor': instance.prefixIconColor,
       'prefixText': instance.prefixText,
+      'format': instance.format,
+      'fillColor': instance.fillColor,
       'validationFunction': instance.validationFunction,
       'autovalidate': instance.autovalidate,
       'validators': instance.validators,

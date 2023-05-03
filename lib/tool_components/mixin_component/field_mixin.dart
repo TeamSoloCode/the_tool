@@ -17,17 +17,32 @@ mixin FieldMixin {
     String? errorMessage,
     Widget? suffixIcon,
   }) {
+    var props = thisWidget.utils.computeHeightAndWidth(
+      widgetProps!,
+      thisWidget.getContexData(),
+    );
+
     return InputDecoration(
-      prefixText: widgetProps?.prefixText,
-      suffixText: widgetProps?.suffixText,
-      hintText: widgetProps?.hintText,
-      labelText: widgetProps?.labelText,
+      contentPadding: ThemeDecoder.decodeEdgeInsetsGeometry(props.padding),
+      prefixText: props.prefixText,
+      suffixText: props.suffixText,
+      hintText: props.hintText,
+      labelText: props.labelText,
       errorText: errorMessage,
-      suffixIcon:
-          suffixIcon ?? _generateIcon(widgetProps?.suffixIcon, thisWidget),
-      suffixIconColor: ThemeDecoder.decodeColor(widgetProps?.suffixIconColor),
-      prefixIcon: _generateIcon(widgetProps?.prefixIcon, thisWidget),
-      prefixIconColor: ThemeDecoder.decodeColor(widgetProps?.prefixIconColor),
+      suffixIcon: suffixIcon ?? _generateIcon(props.suffixIcon, thisWidget),
+      suffixIconColor: ThemeDecoder.decodeColor(props.suffixIconColor),
+      prefixIcon: _generateIcon(props.prefixIcon, thisWidget),
+      prefixIconColor: ThemeDecoder.decodeColor(props.prefixIconColor),
+      fillColor: ThemeDecoder.decodeColor(props.fillColor),
+      border: props.boxBorder?.type == "none"
+          ? InputBorder.none
+          : ThemeDecoder.decodeInputBorder(props.boxBorder?.toJson()),
+      constraints: BoxConstraints(
+        maxHeight: props.maxHeight,
+        maxWidth: props.maxWidth,
+        minHeight: props.minHeight,
+        minWidth: props.minWidth,
+      ),
     );
   }
 

@@ -4,8 +4,6 @@ FIXME: The text color in the side navigation is not properly when change theme f
 
 SUPPORT: Use metadata to specify layout property is a string or number
 
-UPDATE: Check that if the Map, List property in in widget props can be binding properly
-
 UPDATE: merge function of LayoutProps class to auto merge all simple properties. Check mergeObjects function in layout_props.dart
 
 UPDATE: Check widget props what containt any screen_util unit before start to re-computeWidgetProps in t_widget base
@@ -50,6 +48,9 @@ Support pages app bar custom actions
 Support alert, dialog, snackbar, ScaffoldMessenger
 
 #-------------------------------------------------
+
+-FIXME: Cannot declare 2 variables with the same name on 2 difference page in js side
+-UPDATE: Check that if the Map, List property in in widget props can be binding properly
 -UPDATE: Merge navigator in web/mobile invoke into one place
 -UPDATE: Use reflectable package to avoid compute LayoutProps property in LayoutProps class
 -SUPPORT: Load core page before loading any other page

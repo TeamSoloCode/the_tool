@@ -125,6 +125,8 @@ mixin _$LayoutProps {
   LayoutProps? get prefixIcon => throw _privateConstructorUsedError;
   String? get prefixIconColor => throw _privateConstructorUsedError;
   String? get prefixText => throw _privateConstructorUsedError;
+  String? get format => throw _privateConstructorUsedError;
+  String? get fillColor => throw _privateConstructorUsedError;
   /**
      * @summary This function will be eval for validating field value
      * - Return false if value is valid
@@ -277,6 +279,8 @@ abstract class $LayoutPropsCopyWith<$Res> {
           LayoutProps? prefixIcon,
       String? prefixIconColor,
       String? prefixText,
+      String? format,
+      String? fillColor,
       String? validationFunction,
       bool? autovalidate,
       List<Map<String, dynamic>>? validators,
@@ -430,6 +434,8 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? prefixIcon = freezed,
     Object? prefixIconColor = freezed,
     Object? prefixText = freezed,
+    Object? format = freezed,
+    Object? fillColor = freezed,
     Object? validationFunction = freezed,
     Object? autovalidate = freezed,
     Object? validators = freezed,
@@ -756,6 +762,14 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
       prefixText: freezed == prefixText
           ? _value.prefixText
           : prefixText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      format: freezed == format
+          ? _value.format
+          : format // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fillColor: freezed == fillColor
+          ? _value.fillColor
+          : fillColor // ignore: cast_nullable_to_non_nullable
               as String?,
       validationFunction: freezed == validationFunction
           ? _value.validationFunction
@@ -1232,6 +1246,8 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
           LayoutProps? prefixIcon,
       String? prefixIconColor,
       String? prefixText,
+      String? format,
+      String? fillColor,
       String? validationFunction,
       bool? autovalidate,
       List<Map<String, dynamic>>? validators,
@@ -1404,6 +1420,8 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? prefixIcon = freezed,
     Object? prefixIconColor = freezed,
     Object? prefixText = freezed,
+    Object? format = freezed,
+    Object? fillColor = freezed,
     Object? validationFunction = freezed,
     Object? autovalidate = freezed,
     Object? validators = freezed,
@@ -1731,6 +1749,14 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value.prefixText
           : prefixText // ignore: cast_nullable_to_non_nullable
               as String?,
+      format: freezed == format
+          ? _value.format
+          : format // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fillColor: freezed == fillColor
+          ? _value.fillColor
+          : fillColor // ignore: cast_nullable_to_non_nullable
+              as String?,
       validationFunction: freezed == validationFunction
           ? _value.validationFunction
           : validationFunction // ignore: cast_nullable_to_non_nullable
@@ -1949,6 +1975,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
           this.prefixIcon,
       this.prefixIconColor,
       this.prefixText,
+      this.format,
+      this.fillColor,
       this.validationFunction,
       this.autovalidate,
       final List<Map<String, dynamic>>? validators,
@@ -2232,6 +2260,10 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   final String? prefixIconColor;
   @override
   final String? prefixText;
+  @override
+  final String? format;
+  @override
+  final String? fillColor;
 /**
      * @summary This function will be eval for validating field value
      * - Return false if value is valid
@@ -2362,7 +2394,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, shadowColor: $shadowColor, heightFactor: $heightFactor, widthFactor: $widthFactor, weight: $weight, style: $style, opacity: $opacity, enabled: $enabled, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, textAlign: $textAlign, selectable: $selectable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, suffixIcon: $suffixIcon, suffixIconColor: $suffixIconColor, suffixText: $suffixText, prefixIcon: $prefixIcon, prefixIconColor: $prefixIconColor, prefixText: $prefixText, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, onSelectChanged: $onSelectChanged, onSelectAll: $onSelectAll, selected: $selected, dividerColor: $dividerColor, head: $head, body: $body, leading: $leading, title: $title, trailing: $trailing, subtitle: $subtitle, horizontalTitleGap: $horizontalTitleGap, component: $component, child: $child, content: $content, itemLayout: $itemLayout, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, shapeBorder: $shapeBorder, boxShadow: $boxShadow, gradient: $gradient)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, shadowColor: $shadowColor, heightFactor: $heightFactor, widthFactor: $widthFactor, weight: $weight, style: $style, opacity: $opacity, enabled: $enabled, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, textAlign: $textAlign, selectable: $selectable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, suffixIcon: $suffixIcon, suffixIconColor: $suffixIconColor, suffixText: $suffixText, prefixIcon: $prefixIcon, prefixIconColor: $prefixIconColor, prefixText: $prefixText, format: $format, fillColor: $fillColor, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, onSelectChanged: $onSelectChanged, onSelectAll: $onSelectAll, selected: $selected, dividerColor: $dividerColor, head: $head, body: $body, leading: $leading, title: $title, trailing: $trailing, subtitle: $subtitle, horizontalTitleGap: $horizontalTitleGap, component: $component, child: $child, content: $content, itemLayout: $itemLayout, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, shapeBorder: $shapeBorder, boxShadow: $boxShadow, gradient: $gradient)';
   }
 
   @override
@@ -2444,6 +2476,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('prefixIcon', prefixIcon))
       ..add(DiagnosticsProperty('prefixIconColor', prefixIconColor))
       ..add(DiagnosticsProperty('prefixText', prefixText))
+      ..add(DiagnosticsProperty('format', format))
+      ..add(DiagnosticsProperty('fillColor', fillColor))
       ..add(DiagnosticsProperty('validationFunction', validationFunction))
       ..add(DiagnosticsProperty('autovalidate', autovalidate))
       ..add(DiagnosticsProperty('validators', validators))
@@ -2573,6 +2607,8 @@ abstract class _LayoutProps implements LayoutProps {
           final LayoutProps? prefixIcon,
       final String? prefixIconColor,
       final String? prefixText,
+      final String? format,
+      final String? fillColor,
       final String? validationFunction,
       final bool? autovalidate,
       final List<Map<String, dynamic>>? validators,
@@ -2792,6 +2828,10 @@ abstract class _LayoutProps implements LayoutProps {
   String? get prefixIconColor;
   @override
   String? get prefixText;
+  @override
+  String? get format;
+  @override
+  String? get fillColor;
   @override
   /**
      * @summary This function will be eval for validating field value

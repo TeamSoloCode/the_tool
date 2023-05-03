@@ -71,7 +71,6 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
 
   @override
   void didChangeDependencies() {
-    final args = ModalRoute.of(context)!.settings.arguments;
     super.didChangeDependencies();
   }
 
@@ -96,6 +95,9 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
     if (_pageLayout?.drawer != null) {
       await t_drawer.loadLibrary();
     }
+    setState(() {
+      _isReadyToRun = true;
+    });
   }
 
   void _updateThemeDataJSON(
@@ -175,9 +177,6 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
 
   Future<void> _startLoadingData() async {
     await _loadPageInfo();
-    setState(() {
-      _isReadyToRun = true;
-    });
   }
 
   Future<void> _loadPageInfo() async {
