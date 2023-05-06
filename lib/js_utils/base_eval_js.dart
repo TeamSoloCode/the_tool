@@ -310,10 +310,6 @@ abstract class BaseEvalJS {
           return __emitEvent__(`form:$pagePath:\${formName}`, "validate")
         }, [__emitEvent__])
 
-        const showPopup = React.useCallback((formName) => {
-          return __emitEvent__(`popup:$pagePath:\${formName}`, 'show')
-        }, [__emitEvent__])
-
         const openDrawer = React.useCallback(() => {
           _openDrawer('$pagePath')
         }, [_openDrawer, context['$pagePath']])

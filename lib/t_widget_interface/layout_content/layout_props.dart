@@ -67,6 +67,8 @@ class LayoutProps with _$LayoutProps {
     dynamic style,
     double? opacity,
     dynamic enabled,
+    int? duration,
+    dynamic show,
 
     /**
      * 

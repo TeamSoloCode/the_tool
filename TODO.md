@@ -4,6 +4,8 @@ FIXME: The text color in the side navigation is not properly when change theme f
 
 SUPPORT: Use metadata to specify layout property is a string or number
 
+SUPPORT: Continue support t_bottom_sheet feature
+
 UPDATE: merge function of LayoutProps class to auto merge all simple properties. Check mergeObjects function in layout_props.dart
 
 UPDATE: Check widget props what containt any screen_util unit before start to re-computeWidgetProps in t_widget base

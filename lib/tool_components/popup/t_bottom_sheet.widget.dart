@@ -1,13 +1,12 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:the_tool/page_utils/debouncer.dart';
 import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/page_utils/flexible_bottom_sheet.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
+import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/twidget_props.dart';
 import 'package:the_tool/utils.dart';
-import 'package:eventify/eventify.dart' as eventify;
 
 class TBottomSheet extends TWidget {
   TBottomSheet(TWidgetProps twidget) : super(twidget);
@@ -17,7 +16,12 @@ class TBottomSheet extends TWidget {
 }
 
 class _TBottomSheetState extends TStatefulWidget<TBottomSheet> {
-  late eventify.Listener listener;
+  var _built = false;
+  var _showing = false;
+  final updateThemeDataToJSDebouncer = Debouncer(
+    delay: const Duration(milliseconds: 100),
+  );
+
   @override
   void initState() {
     final popupName = widget.widgetProps.name;
@@ -26,57 +30,102 @@ class _TBottomSheetState extends TStatefulWidget<TBottomSheet> {
       throw Exception("${widget.widgetProps.type} must have 'name' property");
     }
 
-    listener = widget.utils.emitter.on(
-      "popup:${widget.pagePath}:$popupName",
-      context,
-      _bottomSheetEvent(),
-    );
-
     super.initState();
   }
 
-  eventify.EventCallback _bottomSheetEvent() {
-    return (event, cont) async {
-      var data = jsonDecode(event.eventData as String);
-      switch (data["action"]) {
-        case "show":
-          final popupName = widget.widgetProps.name;
+  void _onBottomSheetClosed(Future<void>? bottomSheet) {
+    final popupName = widget.widgetProps.name;
+    bottomSheet?.then((value) {
+      widget.setPageData({popupName!: false});
+      _showing = false;
+    });
+  }
 
-          var flexibleBottomSheet = getIt<ContextStateProvider>()
-                  .popupWidgets["${widget.pagePath}:$popupName"]
-              as ShowFlexibleBottomSheet;
+  void _showBottomSheet() {
+    final popupName = widget.widgetProps.name;
+    final showPopup = UtilsManager.isTruthy(widget.getContexData()[popupName]);
 
-          flexibleBottomSheet.show();
+    if (showPopup && !_showing) {
+      final eventName = "${widget.pagePath}:$popupName";
 
-          widget.utils.evalJS?.emitFormActionResponse(data["actionId"], null);
-          return;
-      }
-    };
+      var flexibleBottomSheet = getIt<ContextStateProvider>()
+          .popupWidgets[eventName] as ShowFlexibleBottomSheet;
+
+      updateThemeDataToJSDebouncer.run(() {
+        final bottomSheet = flexibleBottomSheet.show();
+        _onBottomSheetClosed(bottomSheet);
+      });
+
+      _showing = true;
+    }
+
+    if (!showPopup && _showing) {
+      Navigator.of(context).pop();
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    _showBottomSheet();
+
+    super.didChangeDependencies();
   }
 
   @override
   void dispose() {
-    listener.cancel();
-    widget.utils.emitter.off(listener);
+    // final popupName = widget.widgetProps.name;
 
-    final popupName = widget.widgetProps.name;
-
-    getIt<ContextStateProvider>().unregisterPopupWidgets(
-      pagePath: widget.pagePath,
-      popupName: popupName!,
-    );
+    // getIt<ContextStateProvider>().unregisterPopupWidgets(
+    //   pagePath: widget.pagePath,
+    //   popupName: popupName!,
+    // );
 
     super.dispose();
+  }
+
+  double? _checkSheetSizeValue(dynamic value, String propName) {
+    if (value == null) return null;
+
+    if (value is! num) {
+      throw Exception(
+          "bottom_sheet:$propName property should be between from 0 to 1");
+    }
+
+    if (value < 0 || value > 1) {
+      throw Exception(
+          "bottom_sheet: $propName property should be between from 0 to 1");
+    }
+
+    return value * 1.0;
   }
 
   Widget _computeBottomSheet(LayoutProps widgetProps) {
     final popupName = widgetProps.name;
 
+    var height = _checkSheetSizeValue(widgetProps.height, "height");
+    var maxHeight = _checkSheetSizeValue(widgetProps.maxHeight, "maxHeight");
+    var minHeight = _checkSheetSizeValue(widgetProps.minHeight, "minHeight");
+
     var flexibleBottomSheet = ShowFlexibleBottomSheet(
       context: context,
       builder: (context, scrollController, bottomSheetOffset) {
-        return const Text("This is the test bottom sheet");
+        if (widgetProps.body == null) return const Offstage();
+
+        return TWidgets(
+          layout: widgetProps.body!,
+          pagePath: widget.pagePath,
+          childData: widget.childData,
+        );
       },
+      duration: widgetProps.duration == null
+          ? null
+          : Duration(
+              milliseconds: widgetProps.duration!,
+            ),
+      initHeight: height,
+      maxHeight: maxHeight,
+      minHeight: minHeight,
+      // isSafeArea:
     );
 
     getIt<ContextStateProvider>().registerPopupWidgets(
@@ -84,7 +133,7 @@ class _TBottomSheetState extends TStatefulWidget<TBottomSheet> {
       popupName: popupName!,
       registerPopupWidget: flexibleBottomSheet,
     );
-
+    _built = true;
     return const Offstage();
   }
 
@@ -93,7 +142,7 @@ class _TBottomSheetState extends TStatefulWidget<TBottomSheet> {
     Widget _snapshot = widget.snapshot;
     LayoutProps? _props = widget.props;
 
-    if (_props != null) {
+    if (_props != null && !_built) {
       _snapshot = _computeBottomSheet(_props);
     }
 

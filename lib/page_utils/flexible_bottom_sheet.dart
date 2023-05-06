@@ -42,8 +42,8 @@ class ShowFlexibleBottomSheet {
     this.decoration,
   });
 
-  void show() {
-    showFlexibleBottomSheet(
+  Future<void> show() {
+    return showFlexibleBottomSheet(
       context: context,
       builder: builder,
       draggableScrollableController: draggableScrollableController,
