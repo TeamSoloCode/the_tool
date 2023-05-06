@@ -47,6 +47,8 @@ import 'package:the_tool/tool_components/t_opacity.widget.dart'
     deferred as t_opacity;
 import 'package:the_tool/tool_components/popup/t_bottom_sheet.widget.dart'
     deferred as t_bottom_sheet;
+import 'package:the_tool/tool_components/t_gesture_detector.widget.dart'
+    deferred as t_gesture_detector;
 
 import 'package:the_tool/tool_components/t_stack_widget.dart';
 import 'package:the_tool/tool_components/t_text_widget.dart';
@@ -191,6 +193,9 @@ class _TWidgetsState extends State<TWidgets> {
       case "bottom_sheet":
         await t_bottom_sheet.loadLibrary();
         return t_bottom_sheet.TBottomSheet(tWidgetProps);
+      case "gesture_detector":
+        await t_gesture_detector.loadLibrary();
+        return t_gesture_detector.TGestureDetector(tWidgetProps);
       default:
         return _computeNotBuiltInWidget(childData, content);
     }
