@@ -2240,6 +2240,10 @@ class ThemeDecoder {
       return null;
     }
 
+    if (value == "#0000") {
+      return Colors.transparent;
+    }
+
     if (value is String && !value.startsWith("#") && isCssColor(value)) {
       return fromCssColor(value);
     }

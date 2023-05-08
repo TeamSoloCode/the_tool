@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/page_utils/debouncer.dart';
 import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/page_utils/flexible_bottom_sheet.dart';
@@ -18,8 +19,12 @@ class TBottomSheet extends TWidget {
 class _TBottomSheetState extends TStatefulWidget<TBottomSheet> {
   var _built = false;
   var _showing = false;
-  final updateThemeDataToJSDebouncer = Debouncer(
+  final _debounceShowButtomSheet = Debouncer(
     delay: const Duration(milliseconds: 100),
+  );
+
+  final _debounceCloseButtomSheet = Debouncer(
+    delay: const Duration(milliseconds: 200),
   );
 
   @override
@@ -36,7 +41,9 @@ class _TBottomSheetState extends TStatefulWidget<TBottomSheet> {
   void _onBottomSheetClosed(Future<void>? bottomSheet) {
     final popupName = widget.widgetProps.name;
     bottomSheet?.then((value) {
-      widget.setPageData({popupName!: false});
+      _debounceCloseButtomSheet.run(() {
+        widget.setPageData({popupName!: false});
+      });
       _showing = false;
     });
   }
@@ -51,7 +58,7 @@ class _TBottomSheetState extends TStatefulWidget<TBottomSheet> {
       var flexibleBottomSheet = getIt<ContextStateProvider>()
           .popupWidgets[eventName] as ShowFlexibleBottomSheet;
 
-      updateThemeDataToJSDebouncer.run(() {
+      _debounceShowButtomSheet.run(() {
         final bottomSheet = flexibleBottomSheet.show();
         _onBottomSheetClosed(bottomSheet);
       });
@@ -122,6 +129,8 @@ class _TBottomSheetState extends TStatefulWidget<TBottomSheet> {
           : Duration(
               milliseconds: widgetProps.duration!,
             ),
+      bottomSheetColor: ThemeDecoder.decodeColor(widgetProps.backgroundColor),
+      barrierColor: Colors.transparent,
       initHeight: height,
       maxHeight: maxHeight,
       minHeight: minHeight,
