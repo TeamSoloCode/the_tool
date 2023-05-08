@@ -8,12 +8,12 @@ part of 'route_guard_config.dart';
 
 _$_RouteGuardConfig _$$_RouteGuardConfigFromJson(Map<String, dynamic> json) =>
     _$_RouteGuardConfig(
-      authKey: json['authKey'] as String?,
       redirectTo: json['redirectTo'] as String?,
+      authFunction: json['authFunction'] as String?,
     );
 
 Map<String, dynamic> _$$_RouteGuardConfigToJson(_$_RouteGuardConfig instance) =>
     <String, dynamic>{
-      'authKey': instance.authKey,
       'redirectTo': instance.redirectTo,
+      'authFunction': instance.authFunction,
     };

@@ -89,16 +89,16 @@ class AppModule extends Module {
       if (routeConfig.guards != null) {
         _routeGuardMap!.addAll({
           routePath: routeConfig.guards!.map((routeGuardConfig) {
-            if (routeGuardConfig.authKey == null ||
+            if (routeGuardConfig.authFunction == null ||
                 routeGuardConfig.redirectTo == null) {
               throw Exception(
-                "Route Guards: \"authKey\" and \"redirectTo\" properties must be specified in route guard",
+                "Route Guards: \"authFunction\" and \"redirectTo\" properties must be specified in route guard",
               );
             }
 
             return AuthGuard(
-              authKey: routeGuardConfig.authKey!,
               redirectTo: routeGuardConfig.redirectTo!,
+              authFunction: routeGuardConfig.authFunction!,
             );
           }).toList()
         });

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:modular_core/modular_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 abstract class BaseEvalJS {
   BuildContext context;
@@ -16,7 +17,6 @@ abstract class BaseEvalJS {
   Future<void> executePageCode({
     required String clientCode,
     required String pagePath,
-    ModularArguments? pageArguments,
   });
 
   void setPageArguments(Map<String, dynamic> args, String pagePath);
@@ -87,7 +87,6 @@ abstract class BaseEvalJS {
   String getBaseComponentCode({
     required String pagePath,
     required String clientCode,
-    ModularArguments? pageArguments,
   }) {
     return """
     try {
@@ -95,7 +94,6 @@ abstract class BaseEvalJS {
     ${_commonBaseComponentCode(
       pagePath: pagePath,
       clientCode: clientCode,
-      pageArguments: pageArguments,
     )}
         /** Do not add code under this area*/
       });
@@ -121,21 +119,25 @@ abstract class BaseEvalJS {
   String _commonBaseComponentCode({
     required String pagePath,
     required String clientCode,
-    ModularArguments? pageArguments,
   }) {
     // pageArguments?.data?.data: This because when use RouteGuard the pageArguments?.data is ModularArguments
-    final pageArgumentsData = jsonEncode(pageArguments?.data is ModularArguments
-        ? pageArguments?.data?.data
-        : pageArguments?.data ?? {});
+    final pageArgumentsData = jsonEncode(Modular.args.data is ModularArguments
+        ? Modular.args.data?.data
+        : Modular.args.data ?? {});
 
-    final uriParams = jsonEncode(pageArguments?.params ?? {});
-    final queryParams = jsonEncode(pageArguments?.queryParams ?? {});
+    final uriParams = jsonEncode(Modular.args.params);
+    final queryParams = jsonEncode(Modular.args.queryParams);
 
     return """
         const [_contextData, _setContextData] = React.useState(context._data);
-        const [_pageArguments] = React.useState(JSON.parse('$pageArgumentsData'))
-        const [_uriParams] = React.useState(JSON.parse('$uriParams'))
-        const [_queryParams] = React.useState(JSON.parse('$queryParams'))
+
+        const [__route] = React.useState({
+          pageArguments: JSON.parse('$pageArgumentsData'),
+          params: JSON.parse('$uriParams'),
+          queryParams: JSON.parse('$queryParams'),
+          currentPath: '${Modular.to.path}'
+        })
+
         let [_didInitState] = React.useState(false)
         const _prevContextData = usePrevious(_contextData);
         context._updateContextData = _setContextData;
@@ -202,17 +204,9 @@ abstract class BaseEvalJS {
           Object.assign(context['$pagePath'], exportedContext)
         }, [_pageData])
 
-        const getPageArguments = React.useCallback(() => {
-          return _pageArguments || {};
-        }, [_pageArguments])
-
-        const getUriParams = React.useCallback(() => {
-          return _uriParams || {};
-        }, [_uriParams])
-
-        const getQueryParams = React.useCallback(() => {
-          return _queryParams || {};
-        }, [_queryParams])
+        const getRoute = React.useCallback(() => {
+          return __route;
+        }, [__route])
 
         const navigateTo = React.useCallback((
           pagePath,

@@ -170,7 +170,7 @@ class _PageContainerState extends State<PageContainer> {
         url: Uri.parse(getIt<EnvironmentConfig>().MOBILE_WEBVIEW_URL),
       ),
       onWebViewCreated: (webViewController) {},
-      onLoadStart: (webViewController, url) {
+      onLoadStart: (webViewController, url) async {
         if (!kIsWeb) {
           log("Webview: Loading webview stop");
         }
@@ -223,7 +223,6 @@ class _PageContainerState extends State<PageContainer> {
       await _evalJS.executePageCode(
         clientCode: _corePageCode!,
         pagePath: "core",
-        pageArguments: Modular.args,
       );
 
       _initializedCorePage = true;

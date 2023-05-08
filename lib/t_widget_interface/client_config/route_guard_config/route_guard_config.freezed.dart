@@ -20,8 +20,8 @@ RouteGuardConfig _$RouteGuardConfigFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$RouteGuardConfig {
-  String? get authKey => throw _privateConstructorUsedError;
   String? get redirectTo => throw _privateConstructorUsedError;
+  String? get authFunction => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +35,7 @@ abstract class $RouteGuardConfigCopyWith<$Res> {
           RouteGuardConfig value, $Res Function(RouteGuardConfig) then) =
       _$RouteGuardConfigCopyWithImpl<$Res, RouteGuardConfig>;
   @useResult
-  $Res call({String? authKey, String? redirectTo});
+  $Res call({String? redirectTo, String? authFunction});
 }
 
 /// @nodoc
@@ -51,17 +51,17 @@ class _$RouteGuardConfigCopyWithImpl<$Res, $Val extends RouteGuardConfig>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? authKey = freezed,
     Object? redirectTo = freezed,
+    Object? authFunction = freezed,
   }) {
     return _then(_value.copyWith(
-      authKey: freezed == authKey
-          ? _value.authKey
-          : authKey // ignore: cast_nullable_to_non_nullable
-              as String?,
       redirectTo: freezed == redirectTo
           ? _value.redirectTo
           : redirectTo // ignore: cast_nullable_to_non_nullable
+              as String?,
+      authFunction: freezed == authFunction
+          ? _value.authFunction
+          : authFunction // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -75,7 +75,7 @@ abstract class _$$_RouteGuardConfigCopyWith<$Res>
       __$$_RouteGuardConfigCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? authKey, String? redirectTo});
+  $Res call({String? redirectTo, String? authFunction});
 }
 
 /// @nodoc
@@ -89,17 +89,17 @@ class __$$_RouteGuardConfigCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? authKey = freezed,
     Object? redirectTo = freezed,
+    Object? authFunction = freezed,
   }) {
     return _then(_$_RouteGuardConfig(
-      authKey: freezed == authKey
-          ? _value.authKey
-          : authKey // ignore: cast_nullable_to_non_nullable
-              as String?,
       redirectTo: freezed == redirectTo
           ? _value.redirectTo
           : redirectTo // ignore: cast_nullable_to_non_nullable
+              as String?,
+      authFunction: freezed == authFunction
+          ? _value.authFunction
+          : authFunction // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -108,15 +108,15 @@ class __$$_RouteGuardConfigCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_RouteGuardConfig implements _RouteGuardConfig {
-  const _$_RouteGuardConfig({this.authKey, this.redirectTo});
+  const _$_RouteGuardConfig({this.redirectTo, this.authFunction});
 
   factory _$_RouteGuardConfig.fromJson(Map<String, dynamic> json) =>
       _$$_RouteGuardConfigFromJson(json);
 
   @override
-  final String? authKey;
-  @override
   final String? redirectTo;
+  @override
+  final String? authFunction;
 
   @JsonKey(ignore: true)
   @override
@@ -134,15 +134,16 @@ class _$_RouteGuardConfig implements _RouteGuardConfig {
 
 abstract class _RouteGuardConfig implements RouteGuardConfig {
   const factory _RouteGuardConfig(
-      {final String? authKey, final String? redirectTo}) = _$_RouteGuardConfig;
+      {final String? redirectTo,
+      final String? authFunction}) = _$_RouteGuardConfig;
 
   factory _RouteGuardConfig.fromJson(Map<String, dynamic> json) =
       _$_RouteGuardConfig.fromJson;
 
   @override
-  String? get authKey;
-  @override
   String? get redirectTo;
+  @override
+  String? get authFunction;
   @override
   @JsonKey(ignore: true)
   _$$_RouteGuardConfigCopyWith<_$_RouteGuardConfig> get copyWith =>

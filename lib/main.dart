@@ -1,12 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:json_theme/json_theme_schemas.dart';
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/js_utils/base_invoke_is.dart';
 import 'package:the_tool/page_provider/auth_manager_provider.dart';
-import 'package:the_tool/route/app_module.dart';
 import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/page_utils/permission_manager.dart';
 import 'package:the_tool/page_provider/resize_provider.dart';
