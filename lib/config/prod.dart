@@ -2,4 +2,6 @@
 
 import 'base.dart';
 
-class EnvironmentConfig extends BaseConfig {}
+class EnvironmentConfig extends BaseConfig {
+  EnvironmentConfig(): super(isProduction: true);
+}

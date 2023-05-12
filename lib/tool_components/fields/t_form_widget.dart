@@ -64,7 +64,8 @@ class _T_FormState extends TStatefulWidget<T_Form> {
 
   Future<bool> _handleValidationFunction() async {
     String? validationFunction = widget.widgetProps.validationFunction;
-    var errorTextMap = Map<String, dynamic>.from({});
+    Map<Object?, Object?>? errorTextMap;
+    
     if (validationFunction != null && validationFunction.isNotEmpty) {
       errorTextMap = await widget.executeJSWithPagePath(validationFunction);
     }
@@ -76,7 +77,7 @@ class _T_FormState extends TStatefulWidget<T_Form> {
       for (final entry in _formKey.currentState!.fields.entries) {
         final key = entry.key;
         final field = entry.value;
-        var errorText = errorTextMap[key];
+        var errorText = errorTextMap?[key];
 
         if (errorText == null && field.validate()) {
           continue;
@@ -84,7 +85,7 @@ class _T_FormState extends TStatefulWidget<T_Form> {
 
         isValid = false;
         if (errorText != null) {
-          field.invalidate(errorText);
+          field.invalidate(errorText as String);
         }
         break loop;
       }

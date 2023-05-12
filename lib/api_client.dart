@@ -179,4 +179,14 @@ class APIClientManager {
       rethrow;
     }
   }
+
+  Future<Map<String, String>> getAppWebviewBundle() async {
+    var bundle =
+        await _dioCached.get('$_beAPI/pages/bundle');
+
+    return {
+      "vendor": bundle.data["vendors"],
+      "app": bundle.data["app"],
+    };
+  }
 }

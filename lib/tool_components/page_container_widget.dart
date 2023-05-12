@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:collection';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +40,8 @@ class _PageContainerState extends State<PageContainer> {
   dynamic _headlessWebView;
   ThemeData? _themeData;
   ThemeMode? _currentThemeMode;
+
+  late Map<String, String> _bundle;
 
   late EvalJS _evalJS;
 
@@ -131,9 +135,14 @@ class _PageContainerState extends State<PageContainer> {
   bool _didLoadDeps = false;
   Future<bool> _prepareDependencies() async {
     if (_didLoadDeps) return true;
+
     if (!kIsWeb) {
       await webview.loadLibrary();
+      if (Platform.isIOS) {
+        _bundle = await _apiClient.getAppWebviewBundle();
+      }
     }
+
     _corePageCode = await _apiClient.getClientCore();
     _didLoadDeps = true;
     return true;
@@ -165,10 +174,31 @@ class _PageContainerState extends State<PageContainer> {
   void _initWebViewForMobile(BuildContext context) {
     if (_isWebViewReady || _headlessWebView != null) return;
 
+    /// This function is help to load js module when developing with is on local machine
+    dynamic initialUserScripts;
+
+    initialUserScripts = Platform.isIOS
+        ? UnmodifiableListView(
+            [
+              webview.UserScript(
+                source: _bundle["vendor"]!,
+                injectionTime:
+                    webview.UserScriptInjectionTime.AT_DOCUMENT_START,
+              ),
+              webview.UserScript(
+                source: _bundle["app"]!,
+                injectionTime:
+                    webview.UserScriptInjectionTime.AT_DOCUMENT_START,
+              ),
+            ],
+          )
+        : null;
+
     _headlessWebView = webview.HeadlessInAppWebView(
       initialUrlRequest: webview.URLRequest(
         url: Uri.parse(getIt<EnvironmentConfig>().MOBILE_WEBVIEW_URL),
       ),
+      initialUserScripts: initialUserScripts,
       onWebViewCreated: (webViewController) {},
       onLoadStart: (webViewController, url) async {
         if (!kIsWeb) {

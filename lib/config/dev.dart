@@ -1,4 +1,6 @@
 // ignore_for_file: constant_identifier_names
 import 'base.dart';
 
-class EnvironmentConfig extends BaseConfig {}
+class EnvironmentConfig extends BaseConfig {
+  EnvironmentConfig(): super(isProduction: false);
+}
