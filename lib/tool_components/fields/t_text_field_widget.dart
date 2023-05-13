@@ -6,6 +6,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart'
     show FormBuilderTextField;
 import 'package:form_builder_validators/form_builder_validators.dart'
     show FormBuilderValidators;
+import 'package:the_tool/page_utils/debouncer.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/mixin_component/field_mixin.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
@@ -19,14 +20,14 @@ class TTextField extends TWidget {
   State<TTextField> createState() => _TTextFieldState();
 }
 
-Timer? _debounce;
-
 class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
   var textFieldController = TextEditingController();
   String? currentValue;
-  var debounceDuration = const Duration(milliseconds: 500);
   String? _errorMessage;
   bool _isUserTying = false;
+
+  final Debouncer _textChangedDebouncer =
+      Debouncer(delay: const Duration(milliseconds: 500));
 
   @override
   void initState() {
@@ -57,6 +58,7 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
       }
 
       _isUserTying = false;
+
       Future.delayed(Duration.zero, () async {
         textFieldController.value = TextEditingValue(
             text: currentValue ?? "",
@@ -76,14 +78,15 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
     Map<String, dynamic> contextData,
   ) {
     String? name = widget.props?.name;
-    if (_debounce?.isActive ?? false) _debounce?.cancel();
-
     _isUserTying = true;
-    _debounce = Timer(debounceDuration, () {
+
+    _textChangedDebouncer.run(() {
       String newText = contextData[name] ?? "";
       if (newText != text && name != null) {
         widget.setPageData({name: text});
         currentValue = text;
+
+        _isUserTying = false;
       }
     });
   }
