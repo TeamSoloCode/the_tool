@@ -8,6 +8,7 @@ import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/utils.dart';
 import 'package:the_tool/twidget_props.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
+import 'package:flutter/rendering.dart';
 
 class TCheckbox extends TWidget {
   TCheckbox(TWidgetProps twidget) : super(twidget);
@@ -62,10 +63,12 @@ class _TCheckboxState extends TStatefulWidget<TCheckbox> with FieldMixin {
       key: _checkboxKey,
       name: name ?? "",
       selected: UtilsManager.isTruthy(value),
-      title: TWidgets(
-        layout: widgetProps?.title ?? const LayoutProps(),
-        pagePath: widget.pagePath,
-        childData: widget.childData,
+      title: CustomTitle(
+        child: TWidgets(
+          layout: widgetProps?.title ?? const LayoutProps(),
+          pagePath: widget.pagePath,
+          childData: widget.childData,
+        ),
       ),
       decoration: computeFieldDecoration(
         widgetProps,
@@ -107,5 +110,45 @@ class _TCheckboxState extends TStatefulWidget<TCheckbox> with FieldMixin {
       _snapshot = _computeCheckboxField(_props, widget.getContexData());
     }
     return _snapshot;
+  }
+}
+
+class CustomTitle extends SingleChildRenderObjectWidget {
+  final Widget child;
+
+  const CustomTitle({
+    Key? key,
+    required this.child,
+  }) : super(key: key);
+
+  @override
+  RenderObject createRenderObject(BuildContext context) {
+    return _RenderCustomTitle();
+  }
+
+  @override
+  void updateRenderObject(
+      BuildContext context, _RenderCustomTitle renderObject) {
+    // Nothing to update for now
+  }
+}
+
+class _RenderCustomTitle extends RenderShiftedBox {
+  _RenderCustomTitle() : super(null);
+
+  @override
+  void performLayout() {
+    child!.layout(constraints, parentUsesSize: true);
+    size = child!.size;
+  }
+
+  @override
+  double computeDistanceToActualBaseline(TextBaseline baseline) {
+    if (child == null) {
+      return 0;
+    }
+
+    final double? childBaseline = child!.getDistanceToActualBaseline(baseline);
+    return childBaseline ?? 0;
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:the_tool/tool_components/expansion/t_expansion_tile.widget.dart'
     deferred as t_expansion_tile;
 import 'package:the_tool/tool_components/t_flexible.widget.dart';
+import 'package:the_tool/tool_components/t_wrap.widget.dart';
 import 'package:the_tool/twidget_props.dart';
 import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
@@ -196,6 +197,8 @@ class _TWidgetsState extends State<TWidgets> {
       case "gesture_detector":
         await t_gesture_detector.loadLibrary();
         return t_gesture_detector.TGestureDetector(tWidgetProps);
+      case "wrap":
+        return TWrap(tWidgetProps);
       default:
         return _computeNotBuiltInWidget(childData, content);
     }

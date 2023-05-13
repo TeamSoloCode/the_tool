@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/page_utils/style_utils.dart';
@@ -64,13 +65,17 @@ class T_Row extends TStatelessWidget {
     );
 
     if (props?.scrollable == true) {
-      snapshot = ScrollConfiguration(
-        behavior: MyCustomScrollBehavior(),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: snapshot,
-        ),
+      snapshot = SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: snapshot,
       );
+
+      if (kIsWeb) {
+        snapshot = ScrollConfiguration(
+          behavior: MyCustomScrollBehavior(),
+          child: snapshot,
+        );
+      }
     }
 
     return snapshot;

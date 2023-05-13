@@ -153,16 +153,14 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
 
         _updateMediaQueryInJS(mediaQueryData);
 
-        var page = SafeArea(
-          child: Scaffold(
-            key: _scaffoldKey,
-            appBar: _getAppBar(pageData),
-            bottomNavigationBar: _getBottomNavigation(pageData),
-            drawer: _computeDrawer(pageData),
-            body: _getSelectedPage(
-              pageData,
-              _selectedBottomNavIndex,
-            ),
+        var page = Scaffold(
+          key: _scaffoldKey,
+          appBar: _getAppBar(pageData),
+          bottomNavigationBar: _getBottomNavigation(pageData),
+          drawer: _computeDrawer(pageData),
+          body: _getSelectedPage(
+            pageData,
+            _selectedBottomNavIndex,
           ),
         );
 
