@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:the_tool/tool_components/expansion/t_expansion_tile.widget.dart'
     deferred as t_expansion_tile;
 import 'package:the_tool/tool_components/t_flexible.widget.dart';
+import 'package:the_tool/tool_components/t_safe_area.widget.dart';
 import 'package:the_tool/tool_components/t_wrap.widget.dart';
 import 'package:the_tool/twidget_props.dart';
 import 'package:the_tool/page_provider/context_state_provider.dart';
@@ -83,31 +84,11 @@ class _TWidgetsState extends State<TWidgets> {
     super.dispose();
   }
 
-  Future<Widget> _getWidget(Map<String, dynamic> childData) async {
-    LayoutProps content = widget.layout.content ?? widget.layout;
-    // getIt<PageContextProvider>().registerTWidgetsProps(
-    //   widgetUuid,
-    //   widget.pagePath,
-    //   content,
-    //   contextData,
-    // );
-
-    if (tWidgets != null) {
-      return tWidgets!;
-    }
-
-    late TWidgetProps tWidgetProps;
-    if (content.type != null) {
-      tWidgetProps = TWidgetProps(
-        key: Key(widgetUuid),
-        widgetProps: content,
-        pagePath: widget.pagePath,
-        widgetUuid: widgetUuid,
-        childData: childData,
-        layoutBuilder: content.layoutBuilder,
-      );
-    }
-
+  Future<Widget> _computeTWidgets(
+    LayoutProps content,
+    TWidgetProps tWidgetProps,
+    Map<String, dynamic> childData,
+  ) async {
     switch (content.type) {
       case "text":
         return TText(tWidgetProps);
@@ -199,9 +180,45 @@ class _TWidgetsState extends State<TWidgets> {
         return t_gesture_detector.TGestureDetector(tWidgetProps);
       case "wrap":
         return TWrap(tWidgetProps);
+      case "safe_area":
+        return TSafeArea(tWidgetProps);
       default:
-        return _computeNotBuiltInWidget(childData, content);
+        throw Exception("Not found: \"${content.type}\" widget");
     }
+  }
+
+  Future<Widget> _getWidget(Map<String, dynamic> childData) async {
+    LayoutProps content = widget.layout.content ?? widget.layout;
+    // getIt<PageContextProvider>().registerTWidgetsProps(
+    //   widgetUuid,
+    //   widget.pagePath,
+    //   content,
+    //   contextData,
+    // );
+
+    TWidgetProps tWidgetProps;
+    if (content.type != null) {
+      tWidgetProps = TWidgetProps(
+        key: Key(widgetUuid),
+        widgetProps: content,
+        pagePath: widget.pagePath,
+        widgetUuid: widgetUuid,
+        childData: childData,
+        layoutBuilder: content.layoutBuilder,
+      );
+
+      tWidgets = await _computeTWidgets(content, tWidgetProps, childData);
+    } else {
+      tWidgets = _computeNotBuiltInWidget(childData, content);
+    }
+
+    if (UtilsManager.isTruthy(content.safeArea)) {
+      return SafeArea(
+        child: tWidgets!,
+      );
+    }
+
+    return tWidgets!;
   }
 
   Widget _computeNotBuiltInWidget(

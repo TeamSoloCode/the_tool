@@ -1,6 +1,7 @@
 Update the function that update the theme json into js side
 
 FIXME: The text color in the side navigation is not properly when change theme from dark to light
+FIXME: Remove reflectable of layout_props, because it consume 200kb of bundle
 
 SUPPORT: Use metadata to specify layout property is a string or number
 

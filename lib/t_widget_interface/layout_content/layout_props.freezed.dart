@@ -64,6 +64,7 @@ mixin _$LayoutProps {
   dynamic get enabled => throw _privateConstructorUsedError;
   int? get duration => throw _privateConstructorUsedError;
   dynamic get show => throw _privateConstructorUsedError;
+  bool? get safeArea => throw _privateConstructorUsedError;
   /**
      * 
      */
@@ -247,6 +248,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       dynamic enabled,
       int? duration,
       dynamic show,
+      bool? safeArea,
       String? sliverListType,
       double? itemExtent,
       @LayoutPropsMetadata(ignoreComputeProps: true)
@@ -408,6 +410,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? enabled = freezed,
     Object? duration = freezed,
     Object? show = freezed,
+    Object? safeArea = freezed,
     Object? sliverListType = freezed,
     Object? itemExtent = freezed,
     Object? componentProps = freezed,
@@ -649,6 +652,10 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.show
           : show // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      safeArea: freezed == safeArea
+          ? _value.safeArea
+          : safeArea // ignore: cast_nullable_to_non_nullable
+              as bool?,
       sliverListType: freezed == sliverListType
           ? _value.sliverListType
           : sliverListType // ignore: cast_nullable_to_non_nullable
@@ -1226,6 +1233,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       dynamic enabled,
       int? duration,
       dynamic show,
+      bool? safeArea,
       String? sliverListType,
       double? itemExtent,
       @LayoutPropsMetadata(ignoreComputeProps: true)
@@ -1406,6 +1414,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? enabled = freezed,
     Object? duration = freezed,
     Object? show = freezed,
+    Object? safeArea = freezed,
     Object? sliverListType = freezed,
     Object? itemExtent = freezed,
     Object? componentProps = freezed,
@@ -1647,6 +1656,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value.show
           : show // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      safeArea: freezed == safeArea
+          ? _value.safeArea
+          : safeArea // ignore: cast_nullable_to_non_nullable
+              as bool?,
       sliverListType: freezed == sliverListType
           ? _value.sliverListType
           : sliverListType // ignore: cast_nullable_to_non_nullable
@@ -1967,6 +1980,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.enabled,
       this.duration,
       this.show,
+      this.safeArea,
       this.sliverListType,
       this.itemExtent,
       @LayoutPropsMetadata(ignoreComputeProps: true)
@@ -2156,6 +2170,8 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   final int? duration;
   @override
   final dynamic show;
+  @override
+  final bool? safeArea;
 /**
      * 
      */
@@ -2426,7 +2442,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, shadowColor: $shadowColor, heightFactor: $heightFactor, widthFactor: $widthFactor, weight: $weight, style: $style, opacity: $opacity, enabled: $enabled, duration: $duration, show: $show, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, textAlign: $textAlign, selectable: $selectable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, suffixIcon: $suffixIcon, suffixIconColor: $suffixIconColor, suffixText: $suffixText, prefixIcon: $prefixIcon, prefixIconColor: $prefixIconColor, prefixText: $prefixText, format: $format, fillColor: $fillColor, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, onSelectChanged: $onSelectChanged, onSelectAll: $onSelectAll, selected: $selected, dividerColor: $dividerColor, head: $head, body: $body, leading: $leading, title: $title, trailing: $trailing, subtitle: $subtitle, horizontalTitleGap: $horizontalTitleGap, component: $component, child: $child, content: $content, itemLayout: $itemLayout, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, shapeBorder: $shapeBorder, boxShadow: $boxShadow, gradient: $gradient)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, shadowColor: $shadowColor, heightFactor: $heightFactor, widthFactor: $widthFactor, weight: $weight, style: $style, opacity: $opacity, enabled: $enabled, duration: $duration, show: $show, safeArea: $safeArea, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, textAlign: $textAlign, selectable: $selectable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, suffixIcon: $suffixIcon, suffixIconColor: $suffixIconColor, suffixText: $suffixText, prefixIcon: $prefixIcon, prefixIconColor: $prefixIconColor, prefixText: $prefixText, format: $format, fillColor: $fillColor, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, onSelectChanged: $onSelectChanged, onSelectAll: $onSelectAll, selected: $selected, dividerColor: $dividerColor, head: $head, body: $body, leading: $leading, title: $title, trailing: $trailing, subtitle: $subtitle, horizontalTitleGap: $horizontalTitleGap, component: $component, child: $child, content: $content, itemLayout: $itemLayout, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, shapeBorder: $shapeBorder, boxShadow: $boxShadow, gradient: $gradient)';
   }
 
   @override
@@ -2477,6 +2493,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('enabled', enabled))
       ..add(DiagnosticsProperty('duration', duration))
       ..add(DiagnosticsProperty('show', show))
+      ..add(DiagnosticsProperty('safeArea', safeArea))
       ..add(DiagnosticsProperty('sliverListType', sliverListType))
       ..add(DiagnosticsProperty('itemExtent', itemExtent))
       ..add(DiagnosticsProperty('componentProps', componentProps))
@@ -2607,6 +2624,7 @@ abstract class _LayoutProps implements LayoutProps {
       final dynamic enabled,
       final int? duration,
       final dynamic show,
+      final bool? safeArea,
       final String? sliverListType,
       final double? itemExtent,
       @LayoutPropsMetadata(ignoreComputeProps: true)
@@ -2779,6 +2797,8 @@ abstract class _LayoutProps implements LayoutProps {
   int? get duration;
   @override
   dynamic get show;
+  @override
+  bool? get safeArea;
   @override
   /**
      * 
