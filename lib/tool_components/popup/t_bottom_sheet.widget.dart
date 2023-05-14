@@ -23,10 +23,6 @@ class _TBottomSheetState extends TStatefulWidget<TBottomSheet> {
     delay: const Duration(milliseconds: 100),
   );
 
-  final _debounceCloseButtomSheet = Debouncer(
-    delay: const Duration(milliseconds: 200),
-  );
-
   @override
   void initState() {
     final popupName = widget.widgetProps.name;
@@ -41,9 +37,7 @@ class _TBottomSheetState extends TStatefulWidget<TBottomSheet> {
   void _onBottomSheetClosed(Future<void>? bottomSheet) {
     final popupName = widget.widgetProps.name;
     bottomSheet?.then((value) {
-      _debounceCloseButtomSheet.run(() {
-        widget.setPageData({popupName!: false});
-      });
+      widget.setPageData({popupName!: false});
       _showing = false;
     });
   }
