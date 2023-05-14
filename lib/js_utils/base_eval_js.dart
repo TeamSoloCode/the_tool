@@ -323,26 +323,10 @@ abstract class BaseEvalJS {
           _onDebounceMediaQuery({ width, height, orientation })
         }, [_onDebounceMediaQuery])
 
-        // Update current ThemeData from flutter to js side into \$themeData variable
-        const _onUpdateThemeData = React.useCallback((themeDataAsJSON) => {
-          
-          if(!_.isString(themeDataAsJSON)) return
-
-          try {
-            const themeData = JSON.parse(themeDataAsJSON)
-            _setThemeData(themeData)
-          }
-          catch(err){
-            console.log(`Error: Input theme data is not JSON`)
-            console.error("Input theme data is not JSON")
-          }
-        }, [])
-
         // export pages util function
         React.useEffect(() => {
           exportPageContext({
             _onMediaQueryChanged,
-            _onUpdateThemeData,
             _unregisterSubComponent,
 
             validateForm,
@@ -359,7 +343,6 @@ abstract class BaseEvalJS {
         }, [
           _unregisterSubComponent,
           _onMediaQueryChanged,
-          _onUpdateThemeData,
 
           setPageData,
           getPageData,
@@ -452,13 +435,5 @@ abstract class BaseEvalJS {
       context['$parentPagePath']?._unregisterSubComponent?.("$componentPath")
     """;
     return unregisterComponentCode;
-  }
-
-  String getUpdateJSThemeDataCode(Map<String, dynamic>? themeData) {
-    String updateJSThemeData = """_onUpdateThemeData('${jsonEncode(
-      themeData,
-    )}')
-    """;
-    return updateJSThemeData;
   }
 }

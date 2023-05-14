@@ -260,22 +260,6 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
     );
   }
 
-  void _updateThemeDataOnJSSide(Map<String, dynamic>? themeData) {
-    if (themeData == null) {
-      return;
-    }
-
-    final executedCode = utils.evalJS?.getUpdateJSThemeDataCode(themeData);
-    if (executedCode == null) {
-      return;
-    }
-
-    utils.evalJS?.executeAsyncJS(
-      executedCode,
-      _pageId,
-    );
-  }
-
   /// Set media query data into React component state at $mediaQuery state
   void _updateMediaQueryInJS(MediaQueryData mediaQuery) {
     var size = mediaQuery.size;
