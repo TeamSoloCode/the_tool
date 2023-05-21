@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:from_css_color/from_css_color.dart';
 import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/extensions/input_decoration_theme.extension.dart';
+import 'package:the_tool/page_utils/app_font.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/t_widget_interface/media_screen_only/media_screen_only.dart';
 import 'package:the_tool/utils.dart';
@@ -57,10 +58,12 @@ class ThemeProvider with ChangeNotifier {
     try {
       Map<String, dynamic> baseColor =
           _computeBaseColor(clientTheme["base"] ?? {});
-      Map<String, dynamic> computedThemeMap = _mergeBaseColorToTheme(
-        clientTheme,
+
+      Map<String, dynamic> computedThemeMap = _computeThemeMap(
+        clientTheme["theme"],
         baseColor,
       );
+
       _classes = _mergeBaseColorToClasses(clientTheme, baseColor);
 
       if (computedThemeMap.isEmpty) {
@@ -173,17 +176,41 @@ class ThemeProvider with ChangeNotifier {
     }
   }
 
+  Map<String, dynamic> _computeTextThemeMap(Map<String, dynamic> textThemeMap) {
+    Map<String, dynamic> updatedTextTheme = textThemeMap;
+    updatedTextTheme.forEach(
+      (textStyleKey, textStyle) {
+        if (textStyle is String) {
+          updatedTextTheme[textStyleKey] = AppFont().getFont(textStyle);
+        }
+      },
+    );
+    return updatedTextTheme;
+  }
+
+  Map<String, dynamic> _computeThemeMap(
+    Map<String, dynamic> themeMap,
+    Map<String, dynamic> baseColor,
+  ) {
+    var updatedThemeMap = _mergeBaseColorToTheme(
+      themeMap,
+      baseColor,
+    );
+    updatedThemeMap["textTheme"] = _computeTextThemeMap(themeMap["textTheme"]);
+
+    return updatedThemeMap;
+  }
+
   Map<String, dynamic> _mergeBaseColorToTheme(
     Map<String, dynamic> themeMap,
     Map<String, dynamic> baseColor,
   ) {
     try {
-      Map<String, dynamic> theme = themeMap["theme"] ?? {};
-      if (theme.isEmpty) {
+      if (themeMap.isEmpty) {
         return {};
       }
 
-      String themeJSON = json.encode(theme);
+      String themeJSON = json.encode(themeMap);
       baseColor.forEach((key, value) {
         if (!key.startsWith("--")) {
           themeJSON = themeJSON.replaceAll(RegExp(key), value);
@@ -193,12 +220,12 @@ class ThemeProvider with ChangeNotifier {
       /**
        * This because layout might have color value like 'red','blue','green', ...
        */
-      theme = json.decode(themeJSON);
-      (theme).forEach((key, value) {
-        theme[key] = transformColorFromCSS(value);
+      themeMap = json.decode(themeJSON);
+      (themeMap).forEach((key, value) {
+        themeMap[key] = transformColorFromCSS(value);
       });
 
-      return theme;
+      return themeMap;
     } catch (e) {
       rethrow;
     }

@@ -52,6 +52,7 @@ dependencies:
   json_theme:
     path: "./lib_modules/json_theme"
   eventify: ^1.0.1
+  google_fonts: ^4.0.4
 
   expansion_tile_card: ^2.0.0
 
