@@ -1,7 +1,9 @@
 FIXME: prevent user access to the context in console and run context function of the page context
 FIXME: The text color in the side navigation is not properly when change theme from dark to light
 FIXME: Remove reflectable of layout_props, because it consume 200kb of bundle
+FIXME: the auto validate of the form is validaing when not input anything web (prod/dev), android (prod)
 
+SUPPORT: responsive with device version
 SUPPORT: Use metadata to specify layout property is a string or number
 SUPPORT: RichText
 SUPPORT: Continue support t_bottom_sheet feature
@@ -20,7 +22,6 @@ UPDATE: DO not use http://localhost:8081 in index.html==============
 
 ===================================================================
 
-SUPPORT: merge inline TextStyle when using with google_fonts TextStyle in Theme
 SUPPORT: google_fonts name as string for TextStyle in LayoutProps
 SUPPORT: merge inline TextStyle when using with google_fonts TextStyle in LayoutProps
 
@@ -54,6 +55,8 @@ Support pages app bar custom actions
 Support alert, dialog, snackbar, ScaffoldMessenger
 
 #-------------------------------------------------
+
+-SUPPORT: merge inline TextStyle when using with google_fonts TextStyle in Theme
 -SUPPORT: google_fonts for theme
 -Update the function that update the theme json into js side
 -FIXME: Cannot declare 2 variables with the same name on 2 difference page in js side

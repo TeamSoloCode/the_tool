@@ -185,8 +185,21 @@ class ThemeProvider with ChangeNotifier {
     var appFont = app_font.AppFont();
 
     for (var entry in updatedTextTheme.entries) {
-      if (entry.value is String) {
-        updatedTextTheme[entry.key] = await appFont.getFont(entry.value);
+      var value = entry.value;
+      if (value is String) {
+        updatedTextTheme[entry.key] = await appFont.getFont(value);
+      } else if (value is Map) {
+        var textStyleMap = value;
+        var fontFamily = textStyleMap["fontFamily"];
+
+        TextStyle fontStyle = await appFont.getFont(fontFamily);
+
+        // Use fontFamily property of google font
+        // textStyleMap.remove("fontFamily");
+
+        TextStyle? inlineStyle = ThemeDecoder.decodeTextStyle(textStyleMap);
+
+        updatedTextTheme[entry.key] = fontStyle.merge(inlineStyle);
       }
     }
 
@@ -202,8 +215,11 @@ class ThemeProvider with ChangeNotifier {
       baseColor,
     );
 
-    updatedThemeMap["textTheme"] =
-        await _computeTextThemeMap(themeMap["textTheme"]);
+    updatedThemeMap["textTheme"] = await _computeTextThemeMap(
+      Map<String, dynamic>.from(
+        updatedThemeMap["textTheme"],
+      ),
+    );
 
     return updatedThemeMap;
   }
