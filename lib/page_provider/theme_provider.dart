@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:from_css_color/from_css_color.dart';
 import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/extensions/input_decoration_theme.extension.dart';
-import 'package:the_tool/page_utils/app_font.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/t_widget_interface/media_screen_only/media_screen_only.dart';
 import 'package:the_tool/utils.dart';
+import 'package:the_tool/page_utils/app_fonts/app_font.dart'
+    deferred as app_font;
 
 class ThemeProvider with ChangeNotifier {
   ThemeData? _themeData;
@@ -59,7 +60,7 @@ class ThemeProvider with ChangeNotifier {
       Map<String, dynamic> baseColor =
           _computeBaseColor(clientTheme["base"] ?? {});
 
-      Map<String, dynamic> computedThemeMap = _computeThemeMap(
+      Map<String, dynamic> computedThemeMap = await _computeThemeMap(
         clientTheme["theme"],
         baseColor,
       );
@@ -176,27 +177,33 @@ class ThemeProvider with ChangeNotifier {
     }
   }
 
-  Map<String, dynamic> _computeTextThemeMap(Map<String, dynamic> textThemeMap) {
+  Future<Map<String, dynamic>> _computeTextThemeMap(
+    Map<String, dynamic> textThemeMap,
+  ) async {
     Map<String, dynamic> updatedTextTheme = textThemeMap;
-    updatedTextTheme.forEach(
-      (textStyleKey, textStyle) {
-        if (textStyle is String) {
-          updatedTextTheme[textStyleKey] = AppFont().getFont(textStyle);
-        }
-      },
-    );
+    await app_font.loadLibrary();
+    var appFont = app_font.AppFont();
+
+    for (var entry in updatedTextTheme.entries) {
+      if (entry.value is String) {
+        updatedTextTheme[entry.key] = await appFont.getFont(entry.value);
+      }
+    }
+
     return updatedTextTheme;
   }
 
-  Map<String, dynamic> _computeThemeMap(
+  Future<Map<String, dynamic>> _computeThemeMap(
     Map<String, dynamic> themeMap,
     Map<String, dynamic> baseColor,
-  ) {
+  ) async {
     var updatedThemeMap = _mergeBaseColorToTheme(
       themeMap,
       baseColor,
     );
-    updatedThemeMap["textTheme"] = _computeTextThemeMap(themeMap["textTheme"]);
+
+    updatedThemeMap["textTheme"] =
+        await _computeTextThemeMap(themeMap["textTheme"]);
 
     return updatedThemeMap;
   }

@@ -20,7 +20,10 @@ UPDATE: DO not use http://localhost:8081 in index.html==============
 
 ===================================================================
 
-SUPPORT: google_fonts
+SUPPORT: merge inline TextStyle when using with google_fonts TextStyle in Theme
+SUPPORT: google_fonts name as string for TextStyle in LayoutProps
+SUPPORT: merge inline TextStyle when using with google_fonts TextStyle in LayoutProps
+
 SUPPORT: Error Widget for twidgets
 SUPPORT: SVG widget
 SUPPORT: dynamic for using "style" property in json layout
@@ -51,7 +54,7 @@ Support pages app bar custom actions
 Support alert, dialog, snackbar, ScaffoldMessenger
 
 #-------------------------------------------------
-
+-SUPPORT: google_fonts for theme
 -Update the function that update the theme json into js side
 -FIXME: Cannot declare 2 variables with the same name on 2 difference page in js side
 -UPDATE: Check that if the Map, List property in in widget props can be binding properly

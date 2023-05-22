@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:json_theme/json_theme_schemas.dart';
 import 'package:the_tool/api_client.dart';
-import 'package:the_tool/js_utils/base_invoke_is.dart';
 import 'package:the_tool/page_provider/auth_manager_provider.dart';
 import 'package:the_tool/page_provider/context_state_provider.dart';
-import 'package:the_tool/page_utils/permission_manager.dart';
 import 'package:the_tool/page_provider/resize_provider.dart';
 import 'package:the_tool/page_utils/storage_manager.dart';
 import 'package:the_tool/page_provider/theme_provider.dart';
+import 'package:the_tool/singleton_register.dart';
 import 'package:the_tool/tool_components/page_container_widget.dart'
     deferred as page_container;
 import 'package:the_tool/utils.dart';
@@ -21,7 +20,6 @@ import 'package:the_tool/static_pages/select_project.dart'
     deferred as select_project;
 import 'package:the_tool/js_utils/mobile_eval_utils/mobile_eval_js.dart'
     if (dart.library.js) 'package:the_tool/js_utils/web_eval_utils/web_eval_js.dart';
-import 'package:the_tool/config/config.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props_reflectable.dart'
     as layout_props_reflectable;
 
@@ -43,45 +41,8 @@ void main() async {
   // if (Platform.isAndroid) {
   //   await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
   // }
-  getIt.registerSingleton<EnvironmentConfig>(
-    EnvironmentConfig(),
-    signalsReady: true,
-  );
-  getIt.registerSingleton<UtilsManager>(UtilsManager(), signalsReady: true);
-  getIt.registerSingleton<StorageManager>(StorageManager(), signalsReady: true);
 
-  await getIt<StorageManager>().initStorageBox();
-
-  getIt.registerSingleton<APIClientManager>(
-    APIClientManager(),
-    signalsReady: true,
-  );
-  getIt.registerSingleton<ContextStateProvider>(
-    ContextStateProvider(),
-    signalsReady: true,
-  );
-  getIt.registerSingleton<ResizeProvider>(
-    ResizeProvider(),
-    signalsReady: true,
-  );
-  getIt.registerSingleton<PermissionManager>(
-    PermissionManager(),
-    signalsReady: true,
-  );
-  getIt.registerSingleton<ThemeProvider>(
-    ThemeProvider(),
-    signalsReady: true,
-  );
-
-  getIt.registerSingleton<AuthContextProvider>(
-    AuthContextProvider(),
-    signalsReady: true,
-  );
-
-  getIt.registerSingleton<BaseInvokeJS>(
-    const BaseInvokeJS(),
-    signalsReady: true,
-  );
+  await SingletonRegister.register();
 
   runApp(
     MultiProvider(
