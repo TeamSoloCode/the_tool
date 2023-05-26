@@ -188,14 +188,14 @@ class ThemeProvider with ChangeNotifier {
       var value = entry.value;
       if (value is String) {
         updatedTextTheme[entry.key] = await appFont.getFont(value);
-      } else if (value is Map) {
+      } else if (value is Map && UtilsManager.isTruthy(value["fontFamily"])) {
         var textStyleMap = value;
         var fontFamily = textStyleMap["fontFamily"];
 
         TextStyle fontStyle = await appFont.getFont(fontFamily);
 
-        // Use fontFamily property of google font
-        // textStyleMap.remove("fontFamily");
+        // Use fontFamily property from google font
+        textStyleMap.remove("fontFamily");
 
         TextStyle? inlineStyle = ThemeDecoder.decodeTextStyle(textStyleMap);
 

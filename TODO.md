@@ -1,5 +1,5 @@
 FIXME: prevent user access to the context in console and run context function of the page context
-FIXME: The text color in the side navigation is not properly when change theme from dark to light
+
 FIXME: Remove reflectable of layout_props, because it consume 200kb of bundle
 FIXME: the auto validate of the form is validaing when not input anything web (prod/dev), android (prod)
 
@@ -56,6 +56,7 @@ Support alert, dialog, snackbar, ScaffoldMessenger
 
 #-------------------------------------------------
 
+-FIXME: The text color in the side navigation is not properly when change theme from dark to light
 -SUPPORT: merge inline TextStyle when using with google_fonts TextStyle in Theme
 -SUPPORT: google_fonts for theme
 -Update the function that update the theme json into js side
