@@ -335,9 +335,14 @@ class UtilsManager {
     Map<String, dynamic> contextData,
   ) {
     if (value is String) {
+      if (value == "infinity") {
+        return double.infinity;
+      }
+
       if (UtilsManager.isValueBinding(value)) {
         return bindingValueToProp(contextData, value);
       }
+
       return _parseAdaptiveScreenUnit(value);
     } else if (value is num) {
       return value / 1.0;
