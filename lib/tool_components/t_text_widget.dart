@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/twidget_props.dart';
@@ -26,7 +24,6 @@ class TText extends TStatelessWidget {
           props?.style,
         ),
       );
-
       style = style?.merge(inlineStyle);
     }
 

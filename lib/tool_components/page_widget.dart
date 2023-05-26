@@ -37,6 +37,10 @@ class TPage extends StatefulWidget {
   State<TPage> createState() => _TPage();
 }
 
+final updateThemeDataToJSDebouncer = Debouncer(
+  delay: const Duration(milliseconds: 50),
+);
+
 class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
   final Map<String, dynamic> _prevPageState = {};
   final Map<String, dynamic> _initPageState = {};
@@ -54,10 +58,6 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
 
   late Future<void> _loadNecessaryWidget;
   MediaQueryData? _prevMediaQueryData;
-
-  final updateThemeDataToJSDebouncer = Debouncer(
-    delay: const Duration(milliseconds: 500),
-  );
 
   @override
   void initState() {
@@ -103,15 +103,15 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
   void _updateThemeDataJSON(
     ThemeData theme,
   ) {
+    final themeProvider = getIt<ThemeProvider>();
+    final themeDataAsJSON = ThemeEncoder.encodeThemeData(theme);
+    themeProvider.themeDataAsJSON = themeDataAsJSON;
+
     updateThemeDataToJSDebouncer.run(() {
-      final themeProvider = getIt<ThemeProvider>();
-      final themeDataAsJSON = ThemeEncoder.encodeThemeData(theme);
-      themeProvider.themeDataAsJSON = themeDataAsJSON;
       themeProvider.refreshThemeData();
     });
   }
 
-  Brightness? _prevThemeMode;
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -134,12 +134,8 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
     contextStateProvider.setRootPageData(pageData);
     final mediaQueryData = MediaQuery.of(context);
 
-    final theme = Theme.of(context);
-    if (_prevThemeMode != theme.brightness) {
-      _updateThemeDataJSON(theme);
-    }
-
-    _prevThemeMode = theme.brightness;
+    var theme = Theme.of(context);
+    _updateThemeDataJSON(theme);
 
     getIt<ResizeProvider>().resize(mediaQueryData.size);
     // print("Update page: ${_pageId} $pageData");
