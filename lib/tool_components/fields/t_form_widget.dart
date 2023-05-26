@@ -20,8 +20,7 @@ class _T_FormState extends TStatefulWidget<T_Form> {
   final _formKey = GlobalKey<FormBuilderState>();
   UtilsManager utils = getIt<UtilsManager>();
 
-  Map<String, FormBuilderFieldState<FormBuilderField<dynamic>, dynamic>>?
-      prevFields;
+  Map<String, dynamic> prevFormValue = {};
 
   late eventify.Listener listener;
 
@@ -40,6 +39,36 @@ class _T_FormState extends TStatefulWidget<T_Form> {
     );
 
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    var validateMode = widget.props?.autovalidateMode;
+    var fields = _formKey.currentState?.fields;
+    bool valueChanged = false;
+
+    fields?.forEach((key, field) {
+      var fieldValue = widget.getContexData()[key];
+
+      if (field.runtimeType.toString() == "_FormBuilderDateTimePickerState") {
+        fieldValue = DateTime.tryParse(fieldValue.toString());
+      }
+
+      field.setValue(fieldValue);
+      if (prevFormValue[key] != fieldValue) {
+        prevFormValue[key] = fieldValue;
+        valueChanged = true;
+      }
+    });
+
+    var autovalidateMode = ThemeDecoder.decodeAutovalidateMode(validateMode);
+    if (autovalidateMode == AutovalidateMode.always && valueChanged) {
+      _handleValidationFunction();
+    }
+
+    super.didChangeDependencies();
+
+    valueChanged = false;
   }
 
   @override
@@ -65,7 +94,7 @@ class _T_FormState extends TStatefulWidget<T_Form> {
   Future<bool> _handleValidationFunction() async {
     String? validationFunction = widget.widgetProps.validationFunction;
     Map<Object?, Object?>? errorTextMap;
-    
+
     if (validationFunction != null && validationFunction.isNotEmpty) {
       errorTextMap = await widget.executeJSWithPagePath(validationFunction);
     }
@@ -104,22 +133,8 @@ class _T_FormState extends TStatefulWidget<T_Form> {
       "Form need to have name property",
     );
 
-    var autovalidateMode = widget.props?.autovalidateMode;
-    var fields = _formKey.currentState?.fields;
-
-    fields?.forEach((key, field) {
-      if (field.runtimeType.toString() == "_FormBuilderDateTimePickerState") {
-        field.setValue(
-            DateTime.tryParse(widget.getContexData()[key].toString()));
-      } else {
-        field.setValue(widget.getContexData()[key]);
-      }
-    });
-
     _snapshot = FormBuilder(
       key: _formKey,
-      autoFocusOnValidationFailure: false,
-      autovalidateMode: ThemeDecoder.decodeAutovalidateMode(autovalidateMode),
       child: TWidgets(
         layout: _props?.child ?? const LayoutProps(),
         pagePath: widget.pagePath,

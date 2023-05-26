@@ -1,7 +1,6 @@
 FIXME: prevent user access to the context in console and run context function of the page context
 
 FIXME: Remove reflectable of layout_props, because it consume 200kb of bundle
-FIXME: the auto validate of the form is validaing when not input anything web (prod/dev), android (prod)
 
 SUPPORT: responsive with device version
 SUPPORT: Use metadata to specify layout property is a string or number
@@ -21,9 +20,6 @@ UPDATE: DO not use http://localhost:8081 in index.html==============
 -->
 
 ===================================================================
-
-SUPPORT: google_fonts name as string for TextStyle in LayoutProps
-SUPPORT: merge inline TextStyle when using with google_fonts TextStyle in LayoutProps
 
 SUPPORT: Error Widget for twidgets
 SUPPORT: SVG widget
@@ -56,6 +52,7 @@ Support alert, dialog, snackbar, ScaffoldMessenger
 
 #-------------------------------------------------
 
+-FIXME: the auto validate of the form is validaing when not input anything web (prod/dev), android (prod)
 -FIXME: The text color in the side navigation is not properly when change theme from dark to light
 -SUPPORT: merge inline TextStyle when using with google_fonts TextStyle in Theme
 -SUPPORT: google_fonts for theme
