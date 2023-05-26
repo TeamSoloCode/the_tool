@@ -6,7 +6,8 @@ SUPPORT: responsive with device version
 SUPPORT: Use metadata to specify layout property is a string or number
 SUPPORT: RichText
 SUPPORT: Continue support t_bottom_sheet feature
-SUPPORT: Slug id for route config
+
+SUPPORT: Validate min/max date for field date
 
 UPDATE: merge function of LayoutProps class to auto merge all simple properties. Check mergeObjects function in layout_props.dart
 
