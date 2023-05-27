@@ -142,6 +142,11 @@ mixin _$LayoutProps {
   bool? get autovalidate => throw _privateConstructorUsedError;
   List<Map<String, dynamic>>? get validators =>
       throw _privateConstructorUsedError; // Field End==================================================
+// Datetime Field Start==================================================
+  String? get firstDate => throw _privateConstructorUsedError;
+  String? get lastDate => throw _privateConstructorUsedError;
+  String? get initialDate =>
+      throw _privateConstructorUsedError; // Datetime Field End==================================================
 // Form Start================================================
   String? get autovalidateMode =>
       throw _privateConstructorUsedError; // Form End==================================================
@@ -290,6 +295,9 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? validationFunction,
       bool? autovalidate,
       List<Map<String, dynamic>>? validators,
+      String? firstDate,
+      String? lastDate,
+      String? initialDate,
       String? autovalidateMode,
       List<DataColumnProps>? columns,
       List<DataRowProps>? rows,
@@ -448,6 +456,9 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? validationFunction = freezed,
     Object? autovalidate = freezed,
     Object? validators = freezed,
+    Object? firstDate = freezed,
+    Object? lastDate = freezed,
+    Object? initialDate = freezed,
     Object? autovalidateMode = freezed,
     Object? columns = freezed,
     Object? rows = freezed,
@@ -804,6 +815,18 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.validators
           : validators // ignore: cast_nullable_to_non_nullable
               as List<Map<String, dynamic>>?,
+      firstDate: freezed == firstDate
+          ? _value.firstDate
+          : firstDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastDate: freezed == lastDate
+          ? _value.lastDate
+          : lastDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      initialDate: freezed == initialDate
+          ? _value.initialDate
+          : initialDate // ignore: cast_nullable_to_non_nullable
+              as String?,
       autovalidateMode: freezed == autovalidateMode
           ? _value.autovalidateMode
           : autovalidateMode // ignore: cast_nullable_to_non_nullable
@@ -1275,6 +1298,9 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       String? validationFunction,
       bool? autovalidate,
       List<Map<String, dynamic>>? validators,
+      String? firstDate,
+      String? lastDate,
+      String? initialDate,
       String? autovalidateMode,
       List<DataColumnProps>? columns,
       List<DataRowProps>? rows,
@@ -1452,6 +1478,9 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? validationFunction = freezed,
     Object? autovalidate = freezed,
     Object? validators = freezed,
+    Object? firstDate = freezed,
+    Object? lastDate = freezed,
+    Object? initialDate = freezed,
     Object? autovalidateMode = freezed,
     Object? columns = freezed,
     Object? rows = freezed,
@@ -1808,6 +1837,18 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value._validators
           : validators // ignore: cast_nullable_to_non_nullable
               as List<Map<String, dynamic>>?,
+      firstDate: freezed == firstDate
+          ? _value.firstDate
+          : firstDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastDate: freezed == lastDate
+          ? _value.lastDate
+          : lastDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      initialDate: freezed == initialDate
+          ? _value.initialDate
+          : initialDate // ignore: cast_nullable_to_non_nullable
+              as String?,
       autovalidateMode: freezed == autovalidateMode
           ? _value.autovalidateMode
           : autovalidateMode // ignore: cast_nullable_to_non_nullable
@@ -2022,6 +2063,9 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.validationFunction,
       this.autovalidate,
       final List<Map<String, dynamic>>? validators,
+      this.firstDate,
+      this.lastDate,
+      this.initialDate,
       this.autovalidateMode,
       final List<DataColumnProps>? columns,
       final List<DataRowProps>? rows,
@@ -2335,6 +2379,14 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   }
 
 // Field End==================================================
+// Datetime Field Start==================================================
+  @override
+  final String? firstDate;
+  @override
+  final String? lastDate;
+  @override
+  final String? initialDate;
+// Datetime Field End==================================================
 // Form Start================================================
   @override
   final String? autovalidateMode;
@@ -2442,7 +2494,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, shadowColor: $shadowColor, heightFactor: $heightFactor, widthFactor: $widthFactor, weight: $weight, style: $style, opacity: $opacity, enabled: $enabled, duration: $duration, show: $show, safeArea: $safeArea, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, textAlign: $textAlign, selectable: $selectable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, suffixIcon: $suffixIcon, suffixIconColor: $suffixIconColor, suffixText: $suffixText, prefixIcon: $prefixIcon, prefixIconColor: $prefixIconColor, prefixText: $prefixText, format: $format, fillColor: $fillColor, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, onSelectChanged: $onSelectChanged, onSelectAll: $onSelectAll, selected: $selected, dividerColor: $dividerColor, head: $head, body: $body, leading: $leading, title: $title, trailing: $trailing, subtitle: $subtitle, horizontalTitleGap: $horizontalTitleGap, component: $component, child: $child, content: $content, itemLayout: $itemLayout, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, shapeBorder: $shapeBorder, boxShadow: $boxShadow, gradient: $gradient)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, shadowColor: $shadowColor, heightFactor: $heightFactor, widthFactor: $widthFactor, weight: $weight, style: $style, opacity: $opacity, enabled: $enabled, duration: $duration, show: $show, safeArea: $safeArea, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, textAlign: $textAlign, selectable: $selectable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, suffixIcon: $suffixIcon, suffixIconColor: $suffixIconColor, suffixText: $suffixText, prefixIcon: $prefixIcon, prefixIconColor: $prefixIconColor, prefixText: $prefixText, format: $format, fillColor: $fillColor, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, firstDate: $firstDate, lastDate: $lastDate, initialDate: $initialDate, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, onSelectChanged: $onSelectChanged, onSelectAll: $onSelectAll, selected: $selected, dividerColor: $dividerColor, head: $head, body: $body, leading: $leading, title: $title, trailing: $trailing, subtitle: $subtitle, horizontalTitleGap: $horizontalTitleGap, component: $component, child: $child, content: $content, itemLayout: $itemLayout, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, shapeBorder: $shapeBorder, boxShadow: $boxShadow, gradient: $gradient)';
   }
 
   @override
@@ -2532,6 +2584,9 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('validationFunction', validationFunction))
       ..add(DiagnosticsProperty('autovalidate', autovalidate))
       ..add(DiagnosticsProperty('validators', validators))
+      ..add(DiagnosticsProperty('firstDate', firstDate))
+      ..add(DiagnosticsProperty('lastDate', lastDate))
+      ..add(DiagnosticsProperty('initialDate', initialDate))
       ..add(DiagnosticsProperty('autovalidateMode', autovalidateMode))
       ..add(DiagnosticsProperty('columns', columns))
       ..add(DiagnosticsProperty('rows', rows))
@@ -2666,6 +2721,9 @@ abstract class _LayoutProps implements LayoutProps {
       final String? validationFunction,
       final bool? autovalidate,
       final List<Map<String, dynamic>>? validators,
+      final String? firstDate,
+      final String? lastDate,
+      final String? initialDate,
       final String? autovalidateMode,
       final List<DataColumnProps>? columns,
       final List<DataRowProps>? rows,
@@ -2907,6 +2965,13 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   List<Map<String, dynamic>>? get validators;
   @override // Field End==================================================
+// Datetime Field Start==================================================
+  String? get firstDate;
+  @override
+  String? get lastDate;
+  @override
+  String? get initialDate;
+  @override // Datetime Field End==================================================
 // Form Start================================================
   String? get autovalidateMode;
   @override // Form End==================================================

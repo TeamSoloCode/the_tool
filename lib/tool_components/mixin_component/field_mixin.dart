@@ -62,9 +62,10 @@ mixin FieldMixin {
 
   /// This validator compute function is used for SelectField
   List<String? Function(dynamic)> computeFieldValidators(
-    List<Map<String, dynamic>>? validatorsMap,
+    LayoutProps? layoutProps,
     Map<String, dynamic> contextData,
   ) {
+    List<Map<String, dynamic>>? validatorsMap = layoutProps?.validators;
     return validatorsMap != null
         ? validatorsMap
             .map((validator) {
@@ -90,8 +91,11 @@ mixin FieldMixin {
 
                   var inclusive = UtilsManager.isTruthy(validator["inclusive"]);
 
-                  return FormBuilderValidators.max(maxValue,
-                      inclusive: inclusive, errorText: errorText);
+                  return FormBuilderValidators.max(
+                    maxValue,
+                    inclusive: inclusive,
+                    errorText: errorText,
+                  );
 
                 case "min":
                   dynamic minValue = UtilsManager.isValueBinding(
@@ -110,8 +114,11 @@ mixin FieldMixin {
 
                   var inclusive = UtilsManager.isTruthy(validator["inclusive"]);
 
-                  return FormBuilderValidators.min(minValue,
-                      inclusive: inclusive, errorText: errorText);
+                  return FormBuilderValidators.min(
+                    minValue,
+                    inclusive: inclusive,
+                    errorText: errorText,
+                  );
 
                 case "max_length":
                   int? maxValue =
@@ -136,12 +143,16 @@ mixin FieldMixin {
                     );
                   }
 
-                  return FormBuilderValidators.minLength(minValue,
-                      errorText: errorText);
+                  return FormBuilderValidators.minLength(
+                    minValue,
+                    errorText: errorText,
+                  );
 
-                case "notEqual":
-                  return FormBuilderValidators.notEqual(validator["value"],
-                      errorText: errorText);
+                case "not_equal":
+                  return FormBuilderValidators.notEqual(
+                    validator["value"],
+                    errorText: errorText,
+                  );
 
                 default:
                   return null;
@@ -155,9 +166,10 @@ mixin FieldMixin {
 
   /// This validator compute function is used for TextField
   List<String? Function(String?)> computeCommonValidators(
-    List<Map<String, dynamic>>? validatorsMap,
+    LayoutProps? layoutProps,
     Map<String, dynamic> contextData,
   ) {
+    List<Map<String, dynamic>>? validatorsMap = layoutProps?.validators;
     List<String? Function(String?)> validators = validatorsMap != null
         ? validatorsMap
             .map((validator) {
@@ -174,7 +186,7 @@ mixin FieldMixin {
                   return FormBuilderValidators.integer(
                     errorText: validator["errorText"],
                   );
-                case "dateString":
+                case "date_string":
                   return FormBuilderValidators.dateString(
                     errorText: validator["errorText"],
                   );
@@ -187,7 +199,7 @@ mixin FieldMixin {
             .toList()
         : [];
 
-    var fieldValidators = computeFieldValidators(validatorsMap, contextData);
+    var fieldValidators = computeFieldValidators(layoutProps, contextData);
     return [...validators, ...fieldValidators];
   }
 }

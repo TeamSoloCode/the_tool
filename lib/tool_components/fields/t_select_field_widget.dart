@@ -110,7 +110,7 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField>
       onChanged: _onChangeOption,
       initialValue: widget.props?.defaultValue ?? value,
       validator: FormBuilderValidators.compose([
-        ...computeFieldValidators(widget.props?.validators, contextData),
+        ...computeFieldValidators(widget.props, contextData),
         (dynamic value) {
           _runValidationFunction();
           return null;

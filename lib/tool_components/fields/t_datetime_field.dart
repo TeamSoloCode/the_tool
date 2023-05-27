@@ -112,35 +112,56 @@ class _TDatetimeState extends TStatefulWidget<TDatetime> with FieldMixin {
   }
 
   Widget _computeDatetimeField(
-    LayoutProps? widgetProps,
+    LayoutProps props,
     Map<String, dynamic> contextData,
   ) {
-    String? name = widgetProps?.name;
+    String? name = props.name;
     var value = contextData[name];
 
     assert(name != null, "Missing \"name\" in field widget");
+
+    var lastDate = DateTime.tryParse(props.lastDate ?? "");
+    var firstDate = DateTime.tryParse(props.firstDate ?? "");
+
+    if (lastDate != null && firstDate != null && lastDate.isBefore(firstDate)) {
+      throw Exception("lastDate must be after firstDate");
+    }
+
+    var initialDate = DateTime.tryParse(props.initialDate ?? "");
+    if (initialDate != null) {
+      if (lastDate != null && initialDate.isAfter(lastDate)) {
+        throw Exception("initialDate must be before or equal to lastDate");
+      }
+
+      if (firstDate != null && initialDate.isBefore(firstDate)) {
+        throw Exception("initialDate must be after or equal to firstDate");
+      }
+    }
 
     return FormBuilderDateTimePicker(
       key: _datetimeKey,
       controller: _datetimeFieldController,
       name: name ?? "",
-      inputType: _getInputType(widgetProps?.fieldType),
+      lastDate: lastDate,
+      firstDate: firstDate,
+      initialDate: initialDate,
+      inputType: _getInputType(props.fieldType),
       format: DateFormat(_getDefaultFormat(
-        widgetProps?.fieldType,
-        widgetProps?.format,
+        props.fieldType,
+        props.format,
       )),
       locale: Localizations.localeOf(context),
       decoration: computeFieldDecoration(
-        widgetProps,
+        props,
         thisWidget: widget,
         errorMessage: _errorMessage,
         suffixIcon: _getSuffixIcon(),
       ),
       initialValue: DateTime.tryParse(
-        (widget.props?.defaultValue ?? value).toString(),
+        (props.defaultValue ?? value).toString(),
       ),
       validator: FormBuilderValidators.compose([
-        ...computeFieldValidators(widget.props?.validators, contextData),
+        ...computeFieldValidators(props, contextData),
         (dynamic value) {
           _runValidationFunction();
           return null;

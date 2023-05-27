@@ -147,6 +147,12 @@ class LayoutProps with _$LayoutProps {
     List<Map<String, dynamic>>? validators,
     // Field End==================================================
 
+    // Datetime Field Start==================================================
+    String? firstDate,
+    String? lastDate,
+    String? initialDate,
+    // Datetime Field End==================================================
+
     // Form Start================================================
     String? autovalidateMode,
     // Form End==================================================
@@ -276,7 +282,7 @@ extension MergeLayoutProps on LayoutProps {
       image: other.image ?? image,
 
       enabled: other.enabled ?? enabled,
-
+      // Field start======================================
       format: other.format ?? format,
       prefixText: other.prefixText ?? prefixText,
       suffixText: other.suffixText ?? suffixText,
@@ -288,6 +294,10 @@ extension MergeLayoutProps on LayoutProps {
           ? prefixIcon
           : (prefixIcon?.merge(other.prefixIcon) ?? other.prefixIcon),
       prefixIconColor: other.prefixIconColor ?? prefixIconColor,
+      initialDate: other.initialDate ?? initialDate,
+      lastDate: other.lastDate ?? lastDate,
+      firstDate: other.firstDate ?? firstDate,
+      // Field end======================================
 
       // type: other.type ?? type,
       color: other.color ?? color,

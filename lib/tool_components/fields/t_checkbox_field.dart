@@ -77,7 +77,7 @@ class _TCheckboxState extends TStatefulWidget<TCheckbox> with FieldMixin {
       ),
       initialValue: UtilsManager.isTruthy(value),
       validator: FormBuilderValidators.compose([
-        ...computeFieldValidators(widget.props?.validators, contextData),
+        ...computeFieldValidators(widget.props, contextData),
         (dynamic value) {
           _runValidationFunction();
           return null;

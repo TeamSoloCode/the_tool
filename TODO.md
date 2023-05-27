@@ -1,17 +1,16 @@
-FIXME: prevent user access to the context in console and run context function of the page context
+FIXME: prevent user access to the context in console and run function in the page context
 
 FIXME: Remove reflectable of layout_props, because it consume 200kb of bundle
 
 SUPPORT: responsive with device version
 SUPPORT: Use metadata to specify layout property is a string or number
 SUPPORT: RichText
-SUPPORT: Continue support t_bottom_sheet feature
 
 SUPPORT: Validate min/max date for field date
 
 UPDATE: merge function of LayoutProps class to auto merge all simple properties. Check mergeObjects function in layout_props.dart
 
-UPDATE: Check widget props what containt any screen_util unit before start to re-computeWidgetProps in t_widget base
+UPDATE: Check widget props what contain any screen_util unit before start to re-computeWidgetProps in t_widget base
 
 UPDATE: DO not use http://localhost:8081 in index.html==============
 
@@ -53,6 +52,7 @@ Support alert, dialog, snackbar, ScaffoldMessenger
 
 #-------------------------------------------------
 
+-SUPPORT: Continue support t_bottom_sheet feature
 -FIXME: the auto validate of the form is validaing when not input anything web (prod/dev), android (prod)
 -FIXME: The text color in the side navigation is not properly when change theme from dark to light
 -SUPPORT: merge inline TextStyle when using with google_fonts TextStyle in Theme
