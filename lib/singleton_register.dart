@@ -38,10 +38,10 @@ class SingletonRegister {
       signalsReady: true,
     );
 
-    getIt.registerSingleton<PermissionManager>(
-      PermissionManager(),
-      signalsReady: true,
-    );
+    // getIt.registerSingleton<PermissionManager>(
+    //   PermissionManager(),
+    //   signalsReady: true,
+    // );
 
     getIt.registerSingleton<ThemeProvider>(
       ThemeProvider(),
