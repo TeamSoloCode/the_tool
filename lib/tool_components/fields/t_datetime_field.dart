@@ -127,7 +127,7 @@ class _TDatetimeState extends TStatefulWidget<TDatetime> with FieldMixin {
       throw Exception("lastDate must be after firstDate");
     }
 
-    var initialDate = DateTime.tryParse(props.initialDate ?? "");
+    var initialDate = DateTime.tryParse(props.initialDate ?? "") ?? lastDate;
     if (initialDate != null) {
       if (lastDate != null && initialDate.isAfter(lastDate)) {
         throw Exception("initialDate must be before or equal to lastDate");
