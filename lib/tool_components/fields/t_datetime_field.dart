@@ -22,11 +22,16 @@ class _TDatetimeState extends TStatefulWidget<TDatetime> with FieldMixin {
   String? _errorMessage;
   DateTime? selectedValue;
   final _datetimeFieldController = TextEditingController();
-
+  late var _formator;
   @override
   void initState() {
     super.initState();
     initializeDateFormatting();
+
+    _formator = DateFormat(_getDefaultFormat(
+      widget.widgetProps.fieldType,
+      widget.widgetProps.format,
+    ));
   }
 
   @override
@@ -34,9 +39,8 @@ class _TDatetimeState extends TStatefulWidget<TDatetime> with FieldMixin {
     String? name = widget.widgetProps.name;
     dynamic currentValue = _datetimeKey.currentState?.value;
     try {
-      selectedValue = widget.getContexData()[name] != null
-          ? DateTime.parse(widget.getContexData()[name].toString())
-          : null;
+      selectedValue =
+          DateTime.tryParse(widget.getContexData()[name].toString());
     } catch (e) {
       throw Exception(
         "Fail to parse ${widget.getContexData()[name].toString()}. Please use \"yyyy-MM-dd hh:mm:ss\" format",
@@ -46,9 +50,8 @@ class _TDatetimeState extends TStatefulWidget<TDatetime> with FieldMixin {
     if (selectedValue.toString() != currentValue.toString() && name != null) {
       Future.delayed(Duration.zero, () async {
         _datetimeKey.currentState?.setValue(selectedValue);
-        _datetimeFieldController.text = selectedValue != null
-            ? DateFormat(DefaultDateTimeFormat).format(selectedValue!)
-            : "";
+        _datetimeFieldController.text =
+            selectedValue != null ? _formator.format(selectedValue!) : "";
       });
     }
 
@@ -127,16 +130,19 @@ class _TDatetimeState extends TStatefulWidget<TDatetime> with FieldMixin {
       throw Exception("lastDate must be after firstDate");
     }
 
-    var initialDate = DateTime.tryParse(props.initialDate ?? "") ?? lastDate;
-    if (initialDate != null) {
-      if (lastDate != null && initialDate.isAfter(lastDate)) {
-        throw Exception("initialDate must be before or equal to lastDate");
-      }
+    var selectedValue = _validateWithLastDateAndFirstDate(
+      (props.defaultValue ?? value).toString(),
+      firstDate: firstDate,
+      lastDate: lastDate,
+      errorValueName: "selected value",
+    );
 
-      if (firstDate != null && initialDate.isBefore(firstDate)) {
-        throw Exception("initialDate must be after or equal to firstDate");
-      }
-    }
+    var initialDate = _validateWithLastDateAndFirstDate(
+      props.initialDate,
+      firstDate: firstDate,
+      lastDate: lastDate,
+      errorValueName: "initialDate",
+    );
 
     return FormBuilderDateTimePicker(
       key: _datetimeKey,
@@ -146,10 +152,7 @@ class _TDatetimeState extends TStatefulWidget<TDatetime> with FieldMixin {
       firstDate: firstDate,
       initialDate: initialDate,
       inputType: _getInputType(props.fieldType),
-      format: DateFormat(_getDefaultFormat(
-        props.fieldType,
-        props.format,
-      )),
+      format: _formator,
       locale: Localizations.localeOf(context),
       decoration: computeFieldDecoration(
         props,
@@ -157,9 +160,7 @@ class _TDatetimeState extends TStatefulWidget<TDatetime> with FieldMixin {
         errorMessage: _errorMessage,
         suffixIcon: _getSuffixIcon(),
       ),
-      initialValue: DateTime.tryParse(
-        (props.defaultValue ?? value).toString(),
-      ),
+      initialValue: selectedValue,
       validator: FormBuilderValidators.compose([
         ...computeFieldValidators(props, contextData),
         (dynamic value) {
@@ -172,6 +173,29 @@ class _TDatetimeState extends TStatefulWidget<TDatetime> with FieldMixin {
       },
       onChanged: _onChangeDate,
     );
+  }
+
+  DateTime? _validateWithLastDateAndFirstDate(
+    String? value, {
+    required DateTime? firstDate,
+    required DateTime? lastDate,
+    required String errorValueName,
+  }) {
+    var selectedDate = DateTime.tryParse(value ?? "") ?? lastDate;
+
+    if (selectedDate != null) {
+      if (lastDate != null && selectedDate.isAfter(lastDate)) {
+        throw Exception(
+            "$errorValueName must be before or equal to lastDate.\nDate: ${selectedDate.toString()}.\nLast date: ${lastDate.toString()}.");
+      }
+
+      if (firstDate != null && selectedDate.isBefore(firstDate)) {
+        throw Exception(
+            "$errorValueName must be after or equal to firstDate.\nDate: ${selectedDate.toString()}\nFirst date: ${lastDate.toString()}");
+      }
+    }
+
+    return selectedDate;
   }
 
   void _runValidationFunction() async {

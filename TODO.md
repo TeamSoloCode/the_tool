@@ -6,7 +6,8 @@ SUPPORT: responsive with device version
 SUPPORT: Use metadata to specify layout property is a string or number
 SUPPORT: RichText
 
-SUPPORT: Validate min/max date for field date
+SUPPORT: image picker field in register layout
+SUPPORT: file picker field
 
 UPDATE: merge function of LayoutProps class to auto merge all simple properties. Check mergeObjects function in layout_props.dart
 
@@ -51,7 +52,7 @@ Support pages app bar custom actions
 Support alert, dialog, snackbar, ScaffoldMessenger
 
 #-------------------------------------------------
-
+-SUPPORT: set min/max date for field date
 -SUPPORT: Continue support t_bottom_sheet feature
 -FIXME: the auto validate of the form is validaing when not input anything web (prod/dev), android (prod)
 -FIXME: The text color in the side navigation is not properly when change theme from dark to light
