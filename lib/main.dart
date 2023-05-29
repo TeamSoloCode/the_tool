@@ -9,6 +9,8 @@ import 'package:the_tool/page_provider/resize_provider.dart';
 import 'package:the_tool/page_utils/storage_manager.dart';
 import 'package:the_tool/page_provider/theme_provider.dart';
 import 'package:the_tool/singleton_register.dart';
+import 'package:the_tool/static_pages/server_not_found.page.dart'
+    deferred as server_not_found;
 import 'package:the_tool/tool_components/page_container_widget.dart'
     deferred as page_container;
 import 'package:the_tool/utils.dart';
@@ -16,7 +18,7 @@ import 'package:provider/provider.dart';
 import 't_widget_interface/client_config/client_config.dart';
 import 'dart:io' if (dart.library.html) "dart:html";
 import 'package:url_strategy/url_strategy.dart';
-import 'package:the_tool/static_pages/select_project.dart'
+import 'package:the_tool/static_pages/select_project.page.dart'
     deferred as select_project;
 import 'package:the_tool/js_utils/mobile_eval_utils/mobile_eval_js.dart'
     if (dart.library.js) 'package:the_tool/js_utils/web_eval_utils/web_eval_js.dart';
@@ -78,6 +80,7 @@ class TheTool extends StatefulWidget {
 
 class _TheToolState extends State<TheTool> {
   String? _selectedProjectName;
+  String? _cannotLoadConfig;
 
   void _loadWebCoreJSCode(BuildContext context) {
     UtilsManager utils = getIt<UtilsManager>();
@@ -98,7 +101,15 @@ class _TheToolState extends State<TheTool> {
     final storage = getIt<StorageManager>();
     final cacheProjectName = storage.getLocalBox("projectName");
     apiClient.projectName = _selectedProjectName ?? cacheProjectName;
-    ClientConfig config = await apiClient.getClientConfig();
+    ClientConfig? config;
+    try {
+      config = await apiClient.getClientConfig();
+    } catch (error) {
+      await server_not_found.loadLibrary();
+      setState(() {
+        _cannotLoadConfig = error.toString();
+      });
+    }
     getIt<ContextStateProvider>().appConfig = config;
 
     await page_container.loadLibrary();
@@ -126,6 +137,10 @@ class _TheToolState extends State<TheTool> {
     context.select((AuthContextProvider value) {
       return value;
     });
+
+    if (_cannotLoadConfig != null) {
+      return server_not_found.ServerNotFound();
+    }
 
     return FutureBuilder<bool>(
       key: ValueKey(_selectedProjectName),

@@ -63,6 +63,7 @@ dependencies:
   # field packages
   flutter_form_builder: ^7.6.0
   form_builder_validators: ^8.3.0
+  form_builder_image_picker: ^3.1.0
 
   data_table_2: ^2.3.7
   bottom_sheet: ^3.1.2
