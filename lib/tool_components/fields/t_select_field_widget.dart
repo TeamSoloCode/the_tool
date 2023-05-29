@@ -107,6 +107,7 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField>
         errorMessage: _errorMessage,
         suffixIcon: _getSuffixIcon(),
       ),
+      enabled: widgetProps?.enabled ?? true,
       onChanged: _onChangeOption,
       initialValue: widget.props?.defaultValue ?? value,
       validator: FormBuilderValidators.compose([
@@ -135,13 +136,13 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField>
   }
 
   void _runValidationFunction() async {
-    String? validationFunction = widget.widgetProps.validationFunction;
-    if (validationFunction != null && validationFunction.isNotEmpty) {
-      var errorMessage = await widget.executeJSWithPagePath(validationFunction);
-      setState(() {
-        _errorMessage = errorMessage;
-      });
-    }
-    return null;
+    runValidationFunction(
+      thisWidget: widget,
+      onError: (errorMsg) {
+        setState(() {
+          _errorMessage = errorMsg;
+        });
+      },
+    );
   }
 }

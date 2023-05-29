@@ -63,6 +63,7 @@ class _TCheckboxState extends TStatefulWidget<TCheckbox> with FieldMixin {
       key: _checkboxKey,
       name: name ?? "",
       selected: UtilsManager.isTruthy(value),
+      enabled: widgetProps?.enabled ?? true,
       title: CustomTitle(
         child: TWidgets(
           layout: widgetProps?.title ?? const LayoutProps(),
@@ -91,14 +92,14 @@ class _TCheckboxState extends TStatefulWidget<TCheckbox> with FieldMixin {
   }
 
   void _runValidationFunction() async {
-    String? validationFunction = widget.widgetProps.validationFunction;
-    if (validationFunction != null && validationFunction.isNotEmpty) {
-      var errorMessage = await widget.executeJSWithPagePath(validationFunction);
-      setState(() {
-        _errorMessage = errorMessage;
-      });
-    }
-    return null;
+    runValidationFunction(
+      thisWidget: widget,
+      onError: (errorMsg) {
+        setState(() {
+          _errorMessage = errorMsg;
+        });
+      },
+    );
   }
 
   @override

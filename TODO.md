@@ -1,3 +1,5 @@
+flutter pub run build_runner watch --delete-conflicting-outputs
+
 FIXME: prevent user access to the context in console and run function in the page context
 
 FIXME: Remove reflectable of layout_props, because it consume 200kb of bundle

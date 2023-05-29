@@ -254,32 +254,6 @@ class ThemeProvider with ChangeNotifier {
     }
   }
 
-  LayoutProps mergeBaseColor(LayoutProps content) {
-    try {
-      var rawContent = content.toJson();
-
-      rawContent.forEach((propName, propValue) {
-        if ([
-              "child",
-              "children",
-            ].contains(propName) ||
-            propValue is! String) return;
-
-        baseColor?.forEach((baseColorName, baseColorValue) {
-          if (!baseColorName.startsWith("--")) {
-            if (baseColorName == propValue) {
-              rawContent[propName] = baseColorValue;
-            }
-          }
-        });
-      });
-
-      return LayoutProps.fromJson(rawContent);
-    } catch (e) {
-      rethrow;
-    }
-  }
-
   T_MediaScreenOnlyProps margerClassesIntoMediaScreen(
     T_MediaScreenOnlyProps mediaScreen,
     Map<String, dynamic> contextData,

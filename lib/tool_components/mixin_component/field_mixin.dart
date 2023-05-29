@@ -29,14 +29,15 @@ mixin FieldMixin {
       hintText: props.hintText,
       labelText: props.labelText,
       errorText: errorMessage,
-      suffixIcon: suffixIcon ?? _generateIcon(props.suffixIcon, thisWidget),
+      suffixIcon: suffixIcon ?? generateIcon(props.suffixIcon, thisWidget),
       suffixIconColor: ThemeDecoder.decodeColor(props.suffixIconColor),
-      prefixIcon: _generateIcon(props.prefixIcon, thisWidget),
+      prefixIcon: generateIcon(props.prefixIcon, thisWidget),
       prefixIconColor: ThemeDecoder.decodeColor(props.prefixIconColor),
       fillColor: ThemeDecoder.decodeColor(props.fillColor),
       border: props.boxBorder?.type == "none"
           ? InputBorder.none
           : ThemeDecoder.decodeInputBorder(props.boxBorder?.toJson()),
+      enabled: props.enabled ?? true,
       constraints: BoxConstraints(
         maxHeight: props.maxHeight,
         maxWidth: props.maxWidth,
@@ -46,13 +47,13 @@ mixin FieldMixin {
     );
   }
 
-  Widget? _generateIcon(LayoutProps? icon, TWidget widget) {
+  Widget? generateIcon(LayoutProps? icon, TWidget widget) {
     Widget? prefixIcon;
-    var prefixIconValue = icon;
-    if (prefixIconValue == null) return null;
+    var iconValue = icon;
+    if (iconValue == null) return null;
 
     prefixIcon = TWidgets(
-      layout: prefixIconValue,
+      layout: iconValue,
       pagePath: widget.pagePath,
       childData: widget.childData,
     );
@@ -201,5 +202,20 @@ mixin FieldMixin {
 
     var fieldValidators = computeFieldValidators(layoutProps, contextData);
     return [...validators, ...fieldValidators];
+  }
+
+  void runValidationFunction({
+    required TWidget thisWidget,
+    required void Function(String errorMessage) onError,
+  }) async {
+    String? validationFunction = thisWidget.props?.validationFunction;
+    if (validationFunction != null && validationFunction.isNotEmpty) {
+      var errorMessage =
+          await thisWidget.executeJSWithPagePath(validationFunction);
+      if (errorMessage != null) {
+        onError(errorMessage);
+      }
+    }
+    return null;
   }
 }

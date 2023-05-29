@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/fields/t_datetime_field.dart'
     deferred as field_datetime;
+import 'package:the_tool/tool_components/fields/t_image_field.dart'
+    deferred as field_image;
 import 'package:the_tool/tool_components/fields/t_select_field_widget.dart'
     deferred as field_select;
 import 'package:the_tool/tool_components/fields/t_text_field_widget.dart'
@@ -11,13 +13,9 @@ import 'package:the_tool/tool_components/fields/t_text_field_widget.dart'
 import 'package:the_tool/tool_components/fields/t_checkbox_field.dart'
     deferred as field_checkbox;
 import 'package:the_tool/tool_components/t_widget.dart';
-import 'package:the_tool/utils.dart';
 import 'package:the_tool/twidget_props.dart';
 
 class TFields extends TWidget {
-  @override
-  UtilsManager utils = getIt<UtilsManager>();
-
   TFields(TWidgetProps twidget) : super(twidget);
 
   @override
@@ -65,6 +63,9 @@ class _TFieldsState extends TStatefulWidget<TFields> {
       case "checkbox":
         await field_checkbox.loadLibrary();
         break;
+      case "image":
+        await field_image.loadLibrary();
+        break;
       default:
         throw Exception("$fieldType field type is not supported!");
     }
@@ -101,6 +102,8 @@ class _TFieldsState extends TStatefulWidget<TFields> {
         return field_datetime.TDatetime(tWidgetProps);
       case "checkbox":
         return field_checkbox.TCheckbox(tWidgetProps);
+      case "image":
+        return field_image.TImagePickerField(tWidgetProps);
       default:
         throw Exception("$fieldType field type is not supported!");
     }

@@ -22,7 +22,8 @@ class _TDatetimeState extends TStatefulWidget<TDatetime> with FieldMixin {
   String? _errorMessage;
   DateTime? selectedValue;
   final _datetimeFieldController = TextEditingController();
-  late var _formator;
+  late DateFormat _formator;
+
   @override
   void initState() {
     super.initState();
@@ -119,9 +120,9 @@ class _TDatetimeState extends TStatefulWidget<TDatetime> with FieldMixin {
     Map<String, dynamic> contextData,
   ) {
     String? name = props.name;
-    var value = contextData[name];
-
     assert(name != null, "Missing \"name\" in field widget");
+
+    var value = contextData[name];
 
     var lastDate = DateTime.tryParse(props.lastDate ?? "");
     var firstDate = DateTime.tryParse(props.firstDate ?? "");
@@ -134,7 +135,7 @@ class _TDatetimeState extends TStatefulWidget<TDatetime> with FieldMixin {
       (props.defaultValue ?? value).toString(),
       firstDate: firstDate,
       lastDate: lastDate,
-      errorValueName: "selected value",
+      errorValueName: "datefield value",
     );
 
     var initialDate = _validateWithLastDateAndFirstDate(
@@ -154,6 +155,7 @@ class _TDatetimeState extends TStatefulWidget<TDatetime> with FieldMixin {
       inputType: _getInputType(props.fieldType),
       format: _formator,
       locale: Localizations.localeOf(context),
+      enabled: props.enabled ?? true,
       decoration: computeFieldDecoration(
         props,
         thisWidget: widget,
@@ -199,14 +201,14 @@ class _TDatetimeState extends TStatefulWidget<TDatetime> with FieldMixin {
   }
 
   void _runValidationFunction() async {
-    String? validationFunction = widget.widgetProps.validationFunction;
-    if (validationFunction != null && validationFunction.isNotEmpty) {
-      var errorMessage = await widget.executeJSWithPagePath(validationFunction);
-      setState(() {
-        _errorMessage = errorMessage;
-      });
-    }
-    return null;
+    runValidationFunction(
+      thisWidget: widget,
+      onError: (errorMsg) {
+        setState(() {
+          _errorMessage = errorMsg;
+        });
+      },
+    );
   }
 
   @override

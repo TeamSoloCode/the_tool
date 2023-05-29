@@ -133,14 +133,14 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
   }
 
   void _runValidationFunction() async {
-    String? validationFunction = widget.widgetProps.validationFunction;
-    if (validationFunction != null && validationFunction.isNotEmpty) {
-      var errorMessage = await widget.executeJSWithPagePath(validationFunction);
-      setState(() {
-        _errorMessage = errorMessage;
-      });
-    }
-    return null;
+    runValidationFunction(
+      thisWidget: widget,
+      onError: (errorMsg) {
+        setState(() {
+          _errorMessage = errorMsg;
+        });
+      },
+    );
   }
 
   TextInputType _getTextInputType(LayoutProps? layoutProps) {

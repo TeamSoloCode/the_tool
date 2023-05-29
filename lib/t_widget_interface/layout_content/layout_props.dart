@@ -153,6 +153,10 @@ class LayoutProps with _$LayoutProps {
     String? initialDate,
     // Datetime Field End==================================================
 
+    // Image Picker Start=============================================
+    @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? cameraIcon,
+    // Image Picker End===============================================
+
     // Form Start================================================
     String? autovalidateMode,
     // Form End==================================================
@@ -293,6 +297,9 @@ extension MergeLayoutProps on LayoutProps {
       prefixIcon: other.prefixIcon == null
           ? prefixIcon
           : (prefixIcon?.merge(other.prefixIcon) ?? other.prefixIcon),
+      cameraIcon: other.cameraIcon == null
+          ? cameraIcon
+          : (cameraIcon?.merge(other.cameraIcon) ?? other.cameraIcon),
       prefixIconColor: other.prefixIconColor ?? prefixIconColor,
       initialDate: other.initialDate ?? initialDate,
       lastDate: other.lastDate ?? lastDate,

@@ -154,7 +154,8 @@ final _data = <r.Reflectable, r.ReflectorData>{
               119,
               120,
               121,
-              122
+              122,
+              123
             ],
             const <int>[],
             1,
@@ -246,6 +247,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
                       firstDate,
                       lastDate,
                       initialDate,
+                      cameraIcon,
                       autovalidateMode,
                       columns,
                       rows,
@@ -294,6 +296,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
                           boxBorder: boxBorder,
                           boxShadow: boxShadow,
                           buttonType: buttonType,
+                          cameraIcon: cameraIcon,
                           child: child,
                           children: children,
                           className: className,
@@ -526,7 +529,8 @@ final _data = <r.Reflectable, r.ReflectorData>{
               119,
               120,
               121,
-              122
+              122,
+              123
             ],
             const <int>[
               2,
@@ -649,7 +653,8 @@ final _data = <r.Reflectable, r.ReflectorData>{
               119,
               120,
               121,
-              122
+              122,
+              123
             ],
             const <int>[],
             -1,
@@ -785,18 +790,19 @@ final _data = <r.Reflectable, r.ReflectorData>{
               110,
               111,
               112,
-              113
+              113,
+              114
             ],
             const prefix0.LayoutPropsReflector(),
             const []),
         r.MethodMirrorImpl(r'fromJson', 1, 0, -1, -1, -1, null,
-            const <int>[114], const prefix0.LayoutPropsReflector(), const []),
-        r.MethodMirrorImpl(r'==', 2097154, -1, -1, -1, -1, null,
             const <int>[115], const prefix0.LayoutPropsReflector(), const []),
+        r.MethodMirrorImpl(r'==', 2097154, -1, -1, -1, -1, null,
+            const <int>[116], const prefix0.LayoutPropsReflector(), const []),
         r.MethodMirrorImpl(r'toString', 2097154, -1, -1, -1, -1, null,
             const <int>[], const prefix0.LayoutPropsReflector(), const []),
         r.MethodMirrorImpl(r'noSuchMethod', 524290, -1, -1, -1, -1, null,
-            const <int>[116], const prefix0.LayoutPropsReflector(), const []),
+            const <int>[117], const prefix0.LayoutPropsReflector(), const []),
         r.MethodMirrorImpl(r'hashCode', 2097155, -1, -1, -1, -1, null,
             const <int>[], const prefix0.LayoutPropsReflector(), const []),
         r.MethodMirrorImpl(r'runtimeType', 2097155, -1, -1, -1, -1, null,
@@ -1026,6 +1032,19 @@ final _data = <r.Reflectable, r.ReflectorData>{
             const <int>[], const prefix0.LayoutPropsReflector(), const []),
         r.MethodMirrorImpl(r'initialDate', 2097155, -1, -1, -1, -1, null,
             const <int>[], const prefix0.LayoutPropsReflector(), const []),
+        r.MethodMirrorImpl(
+            r'cameraIcon',
+            2097155,
+            -1,
+            0,
+            -1,
+            -1,
+            null,
+            const <int>[],
+            const prefix0.LayoutPropsReflector(),
+            const <Object>[
+              const prefix3.LayoutPropsMetadata(ignoreComputeProps: true)
+            ]),
         r.MethodMirrorImpl(r'autovalidateMode', 2097155, -1, -1, -1, -1, null,
             const <int>[], const prefix0.LayoutPropsReflector(), const []),
         r.MethodMirrorImpl(r'columns', 35651587, -1, -1, -1, -1, null,
@@ -2228,6 +2247,20 @@ final _data = <r.Reflectable, r.ReflectorData>{
             null,
             #initialDate),
         r.ParameterMirrorImpl(
+            r'cameraIcon',
+            67252230,
+            0,
+            const prefix0.LayoutPropsReflector(),
+            0,
+            -1,
+            -1,
+            null,
+            const <Object>[
+              const prefix3.LayoutPropsMetadata(ignoreComputeProps: true)
+            ],
+            null,
+            #cameraIcon),
+        r.ParameterMirrorImpl(
             r'autovalidateMode',
             67252230,
             0,
@@ -2742,6 +2775,7 @@ final _data = <r.Reflectable, r.ReflectorData>{
         r'firstDate': (dynamic instance) => instance.firstDate,
         r'lastDate': (dynamic instance) => instance.lastDate,
         r'initialDate': (dynamic instance) => instance.initialDate,
+        r'cameraIcon': (dynamic instance) => instance.cameraIcon,
         r'autovalidateMode': (dynamic instance) => instance.autovalidateMode,
         r'columns': (dynamic instance) => instance.columns,
         r'rows': (dynamic instance) => instance.rows,

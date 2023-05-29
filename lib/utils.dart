@@ -175,26 +175,26 @@ class UtilsManager {
     dynamic propsJson,
     Map<String, dynamic> contextData,
   ) {
+    var cloneJson = Map<String, dynamic>.from(propsJson);
+
     propsJson.forEach((key, value) {
       final ignored = ignoredComputeProps[key];
       if (ignored == true) {
-        propsJson[key] = value;
+        cloneJson[key] = value;
       } else if (value is Map) {
-        propsJson[key] = _bindingWidgetPropValue(value, contextData);
+        cloneJson[key] = _bindingWidgetPropValue(value, contextData);
       } else if (value is List) {
-        propsJson[key] = _bindingWidgetPropValueList(value, contextData);
+        cloneJson[key] = _bindingWidgetPropValueList(value, contextData);
       } else {
-        if (UtilsManager.isValueBinding(value)) {
-          propsJson[key] = _bindingWidgetPropValueSingle(
-            key,
-            value,
-            contextData,
-          );
-        }
+        cloneJson[key] = _bindingWidgetPropValueSingle(
+          key,
+          value,
+          contextData,
+        );
       }
     });
 
-    return propsJson;
+    return cloneJson;
   }
 
   List<dynamic> _bindingWidgetPropValueList(
@@ -215,13 +215,20 @@ class UtilsManager {
     Map<String, dynamic> contextData,
   ) {
     final lowercasedKey = key.toLowerCase();
+
+    if (lowercasedKey.contains("color")) {
+      return parseColor(value, contextData);
+    }
+
+    if (!UtilsManager.isValueBinding(value)) {
+      return value;
+    }
+
     if (lowercasedKey.contains("text") || _textBindingKeys.contains(key)) {
       return bindingValueToText(contextData, value);
-    } else if (lowercasedKey.contains("color")) {
-      return parseColor(bindingValueToProp(contextData, value), contextData);
-    } else {
-      return bindingValueToProp(contextData, value);
     }
+
+    return bindingValueToProp(contextData, value);
   }
 
   LayoutProps computeWidgetProps(
@@ -240,8 +247,6 @@ class UtilsManager {
     const initLayoutProp = LayoutProps();
     LayoutProps? widgetProps =
         themeProvider.mergeClasses(layoutProps, contextData) ?? initLayoutProp;
-
-    widgetProps = themeProvider.mergeBaseColor(widgetProps);
 
     var result = _bindingWidgetPropValue(
       widgetProps.toJson(),
@@ -354,12 +359,21 @@ class UtilsManager {
     String? rawColor,
     Map<String, dynamic> contextData,
   ) {
-    if (rawColor != null && UtilsManager.isValueBinding(rawColor)) {
+    if (rawColor == null) {
+      return rawColor;
+    }
+
+    if (themeProvider.baseColor?[rawColor] != null) {
+      return themeProvider.baseColor?[rawColor];
+    }
+
+    if (UtilsManager.isValueBinding(rawColor)) {
       return StyleUtils.getCssStringWithContextData(
         rawColor,
         contextData,
       );
     }
+
     return rawColor;
   }
 
