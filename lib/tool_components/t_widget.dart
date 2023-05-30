@@ -58,9 +58,6 @@ mixin BaseStateWidget on Widget {
     );
 
     if (hasBindingValue && _contextChangedToken == null) {
-      print(
-          "test render ${widgetProps.type} ${widgetProps.text} ${_contextChangedToken}");
-
       context.select((ContextStateProvider value) async {
         var newPageData =
             value.contextData[path] ?? UtilsManager.emptyMapStringDynamic;
