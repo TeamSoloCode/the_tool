@@ -33,7 +33,7 @@ mixin BaseStateWidget on Widget {
   Widget snapshot = const Offstage();
   Map<String, dynamic> _contextData = {};
   final Set<String> widgetBindingStrings = {};
-  List<dynamic>? prevBindingValues;
+  List<dynamic>? _prevBindingValues;
   var hasBindingValue = false;
   var hasThemeBindingValue = false;
   var propsHasAdaptiveScreenUnit = false;
@@ -41,6 +41,7 @@ mixin BaseStateWidget on Widget {
   int? _prevResizeToken;
 
   bool mediaScreenApplied = false;
+  int? _contextChangedToken;
 
   Map<String, dynamic> watchContextState(BuildContext context,
       {String? providedPagePath}) {
@@ -56,7 +57,10 @@ mixin BaseStateWidget on Widget {
       },
     );
 
-    if (hasBindingValue) {
+    if (hasBindingValue && _contextChangedToken == null) {
+      print(
+          "test render ${widgetProps.type} ${widgetProps.text} ${_contextChangedToken}");
+
       context.select((ContextStateProvider value) async {
         var newPageData =
             value.contextData[path] ?? UtilsManager.emptyMapStringDynamic;
@@ -73,7 +77,7 @@ mixin BaseStateWidget on Widget {
         }
 
         if (!dependenciesChanged) {
-          return false;
+          return _contextChangedToken;
         }
 
         _contextData = newPageData;
@@ -89,7 +93,8 @@ mixin BaseStateWidget on Widget {
           prevProps = props;
         }
 
-        return DateTime.now().millisecondsSinceEpoch;
+        _contextChangedToken = DateTime.now().millisecondsSinceEpoch;
+        return _contextChangedToken;
       });
     }
 
@@ -200,10 +205,10 @@ mixin BaseStateWidget on Widget {
     }).toList();
 
     var isChanged = !const DeepCollectionEquality()
-        .equals(newBindingValues, prevBindingValues);
+        .equals(newBindingValues, _prevBindingValues);
 
     if (isChanged) {
-      prevBindingValues = newBindingValues;
+      _prevBindingValues = newBindingValues;
     }
 
     return isChanged;

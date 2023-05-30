@@ -391,11 +391,11 @@ class UtilsManager {
     }
 
     var result = false;
-    widgetPropsAsJSON.forEach((propName, value) {
+    widgetPropsAsJSON.forEach((key, value) {
       if (value == null ||
-          propName == "child" ||
-          propName == "children" ||
-          propName == "computedComponentProps") {
+          key == "child" ||
+          key == "children" ||
+          key == "computedComponentProps") {
         return;
       }
 
@@ -403,7 +403,7 @@ class UtilsManager {
           ? jsonEncode(value)
           : value.toString();
 
-      switch (propName) {
+      switch (key) {
         case "name":
         case "value":
           result = true;

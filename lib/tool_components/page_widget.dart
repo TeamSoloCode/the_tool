@@ -100,6 +100,8 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
     });
   }
 
+  int? _prevThemeRefeshToken;
+
   void _updateThemeDataJSON(
     ThemeData theme,
   ) {
@@ -109,6 +111,7 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
 
     updateThemeDataToJSDebouncer.run(() {
       themeProvider.refreshThemeData();
+      _prevThemeRefeshToken = utils.themeProvider.themeRefreshToken;
     });
   }
 
@@ -135,7 +138,9 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
     final mediaQueryData = MediaQuery.of(context);
 
     var theme = Theme.of(context);
-    _updateThemeDataJSON(theme);
+    if (_prevThemeRefeshToken != utils.themeProvider.themeRefreshToken) {
+      _updateThemeDataJSON(theme);
+    }
 
     getIt<ResizeProvider>().resize(mediaQueryData.size);
     // print("Update page: ${_pageId} $pageData");
