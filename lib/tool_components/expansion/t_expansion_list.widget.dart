@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
@@ -41,10 +40,7 @@ class _TExpansionListState extends TStatefulWidget<TExpansionList> {
 
   @override
   void didChangeDependencies() {
-    // FIXME: This because on web platform it not triggered didChangeDependencies when contextData change
-    if (!kIsWeb) {
-      _updateStateBaseOnContextData();
-    }
+    _updateStateBaseOnContextData();
     super.didChangeDependencies();
   }
 
@@ -160,10 +156,6 @@ class _TExpansionListState extends TStatefulWidget<TExpansionList> {
   @override
   Widget buildWidget(BuildContext context) {
     Widget _snapshot = widget.snapshot;
-    // FIXME: This because on web platform it not triggered didChangeDependencies when contextData change
-    if (kIsWeb) {
-      _updateStateBaseOnContextData();
-    }
     if (widget.props != null) {
       _snapshot = _computeExpanstionList(widget.props!);
     }

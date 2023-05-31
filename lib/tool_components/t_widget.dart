@@ -41,7 +41,7 @@ mixin BaseStateWidget on Widget {
   int? _prevResizeToken;
 
   bool mediaScreenApplied = false;
-  int? _contextChangedToken;
+  int? _didAddContextDataListener;
 
   Map<String, dynamic> watchContextState(BuildContext context,
       {String? providedPagePath}) {
@@ -57,7 +57,7 @@ mixin BaseStateWidget on Widget {
       },
     );
 
-    if (hasBindingValue && _contextChangedToken == null) {
+    if (hasBindingValue && _didAddContextDataListener == null) {
       context.select((ContextStateProvider value) async {
         var newPageData =
             value.contextData[path] ?? UtilsManager.emptyMapStringDynamic;
@@ -74,7 +74,7 @@ mixin BaseStateWidget on Widget {
         }
 
         if (!dependenciesChanged) {
-          return _contextChangedToken;
+          return _didAddContextDataListener;
         }
 
         _contextData = newPageData;
@@ -90,8 +90,8 @@ mixin BaseStateWidget on Widget {
           prevProps = props;
         }
 
-        _contextChangedToken = DateTime.now().millisecondsSinceEpoch;
-        return _contextChangedToken;
+        _didAddContextDataListener = DateTime.now().millisecondsSinceEpoch;
+        return _didAddContextDataListener;
       });
     }
 

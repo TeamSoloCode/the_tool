@@ -301,10 +301,13 @@ extension MergeLayoutProps on LayoutProps {
           ? cameraIcon
           : (cameraIcon?.merge(other.cameraIcon) ?? other.cameraIcon),
       prefixIconColor: other.prefixIconColor ?? prefixIconColor,
+      // Field end======================================
+
+      // Field Datetime Start =============================='
       initialDate: other.initialDate ?? initialDate,
       lastDate: other.lastDate ?? lastDate,
       firstDate: other.firstDate ?? firstDate,
-      // Field end======================================
+      // Field Datetime End ================================
 
       // type: other.type ?? type,
       color: other.color ?? color,
