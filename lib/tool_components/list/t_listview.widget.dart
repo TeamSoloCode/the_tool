@@ -49,12 +49,10 @@ class _T_ListViewState extends TStatefulWidget<T_ListView> {
 
   @override
   Widget buildWidget(BuildContext context) {
-    Widget _snapshot = widget.snapshot;
-
     if (widget.props != null) {
-      _snapshot = _computeListView(widget.props!);
+      widget.snapshot = _computeListView(widget.props!);
     }
 
-    return _snapshot;
+    return widget.snapshot;
   }
 }

@@ -10,11 +10,10 @@ class TPadding extends TStatelessWidget {
 
   @override
   Widget buildWidget(BuildContext context) {
-    Widget _snapshot = snapshot;
     LayoutProps? _props = props;
 
     if (_props != null) {
-      _snapshot = Padding(
+      snapshot = Padding(
         key: getBindingKey(),
         padding:
             ThemeDecoder.decodeEdgeInsetsGeometry(props?.padding ?? [0, 0])!,
@@ -28,6 +27,6 @@ class TPadding extends TStatelessWidget {
       );
     }
 
-    return _snapshot;
+    return snapshot;
   }
 }

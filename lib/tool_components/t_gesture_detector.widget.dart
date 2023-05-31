@@ -16,11 +16,10 @@ class TGestureDetector extends TStatelessWidget {
 
   @override
   Widget buildWidget(BuildContext context) {
-    Widget _snapshot = snapshot;
     LayoutProps? _props = props;
 
     if (_props != null) {
-      _snapshot = GestureDetector(
+      snapshot = GestureDetector(
         key: getBindingKey(),
         onTap: _onTap,
         child: TWidgets(
@@ -31,6 +30,6 @@ class TGestureDetector extends TStatelessWidget {
       );
     }
 
-    return _snapshot;
+    return snapshot;
   }
 }

@@ -98,12 +98,13 @@ class _TComponentState extends TStatefulWidget<TComponent> {
     //     getIt<ContextStateProvider>().contextData[widget.pagePath] ??
     //         emptyMapStringDynamic;
 
-    return FutureBuilder(
+    widget.snapshot = FutureBuilder(
       // key: ValueKey(_pageId),
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return const Offstage();
         }
+
         return TWidgets(
           key: Key(_componentId),
           layout: _pageLayout ?? const LayoutProps(),
@@ -113,5 +114,7 @@ class _TComponentState extends TStatefulWidget<TComponent> {
       },
       future: _loadClientComponent,
     );
+
+    return widget.snapshot;
   }
 }

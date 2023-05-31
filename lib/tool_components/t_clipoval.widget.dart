@@ -8,7 +8,7 @@ class T_ClipOval extends TStatelessWidget {
 
   @override
   Widget buildWidget(BuildContext context) {
-    return ClipOval(
+    snapshot = ClipOval(
       key: getBindingKey(),
       child: TWidgets(
         layout: props!.child!,
@@ -16,5 +16,7 @@ class T_ClipOval extends TStatelessWidget {
         childData: childData,
       ),
     );
+
+    return snapshot;
   }
 }

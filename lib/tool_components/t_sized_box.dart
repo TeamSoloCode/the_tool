@@ -9,11 +9,10 @@ class TSizedBox extends TStatelessWidget {
 
   @override
   Widget buildWidget(BuildContext context) {
-    Widget _snapshot = snapshot;
     LayoutProps? _props = props;
 
     if (_props != null) {
-      _snapshot = SizedBox(
+      snapshot = SizedBox(
         key: getBindingKey(),
         height: _props.height,
         width: _props.width,
@@ -25,6 +24,6 @@ class TSizedBox extends TStatelessWidget {
       );
     }
 
-    return _snapshot;
+    return snapshot;
   }
 }

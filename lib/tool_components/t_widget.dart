@@ -41,7 +41,8 @@ mixin BaseStateWidget on Widget {
   int? _prevResizeToken;
 
   bool mediaScreenApplied = false;
-  int? _didAddContextDataListener;
+  bool _didAddThemeListener = false;
+  int? _depsChangedToken;
 
   Map<String, dynamic> watchContextState(BuildContext context,
       {String? providedPagePath}) {
@@ -50,15 +51,17 @@ mixin BaseStateWidget on Widget {
     // if (hasThemeBindingValue) {
     //   Theme.of(context);
     // }
+    if (!_didAddThemeListener) {
+      context.select(
+        (ThemeProvider theme) {
+          return theme.themeRefreshToken;
+        },
+      );
+      _didAddThemeListener = true;
+    }
 
-    context.select(
-      (ThemeProvider theme) {
-        return theme.themeRefreshToken;
-      },
-    );
-
-    if (hasBindingValue && _didAddContextDataListener == null) {
-      context.select((ContextStateProvider value) async {
+    if (hasBindingValue) {
+      context.select((ContextStateProvider value) {
         var newPageData =
             value.contextData[path] ?? UtilsManager.emptyMapStringDynamic;
 
@@ -74,7 +77,7 @@ mixin BaseStateWidget on Widget {
         }
 
         if (!dependenciesChanged) {
-          return _didAddContextDataListener;
+          return _depsChangedToken;
         }
 
         _contextData = newPageData;
@@ -90,8 +93,8 @@ mixin BaseStateWidget on Widget {
           prevProps = props;
         }
 
-        _didAddContextDataListener = DateTime.now().millisecondsSinceEpoch;
-        return _didAddContextDataListener;
+        _depsChangedToken = DateTime.now().millisecondsSinceEpoch;
+        return _depsChangedToken;
       });
     }
 
@@ -130,6 +133,7 @@ mixin BaseStateWidget on Widget {
           );
 
           prevProps = props;
+
           return resizeProvider.resizeRefreshKey;
         });
 
@@ -285,6 +289,7 @@ abstract class TStatefulWidget<Page extends TWidget> extends State<Page>
       return widget.snapshot;
     }
 
+    print("rebuild ${widget.widgetProps.type} ${widget.widgetBindingStrings}");
     return buildWidget(context);
   }
 }
@@ -326,6 +331,8 @@ abstract class TStatelessWidget extends StatelessWidget with BaseStateWidget {
     if (props == null) {
       return snapshot;
     }
+
+    print("rebuild ${widgetProps.type} ${widgetBindingStrings}");
 
     return buildWidget(context);
   }

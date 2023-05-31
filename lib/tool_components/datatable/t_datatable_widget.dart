@@ -341,14 +341,13 @@ class _TDataTableState extends TStatefulWidget<TDataTable> {
 
   @override
   Widget buildWidget(BuildContext context) {
-    Widget _snapshot = widget.snapshot;
     LayoutProps? _props = widget.props;
     _updateTableSource();
 
     if (_props != null) {
-      _snapshot = _computeTable(_props, widget.getContexData());
+      widget.snapshot = _computeTable(_props, widget.getContexData());
     }
 
-    return _snapshot;
+    return widget.snapshot;
   }
 }

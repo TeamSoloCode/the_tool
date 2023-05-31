@@ -10,12 +10,11 @@ class T_Icon extends TStatelessWidget {
 
   @override
   Widget buildWidget(BuildContext context) {
-    Widget _snapshot = snapshot;
     LayoutProps? _props = props;
 
     if (_props != null) {
       var path = _props.icon ?? "";
-      _snapshot = Icon(
+      snapshot = Icon(
         MdiIcons.fromString(path),
         key: getBindingKey(),
         color: ThemeDecoder.decodeColor(_props.color),
@@ -24,6 +23,6 @@ class T_Icon extends TStatelessWidget {
       );
     }
 
-    return _snapshot;
+    return snapshot;
   }
 }

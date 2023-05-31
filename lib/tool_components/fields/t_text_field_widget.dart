@@ -153,13 +153,12 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
 
   @override
   Widget buildWidget(BuildContext context) {
-    Widget _snapshot = widget.snapshot;
     LayoutProps? _props = widget.props;
 
     if (_props != null) {
-      _snapshot = _computeTextField(_props, widget.getContexData());
+      widget.snapshot = _computeTextField(_props, widget.getContexData());
     }
 
-    return _snapshot;
+    return widget.snapshot;
   }
 }

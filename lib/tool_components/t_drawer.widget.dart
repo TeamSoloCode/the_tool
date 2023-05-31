@@ -19,13 +19,12 @@ class _TDrawerState extends TStatefulWidget<TDrawer> {
       pagePath: widget.pagePath,
       childData: const {},
     );
-    await Future.delayed(const Duration(milliseconds: 500));
+    // await Future.delayed(const Duration(milliseconds: 800));
     return drawerContent;
   }
 
   @override
   Widget buildWidget(BuildContext context) {
-    Widget _snapshot = widget.snapshot;
     LayoutProps? _props = widget.props;
     T_DrawerProps? _drawerProps = widget.drawerProps;
 
@@ -35,7 +34,7 @@ class _TDrawerState extends TStatefulWidget<TDrawer> {
     );
 
     if (_props != null) {
-      _snapshot = Drawer(
+      widget.snapshot = Drawer(
         width: drawerWidth,
         child: FutureBuilder<Widget>(
           builder: (context, snapshot) {
@@ -48,6 +47,6 @@ class _TDrawerState extends TStatefulWidget<TDrawer> {
         ),
       );
     }
-    return _snapshot;
+    return widget.snapshot;
   }
 }

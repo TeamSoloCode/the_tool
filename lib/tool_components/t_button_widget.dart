@@ -50,13 +50,12 @@ class _TButtonState extends TStatefulWidget<TButton> {
 
   @override
   Widget buildWidget(BuildContext context) {
-    Widget _snapshot = widget.snapshot;
     LayoutProps? _props = widget.props;
 
     if (_props != null) {
-      _snapshot = _computeButton(_props);
+      widget.snapshot = _computeButton(_props);
     }
 
-    return _snapshot;
+    return widget.snapshot;
   }
 }

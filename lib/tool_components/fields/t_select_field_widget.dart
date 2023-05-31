@@ -126,13 +126,12 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField>
 
   @override
   Widget buildWidget(BuildContext context) {
-    Widget _snapshot = widget.snapshot;
     LayoutProps? _props = widget.props;
 
     if (_props != null) {
-      _snapshot = _computeSelectField(_props, widget.getContexData());
+      widget.snapshot = _computeSelectField(_props, widget.getContexData());
     }
-    return _snapshot;
+    return widget.snapshot;
   }
 
   void _runValidationFunction() async {

@@ -112,14 +112,13 @@ class _TFieldsState extends TStatefulWidget<TFields> {
   @override
   Widget buildWidget(BuildContext context) {
     if (_loadedWidget) {
-      Widget _snapshot = widget.snapshot;
       LayoutProps? _props = widget.props;
 
       if (_props != null) {
-        _snapshot = _computeFields(_props, context);
+        widget.snapshot = _computeFields(_props, context);
       }
 
-      return _snapshot;
+      return widget.snapshot;
     }
     return const Offstage();
   }

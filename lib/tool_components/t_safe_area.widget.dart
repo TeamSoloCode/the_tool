@@ -9,11 +9,10 @@ class TSafeArea extends TStatelessWidget {
 
   @override
   Widget buildWidget(BuildContext context) {
-    Widget _snapshot = snapshot;
     LayoutProps? _props = props;
 
     if (_props != null) {
-      _snapshot = SafeArea(
+      snapshot = SafeArea(
         key: getBindingKey(),
         child: TWidgets(
           layout: _props.child!,
@@ -23,6 +22,6 @@ class TSafeArea extends TStatelessWidget {
       );
     }
 
-    return _snapshot;
+    return snapshot;
   }
 }

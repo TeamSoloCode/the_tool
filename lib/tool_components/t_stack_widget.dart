@@ -41,8 +41,10 @@ class T_Stack extends TStatelessWidget {
 
   @override
   Widget buildWidget(BuildContext context) {
-    return Stack(
+    snapshot = Stack(
       children: _getChildren(),
     );
+
+    return snapshot;
   }
 }

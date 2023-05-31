@@ -86,10 +86,9 @@ class _TExapnsionTitle extends TStatefulWidget<TExpansionTitle> {
 
   @override
   Widget buildWidget(BuildContext context) {
-    Widget _snapshot = widget.snapshot;
     LayoutProps? _props = widget.props;
     if (_props != null) {
-      _snapshot = ExpansionTileCard(
+      widget.snapshot = ExpansionTileCard(
         key: expansionKey,
         initiallyExpanded: _expanded,
         // TODO: Implement me
@@ -109,6 +108,6 @@ class _TExapnsionTitle extends TStatefulWidget<TExpansionTitle> {
       );
     }
 
-    return _snapshot;
+    return widget.snapshot;
   }
 }

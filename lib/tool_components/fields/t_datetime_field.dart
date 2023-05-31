@@ -213,12 +213,11 @@ class _TDatetimeState extends TStatefulWidget<TDatetime> with FieldMixin {
 
   @override
   Widget buildWidget(BuildContext context) {
-    Widget _snapshot = widget.snapshot;
     LayoutProps? _props = widget.props;
 
     if (_props != null) {
-      _snapshot = _computeDatetimeField(_props, widget.getContexData());
+      widget.snapshot = _computeDatetimeField(_props, widget.getContexData());
     }
-    return _snapshot;
+    return widget.snapshot;
   }
 }

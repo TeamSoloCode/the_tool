@@ -26,12 +26,11 @@ class _TGridState extends TStatefulWidget<TGrid> {
 
   @override
   Widget buildWidget(BuildContext context) {
-    Widget _snapshot = widget.snapshot;
     LayoutProps? _props = widget.props;
 
     if (_props != null) {
       _items = _computeChildren(_props.children);
-      _snapshot = GridView.builder(
+      widget.snapshot = GridView.builder(
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: MediaQuery.of(context).size.width,
           mainAxisExtent: 200,
@@ -43,6 +42,6 @@ class _TGridState extends TStatefulWidget<TGrid> {
       );
     }
 
-    return _snapshot;
+    return widget.snapshot;
   }
 }

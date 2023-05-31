@@ -9,11 +9,10 @@ class TCenter extends TStatelessWidget {
 
   @override
   Widget buildWidget(BuildContext context) {
-    Widget _snapshot = snapshot;
     LayoutProps? _props = props;
 
     if (_props != null) {
-      _snapshot = Center(
+      snapshot = Center(
         key: getBindingKey(),
         heightFactor: _props.heightFactor,
         widthFactor: _props.widthFactor,
@@ -27,6 +26,6 @@ class TCenter extends TStatelessWidget {
       );
     }
 
-    return _snapshot;
+    return snapshot;
   }
 }

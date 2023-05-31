@@ -125,7 +125,6 @@ class _T_FormState extends TStatefulWidget<T_Form> {
 
   @override
   Widget buildWidget(BuildContext context) {
-    Widget _snapshot = widget.snapshot;
     LayoutProps? _props = widget.props;
 
     assert(
@@ -133,7 +132,7 @@ class _T_FormState extends TStatefulWidget<T_Form> {
       "Form need to have name property",
     );
 
-    _snapshot = FormBuilder(
+    widget.snapshot = FormBuilder(
       key: _formKey,
       child: TWidgets(
         layout: _props?.child ?? const LayoutProps(),
@@ -142,6 +141,6 @@ class _T_FormState extends TStatefulWidget<T_Form> {
       ),
     );
 
-    return _snapshot;
+    return widget.snapshot;
   }
 }

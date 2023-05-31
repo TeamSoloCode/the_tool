@@ -9,11 +9,10 @@ class TOpacity extends TStatelessWidget {
 
   @override
   Widget buildWidget(BuildContext context) {
-    Widget _snapshot = snapshot;
     LayoutProps? _props = props;
 
     if (_props != null) {
-      _snapshot = Opacity(
+      snapshot = Opacity(
         key: getBindingKey(),
         opacity: _props.opacity ?? 1.0,
         child: _props.child == null
@@ -26,6 +25,6 @@ class TOpacity extends TStatelessWidget {
       );
     }
 
-    return _snapshot;
+    return snapshot;
   }
 }

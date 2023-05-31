@@ -10,11 +10,10 @@ class TCard extends TStatelessWidget {
 
   @override
   Widget buildWidget(BuildContext context) {
-    Widget _snapshot = snapshot;
     LayoutProps? _props = props;
 
     if (_props != null) {
-      _snapshot = Card(
+      snapshot = Card(
         key: getBindingKey(),
         color: ThemeDecoder.decodeColor(_props.color),
         elevation: _props.elevation,
@@ -31,6 +30,6 @@ class TCard extends TStatelessWidget {
       );
     }
 
-    return _snapshot;
+    return snapshot;
   }
 }

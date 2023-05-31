@@ -42,16 +42,15 @@ class TWrap extends TStatelessWidget {
 
   @override
   Widget buildWidget(BuildContext context) {
-    Widget _snapshot = snapshot;
     LayoutProps? _props = props;
 
     if (_props != null) {
-      _snapshot = Wrap(
+      snapshot = Wrap(
         key: getBindingKey(),
         children: _getChildren(context),
       );
     }
 
-    return _snapshot;
+    return snapshot;
   }
 }
