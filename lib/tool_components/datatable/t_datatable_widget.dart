@@ -260,11 +260,11 @@ class _TDataTableState extends TStatefulWidget<TDataTable> {
               // and trigger rebuild
               //setState(() {
               _rowsPerPage = value!;
-              print(_rowsPerPage);
+              // print(_rowsPerPage);
               //});
             },
             onPageChanged: (rowIndex) {
-              print(rowIndex / _rowsPerPage);
+              // print(rowIndex / _rowsPerPage);
             },
           ),
         ),
@@ -275,7 +275,6 @@ class _TDataTableState extends TStatefulWidget<TDataTable> {
   }
 
   Widget _prepareLoadingWidget(bool onlyUpdateData) {
-    print("abcd onlyUpdateData ${onlyUpdateData}");
     if (onlyUpdateData) {
       return const Offstage();
     }

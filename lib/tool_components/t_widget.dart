@@ -289,7 +289,6 @@ abstract class TStatefulWidget<Page extends TWidget> extends State<Page>
       return widget.snapshot;
     }
 
-    print("rebuild ${widget.widgetProps.type} ${widget.widgetBindingStrings}");
     return buildWidget(context);
   }
 }
@@ -331,8 +330,6 @@ abstract class TStatelessWidget extends StatelessWidget with BaseStateWidget {
     if (props == null) {
       return snapshot;
     }
-
-    print("rebuild ${widgetProps.type} ${widgetBindingStrings}");
 
     return buildWidget(context);
   }
