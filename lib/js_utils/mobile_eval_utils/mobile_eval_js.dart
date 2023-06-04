@@ -1,14 +1,18 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:the_tool/js_utils/base_eval_js.dart';
 import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/utils.dart';
 import 'package:the_tool/js_utils/mobile_eval_utils/mobile_js_invoke.dart'
-    as mobilejs;
+    as mobile_js_invoke;
+import 'package:eventify/eventify.dart' as eventify;
+import 'package:uuid/uuid.dart';
 
 class EvalJS extends BaseEvalJS {
   dynamic webViewController;
   late ContextStateProvider contextState;
+  late eventify.EventEmitter emitter;
 
   EvalJS({
     this.webViewController,
@@ -17,12 +21,51 @@ class EvalJS extends BaseEvalJS {
           context: context,
         ) {
     contextState = getIt<ContextStateProvider>();
-    mobilejs.main();
-    mobilejs.registerJavascriptHandler(
+    mobile_js_invoke.main();
+    mobile_js_invoke.registerJavascriptHandler(
       context,
       contextState,
       webViewController,
     );
+
+    emitter = getIt<UtilsManager>().emitter;
+  }
+
+  @override
+  Future<dynamic> callJS(String functionName, List<dynamic> args) async {
+    var eventName = const Uuid().v4();
+    webViewController?.callAsyncJavaScript(
+      functionBody:
+          "appBridge.emitJSFunction('$eventName', '$functionName', '${jsonEncode(args)}')",
+    );
+
+    var streamController = StreamController();
+
+    // Event will be call from invoke when js execute is done
+    eventify.EventCallback responseFromJS() {
+      return (event, context) {
+        streamController.add(event.eventData);
+      };
+    }
+
+    var listener = emitter.on(eventName, context, responseFromJS());
+    Future<dynamic> waitingResponseFromJS() async {
+      await for (final value in streamController.stream) {
+        return value;
+      }
+    }
+
+    var result = await waitingResponseFromJS();
+    var resultObject = jsonDecode(result);
+    if (resultObject["error"] != null) {
+      throw Exception(resultObject["error"]);
+    }
+
+    streamController.close();
+    listener.cancel();
+    emitter.off(listener);
+
+    return resultObject["data"];
   }
 
   @override

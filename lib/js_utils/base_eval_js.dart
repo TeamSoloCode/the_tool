@@ -427,6 +427,8 @@ abstract class BaseEvalJS {
     """;
   }
 
+  Future<dynamic> callJS(String functionName, List<dynamic> args);
+
   String getUnregisterComponentCode({
     required String parentPagePath,
     required String componentPath,

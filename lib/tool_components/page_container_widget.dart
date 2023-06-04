@@ -6,7 +6,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart'
-    deferred as webview;
+    deferred as webview if (dart.library.html) "";
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_builder_validators/form_builder_validators.dart'
@@ -201,10 +201,6 @@ class _PageContainerState extends State<PageContainer> {
       initialUserScripts: initialUserScripts,
       onWebViewCreated: (webViewController) {},
       onLoadStart: (webViewController, url) async {
-        if (!kIsWeb) {
-          log("Webview: Loading webview stop");
-        }
-
         try {
           _evalJS = EvalJS(
             context: context,

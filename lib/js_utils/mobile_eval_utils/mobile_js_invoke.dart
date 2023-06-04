@@ -1,10 +1,12 @@
 library mobile_js_invoke;
 
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:permission_handler_platform_interface/permission_handler_platform_interface.dart';
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/js_utils/base_invoke_is.dart';
@@ -13,6 +15,7 @@ import 'package:the_tool/page_utils/permission_manager.dart';
 import 'package:the_tool/page_utils/storage_manager.dart';
 import 'package:the_tool/page_provider/theme_provider.dart';
 import 'package:the_tool/utils.dart';
+import 'package:eventify/eventify.dart' as eventify;
 
 external JavaScriptHandler updateState;
 
@@ -29,7 +32,7 @@ class JavaScriptHandler {
 void registerJavascriptHandler(
   BuildContext context,
   ContextStateProvider contextStateProvider,
-  dynamic webViewController,
+  InAppWebViewController? webViewController,
 ) {
   webViewController?.addJavaScriptHandler(
     handlerName: "setState",
@@ -133,6 +136,17 @@ void registerJavascriptHandler(
     handlerName: "update_route_auth_data",
     callback: (args) {
       return getIt<BaseInvokeJS>().updateRouteAuthData(args[0], args[1]);
+    },
+  );
+
+  webViewController?.addJavaScriptHandler(
+    handlerName: "js_response",
+    callback: (arguments) async {
+      var emitter = getIt<UtilsManager>().emitter;
+      var eventName = arguments[0];
+      var payload = arguments[1];
+
+      emitter.emit(eventName, context, payload);
     },
   );
 }

@@ -70,6 +70,9 @@ external set updateRouteAuthData(
 @JS('__tWeb_callAsyncJavaScript')
 external callAsyncJavaScript(String code);
 
+@JS('js_response')
+external set jsResponse(void Function(String eventName, String payload) f);
+
 /// It takes a JSON string, decodes it into a Map, and then merges it with the existing context data
 ///
 /// Args:
@@ -125,6 +128,12 @@ void emitFormActionResponse(String id, dynamic data) {
   ]);
 }
 
+void _jsResponse(String eventName, String payload) {
+  var emitter = getIt<UtilsManager>().emitter;
+
+  emitter.emit(eventName, _context, payload);
+}
+
 void _emitDataResponseEvent(
   String id,
   String path,
@@ -152,4 +161,5 @@ void main() {
   dispathFormAction = allowInterop(_dispatchFormAction);
   openDrawer = allowInterop(_openPageDrawer);
   updateRouteAuthData = allowInterop(_updateRouteAuthData);
+  jsResponse = allowInterop(_jsResponse);
 }
