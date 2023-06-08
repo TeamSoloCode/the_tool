@@ -32,11 +32,12 @@ class EvalJS extends BaseEvalJS {
   }
 
   @override
-  Future<dynamic> callJS(String functionName, List<dynamic> args) async {
+  Future<dynamic> callJS(
+      String functionName, String pageId, List<dynamic> args) async {
     var eventName = const Uuid().v4();
     webViewController?.callAsyncJavaScript(
       functionBody:
-          "appBridge.emitJSFunction('$eventName', '$functionName', '${jsonEncode(args)}')",
+          "appBridge.emitJSFunction('$eventName', '$functionName', '$pageId', '${jsonEncode(args)}')",
     );
 
     var streamController = StreamController();

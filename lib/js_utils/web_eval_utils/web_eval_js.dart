@@ -29,7 +29,8 @@ class EvalJS extends BaseEvalJS {
   }
 
   @override
-  Future<dynamic> callJS(String functionName, List<dynamic> args) async {
+  Future<dynamic> callJS(
+      String functionName, String pageId, List<dynamic> args) async {
     var eventName = const Uuid().v4();
 
     js.context["appBridge"].callMethod(
@@ -37,6 +38,7 @@ class EvalJS extends BaseEvalJS {
       [
         eventName,
         functionName,
+        pageId,
         jsonEncode(args),
       ],
     );
