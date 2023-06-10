@@ -16,14 +16,14 @@ class _TListTileState extends TStatefulWidget<TListTile> {
   void _onClick() async {
     var rawOnClick = widget.props?.onClick;
     if (rawOnClick is String) {
-      await widget.executeJSWithPagePath(rawOnClick);
+      await widget.executeJSWithPagePath(rawOnClick, []);
     }
   }
 
   void _onLongClick() async {
     var rawOnLongClick = widget.props?.onLongClick;
     if (rawOnLongClick is String) {
-      await widget.executeJSWithPagePath(rawOnLongClick);
+      await widget.executeJSWithPagePath(rawOnLongClick, []);
     }
   }
 

@@ -215,8 +215,11 @@ mixin BaseStateWidget on Widget {
     return isChanged;
   }
 
-  Future<dynamic> executeJSWithPagePath(String jsCode) async {
-    return await utils.evalJS?.executeAsyncJS(jsCode, pagePath);
+  Future<dynamic> executeJSWithPagePath(
+    String jsCode,
+    List<dynamic> args,
+  ) async {
+    return await utils.evalJS?.callJS(jsCode, pagePath, args);
   }
 
   Key? getBindingKey() {
@@ -231,9 +234,7 @@ mixin BaseStateWidget on Widget {
   }
 
   Future<void> setPageData(Map<String, dynamic> newData) async {
-    await executeJSWithPagePath(
-      "setPageData(JSON.parse(`${json.encode(newData)}`));",
-    );
+    await executeJSWithPagePath("setPageData", [newData]);
   }
 
   Map<String, dynamic> getContexData() {

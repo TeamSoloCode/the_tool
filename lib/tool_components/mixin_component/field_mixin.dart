@@ -211,7 +211,7 @@ mixin FieldMixin {
     String? validationFunction = thisWidget.props?.validationFunction;
     if (validationFunction != null && validationFunction.isNotEmpty) {
       var errorMessage =
-          await thisWidget.executeJSWithPagePath(validationFunction);
+          await thisWidget.executeJSWithPagePath(validationFunction, []);
       if (errorMessage != null) {
         onError(errorMessage);
       }

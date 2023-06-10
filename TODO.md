@@ -1,6 +1,4 @@
-flutter pub run build_runner watch --delete-conflicting-outputs
-
-FIXME: prevent user access to the context in console and run function in the page context
+FIXME: Cannot emit full function. Ex: goTo("abcd_page") in json layout
 
 FIXME: Remove reflectable of layout_props, because it consume 200kb of bundle
 
@@ -29,6 +27,7 @@ SUPPORT: SVG widget
 SUPPORT: dynamic for using "style" property in json layout
 
 #-------------------------------------------------
+FIXME: prevent user access to the context in console and run function in the page context
 implement seo_renderer, meta_seo
 UPDATE: Using emitter instead of using eval to call a function
 UPDATE: Using custom expansion panel instead of the built-in to test the perf when open side navigation

@@ -20,7 +20,7 @@ class _TButtonState extends TStatefulWidget<TButton> {
     onClick() async {
       var rawOnClick = widgetProps.onClick;
       if (rawOnClick is String) {
-        await widget.executeJSWithPagePath(rawOnClick);
+        await widget.executeJSWithPagePath(rawOnClick, []);
       }
     }
 

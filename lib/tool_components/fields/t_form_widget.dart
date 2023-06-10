@@ -96,7 +96,7 @@ class _T_FormState extends TStatefulWidget<T_Form> {
     Map<Object?, Object?>? errorTextMap;
 
     if (validationFunction != null && validationFunction.isNotEmpty) {
-      errorTextMap = await widget.executeJSWithPagePath(validationFunction);
+      errorTextMap = await widget.executeJSWithPagePath(validationFunction, []);
     }
 
     var isValid = true;

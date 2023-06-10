@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:js' as js;
-import 'package:js/js_util.dart';
 import 'package:the_tool/js_utils/base_eval_js.dart';
 import 'package:the_tool/js_utils/web_eval_utils/web_js_invoke.dart'
     as web_js_invoke;
@@ -24,20 +23,25 @@ class EvalJS extends BaseEvalJS {
     web_js_invoke.setContextStateProvider(contextState);
     web_js_invoke.main();
 
-    js.context.callMethod('setPlatform', ['web']);
     emitter = getIt<UtilsManager>().emitter;
+    callJS('setPlatform', "", ['web']);
   }
 
   @override
   Future<dynamic> callJS(
-      String functionName, String pageId, List<dynamic> args) async {
+    String functionName,
+    String pageId,
+    List<dynamic> args,
+  ) async {
     var eventName = const Uuid().v4();
+    var index = functionName.indexOf('(');
+    index = index == -1 ? functionName.length : index;
 
     js.context["appBridge"].callMethod(
       "emitJSFunction",
       [
         eventName,
-        functionName,
+        functionName.substring(0, index).trim(),
         pageId,
         jsonEncode(args),
       ],
@@ -99,44 +103,6 @@ class EvalJS extends BaseEvalJS {
       """;
 
     js.context.callMethod("eval", [pageCode]);
-  }
-
-  @override
-  Future<dynamic> executeAsyncJS(String jsCode, String pagePath) async {
-    var index = jsCode.indexOf('(');
-
-    var isFunctionInContext = js.context.callMethod(
-        "isFunctionExistsOnContext", [jsCode.substring(0, index), pagePath]);
-
-    var code = jsCode;
-    if (isFunctionInContext == 1) {
-      code = "context['$pagePath'].$jsCode";
-    }
-
-    var promise = web_js_invoke.callAsyncJavaScript(
-      """(async () => {
-        const { _pageData, getPageData, _onMediaQueryChanged } = context['$pagePath'] ?? {}
-
-        const returnedValue = await $code 
-        if(_.isPlainObject(returnedValue) || _.isArrayLikeObject(returnedValue)) {
-          return JSON.stringify(returnedValue)
-        }
-        return returnedValue;
-      })()""",
-    );
-
-    var result = await promiseToFuture(promise);
-
-    if (result is String) {
-      // This is because promiseToFuture return LegacyJavaScriptObject
-      // that can't be parse to Dart's Map
-      try {
-        return json.decode(result);
-      } catch (err) {
-        return result;
-      }
-    }
-    return result;
   }
 
   @override

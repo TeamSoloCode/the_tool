@@ -11,7 +11,7 @@ class TGestureDetector extends TStatelessWidget {
     final onClick = widgetProps.onClick;
     if (onClick == null) return;
 
-    executeJSWithPagePath(onClick);
+    executeJSWithPagePath(onClick, []);
   }
 
   @override

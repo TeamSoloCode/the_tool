@@ -35,9 +35,16 @@ class EvalJS extends BaseEvalJS {
   Future<dynamic> callJS(
       String functionName, String pageId, List<dynamic> args) async {
     var eventName = const Uuid().v4();
+    var index = functionName.indexOf('(');
+    index = index == -1 ? functionName.length : index;
+
     webViewController?.callAsyncJavaScript(
-      functionBody:
-          "appBridge.emitJSFunction('$eventName', '$functionName', '$pageId', '${jsonEncode(args)}')",
+      functionBody: """appBridge.emitJSFunction(
+            '$eventName',
+            '${functionName.substring(0, index).trim()}',
+            '$pageId',
+            ${jsonEncode(args)}
+          )""",
     );
 
     var streamController = StreamController();
@@ -67,32 +74,6 @@ class EvalJS extends BaseEvalJS {
     emitter.off(listener);
 
     return resultObject["data"];
-  }
-
-  @override
-  Future<dynamic> executeAsyncJS(String jsCode, String pagePath) async {
-    var index = jsCode.indexOf('(');
-
-    var isFunctionInContext = await webViewController?.evaluateJavascript(
-      source:
-          "isFunctionExistsOnContext('${jsCode.substring(0, index)}', '$pagePath')",
-    );
-
-    var code = jsCode;
-    if (isFunctionInContext == 1) {
-      code = "context['$pagePath'].$jsCode";
-    }
-
-    var result = await webViewController?.callAsyncJavaScript(
-      functionBody: """return await (async () => {
-        const { _pageData, getPageData, _onMediaQueryChanged } = context['$pagePath'] ?? {}
-
-        const returnedValue = await $code
-        return returnedValue;
-      })()""",
-    );
-
-    return result?.value;
   }
 
   @override

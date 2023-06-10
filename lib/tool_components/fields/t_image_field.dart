@@ -41,7 +41,6 @@ class _TImagePickerFieldState extends TStatefulWidget<TImagePickerField>
 
       iconColor: ThemeDecoder.decodeColor(props.color),
       cameraLabel: Text("Avatar"),
-
       cameraIcon: generateIcon(props.cameraIcon, widget) ??
           const Icon(Icons.camera_enhance),
       validator: FormBuilderValidators.compose([
@@ -70,12 +69,12 @@ class _TImagePickerFieldState extends TStatefulWidget<TImagePickerField>
 
   @override
   Widget buildWidget(BuildContext context) {
-    Widget _snapshot = widget.snapshot;
     LayoutProps? _props = widget.props;
 
     if (_props != null) {
-      _snapshot = _computeImagePickerField(_props, widget.getContexData());
+      widget.snapshot =
+          _computeImagePickerField(_props, widget.getContexData());
     }
-    return _snapshot;
+    return widget.snapshot;
   }
 }

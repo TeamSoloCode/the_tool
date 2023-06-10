@@ -167,8 +167,8 @@ class _TDataTableState extends TStatefulWidget<TDataTable> {
     _sortTableDebounce.run(() {
       var onSort = column.onSort ?? widgetProps?.onSort;
       if (onSort != null) {
-        var code = "$onSort($columnIndex, '${column.fieldData}', $ascending)";
-        widget.executeJSWithPagePath(code);
+        widget.executeJSWithPagePath(
+            onSort, [columnIndex, '${column.fieldData}', ascending]);
       } else {
         _rowDataSource?.sort(
           column.fieldData ?? columnIndex.toString(),
@@ -209,21 +209,21 @@ class _TDataTableState extends TStatefulWidget<TDataTable> {
     String? sortColumn,
     bool? isSortAscending,
   ) async {
-    var tableInfo = json.encode({
+    var tableInfo = {
       "offset": offset,
       "limit": limit,
       "sortColumn": sortColumn,
       "isSortAscending": isSortAscending,
-    });
+    };
 
     if (widget.widgetProps.loadDataFunction == null) {
       throw Exception("Missing \"loadDataFunction\" property in table widget");
     }
 
-    var jsLoadDataFunction =
-        widget.widgetProps.loadDataFunction! + "(JSON.parse('$tableInfo'))";
-
-    widget.executeJSWithPagePath(jsLoadDataFunction);
+    widget.executeJSWithPagePath(
+      widget.widgetProps.loadDataFunction!,
+      [tableInfo],
+    );
   }
 
   Widget _computeTable(
@@ -305,7 +305,7 @@ class _TDataTableState extends TStatefulWidget<TDataTable> {
 
     final onSelectChanged = widget.props?.onSelectChanged;
     if (onSelectChanged != null) {
-      widget.executeJSWithPagePath("$onSelectChanged($rowIndex, $isSelected)");
+      widget.executeJSWithPagePath(onSelectChanged, [rowIndex, isSelected]);
     }
   }
 
@@ -334,7 +334,7 @@ class _TDataTableState extends TStatefulWidget<TDataTable> {
 
     final onSelectAll = widget.props?.onSelectAll;
     if (onSelectAll != null) {
-      widget.executeJSWithPagePath("$onSelectAll($selection)");
+      widget.executeJSWithPagePath(onSelectAll, [selection]);
     }
   }
 

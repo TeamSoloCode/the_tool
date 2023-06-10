@@ -10,8 +10,6 @@ abstract class BaseEvalJS {
 
   BaseEvalJS({required this.context});
 
-  Future<dynamic> executeAsyncJS(String jsCode, String pagePath);
-
   void unmountClientCode(String pagePath);
 
   Future<void> executePageCode({
@@ -129,7 +127,8 @@ abstract class BaseEvalJS {
     final queryParams = jsonEncode(Modular.args.queryParams);
 
     return """
-        const [_contextData, _setContextData] = React.useState(context._data);
+        const [_appBase] = React.useState(appBridge.getAppBase())
+        const [_contextData, _setContextData] = React.useState(_appBase.getContextData());
 
         const [__route] = React.useState({
           pageArguments: JSON.parse('$pageArgumentsData'),
@@ -140,9 +139,6 @@ abstract class BaseEvalJS {
 
         let [_didInitState] = React.useState(false)
         const _prevContextData = usePrevious(_contextData);
-        context._updateContextData = _setContextData;
-        context._prevData = Object.assign({}, _prevContextData);
-        context._data = Object.assign({}, context._data, _contextData);
         
         const isMounted = hooks.useIsMounted()
 
@@ -156,8 +152,8 @@ abstract class BaseEvalJS {
         
         let [_pageData, _setPageData] = React.useState({ 
             _tLoaded: true,
-            _tIsWeb: context._platform == "web",
-            _tIsMobile: context._platform == "mobile",
+            _tIsWeb: _contextData._platform == "web",
+            _tIsMobile: _contextData._platform == "mobile",
 
             /** add props from parent page into pageData */
             props
@@ -181,10 +177,10 @@ abstract class BaseEvalJS {
           _pageData = nextData;
 
           const updatedData = {..._contextData['$pagePath'], ...nextData}
-          setContextData({
+          _appBase.setContextData({
             ['$pagePath']: _.isEmpty(updatedData) ? null : updatedData
           })
-        }, [_pageData, _contextData])
+        }, [_pageData, _appBase, _contextData])
 
         React.useEffect(() => {
           updatePageData(_nextState)
@@ -200,8 +196,8 @@ abstract class BaseEvalJS {
 
         // Export page context
         const exportPageContext = React.useCallback((exportedContext = {}) => {
-          context['$pagePath'] = context['$pagePath'] || {}
-          Object.assign(context['$pagePath'], exportedContext)
+          _contextData['$pagePath'] = _contextData['$pagePath'] || {}
+          Object.assign(_contextData['$pagePath'], exportedContext)
         }, [_pageData])
 
         const getRoute = React.useCallback(() => {
@@ -213,8 +209,8 @@ abstract class BaseEvalJS {
           pageArguments = {},
           options = {}
         ) => {
-          _navigateTo(pagePath, pageArguments, options);
-        }, [_navigateTo])
+          _appBase._navigateTo(pagePath, pageArguments, options);
+        }, [_appBase._navigateTo])
 
         const navigateBack = React.useCallback(() => {
           navigateTo('', {}, { action: 'pop' });
@@ -224,7 +220,7 @@ abstract class BaseEvalJS {
           pagePath,
           pageArguments = {},
         ) => {
-          _navigateTo(pagePath, pageArguments, { action: 'pop_and_push' });
+          _appBase._navigateTo(pagePath, pageArguments, { action: 'pop_and_push' });
         }, [navigateTo])
 
         // Use to init state before render the widget
@@ -234,6 +230,10 @@ abstract class BaseEvalJS {
             _didInitState = true;
           }
         }, [_didInitState])
+
+        const fetchData = React.useCallback((path, options = {}) => {
+          return _appBase.fetchData(path, options)
+        }, [_appBase.fetchData])
 
         const _debouceRegisterSubComponent = React.useMemo(() => {
           return _.debounce((subComponents) => {
@@ -305,8 +305,20 @@ abstract class BaseEvalJS {
         }, [__emitEvent__])
 
         const openDrawer = React.useCallback(() => {
-          _openDrawer('$pagePath')
-        }, [_openDrawer, context['$pagePath']])
+          _appBase._openDrawer('$pagePath')
+        }, [_appBase._openDrawer, _contextData['$pagePath']])
+
+        const toggleChangeTheme = React.useCallback(() => {
+          _appBase.toggleChangeTheme()
+        }, [_appBase.toggleChangeTheme])
+
+        const setCookies = React.useCallback((key, value) => {
+          _appBase.setCookies(key, value)
+        }, [_appBase.setCookies])
+
+        const getCookies = React.useCallback((key, defaultValue) => {
+          return _appBase.getCookies(key, defaultValue)
+        }, [_appBase.getCookies])
 
         const _onDebounceMediaQuery = React.useMemo(() => {
           return _.debounce((mediaQueryData) => {
@@ -339,7 +351,7 @@ abstract class BaseEvalJS {
             navigateBackAndGoTo,
             navigateBack,
           })
-          context['$pagePath'].exportPageContext = exportPageContext
+          _contextData['$pagePath'].exportPageContext = exportPageContext
         }, [
           _unregisterSubComponent,
           _onMediaQueryChanged,
@@ -373,7 +385,7 @@ abstract class BaseEvalJS {
           logger.log(`Didmount $pagePath`)
           return () => {
             logger.log(`Unmounted $pagePath`)
-            setContextData({
+            _appBase.setContextData({
               ['$pagePath']: null
             })
             setPageData(null)
@@ -388,7 +400,7 @@ abstract class BaseEvalJS {
           
           const componentProps = Object.entries(rawComponentProps)
             .reduce((result, [key, value]) => {
-              let propFromParentContext = _.get(context, `$pagePath.\${value}`)
+              let propFromParentContext = _.get(_contextData, `$pagePath.\${value}`)
               
               result[key] = propFromParentContext != undefined ? propFromParentContext : value
 
@@ -400,7 +412,10 @@ abstract class BaseEvalJS {
                  * will get from parent context 
                  */
                 if(!propsFromParentData) {
-                  propsFromParentContext = getBindingValue(_.get(context, '$pagePath'), value)
+                  propsFromParentContext = getBindingValue(
+                    _.get(_contextData, '$pagePath'), 
+                    value
+                  )
                 }
 
                 result[key] =  propsFromParentData

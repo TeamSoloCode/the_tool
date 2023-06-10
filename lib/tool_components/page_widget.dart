@@ -276,18 +276,13 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
     }
 
     _prevMediaQueryData = mediaQuery;
-    utils.evalJS?.executeAsyncJS(
-      """
-        _onMediaQueryChanged(
-          { 
-            height: $height,
-            width: $width,
-            orientation: "$orientation",
-          }
-        )
-      """,
-      _pageId,
-    );
+    utils.evalJS?.callJS("_onMediaQueryChanged", _pageId, [
+      {
+        "height": height,
+        "width": width,
+        "orientation": orientation,
+      }
+    ]);
   }
 
   dynamic _getAppBar(Map<String, dynamic> contextData) {
