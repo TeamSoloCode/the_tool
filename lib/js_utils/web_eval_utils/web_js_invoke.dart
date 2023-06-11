@@ -8,6 +8,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:js/js.dart';
 import 'package:the_tool/api_client.dart';
+import 'package:the_tool/js_utils/base_eval_js.dart';
 import 'package:the_tool/js_utils/base_invoke_is.dart';
 import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/page_provider/theme_provider.dart';
@@ -15,12 +16,17 @@ import 'package:the_tool/utils.dart';
 
 late ContextStateProvider _contextStateProvider;
 late BuildContext _context;
+late BaseEvalJS _evalJS;
 void setContextStateProvider(ContextStateProvider contextStateProvider) {
   _contextStateProvider = contextStateProvider;
 }
 
 void setContextBuilder(BuildContext context) {
   _context = context;
+}
+
+void setEvalJS(BaseEvalJS evalJS) {
+  _evalJS = evalJS;
 }
 
 @JS('setState')
@@ -122,10 +128,14 @@ String _updateRouteAuthData(String action, String routeAuthAsJSON) {
 }
 
 void emitFormActionResponse(String id, dynamic data) {
-  js.context.callMethod("__ondataresponse", [
-    id,
-    json.encode({"result": data})
-  ]);
+  _evalJS.callJS(
+    "__ondataresponse",
+    "",
+    [
+      id,
+      json.encode({"result": data}),
+    ],
+  );
 }
 
 void _jsResponse(String eventName, String payload) {
@@ -147,10 +157,19 @@ void _emitDataResponseEvent(
   var res = await getIt<APIClientManager>().fetchData(
     requestOptions: requestOptions,
   );
-  js.context.callMethod("__ondataresponse", [
-    id,
-    json.encode({"err": res["err"], "message": res["message"], "response": res})
-  ]);
+
+  _evalJS.callJS(
+    "__ondataresponse",
+    "",
+    [
+      id,
+      json.encode({
+        "err": res["err"],
+        "message": res["message"],
+        "response": res,
+      }),
+    ],
+  );
 }
 
 void main() {

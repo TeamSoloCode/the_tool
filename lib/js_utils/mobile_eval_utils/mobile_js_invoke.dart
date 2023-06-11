@@ -45,7 +45,7 @@ void registerJavascriptHandler(
     handlerName: "navigate",
     callback: (args) {
       Map<String, dynamic> navigateData = args[0];
-      String routeName = navigateData["pagePath"];
+      String? routeName = navigateData["pagePath"];
       Map<String, dynamic> pageArguments = navigateData["pageArguments"] ?? {};
       Map<String, dynamic>? options = navigateData["options"];
 

@@ -7,7 +7,6 @@ import 'package:the_tool/js_utils/web_eval_utils/web_js_invoke.dart'
 import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/utils.dart';
 import 'package:eventify/eventify.dart' as eventify;
-import 'package:uuid/uuid.dart';
 
 class EvalJS extends BaseEvalJS {
   var webViewController;
@@ -21,6 +20,7 @@ class EvalJS extends BaseEvalJS {
     contextState = getIt<ContextStateProvider>();
     web_js_invoke.setContextBuilder(context);
     web_js_invoke.setContextStateProvider(contextState);
+    web_js_invoke.setEvalJS(this);
     web_js_invoke.main();
 
     emitter = getIt<UtilsManager>().emitter;
@@ -33,15 +33,13 @@ class EvalJS extends BaseEvalJS {
     String pageId,
     List<dynamic> args,
   ) async {
-    var eventName = const Uuid().v4();
-    var index = functionName.indexOf('(');
-    index = index == -1 ? functionName.length : index;
+    var eventName = DateTime.now().millisecondsSinceEpoch.toString();
 
     js.context["appBridge"].callMethod(
       "emitJSFunction",
       [
         eventName,
-        functionName.substring(0, index).trim(),
+        functionName.trim(),
         pageId,
         jsonEncode(args),
       ],

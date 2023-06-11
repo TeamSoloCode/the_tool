@@ -30,18 +30,32 @@ class EvalJS extends BaseEvalJS {
 
     emitter = getIt<UtilsManager>().emitter;
   }
-
+  final List<String> _stringPhareSymbols = ["'", "\"", "`", "`"];
   @override
   Future<dynamic> callJS(
-      String functionName, String pageId, List<dynamic> args) async {
-    var eventName = const Uuid().v4();
-    var index = functionName.indexOf('(');
-    index = index == -1 ? functionName.length : index;
+    String functionName,
+    String pageId,
+    List<dynamic> args,
+  ) async {
+    var eventName = DateTime.now().millisecondsSinceEpoch.toString();
+    var funcCharList = functionName.trim().split("");
+    var preparedFunctionName = functionName;
+
+    if (funcCharList.any(
+      (element) => _stringPhareSymbols.contains(element),
+    )) {
+      preparedFunctionName = funcCharList.map((char) {
+        if (_stringPhareSymbols.contains(char)) {
+          return "\\$char";
+        }
+        return char;
+      }).join();
+    }
 
     webViewController?.callAsyncJavaScript(
       functionBody: """appBridge.emitJSFunction(
             '$eventName',
-            '${functionName.substring(0, index).trim()}',
+            '$preparedFunctionName',
             '$pageId',
             ${jsonEncode(args)}
           )""",
@@ -113,8 +127,13 @@ class EvalJS extends BaseEvalJS {
 
   @override
   void emitFormActionResponse(String id, data) {
-    webViewController?.evaluateJavascript(
-      source: "__ondataresponse('$id', '${json.encode({"result": data})}')",
+    callJS(
+      "__ondataresponse",
+      "",
+      [
+        id,
+        json.encode({"result": data})
+      ],
     );
   }
 

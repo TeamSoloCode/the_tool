@@ -171,22 +171,23 @@ class APIClientManager {
     try {
       var response = await _dioCached
           .get('$_pageAPI/${themePath ?? "theme"}/$_projectName');
-      return Future.value(response.data);
+      return response.data;
     } on DioError catch (e) {
       log("Theme not found => ${e.message}");
-      return Future.value({});
+      return {};
     } catch (e) {
       rethrow;
     }
   }
 
+  // This help developing for ios because ios not allow load localhost in webview
   Future<Map<String, String>> getAppWebviewBundle() async {
-    var bundle =
-        await _dioCached.get('$_beAPI/pages/bundle');
-
+    var app = _dioCached.get('http://localhost:8081/app.js');
+    var vendors = _dioCached.get('http://localhost:8081/vendors.js');
+    var bundle = await Future.wait([app, vendors]);
     return {
-      "vendor": bundle.data["vendors"],
-      "app": bundle.data["app"],
+      "vendor": bundle[1].data,
+      "app": bundle[0].data,
     };
   }
 }
