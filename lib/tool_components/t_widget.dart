@@ -73,6 +73,7 @@ mixin BaseStateWidget on Widget {
         // deps of form is not update to the context state
         // so it need the newest data to validate the fields inside it
         if (widgetProps.type == "form") {
+          _depsChangedToken = DateTime.now().millisecondsSinceEpoch;
           _contextData = newPageData;
         }
 

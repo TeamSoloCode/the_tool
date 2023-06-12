@@ -296,7 +296,7 @@ abstract class BaseEvalJS {
               resolve(result);
             });
           });
-          dispatchFormAction(eventName, actionId, actionName);
+          _appBase.dispatchFormAction(eventName, actionId, actionName);
           return promiseResult;
         }, [])
 
