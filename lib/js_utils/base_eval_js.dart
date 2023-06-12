@@ -320,6 +320,10 @@ abstract class BaseEvalJS {
           return _appBase.getCookies(key, defaultValue)
         }, [_appBase.getCookies])
 
+        const setRouteAuth = React.useCallback((routeAuth) => {
+          return _appBase.setRouteAuth(routeAuth)
+        }, [_appBase.setRouteAuth])
+
         const _onDebounceMediaQuery = React.useMemo(() => {
           return _.debounce((mediaQueryData) => {
             _updateMediaQuery(mediaQueryData)
