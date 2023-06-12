@@ -37,7 +37,7 @@ class EvalJS extends BaseEvalJS {
     String pageId,
     List<dynamic> args,
   ) async {
-    var eventName = DateTime.now().millisecondsSinceEpoch.toString();
+    var eventName = const Uuid().v4();
     var funcCharList = functionName.trim().split("");
     var preparedFunctionName = functionName;
 
@@ -154,18 +154,5 @@ class EvalJS extends BaseEvalJS {
     );
 
     webViewController?.evaluateJavascript(source: subComponentCode);
-  }
-
-  @override
-  Future<void> unregisterSubComponent({
-    required String parentPagePath,
-    required String componentPath,
-  }) async {
-    webViewController?.evaluateJavascript(
-      source: getUnregisterComponentCode(
-        parentPagePath: parentPagePath,
-        componentPath: componentPath,
-      ),
-    );
   }
 }

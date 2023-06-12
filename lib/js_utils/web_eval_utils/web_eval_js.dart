@@ -128,20 +128,4 @@ class EvalJS extends BaseEvalJS {
 
     js.context.callMethod("eval", [subComponentCode]);
   }
-
-  @override
-  Future<void> unregisterSubComponent({
-    required String parentPagePath,
-    required String componentPath,
-  }) async {
-    js.context.callMethod(
-      "eval",
-      [
-        getUnregisterComponentCode(
-          parentPagePath: parentPagePath,
-          componentPath: componentPath,
-        )
-      ],
-    );
-  }
 }

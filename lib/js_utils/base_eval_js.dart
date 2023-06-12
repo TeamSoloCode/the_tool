@@ -21,18 +21,6 @@ abstract class BaseEvalJS {
 
   void emitFormActionResponse(String id, dynamic data);
 
-  Future<void> registerSubComponent({
-    required String parentPagePath,
-    required String componentPath,
-    required String componentCode,
-    Map<dynamic, dynamic> componentPropsAsJSON = const {},
-  });
-
-  Future<void> unregisterSubComponent({
-    required String parentPagePath,
-    required String componentPath,
-  });
-
   String getRegisterComponentCode({
     required String parentPagePath,
     required String componentPath,
@@ -62,10 +50,10 @@ abstract class BaseEvalJS {
         
         const rawComponentProps = JSON.parse('$componentPropsAsJSON' || "{}")
         const computedComponentProps = JSON.parse('$computedComponentPropsAsJSON' || "{}")
-        
+        const _appBase = appBridge.getAppBase()
         /** Add subcomponent into parent component by its register function */
         _.get(
-            context, 
+            _appBase.getContextData(), 
             `$parentPagePath.registerSubComponent`
           )?.(
               "$componentPath", 
@@ -408,15 +396,15 @@ abstract class BaseEvalJS {
               
               result[key] = propFromParentContext != undefined ? propFromParentContext : value
 
-              if(value && isValueBinding(value)) {
-                const propsFromParentData = getBindingValue(getPageData(), value)
+              if(value && _appBase.isValueBinding(value)) {
+                const propsFromParentData = _appBase.getBindingValue(getPageData(), value)
 
                 /** 
                  * If the props not in parent data then we 
                  * will get from parent context 
                  */
                 if(!propsFromParentData) {
-                  propsFromParentContext = getBindingValue(
+                  propsFromParentContext = _appBase.getBindingValue(
                     _.get(_contextData, '$pagePath'), 
                     value
                   )
@@ -446,19 +434,23 @@ abstract class BaseEvalJS {
     """;
   }
 
+  Future<void> registerSubComponent({
+    required String parentPagePath,
+    required String componentPath,
+    required String componentCode,
+    Map<dynamic, dynamic> componentPropsAsJSON = const {},
+  });
+
+  Future<void> unregisterSubComponent({
+    required String parentPagePath,
+    required String componentPath,
+  }) async {
+    callJS("_unregisterSubComponent", parentPagePath, [componentPath]);
+  }
+
   Future<dynamic> callJS(
     String functionName,
     String pageId,
     List<dynamic> args,
   );
-
-  String getUnregisterComponentCode({
-    required String parentPagePath,
-    required String componentPath,
-  }) {
-    String unregisterComponentCode = """
-      context['$parentPagePath']?._unregisterSubComponent?.("$componentPath")
-    """;
-    return unregisterComponentCode;
-  }
 }

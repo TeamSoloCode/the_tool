@@ -1,10 +1,12 @@
-FIXME: Cannot emit full function. Ex: goTo("abcd_page") in json layout
+SUPPORT: Invoke dart function with emitter
 
 FIXME: Remove reflectable of layout_props, because it consume 200kb of bundle
 
 SUPPORT: responsive with device version
 SUPPORT: Use metadata to specify layout property is a string or number
 SUPPORT: RichText
+
+SUPPORT: Blowfish encryption to encrypt data passing to js side to execute
 
 SUPPORT: image picker field in register layout
 SUPPORT: file picker field
@@ -53,6 +55,7 @@ Support pages app bar custom actions
 Support alert, dialog, snackbar, ScaffoldMessenger
 
 #-------------------------------------------------
+-FIXME: Cannot emit full function. Ex: goTo("abcd_page") in json layout
 -SUPPORT: set min/max date for field date
 -SUPPORT: Continue support t_bottom_sheet feature
 -FIXME: the auto validate of the form is validaing when not input anything web (prod/dev), android (prod)
