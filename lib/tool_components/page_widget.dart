@@ -42,8 +42,6 @@ final updateThemeDataToJSDebouncer = Debouncer(
 );
 
 class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
-  final Map<String, dynamic> _prevPageState = {};
-  final Map<String, dynamic> _initPageState = {};
   LayoutProps? _pageLayout;
   bool _isReadyToRun = false;
 

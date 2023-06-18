@@ -135,13 +135,9 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField>
   }
 
   void _runValidationFunction() async {
-    runValidationFunction(
-      thisWidget: widget,
-      onError: (errorMsg) {
-        setState(() {
-          _errorMessage = errorMsg;
-        });
-      },
-    );
+    String? errorMessage = await runValidationFunction(thisWidget: widget);
+    setState(() {
+      _errorMessage = errorMessage;
+    });
   }
 }

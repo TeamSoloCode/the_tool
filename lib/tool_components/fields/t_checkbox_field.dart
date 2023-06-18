@@ -92,14 +92,10 @@ class _TCheckboxState extends TStatefulWidget<TCheckbox> with FieldMixin {
   }
 
   void _runValidationFunction() async {
-    runValidationFunction(
-      thisWidget: widget,
-      onError: (errorMsg) {
-        setState(() {
-          _errorMessage = errorMsg;
-        });
-      },
-    );
+    String? errorMessage = await runValidationFunction(thisWidget: widget);
+    setState(() {
+      _errorMessage = errorMessage;
+    });
   }
 
   @override

@@ -116,6 +116,8 @@ class _T_FormState extends TStatefulWidget<T_Form> {
         if (errorText != null) {
           field.invalidate(errorText as String);
         }
+
+        field.requestFocus();
         break loop;
       }
     }

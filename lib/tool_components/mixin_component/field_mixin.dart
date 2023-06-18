@@ -174,22 +174,23 @@ mixin FieldMixin {
     List<String? Function(String?)> validators = validatorsMap != null
         ? validatorsMap
             .map((validator) {
+              var errorText = validator["errorText"];
               switch (validator["type"]) {
                 case "is_email":
                   return FormBuilderValidators.email(
-                    errorText: validator["errorText"],
+                    errorText: errorText,
                   );
                 case "numeric":
                   return FormBuilderValidators.numeric(
-                    errorText: validator["errorText"],
+                    errorText: errorText,
                   );
                 case "integer":
                   return FormBuilderValidators.integer(
-                    errorText: validator["errorText"],
+                    errorText: errorText,
                   );
                 case "date_string":
                   return FormBuilderValidators.dateString(
-                    errorText: validator["errorText"],
+                    errorText: errorText,
                   );
                 default:
                   return null;
@@ -204,17 +205,14 @@ mixin FieldMixin {
     return [...validators, ...fieldValidators];
   }
 
-  void runValidationFunction({
+  Future<String?> runValidationFunction({
     required TWidget thisWidget,
-    required void Function(String errorMessage) onError,
   }) async {
-    String? validationFunction = thisWidget.props?.validationFunction;
+    String? validationFunction = thisWidget.widgetProps.validationFunction;
     if (validationFunction != null && validationFunction.isNotEmpty) {
       var errorMessage =
           await thisWidget.executeJSWithPagePath(validationFunction, []);
-      if (errorMessage != null) {
-        onError(errorMessage);
-      }
+      return errorMessage;
     }
     return null;
   }

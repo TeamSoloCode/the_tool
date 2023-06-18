@@ -57,14 +57,10 @@ class _TImagePickerFieldState extends TStatefulWidget<TImagePickerField>
   }
 
   void _runValidationFunction() async {
-    runValidationFunction(
-      thisWidget: widget,
-      onError: (errorMsg) {
-        setState(() {
-          _errorMessage = errorMsg;
-        });
-      },
-    );
+    String? errorMessage = await runValidationFunction(thisWidget: widget);
+    setState(() {
+      _errorMessage = errorMessage;
+    });
   }
 
   @override

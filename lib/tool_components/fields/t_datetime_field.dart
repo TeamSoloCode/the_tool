@@ -201,14 +201,10 @@ class _TDatetimeState extends TStatefulWidget<TDatetime> with FieldMixin {
   }
 
   void _runValidationFunction() async {
-    runValidationFunction(
-      thisWidget: widget,
-      onError: (errorMsg) {
-        setState(() {
-          _errorMessage = errorMsg;
-        });
-      },
-    );
+    String? errorMessage = await runValidationFunction(thisWidget: widget);
+    setState(() {
+      _errorMessage = errorMessage;
+    });
   }
 
   @override
