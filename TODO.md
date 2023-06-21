@@ -1,3 +1,6 @@
+FIXME: Sequence validating field is not working properly when run field validation js function
+(this because validation js function run after form validate function)
+
 SUPPORT: Invoke dart function with emitter
 
 FIXME: Remove reflectable of layout_props, because it consume 200kb of bundle
@@ -55,6 +58,8 @@ Support pages app bar custom actions
 Support alert, dialog, snackbar, ScaffoldMessenger
 
 #-------------------------------------------------
+
+-FIXME: cannot execute js function that call another func as a param ex: validateFormLogin(getPageData())
 -FIXME: Cannot emit full function. Ex: goTo("abcd_page") in json layout
 -SUPPORT: set min/max date for field date
 -SUPPORT: Continue support t_bottom_sheet feature

@@ -135,6 +135,8 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField>
   }
 
   void _runValidationFunction() async {
+    _errorMessage =
+        "checking..."; // this to prevent form validate pass the field before it validated
     String? errorMessage = await runValidationFunction(thisWidget: widget);
     setState(() {
       _errorMessage = errorMessage;

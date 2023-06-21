@@ -201,6 +201,8 @@ class _TDatetimeState extends TStatefulWidget<TDatetime> with FieldMixin {
   }
 
   void _runValidationFunction() async {
+    _errorMessage =
+        "checking..."; // this to prevent form validate pass the field before it validated
     String? errorMessage = await runValidationFunction(thisWidget: widget);
     setState(() {
       _errorMessage = errorMessage;
