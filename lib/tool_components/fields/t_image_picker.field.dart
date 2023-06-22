@@ -21,7 +21,7 @@ class _TImagePickerFieldState extends State<TImagePickerField> {
 
   final _clientAPI = getIt<APIClientManager>();
 
-  void _imagePicker() async {
+  void _openGallery() async {
     var imagePicker = await ImagePicker().pickImage(
       source: ImageSource.gallery,
     );
@@ -32,7 +32,9 @@ class _TImagePickerFieldState extends State<TImagePickerField> {
     setState(() {
       image = imageTemp;
     });
+  }
 
+  void _uploadImage() async {
     if (image == null) return;
 
     String filename = image!.path.split("/").last;
