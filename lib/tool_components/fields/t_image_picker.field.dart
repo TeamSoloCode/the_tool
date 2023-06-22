@@ -4,8 +4,10 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:the_tool/api_client.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/twidget_props.dart';
+import 'package:the_tool/utils.dart';
 
 class TImagePickerField extends TWidget {
   TImagePickerField(TWidgetProps twidget) : super(twidget);
@@ -16,6 +18,8 @@ class TImagePickerField extends TWidget {
 
 class _TImagePickerFieldState extends State<TImagePickerField> {
   File? image;
+
+  final _clientAPI = getIt<APIClientManager>();
 
   void _imagePicker() async {
     var imagePicker = await ImagePicker().pickImage(
@@ -36,13 +40,8 @@ class _TImagePickerFieldState extends State<TImagePickerField> {
       "image": await MultipartFile.fromFile(image!.path, filename: filename),
     });
 
-    Dio dio = Dio();
-
-    dio.post("endpoint", data: formData).then((response) {
-      var jsonResponse = jsonDecode(response.toString());
-      var testData = jsonResponse['histogram_counts'].cast<double>();
-      var averageGrindSize = jsonResponse['average_particle_size'];
-    }).catchError((error) => print(error));
+    final response = await _clientAPI.postImageFormData(formData);
+    final responseData = response.data;
   }
 
   @override

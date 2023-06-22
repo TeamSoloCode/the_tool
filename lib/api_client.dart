@@ -190,4 +190,12 @@ class APIClientManager {
       "app": bundle[0].data,
     };
   }
+
+  Future<Response<Map<String, dynamic>>> postImageFormData(
+    FormData formData, {
+    Map<String, String> options = const {},
+  }) {
+    String endpoint = options["enpoint"] ?? _beAPI!;
+    return _dio.post(endpoint, data: formData);
+  }
 }
