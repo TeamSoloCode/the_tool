@@ -32,9 +32,7 @@ class _TImagePickerFieldState extends State<TImagePickerField> {
     setState(() {
       image = imageTemp;
     });
-  }
 
-  void _uploadImage() async {
     if (image == null) return;
 
     String filename = image!.path.split("/").last;
@@ -46,8 +44,13 @@ class _TImagePickerFieldState extends State<TImagePickerField> {
     final responseData = response.data;
   }
 
+  void _uploadImage() async {}
+
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return ElevatedButton(
+      onPressed: _openGallery,
+      child: const Text("Upload Image"),
+    );
   }
 }

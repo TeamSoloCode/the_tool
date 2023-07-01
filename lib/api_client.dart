@@ -195,7 +195,7 @@ class APIClientManager {
     FormData formData, {
     Map<String, String> options = const {},
   }) {
-    String endpoint = options["enpoint"] ?? _beAPI!;
+    String endpoint = options["enpoint"] ?? "$_beAPI/file/upload";
     return _dio.post(endpoint, data: formData);
   }
 }
