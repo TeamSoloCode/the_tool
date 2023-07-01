@@ -110,9 +110,7 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       firstDate: json['firstDate'] as String?,
       lastDate: json['lastDate'] as String?,
       initialDate: json['initialDate'] as String?,
-      cameraIcon: json['cameraIcon'] == null
-          ? null
-          : LayoutProps.fromJson(json['cameraIcon'] as Map<String, dynamic>),
+      onResponse: json['onResponse'] as String?,
       autovalidateMode: json['autovalidateMode'] as String?,
       columns: (json['columns'] as List<dynamic>?)
           ?.map((e) => DataColumnProps.fromJson(e as Map<String, dynamic>))
@@ -276,7 +274,7 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'firstDate': instance.firstDate,
       'lastDate': instance.lastDate,
       'initialDate': instance.initialDate,
-      'cameraIcon': instance.cameraIcon?.toJson(),
+      'onResponse': instance.onResponse,
       'autovalidateMode': instance.autovalidateMode,
       'columns': instance.columns?.map((e) => e.toJson()).toList(),
       'rows': instance.rows?.map((e) => e.toJson()).toList(),

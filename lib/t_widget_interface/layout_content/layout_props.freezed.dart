@@ -148,8 +148,7 @@ mixin _$LayoutProps {
   String? get initialDate =>
       throw _privateConstructorUsedError; // Datetime Field End==================================================
 // Image Picker Start=============================================
-  @LayoutPropsMetadata(ignoreComputeProps: true)
-  LayoutProps? get cameraIcon =>
+  String? get onResponse =>
       throw _privateConstructorUsedError; // Image Picker End===============================================
 // Form Start================================================
   String? get autovalidateMode =>
@@ -302,8 +301,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? firstDate,
       String? lastDate,
       String? initialDate,
-      @LayoutPropsMetadata(ignoreComputeProps: true)
-          LayoutProps? cameraIcon,
+      String? onResponse,
       String? autovalidateMode,
       List<DataColumnProps>? columns,
       List<DataRowProps>? rows,
@@ -349,7 +347,6 @@ abstract class $LayoutPropsCopyWith<$Res> {
   $T_LayoutBuilderPropsCopyWith<$Res>? get layoutBuilder;
   $LayoutPropsCopyWith<$Res>? get suffixIcon;
   $LayoutPropsCopyWith<$Res>? get prefixIcon;
-  $LayoutPropsCopyWith<$Res>? get cameraIcon;
   $LayoutPropsCopyWith<$Res>? get head;
   $LayoutPropsCopyWith<$Res>? get body;
   $LayoutPropsCopyWith<$Res>? get leading;
@@ -466,7 +463,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? firstDate = freezed,
     Object? lastDate = freezed,
     Object? initialDate = freezed,
-    Object? cameraIcon = freezed,
+    Object? onResponse = freezed,
     Object? autovalidateMode = freezed,
     Object? columns = freezed,
     Object? rows = freezed,
@@ -835,10 +832,10 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.initialDate
           : initialDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      cameraIcon: freezed == cameraIcon
-          ? _value.cameraIcon
-          : cameraIcon // ignore: cast_nullable_to_non_nullable
-              as LayoutProps?,
+      onResponse: freezed == onResponse
+          ? _value.onResponse
+          : onResponse // ignore: cast_nullable_to_non_nullable
+              as String?,
       autovalidateMode: freezed == autovalidateMode
           ? _value.autovalidateMode
           : autovalidateMode // ignore: cast_nullable_to_non_nullable
@@ -1007,18 +1004,6 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
 
     return $LayoutPropsCopyWith<$Res>(_value.prefixIcon!, (value) {
       return _then(_value.copyWith(prefixIcon: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $LayoutPropsCopyWith<$Res>? get cameraIcon {
-    if (_value.cameraIcon == null) {
-      return null;
-    }
-
-    return $LayoutPropsCopyWith<$Res>(_value.cameraIcon!, (value) {
-      return _then(_value.copyWith(cameraIcon: value) as $Val);
     });
   }
 
@@ -1325,8 +1310,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       String? firstDate,
       String? lastDate,
       String? initialDate,
-      @LayoutPropsMetadata(ignoreComputeProps: true)
-          LayoutProps? cameraIcon,
+      String? onResponse,
       String? autovalidateMode,
       List<DataColumnProps>? columns,
       List<DataRowProps>? rows,
@@ -1376,8 +1360,6 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
   $LayoutPropsCopyWith<$Res>? get suffixIcon;
   @override
   $LayoutPropsCopyWith<$Res>? get prefixIcon;
-  @override
-  $LayoutPropsCopyWith<$Res>? get cameraIcon;
   @override
   $LayoutPropsCopyWith<$Res>? get head;
   @override
@@ -1509,7 +1491,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? firstDate = freezed,
     Object? lastDate = freezed,
     Object? initialDate = freezed,
-    Object? cameraIcon = freezed,
+    Object? onResponse = freezed,
     Object? autovalidateMode = freezed,
     Object? columns = freezed,
     Object? rows = freezed,
@@ -1878,10 +1860,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value.initialDate
           : initialDate // ignore: cast_nullable_to_non_nullable
               as String?,
-      cameraIcon: freezed == cameraIcon
-          ? _value.cameraIcon
-          : cameraIcon // ignore: cast_nullable_to_non_nullable
-              as LayoutProps?,
+      onResponse: freezed == onResponse
+          ? _value.onResponse
+          : onResponse // ignore: cast_nullable_to_non_nullable
+              as String?,
       autovalidateMode: freezed == autovalidateMode
           ? _value.autovalidateMode
           : autovalidateMode // ignore: cast_nullable_to_non_nullable
@@ -2099,8 +2081,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.firstDate,
       this.lastDate,
       this.initialDate,
-      @LayoutPropsMetadata(ignoreComputeProps: true)
-          this.cameraIcon,
+      this.onResponse,
       this.autovalidateMode,
       final List<DataColumnProps>? columns,
       final List<DataRowProps>? rows,
@@ -2424,8 +2405,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 // Datetime Field End==================================================
 // Image Picker Start=============================================
   @override
-  @LayoutPropsMetadata(ignoreComputeProps: true)
-  final LayoutProps? cameraIcon;
+  final String? onResponse;
 // Image Picker End===============================================
 // Form Start================================================
   @override
@@ -2534,7 +2514,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, shadowColor: $shadowColor, heightFactor: $heightFactor, widthFactor: $widthFactor, weight: $weight, style: $style, opacity: $opacity, enabled: $enabled, duration: $duration, show: $show, safeArea: $safeArea, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, textAlign: $textAlign, selectable: $selectable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, suffixIcon: $suffixIcon, suffixIconColor: $suffixIconColor, suffixText: $suffixText, prefixIcon: $prefixIcon, prefixIconColor: $prefixIconColor, prefixText: $prefixText, format: $format, fillColor: $fillColor, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, firstDate: $firstDate, lastDate: $lastDate, initialDate: $initialDate, cameraIcon: $cameraIcon, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, onSelectChanged: $onSelectChanged, onSelectAll: $onSelectAll, selected: $selected, dividerColor: $dividerColor, head: $head, body: $body, leading: $leading, title: $title, trailing: $trailing, subtitle: $subtitle, horizontalTitleGap: $horizontalTitleGap, component: $component, child: $child, content: $content, itemLayout: $itemLayout, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, shapeBorder: $shapeBorder, boxShadow: $boxShadow, gradient: $gradient)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, shadowColor: $shadowColor, heightFactor: $heightFactor, widthFactor: $widthFactor, weight: $weight, style: $style, opacity: $opacity, enabled: $enabled, duration: $duration, show: $show, safeArea: $safeArea, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, textAlign: $textAlign, selectable: $selectable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, suffixIcon: $suffixIcon, suffixIconColor: $suffixIconColor, suffixText: $suffixText, prefixIcon: $prefixIcon, prefixIconColor: $prefixIconColor, prefixText: $prefixText, format: $format, fillColor: $fillColor, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, firstDate: $firstDate, lastDate: $lastDate, initialDate: $initialDate, onResponse: $onResponse, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, onSelectChanged: $onSelectChanged, onSelectAll: $onSelectAll, selected: $selected, dividerColor: $dividerColor, head: $head, body: $body, leading: $leading, title: $title, trailing: $trailing, subtitle: $subtitle, horizontalTitleGap: $horizontalTitleGap, component: $component, child: $child, content: $content, itemLayout: $itemLayout, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, shapeBorder: $shapeBorder, boxShadow: $boxShadow, gradient: $gradient)';
   }
 
   @override
@@ -2627,7 +2607,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('firstDate', firstDate))
       ..add(DiagnosticsProperty('lastDate', lastDate))
       ..add(DiagnosticsProperty('initialDate', initialDate))
-      ..add(DiagnosticsProperty('cameraIcon', cameraIcon))
+      ..add(DiagnosticsProperty('onResponse', onResponse))
       ..add(DiagnosticsProperty('autovalidateMode', autovalidateMode))
       ..add(DiagnosticsProperty('columns', columns))
       ..add(DiagnosticsProperty('rows', rows))
@@ -2765,8 +2745,7 @@ abstract class _LayoutProps implements LayoutProps {
       final String? firstDate,
       final String? lastDate,
       final String? initialDate,
-      @LayoutPropsMetadata(ignoreComputeProps: true)
-          final LayoutProps? cameraIcon,
+      final String? onResponse,
       final String? autovalidateMode,
       final List<DataColumnProps>? columns,
       final List<DataRowProps>? rows,
@@ -3016,8 +2995,7 @@ abstract class _LayoutProps implements LayoutProps {
   String? get initialDate;
   @override // Datetime Field End==================================================
 // Image Picker Start=============================================
-  @LayoutPropsMetadata(ignoreComputeProps: true)
-  LayoutProps? get cameraIcon;
+  String? get onResponse;
   @override // Image Picker End===============================================
 // Form Start================================================
   String? get autovalidateMode;

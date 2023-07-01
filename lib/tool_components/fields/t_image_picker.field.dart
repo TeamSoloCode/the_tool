@@ -1,7 +1,8 @@
-import 'dart:convert';
 import 'dart:io';
+import 'package:http_parser/http_parser.dart';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:the_tool/api_client.dart';
@@ -17,34 +18,59 @@ class TImagePickerField extends TWidget {
 }
 
 class _TImagePickerFieldState extends State<TImagePickerField> {
-  File? image;
+  Image? image;
 
   final _clientAPI = getIt<APIClientManager>();
 
   void _openGallery() async {
-    var imagePicker = await ImagePicker().pickImage(
+    var pickedFile = await ImagePicker().pickImage(
       source: ImageSource.gallery,
     );
 
-    if (imagePicker == null) return;
-    final imageTemp = File(imagePicker.path);
+    if (pickedFile == null) return;
+    late final Image imageTemp;
+    if (kIsWeb) {
+      imageTemp = Image.network(pickedFile.path);
+    } else {
+      imageTemp = Image.file(File(pickedFile.path));
+    }
 
     setState(() {
       image = imageTemp;
     });
 
     if (image == null) return;
+    late MultipartFile file;
 
-    String filename = image!.path.split("/").last;
+    print("abcd filename ${pickedFile.name}");
+
+    if (kIsWeb) {
+      file = MultipartFile.fromBytes(
+        (await pickedFile.readAsBytes()),
+        contentType: MediaType.parse(
+          pickedFile.mimeType ?? "png",
+        ),
+        filename: pickedFile.name,
+      );
+    } else {
+      file = await MultipartFile.fromFile(
+        pickedFile.path,
+        filename: pickedFile.name,
+      );
+    }
+
     FormData formData = FormData.fromMap({
-      "image": await MultipartFile.fromFile(image!.path, filename: filename),
+      "image": file,
     });
 
     final response = await _clientAPI.postImageFormData(formData);
-    final responseData = response.data;
-  }
 
-  void _uploadImage() async {}
+    final onResponse = widget.widgetProps.onResponse;
+    if (onResponse != null) {
+      final responseData = response.data;
+      widget.executeJSWithPagePath(onResponse, [responseData]);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
