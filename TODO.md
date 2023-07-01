@@ -1,5 +1,4 @@
-FIXME: Sequence validating field is not working properly when run field validation js function
-(this because validation js function run after form validate function)
+FIXME: image picker field is not upload file with filename properly
 
 SUPPORT: Invoke dart function with emitter
 
@@ -32,6 +31,8 @@ SUPPORT: SVG widget
 SUPPORT: dynamic for using "style" property in json layout
 
 #-------------------------------------------------
+FIXME: Sequence validating field is not working properly when run field validation js function
+(this because validation js function run after form validate function)
 FIXME: prevent user access to the context in console and run function in the page context
 implement seo_renderer, meta_seo
 UPDATE: Using emitter instead of using eval to call a function
