@@ -194,9 +194,9 @@ class APIClientManager {
 
   Future<Response<Map<String, dynamic>>> postImageFormData(
     FormData formData, {
-    Map<String, String> options = const {},
+    Map<String, dynamic> options = const {},
   }) {
-    var uploadFileHost =
+    var uploadFileHost = options["host"] ??
         getIt<ContextStateProvider>().appConfig?.uploadFileHost;
     String endpoint = "";
 

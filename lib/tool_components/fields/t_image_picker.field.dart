@@ -63,7 +63,19 @@ class _TImagePickerFieldState extends TStatefulWidget<TImagePickerField> {
       "image": file,
     });
 
-    final response = await _clientAPI.postImageFormData(formData);
+    Map<String, dynamic> options = {};
+
+    if (widget.widgetProps.host != null) {
+      options["host"] = widget.widgetProps.host;
+      if (options["host"] is! String) {
+        throw Exception("\"host\" property of image field should be a string");
+      }
+    }
+
+    final response = await _clientAPI.postImageFormData(
+      formData,
+      options: options,
+    );
 
     final onResponse = widget.widgetProps.onResponse;
     if (onResponse != null) {
@@ -109,26 +121,26 @@ class _TImagePickerFieldState extends TStatefulWidget<TImagePickerField> {
   }
 
   Widget _computeImageChild(LayoutProps props) {
-    if (props.child == null) {
-      return Stack(
-        alignment: Alignment.center,
-        children: [
-          _defaultPlaceholder(props),
-          image ?? const Offstage(),
-        ],
-      );
-    }
+    Widget pickedImage = image ?? const Offstage();
+    List<Widget> content = [
+      _defaultPlaceholder(props),
+      pickedImage,
+    ];
 
-    return Stack(
-      alignment: Alignment.center,
-      children: [
+    if (props.child != null) {
+      content = [
         TWidgets(
           layout: props.child!,
           pagePath: widget.pagePath,
           childData: widget.childData,
         ),
-        image ?? const Offstage()
-      ],
+        pickedImage
+      ];
+    }
+
+    return Stack(
+      alignment: Alignment.center,
+      children: content,
     );
   }
 
