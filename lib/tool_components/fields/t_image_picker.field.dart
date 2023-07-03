@@ -6,7 +6,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:the_tool/api_client.dart';
+import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
+import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/twidget_props.dart';
 import 'package:the_tool/utils.dart';
 
@@ -17,7 +19,7 @@ class TImagePickerField extends TWidget {
   State<TImagePickerField> createState() => _TImagePickerFieldState();
 }
 
-class _TImagePickerFieldState extends State<TImagePickerField> {
+class _TImagePickerFieldState extends TStatefulWidget<TImagePickerField> {
   Image? image;
 
   final _clientAPI = getIt<APIClientManager>();
@@ -41,8 +43,6 @@ class _TImagePickerFieldState extends State<TImagePickerField> {
 
     if (image == null) return;
     late MultipartFile file;
-
-    print("abcd filename ${pickedFile.name}");
 
     if (kIsWeb) {
       file = MultipartFile.fromBytes(
@@ -72,11 +72,58 @@ class _TImagePickerFieldState extends State<TImagePickerField> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: _openGallery,
-      child: const Text("Upload Image"),
+  Widget _defaultPlaceholder(LayoutProps props) {
+    return Container(
+      width: 150,
+      height: 150,
+      decoration: BoxDecoration(
+        color: Colors.grey[300],
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.image_outlined,
+            size: 48,
+            color: Colors.grey[600],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Upload Image',
+            style: TextStyle(
+              color: Colors.grey[600],
+              fontSize: 16,
+            ),
+          ),
+        ],
+      ),
     );
+  }
+
+  Widget _computeImageChild(LayoutProps props) {
+    if (props.child == null) {
+      return _defaultPlaceholder(props);
+    }
+
+    return TWidgets(
+      layout: props.child!,
+      pagePath: widget.pagePath,
+      childData: widget.childData,
+    );
+  }
+
+  @override
+  Widget buildWidget(BuildContext context) {
+    LayoutProps? _props = widget.props;
+
+    if (_props != null) {
+      widget.snapshot = GestureDetector(
+        onTap: _openGallery,
+        child: _computeImageChild(_props),
+      );
+    }
+
+    return widget.snapshot;
   }
 }
