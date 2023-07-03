@@ -74,27 +74,34 @@ class _TImagePickerFieldState extends TStatefulWidget<TImagePickerField> {
 
   Widget _defaultPlaceholder(LayoutProps props) {
     return Container(
-      width: 150,
-      height: 150,
       decoration: BoxDecoration(
-        color: Colors.grey[300],
-        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: Colors.grey[600] ?? const Color(0xFF000000),
+        ),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(8),
+        ),
       ),
-      child: Column(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.image_outlined,
-            size: 48,
-            color: Colors.grey[600],
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'Upload Image',
-            style: TextStyle(
-              color: Colors.grey[600],
-              fontSize: 16,
-            ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.image_outlined,
+                size: 48,
+                color: Colors.grey[600],
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Upload Image',
+                style: TextStyle(
+                  color: Colors.grey[600],
+                  fontSize: 16,
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -103,13 +110,25 @@ class _TImagePickerFieldState extends TStatefulWidget<TImagePickerField> {
 
   Widget _computeImageChild(LayoutProps props) {
     if (props.child == null) {
-      return _defaultPlaceholder(props);
+      return Stack(
+        alignment: Alignment.center,
+        children: [
+          _defaultPlaceholder(props),
+          image ?? const Offstage(),
+        ],
+      );
     }
 
-    return TWidgets(
-      layout: props.child!,
-      pagePath: widget.pagePath,
-      childData: widget.childData,
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        TWidgets(
+          layout: props.child!,
+          pagePath: widget.pagePath,
+          childData: widget.childData,
+        ),
+        image ?? const Offstage()
+      ],
     );
   }
 

@@ -111,6 +111,7 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       lastDate: json['lastDate'] as String?,
       initialDate: json['initialDate'] as String?,
       onResponse: json['onResponse'] as String?,
+      host: json['host'] as String?,
       autovalidateMode: json['autovalidateMode'] as String?,
       columns: (json['columns'] as List<dynamic>?)
           ?.map((e) => DataColumnProps.fromJson(e as Map<String, dynamic>))
@@ -275,6 +276,7 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'lastDate': instance.lastDate,
       'initialDate': instance.initialDate,
       'onResponse': instance.onResponse,
+      'host': instance.host,
       'autovalidateMode': instance.autovalidateMode,
       'columns': instance.columns?.map((e) => e.toJson()).toList(),
       'rows': instance.rows?.map((e) => e.toJson()).toList(),

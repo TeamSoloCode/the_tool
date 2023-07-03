@@ -1,5 +1,3 @@
-FIXME: image picker field is not upload file with filename properly
-
 SUPPORT: Invoke dart function with emitter
 
 FIXME: Remove reflectable of layout_props, because it consume 200kb of bundle
