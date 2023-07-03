@@ -13,6 +13,7 @@ class ClientConfig with _$ClientConfig {
     String? beAPI,
     List<AppRouteConfig>? routes,
     String? notFoundPagePath,
+    String? uploadFileHost,
   }) = _ClientConfig;
 
   factory ClientConfig.fromJson(Map<String, Object?> json) =>

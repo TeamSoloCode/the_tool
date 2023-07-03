@@ -16,6 +16,7 @@ _$_ClientConfig _$$_ClientConfigFromJson(Map<String, dynamic> json) =>
           ?.map((e) => AppRouteConfig.fromJson(e as Map<String, dynamic>))
           .toList(),
       notFoundPagePath: json['notFoundPagePath'] as String?,
+      uploadFileHost: json['uploadFileHost'] as String?,
     );
 
 Map<String, dynamic> _$$_ClientConfigToJson(_$_ClientConfig instance) =>
@@ -26,4 +27,5 @@ Map<String, dynamic> _$$_ClientConfigToJson(_$_ClientConfig instance) =>
       'beAPI': instance.beAPI,
       'routes': instance.routes?.map((e) => e.toJson()).toList(),
       'notFoundPagePath': instance.notFoundPagePath,
+      'uploadFileHost': instance.uploadFileHost,
     };

@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:the_tool/config/config.dart';
+import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/page_utils/storage_manager.dart';
 
 import 'package:the_tool/t_widget_interface/client_config/client_config.dart';
@@ -195,7 +196,23 @@ class APIClientManager {
     FormData formData, {
     Map<String, String> options = const {},
   }) {
-    String endpoint = options["enpoint"] ?? "$_beAPI/file/upload";
+    var uploadFileHost =
+        getIt<ContextStateProvider>().appConfig?.uploadFileHost;
+    String endpoint = "";
+
+    if (uploadFileHost == null) {
+      throw Exception(
+          "Please configure \"uploadFileHost\" in client configuration.");
+    }
+
+    if (uploadFileHost.startsWith("http")) {
+      endpoint = uploadFileHost;
+    } else if (uploadFileHost.startsWith("/")) {
+      endpoint = "$_beAPI$uploadFileHost";
+    } else {
+      endpoint = "$_beAPI/$uploadFileHost";
+    }
+
     return _dio.post(endpoint, data: formData);
   }
 }

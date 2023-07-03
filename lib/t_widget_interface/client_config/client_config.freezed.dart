@@ -26,6 +26,7 @@ mixin _$ClientConfig {
   String? get beAPI => throw _privateConstructorUsedError;
   List<AppRouteConfig>? get routes => throw _privateConstructorUsedError;
   String? get notFoundPagePath => throw _privateConstructorUsedError;
+  String? get uploadFileHost => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +46,8 @@ abstract class $ClientConfigCopyWith<$Res> {
       String? pageAPI,
       String? beAPI,
       List<AppRouteConfig>? routes,
-      String? notFoundPagePath});
+      String? notFoundPagePath,
+      String? uploadFileHost});
 }
 
 /// @nodoc
@@ -67,6 +69,7 @@ class _$ClientConfigCopyWithImpl<$Res, $Val extends ClientConfig>
     Object? beAPI = freezed,
     Object? routes = freezed,
     Object? notFoundPagePath = freezed,
+    Object? uploadFileHost = freezed,
   }) {
     return _then(_value.copyWith(
       initialPage: freezed == initialPage
@@ -93,6 +96,10 @@ class _$ClientConfigCopyWithImpl<$Res, $Val extends ClientConfig>
           ? _value.notFoundPagePath
           : notFoundPagePath // ignore: cast_nullable_to_non_nullable
               as String?,
+      uploadFileHost: freezed == uploadFileHost
+          ? _value.uploadFileHost
+          : uploadFileHost // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -111,7 +118,8 @@ abstract class _$$_ClientConfigCopyWith<$Res>
       String? pageAPI,
       String? beAPI,
       List<AppRouteConfig>? routes,
-      String? notFoundPagePath});
+      String? notFoundPagePath,
+      String? uploadFileHost});
 }
 
 /// @nodoc
@@ -131,6 +139,7 @@ class __$$_ClientConfigCopyWithImpl<$Res>
     Object? beAPI = freezed,
     Object? routes = freezed,
     Object? notFoundPagePath = freezed,
+    Object? uploadFileHost = freezed,
   }) {
     return _then(_$_ClientConfig(
       initialPage: freezed == initialPage
@@ -157,6 +166,10 @@ class __$$_ClientConfigCopyWithImpl<$Res>
           ? _value.notFoundPagePath
           : notFoundPagePath // ignore: cast_nullable_to_non_nullable
               as String?,
+      uploadFileHost: freezed == uploadFileHost
+          ? _value.uploadFileHost
+          : uploadFileHost // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -170,7 +183,8 @@ class _$_ClientConfig implements _ClientConfig {
       this.pageAPI,
       this.beAPI,
       final List<AppRouteConfig>? routes,
-      this.notFoundPagePath})
+      this.notFoundPagePath,
+      this.uploadFileHost})
       : _routes = routes;
 
   factory _$_ClientConfig.fromJson(Map<String, dynamic> json) =>
@@ -196,6 +210,8 @@ class _$_ClientConfig implements _ClientConfig {
 
   @override
   final String? notFoundPagePath;
+  @override
+  final String? uploadFileHost;
 
   @JsonKey(ignore: true)
   @override
@@ -218,7 +234,8 @@ abstract class _ClientConfig implements ClientConfig {
       final String? pageAPI,
       final String? beAPI,
       final List<AppRouteConfig>? routes,
-      final String? notFoundPagePath}) = _$_ClientConfig;
+      final String? notFoundPagePath,
+      final String? uploadFileHost}) = _$_ClientConfig;
 
   factory _ClientConfig.fromJson(Map<String, dynamic> json) =
       _$_ClientConfig.fromJson;
@@ -235,6 +252,8 @@ abstract class _ClientConfig implements ClientConfig {
   List<AppRouteConfig>? get routes;
   @override
   String? get notFoundPagePath;
+  @override
+  String? get uploadFileHost;
   @override
   @JsonKey(ignore: true)
   _$$_ClientConfigCopyWith<_$_ClientConfig> get copyWith =>
