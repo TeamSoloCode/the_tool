@@ -13,7 +13,6 @@ import 'package:the_tool/t_widget_interface/gradient_props/gradient_props.dart';
 import 'package:the_tool/t_widget_interface/image_content/image_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_builder_props/layout_builder_props.dart';
 import 'package:the_tool/t_widget_interface/media_screen_only/media_screen_only.dart';
-import 'package:the_tool/t_widget_interface/layout_content/layout_prop_metadata.dart';
 
 part 'layout_props.freezed.dart';
 part 'layout_props.g.dart';
@@ -35,7 +34,9 @@ class LayoutProps with _$LayoutProps {
     String? buttonType,
     String? key,
     String? name,
-    @LayoutPropsMetadata(ignoreComputeProps: true) dynamic className,
+    dynamic className,
+
+    /// ignored-compute
     dynamic height,
     dynamic width,
     dynamic maxWidth,
@@ -77,18 +78,21 @@ class LayoutProps with _$LayoutProps {
      * This is raw props passed form parent layout to t_component
      * It contains binding value and raw binding value ("{{}}", "@", "!")
      */
-    @LayoutPropsMetadata(ignoreComputeProps: true)
-        Map<String, dynamic>? componentProps,
+    Map<String, dynamic>? componentProps,
+
     /**
      * This is the props passed from parent layout to t_component
      * It has been bound all the binding value to context data value
      */
-    @LayoutPropsMetadata(ignoreComputeProps: true)
-        Map<String, dynamic>? computedComponentProps,
+    /// ignored-compute
+    Map<String, dynamic>? computedComponentProps,
+
     /**
      * Contains json widget for internal layout.json use only
      */
+    /// ignored-compute
     Map<String, LayoutProps?>? components,
+
     /**
      * This use to set scroll on Row or Column
      * if scrollable = true and widget is Row => Axix.horizontal
@@ -123,10 +127,14 @@ class LayoutProps with _$LayoutProps {
     bool? allowClear,
     String? fieldType,
     bool? numeric,
-    @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? suffixIcon,
+
+    /// ignored-compute
+    LayoutProps? suffixIcon,
     String? suffixIconColor,
     String? suffixText,
-    @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? prefixIcon,
+
+    /// ignored-compute
+    LayoutProps? prefixIcon,
     String? prefixIconColor,
     String? prefixText,
     String? format,
@@ -172,23 +180,42 @@ class LayoutProps with _$LayoutProps {
     // Expansion Start================================================
     dynamic selected,
     String? dividerColor,
-    @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? head,
-    @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? body,
+
+    /// ignored-compute
+    LayoutProps? head,
+
+    /// ignored-compute
+    LayoutProps? body,
     // Expansion End==================================================
 
     // ListTile Start================================================
-    @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? leading,
-    @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? title,
-    @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? trailing,
-    @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? subtitle,
+    /// ignored-compute
+    LayoutProps? leading,
+
+    /// ignored-compute
+    LayoutProps? title,
+
+    /// ignored-compute
+    LayoutProps? trailing,
+
+    /// ignored-compute
+    LayoutProps? subtitle,
     double? horizontalTitleGap,
     // ListTile End==================================================
 
     String? component,
-    @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? child,
-    @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? content,
-    @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? itemLayout,
-    @LayoutPropsMetadata(ignoreComputeProps: true) List<LayoutProps>? children,
+
+    /// ignored-compute
+    LayoutProps? child,
+
+    /// ignored-compute
+    LayoutProps? content,
+
+    /// ignored-compute
+    LayoutProps? itemLayout,
+
+    /// ignored-compute
+    List<LayoutProps>? children,
     BottomNavigationProps? bottomNav,
     AppBarProps? appBar,
     ImageProviderProps? image,
