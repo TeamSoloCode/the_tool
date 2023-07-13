@@ -9,6 +9,7 @@ import 'package:the_tool/page_provider/theme_provider.dart';
 import 'package:the_tool/t_widget_interface/drawer_props/drawer_props.dart';
 import 'package:the_tool/t_widget_interface/layout_builder_props/layout_builder_props.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
+import 'package:the_tool/t_widget_interface/layout_content/layout_props.extension.dart';
 import 'package:the_tool/t_widget_interface/media_screen_only/media_screen_only.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';

@@ -3,6 +3,7 @@ import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/twidget_props.dart';
 import 'package:the_tool/page_utils/style_utils.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
+import 'package:the_tool/t_widget_interface/layout_content/layout_props.extension.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 

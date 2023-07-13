@@ -7,6 +7,7 @@ import 'package:the_tool/tool_components/t_wrap.widget.dart';
 import 'package:the_tool/twidget_props.dart';
 import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
+import 'package:the_tool/t_widget_interface/layout_content/layout_props.extension.dart';
 import 'package:the_tool/tool_components/list/t_list_tile.widget.dart'
     deferred as t_list_tile;
 import 'package:the_tool/tool_components/expansion/t_expansion_list.widget.dart'
