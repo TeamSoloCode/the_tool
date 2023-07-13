@@ -1,15 +1,11 @@
+SUPPORT: binding data from state to image picker field
 SUPPORT: Invoke dart function with emitter
-
-FIXME: Remove reflectable of layout_props, because it consume 200kb of bundle
 
 SUPPORT: responsive with device version
 SUPPORT: Use metadata to specify layout property is a string or number
 SUPPORT: RichText
 
 SUPPORT: Blowfish encryption to encrypt data passing to js side to execute
-
-SUPPORT: image picker field in register layout
-SUPPORT: file picker field
 
 UPDATE: merge function of LayoutProps class to auto merge all simple properties. Check mergeObjects function in layout_props.dart
 
@@ -57,7 +53,9 @@ Support pages app bar custom actions
 Support alert, dialog, snackbar, ScaffoldMessenger
 
 #-------------------------------------------------
-
+-FIXME: Remove reflectable of layout_props, because it consume 200kb of bundle
+-SUPPORT: image picker field in register layout
+-SUPPORT: file picker field
 -FIXME: cannot execute js function that call another func as a param ex: validateFormLogin(getPageData())
 -FIXME: Cannot emit full function. Ex: goTo("abcd_page") in json layout
 -SUPPORT: set min/max date for field date

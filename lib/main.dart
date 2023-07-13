@@ -22,12 +22,9 @@ import 'package:the_tool/static_pages/select_project.page.dart'
     deferred as select_project;
 import 'package:the_tool/js_utils/mobile_eval_utils/mobile_eval_js.dart'
     if (dart.library.js) 'package:the_tool/js_utils/web_eval_utils/web_eval_js.dart';
-import 'package:the_tool/t_widget_interface/layout_content/layout_props_reflectable.dart'
-    as layout_props_reflectable;
 
 void main() async {
   // debugRepaintRainbowEnabled = true;
-  layout_props_reflectable.main();
   if (!kIsWeb) {
     // if (Platform.isAndroid || Platform.isIOS) {
     await ScreenUtil.ensureScreenSize();

@@ -16,14 +16,12 @@ import 'package:the_tool/t_widget_interface/gradient_props/gradient_props.dart';
 import 'package:the_tool/t_widget_interface/image_content/image_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_builder_props/layout_builder_props.dart';
 import 'package:the_tool/t_widget_interface/media_screen_only/media_screen_only.dart';
-import 'package:the_tool/t_widget_interface/layout_content/layout_props_reflectable.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_prop_metadata.dart';
 
 part 'layout_props.freezed.dart';
 part 'layout_props.g.dart';
 
 @Freezed(equal: false)
-@reflector
 class LayoutProps with _$LayoutProps {
   const factory LayoutProps({
     String? type,

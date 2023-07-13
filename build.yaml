@@ -4,6 +4,3 @@ targets:
       json_serializable:
         options:
           explicit_to_json: true
-      reflectable:
-        generate_for:
-          - lib/t_widget_interface/layout_content/layout_props_reflectable.dart
