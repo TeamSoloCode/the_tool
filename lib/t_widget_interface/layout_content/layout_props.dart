@@ -150,6 +150,8 @@ class LayoutProps with _$LayoutProps {
      */
     bool? autovalidate,
     List<Map<String, dynamic>>? validators,
+    int? maxLines,
+    int? minLines,
     // Field End==================================================
 
     // Datetime Field Start==================================================

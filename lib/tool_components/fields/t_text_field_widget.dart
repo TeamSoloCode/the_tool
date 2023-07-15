@@ -103,6 +103,8 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
       inputFormatters: [
         // FilteringTextInputFormatter.digitsOnly,
       ],
+      maxLines: computedProps?.maxLines,
+      minLines: computedProps?.minLines,
       enabled: computedProps?.enabled ?? true,
       decoration: computeFieldDecoration(
         computedProps,

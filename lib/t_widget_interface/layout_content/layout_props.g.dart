@@ -107,6 +107,8 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       validators: (json['validators'] as List<dynamic>?)
           ?.map((e) => e as Map<String, dynamic>)
           .toList(),
+      maxLines: json['maxLines'] as int?,
+      minLines: json['minLines'] as int?,
       firstDate: json['firstDate'] as String?,
       lastDate: json['lastDate'] as String?,
       initialDate: json['initialDate'] as String?,
@@ -272,6 +274,8 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'validationFunction': instance.validationFunction,
       'autovalidate': instance.autovalidate,
       'validators': instance.validators,
+      'maxLines': instance.maxLines,
+      'minLines': instance.minLines,
       'firstDate': instance.firstDate,
       'lastDate': instance.lastDate,
       'initialDate': instance.initialDate,
