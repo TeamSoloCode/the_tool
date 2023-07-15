@@ -50,16 +50,22 @@ class T_Column extends TStatelessWidget {
         ) ??
         MainAxisAlignment.start;
 
+    var crossAxisAlignment = ThemeDecoder.decodeCrossAxisAlignment(
+          props?.crossAxisAlignment,
+        ) ??
+        CrossAxisAlignment.center;
+
     if (props != null) {
       snapshot = Column(
         key: getBindingKey(),
         mainAxisAlignment: mainAxisAlignment,
+        crossAxisAlignment: crossAxisAlignment,
         children: _getChildren(context),
       );
 
       if (props?.scrollable == true) {
         snapshot = ScrollConfiguration(
-          behavior: MyCustomScrollBehavior(),
+          behavior: WebCustomScrollBehavior(),
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: snapshot,

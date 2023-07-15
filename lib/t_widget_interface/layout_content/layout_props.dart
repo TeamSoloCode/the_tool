@@ -30,6 +30,7 @@ class LayoutProps with _$LayoutProps {
     dynamic hidden,
     String? icon,
     String? mainAxisAlignment,
+    String? crossAxisAlignment,
     String? path,
     String? buttonType,
     String? key,

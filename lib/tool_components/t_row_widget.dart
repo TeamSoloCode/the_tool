@@ -55,9 +55,15 @@ class T_Row extends TStatelessWidget {
         ) ??
         MainAxisAlignment.start;
 
+    var crossAxisAlignment = ThemeDecoder.decodeCrossAxisAlignment(
+          props?.crossAxisAlignment,
+        ) ??
+        CrossAxisAlignment.center;
+
     snapshot = Row(
       key: getBindingKey(),
       mainAxisAlignment: mainAxisAlignment,
+      crossAxisAlignment: crossAxisAlignment,
       children: _computeChildren(
         props?.children,
         childData,
@@ -73,7 +79,7 @@ class T_Row extends TStatelessWidget {
 
       if (kIsWeb) {
         snapshot = ScrollConfiguration(
-          behavior: MyCustomScrollBehavior(),
+          behavior: WebCustomScrollBehavior(),
           child: snapshot,
         );
       }

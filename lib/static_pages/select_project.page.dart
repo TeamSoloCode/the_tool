@@ -36,7 +36,7 @@ class _SelectProjectPageState extends State<SelectProjectPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      scrollBehavior: MyCustomScrollBehavior(),
+      scrollBehavior: WebCustomScrollBehavior(),
       themeMode: ThemeMode.dark,
       home: Scaffold(
         body: Center(

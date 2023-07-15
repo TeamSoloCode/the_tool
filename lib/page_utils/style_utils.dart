@@ -36,7 +36,7 @@ class StyleUtils {
   }
 }
 
-class MyCustomScrollBehavior extends MaterialScrollBehavior {
+class WebCustomScrollBehavior extends MaterialScrollBehavior {
   @override
   Set<PointerDeviceKind> get dragDevices =>
       {PointerDeviceKind.mouse, PointerDeviceKind.touch};
