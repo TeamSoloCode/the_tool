@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/mixin_component/field_mixin.dart';
@@ -23,17 +22,12 @@ class _TCheckboxState extends TStatefulWidget<TCheckbox> with FieldMixin {
   bool? selectedValue;
 
   @override
-  void initState() {
-    super.initState();
-    initializeDateFormatting();
-  }
-
-  @override
   void didChangeDependencies() {
     String? name = widget.widgetProps.name;
     dynamic currentValue = _checkboxKey.currentState?.value;
 
-    selectedValue = UtilsManager.isTruthy(widget.getContexData()[name]);
+    selectedValue =
+        UtilsManager.isTruthy(widget.getContexData()[name]) ?? selectedValue;
 
     if (selectedValue != currentValue && name != null) {
       Future.delayed(Duration.zero, () async {
@@ -55,7 +49,8 @@ class _TCheckboxState extends TStatefulWidget<TCheckbox> with FieldMixin {
     Map<String, dynamic> contextData,
   ) {
     String? name = widgetProps?.name;
-    var value = contextData[name];
+    var value = contextData[name] ??
+        UtilsManager.isTruthy(widget.widgetProps.defaultValue);
 
     assert(name != null, "Missing \"name\" in field widget");
 

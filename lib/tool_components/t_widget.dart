@@ -172,8 +172,10 @@ mixin BaseStateWidget on Widget {
   ) {
     var mediaQuery = MediaQuery.of(context);
     var margedClassesMediaScreen = mediaScreen.map((media) {
-      return utils.themeProvider
-          .margerClassesIntoMediaScreen(media, contextData);
+      return utils.themeProvider.margerClassesIntoMediaScreen(
+        media,
+        contextData,
+      );
     }).toList();
 
     var applyProps = utils.getMediaScreeStyle(

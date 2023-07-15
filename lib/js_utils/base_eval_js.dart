@@ -92,7 +92,7 @@ abstract class BaseEvalJS {
       appEl.appendChild(clientCodeHost)
 
       ReactDOM.render(
-        React.createElement(Main, context),
+        React.createElement(Main, {}),
         document.getElementById("$pagePath")
       );
     } catch (err) {
