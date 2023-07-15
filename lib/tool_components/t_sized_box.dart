@@ -16,11 +16,13 @@ class TSizedBox extends TStatelessWidget {
         key: getBindingKey(),
         height: _props.height,
         width: _props.width,
-        child: TWidgets(
-          layout: _props.child!,
-          pagePath: pagePath,
-          childData: childData,
-        ),
+        child: _props.child == null
+            ? null
+            : TWidgets(
+                layout: _props.child!,
+                pagePath: pagePath,
+                childData: childData,
+              ),
       );
     }
 
