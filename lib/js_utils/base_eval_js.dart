@@ -397,14 +397,14 @@ abstract class BaseEvalJS {
               result[key] = propFromParentContext != undefined ? propFromParentContext : value
 
               if(value && _appBase.isValueBinding(value)) {
-                const propsFromParentData = _appBase.getBindingValue(getPageData(), value)
+                let propsFromParentData = _appBase.getBindingValue(getPageData(), value)
 
                 /** 
                  * If the props not in parent data then we 
                  * will get from parent context 
                  */
                 if(!propsFromParentData) {
-                  propsFromParentContext = _appBase.getBindingValue(
+                  propsFromParentData = _appBase.getBindingValue(
                     _.get(_contextData, '$pagePath'), 
                     value
                   )
