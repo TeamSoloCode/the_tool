@@ -127,7 +127,7 @@ class LayoutProps with _$LayoutProps {
     dynamic items,
     bool? allowClear,
     String? fieldType,
-    bool? numeric,
+    String? keyboardType,
 
     /// ignored-compute
     LayoutProps? suffixIcon,
@@ -153,6 +153,7 @@ class LayoutProps with _$LayoutProps {
     List<Map<String, dynamic>>? validators,
     int? maxLines,
     int? minLines,
+    Map<String, dynamic>? formatters,
     // Field End==================================================
 
     // Datetime Field Start==================================================

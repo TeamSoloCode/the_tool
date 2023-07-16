@@ -90,7 +90,7 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       items: json['items'],
       allowClear: json['allowClear'] as bool?,
       fieldType: json['fieldType'] as String?,
-      numeric: json['numeric'] as bool?,
+      keyboardType: json['keyboardType'] as String?,
       suffixIcon: json['suffixIcon'] == null
           ? null
           : LayoutProps.fromJson(json['suffixIcon'] as Map<String, dynamic>),
@@ -110,6 +110,7 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
           .toList(),
       maxLines: json['maxLines'] as int?,
       minLines: json['minLines'] as int?,
+      formatters: json['formatters'] as Map<String, dynamic>?,
       firstDate: json['firstDate'] as String?,
       lastDate: json['lastDate'] as String?,
       initialDate: json['initialDate'] as String?,
@@ -264,7 +265,7 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'items': instance.items,
       'allowClear': instance.allowClear,
       'fieldType': instance.fieldType,
-      'numeric': instance.numeric,
+      'keyboardType': instance.keyboardType,
       'suffixIcon': instance.suffixIcon?.toJson(),
       'suffixIconColor': instance.suffixIconColor,
       'suffixText': instance.suffixText,
@@ -278,6 +279,7 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'validators': instance.validators,
       'maxLines': instance.maxLines,
       'minLines': instance.minLines,
+      'formatters': instance.formatters,
       'firstDate': instance.firstDate,
       'lastDate': instance.lastDate,
       'initialDate': instance.initialDate,

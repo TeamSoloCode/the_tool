@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart'
     show FormBuilderTextField;
 import 'package:form_builder_validators/form_builder_validators.dart'
@@ -91,6 +92,33 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
     });
   }
 
+  List<TextInputFormatter> _computeInputFormatters(
+    LayoutProps? computedProps,
+  ) {
+    Map<String, dynamic> rawFormatters = computedProps?.formatters ?? {};
+    List<TextInputFormatter> formatters = [];
+
+    if (rawFormatters["number"] == true) {
+      formatters.add(FilteringTextInputFormatter.digitsOnly);
+    }
+
+    if (rawFormatters["negativeNumber"] == true) {
+      if (formatters.length == 1) {
+        formatters.removeAt(0);
+      }
+      formatters.add(FilteringTextInputFormatter.allow(RegExp(r'^-?\d*')));
+    }
+
+    // [
+    // FilteringTextInputFormatter.allow(RegExp(r'^-?\d{0,5}')), // allow 5 digits
+    // FilteringTextInputFormatter.allow(RegExp(r'^-?\d*')),
+    // FilteringTextInputFormatter.digitsOnly,
+    // TextInputFormatter.withFunction((oldValue, newValue) => null),
+    // ],
+
+    return formatters;
+  }
+
   Widget _computeTextField(
     LayoutProps? computedProps,
     Map<String, dynamic> contextData,
@@ -100,9 +128,7 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
     return FormBuilderTextField(
       controller: textFieldController,
       name: name ?? "",
-      inputFormatters: [
-        // FilteringTextInputFormatter.digitsOnly,
-      ],
+      inputFormatters: _computeInputFormatters(computedProps),
       maxLines: computedProps?.maxLines,
       minLines: computedProps?.minLines,
       enabled: computedProps?.enabled ?? true,
@@ -144,7 +170,7 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
   }
 
   TextInputType _getTextInputType(LayoutProps? layoutProps) {
-    if (layoutProps?.numeric == true) {
+    if (layoutProps?.keyboardType == "number") {
       return TextInputType.number;
     }
 

@@ -121,7 +121,7 @@ mixin _$LayoutProps {
   dynamic get items => throw _privateConstructorUsedError;
   bool? get allowClear => throw _privateConstructorUsedError;
   String? get fieldType => throw _privateConstructorUsedError;
-  bool? get numeric => throw _privateConstructorUsedError;
+  String? get keyboardType => throw _privateConstructorUsedError;
 
   /// ignored-compute
   LayoutProps? get suffixIcon => throw _privateConstructorUsedError;
@@ -147,7 +147,8 @@ mixin _$LayoutProps {
   List<Map<String, dynamic>>? get validators =>
       throw _privateConstructorUsedError;
   int? get maxLines => throw _privateConstructorUsedError;
-  int? get minLines =>
+  int? get minLines => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get formatters =>
       throw _privateConstructorUsedError; // Field End==================================================
 // Datetime Field Start==================================================
   String? get firstDate => throw _privateConstructorUsedError;
@@ -299,7 +300,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       dynamic items,
       bool? allowClear,
       String? fieldType,
-      bool? numeric,
+      String? keyboardType,
       LayoutProps? suffixIcon,
       String? suffixIconColor,
       String? suffixText,
@@ -313,6 +314,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       List<Map<String, dynamic>>? validators,
       int? maxLines,
       int? minLines,
+      Map<String, dynamic>? formatters,
       String? firstDate,
       String? lastDate,
       String? initialDate,
@@ -455,7 +457,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? items = freezed,
     Object? allowClear = freezed,
     Object? fieldType = freezed,
-    Object? numeric = freezed,
+    Object? keyboardType = freezed,
     Object? suffixIcon = freezed,
     Object? suffixIconColor = freezed,
     Object? suffixText = freezed,
@@ -469,6 +471,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? validators = freezed,
     Object? maxLines = freezed,
     Object? minLines = freezed,
+    Object? formatters = freezed,
     Object? firstDate = freezed,
     Object? lastDate = freezed,
     Object? initialDate = freezed,
@@ -786,10 +789,10 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.fieldType
           : fieldType // ignore: cast_nullable_to_non_nullable
               as String?,
-      numeric: freezed == numeric
-          ? _value.numeric
-          : numeric // ignore: cast_nullable_to_non_nullable
-              as bool?,
+      keyboardType: freezed == keyboardType
+          ? _value.keyboardType
+          : keyboardType // ignore: cast_nullable_to_non_nullable
+              as String?,
       suffixIcon: freezed == suffixIcon
           ? _value.suffixIcon
           : suffixIcon // ignore: cast_nullable_to_non_nullable
@@ -842,6 +845,10 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.minLines
           : minLines // ignore: cast_nullable_to_non_nullable
               as int?,
+      formatters: freezed == formatters
+          ? _value.formatters
+          : formatters // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
       firstDate: freezed == firstDate
           ? _value.firstDate
           : firstDate // ignore: cast_nullable_to_non_nullable
@@ -1317,7 +1324,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       dynamic items,
       bool? allowClear,
       String? fieldType,
-      bool? numeric,
+      String? keyboardType,
       LayoutProps? suffixIcon,
       String? suffixIconColor,
       String? suffixText,
@@ -1331,6 +1338,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       List<Map<String, dynamic>>? validators,
       int? maxLines,
       int? minLines,
+      Map<String, dynamic>? formatters,
       String? firstDate,
       String? lastDate,
       String? initialDate,
@@ -1492,7 +1500,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? items = freezed,
     Object? allowClear = freezed,
     Object? fieldType = freezed,
-    Object? numeric = freezed,
+    Object? keyboardType = freezed,
     Object? suffixIcon = freezed,
     Object? suffixIconColor = freezed,
     Object? suffixText = freezed,
@@ -1506,6 +1514,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? validators = freezed,
     Object? maxLines = freezed,
     Object? minLines = freezed,
+    Object? formatters = freezed,
     Object? firstDate = freezed,
     Object? lastDate = freezed,
     Object? initialDate = freezed,
@@ -1823,10 +1832,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value.fieldType
           : fieldType // ignore: cast_nullable_to_non_nullable
               as String?,
-      numeric: freezed == numeric
-          ? _value.numeric
-          : numeric // ignore: cast_nullable_to_non_nullable
-              as bool?,
+      keyboardType: freezed == keyboardType
+          ? _value.keyboardType
+          : keyboardType // ignore: cast_nullable_to_non_nullable
+              as String?,
       suffixIcon: freezed == suffixIcon
           ? _value.suffixIcon
           : suffixIcon // ignore: cast_nullable_to_non_nullable
@@ -1879,6 +1888,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value.minLines
           : minLines // ignore: cast_nullable_to_non_nullable
               as int?,
+      formatters: freezed == formatters
+          ? _value._formatters
+          : formatters // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
       firstDate: freezed == firstDate
           ? _value.firstDate
           : firstDate // ignore: cast_nullable_to_non_nullable
@@ -2097,7 +2110,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.items,
       this.allowClear,
       this.fieldType,
-      this.numeric,
+      this.keyboardType,
       this.suffixIcon,
       this.suffixIconColor,
       this.suffixText,
@@ -2111,6 +2124,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       final List<Map<String, dynamic>>? validators,
       this.maxLines,
       this.minLines,
+      final Map<String, dynamic>? formatters,
       this.firstDate,
       this.lastDate,
       this.initialDate,
@@ -2152,6 +2166,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
         _components = components,
         _mediaScreenOnly = mediaScreenOnly,
         _validators = validators,
+        _formatters = formatters,
         _columns = columns,
         _rows = rows,
         _children = children;
@@ -2382,7 +2397,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   @override
   final String? fieldType;
   @override
-  final bool? numeric;
+  final String? keyboardType;
 
   /// ignored-compute
   @override
@@ -2429,6 +2444,16 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
   final int? maxLines;
   @override
   final int? minLines;
+  final Map<String, dynamic>? _formatters;
+  @override
+  Map<String, dynamic>? get formatters {
+    final value = _formatters;
+    if (value == null) return null;
+    if (_formatters is EqualUnmodifiableMapView) return _formatters;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
 // Field End==================================================
 // Datetime Field Start==================================================
   @override
@@ -2562,7 +2587,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, crossAxisAlignment: $crossAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, shadowColor: $shadowColor, heightFactor: $heightFactor, widthFactor: $widthFactor, weight: $weight, style: $style, opacity: $opacity, enabled: $enabled, duration: $duration, show: $show, safeArea: $safeArea, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, textAlign: $textAlign, selectable: $selectable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, suffixIcon: $suffixIcon, suffixIconColor: $suffixIconColor, suffixText: $suffixText, prefixIcon: $prefixIcon, prefixIconColor: $prefixIconColor, prefixText: $prefixText, format: $format, fillColor: $fillColor, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, maxLines: $maxLines, minLines: $minLines, firstDate: $firstDate, lastDate: $lastDate, initialDate: $initialDate, onResponse: $onResponse, host: $host, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, onSelectChanged: $onSelectChanged, onSelectAll: $onSelectAll, selected: $selected, dividerColor: $dividerColor, head: $head, body: $body, leading: $leading, title: $title, trailing: $trailing, subtitle: $subtitle, horizontalTitleGap: $horizontalTitleGap, component: $component, child: $child, content: $content, itemLayout: $itemLayout, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, shapeBorder: $shapeBorder, boxShadow: $boxShadow, gradient: $gradient)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, crossAxisAlignment: $crossAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, shadowColor: $shadowColor, heightFactor: $heightFactor, widthFactor: $widthFactor, weight: $weight, style: $style, opacity: $opacity, enabled: $enabled, duration: $duration, show: $show, safeArea: $safeArea, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, textAlign: $textAlign, selectable: $selectable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, keyboardType: $keyboardType, suffixIcon: $suffixIcon, suffixIconColor: $suffixIconColor, suffixText: $suffixText, prefixIcon: $prefixIcon, prefixIconColor: $prefixIconColor, prefixText: $prefixText, format: $format, fillColor: $fillColor, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, maxLines: $maxLines, minLines: $minLines, formatters: $formatters, firstDate: $firstDate, lastDate: $lastDate, initialDate: $initialDate, onResponse: $onResponse, host: $host, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, onSelectChanged: $onSelectChanged, onSelectAll: $onSelectAll, selected: $selected, dividerColor: $dividerColor, head: $head, body: $body, leading: $leading, title: $title, trailing: $trailing, subtitle: $subtitle, horizontalTitleGap: $horizontalTitleGap, component: $component, child: $child, content: $content, itemLayout: $itemLayout, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, shapeBorder: $shapeBorder, boxShadow: $boxShadow, gradient: $gradient)';
   }
 
   @override
@@ -2641,7 +2666,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('items', items))
       ..add(DiagnosticsProperty('allowClear', allowClear))
       ..add(DiagnosticsProperty('fieldType', fieldType))
-      ..add(DiagnosticsProperty('numeric', numeric))
+      ..add(DiagnosticsProperty('keyboardType', keyboardType))
       ..add(DiagnosticsProperty('suffixIcon', suffixIcon))
       ..add(DiagnosticsProperty('suffixIconColor', suffixIconColor))
       ..add(DiagnosticsProperty('suffixText', suffixText))
@@ -2655,6 +2680,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('validators', validators))
       ..add(DiagnosticsProperty('maxLines', maxLines))
       ..add(DiagnosticsProperty('minLines', minLines))
+      ..add(DiagnosticsProperty('formatters', formatters))
       ..add(DiagnosticsProperty('firstDate', firstDate))
       ..add(DiagnosticsProperty('lastDate', lastDate))
       ..add(DiagnosticsProperty('initialDate', initialDate))
@@ -2778,7 +2804,7 @@ abstract class _LayoutProps implements LayoutProps {
       final dynamic items,
       final bool? allowClear,
       final String? fieldType,
-      final bool? numeric,
+      final String? keyboardType,
       final LayoutProps? suffixIcon,
       final String? suffixIconColor,
       final String? suffixText,
@@ -2792,6 +2818,7 @@ abstract class _LayoutProps implements LayoutProps {
       final List<Map<String, dynamic>>? validators,
       final int? maxLines,
       final int? minLines,
+      final Map<String, dynamic>? formatters,
       final String? firstDate,
       final String? lastDate,
       final String? initialDate,
@@ -2997,7 +3024,7 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   String? get fieldType;
   @override
-  bool? get numeric;
+  String? get keyboardType;
   @override
 
   /// ignored-compute
@@ -3036,6 +3063,8 @@ abstract class _LayoutProps implements LayoutProps {
   int? get maxLines;
   @override
   int? get minLines;
+  @override
+  Map<String, dynamic>? get formatters;
   @override // Field End==================================================
 // Datetime Field Start==================================================
   String? get firstDate;

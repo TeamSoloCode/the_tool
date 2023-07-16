@@ -1,5 +1,7 @@
-SUPPORT: binding data from state to image picker field
+SUPPORT: TextField number input only
 SUPPORT: Invoke dart function with emitter
+
+SUPPORT: https://pub.dev/packages/currency_text_input_formatter
 
 SUPPORT: responsive with device version
 SUPPORT: Use metadata to specify layout property is a string or number
@@ -53,6 +55,7 @@ Support pages app bar custom actions
 Support alert, dialog, snackbar, ScaffoldMessenger
 
 #-------------------------------------------------
+-SUPPORT: binding data from state to image picker field
 -FIXME: Remove reflectable of layout_props, because it consume 200kb of bundle
 -SUPPORT: image picker field in register layout
 -SUPPORT: file picker field
