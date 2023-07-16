@@ -154,6 +154,8 @@ class LayoutProps with _$LayoutProps {
     int? maxLines,
     int? minLines,
     Map<String, dynamic>? formatters,
+    BorderProps? enabledBorder,
+    BorderProps? focusedBorder,
     // Field End==================================================
 
     // Datetime Field Start==================================================

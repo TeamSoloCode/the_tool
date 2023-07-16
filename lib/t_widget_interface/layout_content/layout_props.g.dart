@@ -111,6 +111,12 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       maxLines: json['maxLines'] as int?,
       minLines: json['minLines'] as int?,
       formatters: json['formatters'] as Map<String, dynamic>?,
+      enabledBorder: json['enabledBorder'] == null
+          ? null
+          : BorderProps.fromJson(json['enabledBorder'] as Map<String, dynamic>),
+      focusedBorder: json['focusedBorder'] == null
+          ? null
+          : BorderProps.fromJson(json['focusedBorder'] as Map<String, dynamic>),
       firstDate: json['firstDate'] as String?,
       lastDate: json['lastDate'] as String?,
       initialDate: json['initialDate'] as String?,
@@ -283,6 +289,8 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'maxLines': instance.maxLines,
       'minLines': instance.minLines,
       'formatters': instance.formatters,
+      'enabledBorder': instance.enabledBorder?.toJson(),
+      'focusedBorder': instance.focusedBorder?.toJson(),
       'firstDate': instance.firstDate,
       'lastDate': instance.lastDate,
       'initialDate': instance.initialDate,

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:the_tool/t_widget_interface/box_decoration_props/border_props/border_props.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
@@ -34,9 +35,9 @@ mixin FieldMixin {
       prefixIcon: generateIcon(props.prefixIcon, thisWidget),
       prefixIconColor: ThemeDecoder.decodeColor(props.prefixIconColor),
       fillColor: ThemeDecoder.decodeColor(props.fillColor),
-      border: props.boxBorder?.type == "none"
-          ? InputBorder.none
-          : ThemeDecoder.decodeInputBorder(props.boxBorder?.toJson()),
+      border: _computeInputBorder(props, props.boxBorder),
+      enabledBorder: _computeInputBorder(props, props.enabledBorder),
+      focusedBorder: _computeInputBorder(props, props.focusedBorder),
       enabled: props.enabled ?? true,
       constraints: BoxConstraints(
         maxHeight: props.maxHeight,
@@ -224,5 +225,11 @@ mixin FieldMixin {
     }
 
     return TextInputType.text;
+  }
+
+  InputBorder? _computeInputBorder(LayoutProps props, BorderProps? rawBorder) {
+    return props.boxBorder?.type == "none"
+        ? InputBorder.none
+        : ThemeDecoder.decodeInputBorder(rawBorder?.toJson());
   }
 }

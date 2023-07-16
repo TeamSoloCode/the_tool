@@ -187,7 +187,7 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
       controller: textFieldController,
       name: name ?? "",
       inputFormatters: _computeInputFormatters(computedProps),
-      maxLines: computedProps?.maxLines,
+      maxLines: computedProps?.maxLines ?? 1,
       minLines: computedProps?.minLines,
       enabled: computedProps?.enabled ?? true,
       decoration: computeFieldDecoration(
