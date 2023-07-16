@@ -13,6 +13,7 @@ import 'package:the_tool/tool_components/mixin_component/field_mixin.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/twidget_props.dart';
 import 'package:the_tool/utils.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 
 class TTextField extends TWidget {
   TTextField(TWidgetProps twidget) : super(twidget);
@@ -96,17 +97,74 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
     LayoutProps? computedProps,
   ) {
     Map<String, dynamic> rawFormatters = computedProps?.formatters ?? {};
-    List<TextInputFormatter> formatters = [];
-
-    if (rawFormatters["number"] == true) {
-      formatters.add(FilteringTextInputFormatter.digitsOnly);
+    if (rawFormatters.isEmpty) {
+      return [];
     }
 
-    if (rawFormatters["negativeNumber"] == true) {
-      if (formatters.length == 1) {
-        formatters.removeAt(0);
+    List<TextInputFormatter> formatters = [];
+    var errorMessage = "";
+
+    if (computedProps?.fieldType == "text") {
+      if (rawFormatters["number"] == true) {
+        formatters.add(FilteringTextInputFormatter.digitsOnly);
       }
-      formatters.add(FilteringTextInputFormatter.allow(RegExp(r'^-?\d*')));
+
+      if (rawFormatters["negativeNumber"] == true) {
+        if (formatters.length == 1) {
+          formatters.removeAt(0);
+        }
+        formatters.add(FilteringTextInputFormatter.allow(RegExp(r'^-?\d*')));
+      }
+    } else if (computedProps?.fieldType == "currency") {
+      final decimalPlaces = rawFormatters["decimalPlaces"];
+      if (decimalPlaces != null && decimalPlaces is! int) {
+        errorMessage = "\"decimalPlaces\" property must be an integer";
+      }
+
+      final maxLength = rawFormatters["maxLength"];
+      if (maxLength != null && maxLength is! int) {
+        errorMessage = "\"maxLength\" property must be an integer";
+      }
+
+      var thousandSeparator = ThousandSeparator.Comma;
+      final rawThousandSeparator = rawFormatters["thousandSeparator"];
+      if (rawThousandSeparator != null) {
+        switch (rawThousandSeparator) {
+          case "Comma":
+            break;
+          case 'Space':
+            thousandSeparator = ThousandSeparator.Space;
+            break;
+          case 'Period':
+            thousandSeparator = ThousandSeparator.Period;
+            break;
+          case 'None':
+            break;
+          case 'SpaceAndPeriodDecimalPlaces':
+            thousandSeparator = ThousandSeparator.SpaceAndPeriodMantissa;
+            break;
+          case 'SpaceAndCommaDecimalPlaces':
+            thousandSeparator = ThousandSeparator.SpaceAndCommaMantissa;
+            break;
+          default:
+            errorMessage = "\"thousandSeparator\" property is not correct";
+        }
+      }
+
+      if (errorMessage != "") {
+        throw Exception(errorMessage);
+      }
+
+      var leadingSymbol = rawFormatters["leadingSymbol"] ?? "";
+      var trailingSymbol = rawFormatters["trailingSymbol"] ?? "";
+
+      formatters.add(CurrencyInputFormatter(
+        mantissaLength: decimalPlaces,
+        maxTextLength: maxLength,
+        thousandSeparator: thousandSeparator,
+        leadingSymbol: leadingSymbol.toString(),
+        trailingSymbol: trailingSymbol.toString(),
+      ));
     }
 
     // [
@@ -156,7 +214,7 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
       onSaved: (value) {
         _runValidationFunction();
       },
-      keyboardType: _getTextInputType(widget.props),
+      keyboardType: getTextInputType(widget.props),
     );
   }
 
@@ -167,14 +225,6 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
     setState(() {
       _errorMessage = errorMessage;
     });
-  }
-
-  TextInputType _getTextInputType(LayoutProps? layoutProps) {
-    if (layoutProps?.keyboardType == "number") {
-      return TextInputType.number;
-    }
-
-    return TextInputType.text;
   }
 
   @override

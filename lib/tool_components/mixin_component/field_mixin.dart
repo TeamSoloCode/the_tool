@@ -216,4 +216,13 @@ mixin FieldMixin {
     }
     return null;
   }
+
+  TextInputType getTextInputType(LayoutProps? layoutProps) {
+    if (layoutProps?.fieldType == "currency" ||
+        layoutProps?.keyboardType == "number") {
+      return TextInputType.number;
+    }
+
+    return TextInputType.text;
+  }
 }
