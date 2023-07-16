@@ -169,6 +169,7 @@ class LayoutProps with _$LayoutProps {
 
     // Form Start================================================
     String? autovalidateMode,
+    List<String>? validateOrder,
     // Form End==================================================
 
     // Table Start================================================

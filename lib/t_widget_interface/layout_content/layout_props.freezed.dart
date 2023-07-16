@@ -160,7 +160,8 @@ mixin _$LayoutProps {
   String? get host =>
       throw _privateConstructorUsedError; // Image Picker End===============================================
 // Form Start================================================
-  String? get autovalidateMode =>
+  String? get autovalidateMode => throw _privateConstructorUsedError;
+  List<String>? get validateOrder =>
       throw _privateConstructorUsedError; // Form End==================================================
 // Table Start================================================
   List<DataColumnProps>? get columns => throw _privateConstructorUsedError;
@@ -321,6 +322,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? onResponse,
       String? host,
       String? autovalidateMode,
+      List<String>? validateOrder,
       List<DataColumnProps>? columns,
       List<DataRowProps>? rows,
       String? onSort,
@@ -478,6 +480,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? onResponse = freezed,
     Object? host = freezed,
     Object? autovalidateMode = freezed,
+    Object? validateOrder = freezed,
     Object? columns = freezed,
     Object? rows = freezed,
     Object? onSort = freezed,
@@ -873,6 +876,10 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.autovalidateMode
           : autovalidateMode // ignore: cast_nullable_to_non_nullable
               as String?,
+      validateOrder: freezed == validateOrder
+          ? _value.validateOrder
+          : validateOrder // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       columns: freezed == columns
           ? _value.columns
           : columns // ignore: cast_nullable_to_non_nullable
@@ -1345,6 +1352,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       String? onResponse,
       String? host,
       String? autovalidateMode,
+      List<String>? validateOrder,
       List<DataColumnProps>? columns,
       List<DataRowProps>? rows,
       String? onSort,
@@ -1521,6 +1529,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? onResponse = freezed,
     Object? host = freezed,
     Object? autovalidateMode = freezed,
+    Object? validateOrder = freezed,
     Object? columns = freezed,
     Object? rows = freezed,
     Object? onSort = freezed,
@@ -1916,6 +1925,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value.autovalidateMode
           : autovalidateMode // ignore: cast_nullable_to_non_nullable
               as String?,
+      validateOrder: freezed == validateOrder
+          ? _value._validateOrder
+          : validateOrder // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       columns: freezed == columns
           ? _value._columns
           : columns // ignore: cast_nullable_to_non_nullable
@@ -2131,6 +2144,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       this.onResponse,
       this.host,
       this.autovalidateMode,
+      final List<String>? validateOrder,
       final List<DataColumnProps>? columns,
       final List<DataRowProps>? rows,
       this.onSort,
@@ -2167,6 +2181,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
         _mediaScreenOnly = mediaScreenOnly,
         _validators = validators,
         _formatters = formatters,
+        _validateOrder = validateOrder,
         _columns = columns,
         _rows = rows,
         _children = children;
@@ -2472,6 +2487,16 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 // Form Start================================================
   @override
   final String? autovalidateMode;
+  final List<String>? _validateOrder;
+  @override
+  List<String>? get validateOrder {
+    final value = _validateOrder;
+    if (value == null) return null;
+    if (_validateOrder is EqualUnmodifiableListView) return _validateOrder;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
 // Form End==================================================
 // Table Start================================================
   final List<DataColumnProps>? _columns;
@@ -2587,7 +2612,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, crossAxisAlignment: $crossAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, shadowColor: $shadowColor, heightFactor: $heightFactor, widthFactor: $widthFactor, weight: $weight, style: $style, opacity: $opacity, enabled: $enabled, duration: $duration, show: $show, safeArea: $safeArea, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, textAlign: $textAlign, selectable: $selectable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, keyboardType: $keyboardType, suffixIcon: $suffixIcon, suffixIconColor: $suffixIconColor, suffixText: $suffixText, prefixIcon: $prefixIcon, prefixIconColor: $prefixIconColor, prefixText: $prefixText, format: $format, fillColor: $fillColor, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, maxLines: $maxLines, minLines: $minLines, formatters: $formatters, firstDate: $firstDate, lastDate: $lastDate, initialDate: $initialDate, onResponse: $onResponse, host: $host, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, onSelectChanged: $onSelectChanged, onSelectAll: $onSelectAll, selected: $selected, dividerColor: $dividerColor, head: $head, body: $body, leading: $leading, title: $title, trailing: $trailing, subtitle: $subtitle, horizontalTitleGap: $horizontalTitleGap, component: $component, child: $child, content: $content, itemLayout: $itemLayout, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, shapeBorder: $shapeBorder, boxShadow: $boxShadow, gradient: $gradient)';
+    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, crossAxisAlignment: $crossAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, shadowColor: $shadowColor, heightFactor: $heightFactor, widthFactor: $widthFactor, weight: $weight, style: $style, opacity: $opacity, enabled: $enabled, duration: $duration, show: $show, safeArea: $safeArea, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, textAlign: $textAlign, selectable: $selectable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, keyboardType: $keyboardType, suffixIcon: $suffixIcon, suffixIconColor: $suffixIconColor, suffixText: $suffixText, prefixIcon: $prefixIcon, prefixIconColor: $prefixIconColor, prefixText: $prefixText, format: $format, fillColor: $fillColor, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, maxLines: $maxLines, minLines: $minLines, formatters: $formatters, firstDate: $firstDate, lastDate: $lastDate, initialDate: $initialDate, onResponse: $onResponse, host: $host, autovalidateMode: $autovalidateMode, validateOrder: $validateOrder, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, onSelectChanged: $onSelectChanged, onSelectAll: $onSelectAll, selected: $selected, dividerColor: $dividerColor, head: $head, body: $body, leading: $leading, title: $title, trailing: $trailing, subtitle: $subtitle, horizontalTitleGap: $horizontalTitleGap, component: $component, child: $child, content: $content, itemLayout: $itemLayout, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, shapeBorder: $shapeBorder, boxShadow: $boxShadow, gradient: $gradient)';
   }
 
   @override
@@ -2687,6 +2712,7 @@ class _$_LayoutProps with DiagnosticableTreeMixin implements _LayoutProps {
       ..add(DiagnosticsProperty('onResponse', onResponse))
       ..add(DiagnosticsProperty('host', host))
       ..add(DiagnosticsProperty('autovalidateMode', autovalidateMode))
+      ..add(DiagnosticsProperty('validateOrder', validateOrder))
       ..add(DiagnosticsProperty('columns', columns))
       ..add(DiagnosticsProperty('rows', rows))
       ..add(DiagnosticsProperty('onSort', onSort))
@@ -2825,6 +2851,7 @@ abstract class _LayoutProps implements LayoutProps {
       final String? onResponse,
       final String? host,
       final String? autovalidateMode,
+      final List<String>? validateOrder,
       final List<DataColumnProps>? columns,
       final List<DataRowProps>? rows,
       final String? onSort,
@@ -3080,6 +3107,8 @@ abstract class _LayoutProps implements LayoutProps {
   @override // Image Picker End===============================================
 // Form Start================================================
   String? get autovalidateMode;
+  @override
+  List<String>? get validateOrder;
   @override // Form End==================================================
 // Table Start================================================
   List<DataColumnProps>? get columns;

@@ -101,12 +101,18 @@ class _T_FormState extends TStatefulWidget<T_Form> {
 
     var isValid = true;
 
+    final validateOrder = widget.widgetProps.validateOrder;
+
     if (_formKey.currentState != null) {
+      final fields = _formKey.currentState!.fields;
       loop:
-      for (final entry in _formKey.currentState!.fields.entries) {
-        final key = entry.key;
-        final field = entry.value;
-        var errorText = errorTextMap?[key];
+      for (final name in validateOrder ?? fields.keys) {
+        final field = fields[name];
+        var errorText = errorTextMap?[name];
+
+        if (field == null) {
+          continue;
+        }
 
         if (errorText == null && field.validate()) {
           continue;
@@ -117,7 +123,7 @@ class _T_FormState extends TStatefulWidget<T_Form> {
           field.invalidate(errorText as String);
         }
 
-        field.requestFocus();
+        field.focus();
         break loop;
       }
     }

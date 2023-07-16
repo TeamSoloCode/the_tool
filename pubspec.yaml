@@ -47,23 +47,23 @@ dependencies:
   url_launcher: ^6.1.10
   flutter_modular: ^5.0.3
   gato: ^0.0.5+1
-  material_design_icons_flutter: ^6.0.7096
+  material_design_icons_flutter: ^7.0.7296
   flutter_spinkit: ^5.1.0
   json_theme:
     path: "./lib_modules/json_theme"
   eventify: ^1.0.1
   google_fonts: ^4.0.4
 
-  expansion_tile_card: ^2.0.0
+  expansion_tile_card: ^3.0.0
 
   # http
   dio: ^5.0.3
   dio_cache_interceptor: ^3.3.0
 
   # field packages
-  flutter_form_builder: ^7.6.0
+  flutter_form_builder: ^8.0.0
   form_builder_validators: ^8.3.0
-  # form_builder_image_picker: ^3.1.0
+  currency_text_input_formatter: ^2.1.8
 
   data_table_2: ^2.3.7
   bottom_sheet: ^3.1.2
@@ -73,7 +73,7 @@ dependencies:
 
   permission_handler: ^10.2.0
 
-  image_picker: ^0.8.9
+  image_picker: ^1.0.1
 
 dev_dependencies:
   flutter_test:
@@ -84,7 +84,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^1.0.0
+  flutter_lints: ^2.0.2
   freezed: ^2.1.1
   build_runner: ^2.2.1
   freezed_annotation: ^2.1.0

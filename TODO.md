@@ -1,4 +1,3 @@
-SUPPORT: TextField number input only
 SUPPORT: Invoke dart function with emitter
 
 SUPPORT: https://pub.dev/packages/currency_text_input_formatter
@@ -55,6 +54,7 @@ Support pages app bar custom actions
 Support alert, dialog, snackbar, ScaffoldMessenger
 
 #-------------------------------------------------
+FIXME: Field that wrapped by component got validate after those not wrapped by component
 -SUPPORT: binding data from state to image picker field
 -FIXME: Remove reflectable of layout_props, because it consume 200kb of bundle
 -SUPPORT: image picker field in register layout
