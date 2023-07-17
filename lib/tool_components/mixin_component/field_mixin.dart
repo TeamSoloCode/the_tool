@@ -214,8 +214,20 @@ mixin FieldMixin {
   }) async {
     String? validationFunction = thisWidget.widgetProps.validationFunction;
     if (validationFunction != null && validationFunction.isNotEmpty) {
-      var errorMessage =
-          await thisWidget.executeJSWithPagePath(validationFunction, []);
+      var errorMessage = await thisWidget.executeJSWithPagePath(
+        validationFunction,
+        [],
+      );
+
+      /**
+       * errorMessage could return as Map with
+       * key: field name
+       * valute: error message
+       */
+      if (errorMessage is Map) {
+        return errorMessage[thisWidget.widgetProps.name];
+      }
+
       return errorMessage;
     }
     return null;
