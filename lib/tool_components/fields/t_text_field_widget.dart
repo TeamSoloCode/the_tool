@@ -163,13 +163,20 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
       var leadingSymbol = rawFormatters["leadingSymbol"] ?? "";
       var trailingSymbol = rawFormatters["trailingSymbol"] ?? "";
 
-      formatters.add(currency_formatter.CurrencyInputFormatter(
+      var currencyFormatter = currency_formatter.CurrencyInputFormatter(
         mantissaLength: decimalPlaces,
         maxTextLength: maxLength,
         thousandSeparator: thousandSeparator,
         leadingSymbol: leadingSymbol.toString(),
         trailingSymbol: trailingSymbol.toString(),
-      ));
+        onValueChange: (value) {
+          if (rawFormatters["onChange"] != null) {
+            widget.executeJSWithPagePath(rawFormatters["onChange"], [value]);
+          }
+        },
+      );
+
+      formatters.add(currencyFormatter);
     }
 
     // [
