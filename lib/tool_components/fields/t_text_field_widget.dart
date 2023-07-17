@@ -13,7 +13,8 @@ import 'package:the_tool/tool_components/mixin_component/field_mixin.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/twidget_props.dart';
 import 'package:the_tool/utils.dart';
-import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
+import 'package:the_tool/custom_importers/currency_formatter.dart'
+    deferred as currency_formatter;
 
 class TTextField extends TWidget {
   TTextField(TWidgetProps twidget) : super(twidget);
@@ -27,6 +28,7 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
   String? currentValue;
   String? _errorMessage;
   bool _isUserTying = false;
+  late Future<bool> _loadNecessaryBundle;
 
   final Debouncer _textChangedDebouncer =
       Debouncer(delay: const Duration(milliseconds: 500));
@@ -38,6 +40,7 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
     var text = widget.getContexData()[name] ?? "";
     textFieldController.text = text;
     currentValue = text;
+    _loadNecessaryBundle = _loadDependencies();
     super.initState();
   }
 
@@ -126,25 +129,27 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
         errorMessage = "\"maxLength\" property must be an integer";
       }
 
-      var thousandSeparator = ThousandSeparator.Comma;
+      var thousandSeparator = currency_formatter.ThousandSeparator.Comma;
       final rawThousandSeparator = rawFormatters["thousandSeparator"];
       if (rawThousandSeparator != null) {
         switch (rawThousandSeparator) {
           case "Comma":
             break;
           case 'Space':
-            thousandSeparator = ThousandSeparator.Space;
+            thousandSeparator = currency_formatter.ThousandSeparator.Space;
             break;
           case 'Period':
-            thousandSeparator = ThousandSeparator.Period;
+            thousandSeparator = currency_formatter.ThousandSeparator.Period;
             break;
           case 'None':
             break;
           case 'SpaceAndPeriodDecimalPlaces':
-            thousandSeparator = ThousandSeparator.SpaceAndPeriodMantissa;
+            thousandSeparator =
+                currency_formatter.ThousandSeparator.SpaceAndPeriodMantissa;
             break;
           case 'SpaceAndCommaDecimalPlaces':
-            thousandSeparator = ThousandSeparator.SpaceAndCommaMantissa;
+            thousandSeparator =
+                currency_formatter.ThousandSeparator.SpaceAndCommaMantissa;
             break;
           default:
             errorMessage = "\"thousandSeparator\" property is not correct";
@@ -158,7 +163,7 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
       var leadingSymbol = rawFormatters["leadingSymbol"] ?? "";
       var trailingSymbol = rawFormatters["trailingSymbol"] ?? "";
 
-      formatters.add(CurrencyInputFormatter(
+      formatters.add(currency_formatter.CurrencyInputFormatter(
         mantissaLength: decimalPlaces,
         maxTextLength: maxLength,
         thousandSeparator: thousandSeparator,
@@ -177,44 +182,61 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
     return formatters;
   }
 
+  Future<bool> _loadDependencies() async {
+    if (widget.widgetProps.fieldType == "currency") {
+      await currency_formatter.loadLibrary();
+    }
+    return true;
+  }
+
   Widget _computeTextField(
     LayoutProps? computedProps,
     Map<String, dynamic> contextData,
   ) {
     String? name = computedProps?.name;
 
-    return FormBuilderTextField(
-      controller: textFieldController,
-      name: name ?? "",
-      inputFormatters: _computeInputFormatters(computedProps),
-      maxLines: computedProps?.maxLines ?? 1,
-      minLines: computedProps?.minLines,
-      enabled: computedProps?.enabled ?? true,
-      decoration: computeFieldDecoration(
-        computedProps,
-        thisWidget: widget,
-        errorMessage: _errorMessage,
-      ),
-      obscureText: UtilsManager.isTruthy(computedProps?.obscureText) ?? false,
-      // initialValue: contextData[name] ?? "",
-      onChanged: (text) {
-        _debounceTextChanged(text, contextData);
+    return FutureBuilder<bool>(
+      future: _loadNecessaryBundle,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return const SizedBox();
+        }
+
+        return FormBuilderTextField(
+          controller: textFieldController,
+          name: name ?? "",
+          inputFormatters: _computeInputFormatters(computedProps),
+          maxLines: computedProps?.maxLines ?? 1,
+          minLines: computedProps?.minLines,
+          enabled: computedProps?.enabled ?? true,
+          decoration: computeFieldDecoration(
+            computedProps,
+            thisWidget: widget,
+            errorMessage: _errorMessage,
+          ),
+          obscureText:
+              UtilsManager.isTruthy(computedProps?.obscureText) ?? false,
+          // initialValue: contextData[name] ?? "",
+          onChanged: (text) {
+            _debounceTextChanged(text, contextData);
+          },
+          onEditingComplete: () {
+            log("onEditingComplete");
+          },
+          // valueTransformer: (text) => num.tryParse(text),
+          validator: FormBuilderValidators.compose([
+            ...computeCommonValidators(widget.props, contextData),
+            (value) {
+              _runValidationFunction();
+              return null;
+            },
+          ]),
+          onSaved: (value) {
+            _runValidationFunction();
+          },
+          keyboardType: getTextInputType(widget.props),
+        );
       },
-      onEditingComplete: () {
-        log("onEditingComplete");
-      },
-      // valueTransformer: (text) => num.tryParse(text),
-      validator: FormBuilderValidators.compose([
-        ...computeCommonValidators(widget.props, contextData),
-        (value) {
-          _runValidationFunction();
-          return null;
-        },
-      ]),
-      onSaved: (value) {
-        _runValidationFunction();
-      },
-      keyboardType: getTextInputType(widget.props),
     );
   }
 
