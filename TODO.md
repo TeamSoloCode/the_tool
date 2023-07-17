@@ -1,5 +1,12 @@
 SUPPORT: Invoke dart function with emitter
 
+FIXME: Use UniqueKey object replace for uuid and unix milisecond
+FIXME: Currency formatter on return value that not match with fixed specific decimal place
+FIXME: If use for to validate field that use validateFunction first the second field will be validated to even though the first one is already got error
+FIXME: Default value is not working on field text
+
+SUPPORT: value binding for validate order in form
+
 SUPPORT: responsive with device version
 SUPPORT: Use metadata to specify layout property is a string or number
 SUPPORT: RichText
