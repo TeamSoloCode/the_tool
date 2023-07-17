@@ -117,6 +117,17 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       focusedBorder: json['focusedBorder'] == null
           ? null
           : BorderProps.fromJson(json['focusedBorder'] as Map<String, dynamic>),
+      disabledBorder: json['disabledBorder'] == null
+          ? null
+          : BorderProps.fromJson(
+              json['disabledBorder'] as Map<String, dynamic>),
+      focusedErrorBorder: json['focusedErrorBorder'] == null
+          ? null
+          : BorderProps.fromJson(
+              json['focusedErrorBorder'] as Map<String, dynamic>),
+      errorBorder: json['errorBorder'] == null
+          ? null
+          : BorderProps.fromJson(json['errorBorder'] as Map<String, dynamic>),
       firstDate: json['firstDate'] as String?,
       lastDate: json['lastDate'] as String?,
       initialDate: json['initialDate'] as String?,
@@ -291,6 +302,9 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'formatters': instance.formatters,
       'enabledBorder': instance.enabledBorder?.toJson(),
       'focusedBorder': instance.focusedBorder?.toJson(),
+      'disabledBorder': instance.disabledBorder?.toJson(),
+      'focusedErrorBorder': instance.focusedErrorBorder?.toJson(),
+      'errorBorder': instance.errorBorder?.toJson(),
       'firstDate': instance.firstDate,
       'lastDate': instance.lastDate,
       'initialDate': instance.initialDate,

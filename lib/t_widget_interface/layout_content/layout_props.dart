@@ -156,6 +156,9 @@ class LayoutProps with _$LayoutProps {
     Map<String, dynamic>? formatters,
     BorderProps? enabledBorder,
     BorderProps? focusedBorder,
+    BorderProps? disabledBorder,
+    BorderProps? focusedErrorBorder,
+    BorderProps? errorBorder,
     // Field End==================================================
 
     // Datetime Field Start==================================================

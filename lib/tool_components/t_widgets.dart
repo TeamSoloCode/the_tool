@@ -56,7 +56,6 @@ import 'package:the_tool/tool_components/t_gesture_detector.widget.dart'
 import 'package:the_tool/tool_components/t_stack_widget.dart';
 import 'package:the_tool/tool_components/t_text_widget.dart';
 import 'package:the_tool/utils.dart';
-import 'package:uuid/uuid.dart';
 import 'package:gato/gato.dart' as gato;
 
 class TWidgets extends StatefulWidget {
@@ -77,7 +76,7 @@ class TWidgets extends StatefulWidget {
 
 class _TWidgetsState extends State<TWidgets> {
   Widget? tWidgets;
-  String widgetUuid = const Uuid().v4();
+  String widgetUuid = UniqueKey().toString();
 
   @override
   void dispose() {

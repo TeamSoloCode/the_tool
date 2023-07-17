@@ -38,6 +38,9 @@ mixin FieldMixin {
       border: _computeInputBorder(props, props.boxBorder),
       enabledBorder: _computeInputBorder(props, props.enabledBorder),
       focusedBorder: _computeInputBorder(props, props.focusedBorder),
+      errorBorder: _computeInputBorder(props, props.errorBorder),
+      focusedErrorBorder: _computeInputBorder(props, props.focusedErrorBorder),
+      disabledBorder: _computeInputBorder(props, props.disabledBorder),
       enabled: props.enabled ?? true,
       constraints: BoxConstraints(
         maxHeight: props.maxHeight,
