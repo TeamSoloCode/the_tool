@@ -37,9 +37,14 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
   void initState() {
     String? name = widget.widgetProps.name;
     assert(name != null, "Missing \"name\" in field widget");
-    var text = widget.getContexData()[name] ?? "";
+
+    final defaultValue = widget.widgetProps.defaultValue;
+    var text = widget.getContexData()[name] ??
+        (defaultValue == null ? "" : defaultValue.toString());
+
     textFieldController.text = text;
     currentValue = text;
+
     _loadNecessaryBundle = _loadDependencies();
     super.initState();
   }
@@ -174,6 +179,7 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
             widget.executeJSWithPagePath(rawFormatters["onChange"], [value]);
           }
         },
+        useSymbolPadding: rawFormatters["useSymbolPadding"] ?? false,
       );
 
       formatters.add(currencyFormatter);
@@ -223,14 +229,19 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
           ),
           obscureText:
               UtilsManager.isTruthy(computedProps?.obscureText) ?? false,
-          // initialValue: contextData[name] ?? "",
+          // initialValue: (defaultValue == null ? "" : defaultValue.toString()),
           onChanged: (text) {
             _debounceTextChanged(text, contextData);
           },
           onEditingComplete: () {
             log("onEditingComplete");
           },
-          // valueTransformer: (text) => num.tryParse(text),
+          // valueTransformer: (text) {
+          //   if (computedProps?.fieldType == "currency") {
+          //     return num.tryParse(text ?? "");
+          //   }
+          //   return text;
+          // },
           validator: FormBuilderValidators.compose([
             ...computeCommonValidators(widget.props, contextData),
             (value) {
@@ -248,9 +259,13 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
   }
 
   void _runValidationFunction() async {
-    _errorMessage =
-        "checking..."; // this to prevent form validate pass the field before it validated
+    setState(() {
+      _errorMessage =
+          "checking..."; // this to prevent form validate pass the field before it validated;
+    });
+
     String? errorMessage = await runValidationFunction(thisWidget: widget);
+
     setState(() {
       _errorMessage = errorMessage;
     });
