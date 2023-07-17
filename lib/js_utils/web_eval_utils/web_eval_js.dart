@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:js' as js;
+import 'package:flutter/material.dart';
 import 'package:the_tool/js_utils/base_eval_js.dart';
 import 'package:the_tool/js_utils/web_eval_utils/web_js_invoke.dart'
     as web_js_invoke;
@@ -33,7 +34,7 @@ class EvalJS extends BaseEvalJS {
     String pageId,
     List<dynamic> args,
   ) async {
-    var eventName = DateTime.now().millisecondsSinceEpoch.toString();
+    var eventName = UniqueKey().toString();
 
     js.context["appBridge"].callMethod(
       "emitJSFunction",
@@ -45,33 +46,27 @@ class EvalJS extends BaseEvalJS {
       ],
     );
 
-    var streamController = StreamController();
+    Completer<dynamic> completer = Completer<dynamic>();
 
-    // Event will be call from invoke when js execute is done
-    eventify.EventCallback responseFromJS() {
-      return (event, context) {
-        streamController.add(event.eventData);
-      };
+    void responseFromJS(event, context) {
+      completer.complete(event.eventData);
     }
 
-    var listener = emitter.on(eventName, context, responseFromJS());
-    Future<dynamic> waitingResponseFromJS() async {
-      await for (final value in streamController.stream) {
-        return value;
+    var listener = emitter.on(eventName, context, responseFromJS);
+
+    try {
+      var result = await completer.future;
+      var resultObject = jsonDecode(result);
+
+      if (resultObject["error"] != null) {
+        throw Exception(resultObject["error"]);
       }
+
+      return resultObject["data"];
+    } finally {
+      listener.cancel();
+      emitter.off(listener);
     }
-
-    var result = await waitingResponseFromJS();
-    var resultObject = jsonDecode(result);
-    if (resultObject["error"] != null) {
-      throw Exception(resultObject["error"]);
-    }
-
-    streamController.close();
-    listener.cancel();
-    emitter.off(listener);
-
-    return resultObject["data"];
   }
 
   @override

@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:the_tool/js_utils/base_eval_js.dart';
 import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/utils.dart';
 import 'package:the_tool/js_utils/mobile_eval_utils/mobile_js_invoke.dart'
     as mobile_js_invoke;
 import 'package:eventify/eventify.dart' as eventify;
-import 'package:uuid/uuid.dart';
 
 class EvalJS extends BaseEvalJS {
   dynamic webViewController;
@@ -37,7 +37,7 @@ class EvalJS extends BaseEvalJS {
     String pageId,
     List<dynamic> args,
   ) async {
-    var eventName = const Uuid().v4();
+    var eventName = UniqueKey().toString();
     var funcCharList = functionName.trim().split("");
     var preparedFunctionName = functionName;
 
@@ -53,41 +53,31 @@ class EvalJS extends BaseEvalJS {
     }
 
     webViewController?.callAsyncJavaScript(
-      functionBody: """appBridge.emitJSFunction(
-            '$eventName',
-            '$preparedFunctionName',
-            '$pageId',
-            ${jsonEncode(args)}
-          )""",
+      functionBody:
+          "appBridge.emitJSFunction('$eventName', '$preparedFunctionName', '$pageId', ${jsonEncode(args)})",
     );
 
-    var streamController = StreamController();
+    Completer<dynamic> completer = Completer<dynamic>();
 
-    // Event will be call from invoke when js execute is done
-    eventify.EventCallback responseFromJS() {
-      return (event, context) {
-        streamController.add(event.eventData);
-      };
+    void responseFromJS(event, context) {
+      completer.complete(event.eventData);
     }
 
-    var listener = emitter.on(eventName, context, responseFromJS());
-    Future<dynamic> waitingResponseFromJS() async {
-      await for (final value in streamController.stream) {
-        return value;
+    var listener = emitter.on(eventName, context, responseFromJS);
+
+    try {
+      var result = await completer.future;
+      var resultObject = jsonDecode(result);
+
+      if (resultObject["error"] != null) {
+        throw Exception(resultObject["error"]);
       }
+
+      return resultObject["data"];
+    } finally {
+      listener.cancel();
+      emitter.off(listener);
     }
-
-    var result = await waitingResponseFromJS();
-    var resultObject = jsonDecode(result);
-    if (resultObject["error"] != null) {
-      throw Exception(resultObject["error"]);
-    }
-
-    streamController.close();
-    listener.cancel();
-    emitter.off(listener);
-
-    return resultObject["data"];
   }
 
   @override
