@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter/foundation.dart';
 import 'package:the_tool/t_widget_interface/app_bar_props/app_bar_props.dart';
 import 'package:the_tool/t_widget_interface/bottom_navigation_props/bottom_navigation_props.dart';
 import 'package:the_tool/t_widget_interface/box_decoration_props/border_props/border_props.dart';
@@ -19,6 +18,7 @@ part 'layout_props.g.dart';
 
 @Freezed(
   equal: false,
+  toStringOverride: false,
 )
 class LayoutProps with _$LayoutProps {
   const factory LayoutProps({
