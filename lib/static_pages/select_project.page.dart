@@ -72,8 +72,8 @@ class _SelectProjectPageState extends State<SelectProjectPage> {
                         child: Align(
                           alignment: Alignment.centerRight,
                           child: ElevatedButton(
-                            child: const Text("Submit"),
                             onPressed: _onSubmit,
+                            child: const Text("Submit"),
                           ),
                         ),
                       ),

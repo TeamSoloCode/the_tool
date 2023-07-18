@@ -15,6 +15,5 @@ class ServerNotFound extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }

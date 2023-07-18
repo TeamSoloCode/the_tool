@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:the_tool/t_widget_interface/data_table_props/data_column_props/data_column_props.dart';
@@ -340,11 +339,11 @@ class _TDataTableState extends TStatefulWidget<TDataTable> {
 
   @override
   Widget buildWidget(BuildContext context) {
-    LayoutProps? _props = widget.props;
+    LayoutProps? props = widget.props;
     _updateTableSource();
 
-    if (_props != null) {
-      widget.snapshot = _computeTable(_props, widget.getContexData());
+    if (props != null) {
+      widget.snapshot = _computeTable(props, widget.getContexData());
     }
 
     return widget.snapshot;

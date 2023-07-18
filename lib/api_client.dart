@@ -84,7 +84,7 @@ class APIClientManager {
         "isRedirect": response.isRedirect,
         "extra": response.extra
       };
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
       if (e.response != null) {
@@ -107,7 +107,7 @@ class APIClientManager {
       var response =
           await _dio.get('$_pageAPI/pages/layout/$_projectName/core');
       return Future.value(response.data["code"]);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       log("Core not found => ${e.message}");
       return Future.value("");
     } catch (e) {
@@ -125,7 +125,7 @@ class APIClientManager {
           "layout": response.data["layout"],
         },
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
       if (e.response != null) {
@@ -155,7 +155,7 @@ class APIClientManager {
         _pageAPI = uri.replace(host: localhost).toString();
       }
       return clientConfig;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (e.response != null) {
         throw Exception(e.response!.data.toString());
       } else {
@@ -173,7 +173,7 @@ class APIClientManager {
       var response = await _dioCached
           .get('$_pageAPI/${themePath ?? "theme"}/$_projectName');
       return response.data;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       log("Theme not found => ${e.message}");
       return {};
     } catch (e) {

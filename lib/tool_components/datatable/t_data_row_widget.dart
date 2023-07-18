@@ -22,7 +22,6 @@ class T_RowData extends AsyncDataTableSource {
 
   SourceRowDataResponse tableData = SourceRowDataResponse(0, []);
 
-  bool _empty = false;
   int? _errorCounter;
   String? _sortColumn;
   bool? _sortAscending;
