@@ -7,6 +7,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart'
     show FormBuilderTextField;
 import 'package:form_builder_validators/form_builder_validators.dart'
     show FormBuilderValidators;
+import 'package:the_tool/constants.dart';
 import 'package:the_tool/page_utils/debouncer.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/mixin_component/field_mixin.dart';
@@ -38,13 +39,6 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
     String? name = widget.widgetProps.name;
     assert(name != null, "Missing \"name\" in field widget");
 
-    final defaultValue = widget.widgetProps.defaultValue;
-    var text = widget.getContexData()[name] ??
-        (defaultValue == null ? "" : defaultValue.toString());
-
-    textFieldController.text = text;
-    currentValue = text;
-
     _loadNecessaryBundle = _loadDependencies();
     super.initState();
   }
@@ -61,6 +55,15 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
     String? name = widget.widgetProps.name;
     String currentText = textFieldController.text;
     currentValue = widget.getContexData()[name];
+
+    if (currentValue == null) {
+      final defaultValue = widget.widgetProps.defaultValue;
+      if (defaultValue != null) {
+        Future.delayed(Duration.zero, () async {
+          _debounceTextChanged(defaultValue.toString(), widget.getContexData());
+        });
+      }
+    }
 
     if (currentValue != currentText && name != null) {
       if (_isUserTying) {
@@ -123,7 +126,7 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
         }
         formatters.add(FilteringTextInputFormatter.allow(RegExp(r'^-?\d*')));
       }
-    } else if (computedProps?.fieldType == "currency") {
+    } else if (computedProps?.fieldType == CurrencyFieldType) {
       final decimalPlaces = rawFormatters["decimalPlaces"];
       if (decimalPlaces != null && decimalPlaces is! int) {
         errorMessage = "\"decimalPlaces\" property must be an integer";
@@ -176,7 +179,10 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
         trailingSymbol: trailingSymbol.toString(),
         onValueChange: (value) {
           if (rawFormatters["onChange"] != null) {
-            widget.executeJSWithPagePath(rawFormatters["onChange"], [value]);
+            widget.executeJSWithPagePath(
+              rawFormatters["onChange"],
+              [value.toStringAsFixed(decimalPlaces)],
+            );
           }
         },
         useSymbolPadding: rawFormatters["useSymbolPadding"] ?? false,
@@ -196,7 +202,7 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
   }
 
   Future<bool> _loadDependencies() async {
-    if (widget.widgetProps.fieldType == "currency") {
+    if (widget.widgetProps.fieldType == CurrencyFieldType) {
       await currency_formatter.loadLibrary();
     }
     return true;
@@ -273,10 +279,10 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
 
   @override
   Widget buildWidget(BuildContext context) {
-    LayoutProps? _props = widget.props;
+    LayoutProps? props = widget.props;
 
-    if (_props != null) {
-      widget.snapshot = _computeTextField(_props, widget.getContexData());
+    if (props != null) {
+      widget.snapshot = _computeTextField(props, widget.getContexData());
     }
 
     return widget.snapshot;

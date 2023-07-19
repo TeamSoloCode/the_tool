@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:the_tool/constants.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/fields/t_datetime_field.dart'
     deferred as field_datetime;
@@ -50,7 +51,7 @@ class _TFieldsState extends TStatefulWidget<TFields> {
 
     switch (fieldType) {
       case "text":
-      case "currency":
+      case CurrencyFieldType:
         await field_text.loadLibrary();
         break;
       case "select":
@@ -94,7 +95,7 @@ class _TFieldsState extends TStatefulWidget<TFields> {
 
     switch (fieldType) {
       case "text":
-      case "currency":
+      case CurrencyFieldType:
         return field_text.TTextField(tWidgetProps);
       case "select":
         return field_select.T_SelectField(tWidgetProps);

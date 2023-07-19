@@ -1,10 +1,12 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: constant_identifier_names
 
 library constants;
 
-var DefaultDateTimeFormat = "MM/dd/yyyy hh:mm:ss";
-var DefaultDateFormat = "MM/dd/yyyy";
-var DefaultTimeFormat = "hh:mm:ss";
+const DefaultDateTimeFormat = "MM/dd/yyyy hh:mm:ss";
+const DefaultDateFormat = "MM/dd/yyyy";
+const DefaultTimeFormat = "hh:mm:ss";
+
+const CurrencyFieldType = "currency";
 
 Map<String, bool> ignoredComputeProps = {
   "className": true,

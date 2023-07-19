@@ -64,6 +64,7 @@ dependencies:
   flutter_form_builder: ^8.0.0
   form_builder_validators: ^8.3.0
   flutter_multi_formatter: ^2.11.2
+  decimal: ^2.3.3
 
   data_table_2: ^2.3.7
   bottom_sheet: ^3.1.2

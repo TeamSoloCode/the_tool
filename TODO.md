@@ -1,9 +1,8 @@
 SUPPORT: Invoke dart function with emitter
 
 FIXME: Use UniqueKey object replace for uuid and unix milisecond
-FIXME: Currency formatter on return value that not match with fixed specific decimal place
+
 FIXME: If use form to validate field that used validateFunction first then the second field will be validated to even though the first one is already got error
-FIXME: Default value is not working on field text
 
 SUPPORT: value binding for validate order in form
 
@@ -59,6 +58,8 @@ Support pages app bar custom actions
 Support alert, dialog, snackbar, ScaffoldMessenger
 
 #-------------------------------------------------
+-FIXME: Default value is not working on field text
+-FIXME: Currency formatter on return value that not match with fixed specific decimal place
 -SUPPORT: currency input field
 -FIXME: Field that wrapped by component got validate after those not wrapped by component
 -SUPPORT: binding data from state to image picker field
