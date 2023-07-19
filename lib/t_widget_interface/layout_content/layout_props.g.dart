@@ -131,7 +131,7 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       firstDate: json['firstDate'] as String?,
       lastDate: json['lastDate'] as String?,
       initialDate: json['initialDate'] as String?,
-      onResponse: json['onResponse'] as String?,
+      onChange: json['onChange'] as String?,
       host: json['host'] as String?,
       autovalidateMode: json['autovalidateMode'] as String?,
       validateOrder: (json['validateOrder'] as List<dynamic>?)
@@ -308,7 +308,7 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'firstDate': instance.firstDate,
       'lastDate': instance.lastDate,
       'initialDate': instance.initialDate,
-      'onResponse': instance.onResponse,
+      'onChange': instance.onChange,
       'host': instance.host,
       'autovalidateMode': instance.autovalidateMode,
       'validateOrder': instance.validateOrder,
