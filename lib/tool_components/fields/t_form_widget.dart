@@ -101,12 +101,14 @@ class _T_FormState extends TStatefulWidget<T_Form> {
 
     var isValid = true;
 
-    final validateOrder = widget.widgetProps.validateOrder;
+    final validateOrder = widget.widgetProps.validateOrder ?? [];
 
     if (_formKey.currentState != null) {
       final fields = _formKey.currentState!.fields;
+      final keys = {...validateOrder, ...fields.keys};
+
       loop:
-      for (final name in validateOrder ?? fields.keys) {
+      for (final name in keys) {
         final field = fields[name];
         var errorText = errorTextMap?[name];
 

@@ -2,8 +2,6 @@ SUPPORT: Invoke dart function with emitter
 
 FIXME: Use UniqueKey object replace for uuid and unix milisecond
 
-FIXME: If use form to validate field that used validateFunction first then the second field will be validated to even though the first one is already got error
-
 SUPPORT: value binding for validate order in form
 
 SUPPORT: responsive with device version
