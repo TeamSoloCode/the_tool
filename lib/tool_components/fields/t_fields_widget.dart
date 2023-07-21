@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:the_tool/constants.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
+import 'package:the_tool/tool_components/fields/t_custom_field.field.dart'
+    deferred as field_custom;
 import 'package:the_tool/tool_components/fields/t_datetime_field.dart'
     deferred as field_datetime;
 import 'package:the_tool/tool_components/fields/t_image_picker.field.dart'
@@ -68,6 +70,9 @@ class _TFieldsState extends TStatefulWidget<TFields> {
       case "image":
         await field_image.loadLibrary();
         break;
+      case "custom":
+        await field_custom.loadLibrary();
+        break;
       default:
         throw Exception("$fieldType field type is not supported!");
     }
@@ -107,6 +112,8 @@ class _TFieldsState extends TStatefulWidget<TFields> {
         return field_checkbox.TCheckbox(tWidgetProps);
       case "image":
         return field_image.TImagePickerField(tWidgetProps);
+      case "custom":
+        return field_custom.TCustomField(tWidgetProps);
       default:
         throw Exception("$fieldType field type is not supported!");
     }
