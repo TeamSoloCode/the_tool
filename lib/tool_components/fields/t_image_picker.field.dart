@@ -23,6 +23,7 @@ class _TImagePickerFieldState extends TStatefulWidget<TImagePickerField> {
   Image? image;
 
   final _clientAPI = getIt<APIClientManager>();
+  Widget? pickedImage;
 
   void _openGallery() async {
     var pickedFile = await ImagePicker().pickImage(
@@ -39,6 +40,7 @@ class _TImagePickerFieldState extends TStatefulWidget<TImagePickerField> {
 
     setState(() {
       image = imageTemp;
+      pickedImage = image;
     });
 
     if (image == null) return;
@@ -77,47 +79,91 @@ class _TImagePickerFieldState extends TStatefulWidget<TImagePickerField> {
       options: options,
     );
 
-    final onResponse = widget.widgetProps.onResponse;
+    final onResponse = widget.widgetProps.onChange;
     if (onResponse != null) {
       final responseData = response.data;
       widget.executeJSWithPagePath(onResponse, [responseData]);
     }
   }
 
+  void _clearImage() {
+    final onChange = widget.widgetProps.onChange;
+    if (onChange != null) {
+      setState(() {
+        image = null;
+        pickedImage = null;
+      });
+      widget.executeJSWithPagePath(onChange, [null]);
+    }
+  }
+
   Widget _defaultPlaceholder(LayoutProps props) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.grey[600] ?? const Color(0xFF000000),
-        ),
-        borderRadius: const BorderRadius.all(
-          Radius.circular(8),
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.image_outlined,
-                size: 48,
-                color: Colors.grey[600],
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(10.0),
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.grey,
               ),
-              const SizedBox(height: 8),
-              Text(
-                'Upload Image',
-                style: TextStyle(
-                  color: Colors.grey[600],
-                  fontSize: 16,
-                ),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(8),
               ),
-            ],
+            ),
+            child: Center(
+              child: pickedImage ??
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.image_outlined,
+                            size: 48,
+                            color: Colors.grey[600],
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Upload Image',
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+            ),
           ),
-        ],
+        ),
+        _actionButton(props),
+      ],
+    );
+  }
+
+  Widget _actionButton(LayoutProps props) {
+    Widget content = Positioned(
+      top: 0,
+      right: 0,
+      child: GestureDetector(
+        onTap: _clearImage,
+        child: Container(
+          // padding: EdgeInsets.all(),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(50.0),
+          ),
+          child: const Icon(
+            Icons.clear,
+          ),
+        ),
       ),
     );
+
+    return content;
   }
 
   Widget _computeImageChild(LayoutProps props) {
@@ -146,12 +192,12 @@ class _TImagePickerFieldState extends TStatefulWidget<TImagePickerField> {
 
   @override
   Widget buildWidget(BuildContext context) {
-    LayoutProps? _props = widget.props;
+    LayoutProps? props = widget.props;
 
-    if (_props != null) {
+    if (props != null) {
       widget.snapshot = GestureDetector(
         onTap: _openGallery,
-        child: _computeImageChild(_props),
+        child: _computeImageChild(props),
       );
     }
 
