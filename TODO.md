@@ -1,11 +1,14 @@
 SUPPORT: Invoke dart function with emitter
 
 FIXME: Use UniqueKey object replace for uuid and unix milisecond
+SUPPORT: dialog
+SUPPORT: alert
+SUPPORT: snackbar
+SUPPORT: ScaffoldMessenger
 
 SUPPORT: value binding for validate order in form
 
 SUPPORT: responsive with device version
-SUPPORT: Use metadata to specify layout property is a string or number
 SUPPORT: RichText
 
 SUPPORT: Blowfish encryption to encrypt data passing to js side to execute
@@ -53,7 +56,6 @@ Support build mode (development/production) in context page data
 Support child config for t_button type that has child property
 Support simple operator for binding data ( {{ !state.isGood | eq(state.isGood, "bad") }} )
 Support pages app bar custom actions
-Support alert, dialog, snackbar, ScaffoldMessenger
 
 #-------------------------------------------------
 -FIXME: Default value is not working on field text
