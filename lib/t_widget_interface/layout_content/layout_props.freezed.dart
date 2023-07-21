@@ -249,7 +249,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? buttonType,
       String? key,
       String? name,
-      @LayoutPropsMetadata(ignoreComputeProps: true) dynamic className,
+      dynamic className,
       dynamic height,
       dynamic width,
       dynamic maxWidth,
@@ -283,9 +283,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       bool? safeArea,
       String? sliverListType,
       double? itemExtent,
-      @LayoutPropsMetadata(ignoreComputeProps: true)
       Map<String, dynamic>? componentProps,
-      @LayoutPropsMetadata(ignoreComputeProps: true)
       Map<String, dynamic>? computedComponentProps,
       Map<String, LayoutProps?>? components,
       bool? scrollable,
@@ -308,11 +306,11 @@ abstract class $LayoutPropsCopyWith<$Res> {
       dynamic items,
       bool? allowClear,
       String? fieldType,
-      bool? numeric,
-      @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? suffixIcon,
+      String? keyboardType,
+      LayoutProps? suffixIcon,
       String? suffixIconColor,
       String? suffixText,
-      @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? prefixIcon,
+      LayoutProps? prefixIcon,
       String? prefixIconColor,
       String? prefixText,
       String? format,
@@ -344,18 +342,17 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? onSelectAll,
       dynamic selected,
       String? dividerColor,
-      @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? head,
-      @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? body,
-      @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? leading,
-      @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? title,
-      @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? trailing,
-      @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? subtitle,
+      LayoutProps? head,
+      LayoutProps? body,
+      LayoutProps? leading,
+      LayoutProps? title,
+      LayoutProps? trailing,
+      LayoutProps? subtitle,
       double? horizontalTitleGap,
       String? component,
-      @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? child,
-      @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? content,
-      @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? itemLayout,
-      @LayoutPropsMetadata(ignoreComputeProps: true)
+      LayoutProps? child,
+      LayoutProps? content,
+      LayoutProps? itemLayout,
       List<LayoutProps>? children,
       BottomNavigationProps? bottomNav,
       AppBarProps? appBar,
@@ -1377,7 +1374,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       String? buttonType,
       String? key,
       String? name,
-      @LayoutPropsMetadata(ignoreComputeProps: true) dynamic className,
+      dynamic className,
       dynamic height,
       dynamic width,
       dynamic maxWidth,
@@ -1411,9 +1408,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       bool? safeArea,
       String? sliverListType,
       double? itemExtent,
-      @LayoutPropsMetadata(ignoreComputeProps: true)
       Map<String, dynamic>? componentProps,
-      @LayoutPropsMetadata(ignoreComputeProps: true)
       Map<String, dynamic>? computedComponentProps,
       Map<String, LayoutProps?>? components,
       bool? scrollable,
@@ -1436,11 +1431,11 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       dynamic items,
       bool? allowClear,
       String? fieldType,
-      bool? numeric,
-      @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? suffixIcon,
+      String? keyboardType,
+      LayoutProps? suffixIcon,
       String? suffixIconColor,
       String? suffixText,
-      @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? prefixIcon,
+      LayoutProps? prefixIcon,
       String? prefixIconColor,
       String? prefixText,
       String? format,
@@ -1472,18 +1467,17 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       String? onSelectAll,
       dynamic selected,
       String? dividerColor,
-      @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? head,
-      @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? body,
-      @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? leading,
-      @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? title,
-      @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? trailing,
-      @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? subtitle,
+      LayoutProps? head,
+      LayoutProps? body,
+      LayoutProps? leading,
+      LayoutProps? title,
+      LayoutProps? trailing,
+      LayoutProps? subtitle,
       double? horizontalTitleGap,
       String? component,
-      @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? child,
-      @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? content,
-      @LayoutPropsMetadata(ignoreComputeProps: true) LayoutProps? itemLayout,
-      @LayoutPropsMetadata(ignoreComputeProps: true)
+      LayoutProps? child,
+      LayoutProps? content,
+      LayoutProps? itemLayout,
       List<LayoutProps>? children,
       BottomNavigationProps? bottomNav,
       AppBarProps? appBar,
@@ -2212,7 +2206,7 @@ class _$_LayoutProps implements _LayoutProps {
       this.buttonType,
       this.key,
       this.name,
-      @LayoutPropsMetadata(ignoreComputeProps: true) this.className,
+      this.className,
       this.height,
       this.width,
       this.maxWidth,
@@ -2246,9 +2240,7 @@ class _$_LayoutProps implements _LayoutProps {
       this.safeArea,
       this.sliverListType,
       this.itemExtent,
-      @LayoutPropsMetadata(ignoreComputeProps: true)
       final Map<String, dynamic>? componentProps,
-      @LayoutPropsMetadata(ignoreComputeProps: true)
       final Map<String, dynamic>? computedComponentProps,
       final Map<String, LayoutProps?>? components,
       this.scrollable,
@@ -2271,11 +2263,11 @@ class _$_LayoutProps implements _LayoutProps {
       this.items,
       this.allowClear,
       this.fieldType,
-      this.numeric,
-      @LayoutPropsMetadata(ignoreComputeProps: true) this.suffixIcon,
+      this.keyboardType,
+      this.suffixIcon,
       this.suffixIconColor,
       this.suffixText,
-      @LayoutPropsMetadata(ignoreComputeProps: true) this.prefixIcon,
+      this.prefixIcon,
       this.prefixIconColor,
       this.prefixText,
       this.format,
@@ -2307,18 +2299,17 @@ class _$_LayoutProps implements _LayoutProps {
       this.onSelectAll,
       this.selected,
       this.dividerColor,
-      @LayoutPropsMetadata(ignoreComputeProps: true) this.head,
-      @LayoutPropsMetadata(ignoreComputeProps: true) this.body,
-      @LayoutPropsMetadata(ignoreComputeProps: true) this.leading,
-      @LayoutPropsMetadata(ignoreComputeProps: true) this.title,
-      @LayoutPropsMetadata(ignoreComputeProps: true) this.trailing,
-      @LayoutPropsMetadata(ignoreComputeProps: true) this.subtitle,
+      this.head,
+      this.body,
+      this.leading,
+      this.title,
+      this.trailing,
+      this.subtitle,
       this.horizontalTitleGap,
       this.component,
-      @LayoutPropsMetadata(ignoreComputeProps: true) this.child,
-      @LayoutPropsMetadata(ignoreComputeProps: true) this.content,
-      @LayoutPropsMetadata(ignoreComputeProps: true) this.itemLayout,
-      @LayoutPropsMetadata(ignoreComputeProps: true)
+      this.child,
+      this.content,
+      this.itemLayout,
       final List<LayoutProps>? children,
       this.bottomNav,
       this.appBar,
@@ -2774,135 +2765,6 @@ class _$_LayoutProps implements _LayoutProps {
   @override
   final T_GradientProps? gradient;
 
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LayoutProps(type: $type, color: $color, backgroundColor: $backgroundColor, text: $text, fontSize: $fontSize, hidden: $hidden, icon: $icon, mainAxisAlignment: $mainAxisAlignment, path: $path, buttonType: $buttonType, key: $key, name: $name, className: $className, height: $height, width: $width, maxWidth: $maxWidth, maxHeight: $maxHeight, minWidth: $minWidth, minHeight: $minHeight, margin: $margin, padding: $padding, borderTop: $borderTop, borderBottom: $borderBottom, borderRight: $borderRight, borderLeft: $borderLeft, flex: $flex, positioned: $positioned, fit: $fit, radius: $radius, iconSize: $iconSize, shape: $shape, splashColor: $splashColor, alignment: $alignment, elevation: $elevation, shadowColor: $shadowColor, heightFactor: $heightFactor, widthFactor: $widthFactor, weight: $weight, style: $style, opacity: $opacity, enabled: $enabled, duration: $duration, show: $show, safeArea: $safeArea, sliverListType: $sliverListType, itemExtent: $itemExtent, componentProps: $componentProps, computedComponentProps: $computedComponentProps, components: $components, scrollable: $scrollable, drawer: $drawer, layoutBuilder: $layoutBuilder, mediaScreenOnly: $mediaScreenOnly, onClick: $onClick, onLongClick: $onLongClick, onDoubleClick: $onDoubleClick, onClickDown: $onClickDown, onClickUp: $onClickUp, onFocus: $onFocus, onHover: $onHover, textAlign: $textAlign, selectable: $selectable, hintText: $hintText, labelText: $labelText, obscureText: $obscureText, defaultValue: $defaultValue, items: $items, allowClear: $allowClear, fieldType: $fieldType, numeric: $numeric, suffixIcon: $suffixIcon, suffixIconColor: $suffixIconColor, suffixText: $suffixText, prefixIcon: $prefixIcon, prefixIconColor: $prefixIconColor, prefixText: $prefixText, format: $format, fillColor: $fillColor, validationFunction: $validationFunction, autovalidate: $autovalidate, validators: $validators, firstDate: $firstDate, lastDate: $lastDate, initialDate: $initialDate, onChange: $onChange, host: $host, autovalidateMode: $autovalidateMode, columns: $columns, rows: $rows, onSort: $onSort, loadDataFunction: $loadDataFunction, total: $total, onSelectChanged: $onSelectChanged, onSelectAll: $onSelectAll, selected: $selected, dividerColor: $dividerColor, head: $head, body: $body, leading: $leading, title: $title, trailing: $trailing, subtitle: $subtitle, horizontalTitleGap: $horizontalTitleGap, component: $component, child: $child, content: $content, itemLayout: $itemLayout, children: $children, bottomNav: $bottomNav, appBar: $appBar, image: $image, boxBorder: $boxBorder, borderRadius: $borderRadius, shapeBorder: $shapeBorder, boxShadow: $boxShadow, gradient: $gradient)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'LayoutProps'))
-      ..add(DiagnosticsProperty('type', type))
-      ..add(DiagnosticsProperty('color', color))
-      ..add(DiagnosticsProperty('backgroundColor', backgroundColor))
-      ..add(DiagnosticsProperty('text', text))
-      ..add(DiagnosticsProperty('fontSize', fontSize))
-      ..add(DiagnosticsProperty('hidden', hidden))
-      ..add(DiagnosticsProperty('icon', icon))
-      ..add(DiagnosticsProperty('mainAxisAlignment', mainAxisAlignment))
-      ..add(DiagnosticsProperty('path', path))
-      ..add(DiagnosticsProperty('buttonType', buttonType))
-      ..add(DiagnosticsProperty('key', key))
-      ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('className', className))
-      ..add(DiagnosticsProperty('height', height))
-      ..add(DiagnosticsProperty('width', width))
-      ..add(DiagnosticsProperty('maxWidth', maxWidth))
-      ..add(DiagnosticsProperty('maxHeight', maxHeight))
-      ..add(DiagnosticsProperty('minWidth', minWidth))
-      ..add(DiagnosticsProperty('minHeight', minHeight))
-      ..add(DiagnosticsProperty('margin', margin))
-      ..add(DiagnosticsProperty('padding', padding))
-      ..add(DiagnosticsProperty('borderTop', borderTop))
-      ..add(DiagnosticsProperty('borderBottom', borderBottom))
-      ..add(DiagnosticsProperty('borderRight', borderRight))
-      ..add(DiagnosticsProperty('borderLeft', borderLeft))
-      ..add(DiagnosticsProperty('flex', flex))
-      ..add(DiagnosticsProperty('positioned', positioned))
-      ..add(DiagnosticsProperty('fit', fit))
-      ..add(DiagnosticsProperty('radius', radius))
-      ..add(DiagnosticsProperty('iconSize', iconSize))
-      ..add(DiagnosticsProperty('shape', shape))
-      ..add(DiagnosticsProperty('splashColor', splashColor))
-      ..add(DiagnosticsProperty('alignment', alignment))
-      ..add(DiagnosticsProperty('elevation', elevation))
-      ..add(DiagnosticsProperty('shadowColor', shadowColor))
-      ..add(DiagnosticsProperty('heightFactor', heightFactor))
-      ..add(DiagnosticsProperty('widthFactor', widthFactor))
-      ..add(DiagnosticsProperty('weight', weight))
-      ..add(DiagnosticsProperty('style', style))
-      ..add(DiagnosticsProperty('opacity', opacity))
-      ..add(DiagnosticsProperty('enabled', enabled))
-      ..add(DiagnosticsProperty('duration', duration))
-      ..add(DiagnosticsProperty('show', show))
-      ..add(DiagnosticsProperty('safeArea', safeArea))
-      ..add(DiagnosticsProperty('sliverListType', sliverListType))
-      ..add(DiagnosticsProperty('itemExtent', itemExtent))
-      ..add(DiagnosticsProperty('componentProps', componentProps))
-      ..add(
-          DiagnosticsProperty('computedComponentProps', computedComponentProps))
-      ..add(DiagnosticsProperty('components', components))
-      ..add(DiagnosticsProperty('scrollable', scrollable))
-      ..add(DiagnosticsProperty('drawer', drawer))
-      ..add(DiagnosticsProperty('layoutBuilder', layoutBuilder))
-      ..add(DiagnosticsProperty('mediaScreenOnly', mediaScreenOnly))
-      ..add(DiagnosticsProperty('onClick', onClick))
-      ..add(DiagnosticsProperty('onLongClick', onLongClick))
-      ..add(DiagnosticsProperty('onDoubleClick', onDoubleClick))
-      ..add(DiagnosticsProperty('onClickDown', onClickDown))
-      ..add(DiagnosticsProperty('onClickUp', onClickUp))
-      ..add(DiagnosticsProperty('onFocus', onFocus))
-      ..add(DiagnosticsProperty('onHover', onHover))
-      ..add(DiagnosticsProperty('textAlign', textAlign))
-      ..add(DiagnosticsProperty('selectable', selectable))
-      ..add(DiagnosticsProperty('hintText', hintText))
-      ..add(DiagnosticsProperty('labelText', labelText))
-      ..add(DiagnosticsProperty('obscureText', obscureText))
-      ..add(DiagnosticsProperty('defaultValue', defaultValue))
-      ..add(DiagnosticsProperty('items', items))
-      ..add(DiagnosticsProperty('allowClear', allowClear))
-      ..add(DiagnosticsProperty('fieldType', fieldType))
-      ..add(DiagnosticsProperty('numeric', numeric))
-      ..add(DiagnosticsProperty('suffixIcon', suffixIcon))
-      ..add(DiagnosticsProperty('suffixIconColor', suffixIconColor))
-      ..add(DiagnosticsProperty('suffixText', suffixText))
-      ..add(DiagnosticsProperty('prefixIcon', prefixIcon))
-      ..add(DiagnosticsProperty('prefixIconColor', prefixIconColor))
-      ..add(DiagnosticsProperty('prefixText', prefixText))
-      ..add(DiagnosticsProperty('format', format))
-      ..add(DiagnosticsProperty('fillColor', fillColor))
-      ..add(DiagnosticsProperty('validationFunction', validationFunction))
-      ..add(DiagnosticsProperty('autovalidate', autovalidate))
-      ..add(DiagnosticsProperty('validators', validators))
-      ..add(DiagnosticsProperty('firstDate', firstDate))
-      ..add(DiagnosticsProperty('lastDate', lastDate))
-      ..add(DiagnosticsProperty('initialDate', initialDate))
-      ..add(DiagnosticsProperty('onChange', onChange))
-      ..add(DiagnosticsProperty('host', host))
-      ..add(DiagnosticsProperty('autovalidateMode', autovalidateMode))
-      ..add(DiagnosticsProperty('columns', columns))
-      ..add(DiagnosticsProperty('rows', rows))
-      ..add(DiagnosticsProperty('onSort', onSort))
-      ..add(DiagnosticsProperty('loadDataFunction', loadDataFunction))
-      ..add(DiagnosticsProperty('total', total))
-      ..add(DiagnosticsProperty('onSelectChanged', onSelectChanged))
-      ..add(DiagnosticsProperty('onSelectAll', onSelectAll))
-      ..add(DiagnosticsProperty('selected', selected))
-      ..add(DiagnosticsProperty('dividerColor', dividerColor))
-      ..add(DiagnosticsProperty('head', head))
-      ..add(DiagnosticsProperty('body', body))
-      ..add(DiagnosticsProperty('leading', leading))
-      ..add(DiagnosticsProperty('title', title))
-      ..add(DiagnosticsProperty('trailing', trailing))
-      ..add(DiagnosticsProperty('subtitle', subtitle))
-      ..add(DiagnosticsProperty('horizontalTitleGap', horizontalTitleGap))
-      ..add(DiagnosticsProperty('component', component))
-      ..add(DiagnosticsProperty('child', child))
-      ..add(DiagnosticsProperty('content', content))
-      ..add(DiagnosticsProperty('itemLayout', itemLayout))
-      ..add(DiagnosticsProperty('children', children))
-      ..add(DiagnosticsProperty('bottomNav', bottomNav))
-      ..add(DiagnosticsProperty('appBar', appBar))
-      ..add(DiagnosticsProperty('image', image))
-      ..add(DiagnosticsProperty('boxBorder', boxBorder))
-      ..add(DiagnosticsProperty('borderRadius', borderRadius))
-      ..add(DiagnosticsProperty('shapeBorder', shapeBorder))
-      ..add(DiagnosticsProperty('boxShadow', boxShadow))
-      ..add(DiagnosticsProperty('gradient', gradient));
-  }
-
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
@@ -2932,7 +2794,7 @@ abstract class _LayoutProps implements LayoutProps {
       final String? buttonType,
       final String? key,
       final String? name,
-      @LayoutPropsMetadata(ignoreComputeProps: true) final dynamic className,
+      final dynamic className,
       final dynamic height,
       final dynamic width,
       final dynamic maxWidth,
@@ -2966,9 +2828,7 @@ abstract class _LayoutProps implements LayoutProps {
       final bool? safeArea,
       final String? sliverListType,
       final double? itemExtent,
-      @LayoutPropsMetadata(ignoreComputeProps: true)
       final Map<String, dynamic>? componentProps,
-      @LayoutPropsMetadata(ignoreComputeProps: true)
       final Map<String, dynamic>? computedComponentProps,
       final Map<String, LayoutProps?>? components,
       final bool? scrollable,
@@ -2991,12 +2851,10 @@ abstract class _LayoutProps implements LayoutProps {
       final dynamic items,
       final bool? allowClear,
       final String? fieldType,
-      final bool? numeric,
-      @LayoutPropsMetadata(ignoreComputeProps: true)
+      final String? keyboardType,
       final LayoutProps? suffixIcon,
       final String? suffixIconColor,
       final String? suffixText,
-      @LayoutPropsMetadata(ignoreComputeProps: true)
       final LayoutProps? prefixIcon,
       final String? prefixIconColor,
       final String? prefixText,
@@ -3029,21 +2887,17 @@ abstract class _LayoutProps implements LayoutProps {
       final String? onSelectAll,
       final dynamic selected,
       final String? dividerColor,
-      @LayoutPropsMetadata(ignoreComputeProps: true) final LayoutProps? head,
-      @LayoutPropsMetadata(ignoreComputeProps: true) final LayoutProps? body,
-      @LayoutPropsMetadata(ignoreComputeProps: true) final LayoutProps? leading,
-      @LayoutPropsMetadata(ignoreComputeProps: true) final LayoutProps? title,
-      @LayoutPropsMetadata(ignoreComputeProps: true)
+      final LayoutProps? head,
+      final LayoutProps? body,
+      final LayoutProps? leading,
+      final LayoutProps? title,
       final LayoutProps? trailing,
-      @LayoutPropsMetadata(ignoreComputeProps: true)
       final LayoutProps? subtitle,
       final double? horizontalTitleGap,
       final String? component,
-      @LayoutPropsMetadata(ignoreComputeProps: true) final LayoutProps? child,
-      @LayoutPropsMetadata(ignoreComputeProps: true) final LayoutProps? content,
-      @LayoutPropsMetadata(ignoreComputeProps: true)
+      final LayoutProps? child,
+      final LayoutProps? content,
       final LayoutProps? itemLayout,
-      @LayoutPropsMetadata(ignoreComputeProps: true)
       final List<LayoutProps>? children,
       final BottomNavigationProps? bottomNav,
       final AppBarProps? appBar,
