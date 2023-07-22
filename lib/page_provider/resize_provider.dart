@@ -1,9 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:the_tool/utils.dart';
 import 'package:the_tool/page_utils/debouncer.dart';
 
-class ResizeProvider with ChangeNotifier, DiagnosticableTreeMixin {
+class ResizeProvider with ChangeNotifier {
   final utils = getIt<UtilsManager>();
   final resizeDebouncer = Debouncer(delay: const Duration(milliseconds: 300));
 

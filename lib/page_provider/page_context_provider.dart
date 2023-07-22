@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/utils.dart';
 
-class PageContextProvider with ChangeNotifier, DiagnosticableTreeMixin {
+class PageContextProvider with ChangeNotifier {
   final Map<String, Map<String, dynamic>> _tWidgetsProps = {};
   final utils = getIt<UtilsManager>();
 
@@ -55,12 +55,5 @@ class PageContextProvider with ChangeNotifier, DiagnosticableTreeMixin {
     });
 
     notifyListeners();
-  }
-
-  /// Makes `Counter` readable inside the devtools by listing all of its properties
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    // properties.add(IntProperty('_contextData', _contextData));
   }
 }

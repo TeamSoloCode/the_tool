@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:the_tool/utils.dart';
 
-class AuthContextProvider with ChangeNotifier, DiagnosticableTreeMixin {
+class AuthContextProvider with ChangeNotifier {
   final utils = getIt<UtilsManager>();
 
   var refreshToken = DateTime.now().microsecondsSinceEpoch;

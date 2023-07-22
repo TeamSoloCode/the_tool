@@ -1,28 +1,40 @@
+import 'dart:async';
 import 'dart:developer';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:rxdart/rxdart.dart';
 
 import 'package:the_tool/t_widget_interface/client_config/client_config.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 
-class ContextStateProvider with ChangeNotifier, DiagnosticableTreeMixin {
+class ContextStateProvider with ChangeNotifier {
   final Map<String, dynamic> _contextData = {};
   final Map<String, dynamic> _rootPageData = {};
   Map<String, bool> _cacheCheckTWidgetDepsChanged = {};
   ClientConfig? _appConfig;
   Map<String, dynamic> initData;
 
+  final _notifyListenersDuration = const Duration(milliseconds: 16);
+  final notifyListenersController =
+      StreamController<Map<String, dynamic>>(sync: true);
+
   ContextStateProvider({this.initData = const {}}) : super() {
     _contextData.addAll(initData);
+
+    notifyListenersController.stream
+        .interval(_notifyListenersDuration)
+        .listen(_updateContextData);
   }
   // ==========================================================================
   Map<String, dynamic> get contextData => _contextData;
 
   Future<void> updateContextData(Map<String, dynamic> contextData) async {
+    print("updateContextData ${_contextData}");
+    notifyListenersController.add(contextData);
+  }
+
+  Future<void> _updateContextData(Map<String, dynamic> contextData) async {
     _contextData.addAll(contextData);
-    _cacheCheckTWidgetDepsChanged = {};
-    // getIt<PageContextProvider>().updateTWidgetProps(_contextData);
     notifyListeners();
   }
 

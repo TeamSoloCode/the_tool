@@ -6,6 +6,13 @@ SUPPORT: alert
 SUPPORT: snackbar
 SUPPORT: ScaffoldMessenger
 
+FIXME: Steps reproduce
+-Go to admin projects login_page
+-Enter abcd@gmail.com into username (just ignore the error message)
+-Enter password 123 (this suppose to be error)
+-Adjust the user to abcd@gmail1.com (the error gone)
+-Click Login => The password is 123 it support to not allow to login after length of the password more than 5 charater
+
 SUPPORT: value binding for validate order in form
 
 SUPPORT: responsive with device version
