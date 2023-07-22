@@ -93,11 +93,17 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField>
     items = widgetProps?.items ?? [];
     assert(name != null, "Missing \"name\" in field widget");
 
+    if (items is! List) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
     /** "items" property might be a string, that's mean it's a databinding */
     if (items is String) {
       items = contextData[items] ?? [];
     }
-    _dropDownKey.currentState?.setValue(value);
+
     return FormBuilderDropdown(
       key: _dropDownKey,
       name: name ?? "",
