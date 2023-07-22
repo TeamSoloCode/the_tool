@@ -15,8 +15,11 @@ import 'package:the_tool/tool_components/fields/t_text_field_widget.dart'
     deferred as field_text;
 import 'package:the_tool/tool_components/fields/t_checkbox_field.dart'
     deferred as field_checkbox;
+
+import 'package:the_tool/tool_components/fields/t_multiple_select.field.dart' deferred as field_multi_select;
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/twidget_props.dart';
+
 
 class TFields extends TWidget {
   TFields(TWidgetProps twidget) : super(twidget);
@@ -73,6 +76,9 @@ class _TFieldsState extends TStatefulWidget<TFields> {
       case "custom":
         await field_custom.loadLibrary();
         break;
+      case "multiple_select":
+        await field_multi_select.loadLibrary();
+        break;
       default:
         throw Exception("$fieldType field type is not supported!");
     }
@@ -114,6 +120,8 @@ class _TFieldsState extends TStatefulWidget<TFields> {
         return field_image.TImagePickerField(tWidgetProps);
       case "custom":
         return field_custom.TCustomField(tWidgetProps);
+      case "multiple_select":
+        return field_multi_select.TMultiSelectField(tWidgetProps);
       default:
         throw Exception("$fieldType field type is not supported!");
     }
