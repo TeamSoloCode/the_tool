@@ -84,15 +84,20 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
 
   Future<void> _loadTWidget() async {
     await _startLoadingData();
+    List<Future<dynamic>> futures = [];
+
     if (_pageLayout?.appBar != null) {
-      await t_appbar.loadLibrary();
+      futures.add(t_appbar.loadLibrary());
     }
     if (_pageLayout?.bottomNav != null) {
-      await t_bottom_nav.loadLibrary();
+      futures.add(t_bottom_nav.loadLibrary());
     }
     if (_pageLayout?.drawer != null) {
-      await t_drawer.loadLibrary();
+      futures.add(t_drawer.loadLibrary());
     }
+
+    await Future.wait(futures);
+
     setState(() {
       _isReadyToRun = true;
     });
@@ -117,6 +122,7 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
   Widget build(BuildContext context) {
     super.build(context);
     // var pageData = Map<String, dynamic>.from({"_tLoaded": true});
+
     var pageData = context.select((ContextStateProvider value) {
       return value.contextData[_pageId] ?? UtilsManager.emptyMapStringDynamic;
     });

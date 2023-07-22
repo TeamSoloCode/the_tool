@@ -7,7 +7,8 @@ import 'package:the_tool/page_provider/auth_manager_provider.dart';
 import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/page_provider/resize_provider.dart';
 import 'package:the_tool/page_provider/theme_provider.dart';
-import 'package:the_tool/singleton_register.dart';
+import 'package:the_tool/singleton_register.dart'
+    deferred as singleton_register;
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -30,8 +31,12 @@ void main() async {
   //   await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
   // }
 
-  await SingletonRegister.register();
-  await app.loadLibrary();
+  await Future.wait([
+    singleton_register.loadLibrary(),
+    app.loadLibrary(),
+  ]);
+
+  await singleton_register.SingletonRegister.register();
 
   runApp(
     MultiProvider(

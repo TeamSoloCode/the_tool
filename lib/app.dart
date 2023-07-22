@@ -43,7 +43,7 @@ class _TheToolState extends State<TheTool> {
     });
   }
 
-  Future<bool> _isReadyToRun() async {
+  Future<bool> _isReadyToRun(BuildContext context) async {
     final apiClient = getIt<APIClientManager>();
     final storage = getIt<StorageManager>();
     final cacheProjectName = storage.getLocalBox("projectName");
@@ -65,12 +65,12 @@ class _TheToolState extends State<TheTool> {
     return true;
   }
 
-  Future<bool> _loadSelectProjectPage() async {
+  Future<bool> _loadSelectProjectPage(BuildContext context) async {
     final storage = getIt<StorageManager>();
     final cacheProjectName = storage.getLocalBox("projectName");
     if (storage.getLocalBox("remember") == true && cacheProjectName != null) {
       _selectedProjectName = cacheProjectName;
-      await _isReadyToRun();
+      await _isReadyToRun(context);
       return true;
     }
 
@@ -91,8 +91,8 @@ class _TheToolState extends State<TheTool> {
     return FutureBuilder<bool>(
       key: ValueKey(_selectedProjectName),
       future: _selectedProjectName == null
-          ? _loadSelectProjectPage()
-          : _isReadyToRun(),
+          ? _loadSelectProjectPage(context)
+          : _isReadyToRun(context),
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return const Offstage();
