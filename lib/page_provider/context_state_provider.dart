@@ -29,7 +29,6 @@ class ContextStateProvider with ChangeNotifier {
   Map<String, dynamic> get contextData => _contextData;
 
   Future<void> updateContextData(Map<String, dynamic> contextData) async {
-    print("updateContextData ${_contextData}");
     notifyListenersController.add(contextData);
   }
 
