@@ -45,7 +45,7 @@ void main() async {
         formfield.decoration.errorText,
         "User already existed !!!",
         reason:
-            "In JS if type in 'abcd@gmail.com' then errorText is 'User already existed !!!'",
+            "In JS if type in 'abcd@gmail.com' then errorText should be 'User already existed !!!'",
       );
 
       await widgetTester.enterText(emailField, 'abcd@gmail1.com');
@@ -56,7 +56,8 @@ void main() async {
       expect(
         formfield.decoration.errorText,
         null,
-        reason: "In JS if type in 'abcd@gmail1.com' then errorText is null",
+        reason:
+            "In JS if type in 'abcd@gmail1.com' then errorText should be null",
       );
     });
   });
