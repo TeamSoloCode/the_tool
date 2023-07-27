@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:the_tool/main.dart' as app;
+import 'package:the_tool/tool_components/datatable/t_datatable_widget.dart';
 
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -19,11 +21,32 @@ void main() async {
     );
 
     // Login page
-    await widgetTester.pumpAndSettle(
-      const Duration(milliseconds: 500),
-    );
+    await widgetTester.pumpAndSettle();
 
     await Future.delayed(const Duration(seconds: 1));
+
+    await widgetTester.pumpAndSettle();
+
+    await pressLoginButton(widgetTester);
+
+    await widgetTester.pumpAndSettle((const Duration(milliseconds: 500)));
+
+    var emailField = find.byType(FormBuilderTextField).first;
+    expect(emailField, findsOneWidget);
+
+    await inputEmail(
+      widgetTester,
+      email: "abcd",
+      expectedErrorText: "Username must be an email address.",
+      errorFromDartValidator: true,
+    );
+
+    await inputEmail(
+      widgetTester,
+      email: "",
+      expectedErrorText: "Username cannot be empty.",
+      errorFromDartValidator: true,
+    );
 
     // abcd@gmail is invalid email so it will show error
     // "User already existed !!!" is coming from validateFunction in layout code
@@ -47,12 +70,32 @@ void main() async {
       expectedErrorText: null,
     );
 
+    await pressLoginButton(widgetTester);
+    await widgetTester.pumpAndSettle((const Duration(milliseconds: 500)));
+
+    // "" is invalid password so it will show error This field cannot be empty
+    await inputPassword(
+      widgetTester,
+      password: "",
+      expectedErrorText: "Password cannot be empty.",
+    );
+
     // 1234 is valid password but it's so error because email now is valid
     await inputPassword(
       widgetTester,
       password: "1234",
       expectedErrorText: "Password is too short !!!",
     );
+
+    // 123456 is valid password
+    await inputPassword(
+      widgetTester,
+      password: "123456",
+      expectedErrorText: null,
+    );
+
+    await pressLoginButton(widgetTester);
+    await loginSuccess(widgetTester);
   });
 }
 
@@ -60,6 +103,7 @@ Future<void> inputEmail(
   WidgetTester widgetTester, {
   required String email,
   String? expectedErrorText,
+  bool errorFromDartValidator = false,
 }) async {
   var emailField = find.byType(FormBuilderTextField).first;
 
@@ -70,18 +114,27 @@ Future<void> inputEmail(
   var formEmailField = widgetTester.widget<FormBuilderTextField>(emailField);
 
   await Future.delayed(const Duration(seconds: 1));
-
-  expect(
-    formEmailField.decoration.errorText,
-    expectedErrorText,
-  );
+  if (errorFromDartValidator) {
+    expect(
+      formEmailField.validator?.call(email),
+      expectedErrorText,
+    );
+  } else {
+    expect(
+      formEmailField.decoration.errorText,
+      expectedErrorText,
+    );
+  }
 }
 
 Future<void> inputPassword(
   WidgetTester widgetTester, {
   required String password,
   String? expectedErrorText,
+  bool errorFromDartValidator = false,
 }) async {
+  await widgetTester.pumpAndSettle();
+
   var passwordField = find.byType(FormBuilderTextField).last;
 
   await widgetTester.enterText(passwordField, password);
@@ -91,8 +144,35 @@ Future<void> inputPassword(
       widgetTester.widget<FormBuilderTextField>(passwordField);
 
   await Future.delayed(const Duration(seconds: 1));
-  expect(
-    formPasswordField.decoration.errorText,
-    expectedErrorText,
-  );
+  if (errorFromDartValidator) {
+    expect(
+      formPasswordField.validator?.call(password),
+      expectedErrorText,
+    );
+  } else {
+    expect(
+      formPasswordField.decoration.errorText,
+      expectedErrorText,
+    );
+  }
+}
+
+Future<void> pressLoginButton(WidgetTester widgetTester) async {
+  await widgetTester.pumpAndSettle();
+
+  var loginButton = find.byType(ElevatedButton).first;
+
+  await widgetTester.tap(loginButton);
+  await widgetTester.pumpAndSettle(const Duration(milliseconds: 500));
+
+  await Future.delayed(const Duration(seconds: 1));
+
+  // var userTable = find.byType(TDataTable).first;
+
+  // expect(userTable, findsOneWidget);
+}
+
+Future<void> loginSuccess(WidgetTester widgetTester) async {
+  var userTable = find.byType(TDataTable).first;
+  expect(userTable, findsOneWidget);
 }
