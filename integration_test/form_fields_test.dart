@@ -25,14 +25,16 @@ void main() async {
 
     await Future.delayed(const Duration(seconds: 1));
 
-    await widgetTester.pumpAndSettle();
-
+    // await widgetTester.pumpAndSettle();
     await pressLoginButton(widgetTester);
-
     await widgetTester.pumpAndSettle((const Duration(milliseconds: 500)));
 
-    var emailField = find.byType(FormBuilderTextField).first;
-    expect(emailField, findsOneWidget);
+    /**
+     * When login page just show up and the login button is pressed
+     * then user cannot go to the dashboard page
+     * so the email field must be still there
+     */
+    expect(find.byType(FormBuilderTextField).first, findsOneWidget);
 
     await inputEmail(
       widgetTester,
@@ -70,8 +72,15 @@ void main() async {
       expectedErrorText: null,
     );
 
+    // FIXME: This should not go to the dashboard page because password is invalid
     await pressLoginButton(widgetTester);
-    await widgetTester.pumpAndSettle((const Duration(milliseconds: 500)));
+    await widgetTester.pumpAndSettle((const Duration(seconds: 1)));
+
+    /**
+     * At this step, the email is valid but password is invalid
+     * so the email field must be still there
+     */
+    expect(find.byType(FormBuilderTextField).first, findsOneWidget);
 
     // "" is invalid password so it will show error This field cannot be empty
     await inputPassword(
@@ -173,6 +182,7 @@ Future<void> pressLoginButton(WidgetTester widgetTester) async {
 }
 
 Future<void> loginSuccess(WidgetTester widgetTester) async {
+  await widgetTester.pumpAndSettle();
   var userTable = find.byType(TDataTable).first;
   expect(userTable, findsOneWidget);
 }
