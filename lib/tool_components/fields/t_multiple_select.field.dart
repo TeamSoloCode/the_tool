@@ -16,47 +16,43 @@ class TMultiSelectField extends TWidget {
   TStatefulWidget<TMultiSelectField> createState() => _TMultiSelectFieldState();
 }
 
-class _TMultiSelectFieldState extends TStatefulWidget<TMultiSelectField> with FieldMixin{
-
+class _TMultiSelectFieldState extends TStatefulWidget<TMultiSelectField>
+    with FieldMixin {
   String? _errorMessage = null;
-  List<dynamic>? selectedValues;
-  final _dropdownSearchKey = GlobalKey<FormFieldState>();
+  List<String> _selectedValues = [];
+  List<String> _listItems = [];
+
+  late FormFieldState<dynamic> _field;
+
+  GlobalKey<DropdownSearchState<String>> _dropdownSearchKey = GlobalKey<DropdownSearchState<String>>();
+
+  @override
+  void initState() {
+    _listItems = [];
+    _selectedValues = [];
+    super.initState();
+  }
 
   Widget _computeMultiSelectField(
-      LayoutProps? widgetProps,
-      Map<String, dynamic> contextData,
-      ){
-
+    LayoutProps? widgetProps,
+    Map<String, dynamic> contextData,
+  ) {
     String? name = widgetProps?.name;
     var value = contextData[name];
     // items = widgetProps?.items ?? [];
     assert(name != null, "Missing \"name\" in field widget");
 
     // _dropDownKey.currentState?.setValue(value);
-    return  FormBuilderField(
+    return FormBuilderField(
       name: name!,
-
-      builder: (FormFieldState<dynamic> field) {
-      return   DropdownSearch<String>.multiSelection(
-          key: _dropdownSearchKey,
-          items: ["Brazil", "Italia (Disabled)", "Tunisia", 'Canada'],
-          popupProps: PopupPropsMultiSelection.menu(
-            showSelectedItems: true,
-            disabledItemFn: (String s) => s.startsWith('I'),
-          ),
-
-          onChanged: (List<String> value) {
-            field.didChange(value);
-          },
-          selectedItems: [],
-        );
-      },
+      // key: _dropdownSearchKey,
+      builder: _multiSelect,
       enabled: widgetProps?.enabled ?? true,
       onChanged: _onChangeOption,
       initialValue: widget.props?.defaultValue ?? value,
       validator: FormBuilderValidators.compose([
         ...computeFieldValidators(widget.props, contextData),
-            (dynamic value) {
+        (dynamic value) {
           _runValidationFunction();
           return null;
         }
@@ -69,36 +65,88 @@ class _TMultiSelectFieldState extends TStatefulWidget<TMultiSelectField> with Fi
   }
 
 
+   Widget _multiSelect(FormFieldState<Object> field)  {
+     _field = field;
+     return DropdownSearch<String>.multiSelection(
+       items: _listItems,
+       key: _dropdownSearchKey,
+       popupProps: PopupPropsMultiSelection.menu(
+         showSelectedItems: true,
+         disabledItemFn: (String s) => s.startsWith('I'),
+       ),
+       onChanged: (List<String> value) {
+         field.didChange(value);
+       },
+     );
+   }
+
+   Widget _singleSelect(FormFieldState<Object> field) {
+     _field = field;
+     return DropdownSearch<String>(
+       popupProps: PopupProps.menu(
+         showSelectedItems: true,
+         disabledItemFn: (String s) => s.startsWith('I'),
+       ),
+       items: _listItems,
+
+       onChanged: print,
+       selectedItem: "Brazil",
+     );
+   }
   @override
   void didChangeDependencies() {
     String? name = widget.widgetProps.name;
-    dynamic currentValue = _dropdownSearchKey.currentState?.value;
+    List<dynamic> listItems = widget.widgetProps.items;
+    dynamic currentValue = _dropdownSearchKey.currentState?.getSelectedItems;
 
-    selectedValues = widget.getContexData()[name];
-    if (selectedValues != currentValue && name != null) {
+    List<dynamic> listDataFromServer = widget.getContexData()[name];
+
+    // Selected value để add vào multiSelected field không được là List<dynamic>
+    _selectedValues = listDataFromServer.cast<String>();
+    if (_selectedValues != currentValue && name != null) {
       Future.delayed(Duration.zero, () async {
-        _dropdownSearchKey.currentState?.setValue(selectedValues);
+
+        // Set danh sách data cho multi select field
+        _dropdownSearchKey.currentState?.setState(() {
+          _listItems = listItems.cast<String>();
+        });
+
+        /**
+         * nếu selectedValues là List<dyanmic> thì hàm dưới này sẽ không chạy được
+         */
+        _dropdownSearchKey.currentState?.changeSelectedItems(_selectedValues!);
+        //
         _dropdownSearchKey.currentState?.setState(() {});
+        // _field.didChange(selectedValues);
       });
     }
 
     super.didChangeDependencies();
   }
+
+  @override
+  void dispose() {
+    _dropdownSearchKey.currentState?.dispose();
+    super.dispose();
+  }
+
   void _onChangeOption(dynamic value) {
     String name = widget.widgetProps.name ?? "";
     widget.setPageData({name: value});
-    selectedValues = value;
+    _selectedValues = value;
   }
+
   void _runValidationFunction() async {
     setState(() {
       _errorMessage =
-      "checking..."; // this to prevent form validate pass the field before it validated;
+          "checking..."; // this to prevent form validate pass the field before it validated;
     });
     String? errorMessage = await runValidationFunction(thisWidget: widget);
     setState(() {
       _errorMessage = errorMessage;
     });
   }
+
   @override
   Widget buildWidget(BuildContext context) {
     LayoutProps? props = widget.props;

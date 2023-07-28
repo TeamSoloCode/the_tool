@@ -224,6 +224,9 @@ class LayoutProps with _$LayoutProps {
     /// ignored-compute
     LayoutProps? itemLayout,
 
+    // multi_selected_field
+    bool? isMultiSelectedField,
+
     /// ignored-compute
     List<LayoutProps>? children,
     BottomNavigationProps? bottomNav,
