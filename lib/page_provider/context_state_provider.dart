@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
@@ -10,7 +9,6 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 class ContextStateProvider with ChangeNotifier {
   final Map<String, dynamic> _contextData = {};
   final Map<String, dynamic> _rootPageData = {};
-  Map<String, bool> _cacheCheckTWidgetDepsChanged = {};
   ClientConfig? _appConfig;
   Map<String, dynamic> initData;
 
@@ -35,10 +33,6 @@ class ContextStateProvider with ChangeNotifier {
   Future<void> _updateContextData(Map<String, dynamic> contextData) async {
     _contextData.addAll(contextData);
     notifyListeners();
-  }
-
-  void updateCacheCheckTWidgetDepsChanged(String depsKey, bool isDepsChanged) {
-    _cacheCheckTWidgetDepsChanged.putIfAbsent(depsKey, () => isDepsChanged);
   }
   // ==========================================================================
 
@@ -68,9 +62,6 @@ class ContextStateProvider with ChangeNotifier {
   // ==========================================================================
 
   // ==========================================================================
-  Map<String, bool> get cacheCheckTWidgetDepsChanged =>
-      _cacheCheckTWidgetDepsChanged;
-
   ClientConfig? get appConfig => _appConfig;
 
   set appConfig(ClientConfig? contextConfig) {
