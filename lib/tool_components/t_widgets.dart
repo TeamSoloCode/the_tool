@@ -50,6 +50,8 @@ import 'package:the_tool/tool_components/t_opacity.widget.dart'
     deferred as t_opacity;
 import 'package:the_tool/tool_components/popup/t_bottom_sheet.widget.dart'
     deferred as t_bottom_sheet;
+import 'package:the_tool/tool_components/popup/t_dialog.widget.dart'
+    deferred as t_dialog;
 import 'package:the_tool/tool_components/t_gesture_detector.widget.dart'
     deferred as t_gesture_detector;
 
@@ -175,6 +177,9 @@ class _TWidgetsState extends State<TWidgets> {
       case "bottom_sheet":
         await t_bottom_sheet.loadLibrary();
         return t_bottom_sheet.TBottomSheet(tWidgetProps);
+      case "dialog":
+        await t_dialog.loadLibrary();
+        return t_dialog.TAlertDialog(tWidgetProps);
       case "gesture_detector":
         await t_gesture_detector.loadLibrary();
         return t_gesture_detector.TGestureDetector(tWidgetProps);
@@ -189,12 +194,9 @@ class _TWidgetsState extends State<TWidgets> {
 
   Future<Widget> _getWidget(Map<String, dynamic> childData) async {
     LayoutProps content = widget.layout.content ?? widget.layout;
-    // getIt<PageContextProvider>().registerTWidgetsProps(
-    //   widgetUuid,
-    //   widget.pagePath,
-    //   content,
-    //   contextData,
-    // );
+    if (widget.layout.type != null) {
+      content = widget.layout;
+    }
 
     TWidgetProps tWidgetProps;
     if (content.type != null) {

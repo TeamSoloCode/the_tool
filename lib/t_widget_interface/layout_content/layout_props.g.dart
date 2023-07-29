@@ -182,6 +182,9 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       children: (json['children'] as List<dynamic>?)
           ?.map((e) => LayoutProps.fromJson(e as Map<String, dynamic>))
           .toList(),
+      actions: (json['actions'] as List<dynamic>?)
+          ?.map((e) => LayoutProps.fromJson(e as Map<String, dynamic>))
+          .toList(),
       bottomNav: json['bottomNav'] == null
           ? null
           : BottomNavigationProps.fromJson(
@@ -333,6 +336,7 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'content': instance.content?.toJson(),
       'itemLayout': instance.itemLayout?.toJson(),
       'children': instance.children?.map((e) => e.toJson()).toList(),
+      'actions': instance.actions?.map((e) => e.toJson()).toList(),
       'bottomNav': instance.bottomNav?.toJson(),
       'appBar': instance.appBar?.toJson(),
       'image': instance.image?.toJson(),

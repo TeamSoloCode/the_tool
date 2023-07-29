@@ -136,6 +136,9 @@ extension MergeLayoutProps on LayoutProps {
       children: other.children == null
           ? children
           : _mergeChildren(other.children!, children),
+      actions: other.actions == null
+          ? actions
+          : _mergeChildren(other.actions!, actions),
       bottomNav: other.bottomNav ?? bottomNav,
       obscureText: other.obscureText ?? obscureText,
       appBar: other.appBar ?? appBar,

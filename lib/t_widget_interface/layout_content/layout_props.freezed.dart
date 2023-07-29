@@ -214,6 +214,9 @@ mixin _$LayoutProps {
 
   /// ignored-compute
   List<LayoutProps>? get children => throw _privateConstructorUsedError;
+
+  /// ignored-compute
+  List<LayoutProps>? get actions => throw _privateConstructorUsedError;
   BottomNavigationProps? get bottomNav => throw _privateConstructorUsedError;
   AppBarProps? get appBar => throw _privateConstructorUsedError;
   ImageProviderProps? get image => throw _privateConstructorUsedError;
@@ -354,6 +357,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       LayoutProps? content,
       LayoutProps? itemLayout,
       List<LayoutProps>? children,
+      List<LayoutProps>? actions,
       BottomNavigationProps? bottomNav,
       AppBarProps? appBar,
       ImageProviderProps? image,
@@ -522,6 +526,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? content = freezed,
     Object? itemLayout = freezed,
     Object? children = freezed,
+    Object? actions = freezed,
     Object? bottomNav = freezed,
     Object? appBar = freezed,
     Object? image = freezed,
@@ -1004,6 +1009,10 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.children
           : children // ignore: cast_nullable_to_non_nullable
               as List<LayoutProps>?,
+      actions: freezed == actions
+          ? _value.actions
+          : actions // ignore: cast_nullable_to_non_nullable
+              as List<LayoutProps>?,
       bottomNav: freezed == bottomNav
           ? _value.bottomNav
           : bottomNav // ignore: cast_nullable_to_non_nullable
@@ -1479,6 +1488,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       LayoutProps? content,
       LayoutProps? itemLayout,
       List<LayoutProps>? children,
+      List<LayoutProps>? actions,
       BottomNavigationProps? bottomNav,
       AppBarProps? appBar,
       ImageProviderProps? image,
@@ -1671,6 +1681,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? content = freezed,
     Object? itemLayout = freezed,
     Object? children = freezed,
+    Object? actions = freezed,
     Object? bottomNav = freezed,
     Object? appBar = freezed,
     Object? image = freezed,
@@ -2153,6 +2164,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value._children
           : children // ignore: cast_nullable_to_non_nullable
               as List<LayoutProps>?,
+      actions: freezed == actions
+          ? _value._actions
+          : actions // ignore: cast_nullable_to_non_nullable
+              as List<LayoutProps>?,
       bottomNav: freezed == bottomNav
           ? _value.bottomNav
           : bottomNav // ignore: cast_nullable_to_non_nullable
@@ -2311,6 +2326,7 @@ class _$_LayoutProps implements _LayoutProps {
       this.content,
       this.itemLayout,
       final List<LayoutProps>? children,
+      final List<LayoutProps>? actions,
       this.bottomNav,
       this.appBar,
       this.image,
@@ -2329,7 +2345,8 @@ class _$_LayoutProps implements _LayoutProps {
         _validateOrder = validateOrder,
         _columns = columns,
         _rows = rows,
-        _children = children;
+        _children = children,
+        _actions = actions;
 
   factory _$_LayoutProps.fromJson(Map<String, dynamic> json) =>
       _$$_LayoutPropsFromJson(json);
@@ -2748,6 +2765,19 @@ class _$_LayoutProps implements _LayoutProps {
     return EqualUnmodifiableListView(value);
   }
 
+  /// ignored-compute
+  final List<LayoutProps>? _actions;
+
+  /// ignored-compute
+  @override
+  List<LayoutProps>? get actions {
+    final value = _actions;
+    if (value == null) return null;
+    if (_actions is EqualUnmodifiableListView) return _actions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final BottomNavigationProps? bottomNav;
   @override
@@ -2899,6 +2929,7 @@ abstract class _LayoutProps implements LayoutProps {
       final LayoutProps? content,
       final LayoutProps? itemLayout,
       final List<LayoutProps>? children,
+      final List<LayoutProps>? actions,
       final BottomNavigationProps? bottomNav,
       final AppBarProps? appBar,
       final ImageProviderProps? image,
@@ -3209,6 +3240,10 @@ abstract class _LayoutProps implements LayoutProps {
 
   /// ignored-compute
   List<LayoutProps>? get children;
+  @override
+
+  /// ignored-compute
+  List<LayoutProps>? get actions;
   @override
   BottomNavigationProps? get bottomNav;
   @override

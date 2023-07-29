@@ -226,6 +226,9 @@ class LayoutProps with _$LayoutProps {
 
     /// ignored-compute
     List<LayoutProps>? children,
+
+    /// ignored-compute
+    List<LayoutProps>? actions,
     BottomNavigationProps? bottomNav,
     AppBarProps? appBar,
     ImageProviderProps? image,

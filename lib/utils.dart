@@ -136,7 +136,7 @@ class UtilsManager {
     return computedValue;
   }
 
-  static isTruthy(dynamic data) =>
+  static bool isTruthy(dynamic data) =>
       !["", "false", "null", "0", "undefined", null, false].contains(data);
 
   /// Convert deep nestest Map<dynamic, dynamic> to Map<String, dynamic>
@@ -191,6 +191,8 @@ class UtilsManager {
           value,
           contextData,
         );
+
+        // FIXME: run too much
       }
     });
 

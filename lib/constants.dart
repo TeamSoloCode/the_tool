@@ -24,4 +24,5 @@ Map<String, bool> ignoredComputeProps = {
   "children": true,
   "componentProps": true,
   "computedComponentProps": true,
+  "actions": true,
 };
