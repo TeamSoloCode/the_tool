@@ -46,7 +46,17 @@ class _TMultiSelectFieldState extends TStatefulWidget<TMultiSelectField>
     return FormBuilderField(
       name: name!,
       // key: _dropdownSearchKey,
-      builder: _multiSelect,
+      builder: (FormFieldState<Object> field) {
+        return InputDecorator( decoration: computeFieldDecoration(
+          widgetProps,
+          thisWidget: widget,
+
+          errorMessage: field.errorText ?? _errorMessage,
+
+        ),
+        child: _multiSelect(widgetProps!, field));
+      },
+
       enabled: widgetProps?.enabled ?? true,
       onChanged: _onChangeOption,
       initialValue: widget.props?.defaultValue ?? value,
@@ -65,20 +75,62 @@ class _TMultiSelectFieldState extends TStatefulWidget<TMultiSelectField>
   }
 
 
-   Widget _multiSelect(FormFieldState<Object> field)  {
+   Widget _multiSelect(LayoutProps props,FormFieldState<Object> field)  {
      _field = field;
-     return DropdownSearch<String>.multiSelection(
-       items: _listItems,
+      List<dynamic> items = [];
+      if(props.items == null || (props.items as List).isEmpty) {
+        items = [];
+      } else {
+        if(  props.items[0] is! List ) {
+          items = List.from(props.items ?? []).cast<String>();
+        } else {
+          items = List.from(props.items ?? []).cast<List>();
+        }
+      }
+
+     return DropdownSearch<dynamic>.multiSelection(
+       asyncItems: (values) {
+         return getData(values,items);
+       },
+
+       itemAsString: (item) {
+         if(item is! List) {
+           return item;
+         }
+         if(item.length < 2) {
+           throw Exception ('If option is a list , It must have at least 2 items');
+         }
+         return item[1];
+       },
+
+
        key: _dropdownSearchKey,
-       popupProps: PopupPropsMultiSelection.menu(
-         showSelectedItems: true,
-         disabledItemFn: (String s) => s.startsWith('I'),
-       ),
-       onChanged: (List<String> value) {
+       // popupProps: PopupPropsMultiSelection.menu(
+       //   showSelectedItems: true,
+       //
+       // ),
+
+       onChanged: (List<dynamic>? value) {
          field.didChange(value);
        },
+       // on: (List<String>? values) {
+       //   String name = widget.widgetProps.name ?? "";
+       //   widget.setPageData({name: values});
+       //
+       //   final onResponse = widget.widgetProps.onChange;
+       //   if (onResponse != null) {
+       //     final responseData = values;
+       //     widget.executeJSWithPagePath(onResponse, (responseData ?? []).cast<String>());
+       //   }
+       // },
      );
    }
+
+  Future<List<dynamic>> getData(_,List<dynamic> items) async {
+
+
+    return items ;
+  }
 
    Widget _singleSelect(FormFieldState<Object> field) {
      _field = field;
@@ -95,8 +147,9 @@ class _TMultiSelectFieldState extends TStatefulWidget<TMultiSelectField>
    }
   @override
   void didChangeDependencies() {
+    // var itemDelected - widget.widgetProps.on
     String? name = widget.widgetProps.name;
-    List<dynamic> listItems = widget.widgetProps.items;
+    // var listItems = widget.widgetProps.items;
     dynamic currentValue = _dropdownSearchKey.currentState?.getSelectedItems;
 
     List<dynamic> listDataFromServer = widget.getContexData()[name];
@@ -105,12 +158,6 @@ class _TMultiSelectFieldState extends TStatefulWidget<TMultiSelectField>
     _selectedValues = listDataFromServer.cast<String>();
     if (_selectedValues != currentValue && name != null) {
       Future.delayed(Duration.zero, () async {
-
-        // Set danh sách data cho multi select field
-        _dropdownSearchKey.currentState?.setState(() {
-          _listItems = listItems.cast<String>();
-        });
-
         /**
          * nếu selectedValues là List<dyanmic> thì hàm dưới này sẽ không chạy được
          */
@@ -152,6 +199,7 @@ class _TMultiSelectFieldState extends TStatefulWidget<TMultiSelectField>
     LayoutProps? props = widget.props;
 
     if (props != null) {
+      var test = props.items;
       widget.snapshot = _computeMultiSelectField(props, widget.getContexData());
     }
     return widget.snapshot;
