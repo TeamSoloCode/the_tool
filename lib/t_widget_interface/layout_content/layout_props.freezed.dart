@@ -210,7 +210,9 @@ mixin _$LayoutProps {
   LayoutProps? get content => throw _privateConstructorUsedError;
 
   /// ignored-compute
-  LayoutProps? get itemLayout => throw _privateConstructorUsedError;
+  LayoutProps? get itemLayout =>
+      throw _privateConstructorUsedError; // multi_selected_field
+  bool? get isMultiSelectedField => throw _privateConstructorUsedError;
 
   /// ignored-compute
   List<LayoutProps>? get children => throw _privateConstructorUsedError;
@@ -355,6 +357,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       LayoutProps? child,
       LayoutProps? content,
       LayoutProps? itemLayout,
+      bool? isMultiSelectedField,
       List<LayoutProps>? children,
       List<LayoutProps>? actions,
       BottomNavigationProps? bottomNav,
@@ -522,6 +525,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? child = freezed,
     Object? content = freezed,
     Object? itemLayout = freezed,
+    Object? isMultiSelectedField = freezed,
     Object? children = freezed,
     Object? actions = freezed,
     Object? bottomNav = freezed,
@@ -1001,6 +1005,10 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.itemLayout
           : itemLayout // ignore: cast_nullable_to_non_nullable
               as LayoutProps?,
+      isMultiSelectedField: freezed == isMultiSelectedField
+          ? _value.isMultiSelectedField
+          : isMultiSelectedField // ignore: cast_nullable_to_non_nullable
+              as bool?,
       children: freezed == children
           ? _value.children
           : children // ignore: cast_nullable_to_non_nullable
@@ -1467,6 +1475,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       LayoutProps? child,
       LayoutProps? content,
       LayoutProps? itemLayout,
+      bool? isMultiSelectedField,
       List<LayoutProps>? children,
       List<LayoutProps>? actions,
       BottomNavigationProps? bottomNav,
@@ -1657,6 +1666,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? child = freezed,
     Object? content = freezed,
     Object? itemLayout = freezed,
+    Object? isMultiSelectedField = freezed,
     Object? children = freezed,
     Object? actions = freezed,
     Object? bottomNav = freezed,
@@ -2136,6 +2146,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value.itemLayout
           : itemLayout // ignore: cast_nullable_to_non_nullable
               as LayoutProps?,
+      isMultiSelectedField: freezed == isMultiSelectedField
+          ? _value.isMultiSelectedField
+          : isMultiSelectedField // ignore: cast_nullable_to_non_nullable
+              as bool?,
       children: freezed == children
           ? _value._children
           : children // ignore: cast_nullable_to_non_nullable
@@ -2297,6 +2311,7 @@ class _$_LayoutProps implements _LayoutProps {
       this.child,
       this.content,
       this.itemLayout,
+      this.isMultiSelectedField,
       final List<LayoutProps>? children,
       final List<LayoutProps>? actions,
       this.bottomNav,
@@ -2722,6 +2737,9 @@ class _$_LayoutProps implements _LayoutProps {
   /// ignored-compute
   @override
   final LayoutProps? itemLayout;
+// multi_selected_field
+  @override
+  final bool? isMultiSelectedField;
 
   /// ignored-compute
   final List<LayoutProps>? _children;
@@ -2897,6 +2915,7 @@ abstract class _LayoutProps implements LayoutProps {
       final LayoutProps? child,
       final LayoutProps? content,
       final LayoutProps? itemLayout,
+      final bool? isMultiSelectedField,
       final List<LayoutProps>? children,
       final List<LayoutProps>? actions,
       final BottomNavigationProps? bottomNav,
@@ -3204,6 +3223,8 @@ abstract class _LayoutProps implements LayoutProps {
 
   /// ignored-compute
   LayoutProps? get itemLayout;
+  @override // multi_selected_field
+  bool? get isMultiSelectedField;
   @override
 
   /// ignored-compute

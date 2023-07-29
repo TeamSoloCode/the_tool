@@ -179,6 +179,7 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       itemLayout: json['itemLayout'] == null
           ? null
           : LayoutProps.fromJson(json['itemLayout'] as Map<String, dynamic>),
+      isMultiSelectedField: json['isMultiSelectedField'] as bool?,
       children: (json['children'] as List<dynamic>?)
           ?.map((e) => LayoutProps.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -332,6 +333,7 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'child': instance.child?.toJson(),
       'content': instance.content?.toJson(),
       'itemLayout': instance.itemLayout?.toJson(),
+      'isMultiSelectedField': instance.isMultiSelectedField,
       'children': instance.children?.map((e) => e.toJson()).toList(),
       'actions': instance.actions?.map((e) => e.toJson()).toList(),
       'bottomNav': instance.bottomNav?.toJson(),
