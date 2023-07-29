@@ -1,21 +1,20 @@
 library t_appbar;
 
 import 'package:flutter/material.dart';
-import 'package:the_tool/t_widget_interface/app_bar_props/app_bar_props.dart';
+import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
-import 'package:gato/gato.dart' as gato;
 
 PreferredSizeWidget? computeAppBar(
   String pageId,
-  AppBarProps? appBarConfig,
+  LayoutProps? appBarConfig,
 ) {
   if (appBarConfig == null) {
     return null;
   }
 
-  if (appBarConfig.content != null) {
+  if (appBarConfig.title != null) {
     Widget title = TWidgets(
-      layout: appBarConfig.content!,
+      layout: appBarConfig.title!,
       pagePath: pageId,
       childData: const {},
     );
@@ -28,6 +27,11 @@ PreferredSizeWidget? computeAppBar(
 
     return AppBar(
       title: title,
+      centerTitle: false,
+      leading: IconButton(
+        onPressed: () {},
+        icon: const Icon(Icons.menu),
+      ),
       actions: [
         IconButton(
           onPressed: () {},
@@ -37,13 +41,13 @@ PreferredSizeWidget? computeAppBar(
     );
   }
 
-  var customContent = gato.get(appBarConfig, "custom");
-  return PreferredSize(
-    preferredSize: Size.fromHeight(gato.get(customContent, "height") ?? 120),
-    child: TWidgets(
-      layout: customContent,
-      pagePath: pageId,
-      childData: const {},
-    ),
-  );
+  // var customContent = appBarConfig.title;
+  // return PreferredSize(
+  //   preferredSize: Size.fromHeight(customContent?.height ?? 120),
+  //   child: TWidgets(
+  //     layout: customContent!,
+  //     pagePath: pageId,
+  //     childData: const {},
+  //   ),
+  // );
 }

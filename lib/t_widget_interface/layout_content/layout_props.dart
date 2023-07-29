@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:the_tool/t_widget_interface/app_bar_props/app_bar_props.dart';
 import 'package:the_tool/t_widget_interface/bottom_navigation_props/bottom_navigation_props.dart';
 import 'package:the_tool/t_widget_interface/box_decoration_props/border_props/border_props.dart';
 import 'package:the_tool/t_widget_interface/shape_border_props/shape_border_props.dart';
@@ -230,7 +229,6 @@ class LayoutProps with _$LayoutProps {
     /// ignored-compute
     List<LayoutProps>? actions,
     BottomNavigationProps? bottomNav,
-    AppBarProps? appBar,
     ImageProviderProps? image,
     BorderProps? boxBorder,
     BorderRadiusProps? borderRadius,

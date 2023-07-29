@@ -218,7 +218,6 @@ mixin _$LayoutProps {
   /// ignored-compute
   List<LayoutProps>? get actions => throw _privateConstructorUsedError;
   BottomNavigationProps? get bottomNav => throw _privateConstructorUsedError;
-  AppBarProps? get appBar => throw _privateConstructorUsedError;
   ImageProviderProps? get image => throw _privateConstructorUsedError;
   BorderProps? get boxBorder => throw _privateConstructorUsedError;
   BorderRadiusProps? get borderRadius => throw _privateConstructorUsedError;
@@ -359,7 +358,6 @@ abstract class $LayoutPropsCopyWith<$Res> {
       List<LayoutProps>? children,
       List<LayoutProps>? actions,
       BottomNavigationProps? bottomNav,
-      AppBarProps? appBar,
       ImageProviderProps? image,
       BorderProps? boxBorder,
       BorderRadiusProps? borderRadius,
@@ -386,7 +384,6 @@ abstract class $LayoutPropsCopyWith<$Res> {
   $LayoutPropsCopyWith<$Res>? get content;
   $LayoutPropsCopyWith<$Res>? get itemLayout;
   $BottomNavigationPropsCopyWith<$Res>? get bottomNav;
-  $AppBarPropsCopyWith<$Res>? get appBar;
   $ImageProviderPropsCopyWith<$Res>? get image;
   $BorderPropsCopyWith<$Res>? get boxBorder;
   $BorderRadiusPropsCopyWith<$Res>? get borderRadius;
@@ -528,7 +525,6 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? children = freezed,
     Object? actions = freezed,
     Object? bottomNav = freezed,
-    Object? appBar = freezed,
     Object? image = freezed,
     Object? boxBorder = freezed,
     Object? borderRadius = freezed,
@@ -1017,10 +1013,6 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.bottomNav
           : bottomNav // ignore: cast_nullable_to_non_nullable
               as BottomNavigationProps?,
-      appBar: freezed == appBar
-          ? _value.appBar
-          : appBar // ignore: cast_nullable_to_non_nullable
-              as AppBarProps?,
       image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -1278,18 +1270,6 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
 
   @override
   @pragma('vm:prefer-inline')
-  $AppBarPropsCopyWith<$Res>? get appBar {
-    if (_value.appBar == null) {
-      return null;
-    }
-
-    return $AppBarPropsCopyWith<$Res>(_value.appBar!, (value) {
-      return _then(_value.copyWith(appBar: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
   $ImageProviderPropsCopyWith<$Res>? get image {
     if (_value.image == null) {
       return null;
@@ -1490,7 +1470,6 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       List<LayoutProps>? children,
       List<LayoutProps>? actions,
       BottomNavigationProps? bottomNav,
-      AppBarProps? appBar,
       ImageProviderProps? image,
       BorderProps? boxBorder,
       BorderRadiusProps? borderRadius,
@@ -1536,8 +1515,6 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
   $LayoutPropsCopyWith<$Res>? get itemLayout;
   @override
   $BottomNavigationPropsCopyWith<$Res>? get bottomNav;
-  @override
-  $AppBarPropsCopyWith<$Res>? get appBar;
   @override
   $ImageProviderPropsCopyWith<$Res>? get image;
   @override
@@ -1683,7 +1660,6 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? children = freezed,
     Object? actions = freezed,
     Object? bottomNav = freezed,
-    Object? appBar = freezed,
     Object? image = freezed,
     Object? boxBorder = freezed,
     Object? borderRadius = freezed,
@@ -2172,10 +2148,6 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value.bottomNav
           : bottomNav // ignore: cast_nullable_to_non_nullable
               as BottomNavigationProps?,
-      appBar: freezed == appBar
-          ? _value.appBar
-          : appBar // ignore: cast_nullable_to_non_nullable
-              as AppBarProps?,
       image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -2328,7 +2300,6 @@ class _$_LayoutProps implements _LayoutProps {
       final List<LayoutProps>? children,
       final List<LayoutProps>? actions,
       this.bottomNav,
-      this.appBar,
       this.image,
       this.boxBorder,
       this.borderRadius,
@@ -2781,8 +2752,6 @@ class _$_LayoutProps implements _LayoutProps {
   @override
   final BottomNavigationProps? bottomNav;
   @override
-  final AppBarProps? appBar;
-  @override
   final ImageProviderProps? image;
   @override
   final BorderProps? boxBorder;
@@ -2931,7 +2900,6 @@ abstract class _LayoutProps implements LayoutProps {
       final List<LayoutProps>? children,
       final List<LayoutProps>? actions,
       final BottomNavigationProps? bottomNav,
-      final AppBarProps? appBar,
       final ImageProviderProps? image,
       final BorderProps? boxBorder,
       final BorderRadiusProps? borderRadius,
@@ -3246,8 +3214,6 @@ abstract class _LayoutProps implements LayoutProps {
   List<LayoutProps>? get actions;
   @override
   BottomNavigationProps? get bottomNav;
-  @override
-  AppBarProps? get appBar;
   @override
   ImageProviderProps? get image;
   @override

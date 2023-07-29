@@ -80,12 +80,6 @@ class _TWidgetsState extends State<TWidgets> {
   Widget? tWidgets;
   String widgetUuid = UniqueKey().toString();
 
-  @override
-  void dispose() {
-    // getIt<PageContextProvider>().unregisterTWidgetsProps(widgetUuid);
-    super.dispose();
-  }
-
   Future<Widget> _computeTWidgets(
     LayoutProps content,
     TWidgetProps tWidgetProps,

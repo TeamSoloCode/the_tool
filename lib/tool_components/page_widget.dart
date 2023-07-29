@@ -44,6 +44,7 @@ final updateThemeDataToJSDebouncer = Debouncer(
 class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
   LayoutProps? _pageLayout;
   bool _isReadyToRun = false;
+  LayoutProps? _appBarLayout;
 
   late String _pageId;
   final Map<String, String> _pageIdMap = {};
@@ -86,7 +87,7 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
     await _startLoadingData();
     List<Future<dynamic>> futures = [];
 
-    if (_pageLayout?.appBar != null) {
+    if (_appBarLayout != null) {
       futures.add(t_appbar.loadLibrary());
     }
     if (_pageLayout?.bottomNav != null) {
@@ -196,6 +197,10 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
 
     var layout = pageInfo["layout"];
 
+    if (layout["appBar"] != null) {
+      _appBarLayout = LayoutProps.fromJson(layout["appBar"]);
+    }
+
     _pageLayout = LayoutProps.fromJson(layout);
 
     if (_pageLayout?.components != null) {
@@ -290,9 +295,9 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
   }
 
   dynamic _getAppBar(Map<String, dynamic> contextData) {
-    if (_pageLayout?.appBar == null) {
+    if (_appBarLayout == null) {
       return null;
     }
-    return t_appbar.computeAppBar(_pageId, _pageLayout?.appBar);
+    return t_appbar.computeAppBar(_pageId, _appBarLayout);
   }
 }
