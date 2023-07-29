@@ -66,7 +66,7 @@ mixin _$LayoutProps {
   dynamic get enabled => throw _privateConstructorUsedError;
   int? get duration => throw _privateConstructorUsedError;
   dynamic get show => throw _privateConstructorUsedError;
-  bool? get safeArea => throw _privateConstructorUsedError;
+  bool? get isSafeArea => throw _privateConstructorUsedError;
   /**
      * 
      */
@@ -280,7 +280,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       dynamic enabled,
       int? duration,
       dynamic show,
-      bool? safeArea,
+      bool? isSafeArea,
       String? sliverListType,
       double? itemExtent,
       Map<String, dynamic>? componentProps,
@@ -448,7 +448,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? enabled = freezed,
     Object? duration = freezed,
     Object? show = freezed,
-    Object? safeArea = freezed,
+    Object? isSafeArea = freezed,
     Object? sliverListType = freezed,
     Object? itemExtent = freezed,
     Object? componentProps = freezed,
@@ -708,9 +708,9 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.show
           : show // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      safeArea: freezed == safeArea
-          ? _value.safeArea
-          : safeArea // ignore: cast_nullable_to_non_nullable
+      isSafeArea: freezed == isSafeArea
+          ? _value.isSafeArea
+          : isSafeArea // ignore: cast_nullable_to_non_nullable
               as bool?,
       sliverListType: freezed == sliverListType
           ? _value.sliverListType
@@ -1405,7 +1405,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       dynamic enabled,
       int? duration,
       dynamic show,
-      bool? safeArea,
+      bool? isSafeArea,
       String? sliverListType,
       double? itemExtent,
       Map<String, dynamic>? componentProps,
@@ -1597,7 +1597,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? enabled = freezed,
     Object? duration = freezed,
     Object? show = freezed,
-    Object? safeArea = freezed,
+    Object? isSafeArea = freezed,
     Object? sliverListType = freezed,
     Object? itemExtent = freezed,
     Object? componentProps = freezed,
@@ -1857,9 +1857,9 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value.show
           : show // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      safeArea: freezed == safeArea
-          ? _value.safeArea
-          : safeArea // ignore: cast_nullable_to_non_nullable
+      isSafeArea: freezed == isSafeArea
+          ? _value.isSafeArea
+          : isSafeArea // ignore: cast_nullable_to_non_nullable
               as bool?,
       sliverListType: freezed == sliverListType
           ? _value.sliverListType
@@ -2237,7 +2237,7 @@ class _$_LayoutProps implements _LayoutProps {
       this.enabled,
       this.duration,
       this.show,
-      this.safeArea,
+      this.isSafeArea,
       this.sliverListType,
       this.itemExtent,
       final Map<String, dynamic>? componentProps,
@@ -2433,7 +2433,7 @@ class _$_LayoutProps implements _LayoutProps {
   @override
   final dynamic show;
   @override
-  final bool? safeArea;
+  final bool? isSafeArea;
 /**
      * 
      */
@@ -2825,7 +2825,7 @@ abstract class _LayoutProps implements LayoutProps {
       final dynamic enabled,
       final int? duration,
       final dynamic show,
-      final bool? safeArea,
+      final bool? isSafeArea,
       final String? sliverListType,
       final double? itemExtent,
       final Map<String, dynamic>? componentProps,
@@ -3002,7 +3002,7 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   dynamic get show;
   @override
-  bool? get safeArea;
+  bool? get isSafeArea;
   @override
   /**
      * 

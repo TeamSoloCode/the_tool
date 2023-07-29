@@ -68,7 +68,7 @@ class LayoutProps with _$LayoutProps {
     dynamic enabled,
     int? duration,
     dynamic show,
-    bool? safeArea,
+    bool? isSafeArea,
 
     /**
      * 

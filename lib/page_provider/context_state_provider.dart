@@ -14,7 +14,7 @@ class ContextStateProvider with ChangeNotifier {
   ClientConfig? _appConfig;
   Map<String, dynamic> initData;
 
-  final _notifyListenersDuration = const Duration(milliseconds: 16);
+  final _notifyListenersDuration = const Duration(milliseconds: 12);
   final notifyListenersController =
       StreamController<Map<String, dynamic>>(sync: true);
 

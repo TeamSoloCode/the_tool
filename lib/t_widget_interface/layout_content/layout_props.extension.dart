@@ -78,6 +78,7 @@ extension MergeLayoutProps on LayoutProps {
       trailing: other.trailing ?? trailing,
       subtitle: other.subtitle ?? subtitle,
       shadowColor: other.shadowColor ?? shadowColor,
+      isSafeArea: other.isSafeArea ?? isSafeArea,
 
       image: other.image ?? image,
 

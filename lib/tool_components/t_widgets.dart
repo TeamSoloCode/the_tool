@@ -212,7 +212,7 @@ class _TWidgetsState extends State<TWidgets> {
       tWidgets = _computeNotBuiltInWidget(childData, content);
     }
 
-    if (UtilsManager.isTruthy(content.safeArea)) {
+    if (UtilsManager.isTruthy(content.isSafeArea)) {
       return SafeArea(
         child: tWidgets!,
       );

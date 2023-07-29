@@ -33,17 +33,17 @@ class _TButtonState extends TStatefulWidget<TButton> {
       );
     } else if (buttonType == "text_button") {
       return TextButton(
+        onPressed: onClick,
         child: Text(
           text,
         ),
-        onPressed: onClick,
       );
     } else {
       return ElevatedButton(
+        onPressed: onClick,
         child: Text(
           text,
         ),
-        onPressed: onClick,
       );
     }
   }

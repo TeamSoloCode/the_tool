@@ -128,7 +128,7 @@ class _TBottomSheetState extends TStatefulWidget<TBottomSheet> {
       initHeight: height,
       maxHeight: maxHeight,
       minHeight: minHeight,
-      // isSafeArea:
+      // isSafeArea: UtilsManager.isTruthy(widgetProps.isSafeArea),
     );
 
     getIt<ContextStateProvider>().registerPopupWidgets(
