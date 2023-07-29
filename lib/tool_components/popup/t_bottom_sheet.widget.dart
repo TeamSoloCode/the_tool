@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:json_theme/json_theme.dart';
-import 'package:the_tool/page_utils/debouncer.dart';
 import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/page_utils/flexible_bottom_sheet.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
@@ -19,9 +18,6 @@ class TBottomSheet extends TWidget {
 class _TBottomSheetState extends TStatefulWidget<TBottomSheet> {
   var _built = false;
   var _showing = false;
-  final _debounceShowButtomSheet = Debouncer(
-    delay: const Duration(milliseconds: 100),
-  );
 
   @override
   void initState() {
@@ -52,7 +48,7 @@ class _TBottomSheetState extends TStatefulWidget<TBottomSheet> {
       var flexibleBottomSheet = getIt<ContextStateProvider>()
           .popupWidgets[eventName] as ShowFlexibleBottomSheet;
 
-      _debounceShowButtomSheet.run(() {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         final bottomSheet = flexibleBottomSheet.show();
         _onBottomSheetClosed(bottomSheet);
       });

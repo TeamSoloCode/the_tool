@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:the_tool/page_utils/debouncer.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
@@ -11,10 +10,6 @@ class TAlertDialog extends TStatelessWidget {
   TAlertDialog(TWidgetProps twidget) : super(twidget);
 
   bool _showing = false;
-
-  final _debounceShowDialog = Debouncer(
-    delay: const Duration(milliseconds: 100),
-  );
 
   Widget? _computeTWidgets(LayoutProps? widgetProps) {
     if (widgetProps == null) {
@@ -67,7 +62,7 @@ class TAlertDialog extends TStatelessWidget {
   }
 
   void _showAlerDialog(BuildContext context, LayoutProps widgetProps) {
-    _debounceShowDialog.run(() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       var alertDialog = showDialog(
         context: context,
         builder: (BuildContext context) {
