@@ -11,45 +11,24 @@ class TAlertDialog extends TStatelessWidget {
 
   bool _showing = false;
 
-  Widget? _computeTWidgets(LayoutProps? widgetProps) {
-    if (widgetProps == null) {
-      return null;
-    }
-
-    return TWidgets(
-      layout: widgetProps,
-      pagePath: pagePath,
-      childData: childData,
-    );
-  }
-
-  List<Widget>? _computeListTWidgets(List<LayoutProps>? widgetProps) {
-    if (widgetProps == null) {
-      return null;
-    }
-    var index = 0;
-
-    List<Widget> widgets = [];
-    for (var widgetProp in widgetProps) {
-      widgets.add(
-        TWidgets(
-          key: ValueKey(index++),
-          layout: widgetProp,
-          pagePath: pagePath,
-          childData: childData,
-        ),
-      );
-    }
-
-    return widgets;
-  }
-
   Widget _computeAlertDialog(BuildContext context, LayoutProps widgetProps) {
     return AlertDialog(
       key: getBindingKey(),
-      title: _computeTWidgets(widgetProps.title),
-      content: _computeTWidgets(widgetProps.content),
-      actions: _computeListTWidgets(widgetProps.actions),
+      title: UtilsManager.computeTWidgets(
+        widgetProps.title,
+        pagePath: pagePath,
+        childData: childData,
+      ),
+      content: UtilsManager.computeTWidgets(
+        widgetProps.content,
+        pagePath: pagePath,
+        childData: childData,
+      ),
+      actions: UtilsManager.computeListTWidgets(
+        widgetProps.actions,
+        pagePath: pagePath,
+        childData: childData,
+      ),
     );
   }
 

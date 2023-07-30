@@ -15,6 +15,7 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.extension.dart';
 import 'package:the_tool/t_widget_interface/media_screen_only/media_screen_only.dart';
 import 'package:the_tool/config/config.dart';
+import 'package:the_tool/tool_components/t_widgets.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -471,5 +472,46 @@ class UtilsManager {
     );
 
     return matchMediaScreen.style;
+  }
+
+  static List<Widget>? computeListTWidgets(
+    List<LayoutProps>? widgetProps, {
+    required String pagePath,
+    required Map<String, dynamic> childData,
+  }) {
+    if (widgetProps == null) {
+      return null;
+    }
+    var index = 0;
+
+    List<Widget> widgets = [];
+    for (var widgetProp in widgetProps) {
+      widgets.add(
+        TWidgets(
+          key: ValueKey(index++),
+          layout: widgetProp,
+          pagePath: pagePath,
+          childData: childData,
+        ),
+      );
+    }
+
+    return widgets;
+  }
+
+  static Widget? computeTWidgets(
+    LayoutProps? widgetProps, {
+    required String pagePath,
+    required Map<String, dynamic> childData,
+  }) {
+    if (widgetProps == null) {
+      return null;
+    }
+
+    return TWidgets(
+      layout: widgetProps,
+      pagePath: pagePath,
+      childData: childData,
+    );
   }
 }
