@@ -7,19 +7,18 @@ import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/utils.dart';
 import 'package:the_tool/twidget_props.dart';
 
-class T_SelectField extends TWidget {
-  T_SelectField(TWidgetProps twidget) : super(twidget);
+class TSelectField extends TWidget {
+  TSelectField(TWidgetProps twidget) : super(twidget);
 
   @override
-  State<T_SelectField> createState() => _T_SelectFieldState();
+  State<TSelectField> createState() => _TSelectFieldState();
 }
 
-class _T_SelectFieldState extends TStatefulWidget<T_SelectField>
-    with FieldMixin {
+class _TSelectFieldState extends TStatefulWidget<TSelectField> with FieldMixin {
   String? selectedValue;
   final _dropDownKey = GlobalKey<FormBuilderFieldState>();
   dynamic items;
-  String? _errorMessage = null;
+  String? _errorMessage;
 
   @override
   void initState() {
@@ -132,10 +131,8 @@ class _T_SelectFieldState extends TStatefulWidget<T_SelectField>
 
   @override
   Widget buildWidget(BuildContext context) {
-    LayoutProps? _props = widget.props;
-
-    if (_props != null) {
-      snapshot = _computeSelectField(_props, widget.getContexData());
+    if (widget.props != null) {
+      snapshot = _computeSelectField(widget.props, widget.getContexData());
     }
     return snapshot;
   }

@@ -109,7 +109,7 @@ class _TFieldsState extends TStatefulWidget<TFields> {
       case CurrencyFieldType:
         return field_text.TTextField(tWidgetProps);
       case "select":
-        return field_select.T_SelectField(tWidgetProps);
+        return field_select.TSelectField(tWidgetProps);
       case "datetime":
       case "date":
       case "time":

@@ -83,14 +83,15 @@ class ThemeProvider with ChangeNotifier {
           validate: false,
         );
 
-        AppBarTheme? defaultAppBarTheme = themeData.appBarTheme;
-        AppBarTheme? appBarTheme = ThemeDecoder.decodeAppBarTheme(
-          computedThemeMap["appBarTheme"],
-          validate: false,
-        );
+        // AppBarTheme? defaultAppBarTheme = themeData.appBarTheme;
+        // AppBarTheme? appBarTheme = ThemeDecoder.decodeAppBarTheme(
+        //   computedThemeMap["appBarTheme"],
+        //   validate: false,
+        // );
 
         InputDecorationTheme? defaultInputDecorationTheme =
             themeData.inputDecorationTheme;
+
         InputDecorationTheme? inputDecorationTheme =
             ThemeDecoder.decodeInputDecorationTheme(
           computedThemeMap["inputDecorationTheme"],
