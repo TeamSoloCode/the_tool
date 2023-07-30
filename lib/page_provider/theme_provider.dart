@@ -110,6 +110,21 @@ class ThemeProvider with ChangeNotifier {
           ),
           inputDecorationTheme:
               defaultInputDecorationTheme.merge(inputDecorationTheme),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ThemeDecoder.decodeButtonStyle(
+              computedThemeMap["elevatedButtonTheme"],
+            ),
+          ),
+          textButtonTheme: TextButtonThemeData(
+            style: ThemeDecoder.decodeButtonStyle(
+              computedThemeMap["textButtonTheme"],
+            ),
+          ),
+          iconButtonTheme: IconButtonThemeData(
+            style: ThemeDecoder.decodeButtonStyle(
+              computedThemeMap["iconButtonTheme"],
+            ),
+          ),
           // colorScheme: ColorScheme.fromSwatch(
           //   primarySwatch: MaterialColor(
           //     ThemeDecoder.decodeColor(

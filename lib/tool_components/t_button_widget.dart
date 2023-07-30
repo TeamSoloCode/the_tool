@@ -24,16 +24,21 @@ class _TButtonState extends TStatefulWidget<TButton> {
       }
     }
 
+    ButtonStyle? buttonStyle =
+        ThemeDecoder.decodeButtonStyle(widgetProps.style);
+
     if (buttonType == "icon_button") {
       return IconButton(
         color: ThemeDecoder.decodeColor(widget.props?.color),
         icon: Icon(MdiIcons.fromString(widgetProps.icon ?? "")),
+        style: buttonStyle,
         iconSize: widgetProps.iconSize,
         onPressed: onClick,
       );
     } else if (buttonType == "text_button") {
       return TextButton(
         onPressed: onClick,
+        style: buttonStyle,
         child: Text(
           text,
         ),
@@ -41,6 +46,7 @@ class _TButtonState extends TStatefulWidget<TButton> {
     } else {
       return ElevatedButton(
         onPressed: onClick,
+        style: buttonStyle,
         child: Text(
           text,
         ),
@@ -50,10 +56,8 @@ class _TButtonState extends TStatefulWidget<TButton> {
 
   @override
   Widget buildWidget(BuildContext context) {
-    LayoutProps? _props = widget.props;
-
-    if (_props != null) {
-      snapshot = _computeButton(_props);
+    if (widget.props != null) {
+      snapshot = _computeButton(widget.props!);
     }
 
     return snapshot;
