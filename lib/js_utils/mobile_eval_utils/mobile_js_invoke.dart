@@ -15,7 +15,6 @@ import 'package:the_tool/page_utils/permission_manager.dart';
 import 'package:the_tool/page_utils/storage_manager.dart';
 import 'package:the_tool/page_provider/theme_provider.dart';
 import 'package:the_tool/utils.dart';
-import 'package:eventify/eventify.dart' as eventify;
 
 external JavaScriptHandler updateState;
 
