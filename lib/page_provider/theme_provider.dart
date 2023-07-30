@@ -104,12 +104,12 @@ class ThemeProvider with ChangeNotifier {
           scaffoldBackgroundColor: ThemeDecoder.decodeColor(
             computedThemeMap["scaffoldBackgroundColor"],
           ),
-          appBarTheme: defaultAppBarTheme.copyWith(
-            backgroundColor: appBarTheme?.backgroundColor,
-            shape: appBarTheme?.shape,
+          appBarTheme: ThemeDecoder.decodeAppBarTheme(
+            computedThemeMap["appBarTheme"],
           ),
-          inputDecorationTheme:
-              defaultInputDecorationTheme.merge(inputDecorationTheme),
+          inputDecorationTheme: defaultInputDecorationTheme.merge(
+            inputDecorationTheme,
+          ),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ThemeDecoder.decodeButtonStyle(
               computedThemeMap["elevatedButtonTheme"],
@@ -125,6 +125,7 @@ class ThemeProvider with ChangeNotifier {
               computedThemeMap["iconButtonTheme"],
             ),
           ),
+
           // colorScheme: ColorScheme.fromSwatch(
           //   primarySwatch: MaterialColor(
           //     ThemeDecoder.decodeColor(
