@@ -17,14 +17,14 @@ class TMultiSelectField extends TWidget {
 class _TMultiSelectFieldState extends TStatefulWidget<TMultiSelectField>
     with FieldMixin {
   String? _errorMessage;
-  List<String> _selectedValues = [];
-  List<String> _listItems = [];
+  List _selectedValues = [];
+  // List _listItems = [];
 
-  final _dropdownSearchKey = GlobalKey<DropdownSearchState<String>>();
+  final _dropdownSearchKey = GlobalKey<DropdownSearchState>();
 
   @override
   void initState() {
-    _listItems = [];
+    // _listItems = [];
     _selectedValues = [];
     super.initState();
   }

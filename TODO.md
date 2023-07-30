@@ -4,6 +4,7 @@ FIXME: Use UniqueKey object replace for uuid and unix milisecond
 
 SUPPORT: snackbar
 SUPPORT: ScaffoldMessenger
+SUPPORT: make main function run with mock input for integration test
 
 SUPPORT: value binding for validate order in form
 
