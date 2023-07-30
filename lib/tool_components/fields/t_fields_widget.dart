@@ -16,10 +16,10 @@ import 'package:the_tool/tool_components/fields/t_text_field_widget.dart'
 import 'package:the_tool/tool_components/fields/t_checkbox_field.dart'
     deferred as field_checkbox;
 
-import 'package:the_tool/tool_components/fields/t_multiple_select.field.dart' deferred as field_multi_select;
+import 'package:the_tool/tool_components/fields/t_multiple_select.field.dart'
+    deferred as field_multi_select;
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/twidget_props.dart';
-
 
 class TFields extends TWidget {
   TFields(TWidgetProps twidget) : super(twidget);
@@ -133,10 +133,10 @@ class _TFieldsState extends TStatefulWidget<TFields> {
       LayoutProps? _props = widget.props;
 
       if (_props != null) {
-        widget.snapshot = _computeFields(_props, context);
+        snapshot = _computeFields(_props, context);
       }
 
-      return widget.snapshot;
+      return snapshot;
     }
     return const Offstage();
   }

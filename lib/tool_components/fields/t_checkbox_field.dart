@@ -102,9 +102,9 @@ class _TCheckboxState extends TStatefulWidget<TCheckbox> with FieldMixin {
     LayoutProps? _props = widget.props;
 
     if (_props != null) {
-      widget.snapshot = _computeCheckboxField(_props, widget.getContexData());
+      snapshot = _computeCheckboxField(_props, widget.getContexData());
     }
-    return widget.snapshot;
+    return snapshot;
   }
 }
 

@@ -30,7 +30,7 @@ class _TGridState extends TStatefulWidget<TGrid> {
 
     if (_props != null) {
       _items = _computeChildren(_props.children);
-      widget.snapshot = GridView.builder(
+      snapshot = GridView.builder(
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: MediaQuery.of(context).size.width,
           mainAxisExtent: 200,
@@ -42,6 +42,6 @@ class _TGridState extends TStatefulWidget<TGrid> {
       );
     }
 
-    return widget.snapshot;
+    return snapshot;
   }
 }

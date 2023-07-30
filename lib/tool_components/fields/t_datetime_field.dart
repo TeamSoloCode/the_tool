@@ -216,8 +216,8 @@ class _TDatetimeState extends TStatefulWidget<TDatetimeField> with FieldMixin {
     LayoutProps? _props = widget.props;
 
     if (_props != null) {
-      widget.snapshot = _computeDatetimeField(_props, widget.getContexData());
+      snapshot = _computeDatetimeField(_props, widget.getContexData());
     }
-    return widget.snapshot;
+    return snapshot;
   }
 }

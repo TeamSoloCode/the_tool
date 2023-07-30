@@ -34,7 +34,7 @@ class _TDrawerState extends TStatefulWidget<TDrawer> {
     );
 
     if (_props != null) {
-      widget.snapshot = Drawer(
+      snapshot = Drawer(
         width: drawerWidth,
         child: FutureBuilder<Widget>(
           builder: (context, snapshot) {
@@ -47,6 +47,6 @@ class _TDrawerState extends TStatefulWidget<TDrawer> {
         ),
       );
     }
-    return widget.snapshot;
+    return snapshot;
   }
 }

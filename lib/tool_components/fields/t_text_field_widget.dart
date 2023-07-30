@@ -3,10 +3,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart'
-    show FormBuilderTextField;
-import 'package:form_builder_validators/form_builder_validators.dart'
-    show FormBuilderValidators;
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:the_tool/constants.dart';
 import 'package:the_tool/page_utils/debouncer.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
@@ -30,6 +28,7 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
   String? _errorMessage;
   bool _isUserTying = false;
   late Future<bool> _loadNecessaryBundle;
+  final _fieldKey = GlobalKey<FormBuilderFieldState>();
 
   final Debouncer _textChangedDebouncer =
       Debouncer(delay: const Duration(milliseconds: 500));
@@ -223,6 +222,7 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
 
         return FormBuilderTextField(
           controller: textFieldController,
+          key: _fieldKey,
           name: name ?? "",
           inputFormatters: _computeInputFormatters(computedProps),
           maxLines: computedProps?.maxLines ?? 1,
@@ -282,9 +282,9 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
     LayoutProps? props = widget.props;
 
     if (props != null) {
-      widget.snapshot = _computeTextField(props, widget.getContexData());
+      snapshot = _computeTextField(props, widget.getContexData());
     }
 
-    return widget.snapshot;
+    return snapshot;
   }
 }

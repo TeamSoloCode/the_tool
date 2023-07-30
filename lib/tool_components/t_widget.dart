@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:the_tool/page_provider/resize_provider.dart';
@@ -24,6 +22,7 @@ mixin BaseStateWidget on Widget {
   final contextStateProvider = getIt<ContextStateProvider>();
   final themeProvider = getIt<ThemeProvider>();
   late final String widgetUuid;
+  final Set<String> widgetBindingStrings = {};
 
   T_DrawerProps? drawerProps;
   T_LayoutBuilderProps? layoutBuilder;
@@ -31,9 +30,7 @@ mixin BaseStateWidget on Widget {
   LayoutProps? prevProps;
   LayoutProps? appliedMediaScreen;
   LayoutProps? prevSelectedMediaScreen;
-  Widget snapshot = const Offstage();
   Map<String, dynamic> _contextData = {};
-  final Set<String> widgetBindingStrings = {};
   List<dynamic>? _prevBindingValues;
   var hasBindingValue = false;
   var hasThemeBindingValue = false;
@@ -274,6 +271,7 @@ abstract class TStatefulWidget<Page extends TWidget> extends State<Page>
     with AutomaticKeepAliveClientMixin {
   Widget buildWidget(BuildContext context);
   bool isWatchContextState = true;
+  Widget snapshot = const Offstage();
 
   @override
   bool get wantKeepAlive => false;
@@ -291,7 +289,7 @@ abstract class TStatefulWidget<Page extends TWidget> extends State<Page>
     }
 
     if (widget.props == null) {
-      return widget.snapshot;
+      return snapshot;
     }
 
     return buildWidget(context);
@@ -299,6 +297,8 @@ abstract class TStatefulWidget<Page extends TWidget> extends State<Page>
 }
 
 abstract class TStatelessWidget extends StatelessWidget with BaseStateWidget {
+  Widget snapshot = const Offstage();
+
   TStatelessWidget(TWidgetProps twidget) : super(key: twidget.key) {
     widgetProps = twidget.widgetProps;
     childData = twidget.childData;

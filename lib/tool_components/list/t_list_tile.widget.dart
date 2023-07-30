@@ -41,7 +41,7 @@ class _TListTileState extends TStatefulWidget<TListTile> {
     LayoutProps? _props = widget.props;
 
     if (_props != null) {
-      widget.snapshot = ListTile(
+      snapshot = ListTile(
         key: widget.getBindingKey(),
         horizontalTitleGap: _props.horizontalTitleGap,
         dense: true,
@@ -54,6 +54,6 @@ class _TListTileState extends TStatefulWidget<TListTile> {
       );
     }
 
-    return widget.snapshot;
+    return snapshot;
   }
 }

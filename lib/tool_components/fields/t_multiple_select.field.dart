@@ -1,7 +1,5 @@
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
@@ -18,13 +16,11 @@ class TMultiSelectField extends TWidget {
 
 class _TMultiSelectFieldState extends TStatefulWidget<TMultiSelectField>
     with FieldMixin {
-  String? _errorMessage = null;
+  String? _errorMessage;
   List<String> _selectedValues = [];
   List<String> _listItems = [];
 
-  late FormFieldState<dynamic> _field;
-
-  GlobalKey<DropdownSearchState<String>> _dropdownSearchKey = GlobalKey<DropdownSearchState<String>>();
+  final _dropdownSearchKey = GlobalKey<DropdownSearchState<String>>();
 
   @override
   void initState() {
@@ -39,22 +35,21 @@ class _TMultiSelectFieldState extends TStatefulWidget<TMultiSelectField>
   ) {
     String? name = widgetProps?.name;
     var value = contextData[name];
-    // items = widgetProps?.items ?? [];
+
     assert(name != null, "Missing \"name\" in field widget");
 
-    // _dropDownKey.currentState?.setValue(value);
     return FormBuilderField(
       name: name!,
       // key: _dropdownSearchKey,
       builder: (FormFieldState<Object> field) {
-        return InputDecorator( decoration: computeFieldDecoration(
-          widgetProps,
-          thisWidget: widget,
-
-          errorMessage: field.errorText ?? _errorMessage,
-
-        ),
-        child: _multiSelect(widgetProps!, field));
+        return InputDecorator(
+          decoration: computeFieldDecoration(
+            widgetProps,
+            thisWidget: widget,
+            errorMessage: field.errorText ?? _errorMessage,
+          ),
+          child: _multiSelect(widgetProps!, field),
+        );
       },
 
       enabled: widgetProps?.enabled ?? true,
@@ -74,82 +69,60 @@ class _TMultiSelectFieldState extends TStatefulWidget<TMultiSelectField>
     );
   }
 
+  Widget _multiSelect(LayoutProps props, FormFieldState<Object> field) {
+    List<dynamic> items = [];
 
-   Widget _multiSelect(LayoutProps props,FormFieldState<Object> field)  {
-     _field = field;
-      List<dynamic> items = [];
-      if(props.items == null || (props.items as List).isEmpty) {
-        items = [];
-      } else {
-        if(  props.items[0] is! List ) {
-          items = List.from(props.items ?? []).cast<String>();
+    if (props.items != null && props.items is List) {
+      if (props.items.isNotEmpty) {
+        if (props.items[0] is List) {
+          items = List<List>.from(props.items);
         } else {
-          items = List.from(props.items ?? []).cast<List>();
+          items = List<String>.from(props.items);
         }
       }
+    }
 
-     return DropdownSearch<dynamic>.multiSelection(
-       asyncItems: (values) {
-         return getData(values,items);
-       },
-
-       itemAsString: (item) {
-         if(item is! List) {
-           return item;
-         }
-         if(item.length < 2) {
-           throw Exception ('If option is a list , It must have at least 2 items');
-         }
-         return item[1];
-       },
-
-
-       key: _dropdownSearchKey,
-       // popupProps: PopupPropsMultiSelection.menu(
-       //   showSelectedItems: true,
-       //
-       // ),
-
-       onChanged: (List<dynamic>? value) {
-         field.didChange(value);
-       },
-       // on: (List<String>? values) {
-       //   String name = widget.widgetProps.name ?? "";
-       //   widget.setPageData({name: values});
-       //
-       //   final onResponse = widget.widgetProps.onChange;
-       //   if (onResponse != null) {
-       //     final responseData = values;
-       //     widget.executeJSWithPagePath(onResponse, (responseData ?? []).cast<String>());
-       //   }
-       // },
-     );
-   }
-
-  Future<List<dynamic>> getData(_,List<dynamic> items) async {
-
-
-    return items ;
+    return DropdownSearch<dynamic>.multiSelection(
+      asyncItems: (filter) {
+        return _getData(filter, items);
+      },
+      itemAsString: (item) {
+        if (item is! List) {
+          return item;
+        }
+        if (item.length < 2) {
+          throw Exception(
+            'If option is a list , It must have at least 2 items',
+          );
+        }
+        return item[1];
+      },
+      key: _dropdownSearchKey,
+      onChanged: (List<dynamic>? value) {
+        field.didChange(value);
+      },
+    );
   }
 
-   Widget _singleSelect(FormFieldState<Object> field) {
-     _field = field;
-     return DropdownSearch<String>(
-       popupProps: PopupProps.menu(
-         showSelectedItems: true,
-         disabledItemFn: (String s) => s.startsWith('I'),
-       ),
-       items: _listItems,
+  Future<List> _getData(String filter, List items) async {
+    return items;
+  }
 
-       onChanged: print,
-       selectedItem: "Brazil",
-     );
-   }
+  // Widget _singleSelect(FormFieldState<Object> field) {
+  //   return DropdownSearch<String>(
+  //     popupProps: PopupProps.menu(
+  //       showSelectedItems: true,
+  //       disabledItemFn: (String s) => s.startsWith('I'),
+  //     ),
+  //     items: _listItems,
+  //     onChanged: print,
+  //     selectedItem: "Brazil",
+  //   );
+  // }
+
   @override
   void didChangeDependencies() {
-    // var itemDelected - widget.widgetProps.on
     String? name = widget.widgetProps.name;
-    // var listItems = widget.widgetProps.items;
     dynamic currentValue = _dropdownSearchKey.currentState?.getSelectedItems;
 
     List<dynamic> listDataFromServer = widget.getContexData()[name];
@@ -164,7 +137,6 @@ class _TMultiSelectFieldState extends TStatefulWidget<TMultiSelectField>
         _dropdownSearchKey.currentState?.changeSelectedItems(_selectedValues!);
         //
         _dropdownSearchKey.currentState?.setState(() {});
-        // _field.didChange(selectedValues);
       });
     }
 
@@ -196,12 +168,12 @@ class _TMultiSelectFieldState extends TStatefulWidget<TMultiSelectField>
 
   @override
   Widget buildWidget(BuildContext context) {
-    LayoutProps? props = widget.props;
-
-    if (props != null) {
-      var test = props.items;
-      widget.snapshot = _computeMultiSelectField(props, widget.getContexData());
+    if (widget.props != null) {
+      snapshot = _computeMultiSelectField(
+        widget.props,
+        widget.getContexData(),
+      );
     }
-    return widget.snapshot;
+    return snapshot;
   }
 }

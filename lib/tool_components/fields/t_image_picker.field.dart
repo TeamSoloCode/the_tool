@@ -195,12 +195,12 @@ class _TImagePickerFieldState extends TStatefulWidget<TImagePickerField> {
     LayoutProps? props = widget.props;
 
     if (props != null) {
-      widget.snapshot = GestureDetector(
+      snapshot = GestureDetector(
         onTap: _openGallery,
         child: _computeImageChild(props),
       );
     }
 
-    return widget.snapshot;
+    return snapshot;
   }
 }

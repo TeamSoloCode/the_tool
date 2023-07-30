@@ -95,12 +95,12 @@ class _T_LayoutBuilderState extends TStatefulWidget<T_LayoutBuilder> {
 
   @override
   Widget buildWidget(BuildContext context) {
-    widget.snapshot = LayoutBuilder(
+    snapshot = LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         return _prepareLayout(constraints);
       },
     );
 
-    return widget.snapshot;
+    return snapshot;
   }
 }

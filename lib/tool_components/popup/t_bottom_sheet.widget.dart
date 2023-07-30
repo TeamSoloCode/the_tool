@@ -141,9 +141,9 @@ class _TBottomSheetState extends TStatefulWidget<TBottomSheet> {
     LayoutProps? _props = widget.props;
 
     if (_props != null && !_built) {
-      widget.snapshot = _computeBottomSheet(_props);
+      snapshot = _computeBottomSheet(_props);
     }
 
-    return widget.snapshot;
+    return snapshot;
   }
 }

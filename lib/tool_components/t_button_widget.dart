@@ -53,9 +53,9 @@ class _TButtonState extends TStatefulWidget<TButton> {
     LayoutProps? _props = widget.props;
 
     if (_props != null) {
-      widget.snapshot = _computeButton(_props);
+      snapshot = _computeButton(_props);
     }
 
-    return widget.snapshot;
+    return snapshot;
   }
 }

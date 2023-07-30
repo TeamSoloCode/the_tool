@@ -62,7 +62,7 @@ class _T_Clickable extends TStatefulWidget<T_Clickable> with ContainerMixin {
 
   @override
   Widget buildWidget(BuildContext context) {
-    widget.snapshot = _computeClickable(widget.props);
-    return widget.snapshot;
+    snapshot = _computeClickable(widget.props);
+    return snapshot;
   }
 }

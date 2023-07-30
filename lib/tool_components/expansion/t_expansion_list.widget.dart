@@ -156,9 +156,9 @@ class _TExpansionListState extends TStatefulWidget<TExpansionList> {
   @override
   Widget buildWidget(BuildContext context) {
     if (widget.props != null) {
-      widget.snapshot = _computeExpanstionList(widget.props!);
+      snapshot = _computeExpanstionList(widget.props!);
     }
 
-    return widget.snapshot;
+    return snapshot;
   }
 }

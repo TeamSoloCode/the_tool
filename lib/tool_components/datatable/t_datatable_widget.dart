@@ -343,9 +343,9 @@ class _TDataTableState extends TStatefulWidget<TDataTable> {
     _updateTableSource();
 
     if (props != null) {
-      widget.snapshot = _computeTable(props, widget.getContexData());
+      snapshot = _computeTable(props, widget.getContexData());
     }
 
-    return widget.snapshot;
+    return snapshot;
   }
 }
