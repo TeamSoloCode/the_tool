@@ -1,6 +1,7 @@
 library t_appbar;
 
 import 'package:flutter/material.dart';
+import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
@@ -22,7 +23,13 @@ PreferredSizeWidget? computeAppBar(
 
     return AppBar(
       title: title,
-      centerTitle: false,
+      centerTitle: appBarConfig.alignment ?? true,
+      // bottom: PreferredSize(
+      //   preferredSize: Size.fromHeight(appBarConfig.height ?? 32),
+      //   child: Text("PreferredSize"),
+      // ),
+      elevation: appBarConfig.elevation ?? 4,
+      shape: ThemeDecoder.decodeShapeBorder(appBarConfig.shapeBorder?.toJson()),
       leading: UtilsManager.computeTWidgets(
         appBarConfig.leading,
         pagePath: pageId,
