@@ -227,7 +227,9 @@ class UtilsManager {
       return value;
     }
 
-    if (lowercasedKey.contains("text") || _textBindingKeys.contains(key)) {
+    if (lowercasedKey.contains("text") ||
+        lowercasedKey.contains("click") ||
+        _textBindingKeys.contains(key)) {
       return bindingValueToText(contextData, value);
     }
 

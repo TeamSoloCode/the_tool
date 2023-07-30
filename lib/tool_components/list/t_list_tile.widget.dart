@@ -4,6 +4,7 @@ import 'package:the_tool/tool_components/mixin_component/container_mixin.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/twidget_props.dart';
+import 'package:the_tool/utils.dart';
 
 class TListTile extends TWidget with ContainerMixin {
   TListTile(TWidgetProps twidget) : super(twidget);
@@ -29,10 +30,14 @@ class _TListTileState extends TStatefulWidget<TListTile> {
 
   Widget? _computeListTileWidget(LayoutProps? content) {
     if (content == null) return const Offstage();
+
+    final childData = widget.childData;
+    childData[UtilsManager.parentPrefix] = widget.getContexData();
+
     return TWidgets(
       layout: content,
       pagePath: widget.pagePath,
-      childData: widget.childData,
+      childData: childData,
     );
   }
 

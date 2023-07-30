@@ -4,15 +4,16 @@ import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/twidget_props.dart';
 
-class T_ListView extends TWidget {
-  T_ListView(TWidgetProps twidget) : super(twidget);
+class TListView extends TWidget {
+  TListView(TWidgetProps twidget) : super(twidget);
 
   @override
-  State<T_ListView> createState() => _T_ListViewState();
+  State<TListView> createState() => _TListViewState();
 }
 
-class _T_ListViewState extends TStatefulWidget<T_ListView> {
+class _TListViewState extends TStatefulWidget<TListView> {
   ScrollController? _controller;
+
   Widget _computeListView(LayoutProps props) {
     if (props.itemLayout == null) return const Offstage();
     if (props.name == null) {
@@ -31,14 +32,17 @@ class _T_ListViewState extends TStatefulWidget<T_ListView> {
 
     return ListView.builder(
       controller: _controller,
+      itemCount: listData.length,
+      itemExtent: props.itemExtent,
       itemBuilder: (context, index) {
         if (listData[index] is! Map) {
           throw Exception(
-            "Item in list data must be an object (${widget.pagePath})",
+            "Item in list data must be an Map object (${widget.pagePath})",
           );
         }
 
         return TWidgets(
+          key: ValueKey(listData[index]['id'] ?? index),
           layout: props.itemLayout!,
           pagePath: widget.pagePath,
           childData: listData[index],

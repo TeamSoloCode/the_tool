@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:collection/collection.dart' show DeepCollectionEquality;
 import 'package:the_tool/tool_components/expansion/t_expansion_tile.widget.dart'
     deferred as t_expansion_tile;
 import 'package:the_tool/tool_components/t_flexible.widget.dart';
@@ -79,6 +80,7 @@ class TWidgets extends StatefulWidget {
 class _TWidgetsState extends State<TWidgets> {
   Widget? tWidgets;
   String widgetUuid = UniqueKey().toString();
+  Map<String, dynamic>? prevChildData;
 
   Future<Widget> _computeTWidgets(
     LayoutProps content,
@@ -142,7 +144,7 @@ class _TWidgetsState extends State<TWidgets> {
         return t_clipoval.T_ClipOval(tWidgetProps);
       case "list":
         await t_listview.loadLibrary();
-        return t_listview.T_ListView(tWidgetProps);
+        return t_listview.TListView(tWidgetProps);
       case "expansion_list":
         await t_expansion_list.loadLibrary();
         return t_expansion_list.TExpansionList(tWidgetProps);
@@ -245,13 +247,21 @@ class _TWidgetsState extends State<TWidgets> {
   Future<void> _updateTWidgets(
     BuildContext context,
   ) async {
-    if (tWidgets == null) {
+    //FIXME: Try to allow rebuild only widgets that have bindingValue
+    final isChildDataChanged = prevChildData != null &&
+        !const DeepCollectionEquality().equals(
+          widget.childData,
+          prevChildData,
+        );
+
+    if (tWidgets == null || isChildDataChanged) {
       // Stopwatch stopwatch = Stopwatch()..start();
       // var contextData = context.read<ContextStateProvider>().contextData;
       var newTWidgets = await _getWidget(widget.childData);
 
       setState(() {
         tWidgets = newTWidgets;
+        prevChildData = widget.childData;
       });
 
       // print(

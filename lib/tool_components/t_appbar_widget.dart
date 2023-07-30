@@ -8,42 +8,47 @@ import 'package:the_tool/utils.dart';
 
 PreferredSizeWidget? computeAppBar(
   String pageId,
-  LayoutProps? appBarConfig,
+  LayoutProps? appBarLayout,
 ) {
-  if (appBarConfig == null) {
+  if (appBarLayout == null) {
     return null;
   }
 
-  if (appBarConfig.title != null) {
+  if (appBarLayout.title != null) {
     Widget? title = UtilsManager.computeTWidgets(
-      appBarConfig.title,
+      appBarLayout.title,
       pagePath: pageId,
       childData: const {},
     );
 
     return AppBar(
       title: title,
-      centerTitle: appBarConfig.alignment ?? true,
+      centerTitle: appBarLayout.alignment ?? true,
       // bottom: PreferredSize(
       //   preferredSize: Size.fromHeight(appBarConfig.height ?? 32),
       //   child: Text("PreferredSize"),
       // ),
-      elevation: appBarConfig.elevation ?? 4,
-      shape: ThemeDecoder.decodeShapeBorder(appBarConfig.shapeBorder?.toJson()),
+      elevation: appBarLayout.elevation ?? 4,
+      shape: ThemeDecoder.decodeShapeBorder(appBarLayout.shapeBorder?.toJson()),
+      shadowColor: ThemeDecoder.decodeColor(appBarLayout.shadowColor),
+      backgroundColor: ThemeDecoder.decodeColor(appBarLayout.backgroundColor),
+      // foregroundColor: ThemeDecoder.decodeColor(appBarConfig.foregroundColor),
+      // surfaceTintColor: ThemeDecoder.decodeColor(appBarConfig.surfaceTintColor),
+
       leading: UtilsManager.computeTWidgets(
-        appBarConfig.leading,
+        appBarLayout.leading,
         pagePath: pageId,
         childData: const {},
       ),
       actions: UtilsManager.computeListTWidgets(
-        appBarConfig.actions,
+        appBarLayout.actions,
         pagePath: pageId,
         childData: const {},
       ),
     );
   }
 
-  var customContent = appBarConfig.content;
+  var customContent = appBarLayout.content;
   return PreferredSize(
     preferredSize: Size.fromHeight(customContent?.height ?? 120),
     child: TWidgets(

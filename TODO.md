@@ -4,6 +4,7 @@ FIXME: Use UniqueKey object replace for uuid and unix milisecond
 
 SUPPORT: snackbar
 SUPPORT: ScaffoldMessenger
+
 SUPPORT: make main function run with mock input for integration test
 
 SUPPORT: value binding for validate order in form
@@ -33,16 +34,13 @@ SUPPORT: dynamic for using "style" property in json layout
 #-------------------------------------------------
 FIXME: Sequence validating field is not working properly when run field validation js function
 (this because validation js function run after form validate function)
-FIXME: prevent user access to the context in console and run function in the page context
+
 implement seo_renderer, meta_seo
-UPDATE: Using emitter instead of using eval to call a function
+
 UPDATE: Using custom expansion panel instead of the built-in to test the perf when open side navigation
 
-Support format number for t_textfield
 Reduce bundle size
 Fix bug: User press button home and go back to the app => cannot use emit to js side
-
-Appbar not display properly
 
 Load all needed page in isolate thread
 Add refresh page button for development mode
@@ -58,6 +56,11 @@ Support simple operator for binding data ( {{ !state.isGood | eq(state.isGood, "
 Support pages app bar custom actions
 
 #-------------------------------------------------
+-FIXME: Appbar not display properly
+-Support format number for t_textfield
+-UPDATE: Using emitter instead of using eval to call a function
+-FIXME: prevent user access to the context in console and run function in the page context
+-FIXME: binding value of child widget in t_listview not update if it base on childData
 -SUPPORT: alert dialog
 -FIXME: Default value is not working on field text
 -FIXME: Currency formatter on return value that not match with fixed specific decimal place
