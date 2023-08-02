@@ -1,12 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
-import 'package:collection/collection.dart' show DeepCollectionEquality;
 import 'package:the_tool/twidget_props.dart';
 
 class TExpansionList extends TWidget {
@@ -52,7 +49,7 @@ class _TExpansionListState extends TStatefulWidget<TExpansionList> {
     final data = widget.getContexData()[name];
     if (data == null) return [true, null];
 
-    if (const DeepCollectionEquality().equals(
+    if (UtilsManager.deepEquals.equals(
       data,
       _expansionIndex,
     )) return [true, null];

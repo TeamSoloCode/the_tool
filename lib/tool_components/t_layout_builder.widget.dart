@@ -5,8 +5,8 @@ import 'package:the_tool/t_widget_interface/layout_builder_item_props/layout_bui
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
+import 'package:the_tool/utils.dart';
 import 'package:uuid/uuid.dart';
-import 'package:collection/collection.dart' show DeepCollectionEquality;
 import 'package:the_tool/twidget_props.dart';
 
 class T_LayoutBuilder extends TWidget {
@@ -79,7 +79,7 @@ class _T_LayoutBuilderState extends TStatefulWidget<T_LayoutBuilder> {
       return const Offstage();
     }
 
-    if (!const DeepCollectionEquality()
+    if (!UtilsManager.deepEquals
         .equals(_selectedLayout, layoutBuilderProps.child!)) {
       layoutKey = const Uuid().v4();
     }

@@ -16,12 +16,14 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.extensio
 import 'package:the_tool/t_widget_interface/media_screen_only/media_screen_only.dart';
 import 'package:the_tool/config/config.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
+import 'package:collection/collection.dart' show DeepCollectionEquality;
 
 GetIt getIt = GetIt.instance;
 
 class UtilsManager {
   UtilsManager() : super();
   final envConfig = getIt<EnvironmentConfig>();
+  static const deepEquals = DeepCollectionEquality();
 
   static Map<String, dynamic> emptyMapStringDynamic =
       Map<String, dynamic>.from({});

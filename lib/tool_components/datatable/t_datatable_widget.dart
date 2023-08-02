@@ -6,9 +6,9 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/datatable/t_data_row_widget.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:data_table_2/data_table_2.dart';
-import 'package:collection/collection.dart' show DeepCollectionEquality;
 import 'package:the_tool/twidget_props.dart';
 import 'package:the_tool/page_utils/debouncer.dart';
+import 'package:the_tool/utils.dart';
 
 class TDataTable extends TWidget {
   TDataTable(TWidgetProps twidget) : super(twidget);
@@ -103,7 +103,7 @@ class _TDataTableState extends TStatefulWidget<TDataTable> {
           var nextValue = nextRecord[key];
           var prevValue = prevRecord[key];
           return (nextValue is Map && prevValue is Map)
-              ? const DeepCollectionEquality().equals(nextValue, prevValue)
+              ? UtilsManager.deepEquals.equals(nextValue, prevValue)
               : nextValue != prevValue;
         },
         orElse: () => "",
