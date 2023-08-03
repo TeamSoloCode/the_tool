@@ -153,10 +153,6 @@ mixin BaseStateWidget on Widget {
       getContexData(),
     );
 
-    // print(
-    //   "isChanged: ${widgetProps.type} ${widgetProps.text} ${props?.text}",
-    // );
-
     mediaScreenApplied = false;
     prevProps = props;
     _prevThemeRefreshToken = themeProvider.themeRefreshToken;
