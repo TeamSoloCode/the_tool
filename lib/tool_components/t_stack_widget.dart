@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/twidget_props.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
@@ -42,6 +43,8 @@ class T_Stack extends TStatelessWidget {
   @override
   Widget buildWidget(BuildContext context) {
     snapshot = Stack(
+      clipBehavior:
+          ThemeDecoder.decodeClip(props?.clipBehavior) ?? Clip.hardEdge,
       children: _getChildren(),
     );
 

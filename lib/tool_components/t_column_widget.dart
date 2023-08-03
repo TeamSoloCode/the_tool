@@ -26,8 +26,12 @@ class T_Column extends TStatelessWidget {
       if (child.flex != null) {
         var mediaScreen = child.mediaScreenOnly;
         if (mediaScreen != null) {
-          var selectedMediaStyle =
-              computePropsFromMediaScreen(context, childData, mediaScreen);
+          var selectedMediaStyle = computePropsFromMediaScreen(
+            context,
+            childData,
+            mediaScreen,
+          );
+
           child = child.merge(selectedMediaStyle);
         }
         if (child.type != "expanded") {

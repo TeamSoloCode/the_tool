@@ -27,7 +27,7 @@ class _TButtonState extends TStatefulWidget<TButton> {
     ButtonStyle? buttonStyle =
         ThemeDecoder.decodeButtonStyle(widgetProps.style);
 
-    if (buttonType == "icon_button") {
+    if (buttonType == "icon") {
       return IconButton(
         color: ThemeDecoder.decodeColor(widget.props?.color),
         icon: Icon(MdiIcons.fromString(widgetProps.icon ?? "")),
@@ -35,8 +35,16 @@ class _TButtonState extends TStatefulWidget<TButton> {
         iconSize: widgetProps.iconSize,
         onPressed: onClick,
       );
-    } else if (buttonType == "text_button") {
+    } else if (buttonType == "text") {
       return TextButton(
+        onPressed: onClick,
+        style: buttonStyle,
+        child: Text(
+          text,
+        ),
+      );
+    } else if (buttonType == "outlined") {
+      return OutlinedButton(
         onPressed: onClick,
         style: buttonStyle,
         child: Text(

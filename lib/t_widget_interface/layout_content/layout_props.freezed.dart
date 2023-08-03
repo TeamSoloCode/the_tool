@@ -67,6 +67,7 @@ mixin _$LayoutProps {
   int? get duration => throw _privateConstructorUsedError;
   dynamic get show => throw _privateConstructorUsedError;
   bool? get isSafeArea => throw _privateConstructorUsedError;
+  String? get clipBehavior => throw _privateConstructorUsedError;
   /**
      * 
      */
@@ -180,6 +181,10 @@ mixin _$LayoutProps {
 // Expansion Start================================================
   dynamic get selected => throw _privateConstructorUsedError;
   String? get dividerColor => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get appBarBottom => throw _privateConstructorUsedError;
+
+  /// ignored-compute
+  LayoutProps? get separator => throw _privateConstructorUsedError;
 
   /// ignored-compute
   LayoutProps? get head => throw _privateConstructorUsedError;
@@ -285,6 +290,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       int? duration,
       dynamic show,
       bool? isSafeArea,
+      String? clipBehavior,
       String? sliverListType,
       double? itemExtent,
       Map<String, dynamic>? componentProps,
@@ -346,6 +352,8 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? onSelectAll,
       dynamic selected,
       String? dividerColor,
+      Map<String, dynamic>? appBarBottom,
+      LayoutProps? separator,
       LayoutProps? head,
       LayoutProps? body,
       LayoutProps? leading,
@@ -377,6 +385,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
   $BorderPropsCopyWith<$Res>? get disabledBorder;
   $BorderPropsCopyWith<$Res>? get focusedErrorBorder;
   $BorderPropsCopyWith<$Res>? get errorBorder;
+  $LayoutPropsCopyWith<$Res>? get separator;
   $LayoutPropsCopyWith<$Res>? get head;
   $LayoutPropsCopyWith<$Res>? get body;
   $LayoutPropsCopyWith<$Res>? get leading;
@@ -453,6 +462,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? duration = freezed,
     Object? show = freezed,
     Object? isSafeArea = freezed,
+    Object? clipBehavior = freezed,
     Object? sliverListType = freezed,
     Object? itemExtent = freezed,
     Object? componentProps = freezed,
@@ -514,6 +524,8 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? onSelectAll = freezed,
     Object? selected = freezed,
     Object? dividerColor = freezed,
+    Object? appBarBottom = freezed,
+    Object? separator = freezed,
     Object? head = freezed,
     Object? body = freezed,
     Object? leading = freezed,
@@ -717,6 +729,10 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.isSafeArea
           : isSafeArea // ignore: cast_nullable_to_non_nullable
               as bool?,
+      clipBehavior: freezed == clipBehavior
+          ? _value.clipBehavior
+          : clipBehavior // ignore: cast_nullable_to_non_nullable
+              as String?,
       sliverListType: freezed == sliverListType
           ? _value.sliverListType
           : sliverListType // ignore: cast_nullable_to_non_nullable
@@ -961,6 +977,14 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.dividerColor
           : dividerColor // ignore: cast_nullable_to_non_nullable
               as String?,
+      appBarBottom: freezed == appBarBottom
+          ? _value.appBarBottom
+          : appBarBottom // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
+      separator: freezed == separator
+          ? _value.separator
+          : separator // ignore: cast_nullable_to_non_nullable
+              as LayoutProps?,
       head: freezed == head
           ? _value.head
           : head // ignore: cast_nullable_to_non_nullable
@@ -1153,6 +1177,18 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
 
     return $BorderPropsCopyWith<$Res>(_value.errorBorder!, (value) {
       return _then(_value.copyWith(errorBorder: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LayoutPropsCopyWith<$Res>? get separator {
+    if (_value.separator == null) {
+      return null;
+    }
+
+    return $LayoutPropsCopyWith<$Res>(_value.separator!, (value) {
+      return _then(_value.copyWith(separator: value) as $Val);
     });
   }
 
@@ -1403,6 +1439,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       int? duration,
       dynamic show,
       bool? isSafeArea,
+      String? clipBehavior,
       String? sliverListType,
       double? itemExtent,
       Map<String, dynamic>? componentProps,
@@ -1464,6 +1501,8 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       String? onSelectAll,
       dynamic selected,
       String? dividerColor,
+      Map<String, dynamic>? appBarBottom,
+      LayoutProps? separator,
       LayoutProps? head,
       LayoutProps? body,
       LayoutProps? leading,
@@ -1504,6 +1543,8 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
   $BorderPropsCopyWith<$Res>? get focusedErrorBorder;
   @override
   $BorderPropsCopyWith<$Res>? get errorBorder;
+  @override
+  $LayoutPropsCopyWith<$Res>? get separator;
   @override
   $LayoutPropsCopyWith<$Res>? get head;
   @override
@@ -1594,6 +1635,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? duration = freezed,
     Object? show = freezed,
     Object? isSafeArea = freezed,
+    Object? clipBehavior = freezed,
     Object? sliverListType = freezed,
     Object? itemExtent = freezed,
     Object? componentProps = freezed,
@@ -1655,6 +1697,8 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? onSelectAll = freezed,
     Object? selected = freezed,
     Object? dividerColor = freezed,
+    Object? appBarBottom = freezed,
+    Object? separator = freezed,
     Object? head = freezed,
     Object? body = freezed,
     Object? leading = freezed,
@@ -1858,6 +1902,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value.isSafeArea
           : isSafeArea // ignore: cast_nullable_to_non_nullable
               as bool?,
+      clipBehavior: freezed == clipBehavior
+          ? _value.clipBehavior
+          : clipBehavior // ignore: cast_nullable_to_non_nullable
+              as String?,
       sliverListType: freezed == sliverListType
           ? _value.sliverListType
           : sliverListType // ignore: cast_nullable_to_non_nullable
@@ -2102,6 +2150,14 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value.dividerColor
           : dividerColor // ignore: cast_nullable_to_non_nullable
               as String?,
+      appBarBottom: freezed == appBarBottom
+          ? _value._appBarBottom
+          : appBarBottom // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
+      separator: freezed == separator
+          ? _value.separator
+          : separator // ignore: cast_nullable_to_non_nullable
+              as LayoutProps?,
       head: freezed == head
           ? _value.head
           : head // ignore: cast_nullable_to_non_nullable
@@ -2239,6 +2295,7 @@ class _$_LayoutProps implements _LayoutProps {
       this.duration,
       this.show,
       this.isSafeArea,
+      this.clipBehavior,
       this.sliverListType,
       this.itemExtent,
       final Map<String, dynamic>? componentProps,
@@ -2300,6 +2357,8 @@ class _$_LayoutProps implements _LayoutProps {
       this.onSelectAll,
       this.selected,
       this.dividerColor,
+      final Map<String, dynamic>? appBarBottom,
+      this.separator,
       this.head,
       this.body,
       this.leading,
@@ -2331,6 +2390,7 @@ class _$_LayoutProps implements _LayoutProps {
         _validateOrder = validateOrder,
         _columns = columns,
         _rows = rows,
+        _appBarBottom = appBarBottom,
         _children = children,
         _actions = actions;
 
@@ -2437,6 +2497,8 @@ class _$_LayoutProps implements _LayoutProps {
   final dynamic show;
   @override
   final bool? isSafeArea;
+  @override
+  final String? clipBehavior;
 /**
      * 
      */
@@ -2695,6 +2757,19 @@ class _$_LayoutProps implements _LayoutProps {
   final dynamic selected;
   @override
   final String? dividerColor;
+  final Map<String, dynamic>? _appBarBottom;
+  @override
+  Map<String, dynamic>? get appBarBottom {
+    final value = _appBarBottom;
+    if (value == null) return null;
+    if (_appBarBottom is EqualUnmodifiableMapView) return _appBarBottom;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
+  /// ignored-compute
+  @override
+  final LayoutProps? separator;
 
   /// ignored-compute
   @override
@@ -2843,6 +2918,7 @@ abstract class _LayoutProps implements LayoutProps {
       final int? duration,
       final dynamic show,
       final bool? isSafeArea,
+      final String? clipBehavior,
       final String? sliverListType,
       final double? itemExtent,
       final Map<String, dynamic>? componentProps,
@@ -2904,6 +2980,8 @@ abstract class _LayoutProps implements LayoutProps {
       final String? onSelectAll,
       final dynamic selected,
       final String? dividerColor,
+      final Map<String, dynamic>? appBarBottom,
+      final LayoutProps? separator,
       final LayoutProps? head,
       final LayoutProps? body,
       final LayoutProps? leading,
@@ -3021,6 +3099,8 @@ abstract class _LayoutProps implements LayoutProps {
   dynamic get show;
   @override
   bool? get isSafeArea;
+  @override
+  String? get clipBehavior;
   @override
   /**
      * 
@@ -3183,6 +3263,12 @@ abstract class _LayoutProps implements LayoutProps {
   dynamic get selected;
   @override
   String? get dividerColor;
+  @override
+  Map<String, dynamic>? get appBarBottom;
+  @override
+
+  /// ignored-compute
+  LayoutProps? get separator;
   @override
 
   /// ignored-compute

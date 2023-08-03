@@ -68,6 +68,7 @@ class LayoutProps with _$LayoutProps {
     int? duration,
     dynamic show,
     bool? isSafeArea,
+    String? clipBehavior,
 
     /**
      * 
@@ -189,6 +190,10 @@ class LayoutProps with _$LayoutProps {
     // Expansion Start================================================
     dynamic selected,
     String? dividerColor,
+    Map<String, dynamic>? appBarBottom,
+
+    /// ignored-compute
+    LayoutProps? separator,
 
     /// ignored-compute
     LayoutProps? head,

@@ -25,4 +25,5 @@ Map<String, bool> ignoredComputeProps = {
   "componentProps": true,
   "computedComponentProps": true,
   "actions": true,
+  "separator": true,
 };

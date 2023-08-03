@@ -20,7 +20,6 @@ import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:gato/gato.dart' as gato;
 import 'package:uuid/uuid.dart';
-import 'package:collection/collection.dart' show DeepCollectionEquality;
 import 'package:the_tool/twidget_props.dart';
 
 class TPage extends StatefulWidget {
@@ -232,7 +231,7 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
   }
 
   String _updatePageIdMap(String pagePath) {
-    _pageIdMap.putIfAbsent(pagePath, () => const Uuid().v4());
+    _pageIdMap.putIfAbsent(pagePath, () => UniqueKey().toString());
     return _pageIdMap[pagePath]!;
   }
 
@@ -263,6 +262,7 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
       return null;
     }
     return t_bottom_nav.computeBottomNavigationBar(
+      _pageId,
       contextData,
       _pageLayout?.bottomNav,
       currentIndex: _selectedBottomNavIndex,
@@ -277,7 +277,7 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
     var width = size.width;
     var orientation = mediaQuery.orientation.name;
 
-    if (const DeepCollectionEquality().equals(
+    if (UtilsManager.deepEquals.equals(
       _prevMediaQueryData,
       mediaQuery,
     )) {

@@ -16,7 +16,7 @@ class TCard extends TStatelessWidget {
       snapshot = Card(
         key: getBindingKey(),
         color: ThemeDecoder.decodeColor(_props.color),
-        elevation: _props.elevation,
+        elevation: _props.elevation ?? 1,
         shape: ThemeDecoder.decodeShapeBorder(
           _props.shapeBorder?.toJson(),
         ),

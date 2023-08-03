@@ -30,10 +30,20 @@ class _TListViewState extends TStatefulWidget<TListView> {
       );
     }
 
-    return ListView.builder(
+    return ListView.separated(
       controller: _controller,
+      separatorBuilder: (context, index) {
+        return props.separator != null
+            ? TWidgets(
+                key: ValueKey(listData[index]?['id'] ?? index),
+                layout: props.separator!,
+                pagePath: widget.pagePath,
+                childData: listData[index],
+              )
+            : const Offstage();
+      },
       itemCount: listData.length,
-      itemExtent: props.itemExtent,
+      // itemExtent: props.itemExtent,
       itemBuilder: (context, index) {
         if (listData[index] is! Map) {
           throw Exception(
@@ -42,7 +52,7 @@ class _TListViewState extends TStatefulWidget<TListView> {
         }
 
         return TWidgets(
-          key: ValueKey(listData[index]['id'] ?? index),
+          key: ValueKey(listData[index]?['id'] ?? index),
           layout: props.itemLayout!,
           pagePath: widget.pagePath,
           childData: listData[index],

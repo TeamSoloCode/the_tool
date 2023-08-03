@@ -2,6 +2,7 @@ library t_appbar;
 
 import 'package:flutter/material.dart';
 import 'package:json_theme/json_theme.dart';
+import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
@@ -14,7 +15,10 @@ PreferredSizeWidget? computeAppBar(
     return null;
   }
 
-  if (appBarLayout.title != null) {
+  final utils = getIt<UtilsManager>();
+  final pageData = getIt<ContextStateProvider>().contextData[pageId];
+
+  if (appBarLayout.content == null) {
     Widget? title = UtilsManager.computeTWidgets(
       appBarLayout.title,
       pagePath: pageId,
@@ -24,10 +28,22 @@ PreferredSizeWidget? computeAppBar(
     return AppBar(
       title: title,
       centerTitle: appBarLayout.alignment ?? true,
-      // bottom: PreferredSize(
-      //   preferredSize: Size.fromHeight(appBarConfig.height ?? 32),
-      //   child: Text("PreferredSize"),
-      // ),
+      bottom: appBarLayout.appBarBottom == null
+          ? null
+          : PreferredSize(
+              preferredSize: Size.fromHeight(
+                utils.computeSizeValue(
+                      appBarLayout.appBarBottom?["height"],
+                      pageData,
+                    ) ??
+                    32,
+              ),
+              child: UtilsManager.computeTWidgets(
+                LayoutProps.fromJson(appBarLayout.appBarBottom?["child"]),
+                pagePath: pageId,
+                childData: const {},
+              )!,
+            ),
       elevation: appBarLayout.elevation ?? 4,
       shape: ThemeDecoder.decodeShapeBorder(appBarLayout.shapeBorder?.toJson()),
       shadowColor: ThemeDecoder.decodeColor(appBarLayout.shadowColor),

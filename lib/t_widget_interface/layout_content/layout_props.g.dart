@@ -53,6 +53,7 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       duration: json['duration'] as int?,
       show: json['show'],
       isSafeArea: json['isSafeArea'] as bool?,
+      clipBehavior: json['clipBehavior'] as String?,
       sliverListType: json['sliverListType'] as String?,
       itemExtent: (json['itemExtent'] as num?)?.toDouble(),
       componentProps: json['componentProps'] as Map<String, dynamic>?,
@@ -150,6 +151,10 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       onSelectAll: json['onSelectAll'] as String?,
       selected: json['selected'],
       dividerColor: json['dividerColor'] as String?,
+      appBarBottom: json['appBarBottom'] as Map<String, dynamic>?,
+      separator: json['separator'] == null
+          ? null
+          : LayoutProps.fromJson(json['separator'] as Map<String, dynamic>),
       head: json['head'] == null
           ? null
           : LayoutProps.fromJson(json['head'] as Map<String, dynamic>),
@@ -259,6 +264,7 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'duration': instance.duration,
       'show': instance.show,
       'isSafeArea': instance.isSafeArea,
+      'clipBehavior': instance.clipBehavior,
       'sliverListType': instance.sliverListType,
       'itemExtent': instance.itemExtent,
       'componentProps': instance.componentProps,
@@ -322,6 +328,8 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'onSelectAll': instance.onSelectAll,
       'selected': instance.selected,
       'dividerColor': instance.dividerColor,
+      'appBarBottom': instance.appBarBottom,
+      'separator': instance.separator?.toJson(),
       'head': instance.head?.toJson(),
       'body': instance.body?.toJson(),
       'leading': instance.leading?.toJson(),
