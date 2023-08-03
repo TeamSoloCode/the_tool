@@ -22,7 +22,8 @@ BottomNavigationItemProps _$BottomNavigationItemPropsFromJson(
 /// @nodoc
 mixin _$BottomNavigationItemProps {
   String? get label => throw _privateConstructorUsedError;
-  String? get icon => throw _privateConstructorUsedError;
+  LayoutProps? get icon => throw _privateConstructorUsedError;
+  LayoutProps? get activeIcon => throw _privateConstructorUsedError;
   String? get path => throw _privateConstructorUsedError;
   String? get backgroundColor => throw _privateConstructorUsedError;
 
@@ -39,7 +40,14 @@ abstract class $BottomNavigationItemPropsCopyWith<$Res> {
       _$BottomNavigationItemPropsCopyWithImpl<$Res, BottomNavigationItemProps>;
   @useResult
   $Res call(
-      {String? label, String? icon, String? path, String? backgroundColor});
+      {String? label,
+      LayoutProps? icon,
+      LayoutProps? activeIcon,
+      String? path,
+      String? backgroundColor});
+
+  $LayoutPropsCopyWith<$Res>? get icon;
+  $LayoutPropsCopyWith<$Res>? get activeIcon;
 }
 
 /// @nodoc
@@ -58,6 +66,7 @@ class _$BottomNavigationItemPropsCopyWithImpl<$Res,
   $Res call({
     Object? label = freezed,
     Object? icon = freezed,
+    Object? activeIcon = freezed,
     Object? path = freezed,
     Object? backgroundColor = freezed,
   }) {
@@ -69,7 +78,11 @@ class _$BottomNavigationItemPropsCopyWithImpl<$Res,
       icon: freezed == icon
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as LayoutProps?,
+      activeIcon: freezed == activeIcon
+          ? _value.activeIcon
+          : activeIcon // ignore: cast_nullable_to_non_nullable
+              as LayoutProps?,
       path: freezed == path
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
@@ -79,6 +92,30 @@ class _$BottomNavigationItemPropsCopyWithImpl<$Res,
           : backgroundColor // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LayoutPropsCopyWith<$Res>? get icon {
+    if (_value.icon == null) {
+      return null;
+    }
+
+    return $LayoutPropsCopyWith<$Res>(_value.icon!, (value) {
+      return _then(_value.copyWith(icon: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LayoutPropsCopyWith<$Res>? get activeIcon {
+    if (_value.activeIcon == null) {
+      return null;
+    }
+
+    return $LayoutPropsCopyWith<$Res>(_value.activeIcon!, (value) {
+      return _then(_value.copyWith(activeIcon: value) as $Val);
+    });
   }
 }
 
@@ -92,7 +129,16 @@ abstract class _$$_BottomNavigationItemPropsCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? label, String? icon, String? path, String? backgroundColor});
+      {String? label,
+      LayoutProps? icon,
+      LayoutProps? activeIcon,
+      String? path,
+      String? backgroundColor});
+
+  @override
+  $LayoutPropsCopyWith<$Res>? get icon;
+  @override
+  $LayoutPropsCopyWith<$Res>? get activeIcon;
 }
 
 /// @nodoc
@@ -110,6 +156,7 @@ class __$$_BottomNavigationItemPropsCopyWithImpl<$Res>
   $Res call({
     Object? label = freezed,
     Object? icon = freezed,
+    Object? activeIcon = freezed,
     Object? path = freezed,
     Object? backgroundColor = freezed,
   }) {
@@ -121,7 +168,11 @@ class __$$_BottomNavigationItemPropsCopyWithImpl<$Res>
       icon: freezed == icon
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as LayoutProps?,
+      activeIcon: freezed == activeIcon
+          ? _value.activeIcon
+          : activeIcon // ignore: cast_nullable_to_non_nullable
+              as LayoutProps?,
       path: freezed == path
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
@@ -138,7 +189,11 @@ class __$$_BottomNavigationItemPropsCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_BottomNavigationItemProps implements _BottomNavigationItemProps {
   const _$_BottomNavigationItemProps(
-      {this.label, this.icon, this.path, this.backgroundColor});
+      {this.label,
+      this.icon,
+      this.activeIcon,
+      this.path,
+      this.backgroundColor});
 
   factory _$_BottomNavigationItemProps.fromJson(Map<String, dynamic> json) =>
       _$$_BottomNavigationItemPropsFromJson(json);
@@ -146,7 +201,9 @@ class _$_BottomNavigationItemProps implements _BottomNavigationItemProps {
   @override
   final String? label;
   @override
-  final String? icon;
+  final LayoutProps? icon;
+  @override
+  final LayoutProps? activeIcon;
   @override
   final String? path;
   @override
@@ -170,7 +227,8 @@ class _$_BottomNavigationItemProps implements _BottomNavigationItemProps {
 abstract class _BottomNavigationItemProps implements BottomNavigationItemProps {
   const factory _BottomNavigationItemProps(
       {final String? label,
-      final String? icon,
+      final LayoutProps? icon,
+      final LayoutProps? activeIcon,
       final String? path,
       final String? backgroundColor}) = _$_BottomNavigationItemProps;
 
@@ -180,7 +238,9 @@ abstract class _BottomNavigationItemProps implements BottomNavigationItemProps {
   @override
   String? get label;
   @override
-  String? get icon;
+  LayoutProps? get icon;
+  @override
+  LayoutProps? get activeIcon;
   @override
   String? get path;
   @override

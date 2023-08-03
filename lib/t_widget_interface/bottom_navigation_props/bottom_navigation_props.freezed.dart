@@ -23,6 +23,7 @@ BottomNavigationProps _$BottomNavigationPropsFromJson(
 mixin _$BottomNavigationProps {
   String? get selectedItemColor => throw _privateConstructorUsedError;
   String? get navType => throw _privateConstructorUsedError;
+  String? get backgroundColor => throw _privateConstructorUsedError;
   List<BottomNavigationItemProps>? get items =>
       throw _privateConstructorUsedError;
 
@@ -41,6 +42,7 @@ abstract class $BottomNavigationPropsCopyWith<$Res> {
   $Res call(
       {String? selectedItemColor,
       String? navType,
+      String? backgroundColor,
       List<BottomNavigationItemProps>? items});
 }
 
@@ -60,6 +62,7 @@ class _$BottomNavigationPropsCopyWithImpl<$Res,
   $Res call({
     Object? selectedItemColor = freezed,
     Object? navType = freezed,
+    Object? backgroundColor = freezed,
     Object? items = freezed,
   }) {
     return _then(_value.copyWith(
@@ -70,6 +73,10 @@ class _$BottomNavigationPropsCopyWithImpl<$Res,
       navType: freezed == navType
           ? _value.navType
           : navType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      backgroundColor: freezed == backgroundColor
+          ? _value.backgroundColor
+          : backgroundColor // ignore: cast_nullable_to_non_nullable
               as String?,
       items: freezed == items
           ? _value.items
@@ -90,6 +97,7 @@ abstract class _$$_BottomNavigationPropsCopyWith<$Res>
   $Res call(
       {String? selectedItemColor,
       String? navType,
+      String? backgroundColor,
       List<BottomNavigationItemProps>? items});
 }
 
@@ -106,6 +114,7 @@ class __$$_BottomNavigationPropsCopyWithImpl<$Res>
   $Res call({
     Object? selectedItemColor = freezed,
     Object? navType = freezed,
+    Object? backgroundColor = freezed,
     Object? items = freezed,
   }) {
     return _then(_$_BottomNavigationProps(
@@ -116,6 +125,10 @@ class __$$_BottomNavigationPropsCopyWithImpl<$Res>
       navType: freezed == navType
           ? _value.navType
           : navType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      backgroundColor: freezed == backgroundColor
+          ? _value.backgroundColor
+          : backgroundColor // ignore: cast_nullable_to_non_nullable
               as String?,
       items: freezed == items
           ? _value._items
@@ -131,6 +144,7 @@ class _$_BottomNavigationProps implements _BottomNavigationProps {
   const _$_BottomNavigationProps(
       {this.selectedItemColor,
       this.navType,
+      this.backgroundColor,
       final List<BottomNavigationItemProps>? items})
       : _items = items;
 
@@ -141,6 +155,8 @@ class _$_BottomNavigationProps implements _BottomNavigationProps {
   final String? selectedItemColor;
   @override
   final String? navType;
+  @override
+  final String? backgroundColor;
   final List<BottomNavigationItemProps>? _items;
   @override
   List<BottomNavigationItemProps>? get items {
@@ -170,6 +186,7 @@ abstract class _BottomNavigationProps implements BottomNavigationProps {
   const factory _BottomNavigationProps(
       {final String? selectedItemColor,
       final String? navType,
+      final String? backgroundColor,
       final List<BottomNavigationItemProps>? items}) = _$_BottomNavigationProps;
 
   factory _BottomNavigationProps.fromJson(Map<String, dynamic> json) =
@@ -179,6 +196,8 @@ abstract class _BottomNavigationProps implements BottomNavigationProps {
   String? get selectedItemColor;
   @override
   String? get navType;
+  @override
+  String? get backgroundColor;
   @override
   List<BottomNavigationItemProps>? get items;
   @override

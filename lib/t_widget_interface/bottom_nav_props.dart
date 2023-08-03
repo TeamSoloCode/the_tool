@@ -1,33 +1,54 @@
 import 'package:flutter/material.dart';
-import 'package:from_css_color/from_css_color.dart';
 import 'package:json_theme/json_theme.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:the_tool/t_widget_interface/bottom_navigation_props/bottom_navigation_props.dart';
+import 'package:the_tool/utils.dart';
 
 class DecodeBottomNavigation {
+  final String pagePath;
   final BottomNavigationProps bottomNavConfig;
+  Map<String, dynamic> contextData;
   BottomNavigationBarType? _type;
   Color? _selectedItemColor;
   late List<BottomNavigationBarItem> _items;
 
-  DecodeBottomNavigation({required this.bottomNavConfig}) : super() {
+  DecodeBottomNavigation({
+    required this.bottomNavConfig,
+    required this.pagePath,
+    required this.contextData,
+  }) : super() {
     _type = ThemeDecoder.decodeBottomNavigationBarType(
       bottomNavConfig.navType,
     );
 
-    String? cssColor = bottomNavConfig.selectedItemColor;
-    Color? color = cssColor != null ? fromCssColor(cssColor) : null;
-    _selectedItemColor = color;
+    _selectedItemColor = ThemeDecoder.decodeColor(
+      bottomNavConfig.selectedItemColor,
+    );
 
     var items = bottomNavConfig.items;
     List<BottomNavigationBarItem> bottomNavItems = (items ?? []).map((item) {
-      String? cssColor = item.backgroundColor;
-      Color? color = cssColor != null ? fromCssColor(cssColor) : null;
+      if (item.icon == null) {
+        throw Exception("Please provide icon in bottom navigation item");
+      }
 
       return BottomNavigationBarItem(
         label: item.label,
-        icon: Icon(MdiIcons.fromString(item.icon ?? "")),
-        backgroundColor: color,
+        // icon: Text("Home Inactive"),
+        // activeIcon: Text("Home Active"),
+
+        icon: UtilsManager.computeTWidgets(
+          item.icon,
+          pagePath: pagePath,
+          childData: UtilsManager.emptyMapStringDynamic,
+        )!,
+        activeIcon: UtilsManager.computeTWidgets(
+          item.activeIcon,
+          pagePath: pagePath,
+          childData: UtilsManager.emptyMapStringDynamic,
+        ),
+        backgroundColor: ThemeDecoder.decodeColor(
+          item.backgroundColor,
+        ),
       );
     }).toList();
 

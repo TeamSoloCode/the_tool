@@ -10,6 +10,7 @@ class BottomNavigationProps with _$BottomNavigationProps {
   const factory BottomNavigationProps({
     String? selectedItemColor,
     String? navType,
+    String? backgroundColor,
     List<BottomNavigationItemProps>? items,
   }) = _BottomNavigationProps;
 
