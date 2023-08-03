@@ -11,7 +11,6 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.extensio
 import 'package:the_tool/t_widget_interface/media_screen_only/media_screen_only.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
-import 'package:collection/collection.dart' show DeepCollectionEquality;
 import 'package:gato/gato.dart' as gato;
 
 mixin BaseStateWidget on Widget {
@@ -58,7 +57,7 @@ mixin BaseStateWidget on Widget {
       _didAddThemeListener = true;
     }
 
-    if (hasBindingValue) {
+    if (hasBindingValue && _depsChangedToken == null) {
       context.select((ContextStateProvider value) {
         var newPageData =
             value.contextData[path] ?? UtilsManager.emptyMapStringDynamic;
@@ -80,7 +79,6 @@ mixin BaseStateWidget on Widget {
         }
 
         _contextData = newPageData;
-
         if (prevProps != null) {
           // This is run when:
           //   - dependencies in widget props changed
@@ -111,7 +109,7 @@ mixin BaseStateWidget on Widget {
           ? widgetProps.merge(selectedMediaScreen)
           : null;
 
-      if (!const DeepCollectionEquality()
+      if (!UtilsManager.deepEquals
           .equals(prevSelectedMediaScreen, selectedMediaScreen)) {
         prevSelectedMediaScreen = selectedMediaScreen;
         mediaScreenApplied = true;
@@ -155,6 +153,10 @@ mixin BaseStateWidget on Widget {
       getContexData(),
     );
 
+    // print(
+    //   "isChanged: ${widgetProps.type} ${widgetProps.text} ${props?.text}",
+    // );
+
     mediaScreenApplied = false;
     prevProps = props;
     _prevThemeRefreshToken = themeProvider.themeRefreshToken;
@@ -195,19 +197,25 @@ mixin BaseStateWidget on Widget {
     final rootData = getIt<ContextStateProvider>().rootPageData;
     const rootPrefix = UtilsManager.rootPrefix;
 
-    var newBindingValues = widgetBindingStrings.map((widgetBindingString) {
-      var useRootData = widgetBindingString.startsWith(rootPrefix);
-      var selectedData = useRootData ? rootData : contextData;
+    final newBindingValues = List.generate(
+      widgetBindingStrings.length,
+      (i) {
+        final widgetBindingString = widgetBindingStrings.elementAt(i);
+        final useRootData = widgetBindingString.startsWith(rootPrefix);
+        final selectedData = useRootData ? rootData : contextData;
 
-      var bindingField = useRootData
-          ? widgetBindingString.substring(rootPrefix.length)
-          : widgetBindingString;
+        final bindingField = useRootData
+            ? widgetBindingString.substring(rootPrefix.length)
+            : widgetBindingString;
 
-      return gato.get(selectedData, bindingField);
-    }).toList();
+        return gato.get(selectedData, bindingField);
+      },
+    );
 
-    var isChanged = !const DeepCollectionEquality()
-        .equals(newBindingValues, _prevBindingValues);
+    final isChanged = !UtilsManager.deepEquals.equals(
+      newBindingValues,
+      _prevBindingValues,
+    );
 
     if (isChanged) {
       _prevBindingValues = newBindingValues;

@@ -95,18 +95,21 @@ class _TExpansionListState extends TStatefulWidget<TExpansionList> {
 
         _expansionIndex[index] =
             child.selected != null ? !!child.selected : _expansionIndex[index];
-        var abcd = TWidgets(
+
+        var expandHeader = TWidgets(
           layout: child.head!,
           pagePath: widget.pagePath,
           childData: childData ?? const {},
         );
-        var abcd1 = child.body == null
+
+        var expandBody = child.body == null
             ? const Offstage()
             : TWidgets(
                 layout: child.body!,
                 pagePath: widget.pagePath,
                 childData: childData ?? const {},
               );
+
         return ExpansionPanel(
           backgroundColor: ThemeDecoder.decodeColor(
             child.backgroundColor,
@@ -116,9 +119,9 @@ class _TExpansionListState extends TStatefulWidget<TExpansionList> {
           headerBuilder: (context, isExpanded) {
             if (child.head == null) return const Offstage();
 
-            return abcd;
+            return expandHeader;
           },
-          body: abcd1,
+          body: expandBody,
         );
       },
     ).toList();

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:collection/collection.dart' show DeepCollectionEquality;
 import 'package:the_tool/tool_components/expansion/t_expansion_tile.widget.dart'
     deferred as t_expansion_tile;
 import 'package:the_tool/tool_components/t_flexible.widget.dart';
@@ -248,8 +247,9 @@ class _TWidgetsState extends State<TWidgets> {
     BuildContext context,
   ) async {
     //FIXME: Try to allow rebuild only widgets that have bindingValue
-    final isChildDataChanged = prevChildData != null &&
-        !const DeepCollectionEquality().equals(
+    final isChildDataChanged = widget.childData.isNotEmpty &&
+        prevChildData != null &&
+        !UtilsManager.deepEquals.equals(
           widget.childData,
           prevChildData,
         );
