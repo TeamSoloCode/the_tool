@@ -111,11 +111,7 @@ class ThemeProvider with ChangeNotifier {
           inputDecorationTheme: defaultInputDecorationTheme.merge(
             inputDecorationTheme,
           ),
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ThemeDecoder.decodeButtonStyle(
-              computedThemeMap["elevatedButtonTheme"],
-            ),
-          ),
+
           textButtonTheme: TextButtonThemeData(
             style: ThemeDecoder.decodeButtonStyle(
               computedThemeMap["textButtonTheme"],
@@ -126,9 +122,19 @@ class ThemeProvider with ChangeNotifier {
               computedThemeMap["iconButtonTheme"],
             ),
           ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ThemeDecoder.decodeButtonStyle(
+              computedThemeMap["elevatedButtonTheme"],
+            ),
+          ),
           filledButtonTheme: FilledButtonThemeData(
             style: ThemeDecoder.decodeButtonStyle(
               computedThemeMap["filledButtonTheme"],
+            ),
+          ),
+          outlinedButtonTheme: OutlinedButtonThemeData(
+            style: ThemeDecoder.decodeButtonStyle(
+              computedThemeMap["outlinedButtonTheme"],
             ),
           ),
 

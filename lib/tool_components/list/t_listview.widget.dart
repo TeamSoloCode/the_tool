@@ -30,34 +30,55 @@ class _TListViewState extends TStatefulWidget<TListView> {
       );
     }
 
-    return ListView.separated(
+    return ListView.custom(
       controller: _controller,
-      separatorBuilder: (context, index) {
-        return props.separator != null
-            ? TWidgets(
-                key: ValueKey(listData[index]?['id'] ?? index),
-                layout: props.separator!,
-                pagePath: widget.pagePath,
-                childData: listData[index],
-              )
-            : const Offstage();
-      },
-      itemCount: listData.length,
-      // itemExtent: props.itemExtent,
-      itemBuilder: (context, index) {
-        if (listData[index] is! Map) {
-          throw Exception(
-            "Item in list data must be an Map object (${widget.pagePath})",
-          );
-        }
+      // physics: NeverScrollableScrollPhysics(),
+      // separatorBuilder: (context, index) {
+      //   return props.separator != null
+      //       ? TWidgets(
+      //           key: ValueKey(listData[index]?['id'] ?? index),
+      //           layout: props.separator!,
+      //           pagePath: widget.pagePath,
+      //           childData: listData[index],
+      //         )
+      //       : const Offstage();
+      // },
+      childrenDelegate: SliverChildBuilderDelegate(
+        (context, index) {
+          if (listData[index] is! Map) {
+            throw Exception(
+              "Item in list data must be an Map object (${widget.pagePath})",
+            );
+          }
 
-        return TWidgets(
-          key: ValueKey(listData[index]?['id'] ?? index),
-          layout: props.itemLayout!,
-          pagePath: widget.pagePath,
-          childData: listData[index],
-        );
-      },
+          final itemKey = ValueKey(listData[index]?['id'] ?? index);
+          final itemWidget = TWidgets(
+            key: props.separator != null ? null : itemKey,
+            layout: props.itemLayout!,
+            pagePath: widget.pagePath,
+            childData: listData[index],
+          );
+
+          if (props.separator != null) {
+            return Column(
+              key: itemKey,
+              children: [
+                itemWidget,
+                if (index < listData.length - 1)
+                  TWidgets(
+                    layout: props.separator!,
+                    pagePath: widget.pagePath,
+                    childData: listData[index],
+                  ),
+              ],
+            );
+          }
+
+          return itemWidget;
+        },
+        childCount: listData.length,
+      ),
+      itemExtent: props.itemExtent,
     );
   }
 

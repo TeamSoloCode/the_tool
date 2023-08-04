@@ -24,8 +24,9 @@ class _TButtonState extends TStatefulWidget<TButton> {
       }
     }
 
-    ButtonStyle? buttonStyle =
-        ThemeDecoder.decodeButtonStyle(widgetProps.style);
+    ButtonStyle? buttonStyle = ThemeDecoder.decodeButtonStyle(
+      widgetProps.style,
+    );
 
     switch (buttonType) {
       case "icon":
