@@ -27,38 +27,47 @@ class _TButtonState extends TStatefulWidget<TButton> {
     ButtonStyle? buttonStyle =
         ThemeDecoder.decodeButtonStyle(widgetProps.style);
 
-    if (buttonType == "icon") {
-      return IconButton(
-        color: ThemeDecoder.decodeColor(widget.props?.color),
-        icon: Icon(MdiIcons.fromString(widgetProps.icon ?? "")),
-        style: buttonStyle,
-        iconSize: widgetProps.iconSize,
-        onPressed: onClick,
-      );
-    } else if (buttonType == "text") {
-      return TextButton(
-        onPressed: onClick,
-        style: buttonStyle,
-        child: Text(
-          text,
-        ),
-      );
-    } else if (buttonType == "outlined") {
-      return OutlinedButton(
-        onPressed: onClick,
-        style: buttonStyle,
-        child: Text(
-          text,
-        ),
-      );
-    } else {
-      return ElevatedButton(
-        onPressed: onClick,
-        style: buttonStyle,
-        child: Text(
-          text,
-        ),
-      );
+    switch (buttonType) {
+      case "icon":
+        return IconButton(
+          color: ThemeDecoder.decodeColor(widget.props?.color),
+          icon: Icon(MdiIcons.fromString(widgetProps.icon ?? "")),
+          style: buttonStyle,
+          iconSize: widgetProps.iconSize,
+          onPressed: onClick,
+        );
+      case "text":
+        return TextButton(
+          onPressed: onClick,
+          style: buttonStyle,
+          child: Text(
+            text,
+          ),
+        );
+      case "outlined":
+        return OutlinedButton(
+          onPressed: onClick,
+          style: buttonStyle,
+          child: Text(
+            text,
+          ),
+        );
+      case "filled":
+        return FilledButton(
+          onPressed: onClick,
+          style: buttonStyle,
+          child: Text(
+            text,
+          ),
+        );
+      default:
+        return ElevatedButton(
+          onPressed: onClick,
+          style: buttonStyle,
+          child: Text(
+            text,
+          ),
+        );
     }
   }
 

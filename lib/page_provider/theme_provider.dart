@@ -126,6 +126,11 @@ class ThemeProvider with ChangeNotifier {
               computedThemeMap["iconButtonTheme"],
             ),
           ),
+          filledButtonTheme: FilledButtonThemeData(
+            style: ThemeDecoder.decodeButtonStyle(
+              computedThemeMap["filledButtonTheme"],
+            ),
+          ),
 
           // colorScheme: ColorScheme.fromSwatch(
           //   primarySwatch: MaterialColor(

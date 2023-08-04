@@ -26,7 +26,7 @@ class _TListViewState extends TStatefulWidget<TListView> {
 
     if (listData is! List) {
       throw Exception(
-        "List data must be a array of object (${widget.pagePath})",
+        "List data must be an array of object (${widget.pagePath})",
       );
     }
 
