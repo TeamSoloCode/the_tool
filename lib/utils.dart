@@ -251,8 +251,11 @@ class UtilsManager {
     }
 
     const initLayoutProp = LayoutProps();
-    LayoutProps? widgetProps =
-        themeProvider.mergeClasses(layoutProps, contextData) ?? initLayoutProp;
+    LayoutProps? widgetProps = themeProvider.mergeClasses(
+          layoutProps,
+          contextData,
+        ) ??
+        initLayoutProp;
 
     var result = _bindingWidgetPropValue(
       widgetProps.toJson(),
@@ -385,7 +388,7 @@ class UtilsManager {
 
   bool hasBindingValue(
     Map widgetPropsAsJSON,
-    void Function(String bindingString) updateWidgetBindingStrings, {
+    void Function(String bindingString)? updateWidgetBindingStrings, {
     void Function()? hasThemeBindingValue,
   }) {
     /**
@@ -398,10 +401,7 @@ class UtilsManager {
 
     var result = false;
     widgetPropsAsJSON.forEach((key, value) {
-      if (value == null ||
-          key == "child" ||
-          key == "children" ||
-          key == "computedComponentProps") {
+      if (value == null || ignoredComputeProps[key] == true) {
         return;
       }
 
@@ -413,10 +413,12 @@ class UtilsManager {
         case "name":
         case "value":
           result = true;
-          updateWidgetBindingStrings(value);
+          updateWidgetBindingStrings?.call(value);
           break;
         case "style":
-          hasThemeBindingValue?.call();
+          if (value is String) {
+            hasThemeBindingValue?.call();
+          }
           break;
         default:
           if (isValueBinding(valueAsString)) {
@@ -434,7 +436,7 @@ class UtilsManager {
                   match.end,
                 )
                 .trim();
-            updateWidgetBindingStrings(bindString);
+            updateWidgetBindingStrings?.call(bindString);
           },
         ).toList();
       }

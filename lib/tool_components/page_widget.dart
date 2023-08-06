@@ -55,6 +55,8 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   late Future<void> _loadNecessaryWidget;
+  late Future<void> _debounceLoadingBody;
+  late Future<void> _debounceLoadingAppbar;
   MediaQueryData? _prevMediaQueryData;
 
   @override
@@ -64,6 +66,8 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
 
     /// Only load necessary widget base on page json
     _loadNecessaryWidget = _loadTWidget();
+    _debounceLoadingBody = Future.delayed(const Duration(milliseconds: 80));
+    _debounceLoadingAppbar = Future.delayed(const Duration(milliseconds: 80));
     super.initState();
   }
 
@@ -98,9 +102,9 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
 
     await Future.wait(futures);
 
-    setState(() {
-      _isReadyToRun = true;
-    });
+    // setState(() {
+    _isReadyToRun = true;
+    // });
   }
 
   int? _prevThemeRefeshToken;
@@ -161,11 +165,32 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
         var page = Scaffold(
           key: _scaffoldKey,
           appBar: _getAppBar(pageData),
-          bottomNavigationBar: _getBottomNavigation(pageData),
+          // bottomNavigationBar: _getBottomNavigation(pageData),
+          bottomNavigationBar: _pageLayout?.bottomNav == null
+              ? null
+              : FutureBuilder(
+                  future: _debounceLoadingAppbar,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      return _getBottomNavigation(pageData)!;
+                    } else {
+                      return const Offstage();
+                    }
+                  },
+                ),
           drawer: _computeDrawer(pageData),
-          body: _getSelectedPage(
-            pageData,
-            _selectedBottomNavIndex,
+          body: FutureBuilder(
+            future: _debounceLoadingBody,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return _getSelectedPage(
+                  pageData,
+                  _selectedBottomNavIndex,
+                );
+              } else {
+                return const Offstage();
+              }
+            },
           ),
         );
 

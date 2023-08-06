@@ -1,6 +1,7 @@
 SUPPORT: Invoke dart function with emitter
 
-FIXME: Use UniqueKey object replace for uuid and unix milisecond
+UPDATE: Make sure SubComponent know its props from parent component to reduce re-rendering
+SUPPORT: BoxShadow for container widget
 
 SUPPORT: snackbar
 SUPPORT: ScaffoldMessenger
@@ -56,6 +57,7 @@ Support simple operator for binding data ( {{ !state.isGood | eq(state.isGood, "
 Support pages app bar custom actions
 
 #-------------------------------------------------
+-FIXME: Use UniqueKey object replace for uuid and unix milisecond
 -FIXME: Appbar not display properly
 -Support format number for t_textfield
 -UPDATE: Using emitter instead of using eval to call a function

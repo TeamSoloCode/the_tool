@@ -19,14 +19,12 @@ PreferredSizeWidget? computeAppBar(
   final pageData = getIt<ContextStateProvider>().contextData[pageId];
 
   if (appBarLayout.content == null) {
-    Widget? title = UtilsManager.computeTWidgets(
-      appBarLayout.title,
-      pagePath: pageId,
-      childData: const {},
-    );
-
     return AppBar(
-      title: title,
+      title: UtilsManager.computeTWidgets(
+        appBarLayout.title,
+        pagePath: pageId,
+        childData: const {},
+      ),
       centerTitle: appBarLayout.alignment ?? true,
       bottom: appBarLayout.appBarBottom == null
           ? null

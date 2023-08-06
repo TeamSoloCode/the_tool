@@ -5,41 +5,39 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/twidget_props.dart';
 
-class TButton extends TWidget {
+class TButton extends TStatelessWidget {
   TButton(TWidgetProps twidget) : super(twidget);
 
-  @override
-  State<TButton> createState() => _TButtonState();
-}
+  Function() onClick(LayoutProps props) {
+    return () {
+      var rawOnClick = props.onClick;
+      if (rawOnClick is String) {
+        executeJSWithPagePath(rawOnClick, []);
+      }
+    };
+  }
 
-class _TButtonState extends TStatefulWidget<TButton> {
   Widget _computeButton(LayoutProps widgetProps) {
     String? buttonType = widgetProps.buttonType;
     String text = widgetProps.text ?? "";
 
-    onClick() async {
-      var rawOnClick = widgetProps.onClick;
-      if (rawOnClick is String) {
-        await widget.executeJSWithPagePath(rawOnClick, []);
-      }
-    }
-
     ButtonStyle? buttonStyle = ThemeDecoder.decodeButtonStyle(
       widgetProps.style,
     );
+    final buttonOnClick = onClick(widgetProps);
 
     switch (buttonType) {
       case "icon":
         return IconButton(
-          color: ThemeDecoder.decodeColor(widget.props?.color),
+          color: ThemeDecoder.decodeColor(widgetProps.color),
           icon: Icon(MdiIcons.fromString(widgetProps.icon ?? "")),
           style: buttonStyle,
           iconSize: widgetProps.iconSize,
-          onPressed: onClick,
+          onPressed: buttonOnClick,
         );
       case "text":
         return TextButton(
-          onPressed: onClick,
+          onPressed: buttonOnClick,
           style: buttonStyle,
           child: Text(
             text,
@@ -47,7 +45,7 @@ class _TButtonState extends TStatefulWidget<TButton> {
         );
       case "outlined":
         return OutlinedButton(
-          onPressed: onClick,
+          onPressed: buttonOnClick,
           style: buttonStyle,
           child: Text(
             text,
@@ -55,7 +53,7 @@ class _TButtonState extends TStatefulWidget<TButton> {
         );
       case "filled":
         return FilledButton(
-          onPressed: onClick,
+          onPressed: buttonOnClick,
           style: buttonStyle,
           child: Text(
             text,
@@ -63,7 +61,7 @@ class _TButtonState extends TStatefulWidget<TButton> {
         );
       default:
         return ElevatedButton(
-          onPressed: onClick,
+          onPressed: buttonOnClick,
           style: buttonStyle,
           child: Text(
             text,
@@ -74,8 +72,8 @@ class _TButtonState extends TStatefulWidget<TButton> {
 
   @override
   Widget buildWidget(BuildContext context) {
-    if (widget.props != null) {
-      snapshot = _computeButton(widget.props!);
+    if (props != null) {
+      snapshot = _computeButton(props!);
     }
 
     return snapshot;
