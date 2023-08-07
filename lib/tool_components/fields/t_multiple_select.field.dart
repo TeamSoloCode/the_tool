@@ -18,13 +18,11 @@ class _TMultiSelectFieldState extends TStatefulWidget<TMultiSelectField>
     with FieldMixin {
   String? _errorMessage;
   List _selectedValues = [];
-  // List _listItems = [];
 
   final _dropdownSearchKey = GlobalKey<DropdownSearchState>();
 
   @override
   void initState() {
-    // _listItems = [];
     _selectedValues = [];
     super.initState();
   }
@@ -40,11 +38,9 @@ class _TMultiSelectFieldState extends TStatefulWidget<TMultiSelectField>
 
     return FormBuilderField(
       name: name!,
-      // key: _dropdownSearchKey,
       builder: (FormFieldState<Object> field) {
         return _multiSelect(widgetProps!, field, contextData, widgetProps);
       },
-
       enabled: widgetProps?.enabled ?? true,
       onChanged: _onChangeOption,
       initialValue: widget.props?.defaultValue ?? value,
@@ -55,56 +51,42 @@ class _TMultiSelectFieldState extends TStatefulWidget<TMultiSelectField>
           return null;
         }
       ]),
-
       onSaved: (dynamic value) {
         _runValidationFunction();
       },
     );
   }
 
-  Widget _multiSelect(LayoutProps props, FormFieldState<Object> field,
-      Map<String, dynamic> contextData, LayoutProps? widgetProps) {
-    List<dynamic> items = [];
-    List<dynamic> computedItems = [];
-    if (props.items != null && props.items is List) {
-      if (props.items.isNotEmpty) {
-        if (props.items[0] is List) {
-          items = List<dynamic>.from(props.items);
-          computedItems = items.map((e) {
-            return e[0];
-          }).toList();
-        } else {
-          items = List<String>.from(props.items);
-          computedItems = items;
-        }
+  Widget _multiSelect(
+    LayoutProps props,
+    FormFieldState<Object> field,
+    Map<String, dynamic> contextData,
+    LayoutProps? widgetProps,
+  ) {
+    List items = props.items ?? [];
+    List computedItems = [];
+
+    if (items.isNotEmpty) {
+      if (items[0] is List) {
+        computedItems = items.map((e) => e[0]).toList();
+      } else {
+        computedItems = List<String>.from(items);
       }
     }
 
-    return DropdownSearch<dynamic>.multiSelection(
+    return DropdownSearch.multiSelection(
       items: computedItems,
-
       selectedItems: _selectedValues,
-      onBeforeChange: (prevItems, nextItems) async {
-        print(prevItems);
-        return true;
-      },
-
       itemAsString: (item) {
-        // if (item is! List) {
-        //   return item;
-        // }
         if (items[0] is List) {
           var rep = items.firstWhere((element) => element[0] == item);
           return rep[1];
         }
 
-        return item;
+        return item.toString();
       },
-      // validator: ,
       key: _dropdownSearchKey,
-      onChanged: (dynamic value) {
-        field.didChange(value);
-      },
+      onChanged: field.didChange,
       dropdownDecoratorProps: DropDownDecoratorProps(
         dropdownSearchDecoration: computeFieldDecoration(
           widgetProps,
@@ -115,38 +97,12 @@ class _TMultiSelectFieldState extends TStatefulWidget<TMultiSelectField>
     );
   }
 
-  Future<List> _getData(String filter, List items) async {
-    return items;
-  }
-
-  // Widget _singleSelect(FormFieldState<Object> field) {
-  //   return DropdownSearch<String>(
-  //     popupProps: PopupProps.menu(
-  //       showSelectedItems: true,
-  //       disabledItemFn: (String s) => s.startsWith('I'),
-  //     ),
-  //     items: _listItems,
-  //     onChanged: print,
-  //     selectedItem: "Brazil",
-  //   );
-  // }
-
   @override
   void didChangeDependencies() {
     String? name = widget.widgetProps.name;
-    dynamic currentValue = _dropdownSearchKey.currentState?.getSelectedItems;
-
     List<dynamic> listDataFromServer = widget.getContexData()[name];
     // Selected value để add vào multiSelected field không được là List<dynamic>
     _selectedValues = listDataFromServer.cast<String>();
-    if (_selectedValues != currentValue && name != null) {
-      Future.delayed(Duration.zero, () async {
-        // _dropdownSearchKey.currentState?.changeSelectedItems(_selectedValues!);
-        //
-        // _dropdownSearchKey.currentState?.setState(() {});
-      });
-    }
-
     super.didChangeDependencies();
   }
 
