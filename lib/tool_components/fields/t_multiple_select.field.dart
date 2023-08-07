@@ -42,14 +42,7 @@ class _TMultiSelectFieldState extends TStatefulWidget<TMultiSelectField>
       name: name!,
       // key: _dropdownSearchKey,
       builder: (FormFieldState<Object> field) {
-        return InputDecorator(
-          decoration: computeFieldDecoration(
-            widgetProps,
-            thisWidget: widget,
-            errorMessage: field.errorText ?? _errorMessage,
-          ),
-          child: _multiSelect(widgetProps!, field),
-        );
+        return _multiSelect(widgetProps!, field, contextData, widgetProps);
       },
 
       enabled: widgetProps?.enabled ?? true,
@@ -69,38 +62,56 @@ class _TMultiSelectFieldState extends TStatefulWidget<TMultiSelectField>
     );
   }
 
-  Widget _multiSelect(LayoutProps props, FormFieldState<Object> field) {
+  Widget _multiSelect(LayoutProps props, FormFieldState<Object> field,
+      Map<String, dynamic> contextData, LayoutProps? widgetProps) {
     List<dynamic> items = [];
-
+    List<dynamic> computedItems = [];
     if (props.items != null && props.items is List) {
       if (props.items.isNotEmpty) {
         if (props.items[0] is List) {
-          items = List<List>.from(props.items);
+          items = List<dynamic>.from(props.items);
+          computedItems = items.map((e) {
+            return e[0];
+          }).toList();
         } else {
           items = List<String>.from(props.items);
+          computedItems = items;
         }
       }
     }
 
     return DropdownSearch<dynamic>.multiSelection(
-      asyncItems: (filter) {
-        return _getData(filter, items);
+      items: computedItems,
+
+      selectedItems: _selectedValues,
+      onBeforeChange: (prevItems, nextItems) async {
+        print(prevItems);
+        return true;
       },
+
       itemAsString: (item) {
-        if (item is! List) {
-          return item;
+        // if (item is! List) {
+        //   return item;
+        // }
+        if (items[0] is List) {
+          var rep = items.firstWhere((element) => element[0] == item);
+          return rep[1];
         }
-        if (item.length < 2) {
-          throw Exception(
-            'If option is a list , It must have at least 2 items',
-          );
-        }
-        return item[1];
+
+        return item;
       },
+      // validator: ,
       key: _dropdownSearchKey,
-      onChanged: (List<dynamic>? value) {
+      onChanged: (dynamic value) {
         field.didChange(value);
       },
+      dropdownDecoratorProps: DropDownDecoratorProps(
+        dropdownSearchDecoration: computeFieldDecoration(
+          widgetProps,
+          thisWidget: widget,
+          errorMessage: field.errorText ?? _errorMessage,
+        ),
+      ),
     );
   }
 
@@ -126,17 +137,13 @@ class _TMultiSelectFieldState extends TStatefulWidget<TMultiSelectField>
     dynamic currentValue = _dropdownSearchKey.currentState?.getSelectedItems;
 
     List<dynamic> listDataFromServer = widget.getContexData()[name];
-
     // Selected value để add vào multiSelected field không được là List<dynamic>
     _selectedValues = listDataFromServer.cast<String>();
     if (_selectedValues != currentValue && name != null) {
       Future.delayed(Duration.zero, () async {
-        /**
-         * nếu selectedValues là List<dyanmic> thì hàm dưới này sẽ không chạy được
-         */
-        _dropdownSearchKey.currentState?.changeSelectedItems(_selectedValues!);
+        // _dropdownSearchKey.currentState?.changeSelectedItems(_selectedValues!);
         //
-        _dropdownSearchKey.currentState?.setState(() {});
+        // _dropdownSearchKey.currentState?.setState(() {});
       });
     }
 
