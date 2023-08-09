@@ -81,6 +81,14 @@ void main() {
       'style': {
         'color': 'red',
       },
+      "leading": {
+        "type": "icon",
+        "text": "leading",
+      },
+      "child": {
+        "type": "text",
+        "text": "child",
+      }
     };
 
     var hasBinding = false;
