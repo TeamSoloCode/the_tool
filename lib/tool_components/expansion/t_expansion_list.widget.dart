@@ -87,44 +87,36 @@ class _TExpansionListState extends TStatefulWidget<TExpansionList> {
     List<LayoutProps> children,
     Map<String, dynamic>? childData,
   ) {
-    var index = -1;
+    var expansionItems = <ExpansionPanel>[];
 
-    return children.map(
-      (child) {
-        index++;
+    for (var i = 0; i < children.length; i++) {
+      var child = children[i];
+      _expansionIndex[i] = child.selected ?? _expansionIndex[i];
 
-        _expansionIndex[index] =
-            child.selected != null ? !!child.selected : _expansionIndex[index];
-
-        var expandHeader = TWidgets(
-          layout: child.head!,
-          pagePath: widget.pagePath,
-          childData: childData ?? const {},
-        );
-
-        var expandBody = child.body == null
-            ? const Offstage()
-            : TWidgets(
-                layout: child.body!,
-                pagePath: widget.pagePath,
-                childData: childData ?? const {},
-              );
-
-        return ExpansionPanel(
-          backgroundColor: ThemeDecoder.decodeColor(
-            child.backgroundColor,
-          ),
-          isExpanded: _expansionIndex[index],
+      expansionItems.add(
+        ExpansionPanel(
+          backgroundColor: ThemeDecoder.decodeColor(child.backgroundColor),
+          isExpanded: _expansionIndex[i],
           canTapOnHeader: true,
           headerBuilder: (context, isExpanded) {
             if (child.head == null) return const Offstage();
-
-            return expandHeader;
+            return RepaintBoundary(
+              child: TWidgets(
+                layout: child.head!,
+                pagePath: widget.pagePath,
+                childData: childData ?? const {},
+              ),
+            );
           },
-          body: expandBody,
-        );
-      },
-    ).toList();
+          body: TWidgets(
+            layout: child.body!,
+            pagePath: widget.pagePath,
+            childData: childData ?? const {},
+          ),
+        ),
+      );
+    }
+    return expansionItems;
   }
 
   Widget _computeExpanstionList(LayoutProps props) {
@@ -139,16 +131,14 @@ class _TExpansionListState extends TStatefulWidget<TExpansionList> {
     var elevation = props.elevation;
 
     return SingleChildScrollView(
-      child: RepaintBoundary(
-        child: ExpansionPanelList(
-          expandedHeaderPadding: const EdgeInsets.symmetric(
-            vertical: 1.0,
-          ),
-          dividerColor: ThemeDecoder.decodeColor(props.dividerColor),
-          elevation: elevation ?? 2.0,
-          expansionCallback: _onExpansionCallback,
-          children: _computeExpansionItems(panelChildren, childData),
+      child: ExpansionPanelList(
+        expandedHeaderPadding: const EdgeInsets.symmetric(
+          vertical: 1.0,
         ),
+        dividerColor: ThemeDecoder.decodeColor(props.dividerColor),
+        elevation: elevation ?? 2.0,
+        expansionCallback: _onExpansionCallback,
+        children: _computeExpansionItems(panelChildren, childData),
       ),
     );
   }

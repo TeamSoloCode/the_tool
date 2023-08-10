@@ -28,34 +28,37 @@ class _TListTileState extends TStatefulWidget<TListTile> {
     }
   }
 
-  Widget? _computeListTileWidget(LayoutProps? content) {
-    if (content == null) return const Offstage();
-
-    final childData = widget.childData;
-    // childData[UtilsManager.parentPrefix] = widget.getContexData();
-
-    return TWidgets(
-      layout: content,
-      pagePath: widget.pagePath,
-      childData: childData,
-    );
-  }
-
   @override
   Widget buildWidget(BuildContext context) {
-    LayoutProps? _props = widget.props;
+    LayoutProps? props = widget.props;
 
-    if (_props != null) {
+    if (props != null) {
       snapshot = ListTile(
         key: widget.getBindingKey(),
-        horizontalTitleGap: _props.horizontalTitleGap,
+        horizontalTitleGap: props.horizontalTitleGap,
         dense: true,
-        leading: _computeListTileWidget(_props.leading),
-        title: _computeListTileWidget(_props.title),
-        subtitle: _computeListTileWidget(_props.subtitle),
-        trailing: _computeListTileWidget(_props.trailing),
-        onTap: _props.onClick == null ? null : _onClick,
-        onLongPress: _props.onLongClick == null ? null : _onLongClick,
+        leading: UtilsManager.computeTWidgets(
+          props.leading,
+          pagePath: widget.pagePath,
+          childData: widget.childData,
+        ),
+        title: UtilsManager.computeTWidgets(
+          props.title,
+          pagePath: widget.pagePath,
+          childData: widget.childData,
+        ),
+        subtitle: UtilsManager.computeTWidgets(
+          props.subtitle,
+          pagePath: widget.pagePath,
+          childData: widget.childData,
+        ),
+        trailing: UtilsManager.computeTWidgets(
+          props.trailing,
+          pagePath: widget.pagePath,
+          childData: widget.childData,
+        ),
+        onTap: props.onClick == null ? null : _onClick,
+        onLongPress: props.onLongClick == null ? null : _onLongClick,
       );
     }
 

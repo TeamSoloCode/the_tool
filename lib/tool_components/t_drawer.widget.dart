@@ -13,40 +13,36 @@ class TDrawer extends TWidget {
 }
 
 class _TDrawerState extends TStatefulWidget<TDrawer> {
-  Future<Widget> _loadDrawerData() async {
-    var drawerContent = TWidgets(
-      layout: widget.props!,
-      pagePath: widget.pagePath,
-      childData: const {},
-    );
-    // await Future.delayed(const Duration(milliseconds: 800));
-    return drawerContent;
+  late Future<void> _debounceLoadingBody;
+
+  @override
+  void initState() {
+    _debounceLoadingBody = Future.delayed(const Duration(milliseconds: 300));
+    super.initState();
   }
 
   @override
   Widget buildWidget(BuildContext context) {
-    LayoutProps? _props = widget.props;
-    T_DrawerProps? _drawerProps = widget.drawerProps;
-
-    var drawerWidth = widget.utils.computeSizeValue(
-      _drawerProps?.width,
-      widget.getContexData(),
-    );
-
-    if (_props != null) {
+    if (widget.props != null) {
       snapshot = Drawer(
-        width: drawerWidth,
-        child: FutureBuilder<Widget>(
+        width: widget.props?.weight,
+        child: FutureBuilder(
+          future: _debounceLoadingBody,
           builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return snapshot.data!;
+            if (snapshot.connectionState == ConnectionState.done) {
+              return TWidgets(
+                layout: widget.props!,
+                pagePath: widget.pagePath,
+                childData: const {},
+              );
+            } else {
+              return const Offstage();
             }
-            return const Offstage();
           },
-          future: _loadDrawerData(),
         ),
       );
     }
+
     return snapshot;
   }
 }

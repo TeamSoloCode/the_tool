@@ -27,13 +27,12 @@ import 'package:the_tool/tool_components/t_column_widget.dart';
 import 'package:the_tool/tool_components/t_container_widget.dart';
 import 'package:the_tool/tool_components/t_component_widget.dart'
     deferred as t_component;
-import 'package:the_tool/tool_components/t_expanded_widget.dart'
-    deferred as t_expanded;
+import 'package:the_tool/tool_components/t_expanded_widget.dart';
 import 'package:the_tool/tool_components/t_grid_widget.dart' deferred as t_grid;
-import 'package:the_tool/tool_components/t_icon_widget.dart' deferred as t_icon;
+import 'package:the_tool/tool_components/t_icon_widget.dart';
 import 'package:the_tool/tool_components/t_layout_builder.widget.dart'
     deferred as t_layout_builder;
-import 'package:the_tool/tool_components/t_row_widget.dart' deferred as t_row;
+import 'package:the_tool/tool_components/t_row_widget.dart';
 import 'package:the_tool/tool_components/t_scrollview_widget.dart'
     deferred as t_scrollview;
 import 'package:the_tool/tool_components/datatable/t_datatable_widget.dart'
@@ -80,6 +79,7 @@ class _TWidgetsState extends State<TWidgets> {
   Widget? tWidgets;
   String widgetUuid = UniqueKey().toString();
   Map<String, dynamic>? prevChildData;
+  var utils = getIt<UtilsManager>();
 
   Future<Widget> _computeTWidgets(
     LayoutProps content,
@@ -92,34 +92,38 @@ class _TWidgetsState extends State<TWidgets> {
       case "button":
         return TButton(tWidgetProps);
       case "icon":
-        await t_icon.loadLibrary();
-        return t_icon.T_Icon(tWidgetProps);
+        return T_Icon(tWidgetProps);
       case "row":
-        await t_row.loadLibrary();
-        return t_row.T_Row(tWidgetProps);
-      case "form":
-        await t_form.loadLibrary();
-        return t_form.T_Form(tWidgetProps);
-      case "component":
-        await t_component.loadLibrary();
-        return t_component.TComponent(tWidgetProps);
+        return T_Row(tWidgetProps);
       case "container":
         return TContainer(tWidgetProps);
       case "column":
         return T_Column(tWidgetProps);
       case "stack":
         return T_Stack(tWidgetProps);
+      case "expanded":
+        return T_Expanded(tWidgetProps);
+      case "flexible":
+        return TFlexible(tWidgetProps);
+      case "sized_box":
+        return TSizedBox(tWidgetProps);
+      case "wrap":
+        return TWrap(tWidgetProps);
+      case "safe_area":
+        return TSafeArea(tWidgetProps);
+
+      case "form":
+        await t_form.loadLibrary();
+        return t_form.T_Form(tWidgetProps);
+      case "component":
+        await t_component.loadLibrary();
+        return t_component.TComponent(tWidgetProps);
       case "grid":
         await t_grid.loadLibrary();
         return t_grid.TGrid(tWidgetProps);
       case "scroll_view":
         await t_scrollview.loadLibrary();
         return t_scrollview.T_ScrollView(tWidgetProps);
-      case "expanded":
-        await t_expanded.loadLibrary();
-        return t_expanded.T_Expanded(tWidgetProps);
-      case "flexible":
-        return TFlexible(tWidgetProps);
       case "field":
         await t_fields.loadLibrary();
         return t_fields.TFields(tWidgetProps);
@@ -130,7 +134,6 @@ class _TWidgetsState extends State<TWidgets> {
         if (tWidgetProps.layoutBuilder == null) {
           throw Exception("layout_builder must have properties");
         }
-
         await t_layout_builder.loadLibrary();
         return t_layout_builder.T_LayoutBuilder(tWidgetProps);
       case "clickable":
@@ -164,8 +167,6 @@ class _TWidgetsState extends State<TWidgets> {
       case "expansion_tile":
         await t_expansion_tile.loadLibrary();
         return t_expansion_tile.TExpansionTitle(tWidgetProps);
-      case "sized_box":
-        return TSizedBox(tWidgetProps);
       case "opacity":
         await t_opacity.loadLibrary();
         return t_opacity.TOpacity(tWidgetProps);
@@ -178,10 +179,6 @@ class _TWidgetsState extends State<TWidgets> {
       case "gesture_detector":
         await t_gesture_detector.loadLibrary();
         return t_gesture_detector.TGestureDetector(tWidgetProps);
-      case "wrap":
-        return TWrap(tWidgetProps);
-      case "safe_area":
-        return TSafeArea(tWidgetProps);
       default:
         throw Exception("Not found: \"${content.type}\" widget");
     }
@@ -247,6 +244,15 @@ class _TWidgetsState extends State<TWidgets> {
     BuildContext context,
   ) async {
     //FIXME: Try to allow rebuild only widgets that have bindingValue
+    // final hasBindingValue = utils.hasBindingValue(
+    //   widget.layout.toJson(),
+    //   (bindingString) {},
+    // );
+
+    // print(
+    //   "hasBindingValue: $hasBindingValue ${widget.layout.type} ${widget.layout.buttonType}",
+    // );
+
     final isChildDataChanged = widget.childData.isNotEmpty &&
         prevChildData != null &&
         !UtilsManager.deepEquals.equals(
@@ -255,6 +261,9 @@ class _TWidgetsState extends State<TWidgets> {
         );
 
     if (tWidgets == null || isChildDataChanged) {
+      // print(
+      //   "hasBindingValue: $hasBindingValue ${widget.layout.type} ${widget.layout.buttonType}",
+      // );
       // Stopwatch stopwatch = Stopwatch()..start();
       // var contextData = context.read<ContextStateProvider>().contextData;
       var newTWidgets = await _getWidget(widget.childData);
