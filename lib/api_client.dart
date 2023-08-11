@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:the_tool/config/config.dart';
 import 'package:the_tool/page_provider/context_state_provider.dart';
@@ -42,6 +43,12 @@ class APIClientManager {
 
     _dio.interceptors.add(prettyDioLogger);
     _dioCached.interceptors.add(prettyDioLogger);
+    _dioCached.interceptors.add(InterceptorsWrapper(
+      onRequest: (options, handler) {
+        options.headers['x-platform'] = kIsWeb ? "web" : "mobile";
+        return handler.next(options);
+      },
+    ));
 
     var cacheStore = MemCacheStore();
     var cacheOptions = CacheOptions(

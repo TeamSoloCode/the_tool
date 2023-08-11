@@ -3,6 +3,8 @@ SUPPORT: Invoke dart function with emitter
 UPDATE: Make sure SubComponent know its props from parent component to reduce re-rendering
 SUPPORT: BoxShadow for container widget
 
+SUPPORT: config UI base on platform in layout.json
+
 SUPPORT: snackbar
 SUPPORT: ScaffoldMessenger
 
@@ -49,7 +51,7 @@ Add refresh page button for development mode
 SUPPORT: Text animation with flutter_animate, animated_text_kit package
 Support customizable UI for t_select_field items
 Support for basic on SliverAppBar, SliverGrid
-Support config UI base on platform in layout.json
+
 Support config theme base on platform in theme.json
 Support build mode (development/production) in context page data
 Support child config for t_button type that has child property
@@ -57,6 +59,7 @@ Support simple operator for binding data ( {{ !state.isGood | eq(state.isGood, "
 Support pages app bar custom actions
 
 #-------------------------------------------------
+-SUPPORT: get page layout.json from server base on platform
 -FIXME: Use UniqueKey object replace for uuid and unix milisecond
 -FIXME: Appbar not display properly
 -Support format number for t_textfield
