@@ -3,6 +3,7 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/twidget_props.dart';
+import 'package:the_tool/utils.dart';
 
 class TListView extends TWidget {
   TListView(TWidgetProps twidget) : super(twidget);
@@ -31,6 +32,7 @@ class _TListViewState extends TStatefulWidget<TListView> {
     }
 
     return ListView.custom(
+      key: widget.getBindingKey(),
       controller: _controller,
       // physics: NeverScrollableScrollPhysics(),
       // separatorBuilder: (context, index) {
@@ -56,7 +58,7 @@ class _TListViewState extends TStatefulWidget<TListView> {
             key: props.separator != null ? null : itemKey,
             layout: props.itemLayout!,
             pagePath: widget.pagePath,
-            childData: listData[index],
+            childData: {UtilsManager.dataPath: "${props.name}.$index"},
           );
 
           if (props.separator != null) {
@@ -68,7 +70,9 @@ class _TListViewState extends TStatefulWidget<TListView> {
                   TWidgets(
                     layout: props.separator!,
                     pagePath: widget.pagePath,
-                    childData: listData[index],
+                    childData: {
+                      UtilsManager.dataPath: "${props.name}.$index",
+                    },
                   ),
               ],
             );

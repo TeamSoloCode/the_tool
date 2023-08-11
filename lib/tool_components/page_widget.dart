@@ -18,7 +18,6 @@ import 'package:the_tool/tool_components/t_drawer.widget.dart'
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
-import 'package:gato/gato.dart' as gato;
 import 'package:uuid/uuid.dart';
 import 'package:the_tool/twidget_props.dart';
 
@@ -58,6 +57,7 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
   late Future<void> _debounceLoadingBody;
   late Future<void> _debounceLoadingAppbar;
   MediaQueryData? _prevMediaQueryData;
+  final commonDelay = const Duration(milliseconds: 80);
 
   @override
   void initState() {
@@ -66,8 +66,9 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
 
     /// Only load necessary widget base on page json
     _loadNecessaryWidget = _loadTWidget();
-    _debounceLoadingBody = Future.delayed(const Duration(milliseconds: 80));
-    _debounceLoadingAppbar = Future.delayed(const Duration(milliseconds: 80));
+
+    _debounceLoadingBody = Future.delayed(commonDelay);
+    _debounceLoadingAppbar = Future.delayed(commonDelay);
     super.initState();
   }
 
@@ -135,7 +136,9 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
     // _updateThemeOnJSSide(themeDataAsJSON);
 
     if (_isReadyToRun == false ||
-        !UtilsManager.isTruthy(gato.get(pageData, "_tLoaded"))) {
+        !UtilsManager.isTruthy(
+          UtilsManager.get(pageData, "_tLoaded"),
+        )) {
       return const Scaffold(
         body: Center(child: Text("Loading...")),
       );

@@ -192,9 +192,10 @@ class _TDataTableState extends TStatefulWidget<TDataTable> {
 
     var dataSource = T_RowData(
       context,
+      tableName: widgetProps!.name!,
       handleSelectRow: _handleSelectRow,
       pagePath: widget.pagePath,
-      rows: widgetProps!.rows!,
+      rows: widgetProps.rows!,
       getDataFunction: _getData,
       getContextData: widget.getContexData,
     );

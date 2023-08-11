@@ -7,6 +7,7 @@ import 'package:the_tool/utils.dart';
 
 class T_RowData extends AsyncDataTableSource {
   final BuildContext context;
+  late final String tableName;
   late List<DataRowProps> rows;
 
   late Function(int rowIndex, bool isSelected) handleSelectRow;
@@ -34,6 +35,7 @@ class T_RowData extends AsyncDataTableSource {
     required this.getDataFunction,
     required this.handleSelectRow,
     required this.getContextData,
+    required this.tableName,
     this.hasRowTaps = false,
     this.hasRowHeightOverrides = false,
     this.hasZebraStripes = false,
@@ -59,35 +61,34 @@ class T_RowData extends AsyncDataTableSource {
         ? getDataFunction(start, end, _sortColumn, _sortAscending)
         : _onlyUpdateData = false;
 
-    var index = 0;
+    var index = -1;
     var row = AsyncRowsResponse(
-        tableData.total,
-        tableData.data.map((rowData) {
-          rowData["_index"] = index;
-          ++index;
-          final isSelected = rowData["_selected"] ?? false;
-          final rowKey = ValueKey<dynamic>(rowData["id"] ?? index);
+      tableData.total,
+      tableData.data.map((rowData) {
+        index++;
+        rowData["_index"] = index;
+        final isSelected = rowData["_selected"] ?? false;
+        final rowKey = ValueKey<dynamic>(rowData["id"] ?? index);
 
-          return DataRow(
-            key: rowKey,
-            selected: isSelected,
-            onSelectChanged: (value) {
-              if (value == null) return;
-              final selectedIndex = rowData["_index"];
+        return DataRow(
+          key: rowKey,
+          selected: isSelected,
+          onSelectChanged: (value) {
+            if (value == null) return;
+            final selectedIndex = rowData["_index"];
 
-              setSelect(
-                ValueKey<dynamic>(rowData["id"] ?? selectedIndex),
-                value,
-              );
+            setSelect(
+              ValueKey<dynamic>(rowData["id"] ?? selectedIndex),
+              value,
+            );
 
-              handleSelectRow(selectedIndex, value);
-            },
-            cells: _computeCells(
-              rows[0].cells,
-              Map<String, dynamic>.from(rowData),
-            ),
-          );
-        }).toList());
+            handleSelectRow(selectedIndex, value);
+          },
+          cells: _computeCells(
+              rows[0].cells, {UtilsManager.dataPath: "$tableName.$index"}),
+        );
+      }).toList(),
+    );
 
     return row;
   }

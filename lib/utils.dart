@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gato/gato.dart' as gato;
 import 'package:get_it/get_it.dart';
 import 'package:the_tool/constants.dart';
 import 'package:the_tool/js_utils/mobile_eval_utils/mobile_eval_js.dart'
@@ -16,7 +15,8 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.extensio
 import 'package:the_tool/t_widget_interface/media_screen_only/media_screen_only.dart';
 import 'package:the_tool/config/config.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
-import 'package:collection/collection.dart' show DeepCollectionEquality;
+import 'package:collection/collection.dart'
+    show DeepCollectionEquality, ListEquality;
 
 GetIt getIt = GetIt.instance;
 
@@ -24,6 +24,7 @@ class UtilsManager {
   UtilsManager() : super();
   final envConfig = getIt<EnvironmentConfig>();
   static const deepEquals = DeepCollectionEquality();
+  static const listEquals = ListEquality();
 
   static Map<String, dynamic> emptyMapStringDynamic =
       Map<String, dynamic>.from({});
@@ -33,6 +34,9 @@ class UtilsManager {
   static const rootPrefix = "\$root.";
   static const mediaQueryPrefix = "\$mediaQuery.";
   static const themeDataPrefix = "\$themeData.";
+
+  /// This is the path for children widget in a list/table/... to get data from contextData
+  static const dataPath = "dataPath";
 
   late ThemeProvider themeProvider;
 
@@ -89,7 +93,7 @@ class UtilsManager {
           bindingField = bindingField.substring(rootPrefix.length);
         }
 
-        var bindingData = gato.get(selectedData, bindingField) ?? "";
+        var bindingData = UtilsManager.get(selectedData, bindingField) ?? "";
 
         computedText = computedText.replaceRange(
           match.start - 2,
@@ -130,7 +134,7 @@ class UtilsManager {
           bindingField = bindingField.substring(rootPrefix.length);
         }
 
-        var bindingData = gato.get(selectedData, bindingField);
+        var bindingData = UtilsManager.get(selectedData, bindingField);
 
         computedValue = bindingData;
       }
@@ -518,5 +522,27 @@ class UtilsManager {
       pagePath: pagePath,
       childData: childData,
     );
+  }
+
+  /// This function is used to get data from Map when you have the path as a string
+  /// Example: get({"a": {"b": 1}}, "a.b") => 1
+  /// Example2: get({"a": [{"b": 1}]}, "a.0.b") => 1
+  static T? get<T>(source, String path, {T Function(dynamic)? converter}) {
+    List<String> keys = path.split('.');
+    final key = source is List ? int.parse(keys[0]) : keys[0];
+
+    if (source is List && source.isEmpty) {
+      return null;
+    }
+
+    if (source[key] == null) {
+      return null;
+    }
+
+    if (keys.length == 1) {
+      return converter != null ? converter(source[key]) : source[key] as T;
+    }
+
+    return get(source[keys.removeAt(0)], keys.join('.'));
   }
 }

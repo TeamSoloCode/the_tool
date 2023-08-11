@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/twidget_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
-import 'package:gato/gato.dart' as gato;
+import 'package:the_tool/utils.dart';
 
 class TText extends TStatelessWidget {
   TText(TWidgetProps twidget) : super(twidget);
@@ -19,7 +19,7 @@ class TText extends TStatelessWidget {
 
     if (props?.style != null && props?.style is String) {
       style = ThemeDecoder.decodeTextStyle(
-        gato.get<Map<String, dynamic>>(
+        UtilsManager.get<Map<String, dynamic>>(
           themeProvider.themeDataAsJSON,
           props?.style,
         ),

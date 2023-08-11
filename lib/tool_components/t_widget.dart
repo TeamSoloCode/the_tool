@@ -11,7 +11,6 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.extensio
 import 'package:the_tool/t_widget_interface/media_screen_only/media_screen_only.dart';
 import 'package:the_tool/utils.dart';
 import 'package:provider/provider.dart';
-import 'package:gato/gato.dart' as gato;
 
 mixin BaseStateWidget on Widget {
   late final LayoutProps widgetProps;
@@ -41,8 +40,10 @@ mixin BaseStateWidget on Widget {
   bool _didAddThemeListener = false;
   int? _depsChangedToken;
 
-  Map<String, dynamic> watchContextState(BuildContext context,
-      {String? providedPagePath}) {
+  Future<Map<String, dynamic>> watchContextState(
+    BuildContext context, {
+    String? providedPagePath,
+  }) async {
     var path = providedPagePath ?? pagePath;
 
     // if (hasThemeBindingValue) {
@@ -192,19 +193,27 @@ mixin BaseStateWidget on Widget {
   }) {
     final rootData = getIt<ContextStateProvider>().rootPageData;
     const rootPrefix = UtilsManager.rootPrefix;
+    final dataPath = childData[UtilsManager.dataPath];
+
+    var selectedData = dataPath != null
+        ? UtilsManager.get(
+            contextData,
+            dataPath,
+          )
+        : contextData;
 
     final newBindingValues = List.generate(
       widgetBindingStrings.length,
       (i) {
         final widgetBindingString = widgetBindingStrings.elementAt(i);
         final useRootData = widgetBindingString.startsWith(rootPrefix);
-        final selectedData = useRootData ? rootData : contextData;
+        useRootData ? selectedData = rootData : null;
 
         final bindingField = useRootData
             ? widgetBindingString.substring(rootPrefix.length)
             : widgetBindingString;
 
-        return gato.get(selectedData, bindingField);
+        return UtilsManager.get(selectedData, bindingField);
       },
     );
 
@@ -243,7 +252,14 @@ mixin BaseStateWidget on Widget {
   }
 
   Map<String, dynamic> getContexData() {
-    return childData.isEmpty ? _contextData : childData;
+    final dataPath = childData[UtilsManager.dataPath];
+    if (childData.isEmpty) return _contextData;
+    if (dataPath == null) return childData;
+
+    return UtilsManager.get(
+      _contextData,
+      dataPath,
+    );
   }
 }
 

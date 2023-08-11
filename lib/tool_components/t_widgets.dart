@@ -57,7 +57,6 @@ import 'package:the_tool/tool_components/t_gesture_detector.widget.dart'
 import 'package:the_tool/tool_components/t_stack_widget.dart';
 import 'package:the_tool/tool_components/t_text_widget.dart';
 import 'package:the_tool/utils.dart';
-import 'package:gato/gato.dart' as gato;
 
 class TWidgets extends StatefulWidget {
   final LayoutProps layout;
@@ -78,7 +77,6 @@ class TWidgets extends StatefulWidget {
 class _TWidgetsState extends State<TWidgets> {
   Widget? tWidgets;
   String widgetUuid = UniqueKey().toString();
-  Map<String, dynamic>? prevChildData;
   var utils = getIt<UtilsManager>();
 
   Future<Widget> _computeTWidgets(
@@ -220,7 +218,7 @@ class _TWidgetsState extends State<TWidgets> {
     LayoutProps content,
   ) {
     final contextStateProvider = getIt<ContextStateProvider>();
-    LayoutProps? innerComponent = gato.get(
+    LayoutProps? innerComponent = UtilsManager.get(
       contextStateProvider.pageComponents,
       "${widget.pagePath}.${content.component}",
     );
@@ -243,34 +241,13 @@ class _TWidgetsState extends State<TWidgets> {
   Future<void> _updateTWidgets(
     BuildContext context,
   ) async {
-    //FIXME: Try to allow rebuild only widgets that have bindingValue
-    // final hasBindingValue = utils.hasBindingValue(
-    //   widget.layout.toJson(),
-    //   (bindingString) {},
-    // );
-
-    // print(
-    //   "hasBindingValue: $hasBindingValue ${widget.layout.type} ${widget.layout.buttonType}",
-    // );
-
-    final isChildDataChanged = widget.childData.isNotEmpty &&
-        prevChildData != null &&
-        !UtilsManager.deepEquals.equals(
-          widget.childData,
-          prevChildData,
-        );
-
-    if (tWidgets == null || isChildDataChanged) {
-      // print(
-      //   "hasBindingValue: $hasBindingValue ${widget.layout.type} ${widget.layout.buttonType}",
-      // );
+    if (tWidgets == null) {
       // Stopwatch stopwatch = Stopwatch()..start();
       // var contextData = context.read<ContextStateProvider>().contextData;
       var newTWidgets = await _getWidget(widget.childData);
 
       setState(() {
         tWidgets = newTWidgets;
-        prevChildData = widget.childData;
       });
 
       // print(
