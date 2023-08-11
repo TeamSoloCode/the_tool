@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:the_tool/constants.dart';
-import 'package:the_tool/t_widget_interface/box_decoration_props/border_props/border_props.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
@@ -243,9 +242,10 @@ mixin FieldMixin {
     return TextInputType.text;
   }
 
-  InputBorder? _computeInputBorder(LayoutProps props, BorderProps? rawBorder) {
-    return props.boxBorder?.type == "none"
+  InputBorder? _computeInputBorder(
+      LayoutProps props, Map<String, dynamic>? rawBorder) {
+    return props.boxBorder?["type"] == "none"
         ? InputBorder.none
-        : ThemeDecoder.decodeInputBorder(rawBorder?.toJson());
+        : ThemeDecoder.decodeInputBorder(rawBorder);
   }
 }

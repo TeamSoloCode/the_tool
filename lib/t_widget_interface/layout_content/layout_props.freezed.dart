@@ -150,11 +150,13 @@ mixin _$LayoutProps {
   int? get maxLines => throw _privateConstructorUsedError;
   int? get minLines => throw _privateConstructorUsedError;
   Map<String, dynamic>? get formatters => throw _privateConstructorUsedError;
-  BorderProps? get enabledBorder => throw _privateConstructorUsedError;
-  BorderProps? get focusedBorder => throw _privateConstructorUsedError;
-  BorderProps? get disabledBorder => throw _privateConstructorUsedError;
-  BorderProps? get focusedErrorBorder => throw _privateConstructorUsedError;
-  BorderProps? get errorBorder =>
+  Map<String, dynamic>? get enabledBorder => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get focusedBorder => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get disabledBorder =>
+      throw _privateConstructorUsedError;
+  Map<String, dynamic>? get focusedErrorBorder =>
+      throw _privateConstructorUsedError;
+  Map<String, dynamic>? get errorBorder =>
       throw _privateConstructorUsedError; // Field End==================================================
 // Datetime Field Start==================================================
   String? get firstDate => throw _privateConstructorUsedError;
@@ -226,10 +228,10 @@ mixin _$LayoutProps {
   List<LayoutProps>? get actions => throw _privateConstructorUsedError;
   BottomNavigationProps? get bottomNav => throw _privateConstructorUsedError;
   ImageProviderProps? get image => throw _privateConstructorUsedError;
-  BorderProps? get boxBorder => throw _privateConstructorUsedError;
-  BorderRadiusProps? get borderRadius => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get boxBorder => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get borderRadius => throw _privateConstructorUsedError;
   TShapeBorderProps? get shapeBorder => throw _privateConstructorUsedError;
-  BoxShadowProps? get boxShadow => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get boxShadow => throw _privateConstructorUsedError;
   T_GradientProps? get gradient => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -331,11 +333,11 @@ abstract class $LayoutPropsCopyWith<$Res> {
       int? maxLines,
       int? minLines,
       Map<String, dynamic>? formatters,
-      BorderProps? enabledBorder,
-      BorderProps? focusedBorder,
-      BorderProps? disabledBorder,
-      BorderProps? focusedErrorBorder,
-      BorderProps? errorBorder,
+      Map<String, dynamic>? enabledBorder,
+      Map<String, dynamic>? focusedBorder,
+      Map<String, dynamic>? disabledBorder,
+      Map<String, dynamic>? focusedErrorBorder,
+      Map<String, dynamic>? errorBorder,
       String? firstDate,
       String? lastDate,
       String? initialDate,
@@ -370,21 +372,16 @@ abstract class $LayoutPropsCopyWith<$Res> {
       List<LayoutProps>? actions,
       BottomNavigationProps? bottomNav,
       ImageProviderProps? image,
-      BorderProps? boxBorder,
-      BorderRadiusProps? borderRadius,
+      Map<String, dynamic>? boxBorder,
+      Map<String, dynamic>? borderRadius,
       TShapeBorderProps? shapeBorder,
-      BoxShadowProps? boxShadow,
+      Map<String, dynamic>? boxShadow,
       T_GradientProps? gradient});
 
   $T_DrawerPropsCopyWith<$Res>? get drawer;
   $T_LayoutBuilderPropsCopyWith<$Res>? get layoutBuilder;
   $LayoutPropsCopyWith<$Res>? get suffixIcon;
   $LayoutPropsCopyWith<$Res>? get prefixIcon;
-  $BorderPropsCopyWith<$Res>? get enabledBorder;
-  $BorderPropsCopyWith<$Res>? get focusedBorder;
-  $BorderPropsCopyWith<$Res>? get disabledBorder;
-  $BorderPropsCopyWith<$Res>? get focusedErrorBorder;
-  $BorderPropsCopyWith<$Res>? get errorBorder;
   $LayoutPropsCopyWith<$Res>? get separator;
   $LayoutPropsCopyWith<$Res>? get head;
   $LayoutPropsCopyWith<$Res>? get body;
@@ -397,10 +394,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
   $LayoutPropsCopyWith<$Res>? get itemLayout;
   $BottomNavigationPropsCopyWith<$Res>? get bottomNav;
   $ImageProviderPropsCopyWith<$Res>? get image;
-  $BorderPropsCopyWith<$Res>? get boxBorder;
-  $BorderRadiusPropsCopyWith<$Res>? get borderRadius;
   $TShapeBorderPropsCopyWith<$Res>? get shapeBorder;
-  $BoxShadowPropsCopyWith<$Res>? get boxShadow;
   $T_GradientPropsCopyWith<$Res>? get gradient;
 }
 
@@ -896,23 +890,23 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
       enabledBorder: freezed == enabledBorder
           ? _value.enabledBorder
           : enabledBorder // ignore: cast_nullable_to_non_nullable
-              as BorderProps?,
+              as Map<String, dynamic>?,
       focusedBorder: freezed == focusedBorder
           ? _value.focusedBorder
           : focusedBorder // ignore: cast_nullable_to_non_nullable
-              as BorderProps?,
+              as Map<String, dynamic>?,
       disabledBorder: freezed == disabledBorder
           ? _value.disabledBorder
           : disabledBorder // ignore: cast_nullable_to_non_nullable
-              as BorderProps?,
+              as Map<String, dynamic>?,
       focusedErrorBorder: freezed == focusedErrorBorder
           ? _value.focusedErrorBorder
           : focusedErrorBorder // ignore: cast_nullable_to_non_nullable
-              as BorderProps?,
+              as Map<String, dynamic>?,
       errorBorder: freezed == errorBorder
           ? _value.errorBorder
           : errorBorder // ignore: cast_nullable_to_non_nullable
-              as BorderProps?,
+              as Map<String, dynamic>?,
       firstDate: freezed == firstDate
           ? _value.firstDate
           : firstDate // ignore: cast_nullable_to_non_nullable
@@ -1052,11 +1046,11 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
       boxBorder: freezed == boxBorder
           ? _value.boxBorder
           : boxBorder // ignore: cast_nullable_to_non_nullable
-              as BorderProps?,
+              as Map<String, dynamic>?,
       borderRadius: freezed == borderRadius
           ? _value.borderRadius
           : borderRadius // ignore: cast_nullable_to_non_nullable
-              as BorderRadiusProps?,
+              as Map<String, dynamic>?,
       shapeBorder: freezed == shapeBorder
           ? _value.shapeBorder
           : shapeBorder // ignore: cast_nullable_to_non_nullable
@@ -1064,7 +1058,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
       boxShadow: freezed == boxShadow
           ? _value.boxShadow
           : boxShadow // ignore: cast_nullable_to_non_nullable
-              as BoxShadowProps?,
+              as Map<String, dynamic>?,
       gradient: freezed == gradient
           ? _value.gradient
           : gradient // ignore: cast_nullable_to_non_nullable
@@ -1117,66 +1111,6 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
 
     return $LayoutPropsCopyWith<$Res>(_value.prefixIcon!, (value) {
       return _then(_value.copyWith(prefixIcon: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $BorderPropsCopyWith<$Res>? get enabledBorder {
-    if (_value.enabledBorder == null) {
-      return null;
-    }
-
-    return $BorderPropsCopyWith<$Res>(_value.enabledBorder!, (value) {
-      return _then(_value.copyWith(enabledBorder: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $BorderPropsCopyWith<$Res>? get focusedBorder {
-    if (_value.focusedBorder == null) {
-      return null;
-    }
-
-    return $BorderPropsCopyWith<$Res>(_value.focusedBorder!, (value) {
-      return _then(_value.copyWith(focusedBorder: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $BorderPropsCopyWith<$Res>? get disabledBorder {
-    if (_value.disabledBorder == null) {
-      return null;
-    }
-
-    return $BorderPropsCopyWith<$Res>(_value.disabledBorder!, (value) {
-      return _then(_value.copyWith(disabledBorder: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $BorderPropsCopyWith<$Res>? get focusedErrorBorder {
-    if (_value.focusedErrorBorder == null) {
-      return null;
-    }
-
-    return $BorderPropsCopyWith<$Res>(_value.focusedErrorBorder!, (value) {
-      return _then(_value.copyWith(focusedErrorBorder: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $BorderPropsCopyWith<$Res>? get errorBorder {
-    if (_value.errorBorder == null) {
-      return null;
-    }
-
-    return $BorderPropsCopyWith<$Res>(_value.errorBorder!, (value) {
-      return _then(_value.copyWith(errorBorder: value) as $Val);
     });
   }
 
@@ -1326,30 +1260,6 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
 
   @override
   @pragma('vm:prefer-inline')
-  $BorderPropsCopyWith<$Res>? get boxBorder {
-    if (_value.boxBorder == null) {
-      return null;
-    }
-
-    return $BorderPropsCopyWith<$Res>(_value.boxBorder!, (value) {
-      return _then(_value.copyWith(boxBorder: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $BorderRadiusPropsCopyWith<$Res>? get borderRadius {
-    if (_value.borderRadius == null) {
-      return null;
-    }
-
-    return $BorderRadiusPropsCopyWith<$Res>(_value.borderRadius!, (value) {
-      return _then(_value.copyWith(borderRadius: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
   $TShapeBorderPropsCopyWith<$Res>? get shapeBorder {
     if (_value.shapeBorder == null) {
       return null;
@@ -1357,18 +1267,6 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
 
     return $TShapeBorderPropsCopyWith<$Res>(_value.shapeBorder!, (value) {
       return _then(_value.copyWith(shapeBorder: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $BoxShadowPropsCopyWith<$Res>? get boxShadow {
-    if (_value.boxShadow == null) {
-      return null;
-    }
-
-    return $BoxShadowPropsCopyWith<$Res>(_value.boxShadow!, (value) {
-      return _then(_value.copyWith(boxShadow: value) as $Val);
     });
   }
 
@@ -1480,11 +1378,11 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       int? maxLines,
       int? minLines,
       Map<String, dynamic>? formatters,
-      BorderProps? enabledBorder,
-      BorderProps? focusedBorder,
-      BorderProps? disabledBorder,
-      BorderProps? focusedErrorBorder,
-      BorderProps? errorBorder,
+      Map<String, dynamic>? enabledBorder,
+      Map<String, dynamic>? focusedBorder,
+      Map<String, dynamic>? disabledBorder,
+      Map<String, dynamic>? focusedErrorBorder,
+      Map<String, dynamic>? errorBorder,
       String? firstDate,
       String? lastDate,
       String? initialDate,
@@ -1519,10 +1417,10 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       List<LayoutProps>? actions,
       BottomNavigationProps? bottomNav,
       ImageProviderProps? image,
-      BorderProps? boxBorder,
-      BorderRadiusProps? borderRadius,
+      Map<String, dynamic>? boxBorder,
+      Map<String, dynamic>? borderRadius,
       TShapeBorderProps? shapeBorder,
-      BoxShadowProps? boxShadow,
+      Map<String, dynamic>? boxShadow,
       T_GradientProps? gradient});
 
   @override
@@ -1533,16 +1431,6 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
   $LayoutPropsCopyWith<$Res>? get suffixIcon;
   @override
   $LayoutPropsCopyWith<$Res>? get prefixIcon;
-  @override
-  $BorderPropsCopyWith<$Res>? get enabledBorder;
-  @override
-  $BorderPropsCopyWith<$Res>? get focusedBorder;
-  @override
-  $BorderPropsCopyWith<$Res>? get disabledBorder;
-  @override
-  $BorderPropsCopyWith<$Res>? get focusedErrorBorder;
-  @override
-  $BorderPropsCopyWith<$Res>? get errorBorder;
   @override
   $LayoutPropsCopyWith<$Res>? get separator;
   @override
@@ -1568,13 +1456,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
   @override
   $ImageProviderPropsCopyWith<$Res>? get image;
   @override
-  $BorderPropsCopyWith<$Res>? get boxBorder;
-  @override
-  $BorderRadiusPropsCopyWith<$Res>? get borderRadius;
-  @override
   $TShapeBorderPropsCopyWith<$Res>? get shapeBorder;
-  @override
-  $BoxShadowPropsCopyWith<$Res>? get boxShadow;
   @override
   $T_GradientPropsCopyWith<$Res>? get gradient;
 }
@@ -2067,25 +1949,25 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           : formatters // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
       enabledBorder: freezed == enabledBorder
-          ? _value.enabledBorder
+          ? _value._enabledBorder
           : enabledBorder // ignore: cast_nullable_to_non_nullable
-              as BorderProps?,
+              as Map<String, dynamic>?,
       focusedBorder: freezed == focusedBorder
-          ? _value.focusedBorder
+          ? _value._focusedBorder
           : focusedBorder // ignore: cast_nullable_to_non_nullable
-              as BorderProps?,
+              as Map<String, dynamic>?,
       disabledBorder: freezed == disabledBorder
-          ? _value.disabledBorder
+          ? _value._disabledBorder
           : disabledBorder // ignore: cast_nullable_to_non_nullable
-              as BorderProps?,
+              as Map<String, dynamic>?,
       focusedErrorBorder: freezed == focusedErrorBorder
-          ? _value.focusedErrorBorder
+          ? _value._focusedErrorBorder
           : focusedErrorBorder // ignore: cast_nullable_to_non_nullable
-              as BorderProps?,
+              as Map<String, dynamic>?,
       errorBorder: freezed == errorBorder
-          ? _value.errorBorder
+          ? _value._errorBorder
           : errorBorder // ignore: cast_nullable_to_non_nullable
-              as BorderProps?,
+              as Map<String, dynamic>?,
       firstDate: freezed == firstDate
           ? _value.firstDate
           : firstDate // ignore: cast_nullable_to_non_nullable
@@ -2223,21 +2105,21 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           : image // ignore: cast_nullable_to_non_nullable
               as ImageProviderProps?,
       boxBorder: freezed == boxBorder
-          ? _value.boxBorder
+          ? _value._boxBorder
           : boxBorder // ignore: cast_nullable_to_non_nullable
-              as BorderProps?,
+              as Map<String, dynamic>?,
       borderRadius: freezed == borderRadius
-          ? _value.borderRadius
+          ? _value._borderRadius
           : borderRadius // ignore: cast_nullable_to_non_nullable
-              as BorderRadiusProps?,
+              as Map<String, dynamic>?,
       shapeBorder: freezed == shapeBorder
           ? _value.shapeBorder
           : shapeBorder // ignore: cast_nullable_to_non_nullable
               as TShapeBorderProps?,
       boxShadow: freezed == boxShadow
-          ? _value.boxShadow
+          ? _value._boxShadow
           : boxShadow // ignore: cast_nullable_to_non_nullable
-              as BoxShadowProps?,
+              as Map<String, dynamic>?,
       gradient: freezed == gradient
           ? _value.gradient
           : gradient // ignore: cast_nullable_to_non_nullable
@@ -2336,11 +2218,11 @@ class _$_LayoutProps implements _LayoutProps {
       this.maxLines,
       this.minLines,
       final Map<String, dynamic>? formatters,
-      this.enabledBorder,
-      this.focusedBorder,
-      this.disabledBorder,
-      this.focusedErrorBorder,
-      this.errorBorder,
+      final Map<String, dynamic>? enabledBorder,
+      final Map<String, dynamic>? focusedBorder,
+      final Map<String, dynamic>? disabledBorder,
+      final Map<String, dynamic>? focusedErrorBorder,
+      final Map<String, dynamic>? errorBorder,
       this.firstDate,
       this.lastDate,
       this.initialDate,
@@ -2375,10 +2257,10 @@ class _$_LayoutProps implements _LayoutProps {
       final List<LayoutProps>? actions,
       this.bottomNav,
       this.image,
-      this.boxBorder,
-      this.borderRadius,
+      final Map<String, dynamic>? boxBorder,
+      final Map<String, dynamic>? borderRadius,
       this.shapeBorder,
-      this.boxShadow,
+      final Map<String, dynamic>? boxShadow,
       this.gradient})
       : _positioned = positioned,
         _componentProps = componentProps,
@@ -2387,12 +2269,20 @@ class _$_LayoutProps implements _LayoutProps {
         _mediaScreenOnly = mediaScreenOnly,
         _validators = validators,
         _formatters = formatters,
+        _enabledBorder = enabledBorder,
+        _focusedBorder = focusedBorder,
+        _disabledBorder = disabledBorder,
+        _focusedErrorBorder = focusedErrorBorder,
+        _errorBorder = errorBorder,
         _validateOrder = validateOrder,
         _columns = columns,
         _rows = rows,
         _appBarBottom = appBarBottom,
         _children = children,
-        _actions = actions;
+        _actions = actions,
+        _boxBorder = boxBorder,
+        _borderRadius = borderRadius,
+        _boxShadow = boxShadow;
 
   factory _$_LayoutProps.fromJson(Map<String, dynamic> json) =>
       _$$_LayoutPropsFromJson(json);
@@ -2679,16 +2569,57 @@ class _$_LayoutProps implements _LayoutProps {
     return EqualUnmodifiableMapView(value);
   }
 
+  final Map<String, dynamic>? _enabledBorder;
   @override
-  final BorderProps? enabledBorder;
+  Map<String, dynamic>? get enabledBorder {
+    final value = _enabledBorder;
+    if (value == null) return null;
+    if (_enabledBorder is EqualUnmodifiableMapView) return _enabledBorder;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
+  final Map<String, dynamic>? _focusedBorder;
   @override
-  final BorderProps? focusedBorder;
+  Map<String, dynamic>? get focusedBorder {
+    final value = _focusedBorder;
+    if (value == null) return null;
+    if (_focusedBorder is EqualUnmodifiableMapView) return _focusedBorder;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
+  final Map<String, dynamic>? _disabledBorder;
   @override
-  final BorderProps? disabledBorder;
+  Map<String, dynamic>? get disabledBorder {
+    final value = _disabledBorder;
+    if (value == null) return null;
+    if (_disabledBorder is EqualUnmodifiableMapView) return _disabledBorder;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
+  final Map<String, dynamic>? _focusedErrorBorder;
   @override
-  final BorderProps? focusedErrorBorder;
+  Map<String, dynamic>? get focusedErrorBorder {
+    final value = _focusedErrorBorder;
+    if (value == null) return null;
+    if (_focusedErrorBorder is EqualUnmodifiableMapView)
+      return _focusedErrorBorder;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
+  final Map<String, dynamic>? _errorBorder;
   @override
-  final BorderProps? errorBorder;
+  Map<String, dynamic>? get errorBorder {
+    final value = _errorBorder;
+    if (value == null) return null;
+    if (_errorBorder is EqualUnmodifiableMapView) return _errorBorder;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
 // Field End==================================================
 // Datetime Field Start==================================================
   @override
@@ -2846,14 +2777,38 @@ class _$_LayoutProps implements _LayoutProps {
   final BottomNavigationProps? bottomNav;
   @override
   final ImageProviderProps? image;
+  final Map<String, dynamic>? _boxBorder;
   @override
-  final BorderProps? boxBorder;
+  Map<String, dynamic>? get boxBorder {
+    final value = _boxBorder;
+    if (value == null) return null;
+    if (_boxBorder is EqualUnmodifiableMapView) return _boxBorder;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
+  final Map<String, dynamic>? _borderRadius;
   @override
-  final BorderRadiusProps? borderRadius;
+  Map<String, dynamic>? get borderRadius {
+    final value = _borderRadius;
+    if (value == null) return null;
+    if (_borderRadius is EqualUnmodifiableMapView) return _borderRadius;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
   @override
   final TShapeBorderProps? shapeBorder;
+  final Map<String, dynamic>? _boxShadow;
   @override
-  final BoxShadowProps? boxShadow;
+  Map<String, dynamic>? get boxShadow {
+    final value = _boxShadow;
+    if (value == null) return null;
+    if (_boxShadow is EqualUnmodifiableMapView) return _boxShadow;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
   @override
   final T_GradientProps? gradient;
 
@@ -2959,11 +2914,11 @@ abstract class _LayoutProps implements LayoutProps {
       final int? maxLines,
       final int? minLines,
       final Map<String, dynamic>? formatters,
-      final BorderProps? enabledBorder,
-      final BorderProps? focusedBorder,
-      final BorderProps? disabledBorder,
-      final BorderProps? focusedErrorBorder,
-      final BorderProps? errorBorder,
+      final Map<String, dynamic>? enabledBorder,
+      final Map<String, dynamic>? focusedBorder,
+      final Map<String, dynamic>? disabledBorder,
+      final Map<String, dynamic>? focusedErrorBorder,
+      final Map<String, dynamic>? errorBorder,
       final String? firstDate,
       final String? lastDate,
       final String? initialDate,
@@ -2998,10 +2953,10 @@ abstract class _LayoutProps implements LayoutProps {
       final List<LayoutProps>? actions,
       final BottomNavigationProps? bottomNav,
       final ImageProviderProps? image,
-      final BorderProps? boxBorder,
-      final BorderRadiusProps? borderRadius,
+      final Map<String, dynamic>? boxBorder,
+      final Map<String, dynamic>? borderRadius,
       final TShapeBorderProps? shapeBorder,
-      final BoxShadowProps? boxShadow,
+      final Map<String, dynamic>? boxShadow,
       final T_GradientProps? gradient}) = _$_LayoutProps;
 
   factory _LayoutProps.fromJson(Map<String, dynamic> json) =
@@ -3217,15 +3172,15 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   Map<String, dynamic>? get formatters;
   @override
-  BorderProps? get enabledBorder;
+  Map<String, dynamic>? get enabledBorder;
   @override
-  BorderProps? get focusedBorder;
+  Map<String, dynamic>? get focusedBorder;
   @override
-  BorderProps? get disabledBorder;
+  Map<String, dynamic>? get disabledBorder;
   @override
-  BorderProps? get focusedErrorBorder;
+  Map<String, dynamic>? get focusedErrorBorder;
   @override
-  BorderProps? get errorBorder;
+  Map<String, dynamic>? get errorBorder;
   @override // Field End==================================================
 // Datetime Field Start==================================================
   String? get firstDate;
@@ -3324,13 +3279,13 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   ImageProviderProps? get image;
   @override
-  BorderProps? get boxBorder;
+  Map<String, dynamic>? get boxBorder;
   @override
-  BorderRadiusProps? get borderRadius;
+  Map<String, dynamic>? get borderRadius;
   @override
   TShapeBorderProps? get shapeBorder;
   @override
-  BoxShadowProps? get boxShadow;
+  Map<String, dynamic>? get boxShadow;
   @override
   T_GradientProps? get gradient;
   @override

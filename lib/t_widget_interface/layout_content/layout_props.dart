@@ -1,9 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:the_tool/t_widget_interface/bottom_navigation_props/bottom_navigation_props.dart';
-import 'package:the_tool/t_widget_interface/box_decoration_props/border_props/border_props.dart';
 import 'package:the_tool/t_widget_interface/shape_border_props/shape_border_props.dart';
-import 'package:the_tool/t_widget_interface/box_decoration_props/border_radius_props/border_radius_props.dart';
-import 'package:the_tool/t_widget_interface/box_decoration_props/box_shadow_props/box_shadow_props.dart';
 import 'package:the_tool/t_widget_interface/data_table_props/data_column_props/data_column_props.dart';
 import 'package:the_tool/t_widget_interface/data_table_props/data_row_props/data_row_props.dart';
 import 'package:the_tool/t_widget_interface/drawer_props/drawer_props.dart';
@@ -154,11 +151,11 @@ class LayoutProps with _$LayoutProps {
     int? maxLines,
     int? minLines,
     Map<String, dynamic>? formatters,
-    BorderProps? enabledBorder,
-    BorderProps? focusedBorder,
-    BorderProps? disabledBorder,
-    BorderProps? focusedErrorBorder,
-    BorderProps? errorBorder,
+    Map<String, dynamic>? enabledBorder,
+    Map<String, dynamic>? focusedBorder,
+    Map<String, dynamic>? disabledBorder,
+    Map<String, dynamic>? focusedErrorBorder,
+    Map<String, dynamic>? errorBorder,
     // Field End==================================================
 
     // Datetime Field Start==================================================
@@ -238,10 +235,10 @@ class LayoutProps with _$LayoutProps {
     List<LayoutProps>? actions,
     BottomNavigationProps? bottomNav,
     ImageProviderProps? image,
-    BorderProps? boxBorder,
-    BorderRadiusProps? borderRadius,
+    Map<String, dynamic>? boxBorder,
+    Map<String, dynamic>? borderRadius,
     TShapeBorderProps? shapeBorder,
-    BoxShadowProps? boxShadow,
+    Map<String, dynamic>? boxShadow,
     T_GradientProps? gradient,
   }) = _LayoutProps;
 

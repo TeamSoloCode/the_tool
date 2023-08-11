@@ -12,10 +12,7 @@ _$_TShapeBorderProps _$$_TShapeBorderPropsFromJson(Map<String, dynamic> json) =>
       side: json['side'] == null
           ? null
           : TBorderSideProps.fromJson(json['side'] as Map<String, dynamic>),
-      borderRadius: json['borderRadius'] == null
-          ? null
-          : BorderRadiusProps.fromJson(
-              json['borderRadius'] as Map<String, dynamic>),
+      borderRadius: json['borderRadius'] as Map<String, dynamic>?,
     );
 
 Map<String, dynamic> _$$_TShapeBorderPropsToJson(
@@ -23,5 +20,5 @@ Map<String, dynamic> _$$_TShapeBorderPropsToJson(
     <String, dynamic>{
       'type': instance.type,
       'side': instance.side?.toJson(),
-      'borderRadius': instance.borderRadius?.toJson(),
+      'borderRadius': instance.borderRadius,
     };

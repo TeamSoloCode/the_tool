@@ -18,16 +18,16 @@ mixin ContainerMixin {
   }
 
   BoxBorder? computeBoxBorder(LayoutProps? props) {
-    return ThemeDecoder.decodeBoxBorder(props?.boxBorder?.toJson());
+    return ThemeDecoder.decodeBoxBorder(props?.boxBorder);
   }
 
   BoxShadow? computeBoxShadow(LayoutProps? props) {
     return ThemeDecoder.decodeBoxShadow({
-      "blurRadius": props?.boxShadow?.blurRadius,
+      "blurRadius": props?.boxShadow?["blurRadius"],
       // "color": props?.boxShadowProps!.color,
-      "offset": props?.boxShadow?.offset,
-      "spreadRadius": props?.boxShadow?.spreadRadius,
-      "blurStyle": props?.boxShadow?.blurStyle,
+      "offset": props?.boxShadow?["offset"],
+      "spreadRadius": props?.boxShadow?["spreadRadius"],
+      "blurStyle": props?.boxShadow?["blurStyle"],
     });
   }
 
@@ -36,8 +36,7 @@ mixin ContainerMixin {
       "color": props?.backgroundColor,
       //  "backgroundBlendMode": <BlendMode>,
       "border": computeBoxBorder(props),
-      "borderRadius":
-          ThemeDecoder.decodeBorderRadius(props?.borderRadius?.toJson()),
+      "borderRadius": ThemeDecoder.decodeBorderRadius(props?.borderRadius),
       "boxShadow": StyleUtils.decodeDynamicList(
         props?.boxShadow != null ? [computeBoxShadow(props)] : [],
       ),

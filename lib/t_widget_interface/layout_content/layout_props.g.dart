@@ -112,23 +112,11 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       maxLines: json['maxLines'] as int?,
       minLines: json['minLines'] as int?,
       formatters: json['formatters'] as Map<String, dynamic>?,
-      enabledBorder: json['enabledBorder'] == null
-          ? null
-          : BorderProps.fromJson(json['enabledBorder'] as Map<String, dynamic>),
-      focusedBorder: json['focusedBorder'] == null
-          ? null
-          : BorderProps.fromJson(json['focusedBorder'] as Map<String, dynamic>),
-      disabledBorder: json['disabledBorder'] == null
-          ? null
-          : BorderProps.fromJson(
-              json['disabledBorder'] as Map<String, dynamic>),
-      focusedErrorBorder: json['focusedErrorBorder'] == null
-          ? null
-          : BorderProps.fromJson(
-              json['focusedErrorBorder'] as Map<String, dynamic>),
-      errorBorder: json['errorBorder'] == null
-          ? null
-          : BorderProps.fromJson(json['errorBorder'] as Map<String, dynamic>),
+      enabledBorder: json['enabledBorder'] as Map<String, dynamic>?,
+      focusedBorder: json['focusedBorder'] as Map<String, dynamic>?,
+      disabledBorder: json['disabledBorder'] as Map<String, dynamic>?,
+      focusedErrorBorder: json['focusedErrorBorder'] as Map<String, dynamic>?,
+      errorBorder: json['errorBorder'] as Map<String, dynamic>?,
       firstDate: json['firstDate'] as String?,
       lastDate: json['lastDate'] as String?,
       initialDate: json['initialDate'] as String?,
@@ -198,20 +186,13 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       image: json['image'] == null
           ? null
           : ImageProviderProps.fromJson(json['image'] as Map<String, dynamic>),
-      boxBorder: json['boxBorder'] == null
-          ? null
-          : BorderProps.fromJson(json['boxBorder'] as Map<String, dynamic>),
-      borderRadius: json['borderRadius'] == null
-          ? null
-          : BorderRadiusProps.fromJson(
-              json['borderRadius'] as Map<String, dynamic>),
+      boxBorder: json['boxBorder'] as Map<String, dynamic>?,
+      borderRadius: json['borderRadius'] as Map<String, dynamic>?,
       shapeBorder: json['shapeBorder'] == null
           ? null
           : TShapeBorderProps.fromJson(
               json['shapeBorder'] as Map<String, dynamic>),
-      boxShadow: json['boxShadow'] == null
-          ? null
-          : BoxShadowProps.fromJson(json['boxShadow'] as Map<String, dynamic>),
+      boxShadow: json['boxShadow'] as Map<String, dynamic>?,
       gradient: json['gradient'] == null
           ? null
           : T_GradientProps.fromJson(json['gradient'] as Map<String, dynamic>),
@@ -307,11 +288,11 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'maxLines': instance.maxLines,
       'minLines': instance.minLines,
       'formatters': instance.formatters,
-      'enabledBorder': instance.enabledBorder?.toJson(),
-      'focusedBorder': instance.focusedBorder?.toJson(),
-      'disabledBorder': instance.disabledBorder?.toJson(),
-      'focusedErrorBorder': instance.focusedErrorBorder?.toJson(),
-      'errorBorder': instance.errorBorder?.toJson(),
+      'enabledBorder': instance.enabledBorder,
+      'focusedBorder': instance.focusedBorder,
+      'disabledBorder': instance.disabledBorder,
+      'focusedErrorBorder': instance.focusedErrorBorder,
+      'errorBorder': instance.errorBorder,
       'firstDate': instance.firstDate,
       'lastDate': instance.lastDate,
       'initialDate': instance.initialDate,
@@ -346,9 +327,9 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'actions': instance.actions?.map((e) => e.toJson()).toList(),
       'bottomNav': instance.bottomNav?.toJson(),
       'image': instance.image?.toJson(),
-      'boxBorder': instance.boxBorder?.toJson(),
-      'borderRadius': instance.borderRadius?.toJson(),
+      'boxBorder': instance.boxBorder,
+      'borderRadius': instance.borderRadius,
       'shapeBorder': instance.shapeBorder?.toJson(),
-      'boxShadow': instance.boxShadow?.toJson(),
+      'boxShadow': instance.boxShadow,
       'gradient': instance.gradient?.toJson(),
     };

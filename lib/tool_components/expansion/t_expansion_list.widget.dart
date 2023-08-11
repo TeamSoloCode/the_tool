@@ -104,14 +104,14 @@ class _TExpansionListState extends TStatefulWidget<TExpansionList> {
               child: TWidgets(
                 layout: child.head!,
                 pagePath: widget.pagePath,
-                childData: childData ?? const {},
+                childData: childData ?? UtilsManager.emptyMapStringDynamic,
               ),
             );
           },
           body: TWidgets(
             layout: child.body!,
             pagePath: widget.pagePath,
-            childData: childData ?? const {},
+            childData: childData ?? UtilsManager.emptyMapStringDynamic,
           ),
         ),
       );

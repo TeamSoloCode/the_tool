@@ -22,7 +22,7 @@ TShapeBorderProps _$TShapeBorderPropsFromJson(Map<String, dynamic> json) {
 mixin _$TShapeBorderProps {
   String? get type => throw _privateConstructorUsedError;
   TBorderSideProps? get side => throw _privateConstructorUsedError;
-  BorderRadiusProps? get borderRadius => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get borderRadius => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,10 +37,11 @@ abstract class $TShapeBorderPropsCopyWith<$Res> {
       _$TShapeBorderPropsCopyWithImpl<$Res, TShapeBorderProps>;
   @useResult
   $Res call(
-      {String? type, TBorderSideProps? side, BorderRadiusProps? borderRadius});
+      {String? type,
+      TBorderSideProps? side,
+      Map<String, dynamic>? borderRadius});
 
   $TBorderSidePropsCopyWith<$Res>? get side;
-  $BorderRadiusPropsCopyWith<$Res>? get borderRadius;
 }
 
 /// @nodoc
@@ -72,7 +73,7 @@ class _$TShapeBorderPropsCopyWithImpl<$Res, $Val extends TShapeBorderProps>
       borderRadius: freezed == borderRadius
           ? _value.borderRadius
           : borderRadius // ignore: cast_nullable_to_non_nullable
-              as BorderRadiusProps?,
+              as Map<String, dynamic>?,
     ) as $Val);
   }
 
@@ -87,18 +88,6 @@ class _$TShapeBorderPropsCopyWithImpl<$Res, $Val extends TShapeBorderProps>
       return _then(_value.copyWith(side: value) as $Val);
     });
   }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $BorderRadiusPropsCopyWith<$Res>? get borderRadius {
-    if (_value.borderRadius == null) {
-      return null;
-    }
-
-    return $BorderRadiusPropsCopyWith<$Res>(_value.borderRadius!, (value) {
-      return _then(_value.copyWith(borderRadius: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
@@ -110,12 +99,12 @@ abstract class _$$_TShapeBorderPropsCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? type, TBorderSideProps? side, BorderRadiusProps? borderRadius});
+      {String? type,
+      TBorderSideProps? side,
+      Map<String, dynamic>? borderRadius});
 
   @override
   $TBorderSidePropsCopyWith<$Res>? get side;
-  @override
-  $BorderRadiusPropsCopyWith<$Res>? get borderRadius;
 }
 
 /// @nodoc
@@ -143,9 +132,9 @@ class __$$_TShapeBorderPropsCopyWithImpl<$Res>
           : side // ignore: cast_nullable_to_non_nullable
               as TBorderSideProps?,
       borderRadius: freezed == borderRadius
-          ? _value.borderRadius
+          ? _value._borderRadius
           : borderRadius // ignore: cast_nullable_to_non_nullable
-              as BorderRadiusProps?,
+              as Map<String, dynamic>?,
     ));
   }
 }
@@ -153,7 +142,9 @@ class __$$_TShapeBorderPropsCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_TShapeBorderProps implements _TShapeBorderProps {
-  const _$_TShapeBorderProps({this.type, this.side, this.borderRadius});
+  const _$_TShapeBorderProps(
+      {this.type, this.side, final Map<String, dynamic>? borderRadius})
+      : _borderRadius = borderRadius;
 
   factory _$_TShapeBorderProps.fromJson(Map<String, dynamic> json) =>
       _$$_TShapeBorderPropsFromJson(json);
@@ -162,8 +153,15 @@ class _$_TShapeBorderProps implements _TShapeBorderProps {
   final String? type;
   @override
   final TBorderSideProps? side;
+  final Map<String, dynamic>? _borderRadius;
   @override
-  final BorderRadiusProps? borderRadius;
+  Map<String, dynamic>? get borderRadius {
+    final value = _borderRadius;
+    if (value == null) return null;
+    if (_borderRadius is EqualUnmodifiableMapView) return _borderRadius;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
 
   @JsonKey(ignore: true)
   @override
@@ -184,7 +182,7 @@ abstract class _TShapeBorderProps implements TShapeBorderProps {
   const factory _TShapeBorderProps(
       {final String? type,
       final TBorderSideProps? side,
-      final BorderRadiusProps? borderRadius}) = _$_TShapeBorderProps;
+      final Map<String, dynamic>? borderRadius}) = _$_TShapeBorderProps;
 
   factory _TShapeBorderProps.fromJson(Map<String, dynamic> json) =
       _$_TShapeBorderProps.fromJson;
@@ -194,7 +192,7 @@ abstract class _TShapeBorderProps implements TShapeBorderProps {
   @override
   TBorderSideProps? get side;
   @override
-  BorderRadiusProps? get borderRadius;
+  Map<String, dynamic>? get borderRadius;
   @override
   @JsonKey(ignore: true)
   _$$_TShapeBorderPropsCopyWith<_$_TShapeBorderProps> get copyWith =>
