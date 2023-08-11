@@ -198,7 +198,6 @@ class UtilsManager {
           value,
           contextData,
         );
-        // FIXME: run too much
       }
     });
 
@@ -528,21 +527,23 @@ class UtilsManager {
   /// Example: get({"a": {"b": 1}}, "a.b") => 1
   /// Example2: get({"a": [{"b": 1}]}, "a.0.b") => 1
   static T? get<T>(source, String path, {T Function(dynamic)? converter}) {
-    List<String> keys = path.split('.');
-    final key = source is List ? int.parse(keys[0]) : keys[0];
+    final keys = path.split('.');
+    dynamic value = source;
 
-    if (source is List && source.isEmpty) {
-      return null;
+    for (final key in keys) {
+      if (value is List) {
+        final index = int.tryParse(key);
+        if (index == null || index >= value.length) {
+          return null;
+        }
+        value = value[index];
+      } else if (value is Map) {
+        value = value[key];
+      } else {
+        return null;
+      }
     }
 
-    if (source[key] == null) {
-      return null;
-    }
-
-    if (keys.length == 1) {
-      return converter != null ? converter(source[key]) : source[key] as T;
-    }
-
-    return get(source[keys.removeAt(0)], keys.join('.'));
+    return value == null ? null : (converter?.call(value) ?? value as T);
   }
 }

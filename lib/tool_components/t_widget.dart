@@ -257,9 +257,10 @@ mixin BaseStateWidget on Widget {
     if (dataPath == null) return childData;
 
     return UtilsManager.get(
-      _contextData,
-      dataPath,
-    );
+          _contextData,
+          dataPath,
+        ) ??
+        {};
   }
 }
 
