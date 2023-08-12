@@ -5,9 +5,6 @@ SUPPORT: BoxShadow for container widget
 
 SUPPORT: config UI base on platform in layout.json
 
-SUPPORT: snackbar
-SUPPORT: ScaffoldMessenger
-
 SUPPORT: make main function run with mock input for integration test
 
 SUPPORT: value binding for validate order in form
@@ -59,6 +56,8 @@ Support simple operator for binding data ( {{ !state.isGood | eq(state.isGood, "
 Support pages app bar custom actions
 
 #-------------------------------------------------
+-SUPPORT: snackbar
+-SUPPORT: ScaffoldMessenger
 -SUPPORT: get page layout.json from server base on platform
 -FIXME: Use UniqueKey object replace for uuid and unix milisecond
 -FIXME: Appbar not display properly

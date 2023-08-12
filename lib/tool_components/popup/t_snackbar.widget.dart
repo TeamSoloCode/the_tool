@@ -14,25 +14,17 @@ class TSnackBar extends TStatelessWidget {
 
   SnackBar _computeSnackbar(LayoutProps props) {
     return SnackBar(
-      action: buildSnackBarAction(props.labelText, props.onClick),
+      action: _buildSnackBarAction(props.labelText, props.onClick),
       duration: props.duration == null
           ? _defaultDuration
           : Duration(seconds: props.duration!),
-      dismissDirection: getDismissDirectionFromString(props.dismissDirection),
-      backgroundColor: ThemeDecoder.decodeColor(
-        props.backgroundColor,
-      ),
+      dismissDirection: _getDismissDirectionFromString(props.dismissDirection),
+      backgroundColor: ThemeDecoder.decodeColor(props.backgroundColor),
       elevation: props.elevation,
       width: props.width,
-      margin: ThemeDecoder.decodeEdgeInsetsGeometry(
-        props.margin,
-      ),
-      padding: ThemeDecoder.decodeEdgeInsetsGeometry(
-        props.padding,
-      ),
-      shape: ThemeDecoder.decodeShapeBorder(
-        props.shapeBorder?.toJson(),
-      ),
+      margin: ThemeDecoder.decodeEdgeInsetsGeometry(props.margin),
+      padding: ThemeDecoder.decodeEdgeInsetsGeometry(props.padding),
+      shape: ThemeDecoder.decodeShapeBorder(props.shapeBorder?.toJson()),
       content: UtilsManager.computeTWidgets(
         props.child,
         pagePath: pagePath,
@@ -76,7 +68,7 @@ class TSnackBar extends TStatelessWidget {
     });
   }
 
-  DismissDirection getDismissDirectionFromString(String? input) {
+  DismissDirection _getDismissDirectionFromString(String? input) {
     switch (input) {
       case "startToEnd":
         return DismissDirection.startToEnd;
@@ -95,7 +87,7 @@ class TSnackBar extends TStatelessWidget {
     }
   }
 
-  SnackBarAction? buildSnackBarAction(
+  SnackBarAction? _buildSnackBarAction(
     String? labelText,
     String? onClick,
   ) {
