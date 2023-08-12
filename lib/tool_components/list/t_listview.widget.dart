@@ -53,19 +53,16 @@ class _TListViewState extends TStatefulWidget<TListView> {
             );
           }
 
-          final itemKey = ValueKey(listData[index]?['id'] ?? index);
-          final itemWidget = TWidgets(
-            key: props.separator != null ? null : itemKey,
-            layout: props.itemLayout!,
+          final itemWidget = UtilsManager.computeTWidgets(
+            props.itemLayout,
             pagePath: widget.pagePath,
             childData: {UtilsManager.dataPath: "${props.name}.$index"},
           );
 
           if (props.separator != null) {
             return Column(
-              key: itemKey,
               children: [
-                itemWidget,
+                itemWidget!,
                 if (index < listData.length - 1)
                   TWidgets(
                     layout: props.separator!,
