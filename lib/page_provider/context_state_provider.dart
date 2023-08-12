@@ -52,6 +52,17 @@ class ContextStateProvider with ChangeNotifier {
 
   // ==========================================================================
 
+  GlobalKey<ScaffoldMessengerState>? _scaffoldMessengerKey;
+
+  GlobalKey<ScaffoldMessengerState>? get scaffoldMessengerKey =>
+      _scaffoldMessengerKey;
+
+  void registerKeyScaffoldMessengerState(
+    GlobalKey<ScaffoldMessengerState> scaffoldKey,
+  ) {
+    _scaffoldMessengerKey = scaffoldKey;
+  }
+
   // ==========================================================================
   Map<String, dynamic> get rootPageData => _rootPageData;
 

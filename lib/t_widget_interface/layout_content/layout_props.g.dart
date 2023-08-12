@@ -75,6 +75,7 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
           ?.map(
               (e) => T_MediaScreenOnlyProps.fromJson(e as Map<String, dynamic>))
           .toList(),
+      dismissDirection: json['dismissDirection'] as String?,
       onClick: json['onClick'] as String?,
       onLongClick: json['onLongClick'] as String?,
       onDoubleClick: json['onDoubleClick'] as String?,
@@ -257,6 +258,7 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'layoutBuilder': instance.layoutBuilder?.toJson(),
       'mediaScreenOnly':
           instance.mediaScreenOnly?.map((e) => e.toJson()).toList(),
+      'dismissDirection': instance.dismissDirection,
       'onClick': instance.onClick,
       'onLongClick': instance.onLongClick,
       'onDoubleClick': instance.onDoubleClick,

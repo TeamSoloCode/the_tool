@@ -57,7 +57,7 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
   late Future<void> _debounceLoadingBody;
   late Future<void> _debounceLoadingAppbar;
   MediaQueryData? _prevMediaQueryData;
-  final commonDelay = const Duration(milliseconds: 80);
+  final commonDelay = const Duration(milliseconds: 100);
 
   @override
   void initState() {
@@ -168,31 +168,26 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
         var page = Scaffold(
           key: _scaffoldKey,
           appBar: _getAppBar(pageData),
-          // bottomNavigationBar: _getBottomNavigation(pageData),
           bottomNavigationBar: _pageLayout?.bottomNav == null
               ? null
               : FutureBuilder(
                   future: _debounceLoadingAppbar,
                   builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      return _getBottomNavigation(pageData)!;
-                    } else {
-                      return const Offstage();
-                    }
+                    return snapshot.connectionState == ConnectionState.done
+                        ? _getBottomNavigation(pageData)!
+                        : const Offstage();
                   },
                 ),
           drawer: _computeDrawer(pageData),
           body: FutureBuilder(
             future: _debounceLoadingBody,
             builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return _getSelectedPage(
-                  pageData,
-                  _selectedBottomNavIndex,
-                );
-              } else {
-                return const Offstage();
-              }
+              return snapshot.connectionState == ConnectionState.done
+                  ? _getSelectedPage(
+                      pageData,
+                      _selectedBottomNavIndex,
+                    )
+                  : const Offstage();
             },
           ),
         );

@@ -101,6 +101,10 @@ class LayoutProps with _$LayoutProps {
     T_LayoutBuilderProps? layoutBuilder,
     List<T_MediaScreenOnlyProps>? mediaScreenOnly,
 
+    // Snackbar Start================================================
+    String? dismissDirection,
+    // Snackbar End==================================================
+
     // Click Properties Start================================================
     String? onClick,
     String? onLongClick,

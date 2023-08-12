@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:the_tool/tool_components/expansion/t_expansion_tile.widget.dart'
     deferred as t_expansion_tile;
+import 'package:the_tool/tool_components/popup/t_snackbar.widget.dart'
+    deferred as t_snackbar;
 import 'package:the_tool/tool_components/t_flexible.widget.dart';
 import 'package:the_tool/tool_components/t_safe_area.widget.dart';
 import 'package:the_tool/tool_components/t_wrap.widget.dart';
@@ -174,6 +176,9 @@ class _TWidgetsState extends State<TWidgets> {
       case "dialog":
         await t_dialog.loadLibrary();
         return t_dialog.TAlertDialog(tWidgetProps);
+      case "snackbar":
+        await t_snackbar.loadLibrary();
+        return t_snackbar.TSnackBar(tWidgetProps);
       case "gesture_detector":
         await t_gesture_detector.loadLibrary();
         return t_gesture_detector.TGestureDetector(tWidgetProps);

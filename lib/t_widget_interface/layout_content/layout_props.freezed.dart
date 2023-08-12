@@ -101,7 +101,10 @@ mixin _$LayoutProps {
   T_DrawerProps? get drawer => throw _privateConstructorUsedError;
   T_LayoutBuilderProps? get layoutBuilder => throw _privateConstructorUsedError;
   List<T_MediaScreenOnlyProps>? get mediaScreenOnly =>
-      throw _privateConstructorUsedError; // Click Properties Start================================================
+      throw _privateConstructorUsedError; // Snackbar Start================================================
+  String? get dismissDirection =>
+      throw _privateConstructorUsedError; // Snackbar End==================================================
+// Click Properties Start================================================
   String? get onClick => throw _privateConstructorUsedError;
   String? get onLongClick => throw _privateConstructorUsedError;
   String? get onDoubleClick => throw _privateConstructorUsedError;
@@ -302,6 +305,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       T_DrawerProps? drawer,
       T_LayoutBuilderProps? layoutBuilder,
       List<T_MediaScreenOnlyProps>? mediaScreenOnly,
+      String? dismissDirection,
       String? onClick,
       String? onLongClick,
       String? onDoubleClick,
@@ -466,6 +470,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? drawer = freezed,
     Object? layoutBuilder = freezed,
     Object? mediaScreenOnly = freezed,
+    Object? dismissDirection = freezed,
     Object? onClick = freezed,
     Object? onLongClick = freezed,
     Object? onDoubleClick = freezed,
@@ -763,6 +768,10 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.mediaScreenOnly
           : mediaScreenOnly // ignore: cast_nullable_to_non_nullable
               as List<T_MediaScreenOnlyProps>?,
+      dismissDirection: freezed == dismissDirection
+          ? _value.dismissDirection
+          : dismissDirection // ignore: cast_nullable_to_non_nullable
+              as String?,
       onClick: freezed == onClick
           ? _value.onClick
           : onClick // ignore: cast_nullable_to_non_nullable
@@ -1347,6 +1356,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       T_DrawerProps? drawer,
       T_LayoutBuilderProps? layoutBuilder,
       List<T_MediaScreenOnlyProps>? mediaScreenOnly,
+      String? dismissDirection,
       String? onClick,
       String? onLongClick,
       String? onDoubleClick,
@@ -1527,6 +1537,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? drawer = freezed,
     Object? layoutBuilder = freezed,
     Object? mediaScreenOnly = freezed,
+    Object? dismissDirection = freezed,
     Object? onClick = freezed,
     Object? onLongClick = freezed,
     Object? onDoubleClick = freezed,
@@ -1824,6 +1835,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value._mediaScreenOnly
           : mediaScreenOnly // ignore: cast_nullable_to_non_nullable
               as List<T_MediaScreenOnlyProps>?,
+      dismissDirection: freezed == dismissDirection
+          ? _value.dismissDirection
+          : dismissDirection // ignore: cast_nullable_to_non_nullable
+              as String?,
       onClick: freezed == onClick
           ? _value.onClick
           : onClick // ignore: cast_nullable_to_non_nullable
@@ -2187,6 +2202,7 @@ class _$_LayoutProps implements _LayoutProps {
       this.drawer,
       this.layoutBuilder,
       final List<T_MediaScreenOnlyProps>? mediaScreenOnly,
+      this.dismissDirection,
       this.onClick,
       this.onLongClick,
       this.onDoubleClick,
@@ -2474,6 +2490,10 @@ class _$_LayoutProps implements _LayoutProps {
     return EqualUnmodifiableListView(value);
   }
 
+// Snackbar Start================================================
+  @override
+  final String? dismissDirection;
+// Snackbar End==================================================
 // Click Properties Start================================================
   @override
   final String? onClick;
@@ -2883,6 +2903,7 @@ abstract class _LayoutProps implements LayoutProps {
       final T_DrawerProps? drawer,
       final T_LayoutBuilderProps? layoutBuilder,
       final List<T_MediaScreenOnlyProps>? mediaScreenOnly,
+      final String? dismissDirection,
       final String? onClick,
       final String? onLongClick,
       final String? onDoubleClick,
@@ -3095,7 +3116,10 @@ abstract class _LayoutProps implements LayoutProps {
   T_LayoutBuilderProps? get layoutBuilder;
   @override
   List<T_MediaScreenOnlyProps>? get mediaScreenOnly;
-  @override // Click Properties Start================================================
+  @override // Snackbar Start================================================
+  String? get dismissDirection;
+  @override // Snackbar End==================================================
+// Click Properties Start================================================
   String? get onClick;
   @override
   String? get onLongClick;

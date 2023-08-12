@@ -33,6 +33,7 @@ class _PageContainerState extends State<PageContainer> {
   bool _isWebViewReady = false;
   final UtilsManager _utils = getIt<UtilsManager>();
   final APIClientManager _apiClient = getIt<APIClientManager>();
+  final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
 
   bool _initializedCorePage = false;
   String? _corePageCode;
@@ -71,6 +72,7 @@ class _PageContainerState extends State<PageContainer> {
     return ModularApp(
       module: AppModule(config!),
       child: MaterialApp.router(
+        scaffoldMessengerKey: _scaffoldKey,
         theme: _themeData,
         themeMode: _currentThemeMode,
         routeInformationParser: Modular.routeInformationParser,
@@ -85,6 +87,7 @@ class _PageContainerState extends State<PageContainer> {
           FormBuilderLocalizations.delegate,
         ],
         builder: (context, child) {
+          getIt<ContextStateProvider>().registerKeyScaffoldMessengerState(_scaffoldKey);
           return FutureBuilder<bool>(
             builder: (context, snapshot) {
               const loadingPage = Scaffold(
