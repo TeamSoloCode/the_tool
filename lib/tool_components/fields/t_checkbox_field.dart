@@ -26,8 +26,7 @@ class _TCheckboxState extends TStatefulWidget<TCheckbox> with FieldMixin {
     String? name = widget.widgetProps.name;
     dynamic currentValue = _checkboxKey.currentState?.value;
 
-    selectedValue =
-        UtilsManager.isTruthy(widget.getContexData()[name]) ?? selectedValue;
+    selectedValue = UtilsManager.isTruthy(widget.getContexData()[name]);
 
     if (selectedValue != currentValue && name != null) {
       Future.delayed(Duration.zero, () async {
