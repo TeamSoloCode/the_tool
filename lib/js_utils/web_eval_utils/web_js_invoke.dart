@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_web_libraries_in_flutter
+
 @JS()
 library web_js_invoke;
 
@@ -39,16 +41,14 @@ external set navigator(
     String routeName,
     String pageArguments,
     String optionsAsJSON,
-  )
-      f,
+  ) f,
 );
 
 @JS('toggle_change_theme')
 external set toogleChangeTheme(
   void Function(
     String args,
-  )
-      f,
+  ) f,
 );
 
 @JS('fetch_data')
@@ -69,8 +69,7 @@ external set updateRouteAuthData(
   String Function(
     String action,
     String routeAuthAsJSON,
-  )
-      f,
+  ) f,
 );
 
 @JS('__tWeb_callAsyncJavaScript')

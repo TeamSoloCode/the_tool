@@ -32,7 +32,6 @@ abstract class BaseEvalJS {
 
       try {
         const SubComponent = React.memo((props) => {
-
           const prevProps = usePrevious(props)
           React.useEffect(() => {
             if(prevProps && !_.isEqual(prevProps, props)) {

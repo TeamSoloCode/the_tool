@@ -252,10 +252,9 @@ mixin BaseStateWidget on Widget {
   }
 
   Map<String, dynamic> getContexData() {
-    final dataPath = childData[UtilsManager.dataPath];
     if (childData.isEmpty) return _contextData;
+    final dataPath = childData[UtilsManager.dataPath];
     if (dataPath == null) return childData;
-
     return UtilsManager.get(
           _contextData,
           dataPath,

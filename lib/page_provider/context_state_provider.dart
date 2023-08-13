@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -12,16 +13,20 @@ class ContextStateProvider with ChangeNotifier {
   ClientConfig? _appConfig;
   Map<String, dynamic> initData;
 
-  final _notifyListenersDuration = const Duration(milliseconds: 12);
+  final _notifyListenersDuration = const Duration(milliseconds: 16);
   final notifyListenersController =
       StreamController<Map<String, dynamic>>(sync: true);
 
   ContextStateProvider({this.initData = const {}}) : super() {
     _contextData.addAll(initData);
 
-    notifyListenersController.stream
-        .interval(_notifyListenersDuration)
-        .listen(_updateContextData);
+    if (kIsWeb) {
+      notifyListenersController.stream.listen(_updateContextData);
+    } else {
+      notifyListenersController.stream
+          .interval(_notifyListenersDuration)
+          .listen(_updateContextData);
+    }
   }
   // ==========================================================================
   Map<String, dynamic> get contextData => _contextData;
