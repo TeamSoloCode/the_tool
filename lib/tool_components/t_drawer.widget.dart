@@ -15,6 +15,7 @@ class _TDrawerState extends TStatefulWidget<TDrawer> {
 
   @override
   void initState() {
+    // Because the body render maybe too much widget, so we need to delay it after drawer's animation done
     _debounceLoadingBody = Future.delayed(const Duration(milliseconds: 100));
     super.initState();
   }
