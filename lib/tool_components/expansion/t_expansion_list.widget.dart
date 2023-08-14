@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:json_theme/json_theme.dart';
+import 'package:the_tool/page_utils/debouncer.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
@@ -16,6 +17,7 @@ class TExpansionList extends TWidget {
 class _TExpansionListState extends TStatefulWidget<TExpansionList> {
   late List<bool> _expansionIndex;
   late List<bool> _defaultExpansionIndex;
+  var debouncer = Debouncer(delay: const Duration(milliseconds: 100));
 
   @override
   void initState() {
@@ -37,7 +39,9 @@ class _TExpansionListState extends TStatefulWidget<TExpansionList> {
 
   @override
   void didChangeDependencies() {
-    _updateStateBaseOnContextData();
+    debouncer.run(() {
+      _updateStateBaseOnContextData();
+    });
     super.didChangeDependencies();
   }
 
@@ -49,7 +53,7 @@ class _TExpansionListState extends TStatefulWidget<TExpansionList> {
     final data = widget.getContexData()[name];
     if (data == null) return [true, null];
 
-    if (UtilsManager.deepEquals.equals(
+    if (UtilsManager.listEquals.equals(
       data,
       _expansionIndex,
     )) return [true, null];
@@ -65,7 +69,7 @@ class _TExpansionListState extends TStatefulWidget<TExpansionList> {
     final isEqual = result.elementAt(0);
     final value = result.elementAt(1);
 
-    if (isEqual != true) {
+    if (!isEqual && value != null) {
       setState(() {
         _expansionIndex = List<bool>.from(value);
       });
@@ -128,7 +132,6 @@ class _TExpansionListState extends TStatefulWidget<TExpansionList> {
       childData["${props.name}"] = contextData[props.name];
       childData[UtilsManager.parentPrefix] = contextData;
     }
-    var elevation = props.elevation;
 
     return SingleChildScrollView(
       child: ExpansionPanelList(
@@ -136,7 +139,7 @@ class _TExpansionListState extends TStatefulWidget<TExpansionList> {
           vertical: 1.0,
         ),
         dividerColor: ThemeDecoder.decodeColor(props.dividerColor),
-        elevation: elevation ?? 2.0,
+        elevation: props.elevation ?? 2.0,
         expansionCallback: _onExpansionCallback,
         children: _computeExpansionItems(panelChildren, childData),
       ),
