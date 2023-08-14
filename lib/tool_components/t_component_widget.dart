@@ -54,9 +54,10 @@ class _TComponentState extends TStatefulWidget<TComponent> {
       throw Exception("Parent page path and component path cannot the same");
     }
 
-    var contextStateProvider = getIt<ContextStateProvider>();
-    APIClientManager apiClient = getIt<APIClientManager>();
-    _pageInfo = await apiClient.getClientPageInfo(componentPath);
+    _pageInfo = await getIt<APIClientManager>().getClientPageInfo(
+      componentPath,
+      parentPagePath: widget.pagePath.substring(0, idSeperatorContext),
+    );
 
     var layout = _pageInfo["layout"];
     _pageLayout = LayoutProps.fromJson(layout);
@@ -64,7 +65,7 @@ class _TComponentState extends TStatefulWidget<TComponent> {
     _componentId = "${componentPath}_${const Uuid().v4()}";
 
     if (_pageLayout?.components != null) {
-      contextStateProvider.addPageComponents(
+      getIt<ContextStateProvider>().addPageComponents(
         pagePath: _componentId,
         components: _pageLayout!.components!,
       );

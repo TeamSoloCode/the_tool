@@ -122,10 +122,24 @@ class APIClientManager {
     }
   }
 
-  Future<Map<String, dynamic>> getClientPageInfo(String pagePath) async {
+  Future<Map<String, dynamic>> getClientPageInfo(
+    String pagePath, {
+    String? parentPagePath,
+  }) async {
     try {
-      var response = await _dioCached
-          .get('$_pageAPI/pages/layout/$_projectName/$pagePath');
+      if (parentPagePath != null) {
+        _dioCached.interceptors.add(InterceptorsWrapper(
+          onRequest: (options, handler) {
+            options.headers['x-parent-page-path'] = parentPagePath;
+            return handler.next(options);
+          },
+        ));
+      }
+
+      var response = await _dioCached.get(
+        '$_pageAPI/pages/layout/$_projectName/$pagePath',
+      );
+
       return Future.value(
         {
           "code": response.data["code"],
