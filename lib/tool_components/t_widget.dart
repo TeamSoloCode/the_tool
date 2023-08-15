@@ -110,8 +110,8 @@ mixin BaseStateWidget on Widget {
           ? widgetProps.merge(selectedMediaScreen)
           : null;
 
-      if (!UtilsManager.deepEquals
-          .equals(prevSelectedMediaScreen, selectedMediaScreen)) {
+      if (!UtilsManager.isMapEquals(
+          prevSelectedMediaScreen, selectedMediaScreen)) {
         prevSelectedMediaScreen = selectedMediaScreen;
         mediaScreenApplied = true;
       }
@@ -217,7 +217,7 @@ mixin BaseStateWidget on Widget {
       },
     );
 
-    final isChanged = !UtilsManager.deepEquals.equals(
+    final isChanged = !UtilsManager.isMapEquals(
       newBindingValues,
       _prevBindingValues,
     );

@@ -78,7 +78,6 @@ extension MergeLayoutProps on LayoutProps {
       trailing: other.trailing ?? trailing,
       subtitle: other.subtitle ?? subtitle,
       shadowColor: other.shadowColor ?? shadowColor,
-      isSafeArea: other.isSafeArea ?? isSafeArea,
       clipBehavior: other.clipBehavior ?? clipBehavior,
 
       image: other.image ?? image,
@@ -147,6 +146,7 @@ extension MergeLayoutProps on LayoutProps {
       alignment: other.alignment ?? alignment,
       gradient: other.gradient ?? gradient,
       // validators: other.validators ?? validators,
+      wrappers: other.wrappers ?? wrappers,
       componentProps: {
         ...?componentProps,
         ...?other.componentProps,

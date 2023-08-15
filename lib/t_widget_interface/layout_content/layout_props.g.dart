@@ -52,7 +52,6 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       enabled: json['enabled'],
       duration: json['duration'] as int?,
       show: json['show'],
-      isSafeArea: json['isSafeArea'] as bool?,
       clipBehavior: json['clipBehavior'] as String?,
       sliverListType: json['sliverListType'] as String?,
       itemExtent: (json['itemExtent'] as num?)?.toDouble(),
@@ -194,6 +193,9 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
           : TShapeBorderProps.fromJson(
               json['shapeBorder'] as Map<String, dynamic>),
       boxShadow: json['boxShadow'] as Map<String, dynamic>?,
+      wrappers: (json['wrappers'] as List<dynamic>?)
+          ?.map((e) => e as Map<String, dynamic>)
+          .toList(),
       gradient: json['gradient'] == null
           ? null
           : T_GradientProps.fromJson(json['gradient'] as Map<String, dynamic>),
@@ -245,7 +247,6 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'enabled': instance.enabled,
       'duration': instance.duration,
       'show': instance.show,
-      'isSafeArea': instance.isSafeArea,
       'clipBehavior': instance.clipBehavior,
       'sliverListType': instance.sliverListType,
       'itemExtent': instance.itemExtent,
@@ -333,5 +334,6 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'borderRadius': instance.borderRadius,
       'shapeBorder': instance.shapeBorder?.toJson(),
       'boxShadow': instance.boxShadow,
+      'wrappers': instance.wrappers,
       'gradient': instance.gradient?.toJson(),
     };

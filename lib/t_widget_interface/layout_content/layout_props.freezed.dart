@@ -66,7 +66,6 @@ mixin _$LayoutProps {
   dynamic get enabled => throw _privateConstructorUsedError;
   int? get duration => throw _privateConstructorUsedError;
   dynamic get show => throw _privateConstructorUsedError;
-  bool? get isSafeArea => throw _privateConstructorUsedError;
   String? get clipBehavior => throw _privateConstructorUsedError;
   /**
      * 
@@ -235,6 +234,8 @@ mixin _$LayoutProps {
   Map<String, dynamic>? get borderRadius => throw _privateConstructorUsedError;
   TShapeBorderProps? get shapeBorder => throw _privateConstructorUsedError;
   Map<String, dynamic>? get boxShadow => throw _privateConstructorUsedError;
+  List<Map<String, dynamic>>? get wrappers =>
+      throw _privateConstructorUsedError;
   T_GradientProps? get gradient => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -294,7 +295,6 @@ abstract class $LayoutPropsCopyWith<$Res> {
       dynamic enabled,
       int? duration,
       dynamic show,
-      bool? isSafeArea,
       String? clipBehavior,
       String? sliverListType,
       double? itemExtent,
@@ -380,6 +380,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       Map<String, dynamic>? borderRadius,
       TShapeBorderProps? shapeBorder,
       Map<String, dynamic>? boxShadow,
+      List<Map<String, dynamic>>? wrappers,
       T_GradientProps? gradient});
 
   $T_DrawerPropsCopyWith<$Res>? get drawer;
@@ -459,7 +460,6 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? enabled = freezed,
     Object? duration = freezed,
     Object? show = freezed,
-    Object? isSafeArea = freezed,
     Object? clipBehavior = freezed,
     Object? sliverListType = freezed,
     Object? itemExtent = freezed,
@@ -545,6 +545,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? borderRadius = freezed,
     Object? shapeBorder = freezed,
     Object? boxShadow = freezed,
+    Object? wrappers = freezed,
     Object? gradient = freezed,
   }) {
     return _then(_value.copyWith(
@@ -724,10 +725,6 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.show
           : show // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      isSafeArea: freezed == isSafeArea
-          ? _value.isSafeArea
-          : isSafeArea // ignore: cast_nullable_to_non_nullable
-              as bool?,
       clipBehavior: freezed == clipBehavior
           ? _value.clipBehavior
           : clipBehavior // ignore: cast_nullable_to_non_nullable
@@ -1068,6 +1065,10 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.boxShadow
           : boxShadow // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
+      wrappers: freezed == wrappers
+          ? _value.wrappers
+          : wrappers // ignore: cast_nullable_to_non_nullable
+              as List<Map<String, dynamic>>?,
       gradient: freezed == gradient
           ? _value.gradient
           : gradient // ignore: cast_nullable_to_non_nullable
@@ -1345,7 +1346,6 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       dynamic enabled,
       int? duration,
       dynamic show,
-      bool? isSafeArea,
       String? clipBehavior,
       String? sliverListType,
       double? itemExtent,
@@ -1431,6 +1431,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       Map<String, dynamic>? borderRadius,
       TShapeBorderProps? shapeBorder,
       Map<String, dynamic>? boxShadow,
+      List<Map<String, dynamic>>? wrappers,
       T_GradientProps? gradient});
 
   @override
@@ -1526,7 +1527,6 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? enabled = freezed,
     Object? duration = freezed,
     Object? show = freezed,
-    Object? isSafeArea = freezed,
     Object? clipBehavior = freezed,
     Object? sliverListType = freezed,
     Object? itemExtent = freezed,
@@ -1612,6 +1612,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? borderRadius = freezed,
     Object? shapeBorder = freezed,
     Object? boxShadow = freezed,
+    Object? wrappers = freezed,
     Object? gradient = freezed,
   }) {
     return _then(_$_LayoutProps(
@@ -1791,10 +1792,6 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value.show
           : show // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      isSafeArea: freezed == isSafeArea
-          ? _value.isSafeArea
-          : isSafeArea // ignore: cast_nullable_to_non_nullable
-              as bool?,
       clipBehavior: freezed == clipBehavior
           ? _value.clipBehavior
           : clipBehavior // ignore: cast_nullable_to_non_nullable
@@ -2135,6 +2132,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value._boxShadow
           : boxShadow // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
+      wrappers: freezed == wrappers
+          ? _value._wrappers
+          : wrappers // ignore: cast_nullable_to_non_nullable
+              as List<Map<String, dynamic>>?,
       gradient: freezed == gradient
           ? _value.gradient
           : gradient // ignore: cast_nullable_to_non_nullable
@@ -2191,7 +2192,6 @@ class _$_LayoutProps implements _LayoutProps {
       this.enabled,
       this.duration,
       this.show,
-      this.isSafeArea,
       this.clipBehavior,
       this.sliverListType,
       this.itemExtent,
@@ -2277,6 +2277,7 @@ class _$_LayoutProps implements _LayoutProps {
       final Map<String, dynamic>? borderRadius,
       this.shapeBorder,
       final Map<String, dynamic>? boxShadow,
+      final List<Map<String, dynamic>>? wrappers,
       this.gradient})
       : _positioned = positioned,
         _componentProps = componentProps,
@@ -2298,7 +2299,8 @@ class _$_LayoutProps implements _LayoutProps {
         _actions = actions,
         _boxBorder = boxBorder,
         _borderRadius = borderRadius,
-        _boxShadow = boxShadow;
+        _boxShadow = boxShadow,
+        _wrappers = wrappers;
 
   factory _$_LayoutProps.fromJson(Map<String, dynamic> json) =>
       _$$_LayoutPropsFromJson(json);
@@ -2401,8 +2403,6 @@ class _$_LayoutProps implements _LayoutProps {
   final int? duration;
   @override
   final dynamic show;
-  @override
-  final bool? isSafeArea;
   @override
   final String? clipBehavior;
 /**
@@ -2829,6 +2829,16 @@ class _$_LayoutProps implements _LayoutProps {
     return EqualUnmodifiableMapView(value);
   }
 
+  final List<Map<String, dynamic>>? _wrappers;
+  @override
+  List<Map<String, dynamic>>? get wrappers {
+    final value = _wrappers;
+    if (value == null) return null;
+    if (_wrappers is EqualUnmodifiableListView) return _wrappers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final T_GradientProps? gradient;
 
@@ -2892,7 +2902,6 @@ abstract class _LayoutProps implements LayoutProps {
       final dynamic enabled,
       final int? duration,
       final dynamic show,
-      final bool? isSafeArea,
       final String? clipBehavior,
       final String? sliverListType,
       final double? itemExtent,
@@ -2978,6 +2987,7 @@ abstract class _LayoutProps implements LayoutProps {
       final Map<String, dynamic>? borderRadius,
       final TShapeBorderProps? shapeBorder,
       final Map<String, dynamic>? boxShadow,
+      final List<Map<String, dynamic>>? wrappers,
       final T_GradientProps? gradient}) = _$_LayoutProps;
 
   factory _LayoutProps.fromJson(Map<String, dynamic> json) =
@@ -3073,8 +3083,6 @@ abstract class _LayoutProps implements LayoutProps {
   int? get duration;
   @override
   dynamic get show;
-  @override
-  bool? get isSafeArea;
   @override
   String? get clipBehavior;
   @override
@@ -3310,6 +3318,8 @@ abstract class _LayoutProps implements LayoutProps {
   TShapeBorderProps? get shapeBorder;
   @override
   Map<String, dynamic>? get boxShadow;
+  @override
+  List<Map<String, dynamic>>? get wrappers;
   @override
   T_GradientProps? get gradient;
   @override

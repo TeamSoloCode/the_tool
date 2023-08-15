@@ -1,9 +1,6 @@
 SUPPORT: Invoke dart function with emitter
 
-UPDATE: Make sure SubComponent know its props from parent component to reduce re-rendering
 SUPPORT: BoxShadow for container widget
-
-FIXBUG: Cannot call parent function from child component (Snackbar)
 
 SUPPORT: Websocket
 
@@ -62,6 +59,9 @@ Support simple operator for binding data ( {{ !state.isGood | eq(state.isGood, "
 Support pages app bar custom actions
 
 #-------------------------------------------------
+-UPDATE: create wrapper function and remove isSafeArea property in LayoutProps
+-FIXBUG: Cannot call parent function from child component (Snackbar)
+-UPDATE: Make sure SubComponent know its props from parent component to reduce re-rendering
 -SUPPORT: get subcomponent inside the page folder first then get the subcomponent inside the project folder
 -SUPPORT: snackbar
 -SUPPORT: ScaffoldMessenger

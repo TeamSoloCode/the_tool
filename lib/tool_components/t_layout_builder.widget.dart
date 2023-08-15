@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:the_tool/t_widget_interface/layout_builder_item_props/layout_builder_item_props.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
@@ -79,8 +77,7 @@ class _T_LayoutBuilderState extends TStatefulWidget<T_LayoutBuilder> {
       return const Offstage();
     }
 
-    if (!UtilsManager.deepEquals
-        .equals(_selectedLayout, layoutBuilderProps.child!)) {
+    if (!UtilsManager.isMapEquals(_selectedLayout, layoutBuilderProps.child!)) {
       layoutKey = const Uuid().v4();
     }
     _selectedLayout = layoutBuilderProps.child;

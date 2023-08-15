@@ -64,7 +64,6 @@ class LayoutProps with _$LayoutProps {
     dynamic enabled,
     int? duration,
     dynamic show,
-    bool? isSafeArea,
     String? clipBehavior,
 
     /**
@@ -243,6 +242,7 @@ class LayoutProps with _$LayoutProps {
     Map<String, dynamic>? borderRadius,
     TShapeBorderProps? shapeBorder,
     Map<String, dynamic>? boxShadow,
+    List<Map<String, dynamic>>? wrappers,
     T_GradientProps? gradient,
   }) = _LayoutProps;
 

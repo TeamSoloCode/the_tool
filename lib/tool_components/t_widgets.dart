@@ -209,13 +209,9 @@ class _TWidgetsState extends State<TWidgets> {
       tWidgets = _computeNotBuiltInWidget(childData, content);
     }
 
-    if (UtilsManager.isTruthy(content.isSafeArea)) {
-      return SafeArea(
-        child: tWidgets!,
-      );
-    }
-
-    return tWidgets!;
+    /// Should use wrapper for utilities widgets. Ex: Padding, Align, Opacity, ...
+    /// This will make the performance better
+    return UtilsManager.applyWrappers(content, tWidgets!);
   }
 
   Widget _computeNotBuiltInWidget(

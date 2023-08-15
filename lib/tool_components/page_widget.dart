@@ -300,7 +300,7 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
     var width = size.width;
     var orientation = mediaQuery.orientation.name;
 
-    if (UtilsManager.deepEquals.equals(
+    if (UtilsManager.isMapEquals(
       _prevMediaQueryData,
       mediaQuery,
     )) {

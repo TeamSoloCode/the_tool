@@ -53,7 +53,7 @@ class _TExpansionListState extends TStatefulWidget<TExpansionList> {
     final data = widget.getContexData()[name];
     if (data == null) return [true, null];
 
-    if (UtilsManager.listEquals.equals(
+    if (UtilsManager.isListEquals(
       data,
       _expansionIndex,
     )) return [true, null];

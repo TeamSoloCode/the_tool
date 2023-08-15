@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
+import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/constants.dart';
 import 'package:the_tool/js_utils/mobile_eval_utils/mobile_eval_js.dart'
     if (dart.library.js) 'package:the_tool/js_utils/web_eval_utils/web_eval_js.dart';
@@ -23,8 +24,8 @@ GetIt getIt = GetIt.instance;
 class UtilsManager {
   UtilsManager() : super();
   final envConfig = getIt<EnvironmentConfig>();
-  static const deepEquals = DeepCollectionEquality();
-  static const listEquals = ListEquality();
+  static const _deepEquals = DeepCollectionEquality();
+  static const _listEquals = ListEquality();
 
   static Map<String, dynamic> emptyMapStringDynamic =
       Map<String, dynamic>.from({});
@@ -523,6 +524,92 @@ class UtilsManager {
     );
   }
 
+  static Widget applyWrappers(
+    LayoutProps? widgetProps,
+    Widget child,
+  ) {
+    if (widgetProps == null) {
+      return child;
+    }
+
+    var wrappers = widgetProps.wrappers;
+    if (wrappers == null || wrappers.isEmpty) {
+      return child;
+    }
+
+    Widget result = child;
+
+    for (var wrapper in wrappers) {
+      switch (wrapper["type"]) {
+        case "safe_area":
+          result = SafeArea(
+            child: result,
+          );
+          break;
+        case "expanded":
+          result = Expanded(
+            flex: wrapper["flex"] ?? 1,
+            child: result,
+          );
+          break;
+        case "flexible":
+          result = Flexible(
+            flex: wrapper["flex"] ?? 1,
+            fit: ThemeDecoder.decodeFlexFit(wrapper["fit"]) ?? FlexFit.loose,
+            child: result,
+          );
+          break;
+        case "padding":
+          result = Padding(
+            padding:
+                ThemeDecoder.decodeEdgeInsetsGeometry(wrapper["padding"]) ??
+                    const EdgeInsets.all(0),
+            child: result,
+          );
+          break;
+        case "align":
+          result = Align(
+            alignment: ThemeDecoder.decodeAlignment(
+                  wrapper["alignment"],
+                ) ??
+                Alignment.center,
+            child: result,
+          );
+          break;
+        case "center":
+          result = Center(
+            child: result,
+          );
+          break;
+        case "clip_oval":
+          result = ClipOval(
+            child: result,
+          );
+          break;
+        case "clip_rect":
+          result = ClipRect(
+            child: result,
+          );
+          break;
+        case "clip_path":
+          result = ClipPath(
+            child: result,
+          );
+          break;
+      }
+    }
+
+    return result;
+  }
+
+  static bool isListEquals(List<dynamic> list1, List<dynamic> list2) {
+    return _listEquals.equals(list1, list2);
+  }
+
+  static bool isMapEquals(Object? e1, Object? e2) {
+    return _deepEquals.equals(e1, e2);
+  }
+
   /// This function is used to get data from Map when you have the path as a string
   /// Example: get({"a": {"b": 1}}, "a.b") => 1
   /// Example2: get({"a": [{"b": 1}]}, "a.0.b") => 1
@@ -545,5 +632,34 @@ class UtilsManager {
     }
 
     return value == null ? null : (converter?.call(value) ?? value as T);
+  }
+
+  static void set(source, String path, dynamic value) {
+    final keys = path.split('.');
+    dynamic target = source;
+
+    for (final key in keys.skip(0).take(keys.length - 1)) {
+      if (target is List) {
+        final index = int.tryParse(key);
+        if (index == null || index >= target.length) {
+          return;
+        }
+        target = target[index];
+      } else if (target is Map) {
+        target = target[key];
+      } else {
+        return;
+      }
+    }
+
+    if (target is List) {
+      final index = int.tryParse(keys.last);
+      if (index == null || index >= target.length) {
+        return;
+      }
+      target[index] = value;
+    } else if (target is Map) {
+      target[keys.last] = value;
+    }
   }
 }
