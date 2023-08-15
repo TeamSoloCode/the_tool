@@ -10,7 +10,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:the_tool/config/prod.dart';
 import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/page_provider/theme_provider.dart';
-import 'package:the_tool/singleton_register.dart';
 import 'package:the_tool/utils.dart';
 
 void main() {

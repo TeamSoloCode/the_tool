@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:the_tool/api_client.dart';
 import 'package:the_tool/page_provider/context_state_provider.dart';
@@ -56,6 +54,7 @@ class _TComponentState extends TStatefulWidget<TComponent> {
 
     _pageInfo = await getIt<APIClientManager>().getClientPageInfo(
       componentPath,
+      // send the parent page path to the server for searching the component layout json
       parentPagePath: widget.pagePath.substring(0, idSeperatorContext),
     );
 

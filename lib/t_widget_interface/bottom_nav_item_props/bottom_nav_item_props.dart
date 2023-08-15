@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter/foundation.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 
 part 'bottom_nav_item_props.freezed.dart';

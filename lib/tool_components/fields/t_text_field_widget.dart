@@ -233,8 +233,7 @@ class _TTextFieldState extends TStatefulWidget<TTextField> with FieldMixin {
             thisWidget: widget,
             errorMessage: _errorMessage,
           ),
-          obscureText:
-              UtilsManager.isTruthy(computedProps?.obscureText) ?? false,
+          obscureText: UtilsManager.isTruthy(computedProps?.obscureText),
           // initialValue: (defaultValue == null ? "" : defaultValue.toString()),
           onChanged: (text) {
             _debounceTextChanged(text, contextData);
