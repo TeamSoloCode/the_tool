@@ -73,11 +73,11 @@ class _T_LayoutBuilderState extends TStatefulWidget<T_LayoutBuilder> {
       },
     );
 
-    if (layoutBuilderProps == null || layoutBuilderProps.child == null) {
+    if (layoutBuilderProps.child == null) {
       return const Offstage();
     }
 
-    if (!UtilsManager.isMapEquals(_selectedLayout, layoutBuilderProps.child!)) {
+    if (!UtilsManager.isEquals(_selectedLayout, layoutBuilderProps.child!)) {
       layoutKey = const Uuid().v4();
     }
     _selectedLayout = layoutBuilderProps.child;

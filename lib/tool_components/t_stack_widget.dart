@@ -11,7 +11,9 @@ class T_Stack extends TStatelessWidget {
   List<Widget> _getChildren() {
     var index = 0;
     List<LayoutProps> children = props?.children ?? [];
-    return children.map((child) {
+    List<Widget> items = [];
+
+    for (var child in children) {
       index++;
 
       Widget item = TWidgets(
@@ -36,15 +38,19 @@ class T_Stack extends TStatelessWidget {
         );
       }
 
-      return item;
-    }).toList();
+      items.add(item);
+    }
+
+    return items;
   }
 
   @override
   Widget buildWidget(BuildContext context) {
     snapshot = Stack(
-      clipBehavior:
-          ThemeDecoder.decodeClip(props?.clipBehavior) ?? Clip.hardEdge,
+      clipBehavior: ThemeDecoder.decodeClip(
+            props?.clipBehavior,
+          ) ??
+          Clip.hardEdge,
       children: _getChildren(),
     );
 

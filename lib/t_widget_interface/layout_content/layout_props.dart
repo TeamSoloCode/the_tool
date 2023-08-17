@@ -236,6 +236,18 @@ class LayoutProps with _$LayoutProps {
 
     /// ignored-compute
     List<LayoutProps>? actions,
+
+    // Dismissible Start================================================
+
+    /// ignored-compute
+    Map<String, dynamic>? background,
+
+    /// ignored-compute
+    Map<String, dynamic>? secondaryBackground,
+    String? onDismissed,
+
+    // Dismissible End==================================================
+
     BottomNavigationProps? bottomNav,
     ImageProviderProps? image,
     Map<String, dynamic>? boxBorder,

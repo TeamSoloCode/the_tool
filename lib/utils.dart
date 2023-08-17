@@ -234,6 +234,7 @@ class UtilsManager {
 
     if (lowercasedKey.contains("text") ||
         lowercasedKey.contains("click") ||
+        key == "onDismissed" ||
         _textBindingKeys.contains(key)) {
       return bindingValueToText(contextData, value);
     }
@@ -606,8 +607,30 @@ class UtilsManager {
     return _listEquals.equals(list1, list2);
   }
 
-  static bool isMapEquals(Object? e1, Object? e2) {
+  static bool isEquals(Object? e1, Object? e2) {
     return _deepEquals.equals(e1, e2);
+  }
+
+  static DismissDirection getDismissDirectionFromString(
+    String? input, {
+    DismissDirection defaultValue = DismissDirection.down,
+  }) {
+    switch (input) {
+      case "startToEnd":
+        return DismissDirection.startToEnd;
+      case "endToStart":
+        return DismissDirection.endToStart;
+      case "up":
+        return DismissDirection.up;
+      case "vertical":
+        return DismissDirection.vertical;
+      case "horizontal":
+        return DismissDirection.horizontal;
+      case "none":
+        return DismissDirection.none;
+      default:
+        return defaultValue;
+    }
   }
 
   /// This function is used to get data from Map when you have the path as a string

@@ -227,7 +227,16 @@ mixin _$LayoutProps {
   List<LayoutProps>? get children => throw _privateConstructorUsedError;
 
   /// ignored-compute
-  List<LayoutProps>? get actions => throw _privateConstructorUsedError;
+  List<LayoutProps>? get actions =>
+      throw _privateConstructorUsedError; // Dismissible Start================================================
+  /// ignored-compute
+  Map<String, dynamic>? get background => throw _privateConstructorUsedError;
+
+  /// ignored-compute
+  Map<String, dynamic>? get secondaryBackground =>
+      throw _privateConstructorUsedError;
+  String? get onDismissed =>
+      throw _privateConstructorUsedError; // Dismissible End==================================================
   BottomNavigationProps? get bottomNav => throw _privateConstructorUsedError;
   ImageProviderProps? get image => throw _privateConstructorUsedError;
   Map<String, dynamic>? get boxBorder => throw _privateConstructorUsedError;
@@ -374,6 +383,9 @@ abstract class $LayoutPropsCopyWith<$Res> {
       bool? isMultiSelectedField,
       List<LayoutProps>? children,
       List<LayoutProps>? actions,
+      Map<String, dynamic>? background,
+      Map<String, dynamic>? secondaryBackground,
+      String? onDismissed,
       BottomNavigationProps? bottomNav,
       ImageProviderProps? image,
       Map<String, dynamic>? boxBorder,
@@ -539,6 +551,9 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? isMultiSelectedField = freezed,
     Object? children = freezed,
     Object? actions = freezed,
+    Object? background = freezed,
+    Object? secondaryBackground = freezed,
+    Object? onDismissed = freezed,
     Object? bottomNav = freezed,
     Object? image = freezed,
     Object? boxBorder = freezed,
@@ -1041,6 +1056,18 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.actions
           : actions // ignore: cast_nullable_to_non_nullable
               as List<LayoutProps>?,
+      background: freezed == background
+          ? _value.background
+          : background // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
+      secondaryBackground: freezed == secondaryBackground
+          ? _value.secondaryBackground
+          : secondaryBackground // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
+      onDismissed: freezed == onDismissed
+          ? _value.onDismissed
+          : onDismissed // ignore: cast_nullable_to_non_nullable
+              as String?,
       bottomNav: freezed == bottomNav
           ? _value.bottomNav
           : bottomNav // ignore: cast_nullable_to_non_nullable
@@ -1425,6 +1452,9 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       bool? isMultiSelectedField,
       List<LayoutProps>? children,
       List<LayoutProps>? actions,
+      Map<String, dynamic>? background,
+      Map<String, dynamic>? secondaryBackground,
+      String? onDismissed,
       BottomNavigationProps? bottomNav,
       ImageProviderProps? image,
       Map<String, dynamic>? boxBorder,
@@ -1606,6 +1636,9 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? isMultiSelectedField = freezed,
     Object? children = freezed,
     Object? actions = freezed,
+    Object? background = freezed,
+    Object? secondaryBackground = freezed,
+    Object? onDismissed = freezed,
     Object? bottomNav = freezed,
     Object? image = freezed,
     Object? boxBorder = freezed,
@@ -2108,6 +2141,18 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value._actions
           : actions // ignore: cast_nullable_to_non_nullable
               as List<LayoutProps>?,
+      background: freezed == background
+          ? _value._background
+          : background // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
+      secondaryBackground: freezed == secondaryBackground
+          ? _value._secondaryBackground
+          : secondaryBackground // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
+      onDismissed: freezed == onDismissed
+          ? _value.onDismissed
+          : onDismissed // ignore: cast_nullable_to_non_nullable
+              as String?,
       bottomNav: freezed == bottomNav
           ? _value.bottomNav
           : bottomNav // ignore: cast_nullable_to_non_nullable
@@ -2271,6 +2316,9 @@ class _$_LayoutProps implements _LayoutProps {
       this.isMultiSelectedField,
       final List<LayoutProps>? children,
       final List<LayoutProps>? actions,
+      final Map<String, dynamic>? background,
+      final Map<String, dynamic>? secondaryBackground,
+      this.onDismissed,
       this.bottomNav,
       this.image,
       final Map<String, dynamic>? boxBorder,
@@ -2297,6 +2345,8 @@ class _$_LayoutProps implements _LayoutProps {
         _appBarBottom = appBarBottom,
         _children = children,
         _actions = actions,
+        _background = background,
+        _secondaryBackground = secondaryBackground,
         _boxBorder = boxBorder,
         _borderRadius = borderRadius,
         _boxShadow = boxShadow,
@@ -2793,6 +2843,37 @@ class _$_LayoutProps implements _LayoutProps {
     return EqualUnmodifiableListView(value);
   }
 
+// Dismissible Start================================================
+  /// ignored-compute
+  final Map<String, dynamic>? _background;
+// Dismissible Start================================================
+  /// ignored-compute
+  @override
+  Map<String, dynamic>? get background {
+    final value = _background;
+    if (value == null) return null;
+    if (_background is EqualUnmodifiableMapView) return _background;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
+  /// ignored-compute
+  final Map<String, dynamic>? _secondaryBackground;
+
+  /// ignored-compute
+  @override
+  Map<String, dynamic>? get secondaryBackground {
+    final value = _secondaryBackground;
+    if (value == null) return null;
+    if (_secondaryBackground is EqualUnmodifiableMapView)
+      return _secondaryBackground;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
+  @override
+  final String? onDismissed;
+// Dismissible End==================================================
   @override
   final BottomNavigationProps? bottomNav;
   @override
@@ -2981,6 +3062,9 @@ abstract class _LayoutProps implements LayoutProps {
       final bool? isMultiSelectedField,
       final List<LayoutProps>? children,
       final List<LayoutProps>? actions,
+      final Map<String, dynamic>? background,
+      final Map<String, dynamic>? secondaryBackground,
+      final String? onDismissed,
       final BottomNavigationProps? bottomNav,
       final ImageProviderProps? image,
       final Map<String, dynamic>? boxBorder,
@@ -3306,7 +3390,16 @@ abstract class _LayoutProps implements LayoutProps {
 
   /// ignored-compute
   List<LayoutProps>? get actions;
+  @override // Dismissible Start================================================
+  /// ignored-compute
+  Map<String, dynamic>? get background;
   @override
+
+  /// ignored-compute
+  Map<String, dynamic>? get secondaryBackground;
+  @override
+  String? get onDismissed;
+  @override // Dismissible End==================================================
   BottomNavigationProps? get bottomNav;
   @override
   ImageProviderProps? get image;

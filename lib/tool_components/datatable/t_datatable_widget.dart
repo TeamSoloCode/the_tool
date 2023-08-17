@@ -103,7 +103,7 @@ class _TDataTableState extends TStatefulWidget<TDataTable> {
           var nextValue = nextRecord[key];
           var prevValue = prevRecord[key];
           return (nextValue is Map && prevValue is Map)
-              ? UtilsManager.isMapEquals(nextValue, prevValue)
+              ? UtilsManager.isEquals(nextValue, prevValue)
               : nextValue != prevValue;
         },
         orElse: () => "",

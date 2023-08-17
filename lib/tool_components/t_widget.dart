@@ -94,6 +94,9 @@ mixin BaseStateWidget on Widget {
         _depsChangedToken = DateTime.now().millisecondsSinceEpoch;
         return _depsChangedToken;
       });
+    } else {
+      _contextData = context.read<ContextStateProvider>().contextData[path] ??
+          UtilsManager.emptyMapStringDynamic;
     }
 
     /**
@@ -110,7 +113,7 @@ mixin BaseStateWidget on Widget {
           ? widgetProps.merge(selectedMediaScreen)
           : null;
 
-      if (!UtilsManager.isMapEquals(
+      if (!UtilsManager.isEquals(
           prevSelectedMediaScreen, selectedMediaScreen)) {
         prevSelectedMediaScreen = selectedMediaScreen;
         mediaScreenApplied = true;
@@ -217,7 +220,7 @@ mixin BaseStateWidget on Widget {
       },
     );
 
-    final isChanged = !UtilsManager.isMapEquals(
+    final isChanged = !UtilsManager.isEquals(
       newBindingValues,
       _prevBindingValues,
     );
@@ -240,7 +243,7 @@ mixin BaseStateWidget on Widget {
     var rawKey = widgetProps.key;
     if (rawKey == null) return key;
     if (UtilsManager.isValueBinding(rawKey)) {
-      var bindingValue = utils.bindingValueToText(childData, rawKey);
+      var bindingValue = utils.bindingValueToText(getContexData(), rawKey);
       return ValueKey(bindingValue);
     }
 

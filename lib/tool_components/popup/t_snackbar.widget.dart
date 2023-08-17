@@ -18,7 +18,9 @@ class TSnackBar extends TStatelessWidget {
       duration: props.duration == null
           ? _defaultDuration
           : Duration(seconds: props.duration!),
-      dismissDirection: _getDismissDirectionFromString(props.dismissDirection),
+      dismissDirection: UtilsManager.getDismissDirectionFromString(
+        props.dismissDirection,
+      ),
       backgroundColor: ThemeDecoder.decodeColor(props.backgroundColor),
       elevation: props.elevation,
       width: props.width,
@@ -66,25 +68,6 @@ class TSnackBar extends TStatelessWidget {
       _scaffoldFeatureController = null;
       setPageData({name: false});
     });
-  }
-
-  DismissDirection _getDismissDirectionFromString(String? input) {
-    switch (input) {
-      case "startToEnd":
-        return DismissDirection.startToEnd;
-      case "endToStart":
-        return DismissDirection.endToStart;
-      case "up":
-        return DismissDirection.up;
-      case "vertical":
-        return DismissDirection.vertical;
-      case "horizontal":
-        return DismissDirection.horizontal;
-      case "none":
-        return DismissDirection.none;
-      default:
-        return DismissDirection.down;
-    }
   }
 
   SnackBarAction? _buildSnackBarAction(

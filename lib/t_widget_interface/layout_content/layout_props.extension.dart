@@ -103,6 +103,14 @@ extension MergeLayoutProps on LayoutProps {
       firstDate: other.firstDate ?? firstDate,
       // Field Datetime End ================================
 
+      // Dismissible Start================================================
+
+      background: other.background ?? background,
+      secondaryBackground: other.secondaryBackground ?? secondaryBackground,
+      onDismissed: other.onDismissed ?? onDismissed,
+
+      // Dismissible End==================================================
+
       // type: other.type ?? type,
       color: other.color ?? color,
       backgroundColor: other.backgroundColor ?? backgroundColor,

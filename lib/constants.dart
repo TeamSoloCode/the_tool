@@ -26,4 +26,6 @@ Map<String, bool> ignoredComputeProps = {
   "computedComponentProps": true,
   "actions": true,
   "separator": true,
+  "background": true,
+  "secondaryBackground": true,
 };

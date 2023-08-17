@@ -179,6 +179,9 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       actions: (json['actions'] as List<dynamic>?)
           ?.map((e) => LayoutProps.fromJson(e as Map<String, dynamic>))
           .toList(),
+      background: json['background'] as Map<String, dynamic>?,
+      secondaryBackground: json['secondaryBackground'] as Map<String, dynamic>?,
+      onDismissed: json['onDismissed'] as String?,
       bottomNav: json['bottomNav'] == null
           ? null
           : BottomNavigationProps.fromJson(
@@ -328,6 +331,9 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'isMultiSelectedField': instance.isMultiSelectedField,
       'children': instance.children?.map((e) => e.toJson()).toList(),
       'actions': instance.actions?.map((e) => e.toJson()).toList(),
+      'background': instance.background,
+      'secondaryBackground': instance.secondaryBackground,
+      'onDismissed': instance.onDismissed,
       'bottomNav': instance.bottomNav?.toJson(),
       'image': instance.image?.toJson(),
       'boxBorder': instance.boxBorder,
