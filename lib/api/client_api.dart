@@ -67,7 +67,7 @@ class APIClientManager {
     _projectName = prjName;
   }
 
-  Future<dynamic> fetchData({required RequestOptions requestOptions}) async {
+  Future<dynamic> tRequest({required RequestOptions requestOptions}) async {
     try {
       String path = requestOptions.path;
 

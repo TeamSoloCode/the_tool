@@ -51,8 +51,8 @@ external set toogleChangeTheme(
   ) f,
 );
 
-@JS('fetch_data')
-external set fetchData(
+@JS('t_request')
+external set tRequest(
   void Function(String id, String path, String optionJSON) f,
 );
 
@@ -107,7 +107,7 @@ void _toogleChangeTheme(String args) {
   getIt<ThemeProvider>().toogleChangeThemeMode(null);
 }
 
-void _fetchData(String id, String path, String optionJSON) {
+void _tRequest(String id, String path, String optionJSON) {
   _emitDataResponseEvent(id, path, json.decode(optionJSON));
 }
 
@@ -153,7 +153,7 @@ void _emitDataResponseEvent(
     method: options["method"],
     data: options["body"],
   );
-  var res = await getIt<APIClientManager>().fetchData(
+  var res = await getIt<APIClientManager>().tRequest(
     requestOptions: requestOptions,
   );
 
@@ -175,7 +175,7 @@ void main() {
   setContextData = allowInterop(_setState);
   navigator = allowInterop(_navigator);
   toogleChangeTheme = allowInterop(_toogleChangeTheme);
-  fetchData = allowInterop(_fetchData);
+  tRequest = allowInterop(_tRequest);
   dispathFormAction = allowInterop(_dispatchFormAction);
   openDrawer = allowInterop(_openPageDrawer);
   updateRouteAuthData = allowInterop(_updateRouteAuthData);

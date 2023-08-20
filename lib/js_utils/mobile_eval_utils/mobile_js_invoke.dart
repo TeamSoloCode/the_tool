@@ -86,7 +86,7 @@ void registerJavascriptHandler(
   );
 
   webViewController?.addJavaScriptHandler(
-    handlerName: "fetch_data",
+    handlerName: "t_request",
     callback: (args) async {
       var options = json.decode(args[1]);
       RequestOptions requestOptions = RequestOptions(
@@ -94,7 +94,7 @@ void registerJavascriptHandler(
         method: options["method"],
         data: options["body"],
       );
-      return await getIt<APIClientManager>().fetchData(
+      return await getIt<APIClientManager>().tRequest(
         requestOptions: requestOptions,
       );
     },

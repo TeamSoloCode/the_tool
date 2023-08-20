@@ -218,9 +218,9 @@ abstract class BaseEvalJS {
           }
         }, [_didInitState])
 
-        const fetchData = React.useCallback((path, options = {}) => {
-          return _appBase.fetchData(path, options)
-        }, [_appBase.fetchData])
+        const request = React.useCallback((path, options = {}) => {
+          return _appBase.request(path, options)
+        }, [_appBase.request])
 
         const _debouceRegisterSubComponent = React.useMemo(() => {
           return _.debounce((subComponents) => {
