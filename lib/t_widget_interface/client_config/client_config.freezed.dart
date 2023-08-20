@@ -27,6 +27,7 @@ mixin _$ClientConfig {
   List<AppRouteConfig>? get routes => throw _privateConstructorUsedError;
   String? get notFoundPagePath => throw _privateConstructorUsedError;
   String? get uploadFileHost => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get socketioHost => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -47,7 +48,8 @@ abstract class $ClientConfigCopyWith<$Res> {
       String? beAPI,
       List<AppRouteConfig>? routes,
       String? notFoundPagePath,
-      String? uploadFileHost});
+      String? uploadFileHost,
+      Map<String, dynamic>? socketioHost});
 }
 
 /// @nodoc
@@ -70,6 +72,7 @@ class _$ClientConfigCopyWithImpl<$Res, $Val extends ClientConfig>
     Object? routes = freezed,
     Object? notFoundPagePath = freezed,
     Object? uploadFileHost = freezed,
+    Object? socketioHost = freezed,
   }) {
     return _then(_value.copyWith(
       initialPage: freezed == initialPage
@@ -100,6 +103,10 @@ class _$ClientConfigCopyWithImpl<$Res, $Val extends ClientConfig>
           ? _value.uploadFileHost
           : uploadFileHost // ignore: cast_nullable_to_non_nullable
               as String?,
+      socketioHost: freezed == socketioHost
+          ? _value.socketioHost
+          : socketioHost // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
     ) as $Val);
   }
 }
@@ -119,7 +126,8 @@ abstract class _$$_ClientConfigCopyWith<$Res>
       String? beAPI,
       List<AppRouteConfig>? routes,
       String? notFoundPagePath,
-      String? uploadFileHost});
+      String? uploadFileHost,
+      Map<String, dynamic>? socketioHost});
 }
 
 /// @nodoc
@@ -140,6 +148,7 @@ class __$$_ClientConfigCopyWithImpl<$Res>
     Object? routes = freezed,
     Object? notFoundPagePath = freezed,
     Object? uploadFileHost = freezed,
+    Object? socketioHost = freezed,
   }) {
     return _then(_$_ClientConfig(
       initialPage: freezed == initialPage
@@ -170,6 +179,10 @@ class __$$_ClientConfigCopyWithImpl<$Res>
           ? _value.uploadFileHost
           : uploadFileHost // ignore: cast_nullable_to_non_nullable
               as String?,
+      socketioHost: freezed == socketioHost
+          ? _value._socketioHost
+          : socketioHost // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
     ));
   }
 }
@@ -184,8 +197,10 @@ class _$_ClientConfig implements _ClientConfig {
       this.beAPI,
       final List<AppRouteConfig>? routes,
       this.notFoundPagePath,
-      this.uploadFileHost})
-      : _routes = routes;
+      this.uploadFileHost,
+      final Map<String, dynamic>? socketioHost})
+      : _routes = routes,
+        _socketioHost = socketioHost;
 
   factory _$_ClientConfig.fromJson(Map<String, dynamic> json) =>
       _$$_ClientConfigFromJson(json);
@@ -212,6 +227,15 @@ class _$_ClientConfig implements _ClientConfig {
   final String? notFoundPagePath;
   @override
   final String? uploadFileHost;
+  final Map<String, dynamic>? _socketioHost;
+  @override
+  Map<String, dynamic>? get socketioHost {
+    final value = _socketioHost;
+    if (value == null) return null;
+    if (_socketioHost is EqualUnmodifiableMapView) return _socketioHost;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
 
   @JsonKey(ignore: true)
   @override
@@ -235,7 +259,8 @@ abstract class _ClientConfig implements ClientConfig {
       final String? beAPI,
       final List<AppRouteConfig>? routes,
       final String? notFoundPagePath,
-      final String? uploadFileHost}) = _$_ClientConfig;
+      final String? uploadFileHost,
+      final Map<String, dynamic>? socketioHost}) = _$_ClientConfig;
 
   factory _ClientConfig.fromJson(Map<String, dynamic> json) =
       _$_ClientConfig.fromJson;
@@ -254,6 +279,8 @@ abstract class _ClientConfig implements ClientConfig {
   String? get notFoundPagePath;
   @override
   String? get uploadFileHost;
+  @override
+  Map<String, dynamic>? get socketioHost;
   @override
   @JsonKey(ignore: true)
   _$$_ClientConfigCopyWith<_$_ClientConfig> get copyWith =>

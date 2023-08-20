@@ -17,6 +17,7 @@ _$_ClientConfig _$$_ClientConfigFromJson(Map<String, dynamic> json) =>
           .toList(),
       notFoundPagePath: json['notFoundPagePath'] as String?,
       uploadFileHost: json['uploadFileHost'] as String?,
+      socketioHost: json['socketioHost'] as Map<String, dynamic>?,
     );
 
 Map<String, dynamic> _$$_ClientConfigToJson(_$_ClientConfig instance) =>
@@ -28,4 +29,5 @@ Map<String, dynamic> _$$_ClientConfigToJson(_$_ClientConfig instance) =>
       'routes': instance.routes?.map((e) => e.toJson()).toList(),
       'notFoundPagePath': instance.notFoundPagePath,
       'uploadFileHost': instance.uploadFileHost,
+      'socketioHost': instance.socketioHost,
     };

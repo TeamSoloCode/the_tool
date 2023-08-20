@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:json_theme/json_theme.dart';
 import 'package:modular_core/modular_core.dart';
-import 'package:the_tool/api_client.dart';
+import 'package:the_tool/api/client_api.dart';
 import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/page_utils/debouncer.dart';
 import 'package:the_tool/page_provider/resize_provider.dart';

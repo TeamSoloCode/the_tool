@@ -30,7 +30,9 @@ class EvalJS extends BaseEvalJS {
 
     emitter = getIt<UtilsManager>().emitter;
   }
-  final List<String> _stringPhareSymbols = ["'", "\"", "`", "`"];
+
+  static const List<String> _stringPhareSymbols = ["'", "\"", "`", "`"];
+
   @override
   Future<dynamic> callJS(
     String functionName,

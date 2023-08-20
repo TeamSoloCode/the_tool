@@ -58,6 +58,7 @@ dependencies:
   # http
   dio: ^5.0.3
   dio_cache_interceptor: ^3.3.0
+  socket_io_client: ^2.0.3+1
 
   # field packages
   flutter_form_builder: ^9.0.0

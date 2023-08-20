@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:the_tool/api_client.dart';
-import 'dart:io' if (dart.library.html) "dart:html";
+import 'package:the_tool/api/client_api.dart';
+import '' if (dart.library.html) "dart:html";
 import 'package:the_tool/js_utils/mobile_eval_utils/mobile_eval_js.dart'
     if (dart.library.js) 'package:the_tool/js_utils/web_eval_utils/web_eval_js.dart';
 import 'package:the_tool/page_provider/auth_manager_provider.dart';
@@ -16,6 +16,8 @@ import 'package:the_tool/tool_components/page_container_widget.dart'
     deferred as page_container;
 import 'package:the_tool/static_pages/select_project.page.dart'
     deferred as select_project;
+import 'package:the_tool/singleton_register.dart'
+    deferred as singleton_register;
 import 'package:provider/provider.dart';
 
 class TheTool extends StatefulWidget {
@@ -51,6 +53,7 @@ class _TheToolState extends State<TheTool> {
     ClientConfig? config;
     try {
       config = await apiClient.getClientConfig();
+      await _registerSocketIOClient(config);
     } catch (error) {
       await server_not_found.loadLibrary();
       setState(() {
@@ -76,6 +79,26 @@ class _TheToolState extends State<TheTool> {
 
     await select_project.loadLibrary();
     return true;
+  }
+
+  Future<void> _registerSocketIOClient(ClientConfig config) async {
+    final socketioHost = config.socketioHost;
+    if (socketioHost != null) {
+      await singleton_register.loadLibrary();
+
+      final host = socketioHost["host"];
+      if (host is! String) {
+        throw Exception("SocketIO host must be a string");
+      }
+
+      final options =
+          socketioHost["options"] ?? UtilsManager.emptyMapStringDynamic;
+
+      singleton_register.SingletonRegister.registerSocketIOClient(
+        host,
+        opts: options,
+      );
+    }
   }
 
   @override

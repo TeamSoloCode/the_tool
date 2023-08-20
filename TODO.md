@@ -30,6 +30,7 @@ UPDATE: DO not use http://localhost:8081 in index.html==============
 
 ===================================================================
 
+SUPPORT: Video player Chewie
 SUPPORT: Error Widget for twidgets
 SUPPORT: SVG widget
 SUPPORT: dynamic for using "style" property in json layout

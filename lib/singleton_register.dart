@@ -1,4 +1,5 @@
-import 'package:the_tool/api_client.dart';
+import 'package:the_tool/api/client_api.dart';
+import 'package:the_tool/api/client_socketio.dart';
 import 'package:the_tool/config/config.dart';
 import 'package:the_tool/js_utils/base_invoke_is.dart';
 import 'package:the_tool/page_provider/auth_manager_provider.dart';
@@ -55,6 +56,15 @@ class SingletonRegister {
 
     getIt.registerSingleton<BaseInvokeJS>(
       const BaseInvokeJS(),
+      signalsReady: true,
+    );
+  }
+
+  static registerSocketIOClient(String url, {Map? opts}) {
+    SocketIOClient.init(url, opts: opts);
+
+    getIt.registerSingleton<SocketIOClient>(
+      SocketIOClient(),
       signalsReady: true,
     );
   }

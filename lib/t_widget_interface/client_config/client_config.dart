@@ -14,6 +14,7 @@ class ClientConfig with _$ClientConfig {
     List<AppRouteConfig>? routes,
     String? notFoundPagePath,
     String? uploadFileHost,
+    Map<String, dynamic>? socketioHost,
   }) = _ClientConfig;
 
   factory ClientConfig.fromJson(Map<String, Object?> json) =>
