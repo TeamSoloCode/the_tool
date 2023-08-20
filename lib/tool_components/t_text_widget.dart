@@ -7,8 +7,6 @@ import 'package:the_tool/utils.dart';
 class TText extends TStatelessWidget {
   TText(TWidgetProps twidget) : super(twidget);
 
-  var text = "";
-
   @override
   Widget buildWidget(BuildContext context) {
     final textAlign = ThemeDecoder.decodeTextAlign(props?.textAlign);

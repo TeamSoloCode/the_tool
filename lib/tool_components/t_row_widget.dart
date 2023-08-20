@@ -21,7 +21,7 @@ class T_Row extends TStatelessWidget {
       index++;
 
       Widget item = TWidgets(
-        key: ValueKey(index),
+        key: Key(index.toString()),
         layout: child,
         pagePath: pagePath,
         childData: childData,
@@ -36,7 +36,7 @@ class T_Row extends TStatelessWidget {
         }
         if (child.type != "expanded") {
           item = Expanded(
-            key: ValueKey(index),
+            key: Key(index.toString()),
             flex: child.flex ?? 1,
             child: item,
           );

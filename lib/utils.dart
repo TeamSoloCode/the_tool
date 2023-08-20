@@ -244,8 +244,9 @@ class UtilsManager {
 
   LayoutProps computeWidgetProps(
     LayoutProps layoutProps,
-    Map<String, dynamic> contextData,
-  ) {
+    Map<String, dynamic> contextData, {
+    bool hasBindingValue = true,
+  }) {
     var hidden = bindingValueToProp(
       contextData,
       layoutProps.hidden,
@@ -254,21 +255,19 @@ class UtilsManager {
     if (UtilsManager.isTruthy(hidden)) {
       return const LayoutProps(hidden: true);
     }
-
-    const initLayoutProp = LayoutProps();
-    LayoutProps? widgetProps = themeProvider.mergeClasses(
+    LayoutProps widgetProps = themeProvider.mergeClasses(
           layoutProps,
           contextData,
         ) ??
-        initLayoutProp;
+        const LayoutProps();
 
-    var result = _bindingWidgetPropValue(
-      widgetProps.toJson(),
-      contextData,
-    );
-
-    var boundValueProps = LayoutProps.fromJson(result);
-    widgetProps = widgetProps.merge(boundValueProps);
+    if (hasBindingValue) {
+      var result = _bindingWidgetPropValue(
+        widgetProps.toJson(),
+        contextData,
+      );
+      widgetProps = widgetProps.merge(LayoutProps.fromJson(result));
+    }
 
     if (widgetProps.type == "component" && widgetProps.componentProps != null) {
       Map<String, dynamic>? updatedComponentProps = {};

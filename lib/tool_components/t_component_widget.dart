@@ -85,7 +85,7 @@ class _TComponentState extends TStatefulWidget<TComponent> {
 
     // waiting for the sub component successfully registered
     while (getIt<ContextStateProvider>().contextData[_componentId] == null) {
-      await Future.delayed(const Duration(milliseconds: 50));
+      await Future.delayed(const Duration(milliseconds: 16));
     }
 
     return;

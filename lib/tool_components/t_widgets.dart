@@ -24,7 +24,8 @@ import 'package:the_tool/tool_components/fields/t_form_widget.dart'
 import 'package:the_tool/tool_components/t_avatar.widget.dart'
     deferred as t_avatar;
 import 'package:the_tool/tool_components/t_button_widget.dart';
-import 'package:the_tool/tool_components/t_clickable.widget.dart';
+import 'package:the_tool/tool_components/t_clickable.widget.dart'
+    deferred as t_clickable;
 import 'package:the_tool/tool_components/t_clipoval.widget.dart'
     deferred as t_clipoval;
 import 'package:the_tool/tool_components/t_column_widget.dart';
@@ -113,6 +114,8 @@ class _TWidgetsState extends State<TWidgets> {
         return TWrap(tWidgetProps);
       case "safe_area":
         return TSafeArea(tWidgetProps);
+      case "align":
+        return TAlign(tWidgetProps);
 
       case "form":
         await t_form.loadLibrary();
@@ -139,7 +142,8 @@ class _TWidgetsState extends State<TWidgets> {
         await t_layout_builder.loadLibrary();
         return t_layout_builder.T_LayoutBuilder(tWidgetProps);
       case "clickable":
-        return T_Clickable(tWidgetProps);
+        await t_clickable.loadLibrary();
+        return t_clickable.T_Clickable(tWidgetProps);
       case "circle_avatar":
         await t_avatar.loadLibrary();
         return t_avatar.T_Avatar(tWidgetProps);
@@ -164,8 +168,6 @@ class _TWidgetsState extends State<TWidgets> {
       case "padding":
         await t_padding.loadLibrary();
         return t_padding.TPadding(tWidgetProps);
-      case "align":
-        return TAlign(tWidgetProps);
       case "expansion_tile":
         await t_expansion_tile.loadLibrary();
         return t_expansion_tile.TExpansionTitle(tWidgetProps);
