@@ -34,6 +34,7 @@ class UtilsManager {
   static const rootPrefix = "\$root.";
   static const mediaQueryPrefix = "\$mediaQuery.";
   static const themeDataPrefix = "\$themeData.";
+  static final removeBindingStringRegex = RegExp(r"{{|}}");
 
   /// This is the path for children widget in a list/table/... to get data from contextData
   static const dataPath = "dataPath";
@@ -62,6 +63,10 @@ class UtilsManager {
     }
 
     return false;
+  }
+  
+  static String removeBindingString(String value) {
+    return value.replaceAll(removeBindingStringRegex, "");
   }
 
   String bindingValueToText(

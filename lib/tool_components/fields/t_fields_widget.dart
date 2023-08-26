@@ -18,6 +18,8 @@ import 'package:the_tool/tool_components/fields/t_checkbox_field.dart'
 
 import 'package:the_tool/tool_components/fields/t_multiple_select.field.dart'
     deferred as field_multi_select;
+import 'package:the_tool/tool_components/fields/t_chip_choice_field.dart'
+    deferred as field_chip_choice;
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/twidget_props.dart';
 
@@ -79,6 +81,9 @@ class _TFieldsState extends TStatefulWidget<TFields> {
       case "multiple_select":
         await field_multi_select.loadLibrary();
         break;
+      case "choice_chip":
+        await field_chip_choice.loadLibrary();
+        break;
       default:
         throw Exception("$fieldType field type is not supported!");
     }
@@ -122,6 +127,8 @@ class _TFieldsState extends TStatefulWidget<TFields> {
         return field_custom.TCustomField(tWidgetProps);
       case "multiple_select":
         return field_multi_select.TMultiSelectField(tWidgetProps);
+      case "choice_chip":
+        return field_chip_choice.TChipChoiceField(tWidgetProps);
       default:
         throw Exception("$fieldType field type is not supported!");
     }
