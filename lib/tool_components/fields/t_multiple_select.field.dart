@@ -79,7 +79,16 @@ class _TMultiSelectFieldState extends TStatefulWidget<TMultiSelectField>
       selectedItems: _selectedValues,
       itemAsString: (item) {
         if (items[0] is List) {
-          var rep = items.firstWhere((element) => element[0] == item);
+          var rep = items.firstWhere(
+            (element) => element[0] == item,
+            orElse: () {
+              String? name = widgetProps?.name;
+
+              throw Exception(
+                "Field \"$name\" has error: Selected item \"$item\" not exist in list dropdown!",
+              );
+            },
+          );
           return rep[1];
         }
 
@@ -100,9 +109,13 @@ class _TMultiSelectFieldState extends TStatefulWidget<TMultiSelectField>
   @override
   void didChangeDependencies() {
     String? name = widget.widgetProps.name;
-    List<dynamic> listDataFromServer = widget.getContexData()[name];
+    if (widget.getContexData()[name] is! List) {
+      throw Exception(
+          "Field \"$name\" has error: Selected items must be a List!");
+    }
+    List<dynamic>? listDataFromServer = widget.getContexData()[name];
     // Selected value để add vào multiSelected field không được là List<dynamic>
-    _selectedValues = listDataFromServer.cast<String>();
+    _selectedValues = listDataFromServer!.cast<String>();
     super.didChangeDependencies();
   }
 
