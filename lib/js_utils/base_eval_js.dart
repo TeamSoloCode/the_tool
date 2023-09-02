@@ -18,8 +18,9 @@ abstract class BaseEvalJS {
   });
 
   void setPageArguments(Map<String, dynamic> args, String pagePath);
-
   void emitFormActionResponse(String id, dynamic data);
+
+  void addPage(String pagePath);
 
   String getRegisterComponentCode({
     required String parentPagePath,

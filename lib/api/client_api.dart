@@ -202,15 +202,19 @@ class APIClientManager {
     }
   }
 
-  // This help developing for ios because ios not allow load localhost in webview
   Future<Map<String, String>> getAppWebviewBundle() async {
-    var app = _dioCached.get('http://localhost:8081/app.js');
-    var vendors = _dioCached.get('http://localhost:8081/vendors.js');
-    var bundle = await Future.wait([app, vendors]);
-    return {
-      "vendor": bundle[1].data,
-      "app": bundle[0].data,
-    };
+    try {
+      var app = _dioCached.get('${_envConfig.MOBILE_WEBVIEW_URL}app.js');
+      var vendors =
+          _dioCached.get('${_envConfig.MOBILE_WEBVIEW_URL}vendors.js');
+      var bundle = await Future.wait([app, vendors]);
+      return {
+        "vendor": bundle[1].data,
+        "app": bundle[0].data,
+      };
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   Future<Response<Map<String, dynamic>>> postImageFormData(

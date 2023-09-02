@@ -99,6 +99,13 @@ class EvalJS extends BaseEvalJS {
   }
 
   @override
+  void addPage(String pagePath) {
+    callJS("addPage", "", [
+      {"pagePath": pagePath}
+    ]);
+  }
+
+  @override
   void setPageArguments(Map<String, dynamic> args, String pagePath) {}
 
   @override

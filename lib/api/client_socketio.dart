@@ -8,10 +8,7 @@ class SocketIOClient {
     _socketIOManager = _SocketIOManager(
       Manager(uri: url, options: opts),
       '/',
-      opts ??
-          {
-            'transports': ['websocket'],
-          },
+      opts,
     );
   }
 
