@@ -23,11 +23,11 @@ class _TListViewState extends TStatefulWidget<TListView> {
       );
     }
 
-    var listData = widget.getContexData()[props.name];
+    var listData = widget.getContexData()[props.name] ?? [];
 
     if (listData is! List) {
       throw Exception(
-        "List data must be an array of object (${widget.pagePath})",
+        "List \"${props.name}\". Data must be an array of object (${widget.pagePath})",
       );
     }
 
