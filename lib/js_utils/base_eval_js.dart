@@ -193,25 +193,6 @@ abstract class BaseEvalJS {
           return __route;
         }, [__route])
 
-        // const navigateTo = React.useCallback((
-        //   pagePath,
-        //   pageArguments = {},
-        //   options = {}
-        // ) => {
-        //   _appBase._navigateTo(pagePath, pageArguments, options);
-        // }, [_appBase._navigateTo])
-
-        // const navigateBack = React.useCallback(() => {
-        //   navigateTo('', {}, { action: 'pop' });
-        // }, [navigateTo])
-
-        // const navigateBackAndGoTo = React.useCallback((
-        //   pagePath,
-        //   pageArguments = {},
-        // ) => {
-        //   _appBase._navigateTo(pagePath, pageArguments, { action: 'pop_and_push' });
-        // }, [navigateTo])
-
         // Use to init state before render the widget
         const useInitState = React.useCallback((initData = {}) => {
           if(!_didInitState) {
@@ -293,10 +274,6 @@ abstract class BaseEvalJS {
           return __emitEvent__(`form:$pagePath:\${formName}`, "validate")
         }, [__emitEvent__])
 
-        const openDrawer = React.useCallback(() => {
-          _appBase._openDrawer('$pagePath')
-        }, [_appBase._openDrawer, _contextData['$pagePath']])
-
         const toggleChangeTheme = React.useCallback(() => {
           _appBase.toggleChangeTheme()
         }, [_appBase.toggleChangeTheme])
@@ -338,11 +315,6 @@ abstract class BaseEvalJS {
             setPageData,
             getPageData,
             registerSubComponent,
-            openDrawer,
-
-            // navigateTo,
-            // navigateBackAndGoTo,
-            // navigateBack,
           })
           _contextData['$pagePath'].exportPageContext = exportPageContext
         }, [
@@ -354,11 +326,6 @@ abstract class BaseEvalJS {
           registerSubComponent,
           exportPageContext,
           validateForm,
-          openDrawer,
-
-          // navigateTo,
-          // navigateBackAndGoTo,
-          // navigateBack,
         ])
 
         React.useEffect(() => {
