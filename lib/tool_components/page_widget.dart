@@ -103,9 +103,9 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
 
     await Future.wait(futures);
 
-    // setState(() {
-    _isReadyToRun = true;
-    // });
+    setState(() {
+      _isReadyToRun = true;
+    });
   }
 
   int? _prevThemeRefeshToken;
@@ -216,6 +216,8 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
       clientCode: pageInfo["code"],
       pagePath: _pageId,
     );
+
+    utils.evalJS?.addClientPage(_pageId);
 
     var layout = pageInfo["layout"];
 

@@ -20,7 +20,8 @@ abstract class BaseEvalJS {
   void setPageArguments(Map<String, dynamic> args, String pagePath);
   void emitFormActionResponse(String id, dynamic data);
 
-  void addPage(String pagePath);
+  void addClientPage(String pagePath);
+  void removeClientPage(String pagePath);
 
   String getRegisterComponentCode({
     required String parentPagePath,
@@ -192,24 +193,24 @@ abstract class BaseEvalJS {
           return __route;
         }, [__route])
 
-        const navigateTo = React.useCallback((
-          pagePath,
-          pageArguments = {},
-          options = {}
-        ) => {
-          _appBase._navigateTo(pagePath, pageArguments, options);
-        }, [_appBase._navigateTo])
+        // const navigateTo = React.useCallback((
+        //   pagePath,
+        //   pageArguments = {},
+        //   options = {}
+        // ) => {
+        //   _appBase._navigateTo(pagePath, pageArguments, options);
+        // }, [_appBase._navigateTo])
 
-        const navigateBack = React.useCallback(() => {
-          navigateTo('', {}, { action: 'pop' });
-        }, [navigateTo])
+        // const navigateBack = React.useCallback(() => {
+        //   navigateTo('', {}, { action: 'pop' });
+        // }, [navigateTo])
 
-        const navigateBackAndGoTo = React.useCallback((
-          pagePath,
-          pageArguments = {},
-        ) => {
-          _appBase._navigateTo(pagePath, pageArguments, { action: 'pop_and_push' });
-        }, [navigateTo])
+        // const navigateBackAndGoTo = React.useCallback((
+        //   pagePath,
+        //   pageArguments = {},
+        // ) => {
+        //   _appBase._navigateTo(pagePath, pageArguments, { action: 'pop_and_push' });
+        // }, [navigateTo])
 
         // Use to init state before render the widget
         const useInitState = React.useCallback((initData = {}) => {
@@ -339,9 +340,9 @@ abstract class BaseEvalJS {
             registerSubComponent,
             openDrawer,
 
-            navigateTo,
-            navigateBackAndGoTo,
-            navigateBack,
+            // navigateTo,
+            // navigateBackAndGoTo,
+            // navigateBack,
           })
           _contextData['$pagePath'].exportPageContext = exportPageContext
         }, [
@@ -355,9 +356,9 @@ abstract class BaseEvalJS {
           validateForm,
           openDrawer,
 
-          navigateTo,
-          navigateBackAndGoTo,
-          navigateBack,
+          // navigateTo,
+          // navigateBackAndGoTo,
+          // navigateBack,
         ])
 
         React.useEffect(() => {

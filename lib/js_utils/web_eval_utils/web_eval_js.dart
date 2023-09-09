@@ -79,6 +79,8 @@ class EvalJS extends BaseEvalJS {
     """;
 
     js.context.callMethod("eval", [unmountClientCodeJS]);
+
+    removeClientPage(pagePath);
   }
 
   @override
@@ -99,8 +101,15 @@ class EvalJS extends BaseEvalJS {
   }
 
   @override
-  void addPage(String pagePath) {
-    callJS("addPage", "", [
+  void addClientPage(String pagePath) {
+    callJS("addClientPage", "", [
+      {"pagePath": pagePath}
+    ]);
+  }
+
+  @override
+  void removeClientPage(String pagePath) {
+    callJS("removeClientPage", "", [
       {"pagePath": pagePath}
     ]);
   }

@@ -100,8 +100,15 @@ class EvalJS extends BaseEvalJS {
   }
 
   @override
-  void addPage(String pagePath) {
-    callJS("addPage", "", [
+  void addClientPage(String pagePath) {
+    callJS("addClientPage", "", [
+      {"pagePath": pagePath}
+    ]);
+  }
+
+  @override
+  void removeClientPage(String pagePath) {
+    callJS("removeClientPage", "", [
       {"pagePath": pagePath}
     ]);
   }
@@ -117,6 +124,7 @@ class EvalJS extends BaseEvalJS {
     })()
     """;
     webViewController?.evaluateJavascript(source: unmountClientCodeJS);
+    removeClientPage(pagePath);
   }
 
   @override
