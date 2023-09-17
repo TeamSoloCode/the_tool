@@ -114,6 +114,13 @@ class EvalJS extends BaseEvalJS {
   }
 
   @override
+  Future<String> getClientPagelayout(String pagePath) async {
+    return await callJS("getClientPagelayout", "", [
+      {"pagePath": pagePath}
+    ]);
+  }
+
+  @override
   void unmountClientCode(String pagePath) {
     String unmountClientCodeJS = """
     (() => {

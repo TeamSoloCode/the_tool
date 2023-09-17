@@ -22,6 +22,7 @@ abstract class BaseEvalJS {
 
   void addClientPage(String pagePath);
   void removeClientPage(String pagePath);
+  Future<String> getClientPagelayout(String pagePath);
 
   String getRegisterComponentCode({
     required String parentPagePath,
