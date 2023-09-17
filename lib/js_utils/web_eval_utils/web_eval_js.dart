@@ -115,7 +115,7 @@ class EvalJS extends BaseEvalJS {
   }
 
   @override
-  Future<String> getClientPagelayout(String pagePath) async {
+  Future<Map<String, dynamic>?> getClientPageLayout(String pagePath) async {
     return await callJS("getClientPagelayout", "", [
       {"pagePath": pagePath}
     ]);

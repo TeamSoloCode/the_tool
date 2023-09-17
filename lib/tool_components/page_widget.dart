@@ -218,8 +218,12 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
     );
 
     utils.evalJS?.addClientPage(_pageId);
+    var layout = await utils.evalJS?.getClientPageLayout(widget.pagePath);
+    if (layout == null) {
+      throw Exception("Cannot load layout of ${widget.pagePath}");
+    }
 
-    var layout = pageInfo["layout"];
+    // var layout = pageInfo["layout"];
 
     if (layout["appBar"] != null) {
       _appBarLayout = LayoutProps.fromJson(layout["appBar"]);
