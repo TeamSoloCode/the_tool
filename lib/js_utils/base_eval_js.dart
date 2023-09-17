@@ -20,9 +20,14 @@ abstract class BaseEvalJS {
   void setPageArguments(Map<String, dynamic> args, String pagePath);
   void emitFormActionResponse(String id, dynamic data);
 
+  /// Will call js side and load js bundle for page code
   void addClientPage(String pagePath);
-  void removeClientPage(String pagePath);
+
+  /// Will call js side to load js bundle for page layout
   Future<Map<String, dynamic>?> getClientPageLayout(String pagePath);
+
+  /// Will call js side and remove react component of the disposed page
+  void removeClientPage(String pagePath);
 
   String getRegisterComponentCode({
     required String parentPagePath,

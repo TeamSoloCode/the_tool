@@ -207,23 +207,12 @@ class _TPage extends State<TPage> with AutomaticKeepAliveClientMixin {
 
   Future<void> _loadPageInfo() async {
     var contextStateProvider = getIt<ContextStateProvider>();
-    var apiClient = getIt<APIClientManager>();
-
-    Map<String, dynamic> pageInfo =
-        await apiClient.getClientPageInfo(widget.pagePath);
-
-    utils.evalJS?.executePageCode(
-      clientCode: pageInfo["code"],
-      pagePath: _pageId,
-    );
 
     utils.evalJS?.addClientPage(_pageId);
     var layout = await utils.evalJS?.getClientPageLayout(widget.pagePath);
     if (layout == null) {
       throw Exception("Cannot load layout of ${widget.pagePath}");
     }
-
-    // var layout = pageInfo["layout"];
 
     if (layout["appBar"] != null) {
       _appBarLayout = LayoutProps.fromJson(layout["appBar"]);
