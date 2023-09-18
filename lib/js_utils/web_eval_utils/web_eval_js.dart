@@ -71,15 +71,6 @@ class EvalJS extends BaseEvalJS {
 
   @override
   void unmountClientCode(String pagePath) {
-    String unmountClientCodeJS = """
-      const rootEl = document.getElementById("$pagePath")
-      const appEl = document.getElementById("app")
-      appEl.removeChild(rootEl);
-      ReactDOM.unmountComponentAtNode(rootEl);
-    """;
-
-    js.context.callMethod("eval", [unmountClientCodeJS]);
-
     removeClientPage(pagePath);
   }
 
