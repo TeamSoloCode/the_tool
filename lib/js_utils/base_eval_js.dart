@@ -207,10 +207,6 @@ abstract class BaseEvalJS {
           }
         }, [_didInitState])
 
-        const request = React.useCallback((path, options = {}) => {
-          return _appBase.request(path, options)
-        }, [_appBase.request])
-
         const _debouceRegisterSubComponent = React.useMemo(() => {
           return _.debounce((subComponents) => {
             _setSubComponent([...subComponents])
