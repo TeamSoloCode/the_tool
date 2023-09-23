@@ -10,6 +10,7 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 class ContextStateProvider with ChangeNotifier {
   final Map<String, dynamic> _contextData = {};
   final Map<String, dynamic> _rootPageData = {};
+  String? selectedProject;
   ClientConfig? _appConfig;
   Map<String, dynamic> initData;
 

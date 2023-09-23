@@ -51,6 +51,7 @@ class _TheToolState extends State<TheTool> {
     final cacheProjectName = storage.getLocalBox("projectName");
     apiClient.projectName = _selectedProjectName ?? cacheProjectName;
     ClientConfig? config;
+
     try {
       config = await apiClient.getClientConfig();
       await _registerSocketIOClient(config);
@@ -60,7 +61,10 @@ class _TheToolState extends State<TheTool> {
         _cannotLoadConfig = error.toString();
       });
     }
-    getIt<ContextStateProvider>().appConfig = config;
+    var contextStateProvider = getIt<ContextStateProvider>();
+
+    contextStateProvider.appConfig = config;
+    contextStateProvider.selectedProject = _selectedProjectName;
 
     await page_container.loadLibrary();
 

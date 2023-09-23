@@ -72,6 +72,9 @@ external set updateRouteAuthData(
   ) f,
 );
 
+@JS("get_select_project_name")
+external set getSelectedProjectName(String? Function() f);
+
 @JS('__tWeb_callAsyncJavaScript')
 external callAsyncJavaScript(String code);
 
@@ -171,6 +174,10 @@ void _emitDataResponseEvent(
   );
 }
 
+String? _getSelectedProjectName() {
+  return getIt<ContextStateProvider>().selectedProject;
+}
+
 void main() {
   setContextData = allowInterop(_setState);
   navigator = allowInterop(_navigator);
@@ -180,4 +187,5 @@ void main() {
   openDrawer = allowInterop(_openPageDrawer);
   updateRouteAuthData = allowInterop(_updateRouteAuthData);
   jsResponse = allowInterop(_jsResponse);
+  getSelectedProjectName = allowInterop(_getSelectedProjectName);
 }
