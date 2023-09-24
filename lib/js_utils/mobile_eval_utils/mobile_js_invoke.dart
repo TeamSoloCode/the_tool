@@ -148,6 +148,13 @@ void registerJavascriptHandler(
       emitter.emit(eventName, context, payload);
     },
   );
+
+  webViewController?.addJavaScriptHandler(
+    handlerName: "get_select_project_name",
+    callback: (arguments) async {
+      return getIt<ContextStateProvider>().selectedProject;
+    },
+  );
 }
 
 void main() {}
