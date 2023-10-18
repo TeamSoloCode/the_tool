@@ -76,12 +76,13 @@ class _TheToolState extends State<TheTool> {
 
     if (!kIsWeb) {
       await webview.loadLibrary();
+      await _initWebViewForMobile(context);
+
       if (Platform.isIOS) {
         _bundle = await _apiClient.getAppWebviewBundle();
       }
     }
 
-    await _initWebViewForMobile(context);
 
     try {
       config = await _apiClient.getClientConfig();
@@ -165,7 +166,7 @@ class _TheToolState extends State<TheTool> {
       initialUrlRequest: webview.URLRequest(
         url: Uri.parse(getIt<EnvironmentConfig>().MOBILE_WEBVIEW_URL),
       ),
-      initialUserScripts: initialUserScripts,
+      // initialUserScripts: initialUserScripts,
       onWebViewCreated: (webViewController) {
         print("1");
       },
@@ -204,19 +205,10 @@ class _TheToolState extends State<TheTool> {
       },
     );
 
+    _headlessWebView?.run();
     await completer.future;
   }
 
-
-  bool _didLoadDeps = false;
-  Future<bool> _prepareDependencies() async {
-    if (_didLoadDeps) return true;
-
-
-
-    _didLoadDeps = true;
-    return true;
-  }
 
   @override
   Widget build(BuildContext context) {
