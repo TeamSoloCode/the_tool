@@ -1,4 +1,5 @@
 SUPPORT: Invoke dart function with emitter
+FIXBUG: Error navigation | Open Client project -> go to Dashboard -> click back button on Web
 
 SUPPORT: BoxShadow for container widget
 
