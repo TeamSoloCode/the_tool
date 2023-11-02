@@ -25,7 +25,11 @@ class _SelectProjectPageState extends State<SelectProjectPage> {
     var projectName = formFields["projectName"];
     var remember = formFields["remember"];
 
-    _storageManager.setLocalBox("projectName", projectName?.value);
+    if (projectName?.value == null) {
+      projectName?.invalidate("Project name cannot be empty");
+    }
+
+    _storageManager.setProjectName(projectName?.value);
     _storageManager.setLocalBox("remember", remember?.value);
 
     if (projectName?.value != null) {

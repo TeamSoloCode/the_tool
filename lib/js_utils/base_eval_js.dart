@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:modular_core/modular_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:the_tool/t_widget_interface/client_config/client_config.dart';
 
 abstract class BaseEvalJS {
   BuildContext context;
@@ -28,6 +29,9 @@ abstract class BaseEvalJS {
 
   /// Will call js side and remove react component of the disposed page
   void removeClientPage(String pagePath);
+
+  /// Will call js side and get config of specific client config
+  Future<ClientConfig> getClientConfig();
 
   String getRegisterComponentCode({
     required String parentPagePath,

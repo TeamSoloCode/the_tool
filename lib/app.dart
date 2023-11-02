@@ -22,8 +22,6 @@ import 'package:the_tool/tool_components/page_container_widget.dart'
     deferred as page_container;
 import 'package:the_tool/static_pages/select_project.page.dart'
     deferred as select_project;
-import 'package:the_tool/singleton_register.dart'
-    deferred as singleton_register;
 import 'package:provider/provider.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart'
     deferred as webview if (dart.library.html) "";
@@ -36,7 +34,7 @@ class TheTool extends StatefulWidget {
 }
 
 class _TheToolState extends State<TheTool> {
-  String? _selectedProjectName = "built_page";
+  String? _selectedProjectName = "client";
   String? _cannotLoadConfig;
   final UtilsManager _utils = getIt<UtilsManager>();
   final APIClientManager _apiClient = getIt<APIClientManager>();
@@ -70,8 +68,15 @@ class _TheToolState extends State<TheTool> {
 
   Future<bool> _isReadyToRun(BuildContext context) async {
     final storage = getIt<StorageManager>();
-    final cacheProjectName = storage.getLocalBox("projectName");
-    _apiClient.projectName = _selectedProjectName ?? cacheProjectName;
+    final cacheProjectName = storage.getProjectName();
+    var projectName = _selectedProjectName ?? cacheProjectName;
+    if (projectName == null) {
+      throw Exception("Project name cannot be empty");
+    }
+
+    storage.setProjectName(projectName);
+    _apiClient.projectName = projectName;
+
     ClientConfig? config;
 
     if (!kIsWeb) {
@@ -83,9 +88,8 @@ class _TheToolState extends State<TheTool> {
       }
     }
 
-
     try {
-      config = await _apiClient.getClientConfig();
+      config = await _utils.evalJS?.getClientConfig();
       // await _registerSocketIOClient(config);
     } catch (error) {
       await server_not_found.loadLibrary();
@@ -168,33 +172,27 @@ class _TheToolState extends State<TheTool> {
       ),
       // initialUserScripts: initialUserScripts,
       onWebViewCreated: (webViewController) {
-        print("1");
-      },
-      onLoadStart: (webViewController, url) async {
-        print("2");
         try {
           _evalJS = EvalJS(
             context: context,
             webViewController: webViewController,
           );
 
-          _utils.evalJS = _evalJS;
-          completer.complete(true);
+          _utils.evalJS = _evalJS;        
         } catch (error) {
           _headlessWebView?.dispose();
           _headlessWebView = null;
           _utils.evalJS = null;
           rethrow;
         }
+        print("1");
       },
-      androidOnPermissionRequest: (controller, origin, resources) async {
-        return webview.PermissionRequestResponse(
-          resources: resources,
-          action: webview.PermissionRequestResponseAction.GRANT,
-        );
+      onLoadStart: (webViewController, url) async {
+        print("2");
       },
       onLoadStop: (webViewController, url) {
         print("3");
+        completer.complete(true);  
       },
       onLoadError: (controller, url, code, message) {
         log("\x1B[31m$message\x1B[31m");
@@ -207,6 +205,7 @@ class _TheToolState extends State<TheTool> {
 
     _headlessWebView?.run();
     await completer.future;
+    print("4");
   }
 
 

@@ -6,6 +6,8 @@ import 'package:the_tool/js_utils/base_eval_js.dart';
 import 'package:the_tool/js_utils/web_eval_utils/web_js_invoke.dart'
     as web_js_invoke;
 import 'package:the_tool/page_provider/context_state_provider.dart';
+import 'package:the_tool/page_utils/storage_manager.dart';
+import 'package:the_tool/t_widget_interface/client_config/client_config.dart';
 import 'package:the_tool/utils.dart';
 import 'package:eventify/eventify.dart' as eventify;
 
@@ -107,9 +109,18 @@ class EvalJS extends BaseEvalJS {
 
   @override
   Future<Map<String, dynamic>?> getClientPageLayout(String pagePath) async {
+    final projectName = getIt<StorageManager>().getProjectName();
     return await callJS("getClientPagelayout", "", [
+      projectName,
       {"pagePath": pagePath}
     ]);
+  }
+
+  @override
+  Future<ClientConfig> getClientConfig() async {
+    final projectName = getIt<StorageManager>().getProjectName();
+    final rawJSONConfig = await callJS("getClientConfig", "", [projectName]);
+    return ClientConfig.fromJson(rawJSONConfig);
   }
 
   @override

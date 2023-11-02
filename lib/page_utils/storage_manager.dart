@@ -41,4 +41,12 @@ class StorageManager {
   Future<void> setLocalBox(String? key, dynamic value) async {
     await _localBox.put(key, value);
   }
+
+  String? getProjectName({String? defaultValue}) {
+    return _localBox.get("projectName", defaultValue: defaultValue);
+  }
+
+  Future<void> setProjectName(String value) async {
+    await _localBox.put("projectName", value);
+  }
 }
