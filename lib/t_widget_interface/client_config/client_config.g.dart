@@ -9,7 +9,6 @@ part of 'client_config.dart';
 _$_ClientConfig _$$_ClientConfigFromJson(Map<String, dynamic> json) =>
     _$_ClientConfig(
       initialPage: json['initialPage'] as String?,
-      themePath: json['themePath'] as String?,
       pageAPI: json['pageAPI'] as String?,
       beAPI: json['beAPI'] as String?,
       routes: (json['routes'] as List<dynamic>?)
@@ -23,7 +22,6 @@ _$_ClientConfig _$$_ClientConfigFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$_ClientConfigToJson(_$_ClientConfig instance) =>
     <String, dynamic>{
       'initialPage': instance.initialPage,
-      'themePath': instance.themePath,
       'pageAPI': instance.pageAPI,
       'beAPI': instance.beAPI,
       'routes': instance.routes?.map((e) => e.toJson()).toList(),

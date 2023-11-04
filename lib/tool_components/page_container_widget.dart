@@ -5,7 +5,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_builder_validators/form_builder_validators.dart'
     show FormBuilderLocalizations;
-import 'package:the_tool/api/client_api.dart';
 import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/page_provider/theme_provider.dart';
 import 'package:the_tool/route/app_module.dart';
@@ -20,7 +19,6 @@ class PageContainer extends StatefulWidget {
 }
 
 class _PageContainerState extends State<PageContainer> {
-  final APIClientManager _apiClient = getIt<APIClientManager>();
   final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
 
   ThemeData? _themeData;
@@ -67,12 +65,8 @@ class _PageContainerState extends State<PageContainer> {
     );
   }
 
-
   Future<void> _updateTheme() async {
-    var themePath = getIt<ContextStateProvider>().appConfig?.themePath;
-    Map<String, dynamic> theme = await _apiClient.getAppTheme(
-      themePath: themePath,
-    );
+    var theme = await getIt<UtilsManager>().evalJS!.getClientTheme();
     var themeProvider = getIt<ThemeProvider>();
     var currentThemeData = await themeProvider.computeThemeData(theme);
 

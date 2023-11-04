@@ -1,14 +1,12 @@
-import 'dart:collection';
 import 'dart:developer';
-import 'dart:io';
+// import 'dart:io';
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:the_tool/api/client_api.dart';
 import 'package:the_tool/config/prod.dart';
-import '' if (dart.library.html) "dart:html";
+import 'dart:io' if (dart.library.html) "dart:html";
 import 'package:the_tool/js_utils/mobile_eval_utils/mobile_eval_js.dart'
     if (dart.library.js) 'package:the_tool/js_utils/web_eval_utils/web_eval_js.dart';
 import 'package:the_tool/page_provider/auth_manager_provider.dart';
@@ -37,7 +35,6 @@ class _TheToolState extends State<TheTool> {
   String? _selectedProjectName = "client";
   String? _cannotLoadConfig;
   final UtilsManager _utils = getIt<UtilsManager>();
-  final APIClientManager _apiClient = getIt<APIClientManager>();
 
   // webview vars
   late EvalJS _evalJS;
@@ -54,7 +51,7 @@ class _TheToolState extends State<TheTool> {
     super.dispose();
   }
 
-  void _loadWebCoreJSCode(BuildContext context) {
+  void _loadWebEvalJS(BuildContext context) {
     _utils.evalJS = EvalJS(
       context: context,
     );
@@ -70,12 +67,12 @@ class _TheToolState extends State<TheTool> {
     final storage = getIt<StorageManager>();
     final cacheProjectName = storage.getProjectName();
     var projectName = _selectedProjectName ?? cacheProjectName;
+
     if (projectName == null) {
       throw Exception("Project name cannot be empty");
     }
 
     storage.setProjectName(projectName);
-    _apiClient.projectName = projectName;
 
     ClientConfig? config;
 
@@ -83,13 +80,17 @@ class _TheToolState extends State<TheTool> {
       await webview.loadLibrary();
       await _initWebViewForMobile(context);
 
-      if (Platform.isIOS) {
-        _bundle = await _apiClient.getAppWebviewBundle();
-      }
+      // if (Platform.isIOS) {
+      //   _bundle = await _apiClient.getAppWebviewBundle();
+      // }
     }
+    if (kIsWeb) _loadWebEvalJS(context);
 
     try {
       config = await _utils.evalJS?.getClientConfig();
+      var contextStateProvider = getIt<ContextStateProvider>();
+      contextStateProvider.appConfig = config;
+
       // await _registerSocketIOClient(config);
     } catch (error) {
       await server_not_found.loadLibrary();
@@ -97,14 +98,9 @@ class _TheToolState extends State<TheTool> {
         _cannotLoadConfig = error.toString();
       });
     }
-    var contextStateProvider = getIt<ContextStateProvider>();
-
-    contextStateProvider.appConfig = config;
-    contextStateProvider.selectedProject = _selectedProjectName;
 
     await page_container.loadLibrary();
 
-    if (kIsWeb) _loadWebCoreJSCode(context);
     return true;
   }
 
@@ -147,52 +143,52 @@ class _TheToolState extends State<TheTool> {
     if (_headlessWebView != null) return;
 
     /// This function is help to load js module when developing with is on local machine
-    dynamic initialUserScripts;
+    // dynamic initialUserScripts;
 
-    initialUserScripts = Platform.isIOS
-        ? UnmodifiableListView(
-            [
-              webview.UserScript(
-                source: _bundle["vendor"]!,
-                injectionTime:
-                    webview.UserScriptInjectionTime.AT_DOCUMENT_START,
-              ),
-              webview.UserScript(
-                source: _bundle["app"]!,
-                injectionTime:
-                    webview.UserScriptInjectionTime.AT_DOCUMENT_START,
-              ),
-            ],
-          )
-        : null;
+    // initialUserScripts = Platform.isIOS
+    //     ? UnmodifiableListView(
+    //         [
+    //           webview.UserScript(
+    //             source: _bundle["vendor"]!,
+    //             injectionTime:
+    //                 webview.UserScriptInjectionTime.AT_DOCUMENT_START,
+    //           ),
+    //           webview.UserScript(
+    //             source: _bundle["app"]!,
+    //             injectionTime:
+    //                 webview.UserScriptInjectionTime.AT_DOCUMENT_START,
+    //           ),
+    //         ],
+    //       )
+    //     : null;
 
     _headlessWebView = webview.HeadlessInAppWebView(
       initialUrlRequest: webview.URLRequest(
         url: Uri.parse(getIt<EnvironmentConfig>().MOBILE_WEBVIEW_URL),
       ),
       // initialUserScripts: initialUserScripts,
-      onWebViewCreated: (webViewController) {
+      // onWebViewCreated: (webViewController) {
+      // },
+      // onLoadStart: (webViewController, url) async {
+      // },
+      onLoadStop: (webViewController, url) {
         try {
           _evalJS = EvalJS(
             context: context,
             webViewController: webViewController,
           );
 
-          _utils.evalJS = _evalJS;        
+          _utils.evalJS = _evalJS;  
         } catch (error) {
           _headlessWebView?.dispose();
           _headlessWebView = null;
           _utils.evalJS = null;
           rethrow;
         }
-        print("1");
-      },
-      onLoadStart: (webViewController, url) async {
-        print("2");
-      },
-      onLoadStop: (webViewController, url) {
-        print("3");
-        completer.complete(true);  
+
+        completer.complete(true);
+        // tell js side that webview loaded
+        _evalJS.callJS('dartJSFullyLoaded', "", []);      
       },
       onLoadError: (controller, url, code, message) {
         log("\x1B[31m$message\x1B[31m");
@@ -205,7 +201,6 @@ class _TheToolState extends State<TheTool> {
 
     _headlessWebView?.run();
     await completer.future;
-    print("4");
   }
 
 

@@ -8,7 +8,6 @@ part 'client_config.g.dart';
 class ClientConfig with _$ClientConfig {
   const factory ClientConfig({
     String? initialPage,
-    String? themePath,
     String? pageAPI,
     String? beAPI,
     List<AppRouteConfig>? routes,

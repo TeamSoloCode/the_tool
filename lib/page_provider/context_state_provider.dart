@@ -3,14 +3,15 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:the_tool/page_utils/storage_manager.dart';
 
 import 'package:the_tool/t_widget_interface/client_config/client_config.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
+import 'package:the_tool/utils.dart';
 
 class ContextStateProvider with ChangeNotifier {
   final Map<String, dynamic> _contextData = {};
   final Map<String, dynamic> _rootPageData = {};
-  String? selectedProject;
   ClientConfig? _appConfig;
   Map<String, dynamic> initData;
 
@@ -20,7 +21,6 @@ class ContextStateProvider with ChangeNotifier {
 
   ContextStateProvider({this.initData = const {}}) : super() {
     _contextData.addAll(initData);
-
     if (kIsWeb) {
       notifyListenersController.stream.listen(_updateContextData);
     } else {
@@ -31,6 +31,7 @@ class ContextStateProvider with ChangeNotifier {
   }
   // ==========================================================================
   Map<String, dynamic> get contextData => _contextData;
+  String? get selectedProject => getIt<StorageManager>().getProjectName();
 
   Future<void> updateContextData(Map<String, dynamic> contextData) async {
     notifyListenersController.add(contextData);

@@ -28,6 +28,8 @@ class EvalJS extends BaseEvalJS {
 
     emitter = getIt<UtilsManager>().emitter;
     callJS('setPlatform', "", ['web']);
+    // tell js that dart js loaded
+    callJS('dartJSFullyLoaded', "", []);
   }
 
   @override
@@ -121,6 +123,12 @@ class EvalJS extends BaseEvalJS {
     final projectName = getIt<StorageManager>().getProjectName();
     final rawJSONConfig = await callJS("getClientConfig", "", [projectName]);
     return ClientConfig.fromJson(rawJSONConfig);
+  }
+
+  @override
+  Future<Map<String, dynamic>> getClientTheme() async {
+    final projectName = getIt<StorageManager>().getProjectName();
+    return await callJS("getClientTheme", "", [projectName]);
   }
 
   @override

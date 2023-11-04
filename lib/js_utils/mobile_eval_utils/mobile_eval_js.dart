@@ -118,10 +118,12 @@ class EvalJS extends BaseEvalJS {
   @override
   Future<Map<String, dynamic>?> getClientPageLayout(String pagePath) async {
     final projectName = getIt<StorageManager>().getProjectName();
-    return await callJS("getClientPagelayout", "", [
+    var result = await callJS("getClientPagelayout", "", [
       projectName,
       {"pagePath": pagePath}
     ]);
+
+    return result;
   }
 
   @override
@@ -129,6 +131,12 @@ class EvalJS extends BaseEvalJS {
     final projectName = getIt<StorageManager>().getProjectName();
     final rawJSONConfig = await callJS("getClientConfig", "", [projectName]);
     return ClientConfig.fromJson(rawJSONConfig);
+  }
+
+  @override
+  Future<Map<String, dynamic>> getClientTheme() async {
+    final projectName = getIt<StorageManager>().getProjectName();
+    return await callJS("getClientTheme", "", [projectName]);
   }
 
   @override

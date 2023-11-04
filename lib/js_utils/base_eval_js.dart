@@ -30,8 +30,11 @@ abstract class BaseEvalJS {
   /// Will call js side and remove react component of the disposed page
   void removeClientPage(String pagePath);
 
-  /// Will call js side and get config of specific client config
+  /// Will call js side and get config of client config base on selected project name
   Future<ClientConfig> getClientConfig();
+
+  /// Will call js side and get theme base on selected project name
+  Future<Map<String, dynamic>> getClientTheme();
 
   String getRegisterComponentCode({
     required String parentPagePath,

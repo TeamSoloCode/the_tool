@@ -63,9 +63,7 @@ class APIClientManager {
     );
   }
 
-  set projectName(String prjName) {
-    _projectName = prjName;
-  }
+  String? get projectName => getIt<StorageManager>().getProjectName();
 
   Future<dynamic> tRequest({required RequestOptions requestOptions}) async {
     try {
@@ -156,49 +154,6 @@ class APIClientManager {
       }
     } catch (e) {
       throw Exception(e.toString());
-    }
-  }
-
-  Future<ClientConfig> getClientConfig() async {
-    var url = "";
-    try {
-      if (_beAPI!.contains("localhost")) {
-        var uri = Uri.parse(_beAPI!);
-        _beAPI = uri.replace(host: localhost).toString();
-      }
-      url = '$_beAPI/pages/client-config/$_projectName';
-      final response = await _dio.get(url);
-      final clientConfig = ClientConfig.fromJson(response.data);
-
-      _pageAPI = clientConfig.pageAPI ?? _beAPI;
-      if (_pageAPI!.contains("localhost")) {
-        var uri = Uri.parse(_pageAPI!);
-        _pageAPI = uri.replace(host: localhost).toString();
-      }
-      return clientConfig;
-    } on DioException catch (e) {
-      if (e.response != null) {
-        throw Exception(e.response!.data.toString());
-      } else {
-        throw Exception(e.message);
-      }
-    } catch (e) {
-      throw Exception("Cannot load '$_projectName' project config. URL: $url");
-    }
-  }
-
-  Future<Map<String, dynamic>> getAppTheme({
-    String? themePath = "theme",
-  }) async {
-    try {
-      var response = await _dioCached
-          .get('$_pageAPI/${themePath ?? "theme"}/$_projectName');
-      return response.data;
-    } on DioException catch (e) {
-      log("Theme not found => ${e.message}");
-      return {};
-    } catch (e) {
-      rethrow;
     }
   }
 

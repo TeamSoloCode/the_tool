@@ -21,7 +21,6 @@ ClientConfig _$ClientConfigFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ClientConfig {
   String? get initialPage => throw _privateConstructorUsedError;
-  String? get themePath => throw _privateConstructorUsedError;
   String? get pageAPI => throw _privateConstructorUsedError;
   String? get beAPI => throw _privateConstructorUsedError;
   List<AppRouteConfig>? get routes => throw _privateConstructorUsedError;
@@ -43,7 +42,6 @@ abstract class $ClientConfigCopyWith<$Res> {
   @useResult
   $Res call(
       {String? initialPage,
-      String? themePath,
       String? pageAPI,
       String? beAPI,
       List<AppRouteConfig>? routes,
@@ -66,7 +64,6 @@ class _$ClientConfigCopyWithImpl<$Res, $Val extends ClientConfig>
   @override
   $Res call({
     Object? initialPage = freezed,
-    Object? themePath = freezed,
     Object? pageAPI = freezed,
     Object? beAPI = freezed,
     Object? routes = freezed,
@@ -78,10 +75,6 @@ class _$ClientConfigCopyWithImpl<$Res, $Val extends ClientConfig>
       initialPage: freezed == initialPage
           ? _value.initialPage
           : initialPage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      themePath: freezed == themePath
-          ? _value.themePath
-          : themePath // ignore: cast_nullable_to_non_nullable
               as String?,
       pageAPI: freezed == pageAPI
           ? _value.pageAPI
@@ -121,7 +114,6 @@ abstract class _$$_ClientConfigCopyWith<$Res>
   @useResult
   $Res call(
       {String? initialPage,
-      String? themePath,
       String? pageAPI,
       String? beAPI,
       List<AppRouteConfig>? routes,
@@ -142,7 +134,6 @@ class __$$_ClientConfigCopyWithImpl<$Res>
   @override
   $Res call({
     Object? initialPage = freezed,
-    Object? themePath = freezed,
     Object? pageAPI = freezed,
     Object? beAPI = freezed,
     Object? routes = freezed,
@@ -154,10 +145,6 @@ class __$$_ClientConfigCopyWithImpl<$Res>
       initialPage: freezed == initialPage
           ? _value.initialPage
           : initialPage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      themePath: freezed == themePath
-          ? _value.themePath
-          : themePath // ignore: cast_nullable_to_non_nullable
               as String?,
       pageAPI: freezed == pageAPI
           ? _value.pageAPI
@@ -192,7 +179,6 @@ class __$$_ClientConfigCopyWithImpl<$Res>
 class _$_ClientConfig implements _ClientConfig {
   const _$_ClientConfig(
       {this.initialPage,
-      this.themePath,
       this.pageAPI,
       this.beAPI,
       final List<AppRouteConfig>? routes,
@@ -207,8 +193,6 @@ class _$_ClientConfig implements _ClientConfig {
 
   @override
   final String? initialPage;
-  @override
-  final String? themePath;
   @override
   final String? pageAPI;
   @override
@@ -254,7 +238,6 @@ class _$_ClientConfig implements _ClientConfig {
 abstract class _ClientConfig implements ClientConfig {
   const factory _ClientConfig(
       {final String? initialPage,
-      final String? themePath,
       final String? pageAPI,
       final String? beAPI,
       final List<AppRouteConfig>? routes,
@@ -267,8 +250,6 @@ abstract class _ClientConfig implements ClientConfig {
 
   @override
   String? get initialPage;
-  @override
-  String? get themePath;
   @override
   String? get pageAPI;
   @override
