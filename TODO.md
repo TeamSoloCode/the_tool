@@ -1,20 +1,12 @@
+UPDATE: make setPageData can set data silence not trigger contextPage update
 SUPPORT: Invoke dart function with emitter
 FIXBUG: Error navigation | Open Client project -> go to Dashboard -> click back button on Web
 
-SUPPORT: BoxShadow for container widget
-
-SUPPORT: Websocket
-
-SUPPORT: config UI base on platform in layout.json
 SUPPORT: Dissmissible widget
 
 SUPPORT: make main function run with mock input for integration test
 
 SUPPORT: value binding for validate order in form
-
-SUPPORT: responsive with device version
-SUPPORT: RichText
-SUPPORT: Toast
 
 SUPPORT: Blowfish encryption to encrypt data passing to js side to execute
 
@@ -30,6 +22,13 @@ UPDATE: DO not use http://localhost:8081 in index.html==============
 -->
 
 ===================================================================
+
+SUPPORT: responsive with device version
+SUPPORT: RichText
+SUPPORT: Toast
+SUPPORT: config UI base on platform in layout.json
+SUPPORT: BoxShadow for container widget
+SUPPORT: Websocket
 
 SUPPORT: Video player Chewie
 SUPPORT: Error Widget for twidgets
