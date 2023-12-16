@@ -81,6 +81,9 @@ external callAsyncJavaScript(String code);
 @JS('js_response')
 external set jsResponse(void Function(String eventName, String payload) f);
 
+@JS('get_route')
+external set getRoute(void Function() f);
+
 /// It takes a JSON string, decodes it into a Map, and then merges it with the existing context data
 ///
 /// Args:
@@ -178,6 +181,10 @@ String? _getSelectedProjectName() {
   return getIt<ContextStateProvider>().selectedProject;
 }
 
+Map<String, dynamic> _getRoute() {
+  return getIt<BaseInvokeJS>().getRoute();
+}
+
 void main() {
   setContextData = allowInterop(_setState);
   navigator = allowInterop(_navigator);
@@ -188,4 +195,5 @@ void main() {
   updateRouteAuthData = allowInterop(_updateRouteAuthData);
   jsResponse = allowInterop(_jsResponse);
   getSelectedProjectName = allowInterop(_getSelectedProjectName);
+  getRoute = allowInterop(_getRoute);
 }

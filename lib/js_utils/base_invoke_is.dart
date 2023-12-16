@@ -1,11 +1,28 @@
 import 'dart:convert';
 
+import 'package:modular_core/modular_core.dart';
 import 'package:the_tool/page_provider/auth_manager_provider.dart';
 import 'package:the_tool/utils.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class BaseInvokeJS {
   const BaseInvokeJS();
+
+  Map<String, dynamic> getRoute() {
+    final pageArgumentsData = jsonEncode(Modular.args.data is ModularArguments
+        ? Modular.args.data?.data
+        : Modular.args.data ?? {});
+
+    final uriParams = jsonEncode(Modular.args.params);
+    final queryParams = jsonEncode(Modular.args.queryParams);
+
+    return {
+      "pageArguments": pageArgumentsData,
+      "params": uriParams,
+      "queryParams": queryParams,
+      "currentPath": Modular.to.path
+    };
+  }
 
   String updateRouteAuthData(String action, String routeAuthAsJSON) {
     var authData = Map<String, bool>.from(jsonDecode(routeAuthAsJSON));

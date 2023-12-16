@@ -155,6 +155,13 @@ void registerJavascriptHandler(
       return getIt<ContextStateProvider>().selectedProject;
     },
   );
+
+  webViewController?.addJavaScriptHandler(
+    handlerName: "get_route",
+    callback: (arguments) async {
+      return getIt<BaseInvokeJS>().getRoute();
+    },
+  );
 }
 
 void main() {}
