@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:the_tool/js_utils/base_eval_js.dart';
 import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/page_utils/storage_manager.dart';
 import 'package:the_tool/t_widget_interface/client_config/client_config.dart';
+import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/utils.dart';
 import 'package:the_tool/js_utils/mobile_eval_utils/mobile_js_invoke.dart'
     as mobile_js_invoke;
@@ -41,6 +43,7 @@ class EvalJS extends BaseEvalJS {
     String pageId,
     List<dynamic> args,
   ) async {
+    log("callJS function $functionName, args $args");
     var eventName = UniqueKey().toString();
     var funcCharList = functionName.trim().split("");
     var preparedFunctionName = functionName;
@@ -162,21 +165,18 @@ class EvalJS extends BaseEvalJS {
   }
 
   @override
-  Future<void> registerSubComponent({
+  Future<LayoutProps> registerSubComponent({
     required String parentPagePath,
     required String componentPath,
-    required String componentCode,
     Map<dynamic, dynamic> componentPropsAsJSON = const {},
     Map<dynamic, dynamic> computedComponentPropsAsJSON = const {},
   }) async {
-    String subComponentCode = getRegisterComponentCode(
-      parentPagePath: parentPagePath,
-      componentPath: componentPath,
-      componentCode: componentCode,
-      componentPropsAsJSON: json.encode(componentPropsAsJSON),
-      computedComponentPropsAsJSON: json.encode(computedComponentPropsAsJSON),
+    var pageLayout = await callJS(
+      "__registerSubComponent__",
+      parentPagePath,
+      [componentPath],
     );
 
-    webViewController?.evaluateJavascript(source: subComponentCode);
+    return LayoutProps.fromJson(pageLayout);
   }
 }

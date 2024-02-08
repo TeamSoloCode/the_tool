@@ -45,42 +45,30 @@ class _TComponentState extends TStatefulWidget<TComponent> {
     var idSeperatorContext = widget.pagePath.lastIndexOf("_");
     var parentPagePath = widget.pagePath;
     if (idSeperatorContext > -1) {
-      parentPagePath = widget.pagePath.substring(idSeperatorContext);
+      parentPagePath = widget.pagePath.substring(0, idSeperatorContext);
     }
 
     if (componentPath == parentPagePath) {
       throw Exception("Parent page path and component path cannot the same");
     }
 
-    _pageInfo = await getIt<APIClientManager>().getClientPageInfo(
-      componentPath,
-      // send the parent page path to the server for searching the component layout json
-      parentPagePath: widget.pagePath.substring(0, idSeperatorContext),
-    );
-
-    var layout = _pageInfo["layout"];
-    _pageLayout = LayoutProps.fromJson(layout);
-
     _componentId = "${componentPath}_${const Uuid().v4()}";
 
-    if (_pageLayout?.components != null) {
-      getIt<ContextStateProvider>().addPageComponents(
-        pagePath: _componentId,
-        components: _pageLayout!.components!,
-      );
-    }
+    // _props = widget.utils.computeWidgetProps(
+    //   widget.widgetProps,
+    //   widget.getContexData(),
+    // );
 
-    _props = widget.utils.computeWidgetProps(
-      widget.widgetProps,
-      widget.getContexData(),
-    );
-
-    await widget.utils.evalJS?.registerSubComponent(
-      componentCode: _pageInfo["code"],
+    _pageLayout = await widget.utils.evalJS?.registerSubComponent(
       componentPath: _componentId,
       parentPagePath: widget.pagePath,
       componentPropsAsJSON: _props?.componentProps ?? {},
       computedComponentPropsAsJSON: _props?.computedComponentProps ?? {},
+    );
+
+    getIt<ContextStateProvider>().addPageComponents(
+      pagePath: _componentId,
+      components: _pageLayout!.components!,
     );
 
     // waiting for the sub component successfully registered

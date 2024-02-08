@@ -414,7 +414,6 @@ abstract class BaseEvalJS {
   Future<void> registerSubComponent({
     required String parentPagePath,
     required String componentPath,
-    required String componentCode,
     Map<dynamic, dynamic> componentPropsAsJSON = const {},
   });
 
