@@ -54,10 +54,10 @@ class _TComponentState extends TStatefulWidget<TComponent> {
 
     _componentId = "${componentPath}_${const Uuid().v4()}";
 
-    // _props = widget.utils.computeWidgetProps(
-    //   widget.widgetProps,
-    //   widget.getContexData(),
-    // );
+    _props = widget.utils.computeWidgetProps(
+      widget.widgetProps,
+      widget.getContexData(),
+    );
 
     _pageLayout = await widget.utils.evalJS?.registerSubComponent(
       componentPath: _componentId,
@@ -71,10 +71,10 @@ class _TComponentState extends TStatefulWidget<TComponent> {
       components: _pageLayout!.components!,
     );
 
-    // waiting for the sub component successfully registered
-    while (getIt<ContextStateProvider>().contextData[_componentId] == null) {
-      await Future.delayed(const Duration(milliseconds: 16));
-    }
+    // TODO: waiting for the sub component successfully registered
+    // while (getIt<ContextStateProvider>().contextData[_componentId] == null) {
+    //   await Future.delayed(const Duration(milliseconds: 16));
+    // }
 
     return;
   }

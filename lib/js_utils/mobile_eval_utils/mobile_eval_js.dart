@@ -43,7 +43,7 @@ class EvalJS extends BaseEvalJS {
     String pageId,
     List<dynamic> args,
   ) async {
-    log("callJS function $functionName, args $args");
+    // log("callJS function $functionName, args $args");
     var eventName = UniqueKey().toString();
     var funcCharList = functionName.trim().split("");
     var preparedFunctionName = functionName;
@@ -174,7 +174,7 @@ class EvalJS extends BaseEvalJS {
     var pageLayout = await callJS(
       "__registerSubComponent__",
       parentPagePath,
-      [componentPath],
+      [componentPath, componentPropsAsJSON],
     );
 
     return LayoutProps.fromJson(pageLayout);
