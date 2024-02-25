@@ -54,15 +54,15 @@ class _TComponentState extends TStatefulWidget<TComponent> {
 
     _componentId = "${componentPath}_${const Uuid().v4()}";
 
-    _props = widget.utils.computeWidgetProps(
-      widget.widgetProps,
-      widget.getContexData(),
-    );
+    // _props = widget.utils.computeWidgetProps(
+    //   LayoutProps(componentProps: widget.widgetProps.componentProps),
+    //   widget.getContexData(),
+    // );
 
     _pageLayout = await widget.utils.evalJS?.registerSubComponent(
       componentPath: _componentId,
       parentPagePath: widget.pagePath,
-      componentPropsAsJSON: _props?.componentProps ?? {},
+      componentPropsAsJSON: widget.widgetProps.componentProps ?? {},
       computedComponentPropsAsJSON: _props?.computedComponentProps ?? {},
     );
 
