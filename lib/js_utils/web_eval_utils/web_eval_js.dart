@@ -8,6 +8,7 @@ import 'package:the_tool/js_utils/web_eval_utils/web_js_invoke.dart'
 import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/page_utils/storage_manager.dart';
 import 'package:the_tool/t_widget_interface/client_config/client_config.dart';
+import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/utils.dart';
 import 'package:eventify/eventify.dart' as eventify;
 
@@ -140,20 +141,18 @@ class EvalJS extends BaseEvalJS {
   }
 
   @override
-  Future<void> registerSubComponent({
+  Future<LayoutProps> registerSubComponent({
     required String parentPagePath,
     required String componentPath,
-    required String componentCode,
     Map<dynamic, dynamic> componentPropsAsJSON = const {},
     Map<dynamic, dynamic> computedComponentPropsAsJSON = const {},
   }) async {
-    String subComponentCode = getRegisterComponentCode(
-      parentPagePath: parentPagePath,
-      componentPath: componentPath,
-      componentCode: componentCode,
-      componentPropsAsJSON: json.encode(componentPropsAsJSON),
+    var pageLayout = await callJS(
+      "__registerSubComponent__",
+      parentPagePath,
+      [componentPath, componentPropsAsJSON],
     );
 
-    js.context.callMethod("eval", [subComponentCode]);
+    return LayoutProps.fromJson(pageLayout);
   }
 }
