@@ -1,5 +1,6 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:the_tool/api/client_api.dart';
 import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
@@ -18,9 +19,7 @@ class TComponent extends TWidget {
 class _TComponentState extends TStatefulWidget<TComponent> {
   LayoutProps? _pageLayout;
   String _componentId = "";
-  Map<String, dynamic> _pageInfo = {};
-  LayoutProps? _props;
-  late Future<void> _loadClientComponent;
+  late Future<Exception?> _loadClientComponent;
   var emptyMapStringDynamic = UtilsManager.emptyMapStringDynamic;
 
   @override
@@ -41,7 +40,7 @@ class _TComponentState extends TStatefulWidget<TComponent> {
     );
   }
 
-  Future<void> _loadComponentInfo(String componentPath) async {
+  Future<Exception?> _loadComponentInfo(String componentPath) async {
     var idSeperatorContext = widget.pagePath.lastIndexOf("_");
     var parentPagePath = widget.pagePath;
     if (idSeperatorContext > -1) {
@@ -59,24 +58,25 @@ class _TComponentState extends TStatefulWidget<TComponent> {
     //   widget.getContexData(),
     // );
 
-    _pageLayout = await widget.utils.evalJS?.registerSubComponent(
-      componentPath: _componentId,
-      parentPagePath: widget.pagePath,
-      componentPropsAsJSON: widget.widgetProps.componentProps ?? {},
-      computedComponentPropsAsJSON: _props?.computedComponentProps ?? {},
-    );
+    try {
+      _pageLayout = await widget.utils.evalJS?.registerSubComponent(
+        componentPath: _componentId,
+        parentPagePath: widget.pagePath,
+        componentPropsAsJSON: widget.widgetProps.componentProps ?? {},
+        // computedComponentPropsAsJSON: _props?.computedComponentProps ?? {},
+      );
+    } catch (e) {
+      var msg = "Error loading component: $componentPath";
+      log(msg);
+      return Exception(msg);
+    }
 
     getIt<ContextStateProvider>().addPageComponents(
       pagePath: _componentId,
       components: _pageLayout!.components!,
     );
 
-    // TODO: waiting for the sub component successfully registered
-    // while (getIt<ContextStateProvider>().contextData[_componentId] == null) {
-    //   await Future.delayed(const Duration(milliseconds: 16));
-    // }
-
-    return;
+    return null;
   }
 
   @override
@@ -93,6 +93,12 @@ class _TComponentState extends TStatefulWidget<TComponent> {
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return const Offstage();
+        }
+
+        if (snapshot.data is Exception) {
+          return const Center(
+            child: Text("Error loading component"),
+          );
         }
 
         return TWidgets(
