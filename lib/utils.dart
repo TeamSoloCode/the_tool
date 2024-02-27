@@ -18,11 +18,15 @@ import 'package:the_tool/config/config.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:collection/collection.dart'
     show DeepCollectionEquality, ListEquality;
+import 'package:uuid/uuid.dart';
 
 GetIt getIt = GetIt.instance;
 
 class UtilsManager {
-  UtilsManager() : super();
+  UtilsManager() : super() {
+    _corePageId = "core_${const Uuid().v4()}";
+  }
+
   final envConfig = getIt<EnvironmentConfig>();
   static const _deepEquals = DeepCollectionEquality();
   static const _listEquals = ListEquality();
@@ -38,6 +42,8 @@ class UtilsManager {
 
   /// This is the path for children widget in a list/table/... to get data from contextData
   static const dataPath = "dataPath";
+
+  late String _corePageId;
 
   late ThemeProvider themeProvider;
 
@@ -281,9 +287,9 @@ class UtilsManager {
             : value;
       });
 
-      widgetProps = widgetProps.copyWith(
-        computedComponentProps: updatedComponentProps,
-      );
+      // widgetProps = widgetProps.copyWith(
+      //   computedComponentProps: updatedComponentProps,
+      // );
     }
 
     widgetProps = widgetProps.parseCssColors(widgetProps);
@@ -683,5 +689,9 @@ class UtilsManager {
     } else if (target is Map) {
       target[keys.last] = value;
     }
+  }
+
+  String getCorePageId() {
+    return _corePageId;
   }
 }

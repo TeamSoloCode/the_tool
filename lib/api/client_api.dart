@@ -9,7 +9,6 @@ import 'package:the_tool/config/config.dart';
 import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/page_utils/storage_manager.dart';
 
-import 'package:the_tool/t_widget_interface/client_config/client_config.dart';
 import 'package:the_tool/utils.dart';
 
 class APIClientManager {
@@ -104,71 +103,6 @@ class APIClientManager {
       }
     } catch (e) {
       throw Exception(e.toString());
-    }
-  }
-
-  Future<String> getClientCore() async {
-    try {
-      var response =
-          await _dio.get('$_pageAPI/pages/layout/$_projectName/core');
-      return Future.value(response.data["code"]);
-    } on DioException catch (e) {
-      log("Core not found => ${e.message}");
-      return Future.value("");
-    } catch (e) {
-      throw Exception(e.toString());
-    }
-  }
-
-  Future<Map<String, dynamic>> getClientPageInfo(
-    String pagePath, {
-    String? parentPagePath,
-  }) async {
-    try {
-      if (parentPagePath != null) {
-        _dioCached.interceptors.add(InterceptorsWrapper(
-          onRequest: (options, handler) {
-            options.headers['x-parent-page-path'] = parentPagePath;
-            return handler.next(options);
-          },
-        ));
-      }
-
-      var response = await _dioCached.get(
-        '$_pageAPI/pages/layout/$_projectName/$pagePath',
-      );
-
-      return Future.value(
-        {
-          "code": response.data["code"],
-          "layout": response.data["layout"],
-        },
-      );
-    } on DioException catch (e) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx and is also not 304.
-      if (e.response != null) {
-        throw Exception(e.response?.data);
-      } else {
-        throw Exception(e.message);
-      }
-    } catch (e) {
-      throw Exception(e.toString());
-    }
-  }
-
-  Future<Map<String, String>> getAppWebviewBundle() async {
-    try {
-      var app = _dioCached.get('${_envConfig.MOBILE_WEBVIEW_URL}app.js');
-      var vendors =
-          _dioCached.get('${_envConfig.MOBILE_WEBVIEW_URL}vendors.js');
-      var bundle = await Future.wait([app, vendors]);
-      return {
-        "vendor": bundle[1].data,
-        "app": bundle[0].data,
-      };
-    } catch (e) {
-      throw Exception(e);
     }
   }
 

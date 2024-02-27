@@ -12,10 +12,11 @@ class AuthGuard extends RouteGuard {
         );
 
   @override
-  Future<bool> canActivate(String path, ModularRoute router) async {
-    var isAuthorized = await getIt<UtilsManager>().evalJS?.callJS(
+  Future<bool> canActivate(String path, ModularRoute route) async {
+    var utils = getIt<UtilsManager>();
+    var isAuthorized = await utils.evalJS?.callJS(
       authFunction,
-      "core",
+      utils.getCorePageId(),
       [],
     );
 

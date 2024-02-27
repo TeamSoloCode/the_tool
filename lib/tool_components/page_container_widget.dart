@@ -25,6 +25,13 @@ class _PageContainerState extends State<PageContainer> {
   ThemeMode? _currentThemeMode;
 
   @override
+  void initState() {
+    var utils = getIt<UtilsManager>();
+    utils.evalJS!.addClientPage(utils.getCorePageId());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     context.select(
       (ThemeProvider theme) {
