@@ -79,7 +79,15 @@ class _TMultiSelectFieldState extends TStatefulWidget<TMultiSelectField>
       selectedItems: _selectedValues,
       itemAsString: (item) {
         if (items[0] is List) {
-          var rep = items.firstWhere((element) => element[0] == item);
+          var rep = items.firstWhere(
+            (element) => element[0] == item,
+            orElse: () => null,
+          );
+
+          if (rep == null) {
+            return "";
+          }
+
           return rep[1];
         }
 
