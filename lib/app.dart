@@ -167,17 +167,12 @@ class _TheToolState extends State<TheTool> {
         url: Uri.parse(getIt<EnvironmentConfig>().MOBILE_WEBVIEW_URL),
       ),
       // initialUserScripts: initialUserScripts,
-      // onWebViewCreated: (webViewController) {
-      // },
-      // onLoadStart: (webViewController, url) async {
-      // },
-      onLoadStop: (webViewController, url) {
+      onLoadStart: (webViewController, url) {
         try {
           _evalJS = EvalJS(
             context: context,
             webViewController: webViewController,
           );
-
           _utils.evalJS = _evalJS;  
         } catch (error) {
           _headlessWebView?.dispose();
@@ -185,10 +180,12 @@ class _TheToolState extends State<TheTool> {
           _utils.evalJS = null;
           rethrow;
         }
-
+      },
+      onLoadStop: (webViewController, url) {
         completer.complete(true);
-        // tell js side that webview loaded
-        _evalJS.callJS('dartJSFullyLoaded', "", []);      
+      },
+      onLoadResource: (controller, resource) {
+        
       },
       onLoadError: (controller, url, code, message) {
         log("\x1B[31m$message\x1B[31m");
@@ -199,7 +196,7 @@ class _TheToolState extends State<TheTool> {
       },
     );
 
-    _headlessWebView?.run();
+    await _headlessWebView?.run();
     await completer.future;
   }
 
