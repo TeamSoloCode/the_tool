@@ -37,10 +37,10 @@ class EvalJS extends BaseEvalJS {
   Future<dynamic> callJS(
     String functionName,
     String pageId,
-    List<dynamic> args,
-  ) async {
+    List<dynamic> args, {
+    String? dataPath,
+  }) async {
     var eventName = UniqueKey().toString();
-
     js.context["appBridge"].callMethod(
       "emitJSFunction",
       [
@@ -48,6 +48,7 @@ class EvalJS extends BaseEvalJS {
         functionName.trim(),
         pageId,
         jsonEncode(args),
+        dataPath,
       ],
     );
 

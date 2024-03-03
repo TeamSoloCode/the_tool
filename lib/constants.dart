@@ -9,7 +9,7 @@ const DefaultTimeFormat = "hh:mm:ss";
 const CurrencyFieldType = "currency";
 
 Map<String, bool> ignoredComputeProps = {
-  "className": true,
+  // "className": true, // need to check className to see it has binding value or not
   "suffixIcon": true,
   "prefixIcon": true,
   "head": true,

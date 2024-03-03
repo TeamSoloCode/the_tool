@@ -12,7 +12,7 @@ class TButton extends TStatelessWidget {
     return () {
       var rawOnClick = props.onClick;
       if (rawOnClick is String) {
-        executeJSWithPagePath(rawOnClick, []);
+        executeJSWithPagePath(rawOnClick, [], dataPath: childData["dataPath"]);
       }
     };
   }

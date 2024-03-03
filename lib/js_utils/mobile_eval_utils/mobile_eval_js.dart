@@ -41,9 +41,10 @@ class EvalJS extends BaseEvalJS {
   Future<dynamic> callJS(
     String functionName,
     String pageId,
-    List<dynamic> args,
-  ) async {
-    // log("callJS function $functionName, args $args");
+    List<dynamic> args, {
+    String? dataPath,
+  }) async {
+    log("callJS function $functionName, args $args");
     var eventName = UniqueKey().toString();
     var funcCharList = functionName.trim().split("");
     var preparedFunctionName = functionName;
@@ -61,7 +62,7 @@ class EvalJS extends BaseEvalJS {
 
     webViewController?.callAsyncJavaScript(
       functionBody:
-          "appBridge.emitJSFunction('$eventName', '$preparedFunctionName', '$pageId', ${jsonEncode(args)})",
+          "appBridge.emitJSFunction('$eventName', '$preparedFunctionName', '$pageId', ${jsonEncode(args)}, '$dataPath')",
     );
 
     Completer<dynamic> completer = Completer<dynamic>();

@@ -237,9 +237,15 @@ mixin BaseStateWidget on Widget {
 
   Future<dynamic> executeJSWithPagePath(
     String jsCode,
-    List<dynamic> args,
-  ) async {
-    return await utils.evalJS?.callJS(jsCode, pagePath, args);
+    List<dynamic> args, {
+    String? dataPath = "",
+  }) async {
+    return await utils.evalJS?.callJS(
+      jsCode,
+      pagePath,
+      args,
+      dataPath: dataPath,
+    );
   }
 
   Key? getBindingKey() {

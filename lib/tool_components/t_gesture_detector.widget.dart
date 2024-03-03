@@ -3,6 +3,7 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
 import 'package:the_tool/twidget_props.dart';
+import 'package:the_tool/utils.dart';
 
 class TGestureDetector extends TStatelessWidget {
   TGestureDetector(TWidgetProps twidget) : super(twidget);
@@ -11,7 +12,9 @@ class TGestureDetector extends TStatelessWidget {
     final onClick = widgetProps.onClick;
     if (onClick == null) return;
 
-    executeJSWithPagePath(onClick, []);
+    var dataPath = childData[UtilsManager.dataPath];
+
+    executeJSWithPagePath(onClick, [], dataPath: dataPath);
   }
 
   @override

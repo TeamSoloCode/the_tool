@@ -427,6 +427,8 @@ abstract class BaseEvalJS {
   Future<dynamic> callJS(
     String functionName,
     String pageId,
-    List<dynamic> args,
-  );
+    List<dynamic> args, {
+    String?
+        dataPath, // For the params of the function may using child data path. Ex: Child of list, datatable, expansion, ...
+  });
 }
