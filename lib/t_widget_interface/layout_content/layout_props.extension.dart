@@ -1,13 +1,21 @@
 import 'package:the_tool/page_provider/theme_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
+import 'package:the_tool/utils.dart';
 
 extension MergeLayoutProps on LayoutProps {
   LayoutProps parseCssColors(LayoutProps props) {
+    var themeProvider = getIt<ThemeProvider>();
+
     Map<String, dynamic> newProps = props.toJson().map((key, value) {
       if (value == null) return MapEntry(key, value);
 
       if (key.toLowerCase().contains('color')) {
-        return MapEntry(key, ThemeProvider.transformColorFromCSS(value));
+        return MapEntry(
+          key,
+          ThemeProvider.transformColorFromCSS(
+            themeProvider.getBaseColorByKey(value),
+          ),
+        );
       }
 
       if (key == 'computedComponentProps') {

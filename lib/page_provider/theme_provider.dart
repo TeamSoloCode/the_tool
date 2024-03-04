@@ -392,6 +392,14 @@ class ThemeProvider with ChangeNotifier {
     return updatedWidgetProps;
   }
 
+  String? getBaseColorByKey(String key) {
+    if (baseColor == null) {
+      return null;
+    }
+
+    return baseColor![key];
+  }
+
   static dynamic transformColorFromCSS(dynamic inputValue) {
     if (inputValue is Map) {
       return inputValue

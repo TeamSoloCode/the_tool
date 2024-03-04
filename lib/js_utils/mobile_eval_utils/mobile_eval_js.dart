@@ -37,6 +37,7 @@ class EvalJS extends BaseEvalJS {
 
   static const List<String> _stringPhareSymbols = ["'", "\"", "`", "`"];
 
+  /// [dataPath] is used to pass the data path to the JS function to binding function params
   @override
   Future<dynamic> callJS(
     String functionName,
