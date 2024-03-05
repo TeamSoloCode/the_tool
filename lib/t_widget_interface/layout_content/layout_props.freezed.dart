@@ -67,6 +67,7 @@ mixin _$LayoutProps {
   int? get duration => throw _privateConstructorUsedError;
   dynamic get show => throw _privateConstructorUsedError;
   String? get clipBehavior => throw _privateConstructorUsedError;
+  dynamic get dynamicProps => throw _privateConstructorUsedError;
   /**
      * 
      */
@@ -305,6 +306,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       int? duration,
       dynamic show,
       String? clipBehavior,
+      dynamic dynamicProps,
       String? sliverListType,
       double? itemExtent,
       Map<String, dynamic>? componentProps,
@@ -473,6 +475,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? duration = freezed,
     Object? show = freezed,
     Object? clipBehavior = freezed,
+    Object? dynamicProps = freezed,
     Object? sliverListType = freezed,
     Object? itemExtent = freezed,
     Object? componentProps = freezed,
@@ -744,6 +747,10 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.clipBehavior
           : clipBehavior // ignore: cast_nullable_to_non_nullable
               as String?,
+      dynamicProps: freezed == dynamicProps
+          ? _value.dynamicProps
+          : dynamicProps // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       sliverListType: freezed == sliverListType
           ? _value.sliverListType
           : sliverListType // ignore: cast_nullable_to_non_nullable
@@ -1374,6 +1381,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       int? duration,
       dynamic show,
       String? clipBehavior,
+      dynamic dynamicProps,
       String? sliverListType,
       double? itemExtent,
       Map<String, dynamic>? componentProps,
@@ -1558,6 +1566,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? duration = freezed,
     Object? show = freezed,
     Object? clipBehavior = freezed,
+    Object? dynamicProps = freezed,
     Object? sliverListType = freezed,
     Object? itemExtent = freezed,
     Object? componentProps = freezed,
@@ -1829,6 +1838,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value.clipBehavior
           : clipBehavior // ignore: cast_nullable_to_non_nullable
               as String?,
+      dynamicProps: freezed == dynamicProps
+          ? _value.dynamicProps
+          : dynamicProps // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       sliverListType: freezed == sliverListType
           ? _value.sliverListType
           : sliverListType // ignore: cast_nullable_to_non_nullable
@@ -2238,6 +2251,7 @@ class _$_LayoutProps implements _LayoutProps {
       this.duration,
       this.show,
       this.clipBehavior,
+      this.dynamicProps,
       this.sliverListType,
       this.itemExtent,
       final Map<String, dynamic>? componentProps,
@@ -2455,6 +2469,8 @@ class _$_LayoutProps implements _LayoutProps {
   final dynamic show;
   @override
   final String? clipBehavior;
+  @override
+  final dynamic dynamicProps;
 /**
      * 
      */
@@ -2984,6 +3000,7 @@ abstract class _LayoutProps implements LayoutProps {
       final int? duration,
       final dynamic show,
       final String? clipBehavior,
+      final dynamic dynamicProps,
       final String? sliverListType,
       final double? itemExtent,
       final Map<String, dynamic>? componentProps,
@@ -3169,6 +3186,8 @@ abstract class _LayoutProps implements LayoutProps {
   dynamic get show;
   @override
   String? get clipBehavior;
+  @override
+  dynamic get dynamicProps;
   @override
   /**
      * 

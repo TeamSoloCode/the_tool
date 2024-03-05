@@ -65,6 +65,7 @@ class LayoutProps with _$LayoutProps {
     int? duration,
     dynamic show,
     String? clipBehavior,
+    dynamic dynamicProps,
 
     /**
      * 

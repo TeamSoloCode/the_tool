@@ -393,11 +393,7 @@ class ThemeProvider with ChangeNotifier {
   }
 
   String? getBaseColorByKey(String key) {
-    if (baseColor == null) {
-      return null;
-    }
-
-    return baseColor![key];
+    return baseColor == null ? null : baseColor![key];
   }
 
   static dynamic transformColorFromCSS(dynamic inputValue) {
