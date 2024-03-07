@@ -239,15 +239,20 @@ class LayoutProps with _$LayoutProps {
     List<LayoutProps>? actions,
 
     // Dismissible Start================================================
-
     /// ignored-compute
     Map<String, dynamic>? background,
 
     /// ignored-compute
     Map<String, dynamic>? secondaryBackground,
     String? onDismissed,
-
     // Dismissible End==================================================
+
+    // Visibility Start================================================
+    dynamic visible,
+    bool? maintainState,
+    bool? maintainAnimation,
+    bool? maintainSize,
+    // Visibility End==================================================
 
     BottomNavigationProps? bottomNav,
     ImageProviderProps? image,

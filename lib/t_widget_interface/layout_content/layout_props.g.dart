@@ -183,6 +183,10 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       background: json['background'] as Map<String, dynamic>?,
       secondaryBackground: json['secondaryBackground'] as Map<String, dynamic>?,
       onDismissed: json['onDismissed'] as String?,
+      visible: json['visible'],
+      maintainState: json['maintainState'] as bool?,
+      maintainAnimation: json['maintainAnimation'] as bool?,
+      maintainSize: json['maintainSize'] as bool?,
       bottomNav: json['bottomNav'] == null
           ? null
           : BottomNavigationProps.fromJson(
@@ -336,6 +340,10 @@ Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
       'background': instance.background,
       'secondaryBackground': instance.secondaryBackground,
       'onDismissed': instance.onDismissed,
+      'visible': instance.visible,
+      'maintainState': instance.maintainState,
+      'maintainAnimation': instance.maintainAnimation,
+      'maintainSize': instance.maintainSize,
       'bottomNav': instance.bottomNav?.toJson(),
       'image': instance.image?.toJson(),
       'boxBorder': instance.boxBorder,

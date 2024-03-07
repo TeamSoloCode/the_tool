@@ -12,6 +12,8 @@ import 'package:the_tool/twidget_props.dart';
 import 'package:the_tool/page_provider/context_state_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.extension.dart';
+import 'package:the_tool/tool_components/t_visibility.widget.dart'
+    deferred as t_visibility;
 import 'package:the_tool/tool_components/list/t_list_tile.widget.dart'
     deferred as t_list_tile;
 import 'package:the_tool/tool_components/expansion/t_expansion_list.widget.dart'
@@ -189,6 +191,9 @@ class _TWidgetsState extends State<TWidgets> {
       case "dismissable":
         await t_dismissable.loadLibrary();
         return t_dismissable.TDismissable(tWidgetProps);
+      case "visibility":
+        await t_visibility.loadLibrary();
+        return t_visibility.TVisibility(tWidgetProps);
       default:
         throw Exception("Not found: \"${content.type}\" widget");
     }

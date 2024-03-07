@@ -118,6 +118,12 @@ extension MergeLayoutProps on LayoutProps {
       onDismissed: other.onDismissed ?? onDismissed,
 
       // Dismissible End==================================================
+      // Visibility Start================================================
+      visible: other.visible ?? visible,
+      maintainState: other.maintainState ?? maintainState,
+      maintainAnimation: other.maintainAnimation ?? maintainAnimation,
+      maintainSize: other.maintainSize ?? maintainSize,
+      // Visibility End==================================================
 
       // type: other.type ?? type,
       color: other.color ?? color,

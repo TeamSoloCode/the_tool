@@ -238,6 +238,12 @@ mixin _$LayoutProps {
       throw _privateConstructorUsedError;
   String? get onDismissed =>
       throw _privateConstructorUsedError; // Dismissible End==================================================
+// Visibility Start================================================
+  dynamic get visible => throw _privateConstructorUsedError;
+  bool? get maintainState => throw _privateConstructorUsedError;
+  bool? get maintainAnimation => throw _privateConstructorUsedError;
+  bool? get maintainSize =>
+      throw _privateConstructorUsedError; // Visibility End==================================================
   BottomNavigationProps? get bottomNav => throw _privateConstructorUsedError;
   ImageProviderProps? get image => throw _privateConstructorUsedError;
   Map<String, dynamic>? get boxBorder => throw _privateConstructorUsedError;
@@ -388,6 +394,10 @@ abstract class $LayoutPropsCopyWith<$Res> {
       Map<String, dynamic>? background,
       Map<String, dynamic>? secondaryBackground,
       String? onDismissed,
+      dynamic visible,
+      bool? maintainState,
+      bool? maintainAnimation,
+      bool? maintainSize,
       BottomNavigationProps? bottomNav,
       ImageProviderProps? image,
       Map<String, dynamic>? boxBorder,
@@ -557,6 +567,10 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? background = freezed,
     Object? secondaryBackground = freezed,
     Object? onDismissed = freezed,
+    Object? visible = freezed,
+    Object? maintainState = freezed,
+    Object? maintainAnimation = freezed,
+    Object? maintainSize = freezed,
     Object? bottomNav = freezed,
     Object? image = freezed,
     Object? boxBorder = freezed,
@@ -1075,6 +1089,22 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.onDismissed
           : onDismissed // ignore: cast_nullable_to_non_nullable
               as String?,
+      visible: freezed == visible
+          ? _value.visible
+          : visible // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      maintainState: freezed == maintainState
+          ? _value.maintainState
+          : maintainState // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      maintainAnimation: freezed == maintainAnimation
+          ? _value.maintainAnimation
+          : maintainAnimation // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      maintainSize: freezed == maintainSize
+          ? _value.maintainSize
+          : maintainSize // ignore: cast_nullable_to_non_nullable
+              as bool?,
       bottomNav: freezed == bottomNav
           ? _value.bottomNav
           : bottomNav // ignore: cast_nullable_to_non_nullable
@@ -1463,6 +1493,10 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       Map<String, dynamic>? background,
       Map<String, dynamic>? secondaryBackground,
       String? onDismissed,
+      dynamic visible,
+      bool? maintainState,
+      bool? maintainAnimation,
+      bool? maintainSize,
       BottomNavigationProps? bottomNav,
       ImageProviderProps? image,
       Map<String, dynamic>? boxBorder,
@@ -1648,6 +1682,10 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? background = freezed,
     Object? secondaryBackground = freezed,
     Object? onDismissed = freezed,
+    Object? visible = freezed,
+    Object? maintainState = freezed,
+    Object? maintainAnimation = freezed,
+    Object? maintainSize = freezed,
     Object? bottomNav = freezed,
     Object? image = freezed,
     Object? boxBorder = freezed,
@@ -2166,6 +2204,22 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
           ? _value.onDismissed
           : onDismissed // ignore: cast_nullable_to_non_nullable
               as String?,
+      visible: freezed == visible
+          ? _value.visible
+          : visible // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      maintainState: freezed == maintainState
+          ? _value.maintainState
+          : maintainState // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      maintainAnimation: freezed == maintainAnimation
+          ? _value.maintainAnimation
+          : maintainAnimation // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      maintainSize: freezed == maintainSize
+          ? _value.maintainSize
+          : maintainSize // ignore: cast_nullable_to_non_nullable
+              as bool?,
       bottomNav: freezed == bottomNav
           ? _value.bottomNav
           : bottomNav // ignore: cast_nullable_to_non_nullable
@@ -2333,6 +2387,10 @@ class _$_LayoutProps implements _LayoutProps {
       final Map<String, dynamic>? background,
       final Map<String, dynamic>? secondaryBackground,
       this.onDismissed,
+      this.visible,
+      this.maintainState,
+      this.maintainAnimation,
+      this.maintainSize,
       this.bottomNav,
       this.image,
       final Map<String, dynamic>? boxBorder,
@@ -2890,6 +2948,16 @@ class _$_LayoutProps implements _LayoutProps {
   @override
   final String? onDismissed;
 // Dismissible End==================================================
+// Visibility Start================================================
+  @override
+  final dynamic visible;
+  @override
+  final bool? maintainState;
+  @override
+  final bool? maintainAnimation;
+  @override
+  final bool? maintainSize;
+// Visibility End==================================================
   @override
   final BottomNavigationProps? bottomNav;
   @override
@@ -3082,6 +3150,10 @@ abstract class _LayoutProps implements LayoutProps {
       final Map<String, dynamic>? background,
       final Map<String, dynamic>? secondaryBackground,
       final String? onDismissed,
+      final dynamic visible,
+      final bool? maintainState,
+      final bool? maintainAnimation,
+      final bool? maintainSize,
       final BottomNavigationProps? bottomNav,
       final ImageProviderProps? image,
       final Map<String, dynamic>? boxBorder,
@@ -3419,6 +3491,15 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   String? get onDismissed;
   @override // Dismissible End==================================================
+// Visibility Start================================================
+  dynamic get visible;
+  @override
+  bool? get maintainState;
+  @override
+  bool? get maintainAnimation;
+  @override
+  bool? get maintainSize;
+  @override // Visibility End==================================================
   BottomNavigationProps? get bottomNav;
   @override
   ImageProviderProps? get image;
