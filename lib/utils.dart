@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -134,6 +135,18 @@ class UtilsManager {
             .trim();
 
         var rootData = getIt<ContextStateProvider>().rootPageData;
+
+        var isInverted = false;
+        var isBooleanCast = bindingField.startsWith("!!");
+        if (isBooleanCast) {
+          bindingField = bindingField.substring(2);
+        } else {
+          isInverted = bindingField.startsWith("!");
+          if (isInverted) {
+            bindingField = bindingField.substring(1);
+          }
+        }
+
         var useRootData = bindingField.startsWith(rootPrefix);
         var selectedData = useRootData ? rootData : contextData;
 
@@ -144,6 +157,11 @@ class UtilsManager {
         var bindingData = UtilsManager.get(selectedData, bindingField);
 
         computedValue = bindingData;
+        if (isInverted || isBooleanCast) {
+          computedValue = isBooleanCast
+              ? isTruthy(computedValue)
+              : !isTruthy(computedValue);
+        }
       }
     });
 
@@ -446,6 +464,7 @@ class UtilsManager {
                   match.end,
                 )
                 .trim();
+
             updateWidgetBindingStrings?.call(bindString);
           },
         ).toList();
