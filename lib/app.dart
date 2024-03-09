@@ -32,7 +32,7 @@ class TheTool extends StatefulWidget {
 }
 
 class _TheToolState extends State<TheTool> {
-  String? _selectedProjectName = "client";
+  String? _selectedProjectName = "warehouse_admin";
   String? _cannotLoadConfig;
   final UtilsManager _utils = getIt<UtilsManager>();
 
