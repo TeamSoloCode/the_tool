@@ -222,7 +222,7 @@ class UtilsManager {
     if (dynamicProps != null && dynamicProps is List) {
       var result = computeDynamicProps(dynamicProps, contextData);
       if (result.isNotEmpty) {
-        propsJson = {...propsJson, ...result};
+        propsJson.addAll(result);
       }
     }
 
@@ -745,54 +745,56 @@ class UtilsManager {
     dynamic conditions,
     Map<String, dynamic> contextData,
   ) {
-    var result = false;
-
     if (conditions is List) {
       var results = conditions.map((condition) {
         return computeDynamicProp(condition, contextData);
+      }).toList();
+
+      bool result = true;
+      results.asMap().forEach((index, element) {
+        // if the previous element is a list, then we should use OR operator
+        if (index > 0 && conditions[index - 1] is List) {
+          result = result || element;
+        } else {
+          result = result && element;
+        }
       });
 
-      var index = 0;
-      return results.reduce((value, element) {
-        if (index > 0 && conditions[index - 1] is List) {
-          index++;
-          return value || element;
-        }
-        return value && element;
-      });
+      return result;
     }
 
-    var source = conditions["source"];
-    var target = conditions["target"];
-    var operator = conditions["operator"];
+    final source = conditions['source'];
+    final target = conditions['target'];
+    final operator = conditions['operator'];
 
     if (source == null || target == null || operator == null) {
       throw Exception(
-        "source, target and operator are required. Error in: $conditions",
-      );
+          'source, target, and operator are required. Error in: $conditions');
     }
 
-    if (isValueBinding(source)) {
-      source = bindingValueToProp(contextData, source);
+    final sourceValue = isValueBinding(source)
+        ? bindingValueToProp(contextData, source)
+        : source;
+
+    final targetValue = isValueBinding(target)
+        ? bindingValueToProp(contextData, target)
+        : target;
+
+    final operatorFunction = operatorMap[operator];
+    if (operatorFunction != null) {
+      return operatorFunction(sourceValue, targetValue);
     }
 
-    if (isValueBinding(target)) {
-      target = bindingValueToProp(contextData, target);
-    }
-
-    if (operatorMap[operator] != null) {
-      result = operatorMap[operator]!(source, target);
-    }
-
-    return result;
+    return false;
   }
 
   Map<String, dynamic> computeDynamicProps(
     List<dynamic> dynamicProps,
     Map<String, dynamic> contextData,
   ) {
-    var dynamicPropsResults =
-        dynamicProps.map<Map<String, dynamic>>((dynamicProp) {
+    var dynamicPropsResults = <Map<String, dynamic>>[];
+
+    for (var dynamicProp in dynamicProps) {
       if (dynamicProp is Map<String, dynamic>) {
         var conditions = dynamicProp["conditions"];
 
@@ -803,20 +805,22 @@ class UtilsManager {
         }
 
         var result = computeDynamicProp(conditions, contextData);
-        return result == true ? dynamicProp["props"] : {};
+        dynamicPropsResults.add(result == true ? dynamicProp["props"] : {});
       } else {
         throw Exception(
           "Invalid dynamicProp: $dynamicProp . Only support Map or List of Map",
         );
       }
-    }).toList();
+    }
 
-    return dynamicPropsResults.reduce((value, element) {
+    var mergedProps = <String, dynamic>{};
+
+    for (var element in dynamicPropsResults) {
       if (element.isNotEmpty) {
-        value = {...value, ...element};
-        return value;
+        mergedProps.addAll(element);
       }
-      return value;
-    });
+    }
+
+    return mergedProps;
   }
 }
