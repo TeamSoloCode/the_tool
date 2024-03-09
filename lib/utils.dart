@@ -767,7 +767,7 @@ class UtilsManager {
     final target = conditions['target'];
     final operator = conditions['operator'];
 
-    if (source == null || target == null || operator == null) {
+    if (operator == null) {
       throw Exception(
           'source, target, and operator are required. Error in: $conditions');
     }
