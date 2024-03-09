@@ -217,7 +217,17 @@ class UtilsManager {
     dynamic propsJson,
     Map<String, dynamic> contextData,
   ) {
+    // merge dynamicProps to widget layout json
+    var dynamicProps = propsJson["dynamicProps"];
+    if (dynamicProps != null && dynamicProps is List) {
+      var result = computeDynamicProps(dynamicProps, contextData);
+      if (result.isNotEmpty) {
+        propsJson = {...propsJson, ...result};
+      }
+    }
+
     var cloneJson = Map<String, dynamic>.from(propsJson);
+
     propsJson.forEach((key, value) {
       final ignored = ignoredComputeProps[key];
       if (ignored == true) {
@@ -232,11 +242,6 @@ class UtilsManager {
           value,
           contextData,
         );
-      }
-
-      if (key == "dynamicProps" && value is List) {
-        var resutlt = computeDynamicProps(value, contextData);
-        log("computeDynamicProps: $resutlt");
       }
     });
 
@@ -305,6 +310,7 @@ class UtilsManager {
         widgetProps.toJson(),
         contextData,
       );
+
       widgetProps = widgetProps.merge(LayoutProps.fromJson(result));
     }
 
@@ -727,6 +733,7 @@ class UtilsManager {
 
   Map<String, bool Function(dynamic, dynamic)> operatorMap = {
     "==": (a, b) => a == b,
+    "=": (a, b) => a == b,
     "!=": (a, b) => a != b,
     ">": (a, b) => a > b,
     "<": (a, b) => a < b,
@@ -745,7 +752,14 @@ class UtilsManager {
         return computeDynamicProp(condition, contextData);
       });
 
-      return results.reduce((value, element) => value || element);
+      var index = 0;
+      return results.reduce((value, element) {
+        if (index > 0 && conditions[index - 1] is List) {
+          index++;
+          return value || element;
+        }
+        return value && element;
+      });
     }
 
     var source = conditions["source"];
@@ -773,11 +787,12 @@ class UtilsManager {
     return result;
   }
 
-  bool computeDynamicProps(
+  Map<String, dynamic> computeDynamicProps(
     List<dynamic> dynamicProps,
     Map<String, dynamic> contextData,
   ) {
-    var dynamicPropsResults = dynamicProps.map((dynamicProp) {
+    var dynamicPropsResults =
+        dynamicProps.map<Map<String, dynamic>>((dynamicProp) {
       if (dynamicProp is Map<String, dynamic>) {
         var conditions = dynamicProp["conditions"];
 
@@ -787,7 +802,8 @@ class UtilsManager {
           );
         }
 
-        return computeDynamicProp(conditions, contextData);
+        var result = computeDynamicProp(conditions, contextData);
+        return result == true ? dynamicProp["props"] : {};
       } else {
         throw Exception(
           "Invalid dynamicProp: $dynamicProp . Only support Map or List of Map",
@@ -795,6 +811,12 @@ class UtilsManager {
       }
     }).toList();
 
-    return dynamicPropsResults.reduce((value, element) => value && element);
+    return dynamicPropsResults.reduce((value, element) {
+      if (element.isNotEmpty) {
+        value = {...value, ...element};
+        return value;
+      }
+      return value;
+    });
   }
 }
