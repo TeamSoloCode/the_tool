@@ -142,7 +142,6 @@ class UtilsManager {
         var rootData = getIt<ContextStateProvider>().rootPageData;
 
         var matchBoolCast = boolCastRegex.firstMatch(bindingField);
-
         var isBooleanCast = matchBoolCast?.group(1) != null;
         var isInverted = false;
 
@@ -150,8 +149,8 @@ class UtilsManager {
           bindingField = matchBoolCast!.group(1)!;
         } else {
           var matchInverted = invertedRegex.firstMatch(bindingField);
-          if (matchInverted?.group(1) != null) {
-            isInverted = true;
+          isInverted = matchInverted?.group(1) != null;
+          if (isInverted) {
             bindingField = matchInverted!.group(1)!;
           }
         }

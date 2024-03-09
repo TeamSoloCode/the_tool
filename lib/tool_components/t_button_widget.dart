@@ -4,6 +4,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/twidget_props.dart';
+import 'package:the_tool/utils.dart';
 
 class TButton extends TStatelessWidget {
   TButton(TWidgetProps twidget) : super(twidget);
@@ -26,6 +27,16 @@ class TButton extends TStatelessWidget {
     );
     final buttonOnClick = onClick(widgetProps);
 
+    Widget? buttonContent;
+
+    if (widgetProps.child != null) {
+      buttonContent = UtilsManager.computeTWidgets(
+        widgetProps.child,
+        pagePath: pagePath,
+        childData: childData,
+      );
+    }
+
     switch (buttonType) {
       case "icon":
         return IconButton(
@@ -39,33 +50,25 @@ class TButton extends TStatelessWidget {
         return TextButton(
           onPressed: buttonOnClick,
           style: buttonStyle,
-          child: Text(
-            text,
-          ),
+          child: buttonContent ?? Text(text),
         );
       case "outlined":
         return OutlinedButton(
           onPressed: buttonOnClick,
           style: buttonStyle,
-          child: Text(
-            text,
-          ),
+          child: buttonContent ?? Text(text),
         );
       case "filled":
         return FilledButton(
           onPressed: buttonOnClick,
           style: buttonStyle,
-          child: Text(
-            text,
-          ),
+          child: buttonContent ?? Text(text),
         );
       default:
         return ElevatedButton(
           onPressed: buttonOnClick,
           style: buttonStyle,
-          child: Text(
-            text,
-          ),
+          child: buttonContent ?? Text(text),
         );
     }
   }
