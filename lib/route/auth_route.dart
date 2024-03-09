@@ -16,7 +16,7 @@ class AuthGuard extends RouteGuard {
     var utils = getIt<UtilsManager>();
     var isAuthorized = await utils.evalJS?.callJS(
       authFunction,
-      utils.getCorePageId(),
+      utils.corePageId,
       [],
     );
 

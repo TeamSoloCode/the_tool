@@ -27,7 +27,7 @@ class _PageContainerState extends State<PageContainer> {
   @override
   void initState() {
     var utils = getIt<UtilsManager>();
-    utils.evalJS!.addClientPage(utils.getCorePageId());
+    utils.evalJS!.addClientPage(utils.corePageId);
     super.initState();
   }
 

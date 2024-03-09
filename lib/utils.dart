@@ -36,6 +36,9 @@ class UtilsManager {
       Map<String, dynamic>.from({});
 
   static final regexPattern = RegExp(r"[^{{\}}]+(?=}})");
+  final invertedRegex = RegExp(r'^!(.+)');
+  final boolCastRegex = RegExp(r'^!!(.+)');
+
   static const parentPrefix = "\$parent";
   static const rootPrefix = "\$root.";
   static const mediaQueryPrefix = "\$mediaQuery.";
@@ -58,6 +61,8 @@ class UtilsManager {
     _evalJS = evalJS;
     themeProvider = getIt<ThemeProvider>();
   }
+
+  String get corePageId => _corePageId;
 
   static bool isValueBinding(dynamic value) {
     if (value == null) return false;
@@ -136,14 +141,18 @@ class UtilsManager {
 
         var rootData = getIt<ContextStateProvider>().rootPageData;
 
+        var matchBoolCast = boolCastRegex.firstMatch(bindingField);
+
+        var isBooleanCast = matchBoolCast?.group(1) != null;
         var isInverted = false;
-        var isBooleanCast = bindingField.startsWith("!!");
+
         if (isBooleanCast) {
-          bindingField = bindingField.substring(2);
+          bindingField = matchBoolCast!.group(1)!;
         } else {
-          isInverted = bindingField.startsWith("!");
-          if (isInverted) {
-            bindingField = bindingField.substring(1);
+          var matchInverted = invertedRegex.firstMatch(bindingField);
+          if (matchInverted?.group(1) != null) {
+            isInverted = true;
+            bindingField = matchInverted!.group(1)!;
           }
         }
 
@@ -224,6 +233,11 @@ class UtilsManager {
           contextData,
         );
       }
+
+      if (key == "dynamicProps" && value is List) {
+        var resutlt = computeDynamicProps(value, contextData);
+        log("computeDynamicProps: $resutlt");
+      }
     });
 
     return cloneJson;
@@ -279,6 +293,7 @@ class UtilsManager {
     if (UtilsManager.isTruthy(hidden)) {
       return const LayoutProps(hidden: true);
     }
+
     LayoutProps widgetProps = themeProvider.mergeClasses(
           layoutProps,
           contextData,
@@ -710,7 +725,76 @@ class UtilsManager {
     }
   }
 
-  String getCorePageId() {
-    return _corePageId;
+  Map<String, bool Function(dynamic, dynamic)> operatorMap = {
+    "==": (a, b) => a == b,
+    "!=": (a, b) => a != b,
+    ">": (a, b) => a > b,
+    "<": (a, b) => a < b,
+    "<=": (a, b) => a <= b,
+    ">=": (a, b) => a >= b,
+  };
+
+  bool computeDynamicProp(
+    dynamic conditions,
+    Map<String, dynamic> contextData,
+  ) {
+    var result = false;
+
+    if (conditions is List) {
+      var results = conditions.map((condition) {
+        return computeDynamicProp(condition, contextData);
+      });
+
+      return results.reduce((value, element) => value || element);
+    }
+
+    var source = conditions["source"];
+    var target = conditions["target"];
+    var operator = conditions["operator"];
+
+    if (source == null || target == null || operator == null) {
+      throw Exception(
+        "source, target and operator are required. Error in: $conditions",
+      );
+    }
+
+    if (isValueBinding(source)) {
+      source = bindingValueToProp(contextData, source);
+    }
+
+    if (isValueBinding(target)) {
+      target = bindingValueToProp(contextData, target);
+    }
+
+    if (operatorMap[operator] != null) {
+      result = operatorMap[operator]!(source, target);
+    }
+
+    return result;
+  }
+
+  bool computeDynamicProps(
+    List<dynamic> dynamicProps,
+    Map<String, dynamic> contextData,
+  ) {
+    var dynamicPropsResults = dynamicProps.map((dynamicProp) {
+      if (dynamicProp is Map<String, dynamic>) {
+        var conditions = dynamicProp["conditions"];
+
+        if (conditions == null) {
+          throw Exception(
+            "conditions is required. Error in: $dynamicProp",
+          );
+        }
+
+        return computeDynamicProp(conditions, contextData);
+      } else {
+        throw Exception(
+          "Invalid dynamicProp: $dynamicProp . Only support Map or List of Map",
+        );
+      }
+    }).toList();
+
+    return dynamicPropsResults.reduce((value, element) => value && element);
   }
 }
