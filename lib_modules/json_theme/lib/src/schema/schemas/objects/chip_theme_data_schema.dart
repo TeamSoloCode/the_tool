@@ -5,8 +5,8 @@ class ChipThemeDataSchema {
       'https://peiffer-innovations.github.io/flutter_json_schemas/schemas/json_theme/chip_theme_data.json';
 
   static final schema = {
-    r'$schema': 'http://json-schema.org/draft-06/schema#',
-    r'$id': '$id',
+    r'$schema': 'http://json-schema.org/draft-07/schema#',
+    r'$id': id,
     r'$comment':
         'https://api.flutter.dev/flutter/material/ChipThemeData-class.html',
     'title': 'ChipThemeData',
@@ -18,6 +18,7 @@ class ChipThemeDataSchema {
       'deleteIconColor': SchemaHelper.objectSchema(ColorSchema.id),
       'disabledColor': SchemaHelper.objectSchema(ColorSchema.id),
       'elevation': SchemaHelper.numberSchema,
+      'iconTheme': SchemaHelper.objectSchema(IconThemeDataSchema.id),
       'padding': SchemaHelper.objectSchema(EdgeInsetsGeometrySchema.id),
       'pressElevation': SchemaHelper.numberSchema,
       'secondaryLabelStyle': SchemaHelper.objectSchema(TextStyleSchema.id),
@@ -27,6 +28,7 @@ class ChipThemeDataSchema {
       'selectedShadowColor': SchemaHelper.objectSchema(ColorSchema.id),
       'shadowColor': SchemaHelper.objectSchema(ColorSchema.id),
       'showCheckmark': SchemaHelper.boolSchema,
+      'surfaceTintColor': SchemaHelper.objectSchema(ColorSchema.id),
     },
   };
 }

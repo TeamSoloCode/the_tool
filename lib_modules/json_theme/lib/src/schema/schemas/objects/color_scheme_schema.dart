@@ -5,8 +5,8 @@ class ColorSchemeSchema {
       'https://peiffer-innovations.github.io/flutter_json_schemas/schemas/json_theme/color_scheme.json';
 
   static final schema = {
-    r'$schema': 'http://json-schema.org/draft-06/schema#',
-    r'$id': '$id',
+    r'$schema': 'http://json-schema.org/draft-07/schema#',
+    r'$id': id,
     r'$comment':
         'https://api.flutter.dev/flutter/material/ColorScheme-class.html',
     'title': 'ColorScheme',
@@ -31,6 +31,7 @@ class ColorSchemeSchema {
       'onTertiary': SchemaHelper.objectSchema(ColorSchema.id),
       'onTertiaryContainer': SchemaHelper.objectSchema(ColorSchema.id),
       'outline': SchemaHelper.objectSchema(ColorSchema.id),
+      'outlineVariant': SchemaHelper.objectSchema(ColorSchema.id),
       'primary': SchemaHelper.objectSchema(ColorSchema.id),
       'primaryContainer': SchemaHelper.objectSchema(ColorSchema.id),
       'secondary': SchemaHelper.objectSchema(ColorSchema.id),

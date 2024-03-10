@@ -7,9 +7,11 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter/services.dart';
-import 'package:from_css_color/from_css_color.dart';
 import 'package:json_class/json_class.dart';
+import 'package:json_theme_annotation/json_theme_annotation.dart';
+import 'package:from_css_color/from_css_color.dart';
 
+import '../model/map_material_state_property.dart';
 import '../schema/schema_validator.dart';
 
 /// Decoder capable of converting JSON compatible values into Flutter Theme
@@ -23,8 +25,9 @@ import '../schema/schema_validator.dart';
 /// Unless otherwise stated, each function will return `null` when given an
 /// input of `null`.
 @immutable
+@JsonThemeCodec('decode')
 class ThemeDecoder {
-  ThemeDecoder._();
+  const ThemeDecoder._();
 
   static const _baseSchemaUrl =
       'https://peiffer-innovations.github.io/flutter_json_schemas/schemas/json_theme';
@@ -33,8 +36,8 @@ class ThemeDecoder {
   /// `Map` then this expects the following JSON structure:
   /// ```json
   /// {
-  ///   "x": <double>,
-  ///   "y": <double>
+  ///   "x": "<double>",
+  ///   "y": "<double>"
   /// }
   /// ```
   ///
@@ -64,8 +67,8 @@ class ThemeDecoder {
       ));
 
       result = Alignment(
-        JsonClass.parseDouble(value['x']) ?? 0.0,
-        JsonClass.parseDouble(value['y']) ?? 0.0,
+        JsonClass.maybeParseDouble(value['x']) ?? 0.0,
+        JsonClass.maybeParseDouble(value['y']) ?? 0.0,
       );
     } else {
       _checkSupported(
@@ -124,13 +127,205 @@ class ThemeDecoder {
     return result;
   }
 
+  /// Decodes the given [value] to an [AlignmentDirectional].  The supported
+  /// values are:
+  ///  * `bottomCenter`
+  ///  * `bottomEnd`
+  ///  * `bottomStart`
+  ///  * `center`
+  ///  * `centerEnd`
+  ///  * `centerStart`
+  ///  * `topCenter`
+  ///  * `topEnd`
+  ///  * `topStart`
+  static AlignmentDirectional? decodeAlignmentDirectional(
+    dynamic value, {
+    bool validate = true,
+  }) {
+    AlignmentDirectional? result;
+
+    if (value is AlignmentDirectional) {
+      result = value;
+    } else {
+      _checkSupported(
+        'AlignmentDirectional',
+        [
+          'bottomCenter',
+          'bottomEnd',
+          'bottomStart',
+          'center',
+          'centerEnd',
+          'centerStart',
+          'topCenter',
+          'topEnd',
+          'topStart',
+        ],
+        value,
+      );
+
+      if (value != null) {
+        assert(SchemaValidator.validate(
+          schemaId: '$_baseSchemaUrl/alignment_directional',
+          value: value,
+          validate: validate,
+        ));
+        switch (value) {
+          case 'bottomCenter':
+            result = AlignmentDirectional.bottomCenter;
+            break;
+          case 'bottomEnd':
+            result = AlignmentDirectional.bottomEnd;
+            break;
+          case 'bottomStart':
+            result = AlignmentDirectional.bottomStart;
+            break;
+          case 'center':
+            result = AlignmentDirectional.center;
+            break;
+          case 'centerEnd':
+            result = AlignmentDirectional.centerEnd;
+            break;
+          case 'centerStart':
+            result = AlignmentDirectional.centerStart;
+            break;
+          case 'topCenter':
+            result = AlignmentDirectional.topCenter;
+            break;
+          case 'topEnd':
+            result = AlignmentDirectional.topEnd;
+            break;
+          case 'topStart':
+            result = AlignmentDirectional.topStart;
+            break;
+        }
+      }
+    }
+    return result;
+  }
+
+  /// Decodes the given [value] to an [AlignmentGeometry].  The supported
+  /// values are:
+  ///  * `bottomCenter`
+  ///  * `bottomEnd`
+  ///  * `bottomLeft`
+  ///  * `bottomRight`
+  ///  * `bottomStart`
+  ///  * `center`
+  ///  * `centerEnd`
+  ///  * `centerLeft`
+  ///  * `centerRight`
+  ///  * `centerStart`
+  ///  * `topCenter`
+  ///  * `topEnd`
+  ///  * `topLeft`
+  ///  * `topRight`
+  ///  * `topStart`
+  static AlignmentGeometry? decodeAlignmentGeometry(
+    dynamic value, {
+    bool validate = true,
+  }) {
+    AlignmentGeometry? result;
+
+    if (value is AlignmentGeometry) {
+      result = value;
+    } else if (value is Map) {
+      assert(SchemaValidator.validate(
+        schemaId: '$_baseSchemaUrl/alignment',
+        value: value,
+        validate: validate,
+      ));
+
+      result = Alignment(
+        JsonClass.maybeParseDouble(value['x']) ?? 0.0,
+        JsonClass.maybeParseDouble(value['y']) ?? 0.0,
+      );
+    } else if (value != null) {
+      _checkSupported(
+        'Alignment',
+        [
+          'bottomCenter',
+          'bottomEnd',
+          'bottomLeft',
+          'bottomRight',
+          'bottomStart',
+          'center',
+          'centerEnd',
+          'centerLeft',
+          'centerRight',
+          'centerStart',
+          'topCenter',
+          'topEnd',
+          'topLeft',
+          'topRight',
+          'topStart',
+        ],
+        value,
+      );
+
+      assert(SchemaValidator.validate(
+        schemaId: '$_baseSchemaUrl/alignment_geometry',
+        value: value,
+        validate: validate,
+      ));
+      switch (value) {
+        case 'bottomCenter':
+          result = Alignment.bottomCenter;
+          break;
+        case 'bottomEnd':
+          result = AlignmentDirectional.bottomEnd;
+          break;
+        case 'bottomLeft':
+          result = Alignment.bottomLeft;
+          break;
+        case 'bottomRight':
+          result = Alignment.bottomRight;
+          break;
+        case 'bottomStart':
+          result = AlignmentDirectional.bottomStart;
+          break;
+        case 'center':
+          result = AlignmentDirectional.center;
+          break;
+        case 'centerEnd':
+          result = AlignmentDirectional.centerEnd;
+          break;
+        case 'centerLeft':
+          result = Alignment.centerLeft;
+          break;
+        case 'centerRight':
+          result = Alignment.centerRight;
+          break;
+        case 'centerStart':
+          result = AlignmentDirectional.centerStart;
+          break;
+        case 'topCenter':
+          result = AlignmentDirectional.topCenter;
+          break;
+        case 'topEnd':
+          result = AlignmentDirectional.topEnd;
+          break;
+        case 'topLeft':
+          result = Alignment.topLeft;
+          break;
+        case 'topRight':
+          result = Alignment.topRight;
+          break;
+        case 'topStart':
+          result = AlignmentDirectional.topStart;
+          break;
+      }
+    }
+
+    return result;
+  }
+
   /// Decodes the given [value] to an [AndroidOverscrollIndicator].  Supported
   /// values are:
   /// * `glow`
   /// * `stretch`
   static AndroidOverscrollIndicator? decodeAndroidOverscrollIndicator(
     dynamic value, {
-    bool validate = false,
+    bool validate = true,
   }) {
     AndroidOverscrollIndicator? result;
 
@@ -171,20 +366,20 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "actionsIconTheme": <IconThemeData>,
-  ///   "backgroundColor": <Color>,
-  ///   "centerTitle": <bool>,
-  ///   "elevation": <double>,
-  ///   "foregroundColor": <Color>,
-  ///   "iconTheme": <IconThemeData>,
-  ///   "scrolledUnderElevation": <double>,
-  ///   "shadowColor": <Color>,
-  ///   "surfaceTintColor": <Color>,
-  ///   "systemOverlayStyle": <SystemUiOverlayStyle>,
-  ///   "titleSpacing": <double>,
-  ///   "titleTextStyle": <TextStyle>,
-  ///   "toolbarHeight": <double>,
-  ///   "toolbarTextStyle": <TextStyle>
+  ///   "actionsIconTheme": "<IconThemeData>",
+  ///   "backgroundColor": "<Color>",
+  ///   "centerTitle": "<bool>",
+  ///   "elevation": "<double>",
+  ///   "foregroundColor": "<Color>",
+  ///   "iconTheme": "<IconThemeData>",
+  ///   "scrolledUnderElevation": "<double>",
+  ///   "shadowColor": "<Color>",
+  ///   "surfaceTintColor": "<Color>",
+  ///   "systemOverlayStyle": "<SystemUiOverlayStyle>",
+  ///   "titleSpacing": "<double>",
+  ///   "titleTextStyle": "<TextStyle>",
+  ///   "toolbarHeight": "<double>",
+  ///   "toolbarTextStyle": "<TextStyle>"
   /// }
   /// ```
   ///
@@ -217,10 +412,8 @@ class ThemeDecoder {
           value['backgroundColor'] ?? value['color'],
           validate: false,
         ),
-        centerTitle: value['centerTitle'] == null
-            ? null
-            : JsonClass.parseBool(value['centerTitle']),
-        elevation: JsonClass.parseDouble(value['elevation']),
+        centerTitle: JsonClass.maybeParseBool(value['centerTitle']),
+        elevation: JsonClass.maybeParseDouble(value['elevation']),
         foregroundColor: decodeColor(
           value['foregroundColor'],
           validate: false,
@@ -229,10 +422,13 @@ class ThemeDecoder {
           value['iconTheme'],
           validate: false,
         ),
-        scrolledUnderElevation: JsonClass.parseDouble(
+        scrolledUnderElevation: JsonClass.maybeParseDouble(
           value['scrolledUnderElevation'],
         ),
-        shape: ThemeDecoder.decodeShapeBorder(value['shape']),
+        shape: ThemeDecoder.decodeShapeBorder(
+          value['shape'],
+          validate: false,
+        ),
         shadowColor: decodeColor(
           value['shadowColor'],
           validate: false,
@@ -245,12 +441,12 @@ class ThemeDecoder {
           value['surfaceTintColor'],
           validate: false,
         ),
-        titleSpacing: JsonClass.parseDouble(value['titleSpacing']),
+        titleSpacing: JsonClass.maybeParseDouble(value['titleSpacing']),
         titleTextStyle: decodeTextStyle(
           value['titleTextStyle'],
           validate: false,
         ),
-        toolbarHeight: JsonClass.parseDouble(value['toolbarHeight']),
+        toolbarHeight: JsonClass.maybeParseDouble(value['toolbarHeight']),
         toolbarTextStyle: decodeTextStyle(
           value['toolbarTextStyle'],
           validate: false,
@@ -342,6 +538,75 @@ class ThemeDecoder {
             break;
         }
       }
+    }
+
+    return result;
+  }
+
+  /// Decodes the given [value] to an [BadgeThemeData].  This expects the given
+  /// [value] to follow the structure below:
+  ///
+  /// ```json
+  /// {
+  ///   "alignment": "<AlignmentGeometry>",
+  ///   "backgroundColor": "<Color>",
+  ///   "largeSize": "<double>",
+  ///   "offset": "<Offset>",
+  ///   "padding": "<EdgeInsets>",
+  ///   "smallSize": "<double>",
+  ///   "textColor": "<Color>",
+  ///   "textStyle": "<TextStyle>"
+  /// }
+  /// ```
+  ///
+  /// See also:
+  ///  * [decodeAlignmentGeometry]
+  ///  * [decodeColor]
+  ///  * [decodeEdgeInsetsGeometry]
+  ///  * [decodeOffset]
+  ///  * [decodeTextStyle]
+  static BadgeThemeData? decodeBadgeThemeData(
+    dynamic value, {
+    bool validate = true,
+  }) {
+    BadgeThemeData? result;
+
+    if (value is BadgeThemeData) {
+      result = value;
+    } else if (value != null) {
+      assert(SchemaValidator.validate(
+        schemaId: '$_baseSchemaUrl/badge_theme_data',
+        value: value,
+        validate: validate,
+      ));
+      result = BadgeThemeData(
+        alignment: decodeAlignmentGeometry(
+          value['alignment'],
+          validate: false,
+        ),
+        backgroundColor: decodeColor(
+          value['backgroundColor'],
+          validate: false,
+        ),
+        largeSize: JsonClass.maybeParseDouble(value['largeSize']),
+        offset: decodeOffset(
+          value['offset'],
+          validate: false,
+        ),
+        padding: decodeEdgeInsetsGeometry(
+          value['padding'],
+          validate: false,
+        ),
+        smallSize: JsonClass.maybeParseDouble(value['smallSize']),
+        textColor: decodeColor(
+          value['textColor'],
+          validate: false,
+        ),
+        textStyle: decodeTextStyle(
+          value['textStyle'],
+          validate: false,
+        ),
+      );
     }
 
     return result;
@@ -607,7 +872,7 @@ class ThemeDecoder {
   /// [String], an [int], a [double], or a Map-like object.
   ///
   /// When the [value] is a [String], [int], or [double] then the value will be
-  /// parsed via [JsonClass.parseDouble] and the result will be passed to
+  /// parsed via [JsonClass.maybeParseDouble] and the result will be passed to
   /// [BorderRadius.circular].
   ///
   /// If the [value] is a Map-like object then the expected structure depends on
@@ -622,7 +887,7 @@ class ThemeDecoder {
   /// Type: `all` expects a structure:
   /// ```json
   /// {
-  ///   "radius": <Radius>,
+  ///   "radius": "<Radius>",
   ///   "type": "all"
   /// }
   /// ```
@@ -630,7 +895,7 @@ class ThemeDecoder {
   /// Type: `circular` expects a structure:
   /// ```json
   /// {
-  ///   "radius": <double>,
+  ///   "radius": "<double>",
   ///   "type": "circular"
   /// }
   /// ```
@@ -638,8 +903,8 @@ class ThemeDecoder {
   /// Type: `horizontal` expects a structure:
   /// ```json
   /// {
-  ///   "left": <Radius>,
-  ///   "right": <Radius>,
+  ///   "left": "<Radius>",
+  ///   "right": "<Radius>",
   ///   "type": "horizontal"
   /// }
   /// ```
@@ -647,10 +912,10 @@ class ThemeDecoder {
   /// Type: `only` expects a structure:
   /// ```json
   /// {
-  ///   "bottomLeft": <Radius>,
-  ///   "bottomRight": <Radius>,
-  ///   "topLeft": <Radius>,
-  ///   "topRight": <Radius>,
+  ///   "bottomLeft": "<Radius>",
+  ///   "bottomRight": "<Radius>",
+  ///   "topLeft": "<Radius>",
+  ///   "topRight": "<Radius>",
   ///   "type": "only"
   /// }
   /// ```
@@ -658,8 +923,8 @@ class ThemeDecoder {
   /// Type: `vertical` expects a structure:
   /// ```json
   /// {
-  ///   "bottom": <Radius>,
-  ///   "top": <Radius>,
+  ///   "bottom": "<Radius>",
+  ///   "top": "<Radius>",
   ///   "type": "vertical"
   /// }
   /// ```
@@ -675,7 +940,7 @@ class ThemeDecoder {
     if (value is BorderRadius) {
       result = value;
     } else {
-      var radius = JsonClass.parseDouble(value);
+      final radius = JsonClass.maybeParseDouble(value);
       if (radius != null) {
         result = BorderRadius.circular(radius);
       } else {
@@ -698,16 +963,19 @@ class ThemeDecoder {
             value: value,
             validate: validate,
           ));
-          String? type = value['type'];
+          final String? type = value['type'];
 
           switch (type) {
             case 'all':
-              result = BorderRadius.all(
-                  decodeRadius(value['radius']) ?? Radius.zero);
+              result = BorderRadius.all(decodeRadius(
+                    value['radius'],
+                    validate: false,
+                  ) ??
+                  Radius.zero);
               break;
             case 'circular':
               result = BorderRadius.circular(
-                JsonClass.parseDouble(value['radius'])!,
+                JsonClass.maybeParseDouble(value['radius'])!,
               );
               break;
             case 'horizontal':
@@ -770,14 +1038,84 @@ class ThemeDecoder {
     return result;
   }
 
+  /// Decodes the given value to a [BorderRadius].  The [value] may be a
+  /// [String], an [int], a [double], or a Map-like object.
+  ///
+  /// When the [value] is a [String], [int], or [double] then the value will be
+  /// parsed via [JsonClass.maybeParseDouble] and the result will be passed to
+  /// [BorderRadius.circular].
+  ///
+  /// If the [value] is a Map-like object then the expected structure depends on
+  /// on the value passed in for the "type" attribute.  The expected "type"
+  /// values must be one of:
+  ///  * `all`
+  ///  * `circular`
+  ///  * `horizontal`
+  ///  * `only`
+  ///  * `vertical`
+  ///
+  /// Type: `all` expects a structure:
+  /// ```json
+  /// {
+  ///   "radius": "<Radius>",
+  ///   "type": "all"
+  /// }
+  /// ```
+  ///
+  /// Type: `circular` expects a structure:
+  /// ```json
+  /// {
+  ///   "radius": "<double>",
+  ///   "type": "circular"
+  /// }
+  /// ```
+  ///
+  /// Type: `horizontal` expects a structure:
+  /// ```json
+  /// {
+  ///   "left": "<Radius>",
+  ///   "right": "<Radius>",
+  ///   "type": "horizontal"
+  /// }
+  /// ```
+  ///
+  /// Type: `only` expects a structure:
+  /// ```json
+  /// {
+  ///   "bottomLeft": "<Radius>",
+  ///   "bottomRight": "<Radius>",
+  ///   "topLeft": "<Radius>",
+  ///   "topRight": "<Radius>",
+  ///   "type": "only"
+  /// }
+  /// ```
+  ///
+  /// Type: `vertical` expects a structure:
+  /// ```json
+  /// {
+  ///   "bottom": "<Radius>",
+  ///   "top": "<Radius>",
+  ///   "type": "vertical"
+  /// }
+  /// ```
+  ///
+  /// See also:
+  ///  * [decodeBorderRadius]
+  static BorderRadius? decodeBorderRadiusGeometry(
+    dynamic value, {
+    bool validate = true,
+  }) =>
+      decodeBorderRadius(value, validate: validate);
+
   /// Decodes the given [value] to an [BorderSide].  This expects the given
   /// [value] to follow the structure below:
   ///
   /// ```json
   /// {
-  ///   "color": <Color>,
-  ///   "style": <BorderStyle>,
-  ///   "width": <double>
+  ///   "color": "<Color>",
+  ///   "strokeAlign": "<Double>",
+  ///   "style": "<BorderStyle>",
+  ///   "width": "<double>"
   /// }
   /// ```
   ///
@@ -803,13 +1141,15 @@ class ThemeDecoder {
               value['color'],
               validate: false,
             ) ??
-            #ff000000 as Color,
+            const Color(0xff000000),
+        strokeAlign: JsonClass.maybeParseDouble(value['strokeAlign']) ??
+            BorderSide.strokeAlignInside,
         style: decodeBorderStyle(
               value['style'],
               validate: false,
             ) ??
             BorderStyle.solid,
-        width: JsonClass.parseDouble(value['width'], 1.0)!,
+        width: JsonClass.maybeParseDouble(value['width'], 1.0)!,
       );
     }
 
@@ -863,14 +1203,19 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "color": <Color>,
-  ///   "elevation": <double>,
-  ///   "shape": <NotchedShape>
+  ///   "color": "<Color>",
+  ///   "elevation": "<double>",
+  ///   "height": "<double>",
+  ///   "padding": "<EdgeInsets>",
+  ///   "shadowColor": "<Color>",
+  ///   "shape": "<NotchedShape>",
+  ///   "surfaceTingColor": "<Color>"
   /// }
   /// ```
   ///
   /// See also:
   ///  * [decodeColor]
+  ///  * [decodeEdgeInsetsGeometry]
   ///  * [decodeNotchedShape]
   static BottomAppBarTheme? decodeBottomAppBarTheme(
     dynamic value, {
@@ -891,9 +1236,22 @@ class ThemeDecoder {
           value['color'],
           validate: false,
         ),
-        elevation: JsonClass.parseDouble(value['elevation']),
+        elevation: JsonClass.maybeParseDouble(value['elevation']),
+        height: JsonClass.maybeParseDouble(value['height']),
+        padding: decodeEdgeInsetsGeometry(
+          value['padding'],
+          validate: false,
+        ),
+        shadowColor: decodeColor(
+          value['shadowColor'],
+          validate: false,
+        ),
         shape: decodeNotchedShape(
           value['shape'],
+          validate: false,
+        ),
+        surfaceTintColor: decodeColor(
+          value['surfaceTintColor'],
           validate: false,
         ),
       );
@@ -907,20 +1265,20 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "backgroundColor": <Color>,
-  ///   "elevation": <double>,
-  ///   "enableFeedback": <bool>,
-  ///   "landscapeLayout": <BottomNavigationBarLandscapeLayout>,
-  ///   "mouseCursor": <MaterialStateProperty<MouseCursor>>,
-  ///   "selectedIconTheme": <IconThemeData>,
-  ///   "selectedIconColor": <Color>,
-  ///   "selectedLabelStyle": <TextStyle>,
-  ///   "showSelectedLabels": <bool>,
-  ///   "showUnselectedLabels": <bool>,
-  ///   "type": <BottomNavigationBarType>,
-  ///   "unselectedIconTheme": <IconThemeData>,
-  ///   "unselectedItemColor": <Color>,
-  ///   "unselectedLabelStyle": <TextStyle>,
+  ///   "backgroundColor": "<Color>",
+  ///   "elevation": "<double>",
+  ///   "enableFeedback": "<bool>",
+  ///   "landscapeLayout": "<BottomNavigationBarLandscapeLayout>",
+  ///   "mouseCursor": "<MaterialStateProperty<MouseCursor>>",
+  ///   "selectedIconTheme": "<IconThemeData>",
+  ///   "selectedIconColor": "<Color>",
+  ///   "selectedLabelStyle": "<TextStyle>",
+  ///   "showSelectedLabels": "<bool>",
+  ///   "showUnselectedLabels": "<bool>",
+  ///   "type": "<BottomNavigationBarType>",
+  ///   "unselectedIconTheme": "<IconThemeData>",
+  ///   "unselectedItemColor": "<Color>",
+  ///   "unselectedLabelStyle": "<TextStyle>",
   /// }
   /// ```
   ///
@@ -945,10 +1303,8 @@ class ThemeDecoder {
           value['backgroundColor'],
           validate: false,
         ),
-        elevation: JsonClass.parseDouble(value['elevation']),
-        enableFeedback: value['enableFeedback'] == null
-            ? null
-            : JsonClass.parseBool(value['enableFeedback']),
+        elevation: JsonClass.maybeParseDouble(value['elevation']),
+        enableFeedback: JsonClass.maybeParseBool(value['enableFeedback']),
         landscapeLayout: decodeBottomNavigationBarLandscapeLayout(
           value['landscapeLayout'],
           validate: false,
@@ -969,12 +1325,12 @@ class ThemeDecoder {
           value['selectedLabelStyle'],
           validate: false,
         ),
-        showSelectedLabels: value['showSelectedLabels'] == null
-            ? null
-            : JsonClass.parseBool(value['showSelectedLabels']),
-        showUnselectedLabels: value['showUnselectedLabels'] == null
-            ? null
-            : JsonClass.parseBool(value['showUnselectedLabels']),
+        showSelectedLabels: JsonClass.maybeParseBool(
+          value['showSelectedLabels'],
+        ),
+        showUnselectedLabels: JsonClass.maybeParseBool(
+          value['showUnselectedLabels'],
+        ),
         type: decodeBottomNavigationBarType(
           value['type'],
           validate: false,
@@ -1090,13 +1446,19 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "backgroundColor": <Color>,
-  ///   "clipBehavior": <Clip>,
-  ///   "constraints": <BoxConstraints>,
-  ///   "elevation": <double>,
-  ///   "modalBackgroundColor": <Color>,
-  ///   "modalElevation": <double>,
-  ///   "shape": <ShapeBorder>
+  ///   "backgroundColor": "<Color>",
+  ///   "clipBehavior": "<Clip>",
+  ///   "constraints": "<BoxConstraints>",
+  ///   "dragHandleColor": "<Color>",
+  ///   "dragHandleSize": "<Size>",
+  ///   "elevation": "<double>",
+  ///   "modalBackgroundColor": "<Color>",
+  ///   "modalBarrierColor": "<Color>",
+  ///   "modalElevation": "<double>",
+  ///   "shadowColor": "<Color>",
+  ///   "shape": "<ShapeBorder>",
+  ///   "showDragHandle": "<bool>",
+  ///   "surfaceTintColor": "<Color>"
   /// }
   /// ```
   ///
@@ -1104,6 +1466,7 @@ class ThemeDecoder {
   ///  * [decodeBoxConstraints]
   ///  * [decodeClip]
   ///  * [decodeColor]
+  ///  * [decodeSize]
   ///  * [decodeShapeBorder]
   static BottomSheetThemeData? decodeBottomSheetThemeData(
     dynamic value, {
@@ -1132,14 +1495,26 @@ class ThemeDecoder {
           value['constraints'],
           validate: false,
         ),
-        elevation: JsonClass.parseDouble(value['elevation']),
+        dragHandleColor: decodeColor(value['dragHandleColor'], validate: false),
+        dragHandleSize: decodeSize(value['dragHandleSize'], validate: false),
+        elevation: JsonClass.maybeParseDouble(value['elevation']),
         modalBackgroundColor: decodeColor(
           value['modalBackgroundColor'],
           validate: false,
         ),
-        modalElevation: JsonClass.parseDouble(value['modalElevation']),
+        modalBarrierColor: decodeColor(
+          value['modalBarrierColor'],
+          validate: false,
+        ),
+        modalElevation: JsonClass.maybeParseDouble(value['modalElevation']),
+        shadowColor: decodeColor(value['shadowColor'], validate: false),
         shape: decodeShapeBorder(
           value['shape'],
+          validate: false,
+        ),
+        showDragHandle: JsonClass.maybeParseBool(value['showDragHandle']),
+        surfaceTintColor: ThemeDecoder.decodeColor(
+          value['surfaceTintColor'],
           validate: false,
         ),
       );
@@ -1160,10 +1535,10 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "bottom": <BorderSide>,
-  ///   "left": <BorderSide>,
-  ///   "right": <BorderSide>,
-  ///   "top": <BorderSide>
+  ///   "bottom": "<BorderSide>",
+  ///   "left": "<BorderSide>",
+  ///   "right": "<BorderSide>",
+  ///   "top": "<BorderSide>"
   /// }
   /// ```
   ///
@@ -1181,7 +1556,10 @@ class ThemeDecoder {
       if (value['color'] != null ||
           value['style'] != null ||
           value['width'] != null) {
-        var side = decodeBorderSide(value)!;
+        final side = decodeBorderSide(
+          value,
+          validate: false,
+        )!;
         result = Border.all(
           color: side.color,
           style: side.style,
@@ -1227,10 +1605,10 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "maxHeight": <double>,
-  ///   "maxWidth": <double>,
-  ///   "minHeight": <double>,
-  ///   "minWidth": <double>
+  ///   "maxHeight": "<double>",
+  ///   "maxWidth": "<double>",
+  ///   "minHeight": "<double>",
+  ///   "minWidth": "<double>"
   /// }
   /// ```
   static BoxConstraints? decodeBoxConstraints(
@@ -1248,10 +1626,12 @@ class ThemeDecoder {
         validate: validate,
       ));
       result = BoxConstraints(
-        maxHeight: JsonClass.parseDouble(value['maxHeight'], double.infinity)!,
-        maxWidth: JsonClass.parseDouble(value['maxWidth'], double.infinity)!,
-        minHeight: JsonClass.parseDouble(value['minHeight'], 0)!,
-        minWidth: JsonClass.parseDouble(value['minWidth'], 0)!,
+        maxHeight:
+            JsonClass.maybeParseDouble(value['maxHeight'], double.infinity)!,
+        maxWidth:
+            JsonClass.maybeParseDouble(value['maxWidth'], double.infinity)!,
+        minHeight: JsonClass.maybeParseDouble(value['minHeight'], 0)!,
+        minWidth: JsonClass.maybeParseDouble(value['minWidth'], 0)!,
       );
     }
 
@@ -1264,14 +1644,14 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "backgroundBlendMode": <BlendMode>,
-  ///   "border": <BoxBorder>,
-  ///   "borderRadius": <BorderRadius>,
-  ///   "boxShadow": <BoxShadow[]>
-  ///   "color": <Color>,
-  ///   "image": <DecorationImage>,
-  ///   "gradient": <Gradient>,
-  ///   "shape": <BoxShape>
+  ///   "backgroundBlendMode": "<BlendMode>",
+  ///   "border": "<BoxBorder>",
+  ///   "borderRadius": "<BorderRadius>",
+  ///   "boxShadow": "<BoxShadow[]>"
+  ///   "color": "<Color>",
+  ///   "image": "<DecorationImage>",
+  ///   "gradient": "<Gradient>",
+  ///   "shape": "<BoxShape>"
   /// }
   /// ```
   ///
@@ -1313,7 +1693,10 @@ class ThemeDecoder {
         ),
         boxShadow: _decodeDynamicList(
           value['boxShadow'],
-          (value) => decodeBoxShadow(value)!,
+          (value) => decodeBoxShadow(
+            value,
+            validate: false,
+          )!,
         ),
         color: decodeColor(
           value['color'],
@@ -1388,17 +1771,64 @@ class ThemeDecoder {
     return result;
   }
 
+  /// Decodes the [value] to a [BoxHeightStyle].  Supported values are:
+  ///  * `includeLineSpacingBottom`
+  ///  * `includeLineSpacingMiddle`
+  ///  * `includeLineSpacingTop`
+  ///  * `max`
+  ///  * `strut`
+  ///  * `tight`
+  static BoxHeightStyle? decodeBoxHeightStyle(
+    dynamic value, {
+    bool validate = false,
+  }) {
+    BoxHeightStyle? result;
+
+    if (value is BoxHeightStyle) {
+      result = value;
+    } else if (value != null) {
+      assert(SchemaValidator.validate(
+        schemaId: '$_baseSchemaUrl/box_height_style',
+        value: value,
+        validate: validate,
+      ));
+
+      switch (value) {
+        case 'includeLineSpacingBottom':
+          result = BoxHeightStyle.includeLineSpacingBottom;
+          break;
+        case 'includeLineSpacingMiddle':
+          result = BoxHeightStyle.includeLineSpacingMiddle;
+          break;
+        case 'includeLineSpacingTop':
+          result = BoxHeightStyle.includeLineSpacingTop;
+          break;
+        case 'max':
+          result = BoxHeightStyle.max;
+          break;
+        case 'strut':
+          result = BoxHeightStyle.strut;
+          break;
+        case 'tight':
+          result = BoxHeightStyle.tight;
+          break;
+      }
+    }
+
+    return result;
+  }
+
   /// Decodes the given [value] into a [BoxDecoration].  If the value is `null`
   /// then `null` will be returned.  Otherwise, this expects a Map like value
   /// that in JSON would look like:
   ///
   /// ```json
   /// {
-  ///   "blurRadius": <double>,
-  ///   "blurStyle": <BlurStyle>,
-  ///   "color": <Color>,
-  ///   "offset": <Offset>,
-  ///   "spreadRadius": <double>
+  ///   "blurRadius": "<double>",
+  ///   "blurStyle": "<BlurStyle>",
+  ///   "color": "<Color>",
+  ///   "offset": "<Offset>",
+  ///   "spreadRadius": "<double>"
   /// }
   /// ```
   ///
@@ -1426,7 +1856,7 @@ class ThemeDecoder {
               validate: false,
             ) ??
             BlurStyle.normal,
-        blurRadius: JsonClass.parseDouble(value['blurRadius'], 0)!,
+        blurRadius: JsonClass.maybeParseDouble(value['blurRadius'], 0)!,
         color: decodeColor(
               value['color'],
               validate: false,
@@ -1437,7 +1867,7 @@ class ThemeDecoder {
               validate: false,
             ) ??
             Offset.zero,
-        spreadRadius: JsonClass.parseDouble(value['spreadRadius'], 0)!,
+        spreadRadius: JsonClass.maybeParseDouble(value['spreadRadius'], 0)!,
       );
     }
 
@@ -1468,6 +1898,37 @@ class ThemeDecoder {
 
         case 'rectangle':
           result = BoxShape.rectangle;
+          break;
+      }
+    }
+
+    return result;
+  }
+
+  /// Decodes the [value] to a [BoxWidthStyle].  Supported values are:
+  ///  * `max`
+  ///  * `tight`
+  static BoxWidthStyle? decodeBoxWidthStyle(
+    dynamic value, {
+    bool validate = false,
+  }) {
+    BoxWidthStyle? result;
+
+    if (value is BoxWidthStyle) {
+      result = value;
+    } else if (value != null) {
+      assert(SchemaValidator.validate(
+        schemaId: '$_baseSchemaUrl/box_width_style',
+        value: value,
+        validate: validate,
+      ));
+
+      switch (value) {
+        case 'max':
+          result = BoxWidthStyle.max;
+          break;
+        case 'tight':
+          result = BoxWidthStyle.tight;
           break;
       }
     }
@@ -1548,15 +2009,15 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "alignment": <MainAxisAlignment>,
-  ///   "buttonAlignedDropdown": <bool>,
-  ///   "buttonHeight": <double>,
-  ///   "buttonMinWidth": <double>,
-  ///   "buttonPadding": <EdgeInsetsGeometry>,
-  ///   "buttonTextTheme": <ButtonTextTheme>,
-  ///   "layoutBehavior": <ButtonBarLayoutBehavior>,
-  ///   "mainAxisSize": <MainAxisSize>,
-  ///   "overflowDirection": <VerticalDirection>,
+  ///   "alignment": "<MainAxisAlignment>",
+  ///   "buttonAlignedDropdown": "<bool>",
+  ///   "buttonHeight": "<double>",
+  ///   "buttonMinWidth": "<double>",
+  ///   "buttonPadding": "<EdgeInsetsGeometry>",
+  ///   "buttonTextTheme": "<ButtonTextTheme>",
+  ///   "layoutBehavior": "<ButtonBarLayoutBehavior>",
+  ///   "mainAxisSize": "<MainAxisSize>",
+  ///   "overflowDirection": "<VerticalDirection>",
   /// }
   /// ```
   ///
@@ -1586,11 +2047,11 @@ class ThemeDecoder {
           value['alignment'],
           validate: false,
         ),
-        buttonAlignedDropdown: value['buttonAlignedDropdown'] == null
-            ? null
-            : JsonClass.parseBool(value['buttonAlignedDropdown']),
-        buttonHeight: JsonClass.parseDouble(value['buttonHeight']),
-        buttonMinWidth: JsonClass.parseDouble(value['buttonMinWidth']),
+        buttonAlignedDropdown: JsonClass.maybeParseBool(
+          value['buttonAlignedDropdown'],
+        ),
+        buttonHeight: JsonClass.maybeParseDouble(value['buttonHeight']),
+        buttonMinWidth: JsonClass.maybeParseDouble(value['buttonMinWidth']),
         buttonPadding: decodeEdgeInsetsGeometry(
           value['buttonPadding'],
           validate: false,
@@ -1621,26 +2082,28 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "alignment": <AlignmentGeometry>,
-  ///   "animationDuration": <MaterialStateProperty<double>>,
-  ///   "backgroundColor": <MaterialStateProperty<Color>>,
-  ///   "elevation": <MaterialStateProperty<double>>,
-  ///   "enableFeedback": <bool>,
-  ///   "fixedSize": <MaterialStateProperty<double>>,
-  ///   "foregroundColor": <MaterialStateProperty<Color>>,
-  ///   "maximumSize": <MaterialStateProperty<double>>,
-  ///   "minimumSize": <MaterialStateProperty<Size>>,
-  ///   "mouseCursor": <MaterialStateProperty<MouseCursor>>,
-  ///   "overlayColor": <MaterialStateProperty<Color>>,
-  ///   "padding": <MaterialStateProperty<EdgeInsetsGeometry>>,
-  ///   "shadowColor": <MaterialStateProperty<Color>>,
-  ///   "shape": <MaterialStateProperty<OutlinedBorder>>,
-  ///   "side": <MaterialStateProperty<BorderSide>>,
-  ///   "splashFactory": <InteractiveInkSplashFactory>,
-  ///   "surfaceTintColor": <MaterialStateProperty<Color>>,
-  ///   "tapTargetSize": <MaterialTapTargetSize>,
-  ///   "textStyle": <MaterialStateProperty<TextStyle>>,
-  ///   "visualDensity": <VisualDensity>
+  ///   "alignment": "<AlignmentGeometry>",
+  ///   "animationDuration": "<MaterialStateProperty<double>>",
+  ///   "backgroundColor": "<MaterialStateProperty<Color>>",
+  ///   "elevation": "<MaterialStateProperty<double>>",
+  ///   "enableFeedback": "<bool>",
+  ///   "fixedSize": "<MaterialStateProperty<double>>",
+  ///   "foregroundColor": "<MaterialStateProperty<Color>>",
+  ///   "iconColor": "<MaterialStateProperty<Color>>",
+  ///   "iconSize": "<MaterialStateProperty<double>>",
+  ///   "maximumSize": "<MaterialStateProperty<double>>",
+  ///   "minimumSize": "<MaterialStateProperty<Size>>",
+  ///   "mouseCursor": "<MaterialStateProperty<MouseCursor>>",
+  ///   "overlayColor": "<MaterialStateProperty<Color>>",
+  ///   "padding": "<MaterialStateProperty<EdgeInsetsGeometry>>",
+  ///   "shadowColor": "<MaterialStateProperty<Color>>",
+  ///   "shape": "<MaterialStateProperty<OutlinedBorder>>",
+  ///   "side": "<MaterialStateProperty<BorderSide>>",
+  ///   "splashFactory": "<InteractiveInkSplashFactory>",
+  ///   "surfaceTintColor": "<MaterialStateProperty<Color>>",
+  ///   "tapTargetSize": "<MaterialTapTargetSize>",
+  ///   "textStyle": "<MaterialStateProperty<TextStyle>>",
+  ///   "visualDensity": "<VisualDensity>"
   /// }
   /// ```
   ///
@@ -1683,24 +2146,36 @@ class ThemeDecoder {
       ));
 
       result = ButtonStyle(
-        alignment: decodeAlignment(value['alignment']),
-        animationDuration: JsonClass.parseDurationFromMillis(
+        alignment: decodeAlignment(
+          value['alignment'],
+          validate: false,
+        ),
+        animationDuration: JsonClass.maybeParseDurationFromMillis(
           value['animationDuration'],
         ),
         backgroundColor: decodeMaterialStatePropertyColor(
           value['backgroundColor'],
           validate: false,
         ),
-        elevation: decodeMaterialStatePropertyDouble(value['elevation']),
-        enableFeedback: value['enableFeedback'] == null
-            ? null
-            : JsonClass.parseBool(value['enableFeedback']),
+        elevation: decodeMaterialStatePropertyDouble(
+          value['elevation'],
+          validate: false,
+        ),
+        enableFeedback: JsonClass.maybeParseBool(value['enableFeedback']),
         fixedSize: decodeMaterialStatePropertySize(
           value['fixedSize'],
           validate: false,
         ),
         foregroundColor: decodeMaterialStatePropertyColor(
           value['foregroundColor'],
+          validate: false,
+        ),
+        iconColor: decodeMaterialStatePropertyColor(
+          value['iconColor'],
+          validate: false,
+        ),
+        iconSize: decodeMaterialStatePropertyDouble(
+          value['iconSize'],
           validate: false,
         ),
         maximumSize: decodeMaterialStatePropertySize(
@@ -1737,9 +2212,11 @@ class ThemeDecoder {
         ),
         splashFactory: decodeInteractiveInkFeatureFactory(
           value['splashFactory'],
+          validate: false,
         ),
         surfaceTintColor: decodeMaterialStatePropertyColor(
           value['surfaceTintColor'],
+          validate: false,
         ),
         tapTargetSize: decodeMaterialTapTargetSize(
           value['tapTargetSize'],
@@ -1810,21 +2287,21 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "alignedDropdown": <bool>,
-  ///   "buttonColor": <Color>,
-  ///   "colorScheme": <ColorScheme>,
-  ///   "disabledColor": <Color>,
-  ///   "focusColor": <Color>,
-  ///   "height": <double>,
-  ///   "highlightColor": <Color>,
-  ///   "hoverColor": <Color>,
-  ///   "layoutBehavior": <ButtonBarLayoutBehavior>,
-  ///   "materialTapTargetSize": <MaterialTapTargetSize>,
-  ///   "minWidth": <double>,
-  ///   "padding": <EdgeInsetsGeometry>,
-  ///   "shape": <ShapeBorder>,
-  ///   "splashColor": <Color>,
-  ///   "textTheme": <ButtonTextTheme>
+  ///   "alignedDropdown": "<bool>",
+  ///   "buttonColor": "<Color>",
+  ///   "colorScheme": "<ColorScheme>",
+  ///   "disabledColor": "<Color>",
+  ///   "focusColor": "<Color>",
+  ///   "height": "<double>",
+  ///   "highlightColor": "<Color>",
+  ///   "hoverColor": "<Color>",
+  ///   "layoutBehavior": "<ButtonBarLayoutBehavior>",
+  ///   "materialTapTargetSize": "<MaterialTapTargetSize>",
+  ///   "minWidth": "<double>",
+  ///   "padding": "<EdgeInsetsGeometry>",
+  ///   "shape": "<ShapeBorder>",
+  ///   "splashColor": "<Color>",
+  ///   "textTheme": "<ButtonTextTheme>"
   /// }
   /// ```
   ///
@@ -1868,7 +2345,7 @@ class ThemeDecoder {
           value['focusColor'],
           validate: false,
         ),
-        height: JsonClass.parseDouble(value['height'], 36.0)!,
+        height: JsonClass.maybeParseDouble(value['height'], 36.0)!,
         highlightColor: decodeColor(
           value['highlightColor'],
           validate: false,
@@ -1886,7 +2363,7 @@ class ThemeDecoder {
           value['materialTapTargetSize'],
           validate: false,
         ),
-        minWidth: JsonClass.parseDouble(value['minWidth'], 88.0)!,
+        minWidth: JsonClass.maybeParseDouble(value['minWidth'], 88.0)!,
         padding: decodeEdgeInsetsGeometry(
           value['padding'],
           validate: false,
@@ -1914,13 +2391,13 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "clipBehavior": <Clip>,
-  ///   "color": <Color>,
-  ///   "elevation": <double>,
-  ///   "margin": <EdgeInsetsGeometry>,
-  ///   "shadowColor": <Color>,
-  ///   "shape": <ShapeBorder>,
-  ///   "surfaceTintColor": <Color>
+  ///   "clipBehavior": "<Clip>",
+  ///   "color": "<Color>",
+  ///   "elevation": "<double>",
+  ///   "margin": "<EdgeInsetsGeometry>",
+  ///   "shadowColor": "<Color>",
+  ///   "shape": "<ShapeBorder>",
+  ///   "surfaceTintColor": "<Color>"
   /// }
   /// ```
   ///
@@ -1952,7 +2429,7 @@ class ThemeDecoder {
           value['color'],
           validate: false,
         ),
-        elevation: JsonClass.parseDouble(value['elevation']),
+        elevation: JsonClass.maybeParseDouble(value['elevation']),
         margin: decodeEdgeInsetsGeometry(
           value['margin'],
           validate: false,
@@ -1980,15 +2457,15 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "checkColor": <Color>,
-  ///   "fillColor": <MaterialStateProperty<Color>>,
-  ///   "materialTapTargetSize": <MaterialTapTargetSize>,
-  ///   "mouseCursor": <MaterialStateProperty<MouseCursor>>,
-  ///   "overlayColor": <MaterialStateProperty<Color>>,
-  ///   "shape": <OutlinedBorder>,
-  ///   "side": <BorderSide>,
-  ///   "splashRadius": <double>,
-  ///   "visualDensity": <VisualDensity>
+  ///   "checkColor": "<Color>",
+  ///   "fillColor": "<MaterialStateProperty<Color>>",
+  ///   "materialTapTargetSize": "<MaterialTapTargetSize>",
+  ///   "mouseCursor": "<MaterialStateProperty<MouseCursor>>",
+  ///   "overlayColor": "<MaterialStateProperty<Color>>",
+  ///   "shape": "<OutlinedBorder>",
+  ///   "side": "<BorderSide>",
+  ///   "splashRadius": "<double>",
+  ///   "visualDensity": "<VisualDensity>"
   /// }
   /// ```
   ///
@@ -2044,7 +2521,7 @@ class ThemeDecoder {
           value['borderSide'],
           validate: false,
         ),
-        splashRadius: JsonClass.parseDouble(value['splashRadius']),
+        splashRadius: JsonClass.maybeParseDouble(value['splashRadius']),
         visualDensity: decodeVisualDensity(
           value['visualDensity'],
           validate: false,
@@ -2060,24 +2537,26 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "backgroundColor": <Color>,
-  ///   "brightness": <Brightness>,
-  ///   "checkmarkColor": <Color>,
-  ///   "deleteIconColor": <Color>,
-  ///   "disabledColor": <Color>,
-  ///   "elevation": <double>,
-  ///   "labelPadding": <EdgeInsetsGeometry>,
-  ///   "labelStyle": <TextStyle>,
-  ///   "padding": <EdgeInsetsGeometry>,
-  ///   "pressElevation": <double>,
-  ///   "secondaryLabelStyle": <TextStyle>,
-  ///   "secondarySelectedColor": <Color>,
-  ///   "selectedColor": <Color>,
-  ///   "shape": <ShapeBorder>,
-  ///   "side": <BorderSide>,
-  ///   "selectedShadowColor": <Color>,
-  ///   "shadowColor": <Color>,
-  ///   "showCheckmark": <bool>
+  ///   "backgroundColor": "<Color>",
+  ///   "brightness": "<Brightness>",
+  ///   "checkmarkColor": "<Color>",
+  ///   "deleteIconColor": "<Color>",
+  ///   "disabledColor": "<Color>",
+  ///   "elevation": "<double>",
+  ///   "iconTheme": "<IconThemeData>",
+  ///   "labelPadding": "<EdgeInsetsGeometry>",
+  ///   "labelStyle": "<TextStyle>",
+  ///   "padding": "<EdgeInsetsGeometry>",
+  ///   "pressElevation": "<double>",
+  ///   "secondaryLabelStyle": "<TextStyle>",
+  ///   "secondarySelectedColor": "<Color>",
+  ///   "selectedColor": "<Color>",
+  ///   "shape": "<ShapeBorder>",
+  ///   "side": "<BorderSide>",
+  ///   "selectedShadowColor": "<Color>",
+  ///   "shadowColor": "<Color>",
+  ///   "showCheckmark": "<bool>",
+  ///   "surfaceTintColor": "<Color>"
   /// }
   /// ```
   ///
@@ -2086,6 +2565,7 @@ class ThemeDecoder {
   ///  * [decodeBrightness]
   ///  * [decodeColor]
   ///  * [decodeEdgeInsetsGeometry]
+  ///  * [decodeIconThemeData]
   ///  * [decodeShapeBorder]
   ///  * [decodeTextStyle]
   static ChipThemeData? decodeChipThemeData(
@@ -2123,7 +2603,11 @@ class ThemeDecoder {
           value['disabledColor'],
           validate: false,
         )!,
-        elevation: JsonClass.parseDouble(value['elevation']),
+        elevation: JsonClass.maybeParseDouble(value['elevation']),
+        iconTheme: decodeIconThemeData(
+          value['iconTheme'],
+          validate: false,
+        ),
         labelPadding: decodeEdgeInsetsGeometry(
           value['labelPadding'],
           validate: false,
@@ -2136,7 +2620,7 @@ class ThemeDecoder {
           value['padding'],
           validate: false,
         )!,
-        pressElevation: JsonClass.parseDouble(value['pressElevation']),
+        pressElevation: JsonClass.maybeParseDouble(value['pressElevation']),
         secondaryLabelStyle: decodeTextStyle(
           value['secondaryLabelStyle'],
           validate: false,
@@ -2153,7 +2637,10 @@ class ThemeDecoder {
           value['shape'],
           validate: false,
         ) as OutlinedBorder?,
-        side: decodeBorderSide(value['side']),
+        side: decodeBorderSide(
+          value['side'],
+          validate: false,
+        ),
         selectedShadowColor: decodeColor(
           value['selectedShadowColor'],
           validate: false,
@@ -2162,9 +2649,11 @@ class ThemeDecoder {
           value['shadowColor'],
           validate: false,
         ),
-        showCheckmark: value['showCheckmark'] == null
-            ? null
-            : JsonClass.parseBool(value['showCheckmark']),
+        showCheckmark: JsonClass.maybeParseBool(value['showCheckmark']),
+        surfaceTintColor: decodeColor(
+          value['surfaceTintColor'],
+          validate: false,
+        ),
       );
     }
 
@@ -2287,39 +2776,107 @@ class ThemeDecoder {
     return result;
   }
 
+  /// Decodes a dynamic value into a [ColorFilter].  The schema this requires
+  /// depends on the type.
+  ///
+  /// Type: `matrix`
+  /// ```json
+  /// {
+  ///   matrix: "<List<double>"
+  /// }
+  /// ```
+  ///
+  /// Type: `mode`
+  /// ```json
+  /// {
+  ///   blendMode: "<BlendMode>",
+  ///   color: "<Color>"
+  /// }
+  /// ```
+  ///
+  /// Neither type of `linearToSrgbGamma` or `srgbToLinearGamma` requires any
+  /// additional properties.
+  static ColorFilter? decodeColorFilter(
+    dynamic value, {
+    bool validate = true,
+  }) {
+    ColorFilter? result;
+
+    if (value is ColorFilter) {
+      result = value;
+    } else if (value != null) {
+      assert(SchemaValidator.validate(
+        schemaId: '$_baseSchemaUrl/color_filter',
+        value: value,
+        validate: validate,
+      ));
+
+      final type = value['type']?.toString();
+
+      switch (type) {
+        case 'linearToSrgbGamma':
+          result = const ColorFilter.linearToSrgbGamma();
+          break;
+
+        case 'matrix':
+          result = ColorFilter.matrix(
+            JsonClass.maybeParseDoubleList(value['matrix'])!,
+          );
+          break;
+
+        case 'mode':
+          result = ColorFilter.mode(
+            decodeColor(value['color'])!,
+            decodeBlendMode(value['blendMode']) ?? BlendMode.srcIn,
+          );
+          break;
+
+        case 'srgbToLinearGamma':
+          result = const ColorFilter.srgbToLinearGamma();
+          break;
+
+        default:
+          throw Exception('Unknown ColorFilter type: [$type]');
+      }
+    }
+
+    return result;
+  }
+
   /// Decodes the given [value] to an [CardTheme].  This expects the given
   /// [value] to follow the structure below:
   ///
   /// ```json
   /// {
-  ///   "background": <Color>,
-  ///   "brightness": <Brightness>,
-  ///   "error": <Color>,
-  ///   "errorContainer": <Color>,
-  ///   "inversePrimary": <Color>,
-  ///   "inverseSurface": <Color>,
-  ///   "onBackground": <Color>,
-  ///   "onError": <Color>,
-  ///   "onErrorContainer": <Color>,
-  ///   "onInverseSurface": <Color>,
-  ///   "onPrimary": <Color>,
-  ///   "onPrimaryContainer": <Color>,
-  ///   "onSecondary": <Color>,
-  ///   "onSecondaryContainer": <Color>,
-  ///   "onSurface": <Color>,
-  ///   "onSurfaceVariant": <Color>,
-  ///   "onTertiary": <Color>,
-  ///   "onTertiaryContainer": <Color>,
-  ///   "outline": <Color>,
-  ///   "primary": <Color>,
-  ///   "primaryContainer": <Color>,
-  ///   "secondary": <Color>,
-  ///   "secondaryContainer": <Color>,
-  ///   "shadow": <Color>,
-  ///   "surface": <Color>,
-  ///   "surfaceVariant": <Color>,
-  ///   "tertiary": <Color>,
-  ///   "tertiaryContainer": <Color>
+  ///   "background": "<Color>",
+  ///   "brightness": "<Brightness>",
+  ///   "error": "<Color>",
+  ///   "errorContainer": "<Color>",
+  ///   "inversePrimary": "<Color>",
+  ///   "inverseSurface": "<Color>",
+  ///   "onBackground": "<Color>",
+  ///   "onError": "<Color>",
+  ///   "onErrorContainer": "<Color>",
+  ///   "onInverseSurface": "<Color>",
+  ///   "onPrimary": "<Color>",
+  ///   "onPrimaryContainer": "<Color>",
+  ///   "onSecondary": "<Color>",
+  ///   "onSecondaryContainer": "<Color>",
+  ///   "onSurface": "<Color>",
+  ///   "onSurfaceVariant": "<Color>",
+  ///   "onTertiary": "<Color>",
+  ///   "onTertiaryContainer": "<Color>",
+  ///   "outline": "<Color>",
+  ///   "outlineVariant": "<Color>",
+  ///   "primary": "<Color>",
+  ///   "primaryContainer": "<Color>",
+  ///   "secondary": "<Color>",
+  ///   "secondaryContainer": "<Color>",
+  ///   "shadow": "<Color>",
+  ///   "surface": "<Color>",
+  ///   "surfaceVariant": "<Color>",
+  ///   "tertiary": "<Color>",
+  ///   "tertiaryContainer": "<Color>"
   /// }
   /// ```
   ///
@@ -2417,6 +2974,10 @@ class ThemeDecoder {
           value['outline'],
           validate: false,
         ),
+        outlineVariant: decodeColor(
+          value['outlineVariant'],
+          validate: false,
+        ),
         primary: decodeColor(
           value['primary'],
           validate: false,
@@ -2425,6 +2986,7 @@ class ThemeDecoder {
           value['primaryContainer'] ?? value['primaryVariant'],
           validate: false,
         ),
+        // primaryVariant: @deprecated
         secondary: decodeColor(
           value['secondary'],
           validate: false,
@@ -2433,6 +2995,7 @@ class ThemeDecoder {
           value['secondaryContainer'] ?? value['secondaryVariant'],
           validate: false,
         ),
+        // secondaryVariant: : @deprecated,
         shadow: decodeColor(
           value['shadow'],
           validate: false,
@@ -2565,15 +3128,15 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "actionTextStyle": <TextStyle>,
-  ///   "dateTimePickerTextStyle": <TextStyle>,
-  ///   "navActionTextStyle": <TextStyle>,
-  ///   "navLargeTitleTextStyle":<TextStyle>,
-  ///   "navTitleTextStyle": <TextStyle>,
-  ///   "pickerTextStyle": <TextStyle>,
-  ///   "primaryColor": <Color>
-  ///   "tabLabelTextStyle": <TextStyle>,
-  ///   "textStyle": <TextStyle>,
+  ///   "actionTextStyle": "<TextStyle>",
+  ///   "dateTimePickerTextStyle": "<TextStyle>",
+  ///   "navActionTextStyle": "<TextStyle>",
+  ///   "navLargeTitleTextStyle":<TextStyle>",
+  ///   "navTitleTextStyle": "<TextStyle>",
+  ///   "pickerTextStyle": "<TextStyle>",
+  ///   "primaryColor": "<Color>"
+  ///   "tabLabelTextStyle": "<TextStyle>",
+  ///   "textStyle": "<TextStyle>",
   /// }
   /// ```
   ///
@@ -2643,12 +3206,13 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "barBackgroundColor": <Color>,
-  ///   "brightness": <Brightness>,
-  ///   "primaryColor": <Color>,
-  ///   "primaryContrastingColor": <Color>,
-  ///   "scaffoldBackgroundColor": <Color>,
-  ///   "textTheme": <CupertinoTextThemeData>
+  ///   "applyThemeToAll": "<bool>"",
+  ///   "barBackgroundColor": "<Color>",
+  ///   "brightness": "<Brightness>",
+  ///   "primaryColor": "<Color>",
+  ///   "primaryContrastingColor": "<Color>",
+  ///   "scaffoldBackgroundColor": "<Color>",
+  ///   "textTheme": "<CupertinoTextThemeData>"
   /// }
   /// ```
   ///
@@ -2671,6 +3235,7 @@ class ThemeDecoder {
         validate: validate,
       ));
       result = CupertinoThemeData(
+        applyThemeToAll: JsonClass.maybeParseBool(value['applyThemeToAll']),
         barBackgroundColor: decodeColor(
           value['barBackgroundColor'],
           validate: false,
@@ -2701,22 +3266,219 @@ class ThemeDecoder {
     return result;
   }
 
+  /// Decodes the given [value] to an [DatePickerThemeData].  This expects the
+  /// given [value] to be of the following structure:
+  ///
+  /// ```json
+  /// {
+  ///   "backgroundColor": "<Color>",
+  ///   "dayBackgroundColor": "<MaterialStateProperty<Color>>",
+  ///   "dayForegroundColor": "<MaterialStateProperty<Color>>",
+  ///   "dayOverlayColor": "<MaterialStateProperty<Color>>",
+  ///   "dayStyle": "<TextStyle>",
+  ///   "elevation": "<double>",
+  ///   "headerBackgroundColor": "<Color>",
+  ///   "headerForegroundColor": "<Color>",
+  ///   "headerHeadlineStyle": "<TextStyle>",
+  ///   "headerHelpStyle": "<TextStyle>",
+  ///   "rangePickerBackgroundColor": "<Color>",
+  ///   "rangePickerElevation": "<double>",
+  ///   "rangePickerHeaderBackgroundColor": "<Color>",
+  ///   "rangePickerHeaderForegroundColor": "<Color>",
+  ///   "rangePickerHeaderHeadlineStyle": "<TextStyle>",
+  ///   "rangePickerHeaderHelpStyle": "<TextStyle>",
+  ///   "rangePickerShadowColor": "<Color>",
+  ///   "rangePickerShape": "<ShapeBorder>",
+  ///   "rangePickerSurfaceTintColor": "<Color>",
+  ///   "rangeSelectionBackgroundColor": "<Color>",
+  ///   "rangeSelectionOverlayColor": "<MaterialStateProperty<Color>>",
+  ///   "shadowColor": "<Color>",
+  ///   "shape": "<ShapeBorder>",
+  ///   "surfaceTintColor": "<Color>",
+  ///   "todayBackgroundColor": "<MaterialStateProperty<Color>>",
+  ///   "todayBorder": "<ShapeBorder>",
+  ///   "todayForegroundColor": "<MaterialStateProperty<Color>>",
+  ///   "weekdayStyle": "<TextStyle>",
+  ///   "yearBackgroundColor": "<MaterialStateProperty<Color>>",
+  ///   "yearForegroundColor": "<MaterialStateProperty<Color>>",
+  ///   "yearOverlayColor": "<MaterialStateProperty<Color>>",
+  ///   "yearStyle": "<TextStyle>",
+  /// }
+  /// ```
+  ///
+  /// This will use the properties passed through JSON to create the
+  /// [MaterialStateProperty] of each corresponding property by using
+  /// the [MaterialStateProperty.all] function with the value passed in.
+  ///
+  /// See also:
+  ///  * [decodeBorderSide]
+  ///  * [decodeColor]
+  ///  * [decodeMaterialStatePropertyColor]
+  ///  * [decodeShapeBorder]
+  ///  * [decodeTextStyle]
+  static DatePickerThemeData? decodeDatePickerThemeData(
+    dynamic value, {
+    bool validate = true,
+  }) {
+    DatePickerThemeData? result;
+
+    if (value is DatePickerThemeData) {
+      result = value;
+    } else if (value != null) {
+      assert(SchemaValidator.validate(
+        schemaId: '$_baseSchemaUrl/date_picker_theme_data',
+        value: value,
+        validate: validate,
+      ));
+      result = DatePickerThemeData(
+        backgroundColor: decodeColor(
+          value['backgroundColor'],
+          validate: false,
+        ),
+        dayBackgroundColor: decodeMaterialStatePropertyColor(
+          value['dayBackgroundColor'],
+          validate: false,
+        ),
+        dayForegroundColor: decodeMaterialStatePropertyColor(
+          value['dayForegroundColor'],
+          validate: false,
+        ),
+        dayOverlayColor: decodeMaterialStatePropertyColor(
+          value['dayOverlayColor'],
+          validate: false,
+        ),
+        dayStyle: decodeTextStyle(
+          value['dayStyle'],
+          validate: false,
+        ),
+        elevation: JsonClass.maybeParseDouble(value['elevation']),
+        headerBackgroundColor: decodeColor(
+          value['headerBackgroundColor'],
+          validate: false,
+        ),
+        headerForegroundColor: decodeColor(
+          value['headerForegroundColor'],
+          validate: false,
+        ),
+        headerHeadlineStyle: decodeTextStyle(
+          value['headerHeadlineStyle'],
+          validate: false,
+        ),
+        headerHelpStyle: decodeTextStyle(
+          value['headerHelpStyle'],
+          validate: false,
+        ),
+        rangePickerBackgroundColor: decodeColor(
+          value['rangePickerBackgroundColor'],
+          validate: false,
+        ),
+        rangePickerElevation:
+            JsonClass.maybeParseDouble(value['rangePickerElevation']),
+        rangePickerHeaderBackgroundColor: decodeColor(
+          value['rangePickerHeaderBackgroundColor'],
+          validate: false,
+        ),
+        rangePickerHeaderForegroundColor: decodeColor(
+          value['rangePickerHeaderForegroundColor'],
+          validate: false,
+        ),
+        rangePickerHeaderHeadlineStyle: decodeTextStyle(
+          value['rangePickerHeaderHeadlineStyle'],
+          validate: false,
+        ),
+        rangePickerHeaderHelpStyle: decodeTextStyle(
+          value['rangePickerHeaderHelpStyle'],
+          validate: false,
+        ),
+        rangePickerShadowColor: decodeColor(
+          value['rangePickerShadowColor'],
+          validate: false,
+        ),
+        rangePickerShape: decodeShapeBorder(
+          value['rangePickerShape'],
+          validate: false,
+        ),
+        rangePickerSurfaceTintColor: decodeColor(
+          value['rangePickerSurfaceTintColor'],
+          validate: false,
+        ),
+        rangeSelectionBackgroundColor: decodeColor(
+          value['rangeSelectionBackgroundColor'],
+          validate: false,
+        ),
+        rangeSelectionOverlayColor: decodeMaterialStatePropertyColor(
+          value['rangeSelectionOverlayColor'],
+          validate: false,
+        ),
+        shadowColor: decodeColor(
+          value['shadowColor'],
+          validate: false,
+        ),
+        shape: decodeShapeBorder(
+          value['shape'],
+          validate: false,
+        ),
+        surfaceTintColor: decodeColor(
+          value['surfaceTintColor'],
+          validate: false,
+        ),
+        todayBackgroundColor: decodeMaterialStatePropertyColor(
+          value['todayBackgroundColor'],
+          validate: false,
+        ),
+        todayBorder: decodeBorderSide(
+          value['todayBorder'],
+          validate: false,
+        ),
+        todayForegroundColor: decodeMaterialStatePropertyColor(
+          value['todayForegroundColor'],
+          validate: false,
+        ),
+        weekdayStyle: decodeTextStyle(
+          value['weekdayStyle'],
+          validate: false,
+        ),
+        yearBackgroundColor: decodeMaterialStatePropertyColor(
+          value['yearBackgroundColor'],
+          validate: false,
+        ),
+        yearForegroundColor: decodeMaterialStatePropertyColor(
+          value['yearForegroundColor'],
+          validate: false,
+        ),
+        yearOverlayColor: decodeMaterialStatePropertyColor(
+          value['yearOverlayColor'],
+          validate: false,
+        ),
+        yearStyle: decodeTextStyle(
+          value['yearStyle'],
+          validate: false,
+        ),
+      );
+    }
+
+    return result;
+  }
+
   /// Decodes the given [value] to an [DataTableThemeData].  This expects the
   /// given [value] to be of the following structure:
   ///
   /// ```json
   /// {
-  ///   "checkboxHorizontalMargin": <double>,
-  ///   "columnSpacing": <double>,
-  ///   "dataRowColor": <MaterialStateProperty<Color>>,
-  ///   "dataRowHeight": <double>,
-  ///   "dataTextStyle": <TextStyle,
-  ///   "decoration": <BoxDecoration>,
-  ///   "dividerThickness": <double>,
-  ///   "headingRowColor": <MaterialStateProperty<Color>>,
-  ///   "headingRowHeight": <double>,
-  ///   "headingTextStyle": <TextStyle>,
-  ///   "horizontalMargin": <double>
+  ///   "checkboxHorizontalMargin": "<double>",
+  ///   "columnSpacing": "<double>",
+  ///   "dataRowColor": "<MaterialStateProperty<Color>>",
+  ///   "dataRowCursor": "<MaterialStateProperty<MouseCursor>",
+  ///   "dataRowMaxHeight": "<double>",
+  ///   "dataRowMinHeight": "<double>",
+  ///   "dataTextStyle": "<TextStyle,
+  ///   "decoration": "<BoxDecoration>",
+  ///   "dividerThickness": "<double>",
+  ///   "headingCellCursor": "<MaterialStateProperty<MouseCursor>",
+  ///   "headingRowColor": "<MaterialStateProperty<Color>>",
+  ///   "headingRowHeight": "<double>",
+  ///   "headingTextStyle": "<TextStyle>",
+  ///   "horizontalMargin": "<double>"
   /// }
   /// ```
   ///
@@ -2728,6 +3490,7 @@ class ThemeDecoder {
   ///  * [decodeBoxDecoration]
   ///  * [decodeColor]
   ///  * [decodeMaterialStatePropertyColor]
+  ///  * [decodeMaterialStatePropertyMouseCursor]
   ///  * [decodeTextStyle]
   static DataTableThemeData? decodeDataTableThemeData(
     dynamic value, {
@@ -2744,18 +3507,25 @@ class ThemeDecoder {
         validate: validate,
       ));
       result = DataTableThemeData(
-        checkboxHorizontalMargin: JsonClass.parseDouble(
+        checkboxHorizontalMargin: JsonClass.maybeParseDouble(
           value['checkboxHorizontalMargin'],
         ),
-        columnSpacing: JsonClass.parseDouble(
+        columnSpacing: JsonClass.maybeParseDouble(
           value['columnSpacing'],
         ),
         dataRowColor: decodeMaterialStatePropertyColor(
           value['dataRowColor'],
           validate: false,
         ),
-        dataRowHeight: JsonClass.parseDouble(
-          value['dataRowHeight'],
+        dataRowCursor: decodeMaterialStatePropertyMouseCursor(
+          value['dataRowCursor'],
+          validate: false,
+        ),
+        dataRowMaxHeight: JsonClass.maybeParseDouble(
+          value['dataRowMaxHeight'],
+        ),
+        dataRowMinHeight: JsonClass.maybeParseDouble(
+          value['dataRowMinHeight'],
         ),
         dataTextStyle: decodeTextStyle(
           value['dataTextStyle'],
@@ -2765,21 +3535,25 @@ class ThemeDecoder {
           value['decoration'],
           validate: false,
         ),
-        dividerThickness: JsonClass.parseDouble(
+        dividerThickness: JsonClass.maybeParseDouble(
           value['dividerThickness'],
+        ),
+        headingCellCursor: decodeMaterialStatePropertyMouseCursor(
+          value['dataRowCursor'],
+          validate: false,
         ),
         headingRowColor: decodeMaterialStatePropertyColor(
           value['headingRowColor'],
           validate: false,
         ),
-        headingRowHeight: JsonClass.parseDouble(
+        headingRowHeight: JsonClass.maybeParseDouble(
           value['headingRowHeight'],
         ),
         headingTextStyle: decodeTextStyle(
           value['headingTextStyle'],
           validate: false,
         ),
-        horizontalMargin: JsonClass.parseDouble(
+        horizontalMargin: JsonClass.maybeParseDouble(
           value['horizontalMargin'],
         ),
       );
@@ -2793,17 +3567,17 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "alignment": <Alignment>,
-  ///   "centerSlice": <Rect>,
-  ///   "filterQuality": <FilterQuality>,
-  ///   "fit": <BoxFit>,
-  ///   "image": <ImageProvider>,
-  ///   "invertColors": <bool>,
-  ///   "isAntiAlias": <bool>,
-  ///   "matchTextDirection": <bool>,
-  ///   "opacity": <double>,
-  ///   "repeat": <ImageRepeat>,
-  ///   "scale": <double>
+  ///   "alignment": "<Alignment>",
+  ///   "centerSlice": "<Rect>",
+  ///   "filterQuality": "<FilterQuality>",
+  ///   "fit": "<BoxFit>",
+  ///   "image": "<ImageProvider>",
+  ///   "invertColors": "<bool>",
+  ///   "isAntiAlias": "<bool>",
+  ///   "matchTextDirection": "<bool>",
+  ///   "opacity": "<double>",
+  ///   "repeat": "<ImageRepeat>",
+  ///   "scale": "<double>"
   /// }
   /// ```
   ///
@@ -2838,10 +3612,8 @@ class ThemeDecoder {
           value['centerSlice'],
           validate: false,
         ),
-        // @unencodable
-        // colorFilter
-        // @unencodable
-        // onError
+        // colorFilter: @unencodable
+        // onError: @unencodable
         fit: decodeBoxFit(
           value['fit'],
           validate: false,
@@ -2858,13 +3630,13 @@ class ThemeDecoder {
         invertColors: JsonClass.parseBool(value['invertColors']),
         isAntiAlias: JsonClass.parseBool(value['isAntiAlias']),
         matchTextDirection: JsonClass.parseBool(value['matchTextDirection']),
-        opacity: JsonClass.parseDouble(value['opacity']) ?? 1.0,
+        opacity: JsonClass.maybeParseDouble(value['opacity']) ?? 1.0,
         repeat: decodeImageRepeat(
               value['repeat'],
               validate: false,
             ) ??
             ImageRepeat.noRepeat,
-        scale: JsonClass.parseDouble(value['scale'], 1.0)!,
+        scale: JsonClass.maybeParseDouble(value['scale'], 1.0)!,
       );
     }
 
@@ -2917,18 +3689,24 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "alignment": <Alignment>,
-  ///   "backgroundColor": <Color>,
-  ///   "contentTextStyle": <TextStyle>,
-  ///   "elevation": <double>,
-  ///   "shape": <ShapeBorder>,
-  ///   "titleTextStyle": <TextStyle>
+  ///   "actionsPadding": "<EdgeInsetsGeometry>",
+  ///   "alignment": "<Alignment>",
+  ///   "backgroundColor": "<Color>",
+  ///   "contentTextStyle": "<TextStyle>",
+  ///   "elevation": "<double>",
+  ///   "iconColor": "<Color>",
+  ///   "shadowColor": "<Color>",
+  ///   "shape": "<ShapeBorder>",
+  ///   "surfaceColor": "<Color>",
+  ///   "titleTextStyle": "<TextStyle>"
   /// }
   /// ```
   ///
   /// See also:
   ///  * [decodeAlignment]
   ///  * [decodeBrightness]
+  ///  * [decodeColor]
+  ///  * [decodeEdgeInsetsGeometry]
   ///  * [decodeShapeBorder]
   ///  * [decodeTextStyle]
   static DialogTheme? decodeDialogTheme(
@@ -2946,6 +3724,10 @@ class ThemeDecoder {
         validate: validate,
       ));
       result = DialogTheme(
+        actionsPadding: decodeEdgeInsetsGeometry(
+          value['actionsPadding'],
+          validate: false,
+        ),
         alignment: decodeAlignment(
           value['alignment'],
           validate: false,
@@ -2958,9 +3740,21 @@ class ThemeDecoder {
           value['contentTextStyle'],
           validate: false,
         ),
-        elevation: JsonClass.parseDouble(value['elevation']),
+        elevation: JsonClass.maybeParseDouble(value['elevation']),
+        iconColor: decodeColor(
+          value['iconColor'],
+          validate: false,
+        ),
+        shadowColor: decodeColor(
+          value['shadowColor'],
+          validate: false,
+        ),
         shape: decodeShapeBorder(
           value['shape'],
+          validate: false,
+        ),
+        surfaceTintColor: decodeColor(
+          value['surfaceTintColor'],
           validate: false,
         ),
         titleTextStyle: decodeTextStyle(
@@ -2978,11 +3772,11 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "color": <Color>,
-  ///   "endIndent": <double>,
-  ///   "indent": <double>,
-  ///   "space": <double>,
-  ///   "thickness": <double>
+  ///   "color": "<Color>",
+  ///   "endIndent": "<double>",
+  ///   "indent": "<double>",
+  ///   "space": "<double>",
+  ///   "thickness": "<double>"
   /// }
   /// ```
   ///
@@ -3007,10 +3801,10 @@ class ThemeDecoder {
           value['color'],
           validate: false,
         ),
-        endIndent: JsonClass.parseDouble(value['endIndent']),
-        indent: JsonClass.parseDouble(value['indent']),
-        space: JsonClass.parseDouble(value['space']),
-        thickness: JsonClass.parseDouble(value['thickness']),
+        endIndent: JsonClass.maybeParseDouble(value['endIndent']),
+        indent: JsonClass.maybeParseDouble(value['indent']),
+        space: JsonClass.maybeParseDouble(value['space']),
+        thickness: JsonClass.maybeParseDouble(value['thickness']),
       );
     }
 
@@ -3063,11 +3857,14 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "backgroundColor": <Color>,
-  ///   "elevation": <double>,
-  ///   "scrimColor": <Color>,
-  ///   "shape": <ShapeBorder>,
-  ///   "width": <double>
+  ///   "backgroundColor": "<Color>",
+  ///   "elevation": "<double>",
+  ///   "endShape": "<ShapeBorder>",
+  ///   "scrimColor": "<Color>",
+  ///   "shadowColor": "<Color>",
+  ///   "shape": "<ShapeBorder>",
+  ///   "surfaceTintColor": "<Color>",
+  ///   "width": "<double>"
   /// }
   /// ```
   ///
@@ -3094,16 +3891,77 @@ class ThemeDecoder {
           value['backgroundColor'],
           validate: false,
         ),
-        elevation: JsonClass.parseDouble(value['elevation']),
+        elevation: JsonClass.maybeParseDouble(value['elevation']),
+        endShape: decodeShapeBorder(
+          value['endShape'],
+          validate: false,
+        ),
         scrimColor: decodeColor(
           value['scrimColor'],
+          validate: false,
+        ),
+        shadowColor: decodeColor(
+          value['shadowColor'],
           validate: false,
         ),
         shape: decodeShapeBorder(
           value['shape'],
           validate: false,
         ),
-        width: JsonClass.parseDouble(value['width']),
+        surfaceTintColor: decodeColor(
+          value['surfaceTintColor'],
+          validate: false,
+        ),
+        width: JsonClass.maybeParseDouble(value['width']),
+      );
+    }
+
+    return result;
+  }
+
+  /// Decodes the given [value] to an [DropdownMenuThemeData].  This expects the
+  /// given [value] to be of the following structure:
+  ///
+  /// ```json
+  /// {
+  ///   "inputDecorationTheme": "<InputDecorationTheme>",
+  ///   "menuStyle": "<MenuStyle>",
+  ///   "textStyle": "<TextStyle>"
+  /// }
+  /// ```
+  ///
+  /// See also:
+  ///  * [decodeInputDecorationTheme]
+  ///  * [decodeMenuStyle]
+  ///  * [decodeTextStyle]
+  static DropdownMenuThemeData? decodeDropdownMenuThemeData(
+    dynamic value, {
+    bool validate = true,
+  }) {
+    DropdownMenuThemeData? result;
+
+    if (value is DropdownMenuThemeData) {
+      result = value;
+    } else if (value != null) {
+      assert(SchemaValidator.validate(
+        schemaId: '$_baseSchemaUrl/dropdown_menu_theme_data',
+        value: value,
+        validate: validate,
+      ));
+
+      result = DropdownMenuThemeData(
+        inputDecorationTheme: decodeInputDecorationTheme(
+          value['inputDecorationTheme'],
+          validate: false,
+        ),
+        menuStyle: decodeMenuStyle(
+          value['menuStyle'],
+          validate: false,
+        ),
+        textStyle: decodeTextStyle(
+          value['textStyle'],
+          validate: false,
+        ),
       );
     }
 
@@ -3125,10 +3983,90 @@ class ThemeDecoder {
   /// Finally, this may be a Map-like structure in the following JSON format:
   /// ```json
   /// {
-  ///   "bottom": <double>,
-  ///   "left": <double>,
-  ///   "right": <double>,
-  ///   "top": <double>
+  ///   "bottom": "<double>",
+  ///   "left": "<double>",
+  ///   "right": "<double>",
+  ///   "top": "<double>"
+  /// }
+  /// ```
+  static EdgeInsets? decodeEdgeInsets(
+    dynamic value, {
+    bool validate = true,
+  }) =>
+      decodeEdgeInsetsGeometry(value, validate: validate) as EdgeInsets?;
+
+  /// Decodes the [value] into an [EdgeInsetsGeometry].
+  ///
+  /// If the value is a [String], [double], or [int] then this will parse the
+  /// number and pass it to [EdgeInsets.all].
+  ///
+  /// If the value is an array with two entities, this call
+  /// [EdgeInsets.symmetric] with the first element passed as the horizontal and
+  /// the second as the vertical.
+  ///
+  /// If the value is an array with four entities, this call
+  /// [EdgeInsets.fromLTRB] passing each element in order.
+  ///
+  /// Finally, this may be a Map-like structure in the following JSON format:
+  /// ```json
+  /// {
+  ///   "bottom": "<double>",
+  ///   "end": "<double>",
+  ///   "start": "<double>",
+  ///   "top": "<double>"
+  /// }
+  /// ```
+  static EdgeInsetsDirectional? decodeEdgeInsetsDirectional(
+    dynamic value, {
+    bool ltr = true,
+    bool validate = true,
+  }) {
+    EdgeInsetsDirectional? result;
+    final decoded = decodeEdgeInsetsGeometry(value, validate: validate);
+
+    if (decoded is EdgeInsets) {
+      result = EdgeInsetsDirectional.only(
+        bottom: decoded.bottom,
+        end: ltr ? decoded.right : decoded.left,
+        start: ltr ? decoded.left : decoded.right,
+        top: decoded.top,
+      );
+    } else if (decoded is EdgeInsetsDirectional) {
+      result = decoded;
+    }
+
+    return result;
+  }
+
+  /// Decodes the [value] into an [EdgeInsetsGeometry].
+  ///
+  /// If the value is a [String], [double], or [int] then this will parse the
+  /// number and pass it to [EdgeInsets.all].
+  ///
+  /// If the value is an array with two entities, this call
+  /// [EdgeInsets.symmetric] with the first element passed as the horizontal and
+  /// the second as the vertical.
+  ///
+  /// If the value is an array with four entities, this call
+  /// [EdgeInsets.fromLTRB] passing each element in order.
+  ///
+  /// Finally, this may be a Map-like structure in one of the following JSON
+  /// formats:
+  /// ```json
+  /// {
+  ///   "bottom": "<double>",
+  ///   "left": "<double>",
+  ///   "right": "<double>",
+  ///   "top": "<double>"
+  /// }
+  /// ```
+  ///
+  /// ```json
+  /// {
+  ///   "bottom": "<double>",
+  ///   "end": "<double>",
+  ///   "start": "<double>",
+  ///   "top": "<double>"
   /// }
   /// ```
   static EdgeInsetsGeometry? decodeEdgeInsetsGeometry(
@@ -3137,24 +4075,46 @@ class ThemeDecoder {
   }) {
     EdgeInsetsGeometry? result;
 
+    if (value is String && value.contains(',')) {
+      value = value.split(',');
+    }
+
     if (value is EdgeInsetsGeometry) {
       result = value;
     } else if (value != null) {
       if (value is String || value is double || value is int) {
-        result = EdgeInsets.all(JsonClass.parseDouble(value)!);
+        result = EdgeInsets.all(JsonClass.parseDouble(value));
       } else if (value is List) {
         assert(value.length == 2 || value.length == 4);
-        if (value.length == 2) {
-          result = EdgeInsets.symmetric(
-            horizontal: JsonClass.parseDouble(value[0], 0)!,
-            vertical: JsonClass.parseDouble(value[1], 0)!,
+        // LR,TB
+        if (value.length == 1) {
+          result = EdgeInsets.all(
+            JsonClass.maybeParseDouble(value[0]) ?? 0.0,
           );
-        } else if (value.length == 4) {
+        }
+        // LR,TB
+        else if (value.length == 2) {
+          result = EdgeInsets.symmetric(
+            horizontal: JsonClass.maybeParseDouble(value[0]) ?? 0.0,
+            vertical: JsonClass.maybeParseDouble(value[1]) ?? 0.0,
+          );
+        }
+        // T,LR,B
+        else if (value.length == 3) {
           result = EdgeInsets.fromLTRB(
-            JsonClass.parseDouble(value[0])!,
-            JsonClass.parseDouble(value[1])!,
-            JsonClass.parseDouble(value[2])!,
-            JsonClass.parseDouble(value[3])!,
+            JsonClass.maybeParseDouble(value[1]) ?? 0.0,
+            JsonClass.maybeParseDouble(value[0]) ?? 0.0,
+            JsonClass.maybeParseDouble(value[1]) ?? 0.0,
+            JsonClass.maybeParseDouble(value[2]) ?? 0.0,
+          );
+        }
+        // L,T,R,B
+        else if (value.length == 4) {
+          result = EdgeInsets.fromLTRB(
+            JsonClass.maybeParseDouble(value[0]) ?? 0.0,
+            JsonClass.maybeParseDouble(value[1]) ?? 0.0,
+            JsonClass.maybeParseDouble(value[2]) ?? 0.0,
+            JsonClass.maybeParseDouble(value[3]) ?? 0.0,
           );
         }
       } else {
@@ -3163,12 +4123,24 @@ class ThemeDecoder {
           value: value,
           validate: validate,
         ));
-        result = EdgeInsets.only(
-          bottom: JsonClass.parseDouble(value['bottom'], 0.0)!,
-          left: JsonClass.parseDouble(value['left'], 0.0)!,
-          right: JsonClass.parseDouble(value['right'], 0.0)!,
-          top: JsonClass.parseDouble(value['top'], 0.0)!,
-        );
+        final end = JsonClass.maybeParseDouble(value['end']);
+        final start = JsonClass.maybeParseDouble(value['start']);
+
+        if (start != null || end != null) {
+          result = EdgeInsetsDirectional.only(
+            bottom: JsonClass.maybeParseDouble(value['bottom']) ?? 0.0,
+            end: end ?? 0.0,
+            start: start ?? 0.0,
+            top: JsonClass.maybeParseDouble(value['top']) ?? 0.0,
+          );
+        } else {
+          result = EdgeInsets.only(
+            bottom: JsonClass.maybeParseDouble(value['bottom']) ?? 0.0,
+            left: JsonClass.maybeParseDouble(value['left']) ?? 0.0,
+            right: JsonClass.maybeParseDouble(value['right']) ?? 0.0,
+            top: JsonClass.maybeParseDouble(value['top']) ?? 0.0,
+          );
+        }
       }
     }
 
@@ -3180,7 +4152,7 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "style": <ButtonStyle>
+  ///   "style": "<ButtonStyle>"
   /// }
   /// ```
   ///
@@ -3216,22 +4188,27 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "backgroundColor": <Color>,
-  ///   "childrenPadding": <EdgeInsetsGeometry>,
-  ///   "collapsedBackgroundColor": <Color>,
-  ///   "collapsedIconColor": <Color>,
-  ///   "collapsedTextColor": <Color>,
-  ///   "expandedAlignment": <AlignmentGeometry>,
-  ///   "iconColor": <Color>,
-  ///   "textColor": <Color>,
-  ///   "tilePadding": <EdgeInsetsGeometry>
+  ///   "backgroundColor": "<Color>",
+  ///   "childrenPadding": "<EdgeInsetsGeometry>",
+  ///   "clipBehavior": "<Color>",
+  ///   "collapsedBackgroundColor": "<Color>",
+  ///   "collapsedIconColor": "<Color>",
+  ///   "collapsedShape": "<ShapeBorder>",
+  ///   "collapsedTextColor": "<Color>",
+  ///   "expandedAlignment": "<AlignmentGeometry>",
+  ///   "iconColor": "<Color>",
+  ///   "shape": "<ShapeBorder>",
+  ///   "textColor": "<Color>",
+  ///   "tilePadding": "<EdgeInsetsGeometry>"
   /// }
   /// ```
   ///
   /// See also:
   ///  * [decodeAlignment]
+  ///  * [decodeClip]
   ///  * [decodeColor]
   ///  * [decodeEdgeInsetsGeometry]
+  ///  * [decodeShapeBorder]
   static ExpansionTileThemeData? decodeExpansionTileThemeData(
     dynamic value, {
     bool validate = true,
@@ -3252,14 +4229,24 @@ class ThemeDecoder {
           value['backgroundColor'],
           validate: false,
         ),
-        childrenPadding:
-            decodeEdgeInsetsGeometry(value['childrenPadding'], validate: false),
+        childrenPadding: decodeEdgeInsetsGeometry(
+          value['childrenPadding'],
+          validate: false,
+        ),
+        clipBehavior: decodeClip(
+          value['clipBehavior'],
+          validate: false,
+        ),
         collapsedBackgroundColor: decodeColor(
           value['collapsedBackgroundColor'],
           validate: false,
         ),
         collapsedIconColor: decodeColor(
           value['collapsedIconColor'],
+          validate: false,
+        ),
+        collapsedShape: decodeShapeBorder(
+          value['collapsedShape'],
           validate: false,
         ),
         collapsedTextColor: decodeColor(
@@ -3274,12 +4261,55 @@ class ThemeDecoder {
           value['iconColor'],
           validate: false,
         ),
+        shape: decodeShapeBorder(
+          value['shapeBorder'],
+          validate: false,
+        ),
         textColor: decodeColor(
           value['textColor'],
           validate: false,
         ),
-        tilePadding:
-            decodeEdgeInsetsGeometry(value['tilePadding'], validate: false),
+        tilePadding: decodeEdgeInsetsGeometry(
+          value['tilePadding'],
+          validate: false,
+        ),
+      );
+    }
+
+    return result;
+  }
+
+  /// Decodes the given [value] to an [FilledButtonThemeData].  This expects
+  /// the given [value] to be of the following structure:
+  ///
+  /// ```json
+  /// {
+  ///   "style": "<ButtonStyle>"
+  /// }
+  /// ```
+  ///
+  /// See also:
+  ///  * [decodeButtonStyle]
+  static FilledButtonThemeData? decodeFilledButtonThemeData(
+    dynamic value, {
+    bool validate = true,
+  }) {
+    FilledButtonThemeData? result;
+
+    if (value is FilledButtonThemeData) {
+      result = value;
+    } else if (value != null) {
+      assert(SchemaValidator.validate(
+        schemaId: '$_baseSchemaUrl/filled_button_theme_data',
+        value: value,
+        validate: validate,
+      ));
+
+      result = FilledButtonThemeData(
+        style: decodeButtonStyle(
+          value['style'],
+          validate: false,
+        ),
       );
     }
 
@@ -3564,31 +4594,33 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "backgroundColor": <Color>,
-  ///   "disabledElevation": <double>,
-  ///   "elevation": <double>,
-  ///   "extendedIconLabelSpacing": <double>,
-  ///   "extendedPadding": <EdgeInsetsGeometry>,
-  ///   "extendedSizeConstraints": <BoxConstraints>,
-  ///   "extendedTextStyle": <TextStyle>
-  ///   "focusColor": <Color>,
-  ///   "focusElevation": <double>,
-  ///   "foregroundColor": <Color>,
-  ///   "highlightElevation": <double>,
-  ///   "hoverColor": <Color>,
-  ///   "hoverElevation": <double>,
-  ///   "iconSize": <double>,
-  ///   "largeSizeConstraints": <BoxConstraints>,
-  ///   "shape": <ShapeBorder>,
-  ///   "sizeConstraints": <BoxConstraints>,
-  ///   "smallSizeConstraints": <BoxConstraints>,
-  ///   "splashColor": <Color>
+  ///   "backgroundColor": "<Color>",
+  ///   "disabledElevation": "<double>",
+  ///   "elevation": "<double>",
+  ///   "extendedIconLabelSpacing": "<double>",
+  ///   "extendedPadding": "<EdgeInsetsGeometry>",
+  ///   "extendedSizeConstraints": "<BoxConstraints>",
+  ///   "extendedTextStyle": "<TextStyle>"
+  ///   "focusColor": "<Color>",
+  ///   "focusElevation": "<double>",
+  ///   "foregroundColor": "<Color>",
+  ///   "highlightElevation": "<double>",
+  ///   "hoverColor": "<Color>",
+  ///   "hoverElevation": "<double>",
+  ///   "iconSize": "<double>",
+  ///   "largeSizeConstraints": "<BoxConstraints>",
+  ///   "mouseCursor": "<MaterialStateProperty<MouseCursor>>",
+  ///   "shape": "<ShapeBorder>",
+  ///   "sizeConstraints": "<BoxConstraints>",
+  ///   "smallSizeConstraints": "<BoxConstraints>",
+  ///   "splashColor": "<Color>"
   /// }
   /// ```
   ///
   /// See also:
   ///  * [decodeBoxConstraints]
   ///  * [decodeColor]
+  ///  * [decodeMaterialStatePropertyMouseCursor]
   ///  * [decodeShapeBorder]
   ///  * [decodeTextStyle]
   static FloatingActionButtonThemeData? decodeFloatingActionButtonThemeData(
@@ -3610,37 +4642,49 @@ class ThemeDecoder {
           value['backgroundColor'],
           validate: false,
         ),
-        disabledElevation: JsonClass.parseDouble(value['disabledElevation']),
-        enableFeedback: value['enableFeedback'] == null
-            ? null
-            : JsonClass.parseBool(value['enableFeedback']),
-        elevation: JsonClass.parseDouble(value['elevation']),
-        extendedIconLabelSpacing: JsonClass.parseDouble(
+        disabledElevation:
+            JsonClass.maybeParseDouble(value['disabledElevation']),
+        enableFeedback: JsonClass.maybeParseBool(value['enableFeedback']),
+        elevation: JsonClass.maybeParseDouble(value['elevation']),
+        extendedIconLabelSpacing: JsonClass.maybeParseDouble(
           value['extendedIconLabelSpacing'],
         ),
-        extendedPadding: decodeEdgeInsetsGeometry(value['extendedPadding']),
+        extendedPadding: decodeEdgeInsetsGeometry(
+          value['extendedPadding'],
+          validate: false,
+        ),
         extendedSizeConstraints: decodeBoxConstraints(
           value['extendedSizeConstraints'],
+          validate: false,
         ),
-        extendedTextStyle: decodeTextStyle(value['extendedTextStyle']),
+        extendedTextStyle: decodeTextStyle(
+          value['extendedTextStyle'],
+          validate: false,
+        ),
         focusColor: decodeColor(
           value['focusColor'],
           validate: false,
         ),
-        focusElevation: JsonClass.parseDouble(value['focusElevation']),
+        focusElevation: JsonClass.maybeParseDouble(value['focusElevation']),
         foregroundColor: decodeColor(
           value['foregroundColor'],
           validate: false,
         ),
-        highlightElevation: JsonClass.parseDouble(value['highlightElevation']),
+        highlightElevation:
+            JsonClass.maybeParseDouble(value['highlightElevation']),
         hoverColor: decodeColor(
           value['hoverColor'],
           validate: false,
         ),
-        hoverElevation: JsonClass.parseDouble(value['hoverElevation']),
-        iconSize: JsonClass.parseDouble(value['iconSize']),
+        hoverElevation: JsonClass.maybeParseDouble(value['hoverElevation']),
+        iconSize: JsonClass.maybeParseDouble(value['iconSize']),
         largeSizeConstraints: decodeBoxConstraints(
           value['largeSizeConstraints'],
+          validate: false,
+        ),
+        mouseCursor: decodeMaterialStatePropertyMouseCursor(
+          value['mouseCursor'],
+          validate: false,
         ),
         shape: decodeShapeBorder(
           value['shape'],
@@ -3648,9 +4692,11 @@ class ThemeDecoder {
         ),
         sizeConstraints: decodeBoxConstraints(
           value['sizeConstraints'],
+          validate: false,
         ),
         smallSizeConstraints: decodeBoxConstraints(
           value['smallSizeConstraints'],
+          validate: false,
         ),
         splashColor: decodeColor(
           value['splashColor'],
@@ -3758,8 +4804,8 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "feature": <String>,
-  ///   "value": <int>
+  ///   "feature": "<String>",
+  ///   "value": "<int>"
   /// }
   /// ```
   static FontFeature? decodeFontFeature(
@@ -3778,7 +4824,7 @@ class ThemeDecoder {
       ));
       result = FontFeature(
         value['feature'],
-        JsonClass.parseInt(value['value'])!,
+        JsonClass.maybeParseInt(value['value'])!,
       );
     }
 
@@ -3923,6 +4969,39 @@ class ThemeDecoder {
     return result;
   }
 
+  /// Decodes the given [value] into a [FontVariation].  If the value is `null`
+  /// then `null` will be returned.
+  ///
+  /// This expects the format:
+  /// ```json
+  /// {
+  ///   "axis": "<String>",
+  ///   "value": "<double>"
+  /// }
+  /// ```
+  static FontVariation? decodeFontVariation(
+    dynamic value, {
+    bool validate = true,
+  }) {
+    FontVariation? result;
+
+    if (value is FontVariation) {
+      result = value;
+    } else if (value != null) {
+      assert(SchemaValidator.validate(
+        schemaId: '$_baseSchemaUrl/font_variation',
+        value: value,
+        validate: validate,
+      ));
+      result = FontVariation(
+        value['axis'],
+        JsonClass.maybeParseDouble(value['value'])!,
+      );
+    }
+
+    return result;
+  }
+
   /// Decodes the given [value] into a [Gradient].  If the value is `null`
   /// then `null` will be returned.
   ///
@@ -3938,42 +5017,42 @@ class ThemeDecoder {
   /// Type: `linear`
   /// ```json
   /// {
-  ///   "begin": <Alignment>,
-  ///   "colors": <Color[]>,
-  ///   "end": <Alignment>,
-  ///   "stops": <double[]>,
-  ///   "tileMode": <TileMode>,
-  ///   "transform": <GradientTransform>
-  ///   "type": "linear",
+  ///   "begin": "<Alignment>",
+  ///   "colors": "<Color[]>",
+  ///   "end": "<Alignment>",
+  ///   "stops": "<double[]>",
+  ///   "tileMode": "<TileMode>",
+  ///   "transform": "<GradientTransform>",
+  ///   "type": "linear"
   /// }
   /// ```
   ///
   /// Type: `radial`
   /// ```json
   /// {
-  ///   "center": <Alignment>,
-  ///   "colors": <Color[]>,
-  ///   "focal": <Alignment>,
-  ///   "focalRadius": <double>,
-  ///   "radius": <double>,
-  ///   "stops": <double[]>,
-  ///   "tileMode": <TileMode>,
-  ///   "transform": <GradientTransform>
-  ///   "type": "radial",
+  ///   "center": "<Alignment>",
+  ///   "colors": "<Color[]>",
+  ///   "focal": "<Alignment>",
+  ///   "focalRadius": "<double>",
+  ///   "radius": "<double>",
+  ///   "stops": "<double[]>",
+  ///   "tileMode": "<TileMode>",
+  ///   "transform": "<GradientTransform>",
+  ///   "type": "radial"
   /// }
   /// ```
   ///
   /// Type: `sweep`
   /// ```json
   /// {
-  ///   "center": <Alignment>,
-  ///   "colors": <Color[]>,
-  ///   "endAngle": <double>,
-  ///   "startAngle": <double>,
-  ///   "stops": <double[]>,
-  ///   "tileMode": <TileMode>,
-  ///   "transform": <GradientTransform>
-  ///   "type": "sweep",
+  ///   "center": "<Alignment>",
+  ///   "colors": "<Color[]>",
+  ///   "endAngle": "<double>",
+  ///   "startAngle": "<double>",
+  ///   "stops": "<double[]>",
+  ///   "tileMode": "<TileMode>",
+  ///   "transform": "<GradientTransform>",
+  ///   "type": "sweep"
   /// }
   /// ```
   ///
@@ -4006,7 +5085,7 @@ class ThemeDecoder {
           value: value,
           validate: validate,
         ));
-        var type = value['type'];
+        final type = value['type'];
 
         switch (type) {
           case 'linear':
@@ -4019,7 +5098,10 @@ class ThemeDecoder {
               colors: _decodeStringList<Color>(
                 value['colors'],
                 (value) {
-                  var color = decodeColor(value);
+                  final color = decodeColor(
+                    value,
+                    validate: false,
+                  );
 
                   return color!;
                 },
@@ -4031,7 +5113,7 @@ class ThemeDecoder {
                   Alignment.centerRight,
               stops: _decodeDynamicList<double>(
                 value['stops'],
-                (value) => JsonClass.parseDouble(value)!,
+                (value) => JsonClass.maybeParseDouble(value)!,
               ),
               tileMode: decodeTileMode(
                     value['tileMode'],
@@ -4053,17 +5135,21 @@ class ThemeDecoder {
                   Alignment.center,
               colors: _decodeStringList<Color>(
                 value['colors'],
-                (value) => decodeColor(value)!,
+                (value) => decodeColor(
+                  value,
+                  validate: false,
+                )!,
               )!,
               focal: decodeAlignment(
                 value['focal'],
                 validate: false,
               ),
-              focalRadius: JsonClass.parseDouble(value['focalRadius'], 0.0)!,
-              radius: JsonClass.parseDouble(value['radius'], 0.5)!,
+              focalRadius:
+                  JsonClass.maybeParseDouble(value['focalRadius'], 0.0)!,
+              radius: JsonClass.maybeParseDouble(value['radius'], 0.5)!,
               stops: _decodeDynamicList<double>(
                 value['stops'],
-                (value) => JsonClass.parseDouble(value)!,
+                (value) => JsonClass.maybeParseDouble(value)!,
               ),
               tileMode: decodeTileMode(
                     value['tileMode'],
@@ -4085,19 +5171,22 @@ class ThemeDecoder {
                   Alignment.center,
               colors: _decodeStringList<Color>(
                 value['colors'],
-                (value) => decodeColor(value)!,
+                (value) => decodeColor(
+                  value,
+                  validate: false,
+                )!,
               )!,
-              endAngle: JsonClass.parseDouble(
+              endAngle: JsonClass.maybeParseDouble(
                 value['endAngle'],
                 math.pi * 2,
               )!,
-              startAngle: JsonClass.parseDouble(
+              startAngle: JsonClass.maybeParseDouble(
                 value['startAngle'],
                 0.0,
               )!,
               stops: _decodeDynamicList<double>(
                 value['stops'],
-                (value) => JsonClass.parseDouble(value)!,
+                (value) => JsonClass.maybeParseDouble(value)!,
               ),
               tileMode: decodeTileMode(
                     value['tileMode'],
@@ -4125,7 +5214,7 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "radians": <double>
+  ///   "radians": "<double>"
   /// }
   /// ```
   static GradientTransform? decodeGradientTransform(
@@ -4143,7 +5232,7 @@ class ThemeDecoder {
         validate: validate,
       ));
       result = GradientRotation(
-        JsonClass.parseDouble(value['radians'])!,
+        JsonClass.maybeParseDouble(value['radians'])!,
       );
     }
 
@@ -4202,10 +5291,112 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "codePoint": <int>,
-  ///   "fontFamily": <String>,
-  ///   "fontPackage": <String>,
-  ///   "matchTextDirection": <bool>
+  ///   "color": "<Color>",
+  ///   "fill": "<double>",
+  ///   "grade": "<double>",
+  ///   "icon": "<IconData>",
+  ///   "opticalSize": "<double>",
+  ///   "semanticLabel": "<String>",
+  ///   "shadows": "<List<Shadow>>",
+  ///   "size": "<double>",
+  ///   "textDirection": "<TextDirection>",
+  ///   "weight": "<double>"
+  /// }
+  /// ```
+  ///
+  /// See also:
+  ///  * [decodeColor]
+  ///  * [decodeIconData]
+  ///  * [decodeShadow]
+  ///  * [decodeTextDirection]
+  static Icon? decodeIcon(
+    dynamic value, {
+    bool validate = true,
+  }) {
+    Icon? result;
+
+    if (value is Icon) {
+      result = value;
+    } else if (value != null) {
+      assert(SchemaValidator.validate(
+        schemaId: '$_baseSchemaUrl/icon',
+        value: value,
+        validate: validate,
+      ));
+      result = Icon(
+        decodeIconData(value['icon'], validate: false)!,
+        color: ThemeDecoder.decodeColor(
+          value['color'],
+          validate: false,
+        ),
+        fill: JsonClass.maybeParseDouble(value['fill']),
+        grade: JsonClass.maybeParseDouble(value['grade']),
+        opticalSize: JsonClass.maybeParseDouble(value['opticalSize']),
+        semanticLabel: value['semanticLabel'],
+        shadows: JsonClass.maybeFromDynamicList(
+          value['shadows'],
+          (map) => ThemeDecoder.decodeShadow(
+            map,
+            validate: false,
+          )!,
+        ),
+        size: JsonClass.maybeParseDouble(value['size']),
+        textDirection: ThemeDecoder.decodeTextDirection(
+          value['textDirection'],
+          validate: false,
+        ),
+        weight: JsonClass.maybeParseDouble(value['weight']),
+      );
+    }
+
+    return result;
+  }
+
+  /// Decodes the given [value] to an [IconButtonThemeData].  This
+  /// expects the given [value] to follow the structure below:
+  ///
+  /// ```json
+  /// {
+  ///   "style": "<ButtonStyle>"
+  /// }
+  /// ```
+  ///
+  /// See also:
+  ///  * [decodeButtonStyle]
+  static IconButtonThemeData? decodeIconButtonThemeData(
+    dynamic value, {
+    bool validate = true,
+  }) {
+    IconButtonThemeData? result;
+
+    if (value is IconButtonThemeData) {
+      result = value;
+    } else if (value != null) {
+      assert(SchemaValidator.validate(
+        schemaId: '$_baseSchemaUrl/icon_button_theme_data',
+        value: value,
+        validate: validate,
+      ));
+      result = IconButtonThemeData(
+        style: decodeButtonStyle(
+          value['style'],
+          validate: false,
+        ),
+      );
+    }
+
+    return result;
+  }
+
+  /// Decodes the given [value] into an [IconData].  If the value is `null` then
+  /// `null` will be returned.
+  ///
+  /// ```json
+  /// {
+  ///   "codePoint": "<int>",
+  ///   "fontFamily": "<String>",
+  ///   "fontPackage": "<String>",
+  ///   "matchTextDirection": "<bool>"
   /// }
   /// ```
   static IconData? decodeIconData(
@@ -4223,7 +5414,7 @@ class ThemeDecoder {
         validate: validate,
       ));
       result = IconData(
-        JsonClass.parseInt(value['codePoint'])!,
+        JsonClass.maybeParseInt(value['codePoint'])!,
         fontFamily: value['fontFamily'],
         fontPackage: value['fontPackage'],
         matchTextDirection: JsonClass.parseBool(value['matchTextDirection']),
@@ -4238,10 +5429,14 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "color": <Color>,
-  ///   "opacity": <double>,
-  ///   "shadows": <List<Shadow>>,
-  ///   "size": <double>
+  ///   "color": "<Color>",
+  ///   "fill": "<Color>",
+  ///   "grade": "<double>",
+  ///   "opacity": "<double>",
+  ///   "opticalSize": "<double>",
+  ///   "shadows": "<List<Shadow>>",
+  ///   "size": "<double>",
+  ///   "weight": "<double>"
   /// }
   /// ```
   ///
@@ -4266,12 +5461,19 @@ class ThemeDecoder {
           value['color'],
           validate: false,
         ),
-        opacity: JsonClass.parseDouble(value['opacity']),
-        shadows: JsonClass.fromDynamicList(
+        fill: JsonClass.maybeParseDouble(value['fill']),
+        grade: JsonClass.maybeParseDouble(value['grade']),
+        opacity: JsonClass.maybeParseDouble(value['opacity']),
+        opticalSize: JsonClass.maybeParseDouble(value['opticalSize']),
+        shadows: JsonClass.maybeFromDynamicList(
           value['shadows'],
-          (map) => decodeShadow(map)!,
+          (map) => decodeShadow(
+            map,
+            validate: false,
+          )!,
         ),
-        size: JsonClass.parseDouble(value['size']),
+        size: JsonClass.maybeParseDouble(value['size']),
+        weight: JsonClass.maybeParseDouble(value['weight']),
       );
     }
 
@@ -4289,8 +5491,8 @@ class ThemeDecoder {
   /// Type: `asset`
   /// ```json
   /// {
-  ///   "assetName": <String>,
-  ///   "package": <String>,
+  ///   "assetName": "<String>",
+  ///   "package": "<String>",
   ///   "type": "asset"
   /// }
   /// ```
@@ -4298,8 +5500,8 @@ class ThemeDecoder {
   /// Type: `memory`
   /// ```json
   /// {
-  ///   "bytes": <String>,
-  ///   "scale": <double>,
+  ///   "bytes": "<String>",
+  ///   "scale": "<double>",
   ///   "type": "memory"
   /// }
   /// ```
@@ -4307,10 +5509,10 @@ class ThemeDecoder {
   /// Type: `network`
   /// ```json
   /// {
-  ///   "headers": <Map<String, String>>,
+  ///   "headers": "<Map<String, String>>",
   ///   "type": "network",
-  ///   "scale": <double>,
-  ///   "url": <String>
+  ///   "scale": "<double>",
+  ///   "url": "<String>"
   /// }
   /// ```
   static ImageProvider? decodeImageProvider(
@@ -4348,14 +5550,14 @@ class ThemeDecoder {
           case 'memory':
             result = MemoryImage(
               base64Decode(value['bytes']),
-              scale: JsonClass.parseDouble(value['scale'], 1.0)!,
+              scale: JsonClass.maybeParseDouble(value['scale'], 1.0)!,
             );
             break;
           case 'network':
             result = NetworkImage(
               value['url'],
               headers: value['headers'],
-              scale: JsonClass.parseDouble(value['scale'], 1.0)!,
+              scale: JsonClass.maybeParseDouble(value['scale'], 1.0)!,
             );
             break;
         }
@@ -4425,17 +5627,17 @@ class ThemeDecoder {
   /// Type: `outline`
   /// ```json
   /// {
-  ///   borderRadius: <BorderRadius>,
-  ///   borderSide: <BorderSide>,
-  ///   gapPadding: <double>
+  ///   borderRadius: "<BorderRadius>",
+  ///   borderSide: "<BorderSide>",
+  ///   gapPadding: "<double>"
   /// }
   /// ```
   ///
   /// Type: `underline`
   /// ```json
   /// {
-  ///   borderRadius: <BorderRadius>,
-  ///   borderSide: <BorderSide>
+  ///   borderRadius: "<BorderRadius>",
+  ///   borderSide: "<BorderSide>"
   /// }
   /// ```
   ///
@@ -4466,7 +5668,7 @@ class ThemeDecoder {
           value: value,
           validate: validate,
         ));
-        String? type = value['type'];
+        final String? type = value['type'];
 
         switch (type) {
           case 'outline':
@@ -4475,13 +5677,13 @@ class ThemeDecoder {
                     value['borderRadius'],
                     validate: false,
                   ) ??
-                  BorderRadius.all(Radius.circular(4.0)),
+                  const BorderRadius.all(Radius.circular(4.0)),
               borderSide: decodeBorderSide(
                     value['borderSide'],
                     validate: false,
                   ) ??
-                  BorderSide(),
-              gapPadding: JsonClass.parseDouble(value['gapPadding'], 4.0)!,
+                  const BorderSide(),
+              gapPadding: JsonClass.maybeParseDouble(value['gapPadding'], 4.0)!,
             );
             break;
 
@@ -4491,7 +5693,7 @@ class ThemeDecoder {
                     value['borderRadius'],
                     validate: false,
                   ) ??
-                  BorderRadius.only(
+                  const BorderRadius.only(
                     topLeft: Radius.circular(4.0),
                     topRight: Radius.circular(4.0),
                   ),
@@ -4514,40 +5716,43 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "alignLabelWithHint": <bool>,
-  ///   "border": <InputBorder>,
-  ///   "constraints": <BoxConstraints>,
-  ///   "contentPadding": <EdgeInsetsGeometry>,
-  ///   "counterStyle": <TextStyle>,
-  ///   "disabledBorder": <InputBorder>,
-  ///   "enabledBorder": <InputBorder>,
-  ///   "errorBorder": <InputBorder>,
-  ///   "errorMaxLines": <int>,
-  ///   "errorStyle": <TextStyle>,
-  ///   "fillColor": <Color>,
-  ///   "filled": <bool>,
-  ///   "floatingLabelAlignment": <FloatingLabelAlignment>,
-  ///   "floatingLabelBehavior": <FloatingLabelBehavior>,
-  ///   "floatingLabelStyle": <TextStyle>,
-  ///   "focusColor": <Color>,
-  ///   "focusedBorder": <InputBorder>,
-  ///   "focusedErrorBorder": <InputBorder>,
-  ///   "helperMaxLines": <int>,
-  ///   "helperStyle": <TextStyle>,
-  ///   "hintStyle": <TextStyle>,
-  ///   "hoverColor": <Color>,
-  ///   "iconColor": <Color>,
-  ///   "isCollapsed": <bool>,
-  ///   "isDense": <bool>,
-  ///   "labelStyle": <TextStyle>,
-  ///   "prefixIconColor": <Color>,
-  ///   "prefixStyle": <TextStyle>,
-  ///   "suffixStyle": <Color>,
-  ///   "suffixStyle": <TextStyle>
+  ///   "activeIndicatorBorder": "<BorderSide>",
+  ///   "alignLabelWithHint": "<bool>",
+  ///   "border": "<InputBorder>",
+  ///   "constraints": "<BoxConstraints>",
+  ///   "contentPadding": "<EdgeInsetsGeometry>",
+  ///   "counterStyle": "<TextStyle>",
+  ///   "disabledBorder": "<InputBorder>",
+  ///   "enabledBorder": "<InputBorder>",
+  ///   "errorBorder": "<InputBorder>",
+  ///   "errorMaxLines": "<int>",
+  ///   "errorStyle": "<TextStyle>",
+  ///   "fillColor": "<Color>",
+  ///   "filled": "<bool>",
+  ///   "floatingLabelAlignment": "<FloatingLabelAlignment>",
+  ///   "floatingLabelBehavior": "<FloatingLabelBehavior>",
+  ///   "floatingLabelStyle": "<TextStyle>",
+  ///   "focusColor": "<Color>",
+  ///   "focusedBorder": "<InputBorder>",
+  ///   "focusedErrorBorder": "<InputBorder>",
+  ///   "helperMaxLines": "<int>",
+  ///   "helperStyle": "<TextStyle>",
+  ///   "hintStyle": "<TextStyle>",
+  ///   "hoverColor": "<Color>",
+  ///   "iconColor": "<Color>",
+  ///   "isCollapsed": "<bool>",
+  ///   "isDense": "<bool>",
+  ///   "labelStyle": "<TextStyle>",
+  ///   "outlineBorder": "<BorderSide>",
+  ///   "prefixIconColor": "<Color>",
+  ///   "prefixStyle": "<TextStyle>",
+  ///   "suffixStyle": "<Color>",
+  ///   "suffixStyle": "<TextStyle>"
   /// }
   /// ```
   ///
   /// See also:
+  ///  * [decodeBorderSide]
   ///  * [decodeBoxConstraints]
   ///  * [decodeColor]
   ///  * [decodeEdgeInsetsGeometry]
@@ -4569,6 +5774,10 @@ class ThemeDecoder {
         validate: validate,
       ));
       result = InputDecorationTheme(
+        activeIndicatorBorder: decodeBorderSide(
+          value['activeIndicatorBorder'],
+          validate: false,
+        ),
         alignLabelWithHint: JsonClass.parseBool(value['alignLabelWithHint']),
         border: decodeInputBorder(
           value['border'],
@@ -4598,7 +5807,7 @@ class ThemeDecoder {
           value['errorBorder'],
           validate: false,
         ),
-        errorMaxLines: JsonClass.parseInt(value['errorMaxLines']),
+        errorMaxLines: JsonClass.maybeParseInt(value['errorMaxLines']),
         errorStyle: decodeTextStyle(
           value['errorStyle'],
           validate: false,
@@ -4618,7 +5827,10 @@ class ThemeDecoder {
               validate: false,
             ) ??
             FloatingLabelBehavior.auto,
-        floatingLabelStyle: decodeTextStyle(value['floatingLabelStyle']),
+        floatingLabelStyle: decodeTextStyle(
+          value['floatingLabelStyle'],
+          validate: false,
+        ),
         focusColor: decodeColor(
           value['focusColor'],
           validate: false,
@@ -4631,7 +5843,7 @@ class ThemeDecoder {
           value['focusedErrorBorder'],
           validate: false,
         ),
-        helperMaxLines: JsonClass.parseInt(value['helperMaxLines']),
+        helperMaxLines: JsonClass.maybeParseInt(value['helperMaxLines']),
         helperStyle: decodeTextStyle(
           value['helperStyle'],
           validate: false,
@@ -4652,6 +5864,10 @@ class ThemeDecoder {
         isDense: JsonClass.parseBool(value['isDense']),
         labelStyle: decodeTextStyle(
           value['labelStyle'],
+          validate: false,
+        ),
+        outlineBorder: decodeBorderSide(
+          value['outlineBorder'],
           validate: false,
         ),
         prefixIconColor: decodeColor(
@@ -4680,6 +5896,8 @@ class ThemeDecoder {
   /// values are:
   ///  * `splash`
   ///  * `ripple`
+  ///  * `sparkle`
+  ///
   static InteractiveInkFeatureFactory? decodeInteractiveInkFeatureFactory(
     dynamic value, {
     bool validate = true,
@@ -4693,6 +5911,7 @@ class ThemeDecoder {
         [
           'splash',
           'ripple',
+          'sparkle',
         ],
         value,
       );
@@ -4711,6 +5930,9 @@ class ThemeDecoder {
           case 'ripple':
             result = InkRipple.splashFactory;
             break;
+
+          case 'sparkle':
+            result = InkSparkle.splashFactory;
         }
       }
     }
@@ -4759,26 +5981,83 @@ class ThemeDecoder {
     return result;
   }
 
+  /// Decodes the [value] to an [ListTileTitleAlignment].  Supported
+  /// values are:
+  ///  * `bottom`
+  ///  * `center`
+  ///  * `threeLine`
+  ///  * `titleHeight`
+  ///  * `top`
+  static ListTileTitleAlignment? decodeListTileTitleAlignment(
+    dynamic value, {
+    bool validate = false,
+  }) {
+    ListTileTitleAlignment? result;
+
+    if (value is ListTileTitleAlignment) {
+      result = value;
+    } else if (value != null) {
+      _checkSupported(
+        'ListTileTitleAlignment',
+        [
+          'bottom',
+          'center',
+          'threeLine',
+          'titleHeight',
+          'top',
+        ],
+        value,
+      );
+
+      assert(SchemaValidator.validate(
+        schemaId: '$_baseSchemaUrl/list_tile_title_alignment',
+        value: value,
+        validate: validate,
+      ));
+
+      switch (value) {
+        case 'bottom':
+          result = ListTileTitleAlignment.bottom;
+          break;
+        case 'center':
+          result = ListTileTitleAlignment.center;
+          break;
+        case 'threeLine':
+          result = ListTileTitleAlignment.threeLine;
+          break;
+        case 'titleHeight':
+          result = ListTileTitleAlignment.titleHeight;
+          break;
+        case 'top':
+          result = ListTileTitleAlignment.top;
+          break;
+      }
+    }
+
+    return result;
+  }
+
   /// Decodes the given [value] to an [Locale].  This expects the
   /// given [value] to be of the following structure:
   ///
   /// ```json
   /// {
-  ///   "contentPadding": <EdgeInsetsGeometry>,
-  ///   "dense": <bool>,
-  ///   "enableFeedback": <bool>,
-  ///   "horizontalTitleGap": <double>,
-  ///   "iconColor": <Color>,
-  ///   "minLeadingWidth": <double>,
-  ///   "minVerticalPadding": <double>,
-  ///   "mouseCursor": <MaterialStateProperty<MouseCursor>>,
-  ///   "selectedColor": <Color>,
-  ///   "selectedTileColor": <Color>,
-  ///   "shape": <ShapeBorder>,
-  ///   "style": <ListTileStyle>,
-  ///   "textColor": <Color>,
-  ///   "tileColor": <Color>,
-  ///   "visualDensity": <VisualDensity>
+  ///   "contentPadding": "<EdgeInsetsGeometry>",
+  ///   "dense": "<bool>",
+  ///   "enableFeedback": "<bool>",
+  ///   "horizontalTitleGap": "<double>",
+  ///   "iconColor": "<Color>",
+  ///   "leadingAndTrailingTextStyle": "<TextStyle>",
+  ///   "minLeadingWidth": "<double>",
+  ///   "minVerticalPadding": "<double>",
+  ///   "mouseCursor": "<MaterialStateProperty<MouseCursor>>",
+  ///   "selectedColor": "<Color>",
+  ///   "selectedTileColor": "<Color>",
+  ///   "shape": "<ShapeBorder>",
+  ///   "style": "<ListTileStyle>",
+  ///   "textColor": "<Color>",
+  ///   "tileColor": "<Color>",
+  ///   "visualDensity": "<VisualDensity>"
   /// }
   /// ```
   static ListTileThemeData? decodeListTileThemeData(
@@ -4801,18 +6080,21 @@ class ThemeDecoder {
           value['contentPadding'],
           validate: false,
         ),
-        dense:
-            value['dense'] == null ? null : JsonClass.parseBool(value['dense']),
-        enableFeedback: value['enableFeedback'] == null
-            ? null
-            : JsonClass.parseBool(value['enableFeedback']),
-        horizontalTitleGap: JsonClass.parseDouble(value['horizontalTitleGap']),
+        dense: JsonClass.maybeParseBool(value['dense']),
+        enableFeedback: JsonClass.maybeParseBool(value['enableFeedback']),
+        horizontalTitleGap:
+            JsonClass.maybeParseDouble(value['horizontalTitleGap']),
         iconColor: decodeColor(
           value['iconColor'],
           validate: false,
         ),
-        minLeadingWidth: JsonClass.parseDouble(value['minLeadingWidth']),
-        minVerticalPadding: JsonClass.parseDouble(value['minVerticalPadding']),
+        leadingAndTrailingTextStyle: decodeTextStyle(
+          value['leadingAndTrailingTextStyle'],
+          validate: false,
+        ),
+        minLeadingWidth: JsonClass.maybeParseDouble(value['minLeadingWidth']),
+        minVerticalPadding:
+            JsonClass.maybeParseDouble(value['minVerticalPadding']),
         mouseCursor: decodeMaterialStatePropertyMouseCursor(
           value['mouseCursor'],
           validate: false,
@@ -4829,6 +6111,10 @@ class ThemeDecoder {
           value['shape'],
           validate: false,
         ),
+        subtitleTextStyle: decodeTextStyle(
+          value['subtitleTextStyle'],
+          validate: false,
+        ),
         style: decodeListTileStyle(
           value['style'],
           validate: false,
@@ -4839,6 +6125,14 @@ class ThemeDecoder {
         ),
         tileColor: decodeColor(
           value['tileColor'],
+          validate: false,
+        ),
+        titleAlignment: decodeListTileTitleAlignment(
+          value['titleAlignment'],
+          validate: false,
+        ),
+        titleTextStyle: decodeTextStyle(
+          value['titleTextStyle'],
           validate: false,
         ),
         visualDensity: decodeVisualDensity(
@@ -4856,8 +6150,8 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "countryCode": <String>,
-  ///   "languageCode": <String>
+  ///   "countryCode": "<String>",
+  ///   "languageCode": "<String>"
   /// }
   /// ```
   static Locale? decodeLocale(
@@ -4987,11 +6281,14 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "backgroundColor": <Color>,
-  ///   "contentTextStyle": <TextStyle>,
-  ///   "elevation": <double>,
-  ///   "leadingPadding": <EdgeInsetsGeometry>,
-  ///   "padding": <EdgeInsetsGeometry>
+  ///   "backgroundColor": "<Color>",
+  ///   "contentTextStyle": "<TextStyle>",
+  ///   "dividerColor": "<Color>",
+  ///   "elevation": "<double>",
+  ///   "leadingPadding": "<EdgeInsetsGeometry>",
+  ///   "padding": "<EdgeInsetsGeometry>",
+  ///   "shadowColor": "<Color>",
+  ///   "surfaceTintColor": "<Color>"
   /// }
   /// ```
   ///
@@ -5022,13 +6319,25 @@ class ThemeDecoder {
           value['contentTextStyle'],
           validate: false,
         ),
-        elevation: JsonClass.parseDouble(value['elevation']),
+        dividerColor: decodeColor(
+          value['dividerColor'],
+          validate: false,
+        ),
+        elevation: JsonClass.maybeParseDouble(value['elevation']),
         leadingPadding: decodeEdgeInsetsGeometry(
           value['leadingPadding'],
           validate: false,
         ),
         padding: decodeEdgeInsetsGeometry(
           value['padding'],
+          validate: false,
+        ),
+        shadowColor: decodeColor(
+          value['shadowColor'],
+          validate: false,
+        ),
+        surfaceTintColor: decodeColor(
+          value['surfaceTintColor'],
           validate: false,
         ),
       );
@@ -5042,8 +6351,8 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "primary": <Color>,
-  ///   "swatches": <Map<String, Color>
+  ///   "primary": "<Color>",
+  ///   "swatches": "<Map<String, Color>"
   /// }
   /// ```
   ///
@@ -5063,16 +6372,22 @@ class ThemeDecoder {
         value: value,
         validate: validate,
       ));
-      var swatches = <int, Color>{};
+      final swatches = <int, Color>{};
 
-      var swatchesIn = value['swatches'];
+      final swatchesIn = value['swatches'];
       swatchesIn.forEach(
-        (key, value) =>
-            swatches[JsonClass.parseInt(key)!] = decodeColor(value)!,
+        (key, value) => swatches[JsonClass.maybeParseInt(key)!] = decodeColor(
+          value,
+          validate: false,
+        )!,
       );
 
       result = MaterialColor(
-        decodeColor(value['primary'])!.value,
+        decodeColor(
+          value['primary'],
+          validate: false,
+        )!
+            .value,
         swatches,
       );
     }
@@ -5088,15 +6403,15 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "disabled": <bool>,
-  ///   "dragged": <bool>,
-  ///   "empty": <bool>,
-  ///   "error": <bool>,
-  ///   "focused": <bool>,
-  ///   "hovered": <bool>,
-  ///   "pressed": <bool>,
-  ///   "scrolledUnder": <bool>,
-  ///   "selected": <bool>
+  ///   "disabled": "<bool>",
+  ///   "dragged": "<bool>",
+  ///   "empty": "<bool>",
+  ///   "error": "<bool>",
+  ///   "focused": "<bool>",
+  ///   "hovered": "<bool>",
+  ///   "pressed": "<bool>",
+  ///   "scrolledUnder": "<bool>",
+  ///   "selected": "<bool>"
   /// }
   /// ```
   static MaterialStateProperty<bool?>? decodeMaterialStatePropertyBool(
@@ -5117,44 +6432,26 @@ class ThemeDecoder {
           validate: validate,
         ));
 
-        result = MaterialStateProperty.resolveWith((states) {
+        result = MapMaterialStateProperty.resolveWith((states) {
           bool? result;
           if (states.contains(MaterialState.disabled)) {
-            result = value['disabled'] == null
-                ? null
-                : JsonClass.parseBool(value['disabled']);
+            result = JsonClass.maybeParseBool(value['disabled']);
           } else if (states.contains(MaterialState.dragged)) {
-            result = value['dragged'] == null
-                ? null
-                : JsonClass.parseBool(value['dragged']);
+            result = JsonClass.maybeParseBool(value['dragged']);
           } else if (states.contains(MaterialState.error)) {
-            result = value['error'] == null
-                ? null
-                : JsonClass.parseBool(value['error']);
+            result = JsonClass.maybeParseBool(value['error']);
           } else if (states.contains(MaterialState.focused)) {
-            result = value['focused'] == null
-                ? null
-                : JsonClass.parseBool(value['focused']);
+            result = JsonClass.maybeParseBool(value['focused']);
           } else if (states.contains(MaterialState.hovered)) {
-            result = value['hovered'] == null
-                ? null
-                : JsonClass.parseBool(value['hovered']);
+            result = JsonClass.maybeParseBool(value['hovered']);
           } else if (states.contains(MaterialState.pressed)) {
-            result = value['pressed'] == null
-                ? null
-                : JsonClass.parseBool(value['pressed']);
+            result = JsonClass.maybeParseBool(value['pressed']);
           } else if (states.contains(MaterialState.scrolledUnder)) {
-            result = value['scrolledUnder'] == null
-                ? null
-                : JsonClass.parseBool(value['scrolledUnder']);
+            result = JsonClass.maybeParseBool(value['scrolledUnder']);
           } else if (states.contains(MaterialState.selected)) {
-            result = value['selected'] == null
-                ? null
-                : JsonClass.parseBool(value['selected']);
+            result = JsonClass.maybeParseBool(value['selected']);
           } else {
-            result = value['empty'] == null
-                ? null
-                : JsonClass.parseBool(value['empty']);
+            result = JsonClass.maybeParseBool(value['empty']);
           }
 
           return result;
@@ -5175,15 +6472,15 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "disabled": <BorderSide>,
-  ///   "dragged": <BorderSide>,
-  ///   "empty": <BorderSide>,
-  ///   "error": <BorderSide>,
-  ///   "focused": <BorderSide>,
-  ///   "hovered": <BorderSide>,
-  ///   "pressed": <BorderSide>,
-  ///   "scrolledUnder": <BorderSide>,
-  ///   "selected": <BorderSide>
+  ///   "disabled": "<BorderSide>",
+  ///   "dragged": "<BorderSide>",
+  ///   "empty": "<BorderSide>",
+  ///   "error": "<BorderSide>",
+  ///   "focused": "<BorderSide>",
+  ///   "hovered": "<BorderSide>",
+  ///   "pressed": "<BorderSide>",
+  ///   "scrolledUnder": "<BorderSide>",
+  ///   "selected": "<BorderSide>"
   /// }
   /// ```
   ///
@@ -5203,10 +6500,13 @@ class ThemeDecoder {
         result = MaterialStateProperty.all<BorderSide?>(value);
       } else if (value is String) {
         result = MaterialStateProperty.all<BorderSide?>(
-          decodeBorderSide(value),
+          decodeBorderSide(
+            value,
+            validate: false,
+          ),
         );
       } else if (value is Map) {
-        var testValues = [
+        final testValues = [
           'disabled',
           'dragged',
           'empty',
@@ -5228,7 +6528,10 @@ class ThemeDecoder {
 
         if (isMsp != true) {
           result = MaterialStateProperty.all<BorderSide?>(
-            decodeBorderSide(value),
+            decodeBorderSide(
+              value,
+              validate: false,
+            ),
           );
         } else {
           assert(SchemaValidator.validate(
@@ -5237,26 +6540,53 @@ class ThemeDecoder {
             validate: validate,
           ));
 
-          result = MaterialStateProperty.resolveWith((states) {
+          result = MapMaterialStateProperty.resolveWith((states) {
             BorderSide? result;
             if (states.contains(MaterialState.disabled)) {
-              result = decodeBorderSide(value['disabled']);
+              result = decodeBorderSide(
+                value['disabled'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.dragged)) {
-              result = decodeBorderSide(value['dragged']);
+              result = decodeBorderSide(
+                value['dragged'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.error)) {
-              result = decodeBorderSide(value['error']);
+              result = decodeBorderSide(
+                value['error'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.focused)) {
-              result = decodeBorderSide(value['focused']);
+              result = decodeBorderSide(
+                value['focused'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.hovered)) {
-              result = decodeBorderSide(value['hovered']);
+              result = decodeBorderSide(
+                value['hovered'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.pressed)) {
-              result = decodeBorderSide(value['pressed']);
+              result = decodeBorderSide(
+                value['pressed'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.scrolledUnder)) {
-              result = decodeBorderSide(value['scrolledUnder']);
+              result = decodeBorderSide(
+                value['scrolledUnder'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.selected)) {
-              result = decodeBorderSide(value['selected']);
+              result = decodeBorderSide(
+                value['selected'],
+                validate: false,
+              );
             } else {
-              result = decodeBorderSide(value['empty']);
+              result = decodeBorderSide(
+                value['empty'],
+                validate: false,
+              );
             }
 
             return result;
@@ -5277,15 +6607,15 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "disabled": <Color>,
-  ///   "dragged": <Color>,
-  ///   "empty": <Color>,
-  ///   "error": <Color>,
-  ///   "focused": <Color>,
-  ///   "hovered": <Color>,
-  ///   "pressed": <Color>,
-  ///   "scrolledUnder": <Color>,
-  ///   "selected": <Color>
+  ///   "disabled": "<Color>",
+  ///   "dragged": "<Color>",
+  ///   "empty": "<Color>",
+  ///   "error": "<Color>",
+  ///   "focused": "<Color>",
+  ///   "hovered": "<Color>",
+  ///   "pressed": "<Color>",
+  ///   "scrolledUnder": "<Color>",
+  ///   "selected": "<Color>"
   /// }
   /// ```
   ///
@@ -5303,7 +6633,10 @@ class ThemeDecoder {
       if (value is Color) {
         result = MaterialStateProperty.all<Color?>(value);
       } else if (value is String) {
-        result = MaterialStateProperty.all<Color?>(decodeColor(value));
+        result = MaterialStateProperty.all<Color?>(decodeColor(
+          value,
+          validate: false,
+        ));
       } else if (value is Map) {
         assert(SchemaValidator.validate(
           schemaId: '$_baseSchemaUrl/material_state_property_color',
@@ -5311,26 +6644,53 @@ class ThemeDecoder {
           validate: validate,
         ));
 
-        result = MaterialStateProperty.resolveWith((states) {
+        result = MapMaterialStateProperty.resolveWith((states) {
           Color? result;
           if (states.contains(MaterialState.disabled)) {
-            result = decodeColor(value['disabled']);
+            result = decodeColor(
+              value['disabled'],
+              validate: false,
+            );
           } else if (states.contains(MaterialState.dragged)) {
-            result = decodeColor(value['dragged']);
+            result = decodeColor(
+              value['dragged'],
+              validate: false,
+            );
           } else if (states.contains(MaterialState.error)) {
-            result = decodeColor(value['error']);
+            result = decodeColor(
+              value['error'],
+              validate: false,
+            );
           } else if (states.contains(MaterialState.focused)) {
-            result = decodeColor(value['focused']);
-          } else if (states.contains(MaterialState.hovered)) {
-            result = decodeColor(value['hovered']);
+            result = decodeColor(
+              value['focused'],
+              validate: false,
+            );
           } else if (states.contains(MaterialState.pressed)) {
-            result = decodeColor(value['pressed']);
+            result = decodeColor(
+              value['pressed'],
+              validate: false,
+            );
+          } else if (states.contains(MaterialState.hovered)) {
+            result = decodeColor(
+              value['hovered'],
+              validate: false,
+            );
           } else if (states.contains(MaterialState.scrolledUnder)) {
-            result = decodeColor(value['scrolledUnder']);
+            result = decodeColor(
+              value['scrolledUnder'],
+              validate: false,
+            );
           } else if (states.contains(MaterialState.selected)) {
-            result = decodeColor(value['selected']);
+            result = decodeColor(
+              value['selected'],
+              validate: false,
+            );
           } else {
-            result = decodeColor(value['empty']);
+            result = decodeColor(
+              value['empty'],
+              validate: false,
+            );
           }
 
           return result;
@@ -5350,15 +6710,15 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "disabled": <double>,
-  ///   "dragged": <double>,
-  ///   "empty": <double>,
-  ///   "error": <double>,
-  ///   "focused": <double>,
-  ///   "hovered": <double>,
-  ///   "pressed": <double>,
-  ///   "scrolledUnder": <double>,
-  ///   "selected": <double>
+  ///   "disabled": "<double>",
+  ///   "dragged": "<double>",
+  ///   "empty": "<double>",
+  ///   "error": "<double>",
+  ///   "focused": "<double>",
+  ///   "hovered": "<double>",
+  ///   "pressed": "<double>",
+  ///   "scrolledUnder": "<double>",
+  ///   "selected": "<double>"
   /// }
   /// ```
   static MaterialStateProperty<double?>? decodeMaterialStatePropertyDouble(
@@ -5376,7 +6736,7 @@ class ThemeDecoder {
         result = MaterialStateProperty.all<double?>(value);
       } else if (value is String) {
         result = MaterialStateProperty.all<double?>(
-          JsonClass.parseDouble(value),
+          JsonClass.maybeParseDouble(value),
         );
       } else if (value is Map) {
         assert(SchemaValidator.validate(
@@ -5385,26 +6745,26 @@ class ThemeDecoder {
           validate: validate,
         ));
 
-        result = MaterialStateProperty.resolveWith((states) {
+        result = MapMaterialStateProperty.resolveWith((states) {
           double? result;
           if (states.contains(MaterialState.disabled)) {
-            result = JsonClass.parseDouble(value['disabled']);
+            result = JsonClass.maybeParseDouble(value['disabled']);
           } else if (states.contains(MaterialState.dragged)) {
-            result = JsonClass.parseDouble(value['dragged']);
+            result = JsonClass.maybeParseDouble(value['dragged']);
           } else if (states.contains(MaterialState.error)) {
-            result = JsonClass.parseDouble(value['error']);
+            result = JsonClass.maybeParseDouble(value['error']);
           } else if (states.contains(MaterialState.focused)) {
-            result = JsonClass.parseDouble(value['focused']);
+            result = JsonClass.maybeParseDouble(value['focused']);
           } else if (states.contains(MaterialState.hovered)) {
-            result = JsonClass.parseDouble(value['hovered']);
+            result = JsonClass.maybeParseDouble(value['hovered']);
           } else if (states.contains(MaterialState.pressed)) {
-            result = JsonClass.parseDouble(value['pressed']);
+            result = JsonClass.maybeParseDouble(value['pressed']);
           } else if (states.contains(MaterialState.scrolledUnder)) {
-            result = JsonClass.parseDouble(value['scrolledUnder']);
+            result = JsonClass.maybeParseDouble(value['scrolledUnder']);
           } else if (states.contains(MaterialState.selected)) {
-            result = JsonClass.parseDouble(value['selected']);
+            result = JsonClass.maybeParseDouble(value['selected']);
           } else {
-            result = JsonClass.parseDouble(value['empty']);
+            result = JsonClass.maybeParseDouble(value['empty']);
           }
 
           return result;
@@ -5432,10 +6792,10 @@ class ThemeDecoder {
   /// The value may be a [Map] in the following format:
   /// ```json
   /// {
-  ///   "bottom": <double>,
-  ///   "left": <double>,
-  ///   "right": <double>,
-  ///   "top": <double>
+  ///   "bottom": "<double>",
+  ///   "left": "<double>",
+  ///   "right": "<double>",
+  ///   "top": "<double>"
   /// }
   /// ```
   ///
@@ -5443,15 +6803,15 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "disabled": <EdgeInsetsGeometry>,
-  ///   "dragged": <EdgeInsetsGeometry>,
-  ///   "empty": <EdgeInsetsGeometry>,
-  ///   "error": <EdgeInsetsGeometry>,
-  ///   "focused": <EdgeInsetsGeometry>,
-  ///   "hovered": <EdgeInsetsGeometry>,
-  ///   "pressed": <EdgeInsetsGeometry>,
-  ///   "scrolledUnder": <EdgeInsetsGeometry>,
-  ///   "selected": <EdgeInsetsGeometry>
+  ///   "disabled": "<EdgeInsetsGeometry>",
+  ///   "dragged": "<EdgeInsetsGeometry>",
+  ///   "empty": "<EdgeInsetsGeometry>",
+  ///   "error": "<EdgeInsetsGeometry>",
+  ///   "focused": "<EdgeInsetsGeometry>",
+  ///   "hovered": "<EdgeInsetsGeometry>",
+  ///   "pressed": "<EdgeInsetsGeometry>",
+  ///   "scrolledUnder": "<EdgeInsetsGeometry>",
+  ///   "selected": "<EdgeInsetsGeometry>"
   /// }
   /// ```
   ///
@@ -5471,10 +6831,13 @@ class ThemeDecoder {
         result = MaterialStateProperty.all<EdgeInsetsGeometry?>(value);
       } else if (value is String || value is List || value is int) {
         result = MaterialStateProperty.all<EdgeInsetsGeometry?>(
-          decodeEdgeInsetsGeometry(value),
+          decodeEdgeInsetsGeometry(
+            value,
+            validate: false,
+          ),
         );
       } else if (value is Map) {
-        var testValues = [
+        final testValues = [
           'disabled',
           'dragged',
           'empty',
@@ -5496,7 +6859,10 @@ class ThemeDecoder {
 
         if (isMsp != true) {
           result = MaterialStateProperty.all<EdgeInsetsGeometry?>(
-            decodeEdgeInsetsGeometry(value),
+            decodeEdgeInsetsGeometry(
+              value,
+              validate: false,
+            ),
           );
         } else {
           assert(SchemaValidator.validate(
@@ -5506,26 +6872,53 @@ class ThemeDecoder {
             validate: validate,
           ));
 
-          result = MaterialStateProperty.resolveWith((states) {
+          result = MapMaterialStateProperty.resolveWith((states) {
             EdgeInsetsGeometry? result;
             if (states.contains(MaterialState.disabled)) {
-              result = decodeEdgeInsetsGeometry(value['disabled']);
+              result = decodeEdgeInsetsGeometry(
+                value['disabled'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.dragged)) {
-              result = decodeEdgeInsetsGeometry(value['dragged']);
+              result = decodeEdgeInsetsGeometry(
+                value['dragged'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.error)) {
-              result = decodeEdgeInsetsGeometry(value['error']);
+              result = decodeEdgeInsetsGeometry(
+                value['error'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.focused)) {
-              result = decodeEdgeInsetsGeometry(value['focused']);
+              result = decodeEdgeInsetsGeometry(
+                value['focused'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.hovered)) {
-              result = decodeEdgeInsetsGeometry(value['hovered']);
+              result = decodeEdgeInsetsGeometry(
+                value['hovered'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.pressed)) {
-              result = decodeEdgeInsetsGeometry(value['pressed']);
+              result = decodeEdgeInsetsGeometry(
+                value['pressed'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.scrolledUnder)) {
-              result = decodeEdgeInsetsGeometry(value['scrolledUnder']);
+              result = decodeEdgeInsetsGeometry(
+                value['scrolledUnder'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.selected)) {
-              result = decodeEdgeInsetsGeometry(value['selected']);
+              result = decodeEdgeInsetsGeometry(
+                value['selected'],
+                validate: false,
+              );
             } else {
-              result = decodeEdgeInsetsGeometry(value['empty']);
+              result = decodeEdgeInsetsGeometry(
+                value['empty'],
+                validate: false,
+              );
             }
 
             return result;
@@ -5533,6 +6926,106 @@ class ThemeDecoder {
         }
       } else {
         result = MaterialStateProperty.all<EdgeInsetsGeometry?>(value);
+      }
+    }
+    return result;
+  }
+
+  /// Decodes a [value] into a [Icon] based [MaterialStateProperty].  This
+  /// accepts a [Icon] or a [String] which will be resolved for all states.
+  ///
+  /// Alternatively, if the [value] is a [Map] then this expects the following
+  /// format:
+  ///
+  /// ```json
+  /// {
+  ///   "disabled": "<Icon>",
+  ///   "dragged": "<Icon>",
+  ///   "empty": "<Icon>",
+  ///   "error": "<Icon>",
+  ///   "focused": "<Icon>",
+  ///   "hovered": "<Icon>",
+  ///   "pressed": "<Icon>",
+  ///   "scrolledUnder": "<Icon>",
+  ///   "selected": "<Icon>"
+  /// }
+  /// ```
+  ///
+  /// See also:
+  ///  * [decodeIconData]
+  static MaterialStateProperty<Icon?>? decodeMaterialStatePropertyIcon(
+    dynamic value, {
+    bool validate = true,
+  }) {
+    MaterialStateProperty<Icon?>? result;
+
+    if (value is MaterialStateProperty<Icon?>) {
+      result = value;
+    } else if (value != null) {
+      if (value is Icon) {
+        result = MaterialStateProperty.all<Icon?>(value);
+      } else if (value is IconData) {
+        result = MaterialStateProperty.all<Icon?>(Icon(value));
+      } else if (value is Map) {
+        assert(SchemaValidator.validate(
+          schemaId: '$_baseSchemaUrl/material_state_property_icon',
+          value: value,
+          validate: validate,
+        ));
+
+        result = MapMaterialStateProperty.resolveWith((states) {
+          Icon? result;
+          if (states.contains(MaterialState.disabled)) {
+            result = decodeIcon(
+              value['disabled'],
+              validate: false,
+            );
+          } else if (states.contains(MaterialState.dragged)) {
+            result = decodeIcon(
+              value['dragged'],
+              validate: false,
+            );
+          } else if (states.contains(MaterialState.error)) {
+            result = decodeIcon(
+              value['error'],
+              validate: false,
+            );
+          } else if (states.contains(MaterialState.focused)) {
+            result = decodeIcon(
+              value['focused'],
+              validate: false,
+            );
+          } else if (states.contains(MaterialState.pressed)) {
+            result = decodeIcon(
+              value['pressed'],
+              validate: false,
+            );
+          } else if (states.contains(MaterialState.hovered)) {
+            result = decodeIcon(
+              value['hovered'],
+              validate: false,
+            );
+          } else if (states.contains(MaterialState.scrolledUnder)) {
+            result = decodeIcon(
+              value['scrolledUnder'],
+              validate: false,
+            );
+          } else if (states.contains(MaterialState.selected)) {
+            result = decodeIcon(
+              value['selected'],
+              validate: false,
+            );
+          } else {
+            result = decodeIcon(
+              value['empty'],
+              validate: false,
+            );
+          }
+
+          return result;
+        });
+      } else {
+        result = MaterialStateProperty.all<Icon?>(value);
       }
     }
     return result;
@@ -5547,15 +7040,15 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "disabled": <IconThemeData>,
-  ///   "dragged": <IconThemeData>,
-  ///   "empty": <IconThemeData>,
-  ///   "error": <IconThemeData>,
-  ///   "focused": <IconThemeData>,
-  ///   "hovered": <IconThemeData>,
-  ///   "pressed": <IconThemeData>,
-  ///   "scrolledUnder": <IconThemeData>,
-  ///   "selected": <IconThemeData>
+  ///   "disabled": "<IconThemeData>",
+  ///   "dragged": "<IconThemeData>",
+  ///   "empty": "<IconThemeData>",
+  ///   "error": "<IconThemeData>",
+  ///   "focused": "<IconThemeData>",
+  ///   "hovered": "<IconThemeData>",
+  ///   "pressed": "<IconThemeData>",
+  ///   "scrolledUnder": "<IconThemeData>",
+  ///   "selected": "<IconThemeData>"
   /// }
   /// ```
   ///
@@ -5575,10 +7068,13 @@ class ThemeDecoder {
         result = MaterialStateProperty.all<IconThemeData?>(value);
       } else if (value is String) {
         result = MaterialStateProperty.all<IconThemeData?>(
-          decodeIconThemeData(value),
+          decodeIconThemeData(
+            value,
+            validate: false,
+          ),
         );
       } else if (value is Map) {
-        var testValues = [
+        final testValues = [
           'disabled',
           'dragged',
           'empty',
@@ -5600,7 +7096,10 @@ class ThemeDecoder {
 
         if (isMsp != true) {
           result = MaterialStateProperty.all<IconThemeData?>(
-            decodeIconThemeData(value),
+            decodeIconThemeData(
+              value,
+              validate: false,
+            ),
           );
         } else {
           assert(SchemaValidator.validate(
@@ -5609,26 +7108,53 @@ class ThemeDecoder {
             validate: validate,
           ));
 
-          result = MaterialStateProperty.resolveWith((states) {
+          result = MapMaterialStateProperty.resolveWith((states) {
             IconThemeData? result;
             if (states.contains(MaterialState.disabled)) {
-              result = decodeIconThemeData(value['disabled']);
+              result = decodeIconThemeData(
+                value['disabled'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.dragged)) {
-              result = decodeIconThemeData(value['dragged']);
+              result = decodeIconThemeData(
+                value['dragged'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.error)) {
-              result = decodeIconThemeData(value['error']);
+              result = decodeIconThemeData(
+                value['error'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.focused)) {
-              result = decodeIconThemeData(value['focused']);
+              result = decodeIconThemeData(
+                value['focused'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.hovered)) {
-              result = decodeIconThemeData(value['hovered']);
+              result = decodeIconThemeData(
+                value['hovered'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.pressed)) {
-              result = decodeIconThemeData(value['pressed']);
+              result = decodeIconThemeData(
+                value['pressed'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.scrolledUnder)) {
-              result = decodeIconThemeData(value['scrolledUnder']);
+              result = decodeIconThemeData(
+                value['scrolledUnder'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.selected)) {
-              result = decodeIconThemeData(value['selected']);
+              result = decodeIconThemeData(
+                value['selected'],
+                validate: false,
+              );
             } else {
-              result = decodeIconThemeData(value['empty']);
+              result = decodeIconThemeData(
+                value['empty'],
+                validate: false,
+              );
             }
 
             return result;
@@ -5650,15 +7176,15 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "disabled": <MouseCursor>,
-  ///   "dragged": <MouseCursor>,
-  ///   "empty": <MouseCursor>,
-  ///   "error": <MouseCursor>,
-  ///   "focused": <MouseCursor>,
-  ///   "hovered": <MouseCursor>,
-  ///   "pressed": <MouseCursor>,
-  ///   "scrolledUnder": <MouseCursor>,
-  ///   "selected": <MouseCursor>
+  ///   "disabled": "<MouseCursor>",
+  ///   "dragged": "<MouseCursor>",
+  ///   "empty": "<MouseCursor>",
+  ///   "error": "<MouseCursor>",
+  ///   "focused": "<MouseCursor>",
+  ///   "hovered": "<MouseCursor>",
+  ///   "pressed": "<MouseCursor>",
+  ///   "scrolledUnder": "<MouseCursor>",
+  ///   "selected": "<MouseCursor>"
   /// }
   /// ```
   ///
@@ -5677,10 +7203,12 @@ class ThemeDecoder {
       if (value is MouseCursor) {
         result = MaterialStateProperty.all<MouseCursor?>(value);
       } else if (value is String) {
-        result =
-            MaterialStateProperty.all<MouseCursor?>(decodeMouseCursor(value));
+        result = MaterialStateProperty.all<MouseCursor?>(decodeMouseCursor(
+          value,
+          validate: false,
+        ));
       } else if (value is Map) {
-        var testValues = [
+        final testValues = [
           'disabled',
           'dragged',
           'empty',
@@ -5702,7 +7230,10 @@ class ThemeDecoder {
 
         if (isMsp != true) {
           result = MaterialStateProperty.all<MouseCursor?>(
-            decodeMouseCursor(value),
+            decodeMouseCursor(
+              value,
+              validate: false,
+            ),
           );
         } else {
           assert(SchemaValidator.validate(
@@ -5711,26 +7242,53 @@ class ThemeDecoder {
             validate: validate,
           ));
 
-          result = MaterialStateProperty.resolveWith((states) {
+          result = MapMaterialStateProperty.resolveWith((states) {
             MouseCursor? result;
             if (states.contains(MaterialState.disabled)) {
-              result = decodeMouseCursor(value['disabled']);
+              result = decodeMouseCursor(
+                value['disabled'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.dragged)) {
-              result = decodeMouseCursor(value['dragged']);
+              result = decodeMouseCursor(
+                value['dragged'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.error)) {
-              result = decodeMouseCursor(value['error']);
+              result = decodeMouseCursor(
+                value['error'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.focused)) {
-              result = decodeMouseCursor(value['focused']);
+              result = decodeMouseCursor(
+                value['focused'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.hovered)) {
-              result = decodeMouseCursor(value['hovered']);
+              result = decodeMouseCursor(
+                value['hovered'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.pressed)) {
-              result = decodeMouseCursor(value['pressed']);
+              result = decodeMouseCursor(
+                value['pressed'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.scrolledUnder)) {
-              result = decodeMouseCursor(value['scrolledUnder']);
+              result = decodeMouseCursor(
+                value['scrolledUnder'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.selected)) {
-              result = decodeMouseCursor(value['selected']);
+              result = decodeMouseCursor(
+                value['selected'],
+                validate: false,
+              );
             } else {
-              result = decodeMouseCursor(value['empty']);
+              result = decodeMouseCursor(
+                value['empty'],
+                validate: false,
+              );
             }
 
             return result;
@@ -5752,15 +7310,15 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "disabled": <OutlinedBorder>,
-  ///   "dragged": <OutlinedBorder>,
-  ///   "empty": <OutlinedBorder>,
-  ///   "error": <OutlinedBorder>,
-  ///   "focused": <OutlinedBorder>,
-  ///   "hovered": <OutlinedBorder>,
-  ///   "pressed": <OutlinedBorder>,
-  ///   "scrolledUnder": <OutlinedBorder>,
-  ///   "selected": <OutlinedBorder>
+  ///   "disabled": "<OutlinedBorder>",
+  ///   "dragged": "<OutlinedBorder>",
+  ///   "empty": "<OutlinedBorder>",
+  ///   "error": "<OutlinedBorder>",
+  ///   "focused": "<OutlinedBorder>",
+  ///   "hovered": "<OutlinedBorder>",
+  ///   "pressed": "<OutlinedBorder>",
+  ///   "scrolledUnder": "<OutlinedBorder>",
+  ///   "selected": "<OutlinedBorder>"
   /// }
   /// ```
   ///
@@ -5780,10 +7338,13 @@ class ThemeDecoder {
         result = MaterialStateProperty.all<OutlinedBorder?>(value);
       } else if (value is String) {
         result = MaterialStateProperty.all<OutlinedBorder?>(
-          decodeOutlinedBorder(value),
+          decodeOutlinedBorder(
+            value,
+            validate: false,
+          ),
         );
       } else if (value is Map) {
-        var testValues = [
+        final testValues = [
           'disabled',
           'dragged',
           'empty',
@@ -5805,7 +7366,10 @@ class ThemeDecoder {
 
         if (isMsp != true) {
           result = MaterialStateProperty.all<OutlinedBorder?>(
-            decodeOutlinedBorder(value),
+            decodeOutlinedBorder(
+              value,
+              validate: false,
+            ),
           );
         } else {
           assert(SchemaValidator.validate(
@@ -5814,26 +7378,53 @@ class ThemeDecoder {
             validate: validate,
           ));
 
-          result = MaterialStateProperty.resolveWith((states) {
+          result = MapMaterialStateProperty.resolveWith((states) {
             OutlinedBorder? result;
             if (states.contains(MaterialState.disabled)) {
-              result = decodeOutlinedBorder(value['disabled']);
+              result = decodeOutlinedBorder(
+                value['disabled'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.dragged)) {
-              result = decodeOutlinedBorder(value['dragged']);
+              result = decodeOutlinedBorder(
+                value['dragged'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.error)) {
-              result = decodeOutlinedBorder(value['error']);
+              result = decodeOutlinedBorder(
+                value['error'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.focused)) {
-              result = decodeOutlinedBorder(value['focused']);
+              result = decodeOutlinedBorder(
+                value['focused'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.hovered)) {
-              result = decodeOutlinedBorder(value['hovered']);
+              result = decodeOutlinedBorder(
+                value['hovered'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.pressed)) {
-              result = decodeOutlinedBorder(value['pressed']);
+              result = decodeOutlinedBorder(
+                value['pressed'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.scrolledUnder)) {
-              result = decodeOutlinedBorder(value['scrolledUnder']);
+              result = decodeOutlinedBorder(
+                value['scrolledUnder'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.selected)) {
-              result = decodeOutlinedBorder(value['selected']);
+              result = decodeOutlinedBorder(
+                value['selected'],
+                validate: false,
+              );
             } else {
-              result = decodeOutlinedBorder(value['empty']);
+              result = decodeOutlinedBorder(
+                value['empty'],
+                validate: false,
+              );
             }
 
             return result;
@@ -5854,15 +7445,15 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "disabled": <Size>,
-  ///   "dragged": <Size>,
-  ///   "empty": <Size>,
-  ///   "error": <Size>,
-  ///   "focused": <Size>,
-  ///   "hovered": <Size>,
-  ///   "pressed": <Size>,
-  ///   "scrolledUnder": <Size>,
-  ///   "selected": <Size>
+  ///   "disabled": "<Size>",
+  ///   "dragged": "<Size>",
+  ///   "empty": "<Size>",
+  ///   "error": "<Size>",
+  ///   "focused": "<Size>",
+  ///   "hovered": "<Size>",
+  ///   "pressed": "<Size>",
+  ///   "scrolledUnder": "<Size>",
+  ///   "selected": "<Size>"
   /// }
   /// ```
   ///
@@ -5880,9 +7471,12 @@ class ThemeDecoder {
       if (value is Size) {
         result = MaterialStateProperty.all<Size?>(value);
       } else if (value is String) {
-        result = MaterialStateProperty.all<Size?>(decodeSize(value));
+        result = MaterialStateProperty.all<Size?>(decodeSize(
+          value,
+          validate: false,
+        ));
       } else if (value is Map) {
-        var testValues = [
+        final testValues = [
           'disabled',
           'dragged',
           'empty',
@@ -5903,7 +7497,10 @@ class ThemeDecoder {
         }
 
         if (isMsp != true) {
-          result = MaterialStateProperty.all<Size?>(decodeSize(value));
+          result = MaterialStateProperty.all<Size?>(decodeSize(
+            value,
+            validate: false,
+          ));
         } else {
           assert(SchemaValidator.validate(
             schemaId: '$_baseSchemaUrl/material_state_property_size',
@@ -5911,26 +7508,53 @@ class ThemeDecoder {
             validate: validate,
           ));
 
-          result = MaterialStateProperty.resolveWith((states) {
+          result = MapMaterialStateProperty.resolveWith((states) {
             Size? result;
             if (states.contains(MaterialState.disabled)) {
-              result = decodeSize(value['disabled']);
+              result = decodeSize(
+                value['disabled'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.dragged)) {
-              result = decodeSize(value['dragged']);
+              result = decodeSize(
+                value['dragged'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.error)) {
-              result = decodeSize(value['error']);
+              result = decodeSize(
+                value['error'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.focused)) {
-              result = decodeSize(value['focused']);
+              result = decodeSize(
+                value['focused'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.hovered)) {
-              result = decodeSize(value['hovered']);
+              result = decodeSize(
+                value['hovered'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.pressed)) {
-              result = decodeSize(value['pressed']);
+              result = decodeSize(
+                value['pressed'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.scrolledUnder)) {
-              result = decodeSize(value['scrolledUnder']);
+              result = decodeSize(
+                value['scrolledUnder'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.selected)) {
-              result = decodeSize(value['selected']);
+              result = decodeSize(
+                value['selected'],
+                validate: false,
+              );
             } else {
-              result = decodeSize(value['empty']);
+              result = decodeSize(
+                value['empty'],
+                validate: false,
+              );
             }
 
             return result;
@@ -5951,15 +7575,15 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "disabled": <TextStyle>,
-  ///   "dragged": <TextStyle>,
-  ///   "empty": <TextStyle>,
-  ///   "error": <TextStyle>,
-  ///   "focused": <TextStyle>,
-  ///   "hovered": <TextStyle>,
-  ///   "pressed": <TextStyle>,
-  ///   "scrolledUnder": <TextStyle>,
-  ///   "selected": <TextStyle>
+  ///   "disabled": "<TextStyle>",
+  ///   "dragged": "<TextStyle>",
+  ///   "empty": "<TextStyle>",
+  ///   "error": "<TextStyle>",
+  ///   "focused": "<TextStyle>",
+  ///   "hovered": "<TextStyle>",
+  ///   "pressed": "<TextStyle>",
+  ///   "scrolledUnder": "<TextStyle>",
+  ///   "selected": "<TextStyle>"
   /// }
   /// ```
   ///
@@ -5978,9 +7602,12 @@ class ThemeDecoder {
       if (value is TextStyle) {
         result = MaterialStateProperty.all<TextStyle?>(value);
       } else if (value is String) {
-        result = MaterialStateProperty.all<TextStyle?>(decodeTextStyle(value));
+        result = MaterialStateProperty.all<TextStyle?>(decodeTextStyle(
+          value,
+          validate: false,
+        ));
       } else if (value is Map) {
-        var testValues = [
+        final testValues = [
           'disabled',
           'dragged',
           'empty',
@@ -6002,7 +7629,10 @@ class ThemeDecoder {
 
         if (isMsp != true) {
           result = MaterialStateProperty.all<TextStyle?>(
-            decodeTextStyle(value),
+            decodeTextStyle(
+              value,
+              validate: false,
+            ),
           );
         } else {
           assert(SchemaValidator.validate(
@@ -6011,26 +7641,53 @@ class ThemeDecoder {
             validate: validate,
           ));
 
-          result = MaterialStateProperty.resolveWith((states) {
+          result = MapMaterialStateProperty.resolveWith((states) {
             TextStyle? result;
             if (states.contains(MaterialState.disabled)) {
-              result = decodeTextStyle(value['disabled']);
+              result = decodeTextStyle(
+                value['disabled'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.dragged)) {
-              result = decodeTextStyle(value['dragged']);
+              result = decodeTextStyle(
+                value['dragged'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.error)) {
-              result = decodeTextStyle(value['error']);
+              result = decodeTextStyle(
+                value['error'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.focused)) {
-              result = decodeTextStyle(value['focused']);
+              result = decodeTextStyle(
+                value['focused'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.hovered)) {
-              result = decodeTextStyle(value['hovered']);
+              result = decodeTextStyle(
+                value['hovered'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.pressed)) {
-              result = decodeTextStyle(value['pressed']);
+              result = decodeTextStyle(
+                value['pressed'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.scrolledUnder)) {
-              result = decodeTextStyle(value['scrolledUnder']);
+              result = decodeTextStyle(
+                value['scrolledUnder'],
+                validate: false,
+              );
             } else if (states.contains(MaterialState.selected)) {
-              result = decodeTextStyle(value['selected']);
+              result = decodeTextStyle(
+                value['selected'],
+                validate: false,
+              );
             } else {
-              result = decodeTextStyle(value['empty']);
+              result = decodeTextStyle(
+                value['empty'],
+                validate: false,
+              );
             }
 
             return result;
@@ -6176,24 +7833,24 @@ class ThemeDecoder {
           value: value,
           validate: validate,
         ));
-        var list = value.toList();
+        final list = value.toList();
         result = Matrix4(
-          JsonClass.parseDouble(list[0])!,
-          JsonClass.parseDouble(list[1])!,
-          JsonClass.parseDouble(list[2])!,
-          JsonClass.parseDouble(list[3])!,
-          JsonClass.parseDouble(list[4])!,
-          JsonClass.parseDouble(list[5])!,
-          JsonClass.parseDouble(list[6])!,
-          JsonClass.parseDouble(list[7])!,
-          JsonClass.parseDouble(list[8])!,
-          JsonClass.parseDouble(list[9])!,
-          JsonClass.parseDouble(list[10])!,
-          JsonClass.parseDouble(list[11])!,
-          JsonClass.parseDouble(list[12])!,
-          JsonClass.parseDouble(list[13])!,
-          JsonClass.parseDouble(list[14])!,
-          JsonClass.parseDouble(list[15])!,
+          JsonClass.maybeParseDouble(list[0])!,
+          JsonClass.maybeParseDouble(list[1])!,
+          JsonClass.maybeParseDouble(list[2])!,
+          JsonClass.maybeParseDouble(list[3])!,
+          JsonClass.maybeParseDouble(list[4])!,
+          JsonClass.maybeParseDouble(list[5])!,
+          JsonClass.maybeParseDouble(list[6])!,
+          JsonClass.maybeParseDouble(list[7])!,
+          JsonClass.maybeParseDouble(list[8])!,
+          JsonClass.maybeParseDouble(list[9])!,
+          JsonClass.maybeParseDouble(list[10])!,
+          JsonClass.maybeParseDouble(list[11])!,
+          JsonClass.maybeParseDouble(list[12])!,
+          JsonClass.maybeParseDouble(list[13])!,
+          JsonClass.maybeParseDouble(list[14])!,
+          JsonClass.maybeParseDouble(list[15])!,
         );
       }
     }
@@ -6241,6 +7898,218 @@ class ThemeDecoder {
             break;
         }
       }
+    }
+
+    return result;
+  }
+
+  /// Decodes the given [value] to an [MenuBarThemeData].  This expects the
+  /// given [value] to be of the following structure:
+  ///
+  /// ```json
+  /// {
+  ///   "style": "<MenuStyle>"
+  /// }
+  /// ```
+  ///
+  /// See also:
+  ///  * [decodeMenuStyle]
+  static MenuBarThemeData? decodeMenuBarThemeData(
+    dynamic value, {
+    bool validate = true,
+  }) {
+    MenuBarThemeData? result;
+
+    if (value is MenuBarThemeData) {
+      result = value;
+    } else if (value != null) {
+      assert(SchemaValidator.validate(
+        schemaId: '$_baseSchemaUrl/menu_bar_theme_data',
+        value: value,
+        validate: validate,
+      ));
+
+      result = MenuBarThemeData(
+        style: decodeMenuStyle(
+          value,
+          validate: false,
+        ),
+      );
+    }
+
+    return result;
+  }
+
+  /// Decodes the given [value] to an [MenuButtonThemeData].  This expects the
+  /// given [value] to be of the following structure:
+  ///
+  /// ```json
+  /// {
+  ///   "style": "<ButtonStyle>",
+  /// }
+  /// ```
+  ///
+  /// See also:
+  ///  * [decodeButtonStyle]
+  static MenuButtonThemeData? decodeMenuButtonThemeData(
+    dynamic value, {
+    bool validate = true,
+  }) {
+    MenuButtonThemeData? result;
+
+    if (value is MenuButtonThemeData) {
+      result = value;
+    } else if (value != null) {
+      assert(SchemaValidator.validate(
+        schemaId: '$_baseSchemaUrl/menu_button_theme_data',
+        value: value,
+        validate: validate,
+      ));
+
+      result = MenuButtonThemeData(
+        style: decodeButtonStyle(
+          value['style'],
+          validate: false,
+        ),
+      );
+    }
+
+    return result;
+  }
+
+  /// Decodes the given [value] to an [MenuStyle].  This expects the given
+  /// [value] to be of the following structure:
+  ///
+  /// ```json
+  /// {
+  ///   "alignment": "<Alignment>",
+  ///   "backgroundColor": "<MaterialStateProperty<Color>>",
+  ///   "elevation": "<MaterialStateProperty<double>>",
+  ///   "fixedSize": "<MaterialStateProperty<Size>>",
+  ///   "maximumSize": "<MaterialStateProperty<Size>>",
+  ///   "minimumSize": "<MaterialStateProperty<Size>>",
+  ///   "padding": "<MaterialStateProperty<EdgeInsets>>",
+  ///   "shadowColor": "<MaterialStateProperty<Color>>",
+  ///   "shape": "<MaterialStateProperty<OutlinedBorder>>",
+  ///   "side": "<MaterialStateProperty<BorderSide>>",
+  ///   "surfaceTintColor": "<MaterialStateProperty<Color>>",
+  ///   "visualDensity": "<VisualDensity>",
+  /// }
+  /// ```
+  ///
+  /// See also:
+  ///  * [decodeAlignment]
+  ///  * [decodeMaterialStatePropertyBorderSide]
+  ///  * [decodeMaterialStatePropertyColor]
+  ///  * [decodeMaterialStatePropertyDouble]
+  ///  * [decodeMaterialStatePropertyEdgeInsetsGeometry]
+  ///  * [decodeMaterialStatePropertyMouseCursor]
+  ///  * [decodeMaterialStatePropertySize]
+  ///  * [decodeVisualDensity]
+  static MenuStyle? decodeMenuStyle(
+    dynamic value, {
+    bool validate = true,
+  }) {
+    MenuStyle? result;
+
+    if (value is MenuStyle) {
+      result = value;
+    } else if (value != null) {
+      assert(SchemaValidator.validate(
+        schemaId: '$_baseSchemaUrl/menu_style',
+        value: value,
+        validate: validate,
+      ));
+
+      result = MenuStyle(
+        alignment: decodeAlignment(
+          value['alignment'],
+          validate: false,
+        ),
+        backgroundColor: decodeMaterialStatePropertyColor(
+          value['backgroundColor'],
+          validate: false,
+        ),
+        elevation: decodeMaterialStatePropertyDouble(
+          value['elevation'],
+          validate: false,
+        ),
+        fixedSize: decodeMaterialStatePropertySize(value['fixedSize'],
+            validate: false),
+        maximumSize: decodeMaterialStatePropertySize(
+          value['maximumSize'],
+          validate: false,
+        ),
+        minimumSize: decodeMaterialStatePropertySize(
+          value['minimumSize'],
+          validate: false,
+        ),
+        mouseCursor: decodeMaterialStatePropertyMouseCursor(
+          value['mouseCursor'],
+          validate: false,
+        ),
+        padding: decodeMaterialStatePropertyEdgeInsetsGeometry(
+          value['padding'],
+          validate: false,
+        ),
+        shadowColor: decodeMaterialStatePropertyColor(
+          value['shadowColor'],
+          validate: false,
+        ),
+        shape: decodeMaterialStatePropertyOutlinedBorder(
+          value['shape'],
+          validate: false,
+        ),
+        side: decodeMaterialStatePropertyBorderSide(
+          value['side'],
+          validate: false,
+        ),
+        surfaceTintColor: decodeMaterialStatePropertyColor(
+          value['surfaceTintColor'],
+          validate: false,
+        ),
+        visualDensity: decodeVisualDensity(
+          value['visualDensity'],
+          validate: false,
+        ),
+      );
+    }
+
+    return result;
+  }
+
+  /// Decodes the given [value] to an [MenuThemeData].  This expects the given
+  /// [value] to be of the following structure:
+  ///
+  /// ```json
+  /// {
+  ///   "style": "<MenuStyle>"
+  /// }
+  /// ```
+  ///
+  /// See also:
+  ///  * [decodeMenuStyle]
+  static MenuThemeData? decodeMenuThemeData(
+    dynamic value, {
+    bool validate = true,
+  }) {
+    MenuThemeData? result;
+
+    if (value is MenuThemeData) {
+      result = value;
+    } else if (value != null) {
+      assert(SchemaValidator.validate(
+        schemaId: '$_baseSchemaUrl/menu_theme_data',
+        value: value,
+        validate: validate,
+      ));
+
+      result = MenuThemeData(
+        style: decodeMenuStyle(
+          value['style'],
+          validate: false,
+        ),
+      );
     }
 
     return result;
@@ -6548,14 +8417,16 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "backgroundColor": <Color>,
-  ///   "elevation": <double>,
-  ///   "height": <double>,
-  ///   "iconTheme": <MaterialStateProperty<IconThemeData>>,
-  ///   "indicatorColor": <Color>,
-  ///   "indicatorShape": <ShapeBorder>,
-  ///   "labelBehavior": <NavigationDestinationLabelBehavior>,
-  ///   "labelTextStyle": <MaterialStateProperty<TextStyle>>
+  ///   "backgroundColor": "<Color>",
+  ///   "elevation": "<double>",
+  ///   "height": "<double>",
+  ///   "iconTheme": "<MaterialStateProperty<IconThemeData>>",
+  ///   "indicatorColor": "<Color>",
+  ///   "indicatorShape": "<ShapeBorder>",
+  ///   "labelBehavior": "<NavigationDestinationLabelBehavior>",
+  ///   "labelTextStyle": "<MaterialStateProperty<TextStyle>>",
+  ///   "shadowColor": "<Color>",
+  ///   "surfaceTintColor": "<Color>"
   /// }
   /// ```
   ///
@@ -6583,8 +8454,8 @@ class ThemeDecoder {
           value['backgroundColor'],
           validate: false,
         ),
-        elevation: JsonClass.parseDouble(value['elevation']),
-        height: JsonClass.parseDouble(value['height']),
+        elevation: JsonClass.maybeParseDouble(value['elevation']),
+        height: JsonClass.maybeParseDouble(value['height']),
         iconTheme: decodeMaterialStatePropertyIconThemeData(
           value['iconTheme'],
           validate: false,
@@ -6603,6 +8474,14 @@ class ThemeDecoder {
         ),
         labelTextStyle: decodeMaterialStatePropertyTextStyle(
           value['labelTextStyle'],
+          validate: false,
+        ),
+        shadowColor: decodeColor(
+          value['shadowColor'],
+          validate: false,
+        ),
+        surfaceTintColor: decodeColor(
+          value['surfaceTintColor'],
           validate: false,
         ),
       );
@@ -6649,6 +8528,81 @@ class ThemeDecoder {
           result = NavigationDestinationLabelBehavior.onlyShowSelected;
           break;
       }
+    }
+
+    return result;
+  }
+
+  /// Decodes the given [value] to an [NavigationDrawerThemeData].  This expects
+  /// the given [value] to be of the following structure:
+  ///
+  /// ```json
+  /// {
+  ///   "backgroundColor": "<Color>",
+  ///   "elevation": "<double>",
+  ///   "iconTheme": "<MaterialStateProperty<IconThemeData>>",
+  ///   "indicatorColor": "<Color>",
+  ///   "indicatorShape": "<ShapeBorder>",
+  ///   "indicatorSize": "<Size>",
+  ///   "labelTextStyle": "<MaterialStateProperty<TextStyle>>",
+  ///   "shadowColor": "<Color>",
+  ///   "surfaceTintColor": "<Color>",
+  ///   "tileHeight": "<double>"
+  /// }
+  /// ```
+  ///
+  /// See also:
+  ///  * [decodeColor]
+  ///  * [decodeMaterialStatePropertyIconThemeData]
+  ///  * [decodeShapeBorder]
+  static NavigationDrawerThemeData? decodeNavigationDrawerThemeData(
+    dynamic value, {
+    bool validate = true,
+  }) {
+    NavigationDrawerThemeData? result;
+
+    if (value is NavigationDrawerThemeData) {
+      result = value;
+    } else if (value != null) {
+      assert(SchemaValidator.validate(
+        schemaId: '$_baseSchemaUrl/navigation_drawer_theme_data',
+        value: value,
+        validate: validate,
+      ));
+
+      result = NavigationDrawerThemeData(
+        backgroundColor: decodeColor(value['backgroundColor'], validate: false),
+        elevation: JsonClass.maybeParseDouble(value['elevation']),
+        iconTheme: decodeMaterialStatePropertyIconThemeData(
+          value['iconTheme'],
+          validate: false,
+        ),
+        indicatorColor: decodeColor(
+          value['indicatorColor'],
+          validate: false,
+        ),
+        indicatorShape: decodeShapeBorder(
+          value['indicateShape'],
+          validate: false,
+        ),
+        indicatorSize: decodeSize(
+          value['size'],
+          validate: false,
+        ),
+        labelTextStyle: decodeMaterialStatePropertyTextStyle(
+          value['labelTextStyle'],
+          validate: false,
+        ),
+        shadowColor: decodeColor(
+          value['shadowColor'],
+          validate: false,
+        ),
+        surfaceTintColor: decodeColor(
+          value['surfaceTintColor'],
+          validate: false,
+        ),
+        tileHeight: JsonClass.maybeParseDouble(value['tileHeight']),
+      );
     }
 
     return result;
@@ -6706,18 +8660,19 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "backgroundColor": <Color>,
-  ///   "elevation": <double>,
-  ///   "groupAlignment": <double>,
-  ///   "indicatorColor": <Color>,
-  ///   "labelType": <NavigationRailLabelType>,
-  ///   "minExtendedWidth": <double>,
-  ///   "minWidth": <double>,
-  ///   "selectedIconTheme": <IconThemeData>,
-  ///   "selectedLabelTextStyle": <TextStyle>,
-  ///   "unselectedIconTheme": <IconThemeData>,
-  ///   "unselectedLabelTextStyle": <TextStyle>,
-  ///   "useIndicator": <bool>
+  ///   "backgroundColor": "<Color>",
+  ///   "elevation": "<double>",
+  ///   "groupAlignment": "<double>",
+  ///   "indicatorColor": "<Color>",
+  ///   "indicatorShape": "<ShapeBorder>",
+  ///   "labelType": "<NavigationRailLabelType>",
+  ///   "minExtendedWidth": "<double>",
+  ///   "minWidth": "<double>",
+  ///   "selectedIconTheme": "<IconThemeData>",
+  ///   "selectedLabelTextStyle": "<TextStyle>",
+  ///   "unselectedIconTheme": "<IconThemeData>",
+  ///   "unselectedLabelTextStyle": "<TextStyle>",
+  ///   "useIndicator": "<bool>"
   /// }
   /// ```
   ///
@@ -6725,6 +8680,7 @@ class ThemeDecoder {
   ///  * [decodeColor]
   ///  * [decodeIconThemeData]
   ///  * [decodeNavigationRailLabelType]
+  ///  * [decodeShapeBorder]
   ///  * [decodeTextStyle]
   static NavigationRailThemeData? decodeNavigationRailThemeData(
     dynamic value, {
@@ -6745,18 +8701,22 @@ class ThemeDecoder {
           value['backgroundColor'],
           validate: false,
         ),
-        elevation: JsonClass.parseDouble(value['elevation']),
-        groupAlignment: JsonClass.parseDouble(value['groupAlignment']),
+        elevation: JsonClass.maybeParseDouble(value['elevation']),
+        groupAlignment: JsonClass.maybeParseDouble(value['groupAlignment']),
         indicatorColor: decodeColor(
           value['indicatorColor'],
+          validate: false,
+        ),
+        indicatorShape: decodeShapeBorder(
+          value['indicatorShape'],
           validate: false,
         ),
         labelType: decodeNavigationRailLabelType(
           value['labelType'],
           validate: false,
         ),
-        minExtendedWidth: JsonClass.parseDouble(value['minExtendedWidth']),
-        minWidth: JsonClass.parseDouble(value['minWidth']),
+        minExtendedWidth: JsonClass.maybeParseDouble(value['minExtendedWidth']),
+        minWidth: JsonClass.maybeParseDouble(value['minWidth']),
         selectedIconTheme: decodeIconThemeData(
           value['selectedIconTheme'],
           validate: false,
@@ -6773,9 +8733,7 @@ class ThemeDecoder {
           value['unselectedLabelTextStyle'],
           validate: false,
         ),
-        useIndicator: value['useIndicator'] == null
-            ? null
-            : JsonClass.parseBool(value['useIndicator']),
+        useIndicator: JsonClass.maybeParseBool(value['useIndicator']),
       );
     }
 
@@ -6808,7 +8766,7 @@ class ThemeDecoder {
         ));
         switch (value) {
           case 'circular':
-            result = CircularNotchedRectangle();
+            result = const CircularNotchedRectangle();
             break;
         }
       }
@@ -6821,8 +8779,8 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "dx": <double>,
-  ///   "dy": <double>
+  ///   "dx": "<double>",
+  ///   "dy": "<double>"
   /// }
   /// ```
   static Offset? decodeOffset(
@@ -6840,8 +8798,8 @@ class ThemeDecoder {
         validate: validate,
       ));
       result = Offset(
-        JsonClass.parseDouble(value['dx'], 0)!,
-        JsonClass.parseDouble(value['dy'], 0)!,
+        JsonClass.maybeParseDouble(value['dx'], 0)!,
+        JsonClass.maybeParseDouble(value['dy'], 0)!,
       );
     }
 
@@ -6853,13 +8811,13 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "name": <String>,
-  ///   "order": <double>
+  ///   "name": "<String>",
+  ///   "order": "<double>"
   /// }
   /// ```
   static OrdinalSortKey? decodeOrdinalSortKey(
     dynamic value, {
-    bool validate = false,
+    bool validate = true,
   }) {
     OrdinalSortKey? result;
 
@@ -6873,7 +8831,7 @@ class ThemeDecoder {
       ));
 
       result = OrdinalSortKey(
-        JsonClass.parseDouble(value['order'])!,
+        JsonClass.maybeParseDouble(value['order'])!,
         name: value['name'],
       );
     }
@@ -6895,8 +8853,8 @@ class ThemeDecoder {
   /// `BeveledRectangleBorder`
   /// ```json
   /// {
-  ///   "borderRadius": <BorderRadius>,
-  ///   "side": <BorderSide>,
+  ///   "borderRadius": "<BorderRadius>",
+  ///   "side": "<BorderSide>",
   ///   "type": "beveled"
   /// }
   /// ```
@@ -6904,7 +8862,7 @@ class ThemeDecoder {
   /// `CircleBorder`
   /// ```json
   /// {
-  ///   "side": <BorderSide>,
+  ///   "side": "<BorderSide>",
   ///   "type": "circle"
   /// }
   /// ```
@@ -6912,8 +8870,8 @@ class ThemeDecoder {
   /// `ContinuousRectangleBorder`
   /// ```json
   /// {
-  ///   "borderRadius": <BorderRadius>,
-  ///   "side": <BorderSide>,
+  ///   "borderRadius": "<BorderRadius>",
+  ///   "side": "<BorderSide>",
   ///   "type": "rectangle"
   /// }
   /// ```
@@ -6921,8 +8879,8 @@ class ThemeDecoder {
   /// `RoundedRectangleBorder`
   /// ```json
   /// {
-  ///   "borderRadius": <BorderRadius>,
-  ///   "side": <BorderSide>,
+  ///   "borderRadius": "<BorderRadius>",
+  ///   "side": "<BorderSide>",
   ///   "type": "rounded"
   /// }
   /// ```
@@ -6930,7 +8888,7 @@ class ThemeDecoder {
   /// `StadiumBorder`
   /// ```json
   /// {
-  ///   "side": <BorderSide>,
+  ///   "side": "<BorderSide>",
   ///   "type": "stadium"
   /// }
   ///
@@ -6964,7 +8922,7 @@ class ThemeDecoder {
           value: value,
           validate: validate,
         ));
-        String? type = value['type'];
+        final String? type = value['type'];
 
         switch (type) {
           case 'beveled':
@@ -7043,7 +9001,7 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "style": <ButtonStyle>
+  ///   "style": "<ButtonStyle>"
   /// }
   /// ```
   ///
@@ -7106,19 +9064,19 @@ class ThemeDecoder {
 
       switch (value) {
         case 'cupertino':
-          result = CupertinoPageTransitionsBuilder();
+          result = const CupertinoPageTransitionsBuilder();
           break;
 
         case 'fadeUpwards':
-          result = FadeUpwardsPageTransitionsBuilder();
+          result = const FadeUpwardsPageTransitionsBuilder();
           break;
 
         case 'openUpwards':
-          result = OpenUpwardsPageTransitionsBuilder();
+          result = const OpenUpwardsPageTransitionsBuilder();
           break;
 
         case 'zoom':
-          result = ZoomPageTransitionsBuilder();
+          result = const ZoomPageTransitionsBuilder();
           break;
       }
     }
@@ -7131,7 +9089,7 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "builders": <Map<TargetPlatform, PageTransitionBuilder>>
+  ///   "builders": "<Map<TargetPlatform, PageTransitionBuilder>>"
   /// }
   /// ```
   ///
@@ -7153,10 +9111,12 @@ class ThemeDecoder {
         validate: validate,
       ));
 
-      var builders = <TargetPlatform, PageTransitionsBuilder>{};
+      final builders = <TargetPlatform, PageTransitionsBuilder>{};
       value['builders']?.forEach(
-        (key, value) =>
-            builders[decodeTargetPlatform(key)!] = decodePageTransitionsBuilder(
+        (key, value) => builders[decodeTargetPlatform(
+          key,
+          validate: false,
+        )!] = decodePageTransitionsBuilder(
           value,
           validate: false,
         )!,
@@ -7165,6 +9125,117 @@ class ThemeDecoder {
       result = PageTransitionsTheme(
         builders: builders,
       );
+    }
+
+    return result;
+  }
+
+  /// Decodes the [value] to a [PanAxis].  Supported values are:
+  ///  * `aligned`
+  ///  * `free`
+  ///  * `horizontal`
+  ///  * `vertical`
+  static PanAxis? decodePanAxis(
+    dynamic value, {
+    bool validate = true,
+  }) {
+    PanAxis? result;
+
+    if (value is PanAxis) {
+      result = value;
+    } else if (value != null) {
+      _checkSupported(
+        'PanAxis',
+        [
+          'aligned',
+          'free',
+          'horizontal',
+          'vertical',
+        ],
+        value,
+      );
+      assert(SchemaValidator.validate(
+        schemaId: '$_baseSchemaUrl/pan_axis',
+        value: value,
+        validate: validate,
+      ));
+
+      switch (value) {
+        case 'aligned':
+          result = PanAxis.aligned;
+          break;
+
+        case 'free':
+          result = PanAxis.free;
+          break;
+
+        case 'horizontal':
+          result = PanAxis.horizontal;
+          break;
+
+        case 'vertical':
+          result = PanAxis.vertical;
+          break;
+      }
+    }
+
+    return result;
+  }
+
+  /// Decodes the [value] to a [PointerDeviceKind].  Supported values are:
+  ///  * `invertedStylus`
+  ///  * `mouse`
+  ///  * `stylus`
+  ///  * `touch`
+  ///  * `trackpad`
+  ///  * `unknown`
+  static PointerDeviceKind? decodePointerDeviceKind(
+    dynamic value, {
+    bool validate = true,
+  }) {
+    PointerDeviceKind? result;
+
+    if (value is PointerDeviceKind) {
+      result = value;
+    } else if (value != null) {
+      _checkSupported(
+        'PointerDeviceKind',
+        [
+          'invertedStylus',
+          'mouse',
+          'stylus',
+          'touch',
+          'trackpad',
+          'unknown',
+        ],
+        value,
+      );
+      assert(SchemaValidator.validate(
+        schemaId: '$_baseSchemaUrl/pointer_device_kind',
+        value: value,
+        validate: validate,
+      ));
+
+      switch (value) {
+        case 'invertedStylus':
+          result = PointerDeviceKind.invertedStylus;
+          break;
+        case 'mouse':
+          result = PointerDeviceKind.mouse;
+          break;
+        case 'stylus':
+          result = PointerDeviceKind.stylus;
+          break;
+        case 'touch':
+          result = PointerDeviceKind.touch;
+          break;
+        case 'trackpad':
+          result = PointerDeviceKind.trackpad;
+          break;
+        case 'unknown':
+          result = PointerDeviceKind.unknown;
+          break;
+      }
     }
 
     return result;
@@ -7215,18 +9286,24 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "color": <Color>,
-  ///   "elevation": <double>,
-  ///   "enableFeedback": <bool>,
-  ///   "mouseCursor": <MaterialStateProperty<MouseCursor>>,
-  ///   "shape": <ShapeBorder>,
-  ///   "textStyle": <TextStyle>
+  ///   "color": "<Color>",
+  ///   "elevation": "<double>",
+  ///   "enableFeedback": "<bool>",
+  ///   "labelTextStyle": "<MaterialStateProperty<TextStyle>>",
+  ///   "mouseCursor": "<MaterialStateProperty<MouseCursor>>",
+  ///   "position": "<PopupMenuPosition>",
+  ///   "shadowColor": "<Color>",
+  ///   "shape": "<ShapeBorder>",
+  ///   "surfaceTintColor": "<Color>",
+  ///   "textStyle": "<TextStyle>"
   /// }
   /// ```
   ///
   /// See also:
   ///  * [decodeColor]
   ///  * [decodeMaterialStatePropertyMouseCursor]
+  ///  * [decodeMaterialStatePropertyTextStyle]
+  ///  * [decodePopupMenuPosition]
   ///  * [decodeShapeBorder]
   ///  * [decodeTextStyle]
   static PopupMenuThemeData? decodePopupMenuThemeData(
@@ -7248,16 +9325,30 @@ class ThemeDecoder {
           value['color'],
           validate: false,
         ),
-        elevation: JsonClass.parseDouble(value['elevation']),
-        enableFeedback: value['enableFeedback'] == null
-            ? null
-            : JsonClass.parseBool(value['enableFeedback']),
+        elevation: JsonClass.maybeParseDouble(value['elevation']),
+        enableFeedback: JsonClass.maybeParseBool(value['enableFeedback']),
+        labelTextStyle: decodeMaterialStatePropertyTextStyle(
+          value['labelTextStyle'],
+          validate: false,
+        ),
         mouseCursor: decodeMaterialStatePropertyMouseCursor(
           value['mouseCursor'],
           validate: false,
         ),
+        position: decodePopupMenuPosition(
+          value['position'],
+          validate: false,
+        ),
+        shadowColor: decodeColor(
+          value['shadowColor'],
+          validate: false,
+        ),
         shape: decodeShapeBorder(
           value['shape'],
+          validate: false,
+        ),
+        surfaceTintColor: decodeColor(
+          value['surfaceTintColor'],
           validate: false,
         ),
         textStyle: decodeTextStyle(
@@ -7275,11 +9366,11 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "circularTrackColor": <Color>,
-  ///   "color": <Color>,
-  ///   "linearMinHeight": <double>,
-  ///   "linearTrackColor": <Color>,
-  ///   "refreshBackgroundColor": <Color>
+  ///   "circularTrackColor": "<Color>",
+  ///   "color": "<Color>",
+  ///   "linearMinHeight": "<double>",
+  ///   "linearTrackColor": "<Color>",
+  ///   "refreshBackgroundColor": "<Color>"
   /// }
   /// ```
   ///
@@ -7301,11 +9392,23 @@ class ThemeDecoder {
       ));
 
       result = ProgressIndicatorThemeData(
-        circularTrackColor: decodeColor(value['circularTrackColor']),
-        color: decodeColor(value['color']),
-        linearMinHeight: JsonClass.parseDouble(value['linearMinHeight']),
-        linearTrackColor: decodeColor(value['linearTrackColor']),
-        refreshBackgroundColor: decodeColor(value['refreshBackgroundColor']),
+        circularTrackColor: decodeColor(
+          value['circularTrackColor'],
+          validate: false,
+        ),
+        color: decodeColor(
+          value['color'],
+          validate: false,
+        ),
+        linearMinHeight: JsonClass.maybeParseDouble(value['linearMinHeight']),
+        linearTrackColor: decodeColor(
+          value['linearTrackColor'],
+          validate: false,
+        ),
+        refreshBackgroundColor: decodeColor(
+          value['refreshBackgroundColor'],
+          validate: false,
+        ),
       );
     }
 
@@ -7317,12 +9420,12 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "fillColor": <MaterialStateProperty<Color>>,
-  ///   "materialTapTargetSize": <MaterialTapTargetSize>,
-  ///   "mouseCursor": <MaterialStateProperty<MouseCursor>>,
-  ///   "overlayColor": <MaterialStateProperty<Color>>,
-  ///   "splashRadius": <double>,
-  ///   "visualDensity": <VisualDensity>
+  ///   "fillColor": "<MaterialStateProperty<Color>>",
+  ///   "materialTapTargetSize": "<MaterialTapTargetSize>",
+  ///   "mouseCursor": "<MaterialStateProperty<MouseCursor>>",
+  ///   "overlayColor": "<MaterialStateProperty<Color>>",
+  ///   "splashRadius": "<double>",
+  ///   "visualDensity": "<VisualDensity>"
   /// }
   /// ```
   ///
@@ -7365,7 +9468,7 @@ class ThemeDecoder {
           value['overlayColor'],
           validate: false,
         ),
-        splashRadius: JsonClass.parseDouble(value['splashRadius']),
+        splashRadius: JsonClass.maybeParseDouble(value['splashRadius']),
         visualDensity: decodeVisualDensity(
           value['visualDensity'],
           validate: false,
@@ -7384,7 +9487,7 @@ class ThemeDecoder {
   ///  * `zero`
   ///
   /// When passed in as a [String], [int], or [double] then this will use
-  /// [JsonClass.parseDouble] to parse the number to send to [Radius.circular].
+  /// [JsonClass.maybeParseDouble] to parse the number to send to [Radius.circular].
   ///
   /// Otherwise, if this is an object then the structure of the other attributes
   /// depends on the "type".
@@ -7392,7 +9495,7 @@ class ThemeDecoder {
   /// Type: `circular`
   /// ```json
   /// {
-  ///   "radius": <double>,
+  ///   "radius": "<double>",
   ///   "type": "circular"
   /// }
   /// ```
@@ -7401,8 +9504,8 @@ class ThemeDecoder {
   /// ```json
   /// {
   ///  "type": "elliptical",
-  ///   "x": <double>,
-  ///   "y": <double>
+  ///   "x": "<double>",
+  ///   "y": "<double>"
   /// }
   /// ```
   ///
@@ -7420,7 +9523,7 @@ class ThemeDecoder {
     if (value is Radius) {
       result = value;
     } else {
-      var radius = JsonClass.parseDouble(value);
+      final radius = JsonClass.maybeParseDouble(value);
 
       if (radius != null) {
         result = Radius.circular(radius);
@@ -7442,17 +9545,18 @@ class ThemeDecoder {
             value: value,
             validate: validate,
           ));
-          String? type = value['type'];
+          final String? type = value['type'];
 
           switch (type) {
             case 'circular':
-              result = Radius.circular(JsonClass.parseDouble(value['radius'])!);
+              result =
+                  Radius.circular(JsonClass.maybeParseDouble(value['radius'])!);
               break;
 
             case 'elliptical':
               result = Radius.elliptical(
-                JsonClass.parseDouble(value['x'], 0)!,
-                JsonClass.parseDouble(value['y'], 0)!,
+                JsonClass.maybeParseDouble(value['x']) ?? 0.0,
+                JsonClass.maybeParseDouble(value['y']) ?? 0.0,
               );
               break;
 
@@ -7476,10 +9580,10 @@ class ThemeDecoder {
   /// Type: `round`
   /// ```json
   /// {
-  ///   "disabledThumbRadius": <double>,
-  ///   "enabledThumbRadius": <double>,
-  ///   "elevation": <double>,
-  ///   "pressedElevation": <double>,
+  ///   "disabledThumbRadius": "<double>",
+  ///   "enabledThumbRadius": "<double>",
+  ///   "elevation": "<double>",
+  ///   "pressedElevation": "<double>",
   ///   "type": "round"
   /// }
   /// ```
@@ -7507,22 +9611,22 @@ class ThemeDecoder {
           validate: validate,
         ));
 
-        String? type = value['type'];
+        final String? type = value['type'];
         switch (type) {
           case 'round':
             result = RoundRangeSliderThumbShape(
-              disabledThumbRadius: JsonClass.parseDouble(
+              disabledThumbRadius: JsonClass.maybeParseDouble(
                 value['disabledThumbRadius'],
               ),
-              elevation: JsonClass.parseDouble(value['elevation'], 1.0)!,
-              enabledThumbRadius: JsonClass.parseDouble(
-                value['enabledThumbRadius'],
-                10.0,
-              )!,
-              pressedElevation: JsonClass.parseDouble(
-                value['pressedElevation'],
-                6.0,
-              )!,
+              elevation: JsonClass.maybeParseDouble(value['elevation']) ?? 1.0,
+              enabledThumbRadius: JsonClass.maybeParseDouble(
+                    value['enabledThumbRadius'],
+                  ) ??
+                  10.0,
+              pressedElevation: JsonClass.maybeParseDouble(
+                    value['pressedElevation'],
+                  ) ??
+                  6.0,
             );
             break;
         }
@@ -7541,7 +9645,7 @@ class ThemeDecoder {
   /// Type: `round`
   /// ```json
   /// {
-  ///   "tickMarkRadius": <double>,
+  ///   "tickMarkRadius": "<double>",
   ///   "type": "round"
   /// }
   /// ```
@@ -7568,12 +9672,13 @@ class ThemeDecoder {
           value: value,
           validate: validate,
         ));
-        String? type = value['type'];
+        final String? type = value['type'];
 
         switch (type) {
           case 'round':
             result = RoundRangeSliderTickMarkShape(
-              tickMarkRadius: JsonClass.parseDouble(value['tickMarkRadius']),
+              tickMarkRadius:
+                  JsonClass.maybeParseDouble(value['tickMarkRadius']),
             );
             break;
         }
@@ -7611,11 +9716,11 @@ class ThemeDecoder {
         ));
         switch (value) {
           case 'rectangular':
-            result = RectangularRangeSliderTrackShape();
+            result = const RectangularRangeSliderTrackShape();
             break;
 
           case 'rounded':
-            result = RoundedRectRangeSliderTrackShape();
+            result = const RoundedRectRangeSliderTrackShape();
             break;
         }
       }
@@ -7652,11 +9757,11 @@ class ThemeDecoder {
         ));
         switch (value) {
           case 'paddle':
-            result = PaddleRangeSliderValueIndicatorShape();
+            result = const PaddleRangeSliderValueIndicatorShape();
             break;
 
           case 'rectangular':
-            result = RectangularRangeSliderValueIndicatorShape();
+            result = const RectangularRangeSliderValueIndicatorShape();
             break;
         }
       }
@@ -7681,11 +9786,11 @@ class ThemeDecoder {
   /// ```json
   /// {
   ///   "center": {
-  ///     "dx": <double>,
-  ///     "dy": <double>
+  ///     "dx": "<double>",
+  ///     "dy": "<double>"
   ///   },
-  ///   "height": <double>,
-  ///   "width": <double>,
+  ///   "height": "<double>",
+  ///   "width": "<double>",
   ///   "type": "center"
   /// }
   /// ```
@@ -7694,10 +9799,10 @@ class ThemeDecoder {
   /// ```json
   /// {
   ///   "center": {
-  ///     "dx": <double>,
-  ///     "dy": <double>
+  ///     "dx": "<double>",
+  ///     "dy": "<double>"
   ///   },
-  ///   "radius": <double>,
+  ///   "radius": "<double>",
   ///   "type": "circle"
   /// }
   /// ```
@@ -7712,10 +9817,10 @@ class ThemeDecoder {
   /// Type: `ltrb`
   /// ```json
   /// {
-  ///   "bottom": <double>,
-  ///   "left": <double>,
-  ///   "right": <double>,
-  ///   "top": <double>,
+  ///   "bottom": "<double>",
+  ///   "left": "<double>",
+  ///   "right": "<double>",
+  ///   "top": "<double>",
   ///   "type": "ltrb"
   /// }
   /// ```
@@ -7723,11 +9828,11 @@ class ThemeDecoder {
   /// Type: `ltwh`
   /// ```json
   /// {
-  ///   "height": <double>,
-  ///   "left": <double>,
-  ///   "top": <double>,
+  ///   "height": "<double>",
+  ///   "left": "<double>",
+  ///   "top": "<double>",
   ///   "type": "ltwh",
-  ///   "width": <double>
+  ///   "width": "<double>"
   /// }
   /// ```
   ///
@@ -7735,12 +9840,12 @@ class ThemeDecoder {
   /// ```json
   /// {
   ///   "a": {
-  ///     "dx": <double>,
-  ///     "dy": <double>
+  ///     "dx": "<double>",
+  ///     "dy": "<double>"
   ///   },
   ///   "b": {
-  ///     "dx": <double>,
-  ///     "dy": <double>
+  ///     "dx": "<double>",
+  ///     "dy": "<double>"
   ///   }
   ///   "type": "points"
   /// }
@@ -7784,7 +9889,7 @@ class ThemeDecoder {
           value: value,
           validate: validate,
         ));
-        String? type = value['type'];
+        final String? type = value['type'];
         switch (type) {
           case 'center':
             result = Rect.fromCenter(
@@ -7792,8 +9897,8 @@ class ThemeDecoder {
                 value['center'],
                 validate: false,
               )!,
-              height: JsonClass.parseDouble(value['height'])!,
-              width: JsonClass.parseDouble(value['width'])!,
+              height: JsonClass.maybeParseDouble(value['height'])!,
+              width: JsonClass.maybeParseDouble(value['width'])!,
             );
             break;
 
@@ -7803,7 +9908,7 @@ class ThemeDecoder {
                 value['center'],
                 validate: false,
               )!,
-              radius: JsonClass.parseDouble(value['radius'])!,
+              radius: JsonClass.maybeParseDouble(value['radius'])!,
             );
             break;
 
@@ -7813,19 +9918,19 @@ class ThemeDecoder {
 
           case 'ltrb':
             result = Rect.fromLTRB(
-              JsonClass.parseDouble(value['left'])!,
-              JsonClass.parseDouble(value['top'])!,
-              JsonClass.parseDouble(value['right'])!,
-              JsonClass.parseDouble(value['bottom'])!,
+              JsonClass.maybeParseDouble(value['left'])!,
+              JsonClass.maybeParseDouble(value['top'])!,
+              JsonClass.maybeParseDouble(value['right'])!,
+              JsonClass.maybeParseDouble(value['bottom'])!,
             );
             break;
 
           case 'ltwh':
             result = Rect.fromLTWH(
-              JsonClass.parseDouble(value['left'])!,
-              JsonClass.parseDouble(value['top'])!,
-              JsonClass.parseDouble(value['width'])!,
-              JsonClass.parseDouble(value['height'])!,
+              JsonClass.maybeParseDouble(value['left'])!,
+              JsonClass.maybeParseDouble(value['top'])!,
+              JsonClass.maybeParseDouble(value['width'])!,
+              JsonClass.maybeParseDouble(value['height'])!,
             );
             break;
 
@@ -7873,7 +9978,7 @@ class ThemeDecoder {
         value: value,
         validate: validate,
       ));
-      result = ScrollBehavior();
+      result = const ScrollBehavior();
     }
 
     return result;
@@ -7892,8 +9997,8 @@ class ThemeDecoder {
   /// This expects the JSON representation to follow the structure:
   /// ```json
   /// {
-  ///   "parent": <ScrollPhysics>,
-  ///   "type": <String>
+  ///   "parent": "<ScrollPhysics>",
+  ///   "type": "<String>"
   /// }
   /// ```
   static ScrollPhysics? decodeScrollPhysics(
@@ -7925,7 +10030,7 @@ class ThemeDecoder {
           value: value,
           validate: validate,
         ));
-        var type = value['type'];
+        final type = value['type'];
 
         switch (type) {
           case 'always':
@@ -8077,17 +10182,17 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "crossAxisMargin": <double>,
-  ///   "interactive": <bool>,
-  ///   "mainAxisMargin": <double>,
-  ///   "minThumbLength": <double>,
-  ///   "radius": <Radius>,
-  ///   "thickness": <MaterialStateProperty<double>>,
-  ///   "thumbColor": <MaterialStateProperty<Color>>,
-  ///   "thumbVisibility": <MaterialStateProperty<bool>>,
-  ///   "trackBorderColor": <MaterialStateProperty<Color>>,
-  ///   "trackColor": <MaterialStateProperty<Color>>,
-  ///   "trackVisibility": <MaterialStateProperty<bool>>,
+  ///   "crossAxisMargin": "<double>",
+  ///   "interactive": "<bool>",
+  ///   "mainAxisMargin": "<double>",
+  ///   "minThumbLength": "<double>",
+  ///   "radius": "<Radius>",
+  ///   "thickness": "<MaterialStateProperty<double>>",
+  ///   "thumbColor": "<MaterialStateProperty<Color>>",
+  ///   "thumbVisibility": "<MaterialStateProperty<bool>>",
+  ///   "trackBorderColor": "<MaterialStateProperty<Color>>",
+  ///   "trackColor": "<MaterialStateProperty<Color>>",
+  ///   "trackVisibility": "<MaterialStateProperty<bool>>",
   /// }
   /// ```
   ///
@@ -8111,16 +10216,16 @@ class ThemeDecoder {
         validate: validate,
       ));
       result = ScrollbarThemeData(
-        crossAxisMargin: JsonClass.parseDouble(value['crossAxisMargin']),
-        interactive: value['interactive'] == null
-            ? null
-            : JsonClass.parseBool(value['interactive']),
-        mainAxisMargin: JsonClass.parseDouble(value['mainAxisMargin']),
-        minThumbLength: JsonClass.parseDouble(value['minThumbLength']),
+        crossAxisMargin: JsonClass.maybeParseDouble(value['crossAxisMargin']),
+        interactive: JsonClass.maybeParseBool(value['interactive']),
+        // isAlwaysShown: @deprecated,
+        mainAxisMargin: JsonClass.maybeParseDouble(value['mainAxisMargin']),
+        minThumbLength: JsonClass.maybeParseDouble(value['minThumbLength']),
         radius: decodeRadius(
           value['radius'],
           validate: false,
         ),
+        // showTrackOnHover: @deprecated
         thickness: decodeMaterialStatePropertyDouble(
           value['thickness'],
           validate: false,
@@ -8131,6 +10236,7 @@ class ThemeDecoder {
         ),
         thumbVisibility: decodeMaterialStatePropertyBool(
           value['thumbVisibility'],
+          validate: false,
         ),
         trackBorderColor: decodeMaterialStatePropertyColor(
           value['trackBorderColor'],
@@ -8150,17 +10256,231 @@ class ThemeDecoder {
     return result;
   }
 
+  /// Decodes the given [value] to an [SearchBarThemeData].  This expects the given
+  /// [value] to follow the structure below:
+  ///
+  /// ```json
+  /// {
+  ///   "backgroundColor": "<MaterialStateProperty<Color>>",
+  ///   "constraints": "<BoxConstraints>",
+  ///   "elevation": "<MaterialStateProperty<double>>",
+  ///   "hintStyle": "<MaterialStateProperty<TextStyle>>",
+  ///   "overlayColor": "<MaterialStateProperty<Color>>",
+  ///   "padding": "<MaterialStateProperty<EdgeInsetsGeometry>>",
+  ///   "shadowColor": "<MaterialStateProperty<Color>>",
+  ///   "shape": MaterialStateProperty<OutlinedBorder>,
+  ///   "side": "<MaterialStateProperty<BorderSide>>",
+  ///   "surfaceTintColor": "<MaterialStateProperty<Color>>",
+  ///   "textStyle": "<MaterialStateProperty<TextStyle>>"
+  /// }
+  /// ```
+  ///
+  /// See also:
+  ///  * [decodeBoxConstraints]
+  ///  * [decodeMaterialStatePropertyBorderSide]
+  ///  * [decodeMaterialStatePropertyColor]
+  ///  * [decodeMaterialStatePropertyDouble]
+  ///  * [decodeMaterialStatePropertyEdgeInsetsGeometry]
+  ///  * [decodeMaterialStatePropertyOutlinedBorder]
+  ///  * [decodeMaterialStatePropertyTextStyle]
+  static SearchBarThemeData? decodeSearchBarThemeData(
+    dynamic value, {
+    bool validate = true,
+  }) {
+    SearchBarThemeData? result;
+
+    if (value is SearchBarThemeData) {
+      result = value;
+    } else if (value != null) {
+      assert(SchemaValidator.validate(
+        schemaId: '$_baseSchemaUrl/search_bar_theme_data',
+        value: value,
+        validate: validate,
+      ));
+
+      result = SearchBarThemeData(
+        backgroundColor: decodeMaterialStatePropertyColor(
+          value['backgroundColor'],
+          validate: false,
+        ),
+        constraints: decodeBoxConstraints(
+          value['constraints'],
+          validate: false,
+        ),
+        elevation: decodeMaterialStatePropertyDouble(
+          value['elevation'],
+          validate: false,
+        ),
+        hintStyle: decodeMaterialStatePropertyTextStyle(
+          value['hintStyle'],
+          validate: false,
+        ),
+        overlayColor: decodeMaterialStatePropertyColor(
+          value['overlayColor'],
+          validate: false,
+        ),
+        padding: decodeMaterialStatePropertyEdgeInsetsGeometry(
+          value['padding'],
+          validate: false,
+        ),
+        shadowColor: decodeMaterialStatePropertyColor(
+          value['shadowColor'],
+          validate: false,
+        ),
+        shape: decodeMaterialStatePropertyOutlinedBorder(
+          value['shape'],
+          validate: false,
+        ),
+        side: decodeMaterialStatePropertyBorderSide(
+          value['side'],
+          validate: false,
+        ),
+        surfaceTintColor: decodeMaterialStatePropertyColor(
+          value['surfaceTintColor'],
+          validate: false,
+        ),
+        textStyle: decodeMaterialStatePropertyTextStyle(
+          value['textStyle'],
+          validate: false,
+        ),
+      );
+    }
+
+    return result;
+  }
+
+  /// Decodes the given [value] to an [SearchViewThemeData].  This expects the
+  /// given [value] to follow the structure below:
+  ///
+  /// ```json
+  /// {
+  ///   "backgroundColor": "<Color>",
+  ///   "constraints": "<BoxConstraints>",
+  ///   "dividerColor": "<Color>",
+  ///   "elevation": "<double>",
+  ///   "headerHintStyle": "<TextStyle>",
+  ///   "headerTextStyle": "<TextStyle>",
+  ///   "shape": "<OutlinedBorder>",
+  ///   "side": "<BorderSide>",
+  ///   "surfaceTintColor": "<Color>"
+  /// }
+  /// ```
+  ///
+  /// See also:
+  ///  * [decodeBorderSide]
+  ///  * [decodeBoxConstraints]
+  ///  * [decodeColor]
+  ///  * [decodeOutlinedBorder]
+  ///  * [decodeTextStyle]
+  static SearchViewThemeData? decodeSearchViewThemeData(
+    dynamic value, {
+    bool validate = true,
+  }) {
+    SearchViewThemeData? result;
+
+    if (value is SearchViewThemeData) {
+      result = value;
+    } else if (value != null) {
+      assert(SchemaValidator.validate(
+        schemaId: '$_baseSchemaUrl/search_view_theme_data',
+        value: value,
+        validate: validate,
+      ));
+
+      result = SearchViewThemeData(
+        backgroundColor: decodeColor(
+          value['backgroundColor'],
+          validate: false,
+        ),
+        constraints: decodeBoxConstraints(
+          value['constraints'],
+          validate: false,
+        ),
+        dividerColor: decodeColor(
+          value['dividerColor'],
+          validate: false,
+        ),
+        elevation: JsonClass.maybeParseDouble(value['elevation']),
+        headerHintStyle: decodeTextStyle(
+          value['headerHintStyle'],
+          validate: false,
+        ),
+        headerTextStyle: decodeTextStyle(
+          value['headerTextStyle'],
+          validate: false,
+        ),
+        shape: decodeOutlinedBorder(
+          value['shape'],
+          validate: false,
+        ),
+        side: decodeBorderSide(
+          value['side'],
+          validate: false,
+        ),
+        surfaceTintColor: decodeColor(
+          value['surfaceTintColor'],
+          validate: false,
+        ),
+      );
+    }
+
+    return result;
+  }
+
+  /// Decodes the given [value] to an [SegmentedButtonThemeData].  This expects
+  /// the given [value] to follow the structure below:
+  ///
+  /// ```json
+  /// {
+  ///   "selectedIcon": "<Icon>",
+  ///   "style": "<ButtonStyle>"
+  /// }
+  /// ```
+  ///
+  /// See also:
+  ///  * [decodeButtonStyle]
+  ///  * [decodeIcon]
+  static SegmentedButtonThemeData? decodeSegmentedButtonThemeData(
+    dynamic value, {
+    validate = true,
+  }) {
+    SegmentedButtonThemeData? result;
+
+    if (value is SegmentedButtonThemeData) {
+      result = value;
+    } else if (value != null) {
+      assert(SchemaValidator.validate(
+        schemaId: '$_baseSchemaUrl/segmented_button_theme_data',
+        value: value,
+        validate: validate,
+      ));
+
+      result = SegmentedButtonThemeData(
+        selectedIcon: decodeIcon(
+          value['selectedIcon'],
+          validate: false,
+        ),
+        style: decodeButtonStyle(
+          value['style'],
+          validate: false,
+        ),
+      );
+    }
+
+    return result;
+  }
+
   /// Decodes the given [value] to an [SemanticsTag].  This expects the given
   /// [value] to be of the following structure:
   ///
   /// ```json
   /// {
-  ///   "name": <String>
+  ///   "name": "<String>"
   /// }
   /// ```
   static SemanticsTag? decodeSemanticsTag(
     dynamic value, {
-    bool validate = false,
+    bool validate = true,
   }) {
     SemanticsTag? result;
 
@@ -8184,9 +10504,9 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "blurRadius": <double>,
-  ///   "color": <Color>,
-  ///   "offset": <Offset>
+  ///   "blurRadius": "<double>",
+  ///   "color": "<Color>",
+  ///   "offset": "<Offset>"
   /// }
   /// ```
   ///
@@ -8208,7 +10528,7 @@ class ThemeDecoder {
         validate: validate,
       ));
       result = Shadow(
-        blurRadius: JsonClass.parseDouble(value['blurRadius'], 0.0)!,
+        blurRadius: JsonClass.maybeParseDouble(value['blurRadius'], 0.0)!,
         color: decodeColor(
           value['color'],
           validate: false,
@@ -8235,7 +10555,7 @@ class ThemeDecoder {
   /// `CircleBorder`
   /// ```json
   /// {
-  ///   "side": <BorderSide>,
+  ///   "side": "<BorderSide>",
   ///   "type": "circle"
   /// }
   /// ```
@@ -8243,8 +10563,8 @@ class ThemeDecoder {
   /// `ContinuousRectangleBorder`
   /// ```json
   /// {
-  ///   "borderRadius": <BorderRadius>,
-  ///   "side": <BorderSide>,
+  ///   "borderRadius": "<BorderRadius>",
+  ///   "side": "<BorderSide>",
   ///   "type": "rectangle"
   /// }
   /// ```
@@ -8252,8 +10572,8 @@ class ThemeDecoder {
   /// `RoundedRectangleBorder`
   /// ```json
   /// {
-  ///   "borderRadius": <BorderRadius>,
-  ///   "side": <BorderSide>,
+  ///   "borderRadius": "<BorderRadius>",
+  ///   "side": "<BorderSide>",
   ///   "type": "rounded"
   /// }
   /// ```
@@ -8261,7 +10581,7 @@ class ThemeDecoder {
   /// `StadiumBorder`
   /// ```json
   /// {
-  ///   "side": <BorderSide>,
+  ///   "side": "<BorderSide>",
   ///   "type": "stadium"
   /// }
   /// ```
@@ -8295,7 +10615,7 @@ class ThemeDecoder {
           value: value,
           validate: validate,
         ));
-        String? type = value['type'];
+        final String? type = value['type'];
 
         switch (type) {
           case 'circle':
@@ -8312,6 +10632,7 @@ class ThemeDecoder {
             result = ContinuousRectangleBorder(
               borderRadius: decodeBorderRadius(
                     value['borderRadius'],
+                    validate: false,
                   ) ??
                   BorderRadius.zero,
               side: decodeBorderSide(
@@ -8410,8 +10731,8 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "height": <double>,
-  ///   "width": <double>
+  ///   "height": "<double>",
+  ///   "width": "<double>"
   /// }
   /// ```
   static Size? decodeSize(
@@ -8429,8 +10750,8 @@ class ThemeDecoder {
         validate: validate,
       ));
       result = Size(
-        JsonClass.parseDouble(value['width'])!,
-        JsonClass.parseDouble(value['height'])!,
+        JsonClass.maybeParseDouble(value['width'])!,
+        JsonClass.maybeParseDouble(value['height'])!,
       );
     }
 
@@ -8483,33 +10804,35 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "activeTickMarkColor": <Color>,
-  ///   "activeTrackColor": <Color>,
-  ///   "disabledActiveTickMarkColor": <Color>,
-  ///   "disabledActiveTrackColor": <Color>,
-  ///   "disabledInactiveTickMarkColor": <Color>,
-  ///   "disabledInactiveTrackColor": <Color>,
-  ///   "disabledThumbColor": <Color>,
-  ///   "inactiveTickMarkColor": <Color>,
-  ///   "inactiveTrackColor": <Color>,
-  ///   "minThumbSeparation": <double>,
-  ///   "mouseCursor": <MaterialStateProperty<MouseCursor>>,
-  ///   "overlappingShapeStrokeColor": <Color>,
-  ///   "overlayColor": <Color>,
-  ///   "overlayShape": <SliderComponentShape>,
-  ///   "rangeThumbShape": <RangeSliderThumbShape>,
-  ///   "rangeTickMarkShape": <RangeSliderTickMarkShape>,
-  ///   "rangeTrackShape": <RangeSliderTrackShape>,
-  ///   "rangeValueIndicatorShape": <RangeSliderValueIndicatorShape>,
-  ///   "showValueIndicator": <ShowValueIndicator>,
-  ///   "thumbColor": <Color>,
-  ///   "thumbShape": <SliderComponentShape>,
-  ///   "tickMarkShape": <SliderTickMarkShape>,
-  ///   "trackHeight": <double>,
-  ///   "trackShape": <SliderTrackShape>,
-  ///   "valueIndicatorColor": <Color>,
-  ///   "valueIndicatorShape": <SliderComponentShape>,
-  ///   "valueIndicatorTextStyle": <TextStyle>
+  ///   "activeTickMarkColor": "<Color>",
+  ///   "activeTrackColor": "<Color>",
+  ///   "disabledActiveTickMarkColor": "<Color>",
+  ///   "disabledActiveTrackColor": "<Color>",
+  ///   "disabledInactiveTickMarkColor": "<Color>",
+  ///   "disabledInactiveTrackColor": "<Color>",
+  ///   "disabledSecondaryActiveTrackColor": "<Color>",
+  ///   "disabledThumbColor": "<Color>",
+  ///   "inactiveTickMarkColor": "<Color>",
+  ///   "inactiveTrackColor": "<Color>",
+  ///   "minThumbSeparation": "<double>",
+  ///   "mouseCursor": "<MaterialStateProperty<MouseCursor>>",
+  ///   "overlappingShapeStrokeColor": "<Color>",
+  ///   "overlayColor": "<Color>",
+  ///   "overlayShape": "<SliderComponentShape>",
+  ///   "rangeThumbShape": "<RangeSliderThumbShape>",
+  ///   "rangeTickMarkShape": "<RangeSliderTickMarkShape>",
+  ///   "rangeTrackShape": "<RangeSliderTrackShape>",
+  ///   "rangeValueIndicatorShape": "<RangeSliderValueIndicatorShape>",
+  ///   "secondaryActiveTrackColor": "<Color>",
+  ///   "showValueIndicator": "<ShowValueIndicator>",
+  ///   "thumbColor": "<Color>",
+  ///   "thumbShape": "<SliderComponentShape>",
+  ///   "tickMarkShape": "<SliderTickMarkShape>",
+  ///   "trackHeight": "<double>",
+  ///   "trackShape": "<SliderTrackShape>",
+  ///   "valueIndicatorColor": "<Color>",
+  ///   "valueIndicatorShape": "<SliderComponentShape>",
+  ///   "valueIndicatorTextStyle": "<TextStyle>"
   /// }
   /// ```
   ///
@@ -8562,6 +10885,10 @@ class ThemeDecoder {
           value['disabledInactiveTrackColor'],
           validate: false,
         ),
+        disabledSecondaryActiveTrackColor: decodeColor(
+          value['disabledSecondaryActiveTrackColor'],
+          validate: false,
+        ),
         disabledThumbColor: decodeColor(
           value['disabledThumbColor'],
           validate: false,
@@ -8574,7 +10901,8 @@ class ThemeDecoder {
           value['inactiveTrackColor'],
           validate: false,
         ),
-        minThumbSeparation: JsonClass.parseDouble(value['minThumbSeparation']),
+        minThumbSeparation:
+            JsonClass.maybeParseDouble(value['minThumbSeparation']),
         mouseCursor: decodeMaterialStatePropertyMouseCursor(
           value['mouseCursor'],
           validate: false,
@@ -8607,6 +10935,10 @@ class ThemeDecoder {
           value['rangeValueIndicatorShape'],
           validate: false,
         ),
+        secondaryActiveTrackColor: decodeColor(
+          value['secondaryActiveTrackColor'],
+          validate: false,
+        ),
         showValueIndicator: decodeShowValueIndicator(
           value['showValueIndicator'],
           validate: false,
@@ -8615,8 +10947,7 @@ class ThemeDecoder {
           value['thumbColor'],
           validate: false,
         ),
-        // @unencodable
-        // thumbSelector
+        // thumbSelector: @unencodable
         thumbShape: decodeSliderComponentShape(
           value['thumbShape'],
           validate: false,
@@ -8625,7 +10956,7 @@ class ThemeDecoder {
           value['tickMarkShape'],
           validate: false,
         ),
-        trackHeight: JsonClass.parseDouble(value['trackHeight']),
+        trackHeight: JsonClass.maybeParseDouble(value['trackHeight']),
         trackShape: decodeSliderTrackShape(
           value['trackShape'],
           validate: false,
@@ -8703,15 +11034,6 @@ class ThemeDecoder {
   ///   "type": "rounded"
   /// }
   /// ```
-  ///
-  /// See also:
-  ///  * [decodeColor]
-  ///  * [decodeShowValueIndicator]
-  ///  * [decodeSliderComponentShape]
-  ///  * [decodeRangeSliderThumbShape]
-  ///  * [decodeRangeSliderTickMarkShape]
-  ///  * [decodeRangeSliderTrackShape]
-  ///  * [decodeRangeSliderValueIndicatorShape]
   static SliderTrackShape? decodeSliderTrackShape(
     dynamic value, {
     bool validate = true,
@@ -8736,14 +11058,14 @@ class ThemeDecoder {
           value: value,
           validate: validate,
         ));
-        String? type = value['type'];
+        final String? type = value['type'];
         switch (type) {
           case 'rectangular':
-            result = RectangularSliderTrackShape();
+            result = const RectangularSliderTrackShape();
             break;
 
           case 'rounded':
-            result = RoundedRectSliderTrackShape();
+            result = const RoundedRectSliderTrackShape();
             break;
         }
       }
@@ -8878,18 +11200,26 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "actionTextColor": <Color>,
-  ///   "backgroundColor": <Color>,
-  ///   "behavior": <SnackBarBehavior>,
-  ///   "contentTextStyle": <TextStyle>,
-  ///   "disabledActionTextColor": <Color>,
-  ///   "elevation": <double>,
-  ///   "shape": <ShapeBorder>,
+  ///   "actionBackgroundColor": "<Color>",
+  ///   "actionOverflowThreshold": "<double>",
+  ///   "actionTextColor": "<Color>",
+  ///   "backgroundColor": "<Color>",
+  ///   "behavior": "<SnackBarBehavior>",
+  ///   "closeIconColor": "<Color>",
+  ///   "contentTextStyle": "<TextStyle>",
+  ///   "disabledActionBackgroundColor": "<Color>",
+  ///   "disabledActionTextColor": "<Color>",
+  ///   "elevation": "<double>",
+  ///   "insetPadding": "<EdgeInsets>",
+  ///   "shape": "<ShapeBorder>",
+  ///   "showCloseIcon": "<bool>",
+  ///   "width": "<double>"
   /// }
   /// ```
   ///
   /// See also:
   ///  * [decodeColor]
+  ///  * [decodeEdgeInsets]
   ///  * [decodeSnackBarBehavior]
   ///  * [decodeShapeBorder]
   ///  * [decodeTextStyle]
@@ -8908,6 +11238,13 @@ class ThemeDecoder {
         validate: validate,
       ));
       result = SnackBarThemeData(
+        actionBackgroundColor: decodeColor(
+          value['actionBackgroundColor'],
+          validate: false,
+        ),
+        actionOverflowThreshold: JsonClass.maybeParseDouble(
+          value['actionOverflowThreshold'],
+        ),
         actionTextColor: decodeColor(
           value['actionTextColor'],
           validate: false,
@@ -8920,19 +11257,33 @@ class ThemeDecoder {
           value['behavior'],
           validate: false,
         ),
+        closeIconColor: decodeColor(
+          value['closeIconColor'],
+          validate: false,
+        ),
         contentTextStyle: decodeTextStyle(
           value['contentTextStyle'],
+          validate: false,
+        ),
+        disabledActionBackgroundColor: decodeColor(
+          value['disabledActionBackgroundColor'],
           validate: false,
         ),
         disabledActionTextColor: decodeColor(
           value['disabledActionTextColor'],
           validate: false,
         ),
-        elevation: JsonClass.parseDouble(value['elevation']),
+        elevation: JsonClass.maybeParseDouble(value['elevation']),
+        insetPadding: decodeEdgeInsets(
+          value['insetPadding'],
+          validate: false,
+        ),
         shape: decodeShapeBorder(
           value['shape'],
           validate: false,
         ),
+        showCloseIcon: JsonClass.maybeParseBool(value['showCloseIcon']),
+        width: JsonClass.maybeParseDouble(value['width']),
       );
     }
 
@@ -8981,16 +11332,16 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "fontFamily": <String>,
-  ///   "fontFamilyFallback": <String[]>,
-  ///   "fontSize": <double>,
-  ///   "fontStyle": <FontStyle>,
-  ///   "fontWeight": <FontWeight>
-  ///   "forceStrutHeight": <bool>,
-  ///   "height": <double>,
-  ///   "leading": <double>,
-  ///   "leadingDistribution": <TextLeadingDistribution>,
-  ///   "package": <String>
+  ///   "fontFamily": "<String>",
+  ///   "fontFamilyFallback": "<String[]>",
+  ///   "fontSize": "<double>",
+  ///   "fontStyle": "<FontStyle>",
+  ///   "fontWeight": "<FontWeight>"
+  ///   "forceStrutHeight": "<bool>",
+  ///   "height": "<double>",
+  ///   "leading": "<double>",
+  ///   "leadingDistribution": "<TextLeadingDistribution>",
+  ///   "package": "<String>"
   /// }
   /// ```
   ///
@@ -9018,7 +11369,7 @@ class ThemeDecoder {
           value['fontFamilyFallback'],
           (value) => value,
         ),
-        fontSize: JsonClass.parseDouble(value['fontSize']),
+        fontSize: JsonClass.maybeParseDouble(value['fontSize']),
         fontStyle: decodeFontStyle(
           value['fontStyle'],
           validate: false,
@@ -9027,13 +11378,12 @@ class ThemeDecoder {
           value['fontWeight'],
           validate: false,
         ),
-        forceStrutHeight: value['forceStrutHeight'] == null
-            ? null
-            : JsonClass.parseBool(value['forceStrutHeight']),
-        height: JsonClass.parseDouble(value['height']),
-        leading: JsonClass.parseDouble(value['leading']),
+        forceStrutHeight: JsonClass.maybeParseBool(value['forceStrutHeight']),
+        height: JsonClass.maybeParseDouble(value['height']),
+        leading: JsonClass.maybeParseDouble(value['leading']),
         leadingDistribution: decodeTextLeadingDistribution(
           value['leadingDistribution'],
+          validate: false,
         ),
         package: value['package'],
       );
@@ -9047,12 +11397,13 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "materialTapTargetSize": <MaterialTapTargetSize>,
-  ///   "mouseCursor": <MaterialStateProperty<MouseCursor>>,
-  ///   "overlayColor": <MaterialStateProperty<Color>>,
-  ///   "splashRadius": <double>,
-  ///   "thumbColor": <MaterialStateProperty<Color>>,
-  ///   "trackColor": <MaterialStateProperty<Color>>
+  ///   "materialTapTargetSize": "<MaterialTapTargetSize>",
+  ///   "mouseCursor": "<MaterialStateProperty<MouseCursor>>",
+  ///   "overlayColor": "<MaterialStateProperty<Color>>",
+  ///   "splashRadius": "<double>",
+  ///   "thumbColor": "<MaterialStateProperty<Color>>",
+  ///   "trackColor": "<MaterialStateProperty<Color>>",
+  ///   "trackOutlineColor": "<MaterialStateProperty<Color>>"
   /// }
   /// ```
   ///
@@ -9089,13 +11440,21 @@ class ThemeDecoder {
           value['overlayColor'],
           validate: false,
         ),
-        splashRadius: JsonClass.parseDouble(value['splashRadius']),
+        splashRadius: JsonClass.maybeParseDouble(value['splashRadius']),
         thumbColor: decodeMaterialStatePropertyColor(
           value['thumbColor'],
           validate: false,
         ),
+        thumbIcon: decodeMaterialStatePropertyIcon(
+          value['thumbIcon'],
+          validate: false,
+        ),
         trackColor: decodeMaterialStatePropertyColor(
           value['trackColor'],
+          validate: false,
+        ),
+        trackOutlineColor: decodeMaterialStatePropertyColor(
+          value['trackOutlineColor'],
           validate: false,
         ),
       );
@@ -9114,6 +11473,45 @@ class ThemeDecoder {
     SystemUiOverlayStyle? result;
     if (value is SystemUiOverlayStyle) {
       result = value;
+    } else if (value is Map) {
+      assert(SchemaValidator.validate(
+        schemaId: '$_baseSchemaUrl/system_ui_overlay_style',
+        value: value,
+        validate: validate,
+      ));
+
+      result = SystemUiOverlayStyle(
+        statusBarBrightness: decodeBrightness(
+          value['statusBarBrightness'],
+          validate: false,
+        ),
+        statusBarColor: decodeColor(
+          value['statusBarColor'],
+          validate: false,
+        ),
+        statusBarIconBrightness: decodeBrightness(
+          value['statusBarIconBrightness'],
+          validate: false,
+        ),
+        systemNavigationBarColor: decodeColor(
+          value['systemNavigationBarColor'],
+          validate: false,
+        ),
+        systemNavigationBarContrastEnforced: JsonClass.maybeParseBool(
+          value['systemNavigationBarContrastEnforced'],
+        ),
+        systemNavigationBarDividerColor: decodeColor(
+          value['systemNavigationBarDividerColor'],
+          validate: false,
+        ),
+        systemNavigationBarIconBrightness: decodeBrightness(
+          value['systemNavigationBarIconBrightness'],
+          validate: false,
+        ),
+        systemStatusBarContrastEnforced: JsonClass.maybeParseBool(
+          value['systemStatusBarContrastEnforced'],
+        ),
+      );
     } else {
       _checkSupported(
         'SystemUiOverlayStyle',
@@ -9191,15 +11589,17 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "indicatorSize": <TabBarIndicatorSize>,
-  ///   "labelPadding": <EdgeInsetsGeometry>,
-  ///   "labelColor": <Color>,
-  ///   "labelStyle": <TextStyle>,
-  ///   "mouseCursor": <MaterialStateProperty<MouseCursor>>,
-  ///   "overlayColor": <MaterialStateProperty<Color>>,
-  ///   "splashFactory": <InteractiveInkSplashFactory>,
-  ///   "unselectedLabelColor": <Color>,
-  ///   "unselectedLabelStyle": <TextStyle>,
+  ///   "dividerColor": "<Color>",
+  ///   "indicatorColor": "<Color>",
+  ///   "indicatorSize": "<TabBarIndicatorSize>",
+  ///   "labelPadding": "<EdgeInsetsGeometry>",
+  ///   "labelColor": "<Color>",
+  ///   "labelStyle": "<TextStyle>",
+  ///   "mouseCursor": "<MaterialStateProperty<MouseCursor>>",
+  ///   "overlayColor": "<MaterialStateProperty<Color>>",
+  ///   "splashFactory": "<InteractiveInkSplashFactory>",
+  ///   "unselectedLabelColor": "<Color>",
+  ///   "unselectedLabelStyle": "<TextStyle>",
   /// }
   /// ```
   ///
@@ -9230,8 +11630,16 @@ class ThemeDecoder {
         'TabBarTheme.indicator is not supported',
       );
       result = TabBarTheme(
+        dividerColor: decodeColor(
+          value['dividerColor'],
+          validate: false,
+        ),
         // @unencodable
         // indicator
+        indicatorColor: decodeColor(
+          value['indicatorColor'],
+          validate: false,
+        ),
         indicatorSize: decodeTabBarIndicatorSize(
           value['indicatorSize'],
           validate: false,
@@ -9279,13 +11687,13 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "borderRadius": <BorderRadius>,
-  ///   "bottom": <BorderSide>,
-  ///   "horizontalInside": <BorderSide>,
-  ///   "left": <BorderSide>,
-  ///   "right": <BorderSide>,
-  ///   "top": <BorderSide>,
-  ///   "verticalInside": <BorderSide>,
+  ///   "borderRadius": "<BorderRadius>",
+  ///   "bottom": "<BorderSide>",
+  ///   "horizontalInside": "<BorderSide>",
+  ///   "left": "<BorderSide>",
+  ///   "right": "<BorderSide>",
+  ///   "top": "<BorderSide>",
+  ///   "verticalInside": "<BorderSide>",
   /// }
   /// ```
   ///
@@ -9353,10 +11761,10 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "a": <TableColumnWidth>,
-  ///   "b": <TableColumnWidth>,
-  ///   "type": <"fixed" | "flex" | "fraction" | "intrinsic" | "max" | "min">,
-  ///   "value": <double>
+  ///   "a": "<TableColumnWidth>",
+  ///   "b": "<TableColumnWidth>",
+  ///   "type": "<"fixed" | "flex" | "fraction" | "intrinsic" | "max" | "min">",
+  ///   "value": "<double>"
   /// }
   /// ```
   static TableColumnWidth? decodeTableColumnWidth(
@@ -9373,28 +11781,29 @@ class ThemeDecoder {
         value: value,
         validate: validate,
       ));
-      var type = value['type'];
+      final type = value['type'];
 
       switch (type) {
         case 'fixed':
-          result = FixedColumnWidth(JsonClass.parseDouble(value['value'])!);
+          result =
+              FixedColumnWidth(JsonClass.maybeParseDouble(value['value'])!);
           break;
 
         case 'flex':
           result = FlexColumnWidth(
-            JsonClass.parseDouble(value['value']) ?? 1.0,
+            JsonClass.maybeParseDouble(value['value']) ?? 1.0,
           );
           break;
 
         case 'fraction':
           result = FractionColumnWidth(
-            JsonClass.parseDouble(value['value'])!,
+            JsonClass.maybeParseDouble(value['value'])!,
           );
           break;
 
         case 'intrinsic':
           result = IntrinsicColumnWidth(
-            flex: JsonClass.parseDouble(value['value']),
+            flex: JsonClass.maybeParseDouble(value['value']),
           );
           break;
 
@@ -9627,7 +12036,7 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "style": <ButtonStyle>
+  ///   "style": "<ButtonStyle>"
   /// }
   /// ```
   ///
@@ -9870,9 +12279,9 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "applyHeightToFirstAscent": <bool>,
-  ///   "applyHeightToLastDescent": <bool>,
-  ///   "leadingDistribution": <TextLeadingDistribution>
+  ///   "applyHeightToFirstAscent": "<bool>",
+  ///   "applyHeightToLastDescent": "<bool>",
+  ///   "leadingDistribution": "<TextLeadingDistribution>"
   /// }
   /// ```
   static TextHeightBehavior? decodeTextHeightBehavior(
@@ -9890,12 +12299,14 @@ class ThemeDecoder {
         validate: validate,
       ));
       result = TextHeightBehavior(
-        applyHeightToFirstAscent: value['applyHeightToFirstAscent'] == null
-            ? true
-            : JsonClass.parseBool(value['applyHeightToLastDescent']),
-        applyHeightToLastDescent: value['applyHeightToLastDescent'] == null
-            ? true
-            : JsonClass.parseBool(value['applyHeightToLastDescent']),
+        applyHeightToFirstAscent: JsonClass.parseBool(
+          value['applyHeightToLastDescent'],
+          whenNull: true,
+        ),
+        applyHeightToLastDescent: JsonClass.parseBool(
+          value['applyHeightToLastDescent'],
+          whenNull: true,
+        ),
         leadingDistribution: decodeTextLeadingDistribution(
               value['leadingDistribution'],
               validate: false,
@@ -10020,6 +12431,7 @@ class ThemeDecoder {
   ///  * `emailAddress`
   ///  * `multiline`
   ///  * `name`
+  ///  * `none`
   ///  * `number`
   ///  * `phone`
   ///  * `streetAddress`
@@ -10041,6 +12453,7 @@ class ThemeDecoder {
           'emailAddress',
           'multiline',
           'name',
+          'none',
           'number',
           'phone',
           'streetAddress',
@@ -10072,6 +12485,10 @@ class ThemeDecoder {
 
           case 'name':
             result = TextInputType.name;
+            break;
+
+          case 'none':
+            result = TextInputType.none;
             break;
 
           case 'number':
@@ -10199,9 +12616,9 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "cursorColor": <Color>,
-  ///   "selectionColor": <Color>,
-  ///   "selectionHandleColor": <Color>
+  ///   "cursorColor": "<Color>",
+  ///   "selectionColor": "<Color>",
+  ///   "selectionHandleColor": "<Color>"
   /// }
   /// ```
   ///
@@ -10245,28 +12662,95 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "backgroundColor": <Color>,
-  ///   "color": <Color>,
-  ///   "decoration": <TextDecoration>,
-  ///   "decorationColor": <Color>,
-  ///   "decorationStyle": <TextDecorationStyle>,
-  ///   "decorationThickness": <double>,
-  ///   "fontFamily": <FontFamily>,
-  ///   "fontFamilyFallback": <String[]>,
-  ///   "fontFeatures": <FontFeature[]>,
-  ///   "fontSize": <double>,
-  ///   "fontStyle": <FontStyle>,
-  ///   "fontWeight": <FontWeight>,
-  ///   "height": <double>,
-  ///   "inherit": <bool>,
-  ///   "leadingDistribution": <TextLeadingDistribution>,
-  ///   "letterSpacing": <double>,
-  ///   "locale": <Locale>,
-  ///   "overflow": <TextOverflow>,
-  ///   "package": <String>,
-  ///   "shadows": <Shadow[]>,
-  ///   "textBaseline": <TextBaseline>,
-  ///   "wordSpacing": <double>
+  ///   "children": "<List<TextSpan>>",
+  ///   "locale": "<Locale>",
+  ///   "mouseCursor": "<MouseCursor>",
+  ///   "onEnter": "<PointerEnterEventListener>",
+  ///   "onExit": "<PointerExitEventListener>",
+  ///   "recognizer": "<GestureRecognizer>",
+  ///   "semanticsLabel": "<String>",
+  ///   "spellOut": "<bool>",
+  ///   "style": "<TextStyle>",
+  ///   "text": "<String>"
+  /// }
+  /// ```
+  ///
+  /// See Also:
+  ///  * [decodeLocale]
+  ///  * [decodeMouseCursor]
+  ///  * [decodeTextStyle]
+  static TextSpan? decodeTextSpan(
+    dynamic value, {
+    bool validate = true,
+  }) {
+    TextSpan? result;
+
+    if (value is TextSpan) {
+      result = value;
+    } else if (value is String) {
+      result = TextSpan(text: value);
+    } else if (value != null) {
+      assert(SchemaValidator.validate(
+        schemaId: '$_baseSchemaUrl/text_span',
+        value: value,
+        validate: validate,
+      ));
+
+      result = TextSpan(
+        children: (value['children'] as List?)
+            ?.map((e) => decodeTextSpan(e, validate: false)!)
+            .toList(),
+        locale: decodeLocale(
+          value['locale'],
+          validate: false,
+        ),
+        mouseCursor: decodeMouseCursor(
+          value['mouseCursor'],
+          validate: false,
+        ),
+        onEnter: value['onEnter'],
+        onExit: value['onExit'],
+        recognizer: value['recognizer'],
+        semanticsLabel: value['semanticsLabel']?.toString(),
+        spellOut: JsonClass.maybeParseBool(value['spellOut']),
+        style: decodeTextStyle(
+          value['style'],
+          validate: false,
+        ),
+        text: value['text']?.toString(),
+      );
+    }
+
+    return result;
+  }
+
+  /// Decodes a given Map-like [value] into a [TextStyle].  This expects the
+  /// given [value] to have the following structure:
+  ///
+  /// ```json
+  /// {
+  ///   "backgroundColor": "<Color>",
+  ///   "color": "<Color>",
+  ///   "decoration": "<TextDecoration>",
+  ///   "decorationColor": "<Color>",
+  ///   "decorationStyle": "<TextDecorationStyle>",
+  ///   "decorationThickness": "<double>",
+  ///   "fontFamily": "<FontFamily>",
+  ///   "fontFamilyFallback": "<String[]>",
+  ///   "fontFeatures": "<FontFeature[]>",
+  ///   "fontSize": "<double>",
+  ///   "fontStyle": "<FontStyle>",
+  ///   "fontWeight": "<FontWeight>",
+  ///   "height": "<double>",
+  ///   "inherit": "<bool>",
+  ///   "leadingDistribution": "<TextLeadingDistribution>",
+  ///   "letterSpacing": "<double>",
+  ///   "locale": "<Locale>",
+  ///   "overflow": "<TextOverflow>",
+  ///   "package": "<String>",
+  ///   "shadows": "<Shadow[]>",
+  ///   "textBaseline": "<TextBaseline>",
+  ///   "wordSpacing": "<double>"
   /// }
   /// ```
   ///
@@ -10274,6 +12758,7 @@ class ThemeDecoder {
   ///  * [decodeColor]
   ///  * [decodeFontFeature]
   ///  * [decodeFontStyle]
+  ///  * [decodeFontVariation]
   ///  * [decodeFontWeight]
   ///  * [decodeLocale]
   ///  * [decodeShadow]
@@ -10297,8 +12782,7 @@ class ThemeDecoder {
         validate: validate,
       ));
       result = TextStyle(
-        // @unencodable
-        // background
+        // background: @unencodable
         backgroundColor: decodeColor(
           value['backgroundColor'],
           validate: false,
@@ -10320,7 +12804,7 @@ class ThemeDecoder {
           validate: false,
         ),
         decorationThickness:
-            JsonClass.parseDouble(value['decorationThickness']),
+            JsonClass.maybeParseDouble(value['decorationThickness']),
         fontFamily: value['fontFamily'],
         fontFamilyFallback: value['fontFamilyFallback'] == null
             ? null
@@ -10335,46 +12819,58 @@ class ThemeDecoder {
                   ),
                 ),
               ),
+        fontVariations: (value['fontVariations'] as List?)
+            ?.map<FontVariation>(
+              (e) => decodeFontVariation(
+                e,
+                validate: false,
+              )!,
+            )
+            .toList(),
         fontWeight: decodeFontWeight(
           value['fontWeight'],
           validate: false,
         ),
-        fontSize: JsonClass.parseDouble(value['fontSize']),
+        fontSize: JsonClass.maybeParseDouble(value['fontSize']),
         fontStyle: decodeFontStyle(
           value['fontStyle'],
           validate: false,
         ),
-        // @unencodable
-        // foreground
-        height: JsonClass.parseDouble(value['height']),
-        inherit: value['inherit'] == null
-            ? true
-            : JsonClass.parseBool(
-                value['inherit'],
-              ),
+        // foreground: @unencodable
+        height: JsonClass.maybeParseDouble(value['height']),
+        inherit: JsonClass.parseBool(
+          value['inherit'],
+          whenNull: true,
+        ),
         leadingDistribution: decodeTextLeadingDistribution(
           value['leadingDistribution'],
           validate: false,
         ),
-        letterSpacing: JsonClass.parseDouble(value['letterSpacing']),
+        letterSpacing: JsonClass.maybeParseDouble(value['letterSpacing']),
         locale: decodeLocale(
           value['locale'],
           validate: false,
         ),
-        overflow: decodeTextOverflow(value['overflow']),
+        overflow: decodeTextOverflow(
+          value['overflow'],
+          validate: false,
+        ),
         package: value['package'],
         shadows: value['shadows'] == null
             ? null
             : List<Shadow>.from(
                 value['shadows'].map(
-                  (value) => decodeShadow(value),
+                  (value) => decodeShadow(
+                    value,
+                    validate: false,
+                  ),
                 ),
               ),
         textBaseline: decodeTextBaseline(
           value['textBaseline'],
           validate: false,
         ),
-        wordSpacing: JsonClass.parseDouble(value['wordSpacing']),
+        wordSpacing: JsonClass.maybeParseDouble(value['wordSpacing']),
       );
     }
 
@@ -10387,40 +12883,40 @@ class ThemeDecoder {
   /// ## 2018 version
   /// ```json
   /// {
-  ///   "bodyText1": <TextStyle>,
-  ///   "bodyText2": <TextStyle>,
-  ///   "button": <TextStyle>,
-  ///   "caption": <TextStyle>,
-  ///   "headline1": <TextStyle>,
-  ///   "headline2": <TextStyle>,
-  ///   "headline3": <TextStyle>,
-  ///   "headline4": <TextStyle>,
-  ///   "headline5": <TextStyle>,
-  ///   "headline6": <TextStyle>,
-  ///   "overline": <TextStyle>,
-  ///   "subtitle1": <TextStyle>,
-  ///   "subtitle2": <TextStyle>
+  ///   "bodyText1": "<TextStyle>",
+  ///   "bodyText2": "<TextStyle>",
+  ///   "button": "<TextStyle>",
+  ///   "caption": "<TextStyle>",
+  ///   "headline1": "<TextStyle>",
+  ///   "headline2": "<TextStyle>",
+  ///   "headline3": "<TextStyle>",
+  ///   "headline4": "<TextStyle>",
+  ///   "headline5": "<TextStyle>",
+  ///   "headline6": "<TextStyle>",
+  ///   "overline": "<TextStyle>",
+  ///   "subtitle1": "<TextStyle>",
+  ///   "subtitle2": "<TextStyle>"
   /// }
   /// ```
   ///
   /// ## 2021 version
   /// ```json
   /// {
-  ///   "bodyLarge": <TextStyle>,
-  ///   "bodyMedium": <TextStyle>,
-  ///   "bodySmall": <TextStyle>,
-  ///   "displayLarge": <TextStyle>,
-  ///   "displayMedium": <TextStyle>,
-  ///   "displaySmall": <TextStyle>,
-  ///   "headlineLarge": <TextStyle>,
-  ///   "headlineMedium": <TextStyle>,
-  ///   "headlineSmall": <TextStyle>,
-  ///   "labelLarge": <TextStyle>,
-  ///   "labelMedium": <TextStyle>,
-  ///   "labelSmall": <TextStyle>,
-  ///   "titleLarge": <TextStyle>,
-  ///   "titleMedium": <TextStyle>,
-  ///   "titleSmall": <TextStyle>
+  ///   "bodyLarge": "<TextStyle>",
+  ///   "bodyMedium": "<TextStyle>",
+  ///   "bodySmall": "<TextStyle>",
+  ///   "displayLarge": "<TextStyle>",
+  ///   "displayMedium": "<TextStyle>",
+  ///   "displaySmall": "<TextStyle>",
+  ///   "headlineLarge": "<TextStyle>",
+  ///   "headlineMedium": "<TextStyle>",
+  ///   "headlineSmall": "<TextStyle>",
+  ///   "labelLarge": "<TextStyle>",
+  ///   "labelMedium": "<TextStyle>",
+  ///   "labelSmall": "<TextStyle>",
+  ///   "titleLarge": "<TextStyle>",
+  ///   "titleMedium": "<TextStyle>",
+  ///   "titleSmall": "<TextStyle>"
   /// }
   /// ```
   ///
@@ -10453,6 +12949,11 @@ class ThemeDecoder {
           value['bodySmall'] ?? value['caption'],
           validate: false,
         ),
+        // bodyText1: @deprecated,
+        // bodyText2: @deprecated,
+        // button: @deprecated,
+        // caption: @deprecated,
+
         displayLarge: decodeTextStyle(
           value['displayLarge'] ?? value['headline1'],
           validate: false,
@@ -10465,6 +12966,12 @@ class ThemeDecoder {
           value['displaySmall'] ?? value['headline3'],
           validate: false,
         ),
+        // headline1: @deprecated,
+        // headline2: @deprecated,
+        // headline3: @deprecated,
+        // headline4: @deprecated,
+        // headline5: @deprecated,
+        // headline6: @deprecated,
         headlineLarge: decodeTextStyle(
           value['headlineLarge'] ?? value[''],
           validate: false,
@@ -10489,6 +12996,9 @@ class ThemeDecoder {
           value['labelSmall'] ?? value['overline'],
           validate: false,
         ),
+        // overline: @deprecated,
+        // subtitle1: @deprecated,
+        // subtitle2: @deprecated,
         titleLarge: decodeTextStyle(
           value['titleLarge'] ?? value['headline6'],
           validate: false,
@@ -10501,62 +13011,6 @@ class ThemeDecoder {
           value['titleSmall'] ?? value['subtitle2'],
           validate: false,
         ),
-
-        // @deprecated
-        // body1
-        // body2
-        // bodyText1: decodeTextStyle(
-        //   value['bodyText1'],
-        //   validate: false,
-        // ),
-        // bodyText2: decodeTextStyle(
-        //   value['bodyText2'],
-        //   validate: false,
-        // ),
-        // button: decodeTextStyle(
-        //   value['button'],
-        //   validate: false,
-        // ),
-        // caption: decodeTextStyle(
-        //   value['caption'],
-        //   validate: false,
-        // ),
-        // headline1: decodeTextStyle(
-        //   value['headline1'],
-        //   validate: false,
-        // ),
-        // headline2: decodeTextStyle(
-        //   value['headline2'],
-        //   validate: false,
-        // ),
-        // headline3: decodeTextStyle(
-        //   value['headline3'],
-        //   validate: false,
-        // ),
-        // headline4: decodeTextStyle(
-        //   value['headline4'],
-        //   validate: false,
-        // ),
-        // headline5: decodeTextStyle(
-        //   value['headline5'],
-        //   validate: false,
-        // ),
-        // headline6: decodeTextStyle(
-        //   value['headline6'],
-        //   validate: false,
-        // ),
-        // overline: decodeTextStyle(
-        //   value['overline'],
-        //   validate: false,
-        // ),
-        // subtitle1: decodeTextStyle(
-        //   value['subtitle1'],
-        //   validate: false,
-        // ),
-        // subtitle2: decodeTextStyle(
-        //   value['subtitle2'],
-        //   validate: false,
-        // ),
       );
     }
 
@@ -10609,90 +13063,97 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "appBarTheme": <AppBarTheme>,
-  ///   "applyElevationOverlayColor": <bool>,
-  ///   "backgroundColor": <Color>,
-  ///   "bannerTheme": <MaterialBannerThemeData>,
-  ///   "bottomAppBarColor": <Color>,
-  ///   "bottomAppBarTheme": <BottomAppBarTheme>,
-  ///   "bottomNavigationBarTheme": <BottomNavigationBarThemeData>,
-  ///   "bottomSheetTheme": <BottomSheetThemeData>,
-  ///   "brightness": <Brightness>,
-  ///   "buttonBarTheme": <ButtonBarThemeData>,
-  ///   "buttonTheme": <ButtonThemeData>,
-  ///   "canvasColor": <Color>,
-  ///   "cardColor": <Color>,
-  ///   "cardTheme": <CardTheme>,
-  ///   "checkboxThemeData": <CheckboxThemeData>,
-  ///   "chipTheme": <ChipThemeData>,
-  ///   "colorScheme": <ColorScheme>,
-  ///   "colorSchemeSeed": <Color>,
-  ///   "cupertinoOverrideTheme": <CupertinoThemeData>,
-  ///   "cursorColor": <Color>,
-  ///   "dataTableTheme": <DataTableThemeData>,
-  ///   "dialogBackgroundColor": <Color>,
-  ///   "dialogTheme": <DialogTheme>,
-  ///   "disabledColor": <Color>,
-  ///   "dividerColor": <Color>,
-  ///   "dividerTheme": <DividerThemeData>,
-  ///   "drawerTheme": <DrawerThemeData>,
-  ///   "elevatedButtonTheme": <ElevatedButtonThemeData>,
-  ///   "errorColor": <Color>,
-  ///   "expansionTileTheme": <ExpansionTileThemeData>,
-  ///   "floatingActionButtonTheme": <FloatingActionButtonThemeData>,
-  ///   "focusColor": <Color>,
-  ///   "fontFamily": <String>,
-  ///   "highlightColor": <Color>,
-  ///   "hintColor": <Color>,
-  ///   "hoverColor": <Color>,
-  ///   "iconTheme": <IconThemeData>,
-  ///   "indicatorColor": <Color>,
-  ///   "inputDecorationTheme": <InputDecorationTheme>,
-  ///   "listTileTheme": <ListTileThemeData>,
-  ///   "materialTapTargetSize": <MaterialTapTargetSize>,
-  ///   "navigationBarTheme": <NavigationBarThemeData>,
-  ///   "navigationRailTheme": <NavigationRailThemeData>,
-  ///   "outlinedButtonTheme": <OutlinedButtonThemeData>,
-  ///   "pageTransitionsTheme": <PageTransitionsTheme>,
-  ///   "platform": <TargetPlatform>,
-  ///   "popupMenuTheme": <PopupMenuThemeData>,
-  ///   "primaryColor": <Color>,
-  ///   "primaryColorDark": <Color>,
-  ///   "primaryColorLight": <Color>,
-  ///   "primaryIconTheme": <IconThemeData>,
-  ///   "primarySwatch": <MaterialColor>,
-  ///   "primaryTextTheme": <TextTheme>,
-  ///   "progressIndicatorTheme": <ProgressIndicatorTheme>,
-  ///   "radioTheme": <RadioThemeData>,
-  ///   "scaffoldBackgroundColor": <Color>,
-  ///   "scrollbarTheme": <ScrollbarThemeData>,
-  ///   "secondaryHeaderColor": <Color>,
-  ///   "selectedRowColor": <Color>,
-  ///   "shadowColor": <Color>,
-  ///   "sliderTheme": <SliderThemeData>,
-  ///   "snackBarTheme": <SnackBarThemeData>,
-  ///   "splashColor": <Color>,
-  ///   "splashFactory": <InteractiveInkFeatureFactory>,
-  ///   "switchTheme": <SwitchThemeData>,
-  ///   "tabBarTheme": <TabBarTheme>,
-  ///   "textButtonTheme": <TextButtonThemeData>,
-  ///   "textSelectionColor": <Color>,
-  ///   "textSelectionHandleColor": <Color>,
-  ///   "textSelectionTheme": <TextSelectionThemeData>,
-  ///   "textTheme": <TextTheme>,
-  ///   "timePickerTheme": <TimePickerThemeData>,
-  ///   "toggleButtonsTheme": <ToggleButtonsThemeData>,
-  ///   "toggleableActiveColor": <Color>,
-  ///   "tooltipTheme": <TooltipThemeData>,
-  ///   "typography": <Typography>,
-  ///   "unselectedWidgetColor": <Color>,
-  ///   "useMaterial3": <bool>,
-  ///   "visualDensity": <VisualDensity>
+  ///   "appBarTheme": "<AppBarTheme>",
+  ///   "applyElevationOverlayColor": "<bool>",
+  ///   "badgeTheme": "<BadgeThemeData>",
+  ///   "bannerTheme": "<MaterialBannerThemeData>",
+  ///   "bottomAppBarTheme": "<BottomAppBarThemeScheme.id,
+  ///   "bottomNavigationBarTheme": "<BottomNavigationBarThemeData>",
+  ///   "bottomSheetTheme": "<BottomSheetThemeData>",
+  ///   "brightness": "<Brightness>",
+  ///   "buttonBarTheme": "<ButtonBarThemeData>",
+  ///   "buttonTheme": "<ButtonThemeData>",
+  ///   "canvasColor": "<Color>",
+  ///   "cardColor": "<Color>",
+  ///   "cardTheme": "<CardTheme>",
+  ///   "checkboxTheme": "<CheckboxThemeData>",
+  ///   "chipTheme": "<ChipThemeData>",
+  ///   "colorScheme": "<ColorScheme>",
+  ///   "colorSchemeSeed": "<Color>",
+  ///   "cupertinoOverrideTheme": "<CupertinoThemeData>",
+  ///   "datePickerTheme": "<DatePickerThemeData>",
+  ///   "dataTableTheme": "<DataTableThemeData>",
+  ///   "dialogBackgroundColor": "<Color>",
+  ///   "dialogTheme": "<DialogTheme>",
+  ///   "disabledColor": "<Color>",
+  ///   "dividerColor": "<Color>",
+  ///   "dividerTheme": "<DividerThemeData>",
+  ///   "drawerTheme": "<DrawerThemeData>",
+  ///   "dropdownMenuTheme": "<DropDownMenuThemeData>",
+  ///   "elevatedButtonTheme": "<ElevatedButtonThemeData>",
+  ///   "expansionTileTheme": "<ExpansionTileThemeData>",
+  ///   "filledButtonTheme": "<FilledButtonThemeDataScheme>"",
+  ///   "floatingActionButtonTheme": "<FloatingActionButtonThemeData>",
+  ///   "focusColor": "<Color>",
+  ///   "fontFamily": "<String>",
+  ///   "fontFamilyFallback": "<List<String>>",
+  ///   "highlightColor": "<Color>",
+  ///   "hintColor": "<Color>",
+  ///   "hoverColor": "<Color>",
+  ///   "iconButtonTheme": "<IconButtonThemeData>",
+  ///   "iconTheme": "<IconThemeData>",
+  ///   "indicatorColor": "<Color>",
+  ///   "inputDecorationTheme": "<InputDecorationTheme>",
+  ///   "listTileTheme": "<ListTileThemeData>",
+  ///   "materialTapTargetSize": "<MaterialTapTargetSize>",
+  ///   "menuBarTheme": "<MenuBarThemeData>",
+  ///   "menuButtonTheme": "<MenuButtonThemeData>",
+  ///   "menuTheme": "<MenuThemeData>",
+  ///   "navigationBarTheme": "<NavigationBarThemeData>",
+  ///   "navigationDrawerTheme": "<NavigationDrawerThemeData>",
+  ///   "navigationRailTheme": "<NavigationRailThemeData>",
+  ///   "outlinedButtonTheme": "<OutlinedButtonThemeData>",
+  ///   "package": "<String>",
+  ///   "pageTransitionsTheme": "<PageTransitionsTheme>",
+  ///   "platform": "<TargetPlatform>",
+  ///   "popupMenuTheme": "<PopupMenuThemeData>",
+  ///   "primaryColor": "<Color>",
+  ///   "primaryColorDark": "<Color>",
+  ///   "primaryColorLight": "<Color>",
+  ///   "primaryIconTheme": "<IconThemeData>",
+  ///   "primarySwatch": "<MaterialColor>",
+  ///   "primaryTextTheme": "<TextTheme>",
+  ///   "progressIndicatorTheme": "<ProgressIndicatorThemeData>",
+  ///   "radioTheme": "<RadioThemeData>",
+  ///   "scaffoldBackgroundColor": "<Color>",
+  ///   "scrollbarTheme": "<ScrollbarThemeData>",
+  ///   "searchBarTheme": "<SearchBarThemeData>",
+  ///   "searchViewTheme": "<SearchViewThemeData>",
+  ///   "secondaryHeaderColor": "<Color>",
+  ///   "segmentedButtonTheme": "<SegmentedButtonThemeData>",
+  ///   "shadowColor": "<Color>",
+  ///   "sliderTheme": "<SliderThemeData>",
+  ///   "snackBarTheme": "<SnackBarThemeData>",
+  ///   "splashColor": "<Color>",
+  ///   "splashFactory": "<InteractiveInkFeatureFactory>",
+  ///   "switchTheme": "<SwitchThemeData>",
+  ///   "tabBarTheme": "<TabBarTheme>",
+  ///   "textButtonTheme": "<TextButtonThemeData>",
+  ///   "textSelectionTheme": "<TextSelectionThemeData>",
+  ///   "textTheme": "<TextTheme>",
+  ///   "timePickerTheme": "<TimePickerThemeData>",
+  ///   "toggleButtonsTheme": "<ToggleButtonsThemeData>",
+  ///   "tooltipTheme": "<TooltipThemeData>",
+  ///   "typography": "<Typography>",
+  ///   "unselectedWidgetColor": "<Color>",
+  ///   "useMaterial3": "<bool>",
+  ///   "visualDensity": "<VisualDensity>"
   /// }
   /// ```
   ///
   /// See also:
   ///  * [decodeAppBarTheme]
+  ///  * [decodeBadgeThemeData]
   ///  * [decodeBottomAppBarTheme]
   ///  * [decodeBottomNavigationBarThemeData]
   ///  * [decodeBottomSheetThemeData]
@@ -10704,20 +13165,27 @@ class ThemeDecoder {
   ///  * [decodeChipThemeData]
   ///  * [decodeColor]
   ///  * [decodeColorScheme]
+  ///  * [decodeDatePickerThemeData]
   ///  * [decodeDataTableThemeData]
   ///  * [decodeDialogTheme]
   ///  * [decodeDividerThemeData]
   ///  * [decodeDrawerThemeData]
   ///  * [decodeElevatedButtonThemeData]
   ///  * [decodeExpansionTileThemeData]
+  ///  * [decodeFilledButtonThemeData]
   ///  * [decodeFloatingActionButtonThemeData]
+  ///  * [decodeIconButtonThemeData]
   ///  * [decodeIconThemeData]
   ///  * [decodeInputDecorationTheme]
   ///  * [decodeInteractiveInkFeatureFactory]
   ///  * [decodeListTileThemeData]
   ///  * [decodeMaterialBannerThemeData]
   ///  * [decodeMaterialTapTargetSize]
+  ///  * [decodeMenuBarThemeData]
+  ///  * [decodeMenuButtonThemeData]
+  ///  * [decodeMenuThemeData]
   ///  * [decodeNavigationBarThemeData]
+  ///  * [decodeNavigationDrawerThemeData]
   ///  * [decodeNavigationRailThemeData]
   ///  * [decodeOutlinedButtonThemeData]
   ///  * [decodePageTransitionsTheme]
@@ -10725,6 +13193,9 @@ class ThemeDecoder {
   ///  * [decodeProgressIndicatorThemeData]
   ///  * [decodeRadioThemeData]
   ///  * [decodeScrollbarThemeData]
+  ///  * [decodeSearchBarThemeData]
+  ///  * [decodeSearchViewThemeData]
+  ///  * [decodeSegmentedButtonThemeData]
   ///  * [decodeSliderThemeData]
   ///  * [decodeSnackBarThemeData]
   ///  * [decodeSwitchThemeData]
@@ -10752,40 +13223,29 @@ class ThemeDecoder {
         validate: validate,
       ));
       result = ThemeData(
-        // @deprecated
-        // accentColor: null,
-
-        // @deprecated
-        // accentColorBrightness: null,
-
-        // @deprecated
-        // accentIconTheme: null,
-
-        // @deprecated
-        // accentTextTheme: null,
-
-        // @deprecated
-        // androidOverscrollIndicator
+        // accentColor: @deprecated
+        // accentColorBrightness: @deprecated
+        // accentIconTheme: @deprecated
+        // accentTextTheme: @deprecated
+        // androidOverscrollIndicator: @deprecated
 
         appBarTheme: decodeAppBarTheme(
           value['appBarTheme'],
           validate: false,
         ),
-        applyElevationOverlayColor: value['applyElevationOverlayColor'] == null
-            ? null
-            : JsonClass.parseBool(value['applyElevationOverlayColor']),
-        backgroundColor: decodeColor(
-          value['backgroundColor'],
+        applyElevationOverlayColor: JsonClass.maybeParseBool(
+          value['applyElevationOverlayColor'],
+        ),
+        // backgroundColor: @deprecated,
+        badgeTheme: decodeBadgeThemeData(
+          value['badgeTheme'],
           validate: false,
         ),
         bannerTheme: decodeMaterialBannerThemeData(
           value['bannerTheme'],
           validate: false,
         ),
-        bottomAppBarColor: decodeColor(
-          value['bottomAppBarColor'],
-          validate: false,
-        ),
+        // bottomAppBarColor: @deprecated,
         bottomAppBarTheme: decodeBottomAppBarTheme(
           value['bottomAppBarTheme'],
           validate: false,
@@ -10807,8 +13267,7 @@ class ThemeDecoder {
           validate: false,
         ),
 
-        // @deprecated
-        // buttonColor: null,
+        // buttonColor: @deprecated
 
         buttonTheme: decodeButtonThemeData(
           value['buttonTheme'],
@@ -10847,9 +13306,12 @@ class ThemeDecoder {
           validate: false,
         ),
 
-        // @deprecated
-        // cursorColor: null,
+        // cursorColor: @deprecated
 
+        datePickerTheme: decodeDatePickerThemeData(
+          value['datePickerThemeData'],
+          validate: false,
+        ),
         dataTableTheme: decodeDataTableThemeData(
           value['dataTableTheme'],
           validate: false,
@@ -10878,6 +13340,10 @@ class ThemeDecoder {
           value['drawerTheme'],
           validate: false,
         ),
+        dropdownMenuTheme: decodeDropdownMenuThemeData(
+          value['dropdownMenuTheme'],
+          validate: false,
+        ),
         elevatedButtonTheme: decodeElevatedButtonThemeData(
           value['elevatedButtonTheme'],
           validate: false,
@@ -10887,16 +13353,15 @@ class ThemeDecoder {
           validate: false,
         ),
 
-        // @unencodable
-        // extensions
-        errorColor: decodeColor(
-          value['errorColor'],
+        // errorColor: @deprecated,
+        // extensions: @unencodable,
+
+        filledButtonTheme: decodeFilledButtonThemeData(
+          value['filledButtonTheme'],
           validate: false,
         ),
 
-        // @deprecated
-        // fixTextFieldOutlineLabel: null,
-
+        // fixTextFieldOutlineLabel: @deprecated
         floatingActionButtonTheme: decodeFloatingActionButtonThemeData(
           value['floatingActionButtonTheme'],
           validate: false,
@@ -10907,6 +13372,11 @@ class ThemeDecoder {
           validate: false,
         ),
         fontFamily: value['fontFamily'],
+        fontFamilyFallback: value['fontFamilyFallback'] == null
+            ? null
+            : List<String>.from(
+                value['fontFamilyFallback'],
+              ),
         highlightColor: decodeColor(
           value['highlightColor'],
           validate: false,
@@ -10917,6 +13387,10 @@ class ThemeDecoder {
         ),
         hoverColor: decodeColor(
           value['hoverColor'],
+          validate: false,
+        ),
+        iconButtonTheme: decodeIconButtonThemeData(
+          value['iconButtonTheme'],
           validate: false,
         ),
         iconTheme: decodeIconThemeData(
@@ -10939,8 +13413,24 @@ class ThemeDecoder {
           value['materialTapTargetSize'],
           validate: false,
         ),
+        menuBarTheme: decodeMenuBarThemeData(
+          value['menuBarTheme'],
+          validate: false,
+        ),
+        menuButtonTheme: decodeMenuButtonThemeData(
+          value['menuButtonTheme'],
+          validate: false,
+        ),
+        menuTheme: decodeMenuThemeData(
+          value['menuTheme'],
+          validate: false,
+        ),
         navigationBarTheme: decodeNavigationBarThemeData(
           value['navigationBarTheme'],
+          validate: false,
+        ),
+        navigationDrawerTheme: decodeNavigationDrawerThemeData(
+          value['navigationDrawerTheme'],
           validate: false,
         ),
         navigationRailTheme: decodeNavigationRailThemeData(
@@ -10955,6 +13445,7 @@ class ThemeDecoder {
           value['pageTransitionsTheme'],
           validate: false,
         ),
+        package: value['package'],
         platform: decodeTargetPlatform(
           value['platform'],
           validate: false,
@@ -10968,8 +13459,7 @@ class ThemeDecoder {
           validate: false,
         ),
 
-        // @deprecated
-        // primaryColorBrightness: null,
+        // primaryColorBrightness: @deprecated
 
         primaryColorDark: decodeColor(
           value['primaryColorDark'],
@@ -11007,14 +13497,24 @@ class ThemeDecoder {
           value['scrollbarTheme'],
           validate: false,
         ),
+        searchBarTheme: decodeSearchBarThemeData(
+          value['searchBarTheme'],
+          validate: false,
+        ),
+        searchViewTheme: decodeSearchViewThemeData(
+          value['searchViewTheme'],
+          validate: false,
+        ),
         secondaryHeaderColor: decodeColor(
           value['secondaryHeaderColor'],
           validate: false,
         ),
-        selectedRowColor: decodeColor(
-          value['selectedRowColor'],
+        segmentedButtonTheme: decodeSegmentedButtonThemeData(
+          value['segmentedButtonTheme'],
           validate: false,
         ),
+        // selectedRowColor: @deprecated
+
         shadowColor: decodeColor(
           value['shadowColor'],
           validate: false,
@@ -11048,10 +13548,8 @@ class ThemeDecoder {
           validate: false,
         ),
 
-        // @deprecated
-        // textSelectionColor: null,
-        // @deprecated
-        // textSelectionHandleColor: null,
+        // textSelectionColor: @deprecated,
+        // textSelectionHandleColor: @deprecated,
 
         textSelectionTheme: decodeTextSelectionThemeData(
           value['textSelectionTheme'],
@@ -11062,19 +13560,14 @@ class ThemeDecoder {
           validate: false,
         ),
         timePickerTheme: decodeTimePickerThemeData(
-          value['timePickerTheme'] ??
-              /* This was the original, incorrect, value; kept for backwards compatibility */
-              value['timePickerThemeData'],
+          value['timePickerTheme'],
           validate: false,
         ),
         toggleButtonsTheme: decodeToggleButtonsThemeData(
           value['toggleButtonsTheme'],
           validate: false,
         ),
-        toggleableActiveColor: decodeColor(
-          value['toggleableActiveColor'],
-          validate: false,
-        ),
+        // toggleableActiveColor: @deprecated,
         tooltipTheme: decodeTooltipThemeData(
           value['tooltipTheme'],
           validate: false,
@@ -11087,14 +13580,9 @@ class ThemeDecoder {
           value['unselectedWidgetColor'],
           validate: false,
         ),
-        useMaterial3: value['useMaterial3'] == null
-            ? null
-            : JsonClass.parseBool(
-                value['useMaterial3'],
-              ),
+        useMaterial3: JsonClass.maybeParseBool(value['useMaterial3']),
 
-        // @deprecated
-        // useTextSelectionTheme: null,
+        // useTextSelectionTheme: @deprecated,
 
         visualDensity: decodeVisualDensity(
           value['visualDensity'],
@@ -11164,29 +13652,36 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "backgroundColor": <Color>,
-  ///   "dayPeriodBorderSide": <BorderSide>,
-  ///   "dayPeriodColor": <Color>,
-  ///   "dayPeriodShape": <ShapeBorder>,
-  ///   "dayPeriodTextColor": <Color>,
-  ///   "dayPeriodTextStyle": <TextStyle>,
-  ///   "dialBackgroundColor": <Color>,
-  ///   "dialHandColor": <Color>,
-  ///   "dialTextColor": <Color>,
-  ///   "entryModeIconColor": <Color>,
-  ///   "helpTextStyle": <TextStyle>,
-  ///   "hourMinuteColor": <Color>,
-  ///   "hourMinuteShape": <ShapeBorder>,
-  ///   "hourMinuteTextColor": <Color>,
-  ///   "hourMinuteTextStyle": <TextStyle>,
-  ///   "inputDecorationTheme": <InputDecorationTheme>,
-  ///   "shape": <ShapeBorder>
+  ///   "backgroundColor": "<Color>",
+  ///   "cancelButtonStyle": "<ButtonStyle>",
+  ///   "confirmButtonStyle": "<ButtonStyle>",
+  ///   "dayPeriodBorderSide": "<BorderSide>",
+  ///   "dayPeriodColor": "<Color>",
+  ///   "dayPeriodShape": "<ShapeBorder>",
+  ///   "dayPeriodTextColor": "<Color>",
+  ///   "dayPeriodTextStyle": "<TextStyle>",
+  ///   "dialBackgroundColor": "<Color>",
+  ///   "dialHandColor": "<Color>",
+  ///   "dialTextColor": "<Color>",
+  ///   "dialTextStyle": "<TextStyle>",
+  ///   "elevation": "<double>",
+  ///   "entryModeIconColor": "<Color>",
+  ///   "helpTextStyle": "<TextStyle>",
+  ///   "hourMinuteColor": "<Color>",
+  ///   "hourMinuteShape": "<ShapeBorder>",
+  ///   "hourMinuteTextColor": "<Color>",
+  ///   "hourMinuteTextStyle": "<TextStyle>",
+  ///   "inputDecorationTheme": "<InputDecorationTheme>",
+  ///   "padding": "<EdgeInsetsGeometry>",
+  ///   "shape": "<ShapeBorder>"
   /// }
   /// ```
   ///
   /// See also:
   ///  * [decodeBorderSide]
+  ///  * [decodeButtonStyle]
   ///  * [decodeColor]
+  ///  * [decodeEdgeInsetsGeometry]
   ///  * [decodeInputDecorationTheme]
   ///  * [decodeShapeBorder]
   ///  * [decodeTextStyle]
@@ -11206,26 +13701,90 @@ class ThemeDecoder {
       ));
 
       result = TimePickerThemeData(
-        backgroundColor: decodeColor(value['backgroundColor']),
-        dayPeriodBorderSide: decodeBorderSide(value['dayPeriodBorderSide']),
-        dayPeriodColor: decodeColor(value['dayPeriodColor']),
+        backgroundColor: decodeColor(
+          value['backgroundColor'],
+          validate: false,
+        ),
+        cancelButtonStyle: decodeButtonStyle(
+          value['cancelButtonStyle'],
+          validate: false,
+        ),
+        confirmButtonStyle: decodeButtonStyle(
+          value['confirmButtonStyle'],
+          validate: false,
+        ),
+        dayPeriodBorderSide: decodeBorderSide(
+          value['dayPeriodBorderSide'],
+          validate: false,
+        ),
+        dayPeriodColor: decodeColor(
+          value['dayPeriodColor'],
+          validate: false,
+        ),
         dayPeriodShape: value['dayPeriodShape'] == null
             ? null
-            : decodeShapeBorder(value['dayPeriodShape']) as OutlinedBorder?,
-        dayPeriodTextColor: decodeColor(value['dayPeriodTextColor']),
-        dayPeriodTextStyle: decodeTextStyle(value['dayPeriodTextStyle']),
-        dialBackgroundColor: decodeColor(value['dialBackgroundColor']),
-        dialHandColor: decodeColor(value['dialHandColor']),
-        dialTextColor: decodeColor(value['dialTextColor']),
-        entryModeIconColor: decodeColor(value['entryModeIconColor']),
-        helpTextStyle: decodeTextStyle(value['helpTextStyle']),
-        hourMinuteColor: decodeColor(value['hourMinuteColor']),
-        hourMinuteShape: decodeShapeBorder(value['hourMinuteShape']),
-        hourMinuteTextColor: decodeColor(value['hourMinuteTextColor']),
-        hourMinuteTextStyle: decodeTextStyle(value['hourMinuteTextStyle']),
-        inputDecorationTheme:
-            decodeInputDecorationTheme(value['inputDecorationTheme']),
-        shape: decodeShapeBorder(value['shape']),
+            : decodeShapeBorder(
+                value['dayPeriodShape'],
+                validate: false,
+              ) as OutlinedBorder?,
+        dayPeriodTextColor: decodeColor(
+          value['dayPeriodTextColor'],
+          validate: false,
+        ),
+        dayPeriodTextStyle: decodeTextStyle(
+          value['dayPeriodTextStyle'],
+          validate: false,
+        ),
+        dialBackgroundColor: decodeColor(
+          value['dialBackgroundColor'],
+          validate: false,
+        ),
+        dialHandColor: decodeColor(
+          value['dialHandColor'],
+          validate: false,
+        ),
+        dialTextColor: decodeColor(
+          value['dialTextColor'],
+          validate: false,
+        ),
+        dialTextStyle: decodeTextStyle(
+          value['dialTextStyle'],
+          validate: false,
+        ),
+        elevation: JsonClass.maybeParseDouble(value['elevation']),
+        entryModeIconColor: decodeColor(
+          value['entryModeIconColor'],
+          validate: false,
+        ),
+        helpTextStyle: decodeTextStyle(
+          value['helpTextStyle'],
+          validate: false,
+        ),
+        hourMinuteColor: decodeColor(
+          value['hourMinuteColor'],
+          validate: false,
+        ),
+        hourMinuteShape: decodeShapeBorder(
+          value['hourMinuteShape'],
+          validate: false,
+        ),
+        hourMinuteTextColor: decodeColor(
+          value['hourMinuteTextColor'],
+          validate: false,
+        ),
+        hourMinuteTextStyle: decodeTextStyle(
+          value['hourMinuteTextStyle'],
+          validate: false,
+        ),
+        inputDecorationTheme: decodeInputDecorationTheme(
+          value['inputDecorationTheme'],
+          validate: false,
+        ),
+        padding: decodeEdgeInsetsGeometry(value['padding'], validate: false),
+        shape: decodeShapeBorder(
+          value['shape'],
+          validate: false,
+        ),
       );
     }
 
@@ -11237,21 +13796,21 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "borderColor": <Color>,
-  ///   "borderRadius": <BorderRadius>,
-  ///   "borderWidth": <double>,
-  ///   "color": <Color>,
-  ///   "constraints": <BoxConstraints>,
-  ///   "disabledBorderColor": <Color>,
-  ///   "disabledColor": <Color>,
-  ///   "fillColor": <Color>,
-  ///   "focusColor": <Color>,
-  ///   "highlightColor": <Color>,
-  ///   "hoverColor": <Color>,
-  ///   "selectedBorderColor": <Color>,
-  ///   "selectedColor": <Color>,
-  ///   "splashColor": <Color>,
-  ///   "textStyle": <TextStyle>
+  ///   "borderColor": "<Color>",
+  ///   "borderRadius": "<BorderRadius>",
+  ///   "borderWidth": "<double>",
+  ///   "color": "<Color>",
+  ///   "constraints": "<BoxConstraints>",
+  ///   "disabledBorderColor": "<Color>",
+  ///   "disabledColor": "<Color>",
+  ///   "fillColor": "<Color>",
+  ///   "focusColor": "<Color>",
+  ///   "highlightColor": "<Color>",
+  ///   "hoverColor": "<Color>",
+  ///   "selectedBorderColor": "<Color>",
+  ///   "selectedColor": "<Color>",
+  ///   "splashColor": "<Color>",
+  ///   "textStyle": "<TextStyle>"
   /// }
   /// ```
   ///
@@ -11284,7 +13843,7 @@ class ThemeDecoder {
           value['borderRadius'],
           validate: false,
         ),
-        borderWidth: JsonClass.parseDouble(value['borderWidth']),
+        borderWidth: JsonClass.maybeParseDouble(value['borderWidth']),
         color: decodeColor(
           value['color'],
           validate: false,
@@ -11339,61 +13898,28 @@ class ThemeDecoder {
     return result;
   }
 
-  /// Decodes the given [value] to a [ToolbarOptions].  This expects the
-  /// [value] to have the following structure:
-  ///
-  /// ```json
-  /// {
-  ///   "copy": <bool>,
-  ///   "cut": <bool>,
-  ///   "paste": <bool>,
-  ///   "selectAll": <bool>
-  /// }
-  /// ```
-  static ToolbarOptions? decodeToolbarOptions(
-    dynamic value, {
-    bool validate = true,
-  }) {
-    ToolbarOptions? result;
-    if (value is ToolbarOptions) {
-      result = value;
-    } else if (value != null) {
-      assert(SchemaValidator.validate(
-        schemaId: '$_baseSchemaUrl/toolbar_options',
-        value: value,
-        validate: validate,
-      ));
-      result = ToolbarOptions(
-        copy: JsonClass.parseBool(value['copy']),
-        cut: JsonClass.parseBool(value['cut']),
-        paste: JsonClass.parseBool(value['paste']),
-        selectAll: JsonClass.parseBool(value['selectAll']),
-      );
-    }
-
-    return result;
-  }
-
   /// Decodes the given [value] to a [TooltipThemeData].  This expects the
   /// [value] to have the following structure:
   ///
   /// ```json
   /// {
-  ///   "enableFeedback": <bool>,
-  ///   "excludeFromSemantics": <bool>,
-  ///   "height": <double>,
-  ///   "margin": <EdgeInsetsGeometry>,
-  ///   "padding": <EdgeInsetsGeometry>,
-  ///   "preferBelow": <bool>
-  ///   "showDuration": <int; millis>,
-  ///   "textStyle": <TextStyle>,
-  ///   "verticalOffset": <double>,
-  ///   "waitDuration": <int; millis>,
+  ///   "enableFeedback": "<bool>",
+  ///   "excludeFromSemantics": "<bool>",
+  ///   "height": "<double>",
+  ///   "margin": "<EdgeInsetsGeometry>",
+  ///   "padding": "<EdgeInsetsGeometry>",
+  ///   "preferBelow": "<bool>"
+  ///   "showDuration": "<int; millis>",
+  ///   "textAlign": "<TextAlign>",
+  ///   "textStyle": "<TextStyle>",
+  ///   "verticalOffset": "<double>",
+  ///   "waitDuration": "<int; millis>"
   /// }
   /// ```
   ///
   /// See also:
   ///  * [decodeEdgeInsetsGeometry]
+  ///  * [decodeTextAlign]
   ///  * [decodeTextStyle]
   ///  * [decodeTooltipTriggerMode]
   static TooltipThemeData? decodeTooltipThemeData(
@@ -11415,15 +13941,12 @@ class ThemeDecoder {
         'TooltipThemeData.decoration is not supported',
       );
       result = TooltipThemeData(
-        // @unencodable
-        // decoration
-        enableFeedback: value['enableFeedback'] == null
-            ? null
-            : JsonClass.parseBool(value['enableFeedback']),
-        excludeFromSemantics: value['excludeFromSemantics'] == null
-            ? null
-            : JsonClass.parseBool(value['excludeFromSemantics']),
-        height: JsonClass.parseDouble(value['height']),
+        // decoration: @unencodable
+        enableFeedback: JsonClass.maybeParseBool(value['enableFeedback']),
+        excludeFromSemantics: JsonClass.maybeParseBool(
+          value['excludeFromSemantics'],
+        ),
+        height: JsonClass.maybeParseDouble(value['height']),
         margin: decodeEdgeInsetsGeometry(
           value['margin'],
           validate: false,
@@ -11432,10 +13955,14 @@ class ThemeDecoder {
           value['padding'],
           validate: false,
         ),
-        preferBelow: value['preferBelow'] == null
-            ? null
-            : JsonClass.parseBool(value['preferBelow']),
-        showDuration: JsonClass.parseDurationFromMillis(value['showDuration']),
+        preferBelow: JsonClass.maybeParseBool(value['preferBelow']),
+        showDuration: JsonClass.maybeParseDurationFromMillis(
+          value['showDuration'],
+        ),
+        textAlign: decodeTextAlign(
+          value['textAlign'],
+          validate: false,
+        ),
         textStyle: decodeTextStyle(
           value['textStyle'],
           validate: false,
@@ -11444,8 +13971,9 @@ class ThemeDecoder {
           value['triggerMode'],
           validate: false,
         ),
-        verticalOffset: JsonClass.parseDouble(value['verticalOffset']),
-        waitDuration: JsonClass.parseDurationFromMillis(value['waitDuration']),
+        verticalOffset: JsonClass.maybeParseDouble(value['verticalOffset']),
+        waitDuration:
+            JsonClass.maybeParseDurationFromMillis(value['waitDuration']),
       );
     }
 
@@ -11498,12 +14026,12 @@ class ThemeDecoder {
   ///
   /// ```json
   /// {
-  ///   "black": <TextTheme>,
-  ///   "dense": <TextTheme>,
-  ///   "englishLike": <TextTheme>,
-  ///   "platform": <TargetPlatform>,
-  ///   "tall": <TextTheme>,
-  ///   "white": <TextTheme>,
+  ///   "black": "<TextTheme>",
+  ///   "dense": "<TextTheme>",
+  ///   "englishLike": "<TextTheme>",
+  ///   "platform": "<TargetPlatform>",
+  ///   "tall": "<TextTheme>",
+  ///   "white": "<TextTheme>",
   /// }
   /// ```
   ///
@@ -11771,8 +14299,7 @@ class ThemeDecoder {
     Iterable<dynamic>? list,
     T Function(
       dynamic value,
-    )
-        decoder,
+    ) decoder,
   ) {
     List<T>? result;
 

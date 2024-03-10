@@ -5,8 +5,8 @@ class SwitchThemeDataSchema {
       'https://peiffer-innovations.github.io/flutter_json_schemas/schemas/json_theme/switch_theme_data.json';
 
   static final schema = {
-    r'$schema': 'http://json-schema.org/draft-06/schema#',
-    r'$id': '$id',
+    r'$schema': 'http://json-schema.org/draft-07/schema#',
+    r'$id': id,
     r'$comment':
         'https://api.flutter.dev/flutter/material/SwitchThemeData-class.html',
     'title': 'SwitchThemeDataSchema',
@@ -24,6 +24,9 @@ class SwitchThemeDataSchema {
         MaterialStatePropertyColorSchema.id,
       ),
       'trackColor': SchemaHelper.objectSchema(
+        MaterialStatePropertyColorSchema.id,
+      ),
+      'trackOutlineColor': SchemaHelper.objectSchema(
         MaterialStatePropertyColorSchema.id,
       ),
     },

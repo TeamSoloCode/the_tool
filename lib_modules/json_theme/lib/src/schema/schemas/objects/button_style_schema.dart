@@ -5,8 +5,8 @@ class ButtonStyleSchema {
       'https://peiffer-innovations.github.io/flutter_json_schemas/schemas/json_theme/button_style.json';
 
   static final schema = {
-    r'$schema': 'http://json-schema.org/draft-06/schema#',
-    r'$id': '$id',
+    r'$schema': 'http://json-schema.org/draft-07/schema#',
+    r'$id': id,
     r'$comment':
         'https://api.flutter.dev/flutter/material/ButtonStyle-class.html',
     'title': 'ButtonStyle',
@@ -37,10 +37,28 @@ class ButtonStyleSchema {
       'foregroundColor': SchemaHelper.objectSchema(
         MaterialStatePropertyColorSchema.id,
       ),
-      'maximumSize':
-          SchemaHelper.objectSchema(MaterialStatePropertySizeSchema.id),
-      'minimumSize':
-          SchemaHelper.objectSchema(MaterialStatePropertySizeSchema.id),
+      'iconColor': SchemaHelper.objectSchema(
+        MaterialStatePropertyColorSchema.id,
+      ),
+      'iconSize': {
+        'anyOf': [
+          {
+            'type': 'number',
+          },
+          {
+            'type': 'string',
+          },
+          {
+            r'$ref': MaterialStatePropertyDoubleSchema.id,
+          },
+        ],
+      },
+      'maximumSize': SchemaHelper.objectSchema(
+        MaterialStatePropertySizeSchema.id,
+      ),
+      'minimumSize': SchemaHelper.objectSchema(
+        MaterialStatePropertySizeSchema.id,
+      ),
       'mouseCursor': SchemaHelper.objectSchema(
         MaterialStatePropertyMouseCursorSchema.id,
       ),
@@ -50,8 +68,9 @@ class ButtonStyleSchema {
       'padding': SchemaHelper.objectSchema(
         MaterialStatePropertyEdgeInsetsGeometrySchema.id,
       ),
-      'shadowColor':
-          SchemaHelper.objectSchema(MaterialStatePropertyColorSchema.id),
+      'shadowColor': SchemaHelper.objectSchema(
+        MaterialStatePropertyColorSchema.id,
+      ),
       'shape': SchemaHelper.objectSchema(
         MaterialStatePropertyOutlinedBorderSchema.id,
       ),

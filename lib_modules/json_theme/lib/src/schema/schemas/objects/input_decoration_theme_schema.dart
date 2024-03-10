@@ -5,13 +5,14 @@ class InputDecorationThemeSchema {
       'https://peiffer-innovations.github.io/flutter_json_schemas/schemas/json_theme/input_decoration_theme.json';
 
   static final schema = {
-    r'$schema': 'http://json-schema.org/draft-06/schema#',
-    r'$id': '$id',
+    r'$schema': 'http://json-schema.org/draft-07/schema#',
+    r'$id': id,
     r'$comment':
         'https://api.flutter.dev/flutter/material/InputDecorationTheme-class.html',
     'title': 'InputDecorationTheme',
     'type': 'object',
     'properties': {
+      'activeIndicatorBorder': SchemaHelper.objectSchema(BorderSideSchema.id),
       'alignLabelWithHint': SchemaHelper.boolSchema,
       'border': SchemaHelper.objectSchema(InputBorderSchema.id),
       'constraints': SchemaHelper.objectSchema(BoxConstraintsSchema.id),
@@ -40,6 +41,7 @@ class InputDecorationThemeSchema {
       'iconColor': SchemaHelper.objectSchema(ColorSchema.id),
       'isDense': SchemaHelper.boolSchema,
       'labelStyle': SchemaHelper.objectSchema(TextStyleSchema.id),
+      'outlineBorder': SchemaHelper.objectSchema(BorderSideSchema.id),
       'prefixIconColor': SchemaHelper.objectSchema(ColorSchema.id),
       'prefixStyle': SchemaHelper.objectSchema(TextStyleSchema.id),
       'suffixIconColor': SchemaHelper.objectSchema(ColorSchema.id),

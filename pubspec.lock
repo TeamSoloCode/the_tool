@@ -664,18 +664,18 @@ packages:
     dependency: transitive
     description:
       name: json_class
-      sha256: fa872148b86bd2b706617e26ed80eeee292c31071b49cc728b368dd9b1fd0959
+      sha256: "95ae95062f7827ca77b7eb7b4a72db97bf01f71ed22bdbd98a3cc6d2691de961"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.2+1"
-  json_schema2:
+    version: "3.0.0+8"
+  json_schema:
     dependency: transitive
     description:
-      name: json_schema2
-      sha256: "094e60d3605333c0816eeb2e5310b4f71ffaea2c0abc026b27418c1ac41a5db3"
+      name: json_schema
+      sha256: "0a5f510ed29e26f4eea261b192bbee1824b6903e04194f4907fd0207e94f6c7d"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.4+9"
+    version: "5.1.3"
   json_serializable:
     dependency: "direct dev"
     description:
@@ -690,7 +690,15 @@ packages:
       path: "lib_modules/json_theme"
       relative: true
     source: path
-    version: "1.0.0+1"
+    version: "6.3.2"
+  json_theme_annotation:
+    dependency: transitive
+    description:
+      name: json_theme_annotation
+      sha256: "2ddd58c256c015326751e2c430038b8fe1932dd3a54d581e0f9e35dd5fae85e3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.3+3"
   leak_tracker:
     dependency: transitive
     description:
@@ -995,14 +1003,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.2"
-  rest_client:
+  rfc_6901:
     dependency: transitive
     description:
-      name: rest_client
-      sha256: ff26b0dd3b0dac951014ce1ea0da450290cb80a4bfee905a43285fd34cb3aa65
+      name: rfc_6901
+      sha256: df1bbfa3d023009598f19636d6114c6ac1e0b7bb7bf6a260f0e6e6ce91416820
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.3+2"
+    version: "0.2.0"
   rxdart:
     dependency: "direct main"
     description:
@@ -1360,14 +1368,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.2"
-  yaon:
-    dependency: transitive
-    description:
-      name: yaon
-      sha256: "9baabf121604d7530fc8bcd4f2aeb6c300a055d9a6f9b45b5071f893756ca867"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.4+4"
 sdks:
   dart: ">=3.3.0 <4.0.0"
   flutter: ">=3.19.0"
