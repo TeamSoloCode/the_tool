@@ -1,3 +1,4 @@
+import 'package:from_css_color/from_css_color.dart';
 import 'package:the_tool/page_provider/theme_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/utils.dart';
@@ -63,6 +64,11 @@ extension MergeLayoutProps on LayoutProps {
     }
 
     return result;
+  }
+
+  String? _mergeColor(String? otherColor, String? color) {
+    if (!isCssColor(otherColor ?? "")) return null;
+    return otherColor == "" ? color : otherColor;
   }
 
   LayoutProps merge(LayoutProps? other) {

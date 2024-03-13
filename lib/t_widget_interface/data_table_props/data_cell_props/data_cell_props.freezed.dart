@@ -12,7 +12,7 @@ part of 'data_cell_props.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 DataCellProps _$DataCellPropsFromJson(Map<String, dynamic> json) {
   return _DataCellProps.fromJson(json);
@@ -122,11 +122,11 @@ class _$DataCellPropsCopyWithImpl<$Res, $Val extends DataCellProps>
 }
 
 /// @nodoc
-abstract class _$$_DataCellPropsCopyWith<$Res>
+abstract class _$$DataCellPropsImplCopyWith<$Res>
     implements $DataCellPropsCopyWith<$Res> {
-  factory _$$_DataCellPropsCopyWith(
-          _$_DataCellProps value, $Res Function(_$_DataCellProps) then) =
-      __$$_DataCellPropsCopyWithImpl<$Res>;
+  factory _$$DataCellPropsImplCopyWith(
+          _$DataCellPropsImpl value, $Res Function(_$DataCellPropsImpl) then) =
+      __$$DataCellPropsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -144,11 +144,11 @@ abstract class _$$_DataCellPropsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_DataCellPropsCopyWithImpl<$Res>
-    extends _$DataCellPropsCopyWithImpl<$Res, _$_DataCellProps>
-    implements _$$_DataCellPropsCopyWith<$Res> {
-  __$$_DataCellPropsCopyWithImpl(
-      _$_DataCellProps _value, $Res Function(_$_DataCellProps) _then)
+class __$$DataCellPropsImplCopyWithImpl<$Res>
+    extends _$DataCellPropsCopyWithImpl<$Res, _$DataCellPropsImpl>
+    implements _$$DataCellPropsImplCopyWith<$Res> {
+  __$$DataCellPropsImplCopyWithImpl(
+      _$DataCellPropsImpl _value, $Res Function(_$DataCellPropsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -163,7 +163,7 @@ class __$$_DataCellPropsCopyWithImpl<$Res>
     Object? onDoubleTap = freezed,
     Object? onTapCancel = freezed,
   }) {
-    return _then(_$_DataCellProps(
+    return _then(_$DataCellPropsImpl(
       child: null == child
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
@@ -202,8 +202,8 @@ class __$$_DataCellPropsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_DataCellProps implements _DataCellProps {
-  _$_DataCellProps(
+class _$DataCellPropsImpl implements _DataCellProps {
+  _$DataCellPropsImpl(
       {required this.child,
       this.placeholder = false,
       this.showEditIcon = false,
@@ -213,8 +213,8 @@ class _$_DataCellProps implements _DataCellProps {
       this.onDoubleTap,
       this.onTapCancel});
 
-  factory _$_DataCellProps.fromJson(Map<String, dynamic> json) =>
-      _$$_DataCellPropsFromJson(json);
+  factory _$DataCellPropsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DataCellPropsImplFromJson(json);
 
   @override
   final LayoutProps child;
@@ -238,12 +238,12 @@ class _$_DataCellProps implements _DataCellProps {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DataCellPropsCopyWith<_$_DataCellProps> get copyWith =>
-      __$$_DataCellPropsCopyWithImpl<_$_DataCellProps>(this, _$identity);
+  _$$DataCellPropsImplCopyWith<_$DataCellPropsImpl> get copyWith =>
+      __$$DataCellPropsImplCopyWithImpl<_$DataCellPropsImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DataCellPropsToJson(
+    return _$$DataCellPropsImplToJson(
       this,
     );
   }
@@ -258,10 +258,10 @@ abstract class _DataCellProps implements DataCellProps {
       final String? onLongPress,
       final String? onTapDown,
       final String? onDoubleTap,
-      final String? onTapCancel}) = _$_DataCellProps;
+      final String? onTapCancel}) = _$DataCellPropsImpl;
 
   factory _DataCellProps.fromJson(Map<String, dynamic> json) =
-      _$_DataCellProps.fromJson;
+      _$DataCellPropsImpl.fromJson;
 
   @override
   LayoutProps get child;
@@ -281,6 +281,6 @@ abstract class _DataCellProps implements DataCellProps {
   String? get onTapCancel;
   @override
   @JsonKey(ignore: true)
-  _$$_DataCellPropsCopyWith<_$_DataCellProps> get copyWith =>
+  _$$DataCellPropsImplCopyWith<_$DataCellPropsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

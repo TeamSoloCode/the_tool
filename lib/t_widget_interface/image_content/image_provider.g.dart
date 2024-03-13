@@ -6,9 +6,9 @@ part of 'image_provider.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ImageProviderProps _$$_ImageProviderPropsFromJson(
+_$ImageProviderPropsImpl _$$ImageProviderPropsImplFromJson(
         Map<String, dynamic> json) =>
-    _$_ImageProviderProps(
+    _$ImageProviderPropsImpl(
       type: json['type'] as String?,
       headers: json['headers'] as Map<String, dynamic>?,
       url: json['url'] as String?,
@@ -17,8 +17,8 @@ _$_ImageProviderProps _$$_ImageProviderPropsFromJson(
       fit: json['fit'] as String?,
     );
 
-Map<String, dynamic> _$$_ImageProviderPropsToJson(
-        _$_ImageProviderProps instance) =>
+Map<String, dynamic> _$$ImageProviderPropsImplToJson(
+        _$ImageProviderPropsImpl instance) =>
     <String, dynamic>{
       'type': instance.type,
       'headers': instance.headers,

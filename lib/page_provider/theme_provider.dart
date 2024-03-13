@@ -403,9 +403,14 @@ class ThemeProvider with ChangeNotifier {
     } else if (inputValue is List) {
       return inputValue.map((value) => transformColorFromCSS(value)).toList();
     } else if (inputValue is String) {
-      return isCssColor(inputValue)
-          ? fromCssColor(inputValue).toCssString()
-          : inputValue;
+      inputValue = inputValue.trim();
+      if (isCssColor(inputValue)) {
+        if (colorKeywords.containsKey(inputValue)) {
+          return Color(colorKeywords[inputValue]!);
+        }
+
+        return fromCssColor(inputValue);
+      }
     }
     return inputValue;
   }

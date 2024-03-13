@@ -6,13 +6,15 @@ part of 'route_guard_config.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_RouteGuardConfig _$$_RouteGuardConfigFromJson(Map<String, dynamic> json) =>
-    _$_RouteGuardConfig(
+_$RouteGuardConfigImpl _$$RouteGuardConfigImplFromJson(
+        Map<String, dynamic> json) =>
+    _$RouteGuardConfigImpl(
       redirectTo: json['redirectTo'] as String?,
       authFunction: json['authFunction'] as String?,
     );
 
-Map<String, dynamic> _$$_RouteGuardConfigToJson(_$_RouteGuardConfig instance) =>
+Map<String, dynamic> _$$RouteGuardConfigImplToJson(
+        _$RouteGuardConfigImpl instance) =>
     <String, dynamic>{
       'redirectTo': instance.redirectTo,
       'authFunction': instance.authFunction,

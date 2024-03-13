@@ -12,7 +12,7 @@ part of 'bottom_nav_item_props.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 BottomNavigationItemProps _$BottomNavigationItemPropsFromJson(
     Map<String, dynamic> json) {
@@ -120,12 +120,12 @@ class _$BottomNavigationItemPropsCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_BottomNavigationItemPropsCopyWith<$Res>
+abstract class _$$BottomNavigationItemPropsImplCopyWith<$Res>
     implements $BottomNavigationItemPropsCopyWith<$Res> {
-  factory _$$_BottomNavigationItemPropsCopyWith(
-          _$_BottomNavigationItemProps value,
-          $Res Function(_$_BottomNavigationItemProps) then) =
-      __$$_BottomNavigationItemPropsCopyWithImpl<$Res>;
+  factory _$$BottomNavigationItemPropsImplCopyWith(
+          _$BottomNavigationItemPropsImpl value,
+          $Res Function(_$BottomNavigationItemPropsImpl) then) =
+      __$$BottomNavigationItemPropsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -142,13 +142,13 @@ abstract class _$$_BottomNavigationItemPropsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_BottomNavigationItemPropsCopyWithImpl<$Res>
+class __$$BottomNavigationItemPropsImplCopyWithImpl<$Res>
     extends _$BottomNavigationItemPropsCopyWithImpl<$Res,
-        _$_BottomNavigationItemProps>
-    implements _$$_BottomNavigationItemPropsCopyWith<$Res> {
-  __$$_BottomNavigationItemPropsCopyWithImpl(
-      _$_BottomNavigationItemProps _value,
-      $Res Function(_$_BottomNavigationItemProps) _then)
+        _$BottomNavigationItemPropsImpl>
+    implements _$$BottomNavigationItemPropsImplCopyWith<$Res> {
+  __$$BottomNavigationItemPropsImplCopyWithImpl(
+      _$BottomNavigationItemPropsImpl _value,
+      $Res Function(_$BottomNavigationItemPropsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -160,7 +160,7 @@ class __$$_BottomNavigationItemPropsCopyWithImpl<$Res>
     Object? path = freezed,
     Object? backgroundColor = freezed,
   }) {
-    return _then(_$_BottomNavigationItemProps(
+    return _then(_$BottomNavigationItemPropsImpl(
       label: freezed == label
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
@@ -187,16 +187,16 @@ class __$$_BottomNavigationItemPropsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_BottomNavigationItemProps implements _BottomNavigationItemProps {
-  const _$_BottomNavigationItemProps(
+class _$BottomNavigationItemPropsImpl implements _BottomNavigationItemProps {
+  const _$BottomNavigationItemPropsImpl(
       {this.label,
       this.icon,
       this.activeIcon,
       this.path,
       this.backgroundColor});
 
-  factory _$_BottomNavigationItemProps.fromJson(Map<String, dynamic> json) =>
-      _$$_BottomNavigationItemPropsFromJson(json);
+  factory _$BottomNavigationItemPropsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$BottomNavigationItemPropsImplFromJson(json);
 
   @override
   final String? label;
@@ -212,13 +212,13 @@ class _$_BottomNavigationItemProps implements _BottomNavigationItemProps {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_BottomNavigationItemPropsCopyWith<_$_BottomNavigationItemProps>
-      get copyWith => __$$_BottomNavigationItemPropsCopyWithImpl<
-          _$_BottomNavigationItemProps>(this, _$identity);
+  _$$BottomNavigationItemPropsImplCopyWith<_$BottomNavigationItemPropsImpl>
+      get copyWith => __$$BottomNavigationItemPropsImplCopyWithImpl<
+          _$BottomNavigationItemPropsImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_BottomNavigationItemPropsToJson(
+    return _$$BottomNavigationItemPropsImplToJson(
       this,
     );
   }
@@ -230,10 +230,10 @@ abstract class _BottomNavigationItemProps implements BottomNavigationItemProps {
       final LayoutProps? icon,
       final LayoutProps? activeIcon,
       final String? path,
-      final String? backgroundColor}) = _$_BottomNavigationItemProps;
+      final String? backgroundColor}) = _$BottomNavigationItemPropsImpl;
 
   factory _BottomNavigationItemProps.fromJson(Map<String, dynamic> json) =
-      _$_BottomNavigationItemProps.fromJson;
+      _$BottomNavigationItemPropsImpl.fromJson;
 
   @override
   String? get label;
@@ -247,6 +247,6 @@ abstract class _BottomNavigationItemProps implements BottomNavigationItemProps {
   String? get backgroundColor;
   @override
   @JsonKey(ignore: true)
-  _$$_BottomNavigationItemPropsCopyWith<_$_BottomNavigationItemProps>
+  _$$BottomNavigationItemPropsImplCopyWith<_$BottomNavigationItemPropsImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

@@ -19,8 +19,8 @@ part 'layout_props.g.dart';
 class LayoutProps with _$LayoutProps {
   const factory LayoutProps({
     String? type,
-    String? color,
-    String? backgroundColor,
+    dynamic color,
+    dynamic backgroundColor,
     String? text,
     double? fontSize,
     dynamic hidden,
@@ -52,10 +52,10 @@ class LayoutProps with _$LayoutProps {
     double? radius,
     double? iconSize,
     String? shape,
-    String? splashColor,
+    dynamic splashColor,
     dynamic alignment,
     double? elevation,
-    String? shadowColor,
+    dynamic shadowColor,
     double? heightFactor,
     double? widthFactor,
     double? weight,
@@ -137,10 +137,10 @@ class LayoutProps with _$LayoutProps {
 
     /// ignored-compute
     LayoutProps? prefixIcon,
-    String? prefixIconColor,
+    dynamic prefixIconColor,
     String? prefixText,
     String? format,
-    String? fillColor,
+    dynamic fillColor,
     /**
      * @summary This function will be eval for validating field value
      * - Return false if value is valid
@@ -190,7 +190,7 @@ class LayoutProps with _$LayoutProps {
 
     // Expansion Start================================================
     dynamic selected,
-    String? dividerColor,
+    dynamic dividerColor,
     Map<String, dynamic>? appBarBottom,
 
     /// ignored-compute

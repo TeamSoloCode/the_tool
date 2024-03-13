@@ -12,7 +12,7 @@ part of 'layout_props.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 LayoutProps _$LayoutPropsFromJson(Map<String, dynamic> json) {
   return _LayoutProps.fromJson(json);
@@ -21,8 +21,8 @@ LayoutProps _$LayoutPropsFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$LayoutProps {
   String? get type => throw _privateConstructorUsedError;
-  String? get color => throw _privateConstructorUsedError;
-  String? get backgroundColor => throw _privateConstructorUsedError;
+  dynamic get color => throw _privateConstructorUsedError;
+  dynamic get backgroundColor => throw _privateConstructorUsedError;
   String? get text => throw _privateConstructorUsedError;
   double? get fontSize => throw _privateConstructorUsedError;
   dynamic get hidden => throw _privateConstructorUsedError;
@@ -54,10 +54,10 @@ mixin _$LayoutProps {
   double? get radius => throw _privateConstructorUsedError;
   double? get iconSize => throw _privateConstructorUsedError;
   String? get shape => throw _privateConstructorUsedError;
-  String? get splashColor => throw _privateConstructorUsedError;
+  dynamic get splashColor => throw _privateConstructorUsedError;
   dynamic get alignment => throw _privateConstructorUsedError;
   double? get elevation => throw _privateConstructorUsedError;
-  String? get shadowColor => throw _privateConstructorUsedError;
+  dynamic get shadowColor => throw _privateConstructorUsedError;
   double? get heightFactor => throw _privateConstructorUsedError;
   double? get widthFactor => throw _privateConstructorUsedError;
   double? get weight => throw _privateConstructorUsedError;
@@ -134,10 +134,10 @@ mixin _$LayoutProps {
 
   /// ignored-compute
   LayoutProps? get prefixIcon => throw _privateConstructorUsedError;
-  String? get prefixIconColor => throw _privateConstructorUsedError;
+  dynamic get prefixIconColor => throw _privateConstructorUsedError;
   String? get prefixText => throw _privateConstructorUsedError;
   String? get format => throw _privateConstructorUsedError;
-  String? get fillColor => throw _privateConstructorUsedError;
+  dynamic get fillColor => throw _privateConstructorUsedError;
   /**
      * @summary This function will be eval for validating field value
      * - Return false if value is valid
@@ -185,7 +185,7 @@ mixin _$LayoutProps {
       throw _privateConstructorUsedError; // Table End==================================================
 // Expansion Start================================================
   dynamic get selected => throw _privateConstructorUsedError;
-  String? get dividerColor => throw _privateConstructorUsedError;
+  dynamic get dividerColor => throw _privateConstructorUsedError;
   Map<String, dynamic>? get appBarBottom => throw _privateConstructorUsedError;
 
   /// ignored-compute
@@ -268,8 +268,8 @@ abstract class $LayoutPropsCopyWith<$Res> {
   @useResult
   $Res call(
       {String? type,
-      String? color,
-      String? backgroundColor,
+      dynamic color,
+      dynamic backgroundColor,
       String? text,
       double? fontSize,
       dynamic hidden,
@@ -299,10 +299,10 @@ abstract class $LayoutPropsCopyWith<$Res> {
       double? radius,
       double? iconSize,
       String? shape,
-      String? splashColor,
+      dynamic splashColor,
       dynamic alignment,
       double? elevation,
-      String? shadowColor,
+      dynamic shadowColor,
       double? heightFactor,
       double? widthFactor,
       double? weight,
@@ -344,10 +344,10 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? suffixIconColor,
       String? suffixText,
       LayoutProps? prefixIcon,
-      String? prefixIconColor,
+      dynamic prefixIconColor,
       String? prefixText,
       String? format,
-      String? fillColor,
+      dynamic fillColor,
       String? validationFunction,
       bool? autovalidate,
       List<Map<String, dynamic>>? validators,
@@ -374,7 +374,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? onSelectChanged,
       String? onSelectAll,
       dynamic selected,
-      String? dividerColor,
+      dynamic dividerColor,
       Map<String, dynamic>? appBarBottom,
       LayoutProps? separator,
       LayoutProps? head,
@@ -588,11 +588,11 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
       color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as dynamic,
       backgroundColor: freezed == backgroundColor
           ? _value.backgroundColor
           : backgroundColor // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as dynamic,
       text: freezed == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
@@ -712,7 +712,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
       splashColor: freezed == splashColor
           ? _value.splashColor
           : splashColor // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as dynamic,
       alignment: freezed == alignment
           ? _value.alignment
           : alignment // ignore: cast_nullable_to_non_nullable
@@ -724,7 +724,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
       shadowColor: freezed == shadowColor
           ? _value.shadowColor
           : shadowColor // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as dynamic,
       heightFactor: freezed == heightFactor
           ? _value.heightFactor
           : heightFactor // ignore: cast_nullable_to_non_nullable
@@ -892,7 +892,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
       prefixIconColor: freezed == prefixIconColor
           ? _value.prefixIconColor
           : prefixIconColor // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as dynamic,
       prefixText: freezed == prefixText
           ? _value.prefixText
           : prefixText // ignore: cast_nullable_to_non_nullable
@@ -904,7 +904,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
       fillColor: freezed == fillColor
           ? _value.fillColor
           : fillColor // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as dynamic,
       validationFunction: freezed == validationFunction
           ? _value.validationFunction
           : validationFunction // ignore: cast_nullable_to_non_nullable
@@ -1012,7 +1012,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
       dividerColor: freezed == dividerColor
           ? _value.dividerColor
           : dividerColor // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as dynamic,
       appBarBottom: freezed == appBarBottom
           ? _value.appBarBottom
           : appBarBottom // ignore: cast_nullable_to_non_nullable
@@ -1358,17 +1358,17 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
 }
 
 /// @nodoc
-abstract class _$$_LayoutPropsCopyWith<$Res>
+abstract class _$$LayoutPropsImplCopyWith<$Res>
     implements $LayoutPropsCopyWith<$Res> {
-  factory _$$_LayoutPropsCopyWith(
-          _$_LayoutProps value, $Res Function(_$_LayoutProps) then) =
-      __$$_LayoutPropsCopyWithImpl<$Res>;
+  factory _$$LayoutPropsImplCopyWith(
+          _$LayoutPropsImpl value, $Res Function(_$LayoutPropsImpl) then) =
+      __$$LayoutPropsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
       {String? type,
-      String? color,
-      String? backgroundColor,
+      dynamic color,
+      dynamic backgroundColor,
       String? text,
       double? fontSize,
       dynamic hidden,
@@ -1398,10 +1398,10 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       double? radius,
       double? iconSize,
       String? shape,
-      String? splashColor,
+      dynamic splashColor,
       dynamic alignment,
       double? elevation,
-      String? shadowColor,
+      dynamic shadowColor,
       double? heightFactor,
       double? widthFactor,
       double? weight,
@@ -1443,10 +1443,10 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       String? suffixIconColor,
       String? suffixText,
       LayoutProps? prefixIcon,
-      String? prefixIconColor,
+      dynamic prefixIconColor,
       String? prefixText,
       String? format,
-      String? fillColor,
+      dynamic fillColor,
       String? validationFunction,
       bool? autovalidate,
       List<Map<String, dynamic>>? validators,
@@ -1473,7 +1473,7 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
       String? onSelectChanged,
       String? onSelectAll,
       dynamic selected,
-      String? dividerColor,
+      dynamic dividerColor,
       Map<String, dynamic>? appBarBottom,
       LayoutProps? separator,
       LayoutProps? head,
@@ -1545,11 +1545,11 @@ abstract class _$$_LayoutPropsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_LayoutPropsCopyWithImpl<$Res>
-    extends _$LayoutPropsCopyWithImpl<$Res, _$_LayoutProps>
-    implements _$$_LayoutPropsCopyWith<$Res> {
-  __$$_LayoutPropsCopyWithImpl(
-      _$_LayoutProps _value, $Res Function(_$_LayoutProps) _then)
+class __$$LayoutPropsImplCopyWithImpl<$Res>
+    extends _$LayoutPropsCopyWithImpl<$Res, _$LayoutPropsImpl>
+    implements _$$LayoutPropsImplCopyWith<$Res> {
+  __$$LayoutPropsImplCopyWithImpl(
+      _$LayoutPropsImpl _value, $Res Function(_$LayoutPropsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1695,7 +1695,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
     Object? wrappers = freezed,
     Object? gradient = freezed,
   }) {
-    return _then(_$_LayoutProps(
+    return _then(_$LayoutPropsImpl(
       type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -1703,11 +1703,11 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
       color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as dynamic,
       backgroundColor: freezed == backgroundColor
           ? _value.backgroundColor
           : backgroundColor // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as dynamic,
       text: freezed == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
@@ -1827,7 +1827,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
       splashColor: freezed == splashColor
           ? _value.splashColor
           : splashColor // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as dynamic,
       alignment: freezed == alignment
           ? _value.alignment
           : alignment // ignore: cast_nullable_to_non_nullable
@@ -1839,7 +1839,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
       shadowColor: freezed == shadowColor
           ? _value.shadowColor
           : shadowColor // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as dynamic,
       heightFactor: freezed == heightFactor
           ? _value.heightFactor
           : heightFactor // ignore: cast_nullable_to_non_nullable
@@ -2007,7 +2007,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
       prefixIconColor: freezed == prefixIconColor
           ? _value.prefixIconColor
           : prefixIconColor // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as dynamic,
       prefixText: freezed == prefixText
           ? _value.prefixText
           : prefixText // ignore: cast_nullable_to_non_nullable
@@ -2019,7 +2019,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
       fillColor: freezed == fillColor
           ? _value.fillColor
           : fillColor // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as dynamic,
       validationFunction: freezed == validationFunction
           ? _value.validationFunction
           : validationFunction // ignore: cast_nullable_to_non_nullable
@@ -2127,7 +2127,7 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
       dividerColor: freezed == dividerColor
           ? _value.dividerColor
           : dividerColor // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as dynamic,
       appBarBottom: freezed == appBarBottom
           ? _value._appBarBottom
           : appBarBottom // ignore: cast_nullable_to_non_nullable
@@ -2258,8 +2258,8 @@ class __$$_LayoutPropsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_LayoutProps implements _LayoutProps {
-  const _$_LayoutProps(
+class _$LayoutPropsImpl implements _LayoutProps {
+  const _$LayoutPropsImpl(
       {this.type,
       this.color,
       this.backgroundColor,
@@ -2424,15 +2424,15 @@ class _$_LayoutProps implements _LayoutProps {
         _boxShadow = boxShadow,
         _wrappers = wrappers;
 
-  factory _$_LayoutProps.fromJson(Map<String, dynamic> json) =>
-      _$$_LayoutPropsFromJson(json);
+  factory _$LayoutPropsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LayoutPropsImplFromJson(json);
 
   @override
   final String? type;
   @override
-  final String? color;
+  final dynamic color;
   @override
-  final String? backgroundColor;
+  final dynamic backgroundColor;
   @override
   final String? text;
   @override
@@ -2502,13 +2502,13 @@ class _$_LayoutProps implements _LayoutProps {
   @override
   final String? shape;
   @override
-  final String? splashColor;
+  final dynamic splashColor;
   @override
   final dynamic alignment;
   @override
   final double? elevation;
   @override
-  final String? shadowColor;
+  final dynamic shadowColor;
   @override
   final double? heightFactor;
   @override
@@ -2670,13 +2670,13 @@ class _$_LayoutProps implements _LayoutProps {
   @override
   final LayoutProps? prefixIcon;
   @override
-  final String? prefixIconColor;
+  final dynamic prefixIconColor;
   @override
   final String? prefixText;
   @override
   final String? format;
   @override
-  final String? fillColor;
+  final dynamic fillColor;
 /**
      * @summary This function will be eval for validating field value
      * - Return false if value is valid
@@ -2831,7 +2831,7 @@ class _$_LayoutProps implements _LayoutProps {
   @override
   final dynamic selected;
   @override
-  final String? dividerColor;
+  final dynamic dividerColor;
   final Map<String, dynamic>? _appBarBottom;
   @override
   Map<String, dynamic>? get appBarBottom {
@@ -3010,12 +3010,12 @@ class _$_LayoutProps implements _LayoutProps {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LayoutPropsCopyWith<_$_LayoutProps> get copyWith =>
-      __$$_LayoutPropsCopyWithImpl<_$_LayoutProps>(this, _$identity);
+  _$$LayoutPropsImplCopyWith<_$LayoutPropsImpl> get copyWith =>
+      __$$LayoutPropsImplCopyWithImpl<_$LayoutPropsImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_LayoutPropsToJson(
+    return _$$LayoutPropsImplToJson(
       this,
     );
   }
@@ -3024,8 +3024,8 @@ class _$_LayoutProps implements _LayoutProps {
 abstract class _LayoutProps implements LayoutProps {
   const factory _LayoutProps(
       {final String? type,
-      final String? color,
-      final String? backgroundColor,
+      final dynamic color,
+      final dynamic backgroundColor,
       final String? text,
       final double? fontSize,
       final dynamic hidden,
@@ -3055,10 +3055,10 @@ abstract class _LayoutProps implements LayoutProps {
       final double? radius,
       final double? iconSize,
       final String? shape,
-      final String? splashColor,
+      final dynamic splashColor,
       final dynamic alignment,
       final double? elevation,
-      final String? shadowColor,
+      final dynamic shadowColor,
       final double? heightFactor,
       final double? widthFactor,
       final double? weight,
@@ -3100,10 +3100,10 @@ abstract class _LayoutProps implements LayoutProps {
       final String? suffixIconColor,
       final String? suffixText,
       final LayoutProps? prefixIcon,
-      final String? prefixIconColor,
+      final dynamic prefixIconColor,
       final String? prefixText,
       final String? format,
-      final String? fillColor,
+      final dynamic fillColor,
       final String? validationFunction,
       final bool? autovalidate,
       final List<Map<String, dynamic>>? validators,
@@ -3130,7 +3130,7 @@ abstract class _LayoutProps implements LayoutProps {
       final String? onSelectChanged,
       final String? onSelectAll,
       final dynamic selected,
-      final String? dividerColor,
+      final dynamic dividerColor,
       final Map<String, dynamic>? appBarBottom,
       final LayoutProps? separator,
       final LayoutProps? head,
@@ -3161,17 +3161,17 @@ abstract class _LayoutProps implements LayoutProps {
       final TShapeBorderProps? shapeBorder,
       final Map<String, dynamic>? boxShadow,
       final List<Map<String, dynamic>>? wrappers,
-      final T_GradientProps? gradient}) = _$_LayoutProps;
+      final T_GradientProps? gradient}) = _$LayoutPropsImpl;
 
   factory _LayoutProps.fromJson(Map<String, dynamic> json) =
-      _$_LayoutProps.fromJson;
+      _$LayoutPropsImpl.fromJson;
 
   @override
   String? get type;
   @override
-  String? get color;
+  dynamic get color;
   @override
-  String? get backgroundColor;
+  dynamic get backgroundColor;
   @override
   String? get text;
   @override
@@ -3233,13 +3233,13 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   String? get shape;
   @override
-  String? get splashColor;
+  dynamic get splashColor;
   @override
   dynamic get alignment;
   @override
   double? get elevation;
   @override
-  String? get shadowColor;
+  dynamic get shadowColor;
   @override
   double? get heightFactor;
   @override
@@ -3351,13 +3351,13 @@ abstract class _LayoutProps implements LayoutProps {
   /// ignored-compute
   LayoutProps? get prefixIcon;
   @override
-  String? get prefixIconColor;
+  dynamic get prefixIconColor;
   @override
   String? get prefixText;
   @override
   String? get format;
   @override
-  String? get fillColor;
+  dynamic get fillColor;
   @override
   /**
      * @summary This function will be eval for validating field value
@@ -3424,7 +3424,7 @@ abstract class _LayoutProps implements LayoutProps {
 // Expansion Start================================================
   dynamic get selected;
   @override
-  String? get dividerColor;
+  dynamic get dividerColor;
   @override
   Map<String, dynamic>? get appBarBottom;
   @override
@@ -3517,6 +3517,6 @@ abstract class _LayoutProps implements LayoutProps {
   T_GradientProps? get gradient;
   @override
   @JsonKey(ignore: true)
-  _$$_LayoutPropsCopyWith<_$_LayoutProps> get copyWith =>
+  _$$LayoutPropsImplCopyWith<_$LayoutPropsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

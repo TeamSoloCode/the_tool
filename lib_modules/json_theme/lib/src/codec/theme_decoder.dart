@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:math' as math;
 import 'dart:ui';
 
@@ -2729,51 +2730,16 @@ class ThemeDecoder {
       return null;
     }
 
-    if (value == "#0000") {
+    if (value is Color) {
+      return value;
+    }
+
+    if (value == '#0000') {
       return Colors.transparent;
     }
+    if (!isCssColor(value)) return null;
 
-    if (value is String && !value.startsWith("#") && isCssColor(value)) {
-      return fromCssColor(value);
-    }
-
-    Color? result;
-
-    if (value is Color) {
-      result = value;
-    } else if (value != null) {
-      assert(SchemaValidator.validate(
-        schemaId: '$_baseSchemaUrl/color',
-        value: value,
-        validate: validate,
-      ));
-      var i = 0;
-
-      if (value?.startsWith('#') == true) {
-        value = value.substring(1);
-      }
-
-      if (value?.length == 3) {
-        value = value.substring(0, 1) +
-            value.substring(0, 1) +
-            value.substring(1, 2) +
-            value.substring(1, 2) +
-            value.substring(2, 3) +
-            value.substring(2, 3);
-      }
-
-      if (value?.length == 6 || value?.length == 8) {
-        i = int.parse(value, radix: 16);
-
-        if (value?.length != 8) {
-          i = 0xff000000 + i;
-        }
-
-        result = Color(i);
-      }
-    }
-
-    return result;
+    return fromCssColor(value);
   }
 
   /// Decodes a dynamic value into a [ColorFilter].  The schema this requires

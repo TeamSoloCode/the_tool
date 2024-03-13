@@ -12,7 +12,7 @@ part of 'image_provider.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 ImageProviderProps _$ImageProviderPropsFromJson(Map<String, dynamic> json) {
   return _ImageProviderProps.fromJson(json);
@@ -98,11 +98,11 @@ class _$ImageProviderPropsCopyWithImpl<$Res, $Val extends ImageProviderProps>
 }
 
 /// @nodoc
-abstract class _$$_ImageProviderPropsCopyWith<$Res>
+abstract class _$$ImageProviderPropsImplCopyWith<$Res>
     implements $ImageProviderPropsCopyWith<$Res> {
-  factory _$$_ImageProviderPropsCopyWith(_$_ImageProviderProps value,
-          $Res Function(_$_ImageProviderProps) then) =
-      __$$_ImageProviderPropsCopyWithImpl<$Res>;
+  factory _$$ImageProviderPropsImplCopyWith(_$ImageProviderPropsImpl value,
+          $Res Function(_$ImageProviderPropsImpl) then) =
+      __$$ImageProviderPropsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -115,11 +115,11 @@ abstract class _$$_ImageProviderPropsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ImageProviderPropsCopyWithImpl<$Res>
-    extends _$ImageProviderPropsCopyWithImpl<$Res, _$_ImageProviderProps>
-    implements _$$_ImageProviderPropsCopyWith<$Res> {
-  __$$_ImageProviderPropsCopyWithImpl(
-      _$_ImageProviderProps _value, $Res Function(_$_ImageProviderProps) _then)
+class __$$ImageProviderPropsImplCopyWithImpl<$Res>
+    extends _$ImageProviderPropsCopyWithImpl<$Res, _$ImageProviderPropsImpl>
+    implements _$$ImageProviderPropsImplCopyWith<$Res> {
+  __$$ImageProviderPropsImplCopyWithImpl(_$ImageProviderPropsImpl _value,
+      $Res Function(_$ImageProviderPropsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -132,7 +132,7 @@ class __$$_ImageProviderPropsCopyWithImpl<$Res>
     Object? scale = freezed,
     Object? fit = freezed,
   }) {
-    return _then(_$_ImageProviderProps(
+    return _then(_$ImageProviderPropsImpl(
       type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -163,8 +163,8 @@ class __$$_ImageProviderPropsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ImageProviderProps implements _ImageProviderProps {
-  const _$_ImageProviderProps(
+class _$ImageProviderPropsImpl implements _ImageProviderProps {
+  const _$ImageProviderPropsImpl(
       {this.type,
       final Map<String, dynamic>? headers,
       this.url,
@@ -173,8 +173,8 @@ class _$_ImageProviderProps implements _ImageProviderProps {
       this.fit})
       : _headers = headers;
 
-  factory _$_ImageProviderProps.fromJson(Map<String, dynamic> json) =>
-      _$$_ImageProviderPropsFromJson(json);
+  factory _$ImageProviderPropsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ImageProviderPropsImplFromJson(json);
 
   @override
   final String? type;
@@ -200,13 +200,13 @@ class _$_ImageProviderProps implements _ImageProviderProps {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ImageProviderPropsCopyWith<_$_ImageProviderProps> get copyWith =>
-      __$$_ImageProviderPropsCopyWithImpl<_$_ImageProviderProps>(
+  _$$ImageProviderPropsImplCopyWith<_$ImageProviderPropsImpl> get copyWith =>
+      __$$ImageProviderPropsImplCopyWithImpl<_$ImageProviderPropsImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ImageProviderPropsToJson(
+    return _$$ImageProviderPropsImplToJson(
       this,
     );
   }
@@ -219,10 +219,10 @@ abstract class _ImageProviderProps implements ImageProviderProps {
       final String? url,
       final String? asset,
       final int? scale,
-      final String? fit}) = _$_ImageProviderProps;
+      final String? fit}) = _$ImageProviderPropsImpl;
 
   factory _ImageProviderProps.fromJson(Map<String, dynamic> json) =
-      _$_ImageProviderProps.fromJson;
+      _$ImageProviderPropsImpl.fromJson;
 
   @override
   String? get type;
@@ -238,6 +238,6 @@ abstract class _ImageProviderProps implements ImageProviderProps {
   String? get fit;
   @override
   @JsonKey(ignore: true)
-  _$$_ImageProviderPropsCopyWith<_$_ImageProviderProps> get copyWith =>
+  _$$ImageProviderPropsImplCopyWith<_$ImageProviderPropsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

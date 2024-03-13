@@ -6,8 +6,8 @@ part of 'drawer_props.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_T_DrawerProps _$$_T_DrawerPropsFromJson(Map<String, dynamic> json) =>
-    _$_T_DrawerProps(
+_$T_DrawerPropsImpl _$$T_DrawerPropsImplFromJson(Map<String, dynamic> json) =>
+    _$T_DrawerPropsImpl(
       child: json['child'] == null
           ? null
           : LayoutProps.fromJson(json['child'] as Map<String, dynamic>),
@@ -16,7 +16,7 @@ _$_T_DrawerProps _$$_T_DrawerPropsFromJson(Map<String, dynamic> json) =>
       elevation: (json['elevation'] as num?)?.toDouble(),
     );
 
-Map<String, dynamic> _$$_T_DrawerPropsToJson(_$_T_DrawerProps instance) =>
+Map<String, dynamic> _$$T_DrawerPropsImplToJson(_$T_DrawerPropsImpl instance) =>
     <String, dynamic>{
       'child': instance.child?.toJson(),
       'backgroundColor': instance.backgroundColor,

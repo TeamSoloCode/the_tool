@@ -12,7 +12,7 @@ part of 'shape_border_props.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 TShapeBorderProps _$TShapeBorderPropsFromJson(Map<String, dynamic> json) {
   return _TShapeBorderProps.fromJson(json);
@@ -91,11 +91,11 @@ class _$TShapeBorderPropsCopyWithImpl<$Res, $Val extends TShapeBorderProps>
 }
 
 /// @nodoc
-abstract class _$$_TShapeBorderPropsCopyWith<$Res>
+abstract class _$$TShapeBorderPropsImplCopyWith<$Res>
     implements $TShapeBorderPropsCopyWith<$Res> {
-  factory _$$_TShapeBorderPropsCopyWith(_$_TShapeBorderProps value,
-          $Res Function(_$_TShapeBorderProps) then) =
-      __$$_TShapeBorderPropsCopyWithImpl<$Res>;
+  factory _$$TShapeBorderPropsImplCopyWith(_$TShapeBorderPropsImpl value,
+          $Res Function(_$TShapeBorderPropsImpl) then) =
+      __$$TShapeBorderPropsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -108,11 +108,11 @@ abstract class _$$_TShapeBorderPropsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_TShapeBorderPropsCopyWithImpl<$Res>
-    extends _$TShapeBorderPropsCopyWithImpl<$Res, _$_TShapeBorderProps>
-    implements _$$_TShapeBorderPropsCopyWith<$Res> {
-  __$$_TShapeBorderPropsCopyWithImpl(
-      _$_TShapeBorderProps _value, $Res Function(_$_TShapeBorderProps) _then)
+class __$$TShapeBorderPropsImplCopyWithImpl<$Res>
+    extends _$TShapeBorderPropsCopyWithImpl<$Res, _$TShapeBorderPropsImpl>
+    implements _$$TShapeBorderPropsImplCopyWith<$Res> {
+  __$$TShapeBorderPropsImplCopyWithImpl(_$TShapeBorderPropsImpl _value,
+      $Res Function(_$TShapeBorderPropsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -122,7 +122,7 @@ class __$$_TShapeBorderPropsCopyWithImpl<$Res>
     Object? side = freezed,
     Object? borderRadius = freezed,
   }) {
-    return _then(_$_TShapeBorderProps(
+    return _then(_$TShapeBorderPropsImpl(
       type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -141,13 +141,13 @@ class __$$_TShapeBorderPropsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_TShapeBorderProps implements _TShapeBorderProps {
-  const _$_TShapeBorderProps(
+class _$TShapeBorderPropsImpl implements _TShapeBorderProps {
+  const _$TShapeBorderPropsImpl(
       {this.type, this.side, final Map<String, dynamic>? borderRadius})
       : _borderRadius = borderRadius;
 
-  factory _$_TShapeBorderProps.fromJson(Map<String, dynamic> json) =>
-      _$$_TShapeBorderPropsFromJson(json);
+  factory _$TShapeBorderPropsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TShapeBorderPropsImplFromJson(json);
 
   @override
   final String? type;
@@ -166,13 +166,13 @@ class _$_TShapeBorderProps implements _TShapeBorderProps {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TShapeBorderPropsCopyWith<_$_TShapeBorderProps> get copyWith =>
-      __$$_TShapeBorderPropsCopyWithImpl<_$_TShapeBorderProps>(
+  _$$TShapeBorderPropsImplCopyWith<_$TShapeBorderPropsImpl> get copyWith =>
+      __$$TShapeBorderPropsImplCopyWithImpl<_$TShapeBorderPropsImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_TShapeBorderPropsToJson(
+    return _$$TShapeBorderPropsImplToJson(
       this,
     );
   }
@@ -182,10 +182,10 @@ abstract class _TShapeBorderProps implements TShapeBorderProps {
   const factory _TShapeBorderProps(
       {final String? type,
       final TBorderSideProps? side,
-      final Map<String, dynamic>? borderRadius}) = _$_TShapeBorderProps;
+      final Map<String, dynamic>? borderRadius}) = _$TShapeBorderPropsImpl;
 
   factory _TShapeBorderProps.fromJson(Map<String, dynamic> json) =
-      _$_TShapeBorderProps.fromJson;
+      _$TShapeBorderPropsImpl.fromJson;
 
   @override
   String? get type;
@@ -195,6 +195,6 @@ abstract class _TShapeBorderProps implements TShapeBorderProps {
   Map<String, dynamic>? get borderRadius;
   @override
   @JsonKey(ignore: true)
-  _$$_TShapeBorderPropsCopyWith<_$_TShapeBorderProps> get copyWith =>
+  _$$TShapeBorderPropsImplCopyWith<_$TShapeBorderPropsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

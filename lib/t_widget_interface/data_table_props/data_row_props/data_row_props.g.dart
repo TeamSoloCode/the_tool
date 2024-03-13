@@ -6,8 +6,8 @@ part of 'data_row_props.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_DataRowProps _$$_DataRowPropsFromJson(Map<String, dynamic> json) =>
-    _$_DataRowProps(
+_$DataRowPropsImpl _$$DataRowPropsImplFromJson(Map<String, dynamic> json) =>
+    _$DataRowPropsImpl(
       selected: json['selected'] as bool? ?? false,
       onSelectChanged: json['onSelectChanged'] as String?,
       onLongPress: json['onLongPress'] as String?,
@@ -17,7 +17,7 @@ _$_DataRowProps _$$_DataRowPropsFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$$_DataRowPropsToJson(_$_DataRowProps instance) =>
+Map<String, dynamic> _$$DataRowPropsImplToJson(_$DataRowPropsImpl instance) =>
     <String, dynamic>{
       'selected': instance.selected,
       'onSelectChanged': instance.onSelectChanged,

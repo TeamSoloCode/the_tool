@@ -10,20 +10,16 @@ class StyleUtils {
     String rawTextColor,
     Map<String, dynamic> contextData,
   ) {
-    if (!UtilsManager.isValueBinding(rawTextColor) &&
-        !isCssColor(rawTextColor)) {
+    var isBindingValue = UtilsManager.isValueBinding(rawTextColor);
+    if (!isBindingValue) {
       return null;
     }
 
-    var isBoundValue = _utils.bindingValueToProp(contextData, rawTextColor);
-
-    if (UtilsManager.isTruthy(isBoundValue)) {
-      var bindingValue = _utils.bindingValueToText(contextData, rawTextColor);
-      if (isCssColor(bindingValue)) {
-        return fromCssColor(
-          bindingValue,
-        ).toCssString();
-      }
+    var bindingValue = _utils.bindingValueToText(contextData, rawTextColor);
+    if (isCssColor(bindingValue)) {
+      return fromCssColor(
+        bindingValue,
+      ).toCssString();
     }
 
     return null;

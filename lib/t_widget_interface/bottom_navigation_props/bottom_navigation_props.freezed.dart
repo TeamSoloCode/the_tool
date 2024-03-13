@@ -12,7 +12,7 @@ part of 'bottom_navigation_props.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 BottomNavigationProps _$BottomNavigationPropsFromJson(
     Map<String, dynamic> json) {
@@ -87,11 +87,12 @@ class _$BottomNavigationPropsCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_BottomNavigationPropsCopyWith<$Res>
+abstract class _$$BottomNavigationPropsImplCopyWith<$Res>
     implements $BottomNavigationPropsCopyWith<$Res> {
-  factory _$$_BottomNavigationPropsCopyWith(_$_BottomNavigationProps value,
-          $Res Function(_$_BottomNavigationProps) then) =
-      __$$_BottomNavigationPropsCopyWithImpl<$Res>;
+  factory _$$BottomNavigationPropsImplCopyWith(
+          _$BottomNavigationPropsImpl value,
+          $Res Function(_$BottomNavigationPropsImpl) then) =
+      __$$BottomNavigationPropsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -102,11 +103,12 @@ abstract class _$$_BottomNavigationPropsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_BottomNavigationPropsCopyWithImpl<$Res>
-    extends _$BottomNavigationPropsCopyWithImpl<$Res, _$_BottomNavigationProps>
-    implements _$$_BottomNavigationPropsCopyWith<$Res> {
-  __$$_BottomNavigationPropsCopyWithImpl(_$_BottomNavigationProps _value,
-      $Res Function(_$_BottomNavigationProps) _then)
+class __$$BottomNavigationPropsImplCopyWithImpl<$Res>
+    extends _$BottomNavigationPropsCopyWithImpl<$Res,
+        _$BottomNavigationPropsImpl>
+    implements _$$BottomNavigationPropsImplCopyWith<$Res> {
+  __$$BottomNavigationPropsImplCopyWithImpl(_$BottomNavigationPropsImpl _value,
+      $Res Function(_$BottomNavigationPropsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -117,7 +119,7 @@ class __$$_BottomNavigationPropsCopyWithImpl<$Res>
     Object? backgroundColor = freezed,
     Object? items = freezed,
   }) {
-    return _then(_$_BottomNavigationProps(
+    return _then(_$BottomNavigationPropsImpl(
       selectedItemColor: freezed == selectedItemColor
           ? _value.selectedItemColor
           : selectedItemColor // ignore: cast_nullable_to_non_nullable
@@ -140,16 +142,16 @@ class __$$_BottomNavigationPropsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_BottomNavigationProps implements _BottomNavigationProps {
-  const _$_BottomNavigationProps(
+class _$BottomNavigationPropsImpl implements _BottomNavigationProps {
+  const _$BottomNavigationPropsImpl(
       {this.selectedItemColor,
       this.navType,
       this.backgroundColor,
       final List<BottomNavigationItemProps>? items})
       : _items = items;
 
-  factory _$_BottomNavigationProps.fromJson(Map<String, dynamic> json) =>
-      _$$_BottomNavigationPropsFromJson(json);
+  factory _$BottomNavigationPropsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$BottomNavigationPropsImplFromJson(json);
 
   @override
   final String? selectedItemColor;
@@ -170,13 +172,13 @@ class _$_BottomNavigationProps implements _BottomNavigationProps {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_BottomNavigationPropsCopyWith<_$_BottomNavigationProps> get copyWith =>
-      __$$_BottomNavigationPropsCopyWithImpl<_$_BottomNavigationProps>(
-          this, _$identity);
+  _$$BottomNavigationPropsImplCopyWith<_$BottomNavigationPropsImpl>
+      get copyWith => __$$BottomNavigationPropsImplCopyWithImpl<
+          _$BottomNavigationPropsImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_BottomNavigationPropsToJson(
+    return _$$BottomNavigationPropsImplToJson(
       this,
     );
   }
@@ -184,13 +186,14 @@ class _$_BottomNavigationProps implements _BottomNavigationProps {
 
 abstract class _BottomNavigationProps implements BottomNavigationProps {
   const factory _BottomNavigationProps(
-      {final String? selectedItemColor,
-      final String? navType,
-      final String? backgroundColor,
-      final List<BottomNavigationItemProps>? items}) = _$_BottomNavigationProps;
+          {final String? selectedItemColor,
+          final String? navType,
+          final String? backgroundColor,
+          final List<BottomNavigationItemProps>? items}) =
+      _$BottomNavigationPropsImpl;
 
   factory _BottomNavigationProps.fromJson(Map<String, dynamic> json) =
-      _$_BottomNavigationProps.fromJson;
+      _$BottomNavigationPropsImpl.fromJson;
 
   @override
   String? get selectedItemColor;
@@ -202,6 +205,6 @@ abstract class _BottomNavigationProps implements BottomNavigationProps {
   List<BottomNavigationItemProps>? get items;
   @override
   @JsonKey(ignore: true)
-  _$$_BottomNavigationPropsCopyWith<_$_BottomNavigationProps> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$BottomNavigationPropsImplCopyWith<_$BottomNavigationPropsImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

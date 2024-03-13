@@ -12,7 +12,7 @@ part of 'data_row_props.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 DataRowProps _$DataRowPropsFromJson(Map<String, dynamic> json) {
   return _DataRowProps.fromJson(json);
@@ -91,11 +91,11 @@ class _$DataRowPropsCopyWithImpl<$Res, $Val extends DataRowProps>
 }
 
 /// @nodoc
-abstract class _$$_DataRowPropsCopyWith<$Res>
+abstract class _$$DataRowPropsImplCopyWith<$Res>
     implements $DataRowPropsCopyWith<$Res> {
-  factory _$$_DataRowPropsCopyWith(
-          _$_DataRowProps value, $Res Function(_$_DataRowProps) then) =
-      __$$_DataRowPropsCopyWithImpl<$Res>;
+  factory _$$DataRowPropsImplCopyWith(
+          _$DataRowPropsImpl value, $Res Function(_$DataRowPropsImpl) then) =
+      __$$DataRowPropsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -107,11 +107,11 @@ abstract class _$$_DataRowPropsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_DataRowPropsCopyWithImpl<$Res>
-    extends _$DataRowPropsCopyWithImpl<$Res, _$_DataRowProps>
-    implements _$$_DataRowPropsCopyWith<$Res> {
-  __$$_DataRowPropsCopyWithImpl(
-      _$_DataRowProps _value, $Res Function(_$_DataRowProps) _then)
+class __$$DataRowPropsImplCopyWithImpl<$Res>
+    extends _$DataRowPropsCopyWithImpl<$Res, _$DataRowPropsImpl>
+    implements _$$DataRowPropsImplCopyWith<$Res> {
+  __$$DataRowPropsImplCopyWithImpl(
+      _$DataRowPropsImpl _value, $Res Function(_$DataRowPropsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -123,7 +123,7 @@ class __$$_DataRowPropsCopyWithImpl<$Res>
     Object? color = freezed,
     Object? cells = null,
   }) {
-    return _then(_$_DataRowProps(
+    return _then(_$DataRowPropsImpl(
       selected: null == selected
           ? _value.selected
           : selected // ignore: cast_nullable_to_non_nullable
@@ -150,8 +150,8 @@ class __$$_DataRowPropsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_DataRowProps implements _DataRowProps {
-  _$_DataRowProps(
+class _$DataRowPropsImpl implements _DataRowProps {
+  _$DataRowPropsImpl(
       {this.selected = false,
       this.onSelectChanged,
       this.onLongPress,
@@ -159,8 +159,8 @@ class _$_DataRowProps implements _DataRowProps {
       required final List<DataCellProps> cells})
       : _cells = cells;
 
-  factory _$_DataRowProps.fromJson(Map<String, dynamic> json) =>
-      _$$_DataRowPropsFromJson(json);
+  factory _$DataRowPropsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DataRowPropsImplFromJson(json);
 
   @override
   @JsonKey()
@@ -182,12 +182,12 @@ class _$_DataRowProps implements _DataRowProps {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DataRowPropsCopyWith<_$_DataRowProps> get copyWith =>
-      __$$_DataRowPropsCopyWithImpl<_$_DataRowProps>(this, _$identity);
+  _$$DataRowPropsImplCopyWith<_$DataRowPropsImpl> get copyWith =>
+      __$$DataRowPropsImplCopyWithImpl<_$DataRowPropsImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DataRowPropsToJson(
+    return _$$DataRowPropsImplToJson(
       this,
     );
   }
@@ -199,10 +199,10 @@ abstract class _DataRowProps implements DataRowProps {
       final String? onSelectChanged,
       final String? onLongPress,
       final String? color,
-      required final List<DataCellProps> cells}) = _$_DataRowProps;
+      required final List<DataCellProps> cells}) = _$DataRowPropsImpl;
 
   factory _DataRowProps.fromJson(Map<String, dynamic> json) =
-      _$_DataRowProps.fromJson;
+      _$DataRowPropsImpl.fromJson;
 
   @override
   bool get selected;
@@ -216,6 +216,6 @@ abstract class _DataRowProps implements DataRowProps {
   List<DataCellProps> get cells;
   @override
   @JsonKey(ignore: true)
-  _$$_DataRowPropsCopyWith<_$_DataRowProps> get copyWith =>
+  _$$DataRowPropsImplCopyWith<_$DataRowPropsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

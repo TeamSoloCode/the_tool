@@ -6,9 +6,9 @@ part of 'layout_builder_props.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_T_LayoutBuilderProps _$$_T_LayoutBuilderPropsFromJson(
+_$T_LayoutBuilderPropsImpl _$$T_LayoutBuilderPropsImplFromJson(
         Map<String, dynamic> json) =>
-    _$_T_LayoutBuilderProps(
+    _$T_LayoutBuilderPropsImpl(
       layouts: (json['layouts'] as List<dynamic>?)
           ?.map((e) =>
               T_LayoutBuilderItemProps.fromJson(e as Map<String, dynamic>))
@@ -16,8 +16,8 @@ _$_T_LayoutBuilderProps _$$_T_LayoutBuilderPropsFromJson(
       defaultLayoutIndex: json['defaultLayoutIndex'] as int?,
     );
 
-Map<String, dynamic> _$$_T_LayoutBuilderPropsToJson(
-        _$_T_LayoutBuilderProps instance) =>
+Map<String, dynamic> _$$T_LayoutBuilderPropsImplToJson(
+        _$T_LayoutBuilderPropsImpl instance) =>
     <String, dynamic>{
       'layouts': instance.layouts?.map((e) => e.toJson()).toList(),
       'defaultLayoutIndex': instance.defaultLayoutIndex,

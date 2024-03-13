@@ -12,7 +12,7 @@ part of 'data_column_props.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 DataColumnProps _$DataColumnPropsFromJson(Map<String, dynamic> json) {
   return _DataColumnProps.fromJson(json);
@@ -91,11 +91,11 @@ class _$DataColumnPropsCopyWithImpl<$Res, $Val extends DataColumnProps>
 }
 
 /// @nodoc
-abstract class _$$_DataColumnPropsCopyWith<$Res>
+abstract class _$$DataColumnPropsImplCopyWith<$Res>
     implements $DataColumnPropsCopyWith<$Res> {
-  factory _$$_DataColumnPropsCopyWith(
-          _$_DataColumnProps value, $Res Function(_$_DataColumnProps) then) =
-      __$$_DataColumnPropsCopyWithImpl<$Res>;
+  factory _$$DataColumnPropsImplCopyWith(_$DataColumnPropsImpl value,
+          $Res Function(_$DataColumnPropsImpl) then) =
+      __$$DataColumnPropsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -107,11 +107,11 @@ abstract class _$$_DataColumnPropsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_DataColumnPropsCopyWithImpl<$Res>
-    extends _$DataColumnPropsCopyWithImpl<$Res, _$_DataColumnProps>
-    implements _$$_DataColumnPropsCopyWith<$Res> {
-  __$$_DataColumnPropsCopyWithImpl(
-      _$_DataColumnProps _value, $Res Function(_$_DataColumnProps) _then)
+class __$$DataColumnPropsImplCopyWithImpl<$Res>
+    extends _$DataColumnPropsCopyWithImpl<$Res, _$DataColumnPropsImpl>
+    implements _$$DataColumnPropsImplCopyWith<$Res> {
+  __$$DataColumnPropsImplCopyWithImpl(
+      _$DataColumnPropsImpl _value, $Res Function(_$DataColumnPropsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -123,7 +123,7 @@ class __$$_DataColumnPropsCopyWithImpl<$Res>
     Object? numeric = null,
     Object? onSort = freezed,
   }) {
-    return _then(_$_DataColumnProps(
+    return _then(_$DataColumnPropsImpl(
       label: null == label
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
@@ -150,16 +150,16 @@ class __$$_DataColumnPropsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_DataColumnProps implements _DataColumnProps {
-  _$_DataColumnProps(
+class _$DataColumnPropsImpl implements _DataColumnProps {
+  _$DataColumnPropsImpl(
       {required this.label,
       this.tooltip,
       this.fieldData,
       this.numeric = false,
       this.onSort});
 
-  factory _$_DataColumnProps.fromJson(Map<String, dynamic> json) =>
-      _$$_DataColumnPropsFromJson(json);
+  factory _$DataColumnPropsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DataColumnPropsImplFromJson(json);
 
   @override
   final String label;
@@ -176,12 +176,13 @@ class _$_DataColumnProps implements _DataColumnProps {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DataColumnPropsCopyWith<_$_DataColumnProps> get copyWith =>
-      __$$_DataColumnPropsCopyWithImpl<_$_DataColumnProps>(this, _$identity);
+  _$$DataColumnPropsImplCopyWith<_$DataColumnPropsImpl> get copyWith =>
+      __$$DataColumnPropsImplCopyWithImpl<_$DataColumnPropsImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DataColumnPropsToJson(
+    return _$$DataColumnPropsImplToJson(
       this,
     );
   }
@@ -193,10 +194,10 @@ abstract class _DataColumnProps implements DataColumnProps {
       final String? tooltip,
       final String? fieldData,
       final bool numeric,
-      final String? onSort}) = _$_DataColumnProps;
+      final String? onSort}) = _$DataColumnPropsImpl;
 
   factory _DataColumnProps.fromJson(Map<String, dynamic> json) =
-      _$_DataColumnProps.fromJson;
+      _$DataColumnPropsImpl.fromJson;
 
   @override
   String get label;
@@ -210,6 +211,6 @@ abstract class _DataColumnProps implements DataColumnProps {
   String? get onSort;
   @override
   @JsonKey(ignore: true)
-  _$$_DataColumnPropsCopyWith<_$_DataColumnProps> get copyWith =>
+  _$$DataColumnPropsImplCopyWith<_$DataColumnPropsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

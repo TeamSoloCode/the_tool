@@ -12,7 +12,7 @@ part of 'media_screen_only.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 T_MediaScreenOnlyProps _$T_MediaScreenOnlyPropsFromJson(
     Map<String, dynamic> json) {
@@ -121,11 +121,12 @@ class _$T_MediaScreenOnlyPropsCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_T_MediaScreenOnlyPropsCopyWith<$Res>
+abstract class _$$T_MediaScreenOnlyPropsImplCopyWith<$Res>
     implements $T_MediaScreenOnlyPropsCopyWith<$Res> {
-  factory _$$_T_MediaScreenOnlyPropsCopyWith(_$_T_MediaScreenOnlyProps value,
-          $Res Function(_$_T_MediaScreenOnlyProps) then) =
-      __$$_T_MediaScreenOnlyPropsCopyWithImpl<$Res>;
+  factory _$$T_MediaScreenOnlyPropsImplCopyWith(
+          _$T_MediaScreenOnlyPropsImpl value,
+          $Res Function(_$T_MediaScreenOnlyPropsImpl) then) =
+      __$$T_MediaScreenOnlyPropsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -142,12 +143,13 @@ abstract class _$$_T_MediaScreenOnlyPropsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_T_MediaScreenOnlyPropsCopyWithImpl<$Res>
+class __$$T_MediaScreenOnlyPropsImplCopyWithImpl<$Res>
     extends _$T_MediaScreenOnlyPropsCopyWithImpl<$Res,
-        _$_T_MediaScreenOnlyProps>
-    implements _$$_T_MediaScreenOnlyPropsCopyWith<$Res> {
-  __$$_T_MediaScreenOnlyPropsCopyWithImpl(_$_T_MediaScreenOnlyProps _value,
-      $Res Function(_$_T_MediaScreenOnlyProps) _then)
+        _$T_MediaScreenOnlyPropsImpl>
+    implements _$$T_MediaScreenOnlyPropsImplCopyWith<$Res> {
+  __$$T_MediaScreenOnlyPropsImplCopyWithImpl(
+      _$T_MediaScreenOnlyPropsImpl _value,
+      $Res Function(_$T_MediaScreenOnlyPropsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -161,7 +163,7 @@ class __$$_T_MediaScreenOnlyPropsCopyWithImpl<$Res>
     Object? style = freezed,
     Object? className = freezed,
   }) {
-    return _then(_$_T_MediaScreenOnlyProps(
+    return _then(_$T_MediaScreenOnlyPropsImpl(
       maxWidth: freezed == maxWidth
           ? _value.maxWidth
           : maxWidth // ignore: cast_nullable_to_non_nullable
@@ -196,8 +198,8 @@ class __$$_T_MediaScreenOnlyPropsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_T_MediaScreenOnlyProps implements _T_MediaScreenOnlyProps {
-  const _$_T_MediaScreenOnlyProps(
+class _$T_MediaScreenOnlyPropsImpl implements _T_MediaScreenOnlyProps {
+  const _$T_MediaScreenOnlyPropsImpl(
       {this.maxWidth,
       this.minWidth,
       this.maxHeight,
@@ -206,8 +208,8 @@ class _$_T_MediaScreenOnlyProps implements _T_MediaScreenOnlyProps {
       this.style,
       this.className});
 
-  factory _$_T_MediaScreenOnlyProps.fromJson(Map<String, dynamic> json) =>
-      _$$_T_MediaScreenOnlyPropsFromJson(json);
+  factory _$T_MediaScreenOnlyPropsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$T_MediaScreenOnlyPropsImplFromJson(json);
 
   @override
   final num? maxWidth;
@@ -227,13 +229,13 @@ class _$_T_MediaScreenOnlyProps implements _T_MediaScreenOnlyProps {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_T_MediaScreenOnlyPropsCopyWith<_$_T_MediaScreenOnlyProps> get copyWith =>
-      __$$_T_MediaScreenOnlyPropsCopyWithImpl<_$_T_MediaScreenOnlyProps>(
-          this, _$identity);
+  _$$T_MediaScreenOnlyPropsImplCopyWith<_$T_MediaScreenOnlyPropsImpl>
+      get copyWith => __$$T_MediaScreenOnlyPropsImplCopyWithImpl<
+          _$T_MediaScreenOnlyPropsImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_T_MediaScreenOnlyPropsToJson(
+    return _$$T_MediaScreenOnlyPropsImplToJson(
       this,
     );
   }
@@ -247,10 +249,10 @@ abstract class _T_MediaScreenOnlyProps implements T_MediaScreenOnlyProps {
       final num? minHeight,
       final String? orientation,
       final LayoutProps? style,
-      final dynamic className}) = _$_T_MediaScreenOnlyProps;
+      final dynamic className}) = _$T_MediaScreenOnlyPropsImpl;
 
   factory _T_MediaScreenOnlyProps.fromJson(Map<String, dynamic> json) =
-      _$_T_MediaScreenOnlyProps.fromJson;
+      _$T_MediaScreenOnlyPropsImpl.fromJson;
 
   @override
   num? get maxWidth;
@@ -268,6 +270,6 @@ abstract class _T_MediaScreenOnlyProps implements T_MediaScreenOnlyProps {
   dynamic get className;
   @override
   @JsonKey(ignore: true)
-  _$$_T_MediaScreenOnlyPropsCopyWith<_$_T_MediaScreenOnlyProps> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$T_MediaScreenOnlyPropsImplCopyWith<_$T_MediaScreenOnlyPropsImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

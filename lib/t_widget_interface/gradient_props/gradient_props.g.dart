@@ -6,8 +6,9 @@ part of 'gradient_props.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_T_GradientProps _$$_T_GradientPropsFromJson(Map<String, dynamic> json) =>
-    _$_T_GradientProps(
+_$T_GradientPropsImpl _$$T_GradientPropsImplFromJson(
+        Map<String, dynamic> json) =>
+    _$T_GradientPropsImpl(
       type: json['type'] as String?,
       colors: json['colors'] as List<dynamic>?,
       end: json['end'],
@@ -15,7 +16,8 @@ _$_T_GradientProps _$$_T_GradientPropsFromJson(Map<String, dynamic> json) =>
       stops: json['stops'],
     );
 
-Map<String, dynamic> _$$_T_GradientPropsToJson(_$_T_GradientProps instance) =>
+Map<String, dynamic> _$$T_GradientPropsImplToJson(
+        _$T_GradientPropsImpl instance) =>
     <String, dynamic>{
       'type': instance.type,
       'colors': instance.colors,

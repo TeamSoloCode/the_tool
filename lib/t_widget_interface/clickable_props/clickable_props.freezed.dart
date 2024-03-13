@@ -12,7 +12,7 @@ part of 'clickable_props.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 T_ClickableProps _$T_ClickablePropsFromJson(Map<String, dynamic> json) {
   return _T_ClickableProps.fromJson(json);
@@ -62,22 +62,22 @@ class _$T_ClickablePropsCopyWithImpl<$Res, $Val extends T_ClickableProps>
 }
 
 /// @nodoc
-abstract class _$$_T_ClickablePropsCopyWith<$Res>
+abstract class _$$T_ClickablePropsImplCopyWith<$Res>
     implements $T_ClickablePropsCopyWith<$Res> {
-  factory _$$_T_ClickablePropsCopyWith(
-          _$_T_ClickableProps value, $Res Function(_$_T_ClickableProps) then) =
-      __$$_T_ClickablePropsCopyWithImpl<$Res>;
+  factory _$$T_ClickablePropsImplCopyWith(_$T_ClickablePropsImpl value,
+          $Res Function(_$T_ClickablePropsImpl) then) =
+      __$$T_ClickablePropsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String? onClick});
 }
 
 /// @nodoc
-class __$$_T_ClickablePropsCopyWithImpl<$Res>
-    extends _$T_ClickablePropsCopyWithImpl<$Res, _$_T_ClickableProps>
-    implements _$$_T_ClickablePropsCopyWith<$Res> {
-  __$$_T_ClickablePropsCopyWithImpl(
-      _$_T_ClickableProps _value, $Res Function(_$_T_ClickableProps) _then)
+class __$$T_ClickablePropsImplCopyWithImpl<$Res>
+    extends _$T_ClickablePropsCopyWithImpl<$Res, _$T_ClickablePropsImpl>
+    implements _$$T_ClickablePropsImplCopyWith<$Res> {
+  __$$T_ClickablePropsImplCopyWithImpl(_$T_ClickablePropsImpl _value,
+      $Res Function(_$T_ClickablePropsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -85,7 +85,7 @@ class __$$_T_ClickablePropsCopyWithImpl<$Res>
   $Res call({
     Object? onClick = freezed,
   }) {
-    return _then(_$_T_ClickableProps(
+    return _then(_$T_ClickablePropsImpl(
       onClick: freezed == onClick
           ? _value.onClick
           : onClick // ignore: cast_nullable_to_non_nullable
@@ -96,11 +96,11 @@ class __$$_T_ClickablePropsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_T_ClickableProps implements _T_ClickableProps {
-  const _$_T_ClickableProps({this.onClick});
+class _$T_ClickablePropsImpl implements _T_ClickableProps {
+  const _$T_ClickablePropsImpl({this.onClick});
 
-  factory _$_T_ClickableProps.fromJson(Map<String, dynamic> json) =>
-      _$$_T_ClickablePropsFromJson(json);
+  factory _$T_ClickablePropsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$T_ClickablePropsImplFromJson(json);
 
   @override
   final String? onClick;
@@ -108,12 +108,13 @@ class _$_T_ClickableProps implements _T_ClickableProps {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_T_ClickablePropsCopyWith<_$_T_ClickableProps> get copyWith =>
-      __$$_T_ClickablePropsCopyWithImpl<_$_T_ClickableProps>(this, _$identity);
+  _$$T_ClickablePropsImplCopyWith<_$T_ClickablePropsImpl> get copyWith =>
+      __$$T_ClickablePropsImplCopyWithImpl<_$T_ClickablePropsImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_T_ClickablePropsToJson(
+    return _$$T_ClickablePropsImplToJson(
       this,
     );
   }
@@ -121,15 +122,15 @@ class _$_T_ClickableProps implements _T_ClickableProps {
 
 abstract class _T_ClickableProps implements T_ClickableProps {
   const factory _T_ClickableProps({final String? onClick}) =
-      _$_T_ClickableProps;
+      _$T_ClickablePropsImpl;
 
   factory _T_ClickableProps.fromJson(Map<String, dynamic> json) =
-      _$_T_ClickableProps.fromJson;
+      _$T_ClickablePropsImpl.fromJson;
 
   @override
   String? get onClick;
   @override
   @JsonKey(ignore: true)
-  _$$_T_ClickablePropsCopyWith<_$_T_ClickableProps> get copyWith =>
+  _$$T_ClickablePropsImplCopyWith<_$T_ClickablePropsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

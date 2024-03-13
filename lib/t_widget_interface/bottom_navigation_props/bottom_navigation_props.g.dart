@@ -6,9 +6,9 @@ part of 'bottom_navigation_props.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_BottomNavigationProps _$$_BottomNavigationPropsFromJson(
+_$BottomNavigationPropsImpl _$$BottomNavigationPropsImplFromJson(
         Map<String, dynamic> json) =>
-    _$_BottomNavigationProps(
+    _$BottomNavigationPropsImpl(
       selectedItemColor: json['selectedItemColor'] as String?,
       navType: json['navType'] as String?,
       backgroundColor: json['backgroundColor'] as String?,
@@ -18,8 +18,8 @@ _$_BottomNavigationProps _$$_BottomNavigationPropsFromJson(
           .toList(),
     );
 
-Map<String, dynamic> _$$_BottomNavigationPropsToJson(
-        _$_BottomNavigationProps instance) =>
+Map<String, dynamic> _$$BottomNavigationPropsImplToJson(
+        _$BottomNavigationPropsImpl instance) =>
     <String, dynamic>{
       'selectedItemColor': instance.selectedItemColor,
       'navType': instance.navType,

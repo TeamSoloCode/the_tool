@@ -12,7 +12,7 @@ part of 'layout_builder_props.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 T_LayoutBuilderProps _$T_LayoutBuilderPropsFromJson(Map<String, dynamic> json) {
   return _T_LayoutBuilderProps.fromJson(json);
@@ -70,22 +70,22 @@ class _$T_LayoutBuilderPropsCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_T_LayoutBuilderPropsCopyWith<$Res>
+abstract class _$$T_LayoutBuilderPropsImplCopyWith<$Res>
     implements $T_LayoutBuilderPropsCopyWith<$Res> {
-  factory _$$_T_LayoutBuilderPropsCopyWith(_$_T_LayoutBuilderProps value,
-          $Res Function(_$_T_LayoutBuilderProps) then) =
-      __$$_T_LayoutBuilderPropsCopyWithImpl<$Res>;
+  factory _$$T_LayoutBuilderPropsImplCopyWith(_$T_LayoutBuilderPropsImpl value,
+          $Res Function(_$T_LayoutBuilderPropsImpl) then) =
+      __$$T_LayoutBuilderPropsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<T_LayoutBuilderItemProps>? layouts, int? defaultLayoutIndex});
 }
 
 /// @nodoc
-class __$$_T_LayoutBuilderPropsCopyWithImpl<$Res>
-    extends _$T_LayoutBuilderPropsCopyWithImpl<$Res, _$_T_LayoutBuilderProps>
-    implements _$$_T_LayoutBuilderPropsCopyWith<$Res> {
-  __$$_T_LayoutBuilderPropsCopyWithImpl(_$_T_LayoutBuilderProps _value,
-      $Res Function(_$_T_LayoutBuilderProps) _then)
+class __$$T_LayoutBuilderPropsImplCopyWithImpl<$Res>
+    extends _$T_LayoutBuilderPropsCopyWithImpl<$Res, _$T_LayoutBuilderPropsImpl>
+    implements _$$T_LayoutBuilderPropsImplCopyWith<$Res> {
+  __$$T_LayoutBuilderPropsImplCopyWithImpl(_$T_LayoutBuilderPropsImpl _value,
+      $Res Function(_$T_LayoutBuilderPropsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -94,7 +94,7 @@ class __$$_T_LayoutBuilderPropsCopyWithImpl<$Res>
     Object? layouts = freezed,
     Object? defaultLayoutIndex = freezed,
   }) {
-    return _then(_$_T_LayoutBuilderProps(
+    return _then(_$T_LayoutBuilderPropsImpl(
       layouts: freezed == layouts
           ? _value._layouts
           : layouts // ignore: cast_nullable_to_non_nullable
@@ -109,13 +109,13 @@ class __$$_T_LayoutBuilderPropsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_T_LayoutBuilderProps implements _T_LayoutBuilderProps {
-  const _$_T_LayoutBuilderProps(
+class _$T_LayoutBuilderPropsImpl implements _T_LayoutBuilderProps {
+  const _$T_LayoutBuilderPropsImpl(
       {final List<T_LayoutBuilderItemProps>? layouts, this.defaultLayoutIndex})
       : _layouts = layouts;
 
-  factory _$_T_LayoutBuilderProps.fromJson(Map<String, dynamic> json) =>
-      _$$_T_LayoutBuilderPropsFromJson(json);
+  factory _$T_LayoutBuilderPropsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$T_LayoutBuilderPropsImplFromJson(json);
 
   final List<T_LayoutBuilderItemProps>? _layouts;
   @override
@@ -133,13 +133,14 @@ class _$_T_LayoutBuilderProps implements _T_LayoutBuilderProps {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_T_LayoutBuilderPropsCopyWith<_$_T_LayoutBuilderProps> get copyWith =>
-      __$$_T_LayoutBuilderPropsCopyWithImpl<_$_T_LayoutBuilderProps>(
-          this, _$identity);
+  _$$T_LayoutBuilderPropsImplCopyWith<_$T_LayoutBuilderPropsImpl>
+      get copyWith =>
+          __$$T_LayoutBuilderPropsImplCopyWithImpl<_$T_LayoutBuilderPropsImpl>(
+              this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_T_LayoutBuilderPropsToJson(
+    return _$$T_LayoutBuilderPropsImplToJson(
       this,
     );
   }
@@ -148,10 +149,10 @@ class _$_T_LayoutBuilderProps implements _T_LayoutBuilderProps {
 abstract class _T_LayoutBuilderProps implements T_LayoutBuilderProps {
   const factory _T_LayoutBuilderProps(
       {final List<T_LayoutBuilderItemProps>? layouts,
-      final int? defaultLayoutIndex}) = _$_T_LayoutBuilderProps;
+      final int? defaultLayoutIndex}) = _$T_LayoutBuilderPropsImpl;
 
   factory _T_LayoutBuilderProps.fromJson(Map<String, dynamic> json) =
-      _$_T_LayoutBuilderProps.fromJson;
+      _$T_LayoutBuilderPropsImpl.fromJson;
 
   @override
   List<T_LayoutBuilderItemProps>? get layouts;
@@ -159,6 +160,6 @@ abstract class _T_LayoutBuilderProps implements T_LayoutBuilderProps {
   int? get defaultLayoutIndex;
   @override
   @JsonKey(ignore: true)
-  _$$_T_LayoutBuilderPropsCopyWith<_$_T_LayoutBuilderProps> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$T_LayoutBuilderPropsImplCopyWith<_$T_LayoutBuilderPropsImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

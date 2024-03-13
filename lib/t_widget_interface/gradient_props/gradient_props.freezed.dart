@@ -12,7 +12,7 @@ part of 'gradient_props.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 T_GradientProps _$T_GradientPropsFromJson(Map<String, dynamic> json) {
   return _T_GradientProps.fromJson(json);
@@ -91,11 +91,11 @@ class _$T_GradientPropsCopyWithImpl<$Res, $Val extends T_GradientProps>
 }
 
 /// @nodoc
-abstract class _$$_T_GradientPropsCopyWith<$Res>
+abstract class _$$T_GradientPropsImplCopyWith<$Res>
     implements $T_GradientPropsCopyWith<$Res> {
-  factory _$$_T_GradientPropsCopyWith(
-          _$_T_GradientProps value, $Res Function(_$_T_GradientProps) then) =
-      __$$_T_GradientPropsCopyWithImpl<$Res>;
+  factory _$$T_GradientPropsImplCopyWith(_$T_GradientPropsImpl value,
+          $Res Function(_$T_GradientPropsImpl) then) =
+      __$$T_GradientPropsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -107,11 +107,11 @@ abstract class _$$_T_GradientPropsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_T_GradientPropsCopyWithImpl<$Res>
-    extends _$T_GradientPropsCopyWithImpl<$Res, _$_T_GradientProps>
-    implements _$$_T_GradientPropsCopyWith<$Res> {
-  __$$_T_GradientPropsCopyWithImpl(
-      _$_T_GradientProps _value, $Res Function(_$_T_GradientProps) _then)
+class __$$T_GradientPropsImplCopyWithImpl<$Res>
+    extends _$T_GradientPropsCopyWithImpl<$Res, _$T_GradientPropsImpl>
+    implements _$$T_GradientPropsImplCopyWith<$Res> {
+  __$$T_GradientPropsImplCopyWithImpl(
+      _$T_GradientPropsImpl _value, $Res Function(_$T_GradientPropsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -123,7 +123,7 @@ class __$$_T_GradientPropsCopyWithImpl<$Res>
     Object? begin = freezed,
     Object? stops = freezed,
   }) {
-    return _then(_$_T_GradientProps(
+    return _then(_$T_GradientPropsImpl(
       type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -150,8 +150,8 @@ class __$$_T_GradientPropsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_T_GradientProps implements _T_GradientProps {
-  const _$_T_GradientProps(
+class _$T_GradientPropsImpl implements _T_GradientProps {
+  const _$T_GradientPropsImpl(
       {this.type,
       final List<dynamic>? colors,
       this.end,
@@ -159,8 +159,8 @@ class _$_T_GradientProps implements _T_GradientProps {
       this.stops})
       : _colors = colors;
 
-  factory _$_T_GradientProps.fromJson(Map<String, dynamic> json) =>
-      _$$_T_GradientPropsFromJson(json);
+  factory _$T_GradientPropsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$T_GradientPropsImplFromJson(json);
 
   @override
   final String? type;
@@ -184,12 +184,13 @@ class _$_T_GradientProps implements _T_GradientProps {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_T_GradientPropsCopyWith<_$_T_GradientProps> get copyWith =>
-      __$$_T_GradientPropsCopyWithImpl<_$_T_GradientProps>(this, _$identity);
+  _$$T_GradientPropsImplCopyWith<_$T_GradientPropsImpl> get copyWith =>
+      __$$T_GradientPropsImplCopyWithImpl<_$T_GradientPropsImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_T_GradientPropsToJson(
+    return _$$T_GradientPropsImplToJson(
       this,
     );
   }
@@ -201,10 +202,10 @@ abstract class _T_GradientProps implements T_GradientProps {
       final List<dynamic>? colors,
       final dynamic end,
       final dynamic begin,
-      final dynamic stops}) = _$_T_GradientProps;
+      final dynamic stops}) = _$T_GradientPropsImpl;
 
   factory _T_GradientProps.fromJson(Map<String, dynamic> json) =
-      _$_T_GradientProps.fromJson;
+      _$T_GradientPropsImpl.fromJson;
 
   @override
   String? get type;
@@ -218,6 +219,6 @@ abstract class _T_GradientProps implements T_GradientProps {
   dynamic get stops;
   @override
   @JsonKey(ignore: true)
-  _$$_T_GradientPropsCopyWith<_$_T_GradientProps> get copyWith =>
+  _$$T_GradientPropsImplCopyWith<_$T_GradientPropsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

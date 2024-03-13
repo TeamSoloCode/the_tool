@@ -6,9 +6,9 @@ part of 'media_screen_only.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_T_MediaScreenOnlyProps _$$_T_MediaScreenOnlyPropsFromJson(
+_$T_MediaScreenOnlyPropsImpl _$$T_MediaScreenOnlyPropsImplFromJson(
         Map<String, dynamic> json) =>
-    _$_T_MediaScreenOnlyProps(
+    _$T_MediaScreenOnlyPropsImpl(
       maxWidth: json['maxWidth'] as num?,
       minWidth: json['minWidth'] as num?,
       maxHeight: json['maxHeight'] as num?,
@@ -20,8 +20,8 @@ _$_T_MediaScreenOnlyProps _$$_T_MediaScreenOnlyPropsFromJson(
       className: json['className'],
     );
 
-Map<String, dynamic> _$$_T_MediaScreenOnlyPropsToJson(
-        _$_T_MediaScreenOnlyProps instance) =>
+Map<String, dynamic> _$$T_MediaScreenOnlyPropsImplToJson(
+        _$T_MediaScreenOnlyPropsImpl instance) =>
     <String, dynamic>{
       'maxWidth': instance.maxWidth,
       'minWidth': instance.minWidth,

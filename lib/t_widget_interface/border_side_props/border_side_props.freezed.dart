@@ -12,7 +12,7 @@ part of 'border_side_props.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 TBorderSideProps _$TBorderSidePropsFromJson(Map<String, dynamic> json) {
   return _TBorderSideProps.fromJson(json);
@@ -74,22 +74,22 @@ class _$TBorderSidePropsCopyWithImpl<$Res, $Val extends TBorderSideProps>
 }
 
 /// @nodoc
-abstract class _$$_TBorderSidePropsCopyWith<$Res>
+abstract class _$$TBorderSidePropsImplCopyWith<$Res>
     implements $TBorderSidePropsCopyWith<$Res> {
-  factory _$$_TBorderSidePropsCopyWith(
-          _$_TBorderSideProps value, $Res Function(_$_TBorderSideProps) then) =
-      __$$_TBorderSidePropsCopyWithImpl<$Res>;
+  factory _$$TBorderSidePropsImplCopyWith(_$TBorderSidePropsImpl value,
+          $Res Function(_$TBorderSidePropsImpl) then) =
+      __$$TBorderSidePropsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String? color, String? style, dynamic width});
 }
 
 /// @nodoc
-class __$$_TBorderSidePropsCopyWithImpl<$Res>
-    extends _$TBorderSidePropsCopyWithImpl<$Res, _$_TBorderSideProps>
-    implements _$$_TBorderSidePropsCopyWith<$Res> {
-  __$$_TBorderSidePropsCopyWithImpl(
-      _$_TBorderSideProps _value, $Res Function(_$_TBorderSideProps) _then)
+class __$$TBorderSidePropsImplCopyWithImpl<$Res>
+    extends _$TBorderSidePropsCopyWithImpl<$Res, _$TBorderSidePropsImpl>
+    implements _$$TBorderSidePropsImplCopyWith<$Res> {
+  __$$TBorderSidePropsImplCopyWithImpl(_$TBorderSidePropsImpl _value,
+      $Res Function(_$TBorderSidePropsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -99,7 +99,7 @@ class __$$_TBorderSidePropsCopyWithImpl<$Res>
     Object? style = freezed,
     Object? width = freezed,
   }) {
-    return _then(_$_TBorderSideProps(
+    return _then(_$TBorderSidePropsImpl(
       color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
@@ -118,11 +118,11 @@ class __$$_TBorderSidePropsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_TBorderSideProps implements _TBorderSideProps {
-  const _$_TBorderSideProps({this.color, this.style, this.width});
+class _$TBorderSidePropsImpl implements _TBorderSideProps {
+  const _$TBorderSidePropsImpl({this.color, this.style, this.width});
 
-  factory _$_TBorderSideProps.fromJson(Map<String, dynamic> json) =>
-      _$$_TBorderSidePropsFromJson(json);
+  factory _$TBorderSidePropsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TBorderSidePropsImplFromJson(json);
 
   @override
   final String? color;
@@ -134,12 +134,13 @@ class _$_TBorderSideProps implements _TBorderSideProps {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TBorderSidePropsCopyWith<_$_TBorderSideProps> get copyWith =>
-      __$$_TBorderSidePropsCopyWithImpl<_$_TBorderSideProps>(this, _$identity);
+  _$$TBorderSidePropsImplCopyWith<_$TBorderSidePropsImpl> get copyWith =>
+      __$$TBorderSidePropsImplCopyWithImpl<_$TBorderSidePropsImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_TBorderSidePropsToJson(
+    return _$$TBorderSidePropsImplToJson(
       this,
     );
   }
@@ -149,10 +150,10 @@ abstract class _TBorderSideProps implements TBorderSideProps {
   const factory _TBorderSideProps(
       {final String? color,
       final String? style,
-      final dynamic width}) = _$_TBorderSideProps;
+      final dynamic width}) = _$TBorderSidePropsImpl;
 
   factory _TBorderSideProps.fromJson(Map<String, dynamic> json) =
-      _$_TBorderSideProps.fromJson;
+      _$TBorderSidePropsImpl.fromJson;
 
   @override
   String? get color;
@@ -162,6 +163,6 @@ abstract class _TBorderSideProps implements TBorderSideProps {
   dynamic get width;
   @override
   @JsonKey(ignore: true)
-  _$$_TBorderSidePropsCopyWith<_$_TBorderSideProps> get copyWith =>
+  _$$TBorderSidePropsImplCopyWith<_$TBorderSidePropsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

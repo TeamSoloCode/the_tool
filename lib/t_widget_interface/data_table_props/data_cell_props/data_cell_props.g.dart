@@ -6,8 +6,8 @@ part of 'data_cell_props.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_DataCellProps _$$_DataCellPropsFromJson(Map<String, dynamic> json) =>
-    _$_DataCellProps(
+_$DataCellPropsImpl _$$DataCellPropsImplFromJson(Map<String, dynamic> json) =>
+    _$DataCellPropsImpl(
       child: LayoutProps.fromJson(json['child'] as Map<String, dynamic>),
       placeholder: json['placeholder'] as bool? ?? false,
       showEditIcon: json['showEditIcon'] as bool? ?? false,
@@ -18,7 +18,7 @@ _$_DataCellProps _$$_DataCellPropsFromJson(Map<String, dynamic> json) =>
       onTapCancel: json['onTapCancel'] as String?,
     );
 
-Map<String, dynamic> _$$_DataCellPropsToJson(_$_DataCellProps instance) =>
+Map<String, dynamic> _$$DataCellPropsImplToJson(_$DataCellPropsImpl instance) =>
     <String, dynamic>{
       'child': instance.child.toJson(),
       'placeholder': instance.placeholder,

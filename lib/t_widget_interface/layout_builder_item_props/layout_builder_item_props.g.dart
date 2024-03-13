@@ -6,9 +6,9 @@ part of 'layout_builder_item_props.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_T_LayoutBuilderItemProps _$$_T_LayoutBuilderItemPropsFromJson(
+_$T_LayoutBuilderItemPropsImpl _$$T_LayoutBuilderItemPropsImplFromJson(
         Map<String, dynamic> json) =>
-    _$_T_LayoutBuilderItemProps(
+    _$T_LayoutBuilderItemPropsImpl(
       child: json['child'] == null
           ? null
           : LayoutProps.fromJson(json['child'] as Map<String, dynamic>),
@@ -20,8 +20,8 @@ _$_T_LayoutBuilderItemProps _$$_T_LayoutBuilderItemPropsFromJson(
       isDefault: json['isDefault'] as bool?,
     );
 
-Map<String, dynamic> _$$_T_LayoutBuilderItemPropsToJson(
-        _$_T_LayoutBuilderItemProps instance) =>
+Map<String, dynamic> _$$T_LayoutBuilderItemPropsImplToJson(
+        _$T_LayoutBuilderItemPropsImpl instance) =>
     <String, dynamic>{
       'child': instance.child?.toJson(),
       'maxHeight': instance.maxHeight,

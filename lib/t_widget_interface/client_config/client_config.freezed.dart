@@ -12,7 +12,7 @@ part of 'client_config.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 ClientConfig _$ClientConfigFromJson(Map<String, dynamic> json) {
   return _ClientConfig.fromJson(json);
@@ -105,11 +105,11 @@ class _$ClientConfigCopyWithImpl<$Res, $Val extends ClientConfig>
 }
 
 /// @nodoc
-abstract class _$$_ClientConfigCopyWith<$Res>
+abstract class _$$ClientConfigImplCopyWith<$Res>
     implements $ClientConfigCopyWith<$Res> {
-  factory _$$_ClientConfigCopyWith(
-          _$_ClientConfig value, $Res Function(_$_ClientConfig) then) =
-      __$$_ClientConfigCopyWithImpl<$Res>;
+  factory _$$ClientConfigImplCopyWith(
+          _$ClientConfigImpl value, $Res Function(_$ClientConfigImpl) then) =
+      __$$ClientConfigImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -123,11 +123,11 @@ abstract class _$$_ClientConfigCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ClientConfigCopyWithImpl<$Res>
-    extends _$ClientConfigCopyWithImpl<$Res, _$_ClientConfig>
-    implements _$$_ClientConfigCopyWith<$Res> {
-  __$$_ClientConfigCopyWithImpl(
-      _$_ClientConfig _value, $Res Function(_$_ClientConfig) _then)
+class __$$ClientConfigImplCopyWithImpl<$Res>
+    extends _$ClientConfigCopyWithImpl<$Res, _$ClientConfigImpl>
+    implements _$$ClientConfigImplCopyWith<$Res> {
+  __$$ClientConfigImplCopyWithImpl(
+      _$ClientConfigImpl _value, $Res Function(_$ClientConfigImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -141,7 +141,7 @@ class __$$_ClientConfigCopyWithImpl<$Res>
     Object? uploadFileHost = freezed,
     Object? socketioHost = freezed,
   }) {
-    return _then(_$_ClientConfig(
+    return _then(_$ClientConfigImpl(
       initialPage: freezed == initialPage
           ? _value.initialPage
           : initialPage // ignore: cast_nullable_to_non_nullable
@@ -176,8 +176,8 @@ class __$$_ClientConfigCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ClientConfig implements _ClientConfig {
-  const _$_ClientConfig(
+class _$ClientConfigImpl implements _ClientConfig {
+  const _$ClientConfigImpl(
       {this.initialPage,
       this.pageAPI,
       this.beAPI,
@@ -188,8 +188,8 @@ class _$_ClientConfig implements _ClientConfig {
       : _routes = routes,
         _socketioHost = socketioHost;
 
-  factory _$_ClientConfig.fromJson(Map<String, dynamic> json) =>
-      _$$_ClientConfigFromJson(json);
+  factory _$ClientConfigImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ClientConfigImplFromJson(json);
 
   @override
   final String? initialPage;
@@ -224,12 +224,12 @@ class _$_ClientConfig implements _ClientConfig {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ClientConfigCopyWith<_$_ClientConfig> get copyWith =>
-      __$$_ClientConfigCopyWithImpl<_$_ClientConfig>(this, _$identity);
+  _$$ClientConfigImplCopyWith<_$ClientConfigImpl> get copyWith =>
+      __$$ClientConfigImplCopyWithImpl<_$ClientConfigImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ClientConfigToJson(
+    return _$$ClientConfigImplToJson(
       this,
     );
   }
@@ -243,10 +243,10 @@ abstract class _ClientConfig implements ClientConfig {
       final List<AppRouteConfig>? routes,
       final String? notFoundPagePath,
       final String? uploadFileHost,
-      final Map<String, dynamic>? socketioHost}) = _$_ClientConfig;
+      final Map<String, dynamic>? socketioHost}) = _$ClientConfigImpl;
 
   factory _ClientConfig.fromJson(Map<String, dynamic> json) =
-      _$_ClientConfig.fromJson;
+      _$ClientConfigImpl.fromJson;
 
   @override
   String? get initialPage;
@@ -264,6 +264,6 @@ abstract class _ClientConfig implements ClientConfig {
   Map<String, dynamic>? get socketioHost;
   @override
   @JsonKey(ignore: true)
-  _$$_ClientConfigCopyWith<_$_ClientConfig> get copyWith =>
+  _$$ClientConfigImplCopyWith<_$ClientConfigImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

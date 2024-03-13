@@ -12,7 +12,7 @@ part of 'app_route_config.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 AppRouteConfig _$AppRouteConfigFromJson(Map<String, dynamic> json) {
   return _AppRouteConfig.fromJson(json);
@@ -84,11 +84,11 @@ class _$AppRouteConfigCopyWithImpl<$Res, $Val extends AppRouteConfig>
 }
 
 /// @nodoc
-abstract class _$$_AppRouteConfigCopyWith<$Res>
+abstract class _$$AppRouteConfigImplCopyWith<$Res>
     implements $AppRouteConfigCopyWith<$Res> {
-  factory _$$_AppRouteConfigCopyWith(
-          _$_AppRouteConfig value, $Res Function(_$_AppRouteConfig) then) =
-      __$$_AppRouteConfigCopyWithImpl<$Res>;
+  factory _$$AppRouteConfigImplCopyWith(_$AppRouteConfigImpl value,
+          $Res Function(_$AppRouteConfigImpl) then) =
+      __$$AppRouteConfigImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -99,11 +99,11 @@ abstract class _$$_AppRouteConfigCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_AppRouteConfigCopyWithImpl<$Res>
-    extends _$AppRouteConfigCopyWithImpl<$Res, _$_AppRouteConfig>
-    implements _$$_AppRouteConfigCopyWith<$Res> {
-  __$$_AppRouteConfigCopyWithImpl(
-      _$_AppRouteConfig _value, $Res Function(_$_AppRouteConfig) _then)
+class __$$AppRouteConfigImplCopyWithImpl<$Res>
+    extends _$AppRouteConfigCopyWithImpl<$Res, _$AppRouteConfigImpl>
+    implements _$$AppRouteConfigImplCopyWith<$Res> {
+  __$$AppRouteConfigImplCopyWithImpl(
+      _$AppRouteConfigImpl _value, $Res Function(_$AppRouteConfigImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -114,7 +114,7 @@ class __$$_AppRouteConfigCopyWithImpl<$Res>
     Object? route = freezed,
     Object? guards = freezed,
   }) {
-    return _then(_$_AppRouteConfig(
+    return _then(_$AppRouteConfigImpl(
       path: freezed == path
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
@@ -137,13 +137,13 @@ class __$$_AppRouteConfigCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_AppRouteConfig implements _AppRouteConfig {
-  const _$_AppRouteConfig(
+class _$AppRouteConfigImpl implements _AppRouteConfig {
+  const _$AppRouteConfigImpl(
       {this.path, this.name, this.route, final List<RouteGuardConfig>? guards})
       : _guards = guards;
 
-  factory _$_AppRouteConfig.fromJson(Map<String, dynamic> json) =>
-      _$$_AppRouteConfigFromJson(json);
+  factory _$AppRouteConfigImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AppRouteConfigImplFromJson(json);
 
   @override
   final String? path;
@@ -164,12 +164,13 @@ class _$_AppRouteConfig implements _AppRouteConfig {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AppRouteConfigCopyWith<_$_AppRouteConfig> get copyWith =>
-      __$$_AppRouteConfigCopyWithImpl<_$_AppRouteConfig>(this, _$identity);
+  _$$AppRouteConfigImplCopyWith<_$AppRouteConfigImpl> get copyWith =>
+      __$$AppRouteConfigImplCopyWithImpl<_$AppRouteConfigImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AppRouteConfigToJson(
+    return _$$AppRouteConfigImplToJson(
       this,
     );
   }
@@ -180,10 +181,10 @@ abstract class _AppRouteConfig implements AppRouteConfig {
       {final String? path,
       final String? name,
       final String? route,
-      final List<RouteGuardConfig>? guards}) = _$_AppRouteConfig;
+      final List<RouteGuardConfig>? guards}) = _$AppRouteConfigImpl;
 
   factory _AppRouteConfig.fromJson(Map<String, dynamic> json) =
-      _$_AppRouteConfig.fromJson;
+      _$AppRouteConfigImpl.fromJson;
 
   @override
   String? get path;
@@ -195,6 +196,6 @@ abstract class _AppRouteConfig implements AppRouteConfig {
   List<RouteGuardConfig>? get guards;
   @override
   @JsonKey(ignore: true)
-  _$$_AppRouteConfigCopyWith<_$_AppRouteConfig> get copyWith =>
+  _$$AppRouteConfigImplCopyWith<_$AppRouteConfigImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -6,11 +6,11 @@ part of 'layout_props.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
-    _$_LayoutProps(
+_$LayoutPropsImpl _$$LayoutPropsImplFromJson(Map<String, dynamic> json) =>
+    _$LayoutPropsImpl(
       type: json['type'] as String?,
-      color: json['color'] as String?,
-      backgroundColor: json['backgroundColor'] as String?,
+      color: json['color'],
+      backgroundColor: json['backgroundColor'],
       text: json['text'] as String?,
       fontSize: (json['fontSize'] as num?)?.toDouble(),
       hidden: json['hidden'],
@@ -40,10 +40,10 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       radius: (json['radius'] as num?)?.toDouble(),
       iconSize: (json['iconSize'] as num?)?.toDouble(),
       shape: json['shape'] as String?,
-      splashColor: json['splashColor'] as String?,
+      splashColor: json['splashColor'],
       alignment: json['alignment'],
       elevation: (json['elevation'] as num?)?.toDouble(),
-      shadowColor: json['shadowColor'] as String?,
+      shadowColor: json['shadowColor'],
       heightFactor: (json['heightFactor'] as num?)?.toDouble(),
       widthFactor: (json['widthFactor'] as num?)?.toDouble(),
       weight: (json['weight'] as num?)?.toDouble(),
@@ -101,10 +101,10 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       prefixIcon: json['prefixIcon'] == null
           ? null
           : LayoutProps.fromJson(json['prefixIcon'] as Map<String, dynamic>),
-      prefixIconColor: json['prefixIconColor'] as String?,
+      prefixIconColor: json['prefixIconColor'],
       prefixText: json['prefixText'] as String?,
       format: json['format'] as String?,
-      fillColor: json['fillColor'] as String?,
+      fillColor: json['fillColor'],
       validationFunction: json['validationFunction'] as String?,
       autovalidate: json['autovalidate'] as bool?,
       validators: (json['validators'] as List<dynamic>?)
@@ -139,7 +139,7 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
       onSelectChanged: json['onSelectChanged'] as String?,
       onSelectAll: json['onSelectAll'] as String?,
       selected: json['selected'],
-      dividerColor: json['dividerColor'] as String?,
+      dividerColor: json['dividerColor'],
       appBarBottom: json['appBarBottom'] as Map<String, dynamic>?,
       separator: json['separator'] == null
           ? null
@@ -209,7 +209,7 @@ _$_LayoutProps _$$_LayoutPropsFromJson(Map<String, dynamic> json) =>
           : T_GradientProps.fromJson(json['gradient'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_LayoutPropsToJson(_$_LayoutProps instance) =>
+Map<String, dynamic> _$$LayoutPropsImplToJson(_$LayoutPropsImpl instance) =>
     <String, dynamic>{
       'type': instance.type,
       'color': instance.color,

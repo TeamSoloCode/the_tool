@@ -6,8 +6,8 @@ part of 'app_route_config.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_AppRouteConfig _$$_AppRouteConfigFromJson(Map<String, dynamic> json) =>
-    _$_AppRouteConfig(
+_$AppRouteConfigImpl _$$AppRouteConfigImplFromJson(Map<String, dynamic> json) =>
+    _$AppRouteConfigImpl(
       path: json['path'] as String?,
       name: json['name'] as String?,
       route: json['route'] as String?,
@@ -16,7 +16,8 @@ _$_AppRouteConfig _$$_AppRouteConfigFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$$_AppRouteConfigToJson(_$_AppRouteConfig instance) =>
+Map<String, dynamic> _$$AppRouteConfigImplToJson(
+        _$AppRouteConfigImpl instance) =>
     <String, dynamic>{
       'path': instance.path,
       'name': instance.name,

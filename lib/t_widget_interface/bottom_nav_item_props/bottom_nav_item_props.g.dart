@@ -6,9 +6,9 @@ part of 'bottom_nav_item_props.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_BottomNavigationItemProps _$$_BottomNavigationItemPropsFromJson(
+_$BottomNavigationItemPropsImpl _$$BottomNavigationItemPropsImplFromJson(
         Map<String, dynamic> json) =>
-    _$_BottomNavigationItemProps(
+    _$BottomNavigationItemPropsImpl(
       label: json['label'] as String?,
       icon: json['icon'] == null
           ? null
@@ -20,8 +20,8 @@ _$_BottomNavigationItemProps _$$_BottomNavigationItemPropsFromJson(
       backgroundColor: json['backgroundColor'] as String?,
     );
 
-Map<String, dynamic> _$$_BottomNavigationItemPropsToJson(
-        _$_BottomNavigationItemProps instance) =>
+Map<String, dynamic> _$$BottomNavigationItemPropsImplToJson(
+        _$BottomNavigationItemPropsImpl instance) =>
     <String, dynamic>{
       'label': instance.label,
       'icon': instance.icon?.toJson(),

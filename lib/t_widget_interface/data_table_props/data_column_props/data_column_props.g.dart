@@ -6,8 +6,9 @@ part of 'data_column_props.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_DataColumnProps _$$_DataColumnPropsFromJson(Map<String, dynamic> json) =>
-    _$_DataColumnProps(
+_$DataColumnPropsImpl _$$DataColumnPropsImplFromJson(
+        Map<String, dynamic> json) =>
+    _$DataColumnPropsImpl(
       label: json['label'] as String,
       tooltip: json['tooltip'] as String?,
       fieldData: json['fieldData'] as String?,
@@ -15,7 +16,8 @@ _$_DataColumnProps _$$_DataColumnPropsFromJson(Map<String, dynamic> json) =>
       onSort: json['onSort'] as String?,
     );
 
-Map<String, dynamic> _$$_DataColumnPropsToJson(_$_DataColumnProps instance) =>
+Map<String, dynamic> _$$DataColumnPropsImplToJson(
+        _$DataColumnPropsImpl instance) =>
     <String, dynamic>{
       'label': instance.label,
       'tooltip': instance.tooltip,

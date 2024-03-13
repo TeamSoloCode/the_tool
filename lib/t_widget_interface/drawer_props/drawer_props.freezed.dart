@@ -12,7 +12,7 @@ part of 'drawer_props.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 T_DrawerProps _$T_DrawerPropsFromJson(Map<String, dynamic> json) {
   return _T_DrawerProps.fromJson(json);
@@ -98,11 +98,11 @@ class _$T_DrawerPropsCopyWithImpl<$Res, $Val extends T_DrawerProps>
 }
 
 /// @nodoc
-abstract class _$$_T_DrawerPropsCopyWith<$Res>
+abstract class _$$T_DrawerPropsImplCopyWith<$Res>
     implements $T_DrawerPropsCopyWith<$Res> {
-  factory _$$_T_DrawerPropsCopyWith(
-          _$_T_DrawerProps value, $Res Function(_$_T_DrawerProps) then) =
-      __$$_T_DrawerPropsCopyWithImpl<$Res>;
+  factory _$$T_DrawerPropsImplCopyWith(
+          _$T_DrawerPropsImpl value, $Res Function(_$T_DrawerPropsImpl) then) =
+      __$$T_DrawerPropsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -116,11 +116,11 @@ abstract class _$$_T_DrawerPropsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_T_DrawerPropsCopyWithImpl<$Res>
-    extends _$T_DrawerPropsCopyWithImpl<$Res, _$_T_DrawerProps>
-    implements _$$_T_DrawerPropsCopyWith<$Res> {
-  __$$_T_DrawerPropsCopyWithImpl(
-      _$_T_DrawerProps _value, $Res Function(_$_T_DrawerProps) _then)
+class __$$T_DrawerPropsImplCopyWithImpl<$Res>
+    extends _$T_DrawerPropsCopyWithImpl<$Res, _$T_DrawerPropsImpl>
+    implements _$$T_DrawerPropsImplCopyWith<$Res> {
+  __$$T_DrawerPropsImplCopyWithImpl(
+      _$T_DrawerPropsImpl _value, $Res Function(_$T_DrawerPropsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -131,7 +131,7 @@ class __$$_T_DrawerPropsCopyWithImpl<$Res>
     Object? width = freezed,
     Object? elevation = freezed,
   }) {
-    return _then(_$_T_DrawerProps(
+    return _then(_$T_DrawerPropsImpl(
       child: freezed == child
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
@@ -154,12 +154,12 @@ class __$$_T_DrawerPropsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_T_DrawerProps implements _T_DrawerProps {
-  const _$_T_DrawerProps(
+class _$T_DrawerPropsImpl implements _T_DrawerProps {
+  const _$T_DrawerPropsImpl(
       {this.child, this.backgroundColor, this.width, this.elevation});
 
-  factory _$_T_DrawerProps.fromJson(Map<String, dynamic> json) =>
-      _$$_T_DrawerPropsFromJson(json);
+  factory _$T_DrawerPropsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$T_DrawerPropsImplFromJson(json);
 
   @override
   final LayoutProps? child;
@@ -173,12 +173,12 @@ class _$_T_DrawerProps implements _T_DrawerProps {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_T_DrawerPropsCopyWith<_$_T_DrawerProps> get copyWith =>
-      __$$_T_DrawerPropsCopyWithImpl<_$_T_DrawerProps>(this, _$identity);
+  _$$T_DrawerPropsImplCopyWith<_$T_DrawerPropsImpl> get copyWith =>
+      __$$T_DrawerPropsImplCopyWithImpl<_$T_DrawerPropsImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_T_DrawerPropsToJson(
+    return _$$T_DrawerPropsImplToJson(
       this,
     );
   }
@@ -189,10 +189,10 @@ abstract class _T_DrawerProps implements T_DrawerProps {
       {final LayoutProps? child,
       final String? backgroundColor,
       final dynamic width,
-      final double? elevation}) = _$_T_DrawerProps;
+      final double? elevation}) = _$T_DrawerPropsImpl;
 
   factory _T_DrawerProps.fromJson(Map<String, dynamic> json) =
-      _$_T_DrawerProps.fromJson;
+      _$T_DrawerPropsImpl.fromJson;
 
   @override
   LayoutProps? get child;
@@ -204,6 +204,6 @@ abstract class _T_DrawerProps implements T_DrawerProps {
   double? get elevation;
   @override
   @JsonKey(ignore: true)
-  _$$_T_DrawerPropsCopyWith<_$_T_DrawerProps> get copyWith =>
+  _$$T_DrawerPropsImplCopyWith<_$T_DrawerPropsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

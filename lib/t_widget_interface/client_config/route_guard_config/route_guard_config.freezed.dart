@@ -12,7 +12,7 @@ part of 'route_guard_config.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 RouteGuardConfig _$RouteGuardConfigFromJson(Map<String, dynamic> json) {
   return _RouteGuardConfig.fromJson(json);
@@ -68,22 +68,22 @@ class _$RouteGuardConfigCopyWithImpl<$Res, $Val extends RouteGuardConfig>
 }
 
 /// @nodoc
-abstract class _$$_RouteGuardConfigCopyWith<$Res>
+abstract class _$$RouteGuardConfigImplCopyWith<$Res>
     implements $RouteGuardConfigCopyWith<$Res> {
-  factory _$$_RouteGuardConfigCopyWith(
-          _$_RouteGuardConfig value, $Res Function(_$_RouteGuardConfig) then) =
-      __$$_RouteGuardConfigCopyWithImpl<$Res>;
+  factory _$$RouteGuardConfigImplCopyWith(_$RouteGuardConfigImpl value,
+          $Res Function(_$RouteGuardConfigImpl) then) =
+      __$$RouteGuardConfigImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String? redirectTo, String? authFunction});
 }
 
 /// @nodoc
-class __$$_RouteGuardConfigCopyWithImpl<$Res>
-    extends _$RouteGuardConfigCopyWithImpl<$Res, _$_RouteGuardConfig>
-    implements _$$_RouteGuardConfigCopyWith<$Res> {
-  __$$_RouteGuardConfigCopyWithImpl(
-      _$_RouteGuardConfig _value, $Res Function(_$_RouteGuardConfig) _then)
+class __$$RouteGuardConfigImplCopyWithImpl<$Res>
+    extends _$RouteGuardConfigCopyWithImpl<$Res, _$RouteGuardConfigImpl>
+    implements _$$RouteGuardConfigImplCopyWith<$Res> {
+  __$$RouteGuardConfigImplCopyWithImpl(_$RouteGuardConfigImpl _value,
+      $Res Function(_$RouteGuardConfigImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -92,7 +92,7 @@ class __$$_RouteGuardConfigCopyWithImpl<$Res>
     Object? redirectTo = freezed,
     Object? authFunction = freezed,
   }) {
-    return _then(_$_RouteGuardConfig(
+    return _then(_$RouteGuardConfigImpl(
       redirectTo: freezed == redirectTo
           ? _value.redirectTo
           : redirectTo // ignore: cast_nullable_to_non_nullable
@@ -107,11 +107,11 @@ class __$$_RouteGuardConfigCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_RouteGuardConfig implements _RouteGuardConfig {
-  const _$_RouteGuardConfig({this.redirectTo, this.authFunction});
+class _$RouteGuardConfigImpl implements _RouteGuardConfig {
+  const _$RouteGuardConfigImpl({this.redirectTo, this.authFunction});
 
-  factory _$_RouteGuardConfig.fromJson(Map<String, dynamic> json) =>
-      _$$_RouteGuardConfigFromJson(json);
+  factory _$RouteGuardConfigImpl.fromJson(Map<String, dynamic> json) =>
+      _$$RouteGuardConfigImplFromJson(json);
 
   @override
   final String? redirectTo;
@@ -121,12 +121,13 @@ class _$_RouteGuardConfig implements _RouteGuardConfig {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_RouteGuardConfigCopyWith<_$_RouteGuardConfig> get copyWith =>
-      __$$_RouteGuardConfigCopyWithImpl<_$_RouteGuardConfig>(this, _$identity);
+  _$$RouteGuardConfigImplCopyWith<_$RouteGuardConfigImpl> get copyWith =>
+      __$$RouteGuardConfigImplCopyWithImpl<_$RouteGuardConfigImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_RouteGuardConfigToJson(
+    return _$$RouteGuardConfigImplToJson(
       this,
     );
   }
@@ -135,10 +136,10 @@ class _$_RouteGuardConfig implements _RouteGuardConfig {
 abstract class _RouteGuardConfig implements RouteGuardConfig {
   const factory _RouteGuardConfig(
       {final String? redirectTo,
-      final String? authFunction}) = _$_RouteGuardConfig;
+      final String? authFunction}) = _$RouteGuardConfigImpl;
 
   factory _RouteGuardConfig.fromJson(Map<String, dynamic> json) =
-      _$_RouteGuardConfig.fromJson;
+      _$RouteGuardConfigImpl.fromJson;
 
   @override
   String? get redirectTo;
@@ -146,6 +147,6 @@ abstract class _RouteGuardConfig implements RouteGuardConfig {
   String? get authFunction;
   @override
   @JsonKey(ignore: true)
-  _$$_RouteGuardConfigCopyWith<_$_RouteGuardConfig> get copyWith =>
+  _$$RouteGuardConfigImplCopyWith<_$RouteGuardConfigImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

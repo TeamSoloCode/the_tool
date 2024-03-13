@@ -6,8 +6,8 @@ part of 'client_config.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ClientConfig _$$_ClientConfigFromJson(Map<String, dynamic> json) =>
-    _$_ClientConfig(
+_$ClientConfigImpl _$$ClientConfigImplFromJson(Map<String, dynamic> json) =>
+    _$ClientConfigImpl(
       initialPage: json['initialPage'] as String?,
       pageAPI: json['pageAPI'] as String?,
       beAPI: json['beAPI'] as String?,
@@ -19,7 +19,7 @@ _$_ClientConfig _$$_ClientConfigFromJson(Map<String, dynamic> json) =>
       socketioHost: json['socketioHost'] as Map<String, dynamic>?,
     );
 
-Map<String, dynamic> _$$_ClientConfigToJson(_$_ClientConfig instance) =>
+Map<String, dynamic> _$$ClientConfigImplToJson(_$ClientConfigImpl instance) =>
     <String, dynamic>{
       'initialPage': instance.initialPage,
       'pageAPI': instance.pageAPI,
