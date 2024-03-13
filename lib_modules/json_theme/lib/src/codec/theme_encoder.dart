@@ -1497,12 +1497,11 @@ class ThemeEncoder {
   /// use a hash encoded 8 digit string: "#aarrbbgg" format.
   ///
   /// This will return `null` if the value is `null`.
-  static String? encodeColor(Color? value) {
+  static dynamic encodeColor(Color? value) {
     String? result;
 
     if (value != null) {
-      final hex = value.value.toRadixString(16).padLeft(8, '0');
-      result = '#$hex';
+      return value;
     }
 
     return _stripDynamicNull(result);
