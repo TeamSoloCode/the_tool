@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:from_css_color/from_css_color.dart';
 import 'package:the_tool/page_provider/theme_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
@@ -8,7 +9,7 @@ extension MergeLayoutProps on LayoutProps {
     var themeProvider = getIt<ThemeProvider>();
 
     Map<String, dynamic> newProps = props.toJson().map((key, value) {
-      if (value == null) return MapEntry(key, value);
+      if (value == null || value is Color) return MapEntry(key, value);
 
       if (key.toLowerCase().contains('color')) {
         return MapEntry(

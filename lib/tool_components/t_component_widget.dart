@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:the_tool/page_provider/context_state_provider.dart';
+import 'package:the_tool/page_provider/theme_provider.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
@@ -53,16 +54,15 @@ class _TComponentState extends TStatefulWidget<TComponent> {
 
     _componentId = "${componentPath}_${const Uuid().v4()}";
 
-    // _props = widget.utils.computeWidgetProps(
-    //   LayoutProps(componentProps: widget.widgetProps.componentProps),
-    //   widget.getContexData(),
-    // );
-
     try {
+      var componentProps = widget.widgetProps.componentProps ?? {};
+      var themeProvider = getIt<ThemeProvider>();
+
       _pageLayout = await widget.utils.evalJS?.registerSubComponent(
         componentPath: _componentId,
         parentPagePath: widget.pagePath,
-        componentPropsAsJSON: widget.widgetProps.componentProps ?? {},
+        componentPropsAsJSON:
+            themeProvider.mergeBaseColorIntoMap(componentProps),
         // computedComponentPropsAsJSON: _props?.computedComponentProps ?? {},
       );
     } catch (e) {

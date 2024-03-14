@@ -267,6 +267,7 @@ class UtilsManager {
     final lowercasedKey = key.toLowerCase();
 
     if (lowercasedKey.contains("color")) {
+      if (value is Color) return value;
       return parseColor(value, contextData);
     }
 

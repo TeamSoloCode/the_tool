@@ -166,7 +166,7 @@ class ThemeProvider with ChangeNotifier {
 
       Map<String, dynamic> darkBaseColor = baseColor["--dark"] ?? {};
       if (currentThemeMode == ThemeMode.dark && darkBaseColor.isNotEmpty) {
-        baseColor = {...baseColor, ...darkBaseColor};
+        baseColor.addAll(darkBaseColor);
       }
       _baseColor = baseColor;
       return baseColor;
@@ -413,5 +413,25 @@ class ThemeProvider with ChangeNotifier {
       }
     }
     return inputValue;
+  }
+
+  Map<String, dynamic> mergeBaseColorIntoMap(Map<String, dynamic> map) {
+    if (baseColor == null) {
+      return map;
+    }
+
+    Map<String, dynamic> updatedMap = Map<String, dynamic>.from(map);
+
+    map.forEach((key, value) {
+      if (value is Map<String, dynamic>) {
+        updatedMap[key] = mergeBaseColorIntoMap(value);
+      } else if (value is String) {
+        if (baseColor!.containsKey(value)) {
+          updatedMap[key] = baseColor![value];
+        }
+      }
+    });
+
+    return updatedMap;
   }
 }
