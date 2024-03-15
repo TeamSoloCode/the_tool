@@ -782,6 +782,11 @@ class UtilsManager {
 
     final operatorFunction = operatorMap[operator];
     if (operatorFunction != null) {
+      // cannot use > < >= <= with null
+      if ((sourceValue == null || targetValue == null) &&
+          !["==", "!="].contains(operator)) {
+        return sourceValue == targetValue;
+      }
       return operatorFunction(sourceValue, targetValue);
     }
 
@@ -805,7 +810,7 @@ class UtilsManager {
         }
 
         var result = computeDynamicProp(conditions, contextData);
-        dynamicPropsResults.add(result == true ? dynamicProp["props"] : {});
+        dynamicPropsResults.add(dynamicProp[result.toString()] ?? {});
       } else {
         throw Exception(
           "Invalid dynamicProp: $dynamicProp . Only support Map or List of Map",
