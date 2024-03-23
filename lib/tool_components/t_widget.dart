@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:the_tool/constants.dart';
 import 'package:the_tool/page_provider/resize_provider.dart';
 import 'package:the_tool/twidget_props.dart';
 import 'package:the_tool/page_provider/context_state_provider.dart';
@@ -121,7 +122,7 @@ mixin BaseStateWidget on Widget {
     }
 
     if (kIsWeb) {
-      if (["container", "table", "clickable"].contains(widgetProps.type)) {
+      if (twidgetHasSizeProps.contains(widgetProps.type)) {
         var resizeRefreshKey = context.select((ResizeProvider resizeProvider) {
           if (_prevResizeToken == null ||
               _prevResizeToken == resizeProvider.resizeRefreshKey) {

@@ -29,3 +29,10 @@ Map<String, bool> ignoredComputeProps = {
   "background": true,
   "secondaryBackground": true,
 };
+
+List<String> twidgetHasSizeProps = [
+  "container",
+  'sized_box',
+  "table",
+  "clickable"
+];
