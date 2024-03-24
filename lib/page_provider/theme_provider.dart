@@ -423,11 +423,13 @@ class ThemeProvider with ChangeNotifier {
     Map<String, dynamic> updatedMap = Map<String, dynamic>.from(map);
 
     map.forEach((key, value) {
-      if (value is Map<String, dynamic>) {
-        updatedMap[key] = mergeBaseColorIntoMap(value);
-      } else if (value is String) {
-        if (baseColor!.containsKey(value)) {
-          updatedMap[key] = baseColor![value];
+      if (key.toLowerCase().contains('color')) {
+        if (value is Map<String, dynamic>) {
+          updatedMap[key] = mergeBaseColorIntoMap(value);
+        } else if (value is String) {
+          if (baseColor!.containsKey(value)) {
+            updatedMap[key] = baseColor![value];
+          }
         }
       }
     });

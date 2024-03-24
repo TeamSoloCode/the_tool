@@ -154,7 +154,7 @@ mixin BaseStateWidget on Widget {
     //   - first render
     //   - mediaScreen changed
     //   - theme changed
-    // print("hasBindingValue $hasBindingValue");
+
     props = utils.computeWidgetProps(
       appliedMediaScreen ?? widgetProps,
       getContexData(),

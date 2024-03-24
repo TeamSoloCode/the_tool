@@ -8,6 +8,19 @@ const DefaultTimeFormat = "hh:mm:ss";
 
 const CurrencyFieldType = "currency";
 
+/// props of the component that type of TWidget it's gonna compute itself when it's rendering
+/// * Ex:
+/// ```javascript
+/// {
+///  type: "container",
+///  color: "{{data}}" //-> this need to be computed for the container
+///  child: { // -> this child will compute itself when it's rendering
+///   type: "text",
+///   text: "{{textData}}"
+///   color: "{{colorData}}"
+///  }
+/// }
+/// ```
 Map<String, bool> ignoredComputeProps = {
   // "className": true, // need to check className to see it has binding value or not
   "suffixIcon": true,
