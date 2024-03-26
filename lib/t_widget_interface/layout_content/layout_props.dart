@@ -254,6 +254,12 @@ class LayoutProps with _$LayoutProps {
     bool? maintainSize,
     // Visibility End==================================================
 
+    // Divider Start===================================================
+    double? thickness,
+    double? endIndent,
+    double? indent,
+    // Divider End=====================================================
+
     BottomNavigationProps? bottomNav,
     ImageProviderProps? image,
     Map<String, dynamic>? boxBorder,

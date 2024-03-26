@@ -47,5 +47,6 @@ List<String> twidgetHasSizeProps = [
   "container",
   'sized_box',
   "table",
-  "clickable"
+  "clickable",
+  'divider',
 ];

@@ -57,8 +57,6 @@ _$LayoutPropsImpl _$$LayoutPropsImplFromJson(Map<String, dynamic> json) =>
       sliverListType: json['sliverListType'] as String?,
       itemExtent: (json['itemExtent'] as num?)?.toDouble(),
       componentProps: json['componentProps'] as Map<String, dynamic>?,
-      computedComponentProps:
-          json['computedComponentProps'] as Map<String, dynamic>?,
       components: (json['components'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k,
             e == null ? null : LayoutProps.fromJson(e as Map<String, dynamic>)),
@@ -187,6 +185,9 @@ _$LayoutPropsImpl _$$LayoutPropsImplFromJson(Map<String, dynamic> json) =>
       maintainState: json['maintainState'] as bool?,
       maintainAnimation: json['maintainAnimation'] as bool?,
       maintainSize: json['maintainSize'] as bool?,
+      thickness: (json['thickness'] as num?)?.toDouble(),
+      endIndent: (json['endIndent'] as num?)?.toDouble(),
+      indent: (json['indent'] as num?)?.toDouble(),
       bottomNav: json['bottomNav'] == null
           ? null
           : BottomNavigationProps.fromJson(
@@ -260,7 +261,6 @@ Map<String, dynamic> _$$LayoutPropsImplToJson(_$LayoutPropsImpl instance) =>
       'sliverListType': instance.sliverListType,
       'itemExtent': instance.itemExtent,
       'componentProps': instance.componentProps,
-      'computedComponentProps': instance.computedComponentProps,
       'components':
           instance.components?.map((k, e) => MapEntry(k, e?.toJson())),
       'scrollable': instance.scrollable,
@@ -344,6 +344,9 @@ Map<String, dynamic> _$$LayoutPropsImplToJson(_$LayoutPropsImpl instance) =>
       'maintainState': instance.maintainState,
       'maintainAnimation': instance.maintainAnimation,
       'maintainSize': instance.maintainSize,
+      'thickness': instance.thickness,
+      'endIndent': instance.endIndent,
+      'indent': instance.indent,
       'bottomNav': instance.bottomNav?.toJson(),
       'image': instance.image?.toJson(),
       'boxBorder': instance.boxBorder,

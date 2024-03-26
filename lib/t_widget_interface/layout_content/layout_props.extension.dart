@@ -119,12 +119,19 @@ extension MergeLayoutProps on LayoutProps {
       onDismissed: other.onDismissed ?? onDismissed,
 
       // Dismissible End==================================================
+
       // Visibility Start================================================
       visible: other.visible ?? visible,
       maintainState: other.maintainState ?? maintainState,
       maintainAnimation: other.maintainAnimation ?? maintainAnimation,
       maintainSize: other.maintainSize ?? maintainSize,
       // Visibility End==================================================
+
+      // Divider Start================================================
+      thickness: other.thickness ?? thickness,
+      endIndent: other.endIndent ?? endIndent,
+      indent: other.indent ?? indent,
+      // Divider End==================================================
 
       // type: other.type ?? type,
       color: other.color ?? color,
@@ -174,10 +181,10 @@ extension MergeLayoutProps on LayoutProps {
         ...?componentProps,
         ...?other.componentProps,
       },
-      computedComponentProps: {
-        ...?computedComponentProps,
-        ...?other.computedComponentProps,
-      },
+      // computedComponentProps: {
+      //   ...?computedComponentProps,
+      //   ...?other.computedComponentProps,
+      // },
       sliverListType: other.sliverListType ?? sliverListType,
       itemExtent: other.itemExtent ?? itemExtent,
     );

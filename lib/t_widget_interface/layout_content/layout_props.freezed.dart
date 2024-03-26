@@ -84,9 +84,8 @@ mixin _$LayoutProps {
      * It has been bound all the binding value to context data value
      */
   /// ignored-compute
-  Map<String, dynamic>? get computedComponentProps =>
-      throw _privateConstructorUsedError;
-  /**
+// Map<String, dynamic>? computedComponentProps,
+/**
      * Contains json widget for internal layout.json use only
      */
   /// ignored-compute
@@ -244,6 +243,11 @@ mixin _$LayoutProps {
   bool? get maintainAnimation => throw _privateConstructorUsedError;
   bool? get maintainSize =>
       throw _privateConstructorUsedError; // Visibility End==================================================
+// Divider Start===================================================
+  double? get thickness => throw _privateConstructorUsedError;
+  double? get endIndent => throw _privateConstructorUsedError;
+  double? get indent =>
+      throw _privateConstructorUsedError; // Divider End=====================================================
   BottomNavigationProps? get bottomNav => throw _privateConstructorUsedError;
   ImageProviderProps? get image => throw _privateConstructorUsedError;
   Map<String, dynamic>? get boxBorder => throw _privateConstructorUsedError;
@@ -316,7 +320,6 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? sliverListType,
       double? itemExtent,
       Map<String, dynamic>? componentProps,
-      Map<String, dynamic>? computedComponentProps,
       Map<String, LayoutProps?>? components,
       bool? scrollable,
       T_DrawerProps? drawer,
@@ -398,6 +401,9 @@ abstract class $LayoutPropsCopyWith<$Res> {
       bool? maintainState,
       bool? maintainAnimation,
       bool? maintainSize,
+      double? thickness,
+      double? endIndent,
+      double? indent,
       BottomNavigationProps? bottomNav,
       ImageProviderProps? image,
       Map<String, dynamic>? boxBorder,
@@ -489,7 +495,6 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? sliverListType = freezed,
     Object? itemExtent = freezed,
     Object? componentProps = freezed,
-    Object? computedComponentProps = freezed,
     Object? components = freezed,
     Object? scrollable = freezed,
     Object? drawer = freezed,
@@ -571,6 +576,9 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? maintainState = freezed,
     Object? maintainAnimation = freezed,
     Object? maintainSize = freezed,
+    Object? thickness = freezed,
+    Object? endIndent = freezed,
+    Object? indent = freezed,
     Object? bottomNav = freezed,
     Object? image = freezed,
     Object? boxBorder = freezed,
@@ -776,10 +784,6 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
       componentProps: freezed == componentProps
           ? _value.componentProps
           : componentProps // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      computedComponentProps: freezed == computedComponentProps
-          ? _value.computedComponentProps
-          : computedComponentProps // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
       components: freezed == components
           ? _value.components
@@ -1105,6 +1109,18 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.maintainSize
           : maintainSize // ignore: cast_nullable_to_non_nullable
               as bool?,
+      thickness: freezed == thickness
+          ? _value.thickness
+          : thickness // ignore: cast_nullable_to_non_nullable
+              as double?,
+      endIndent: freezed == endIndent
+          ? _value.endIndent
+          : endIndent // ignore: cast_nullable_to_non_nullable
+              as double?,
+      indent: freezed == indent
+          ? _value.indent
+          : indent // ignore: cast_nullable_to_non_nullable
+              as double?,
       bottomNav: freezed == bottomNav
           ? _value.bottomNav
           : bottomNav // ignore: cast_nullable_to_non_nullable
@@ -1415,7 +1431,6 @@ abstract class _$$LayoutPropsImplCopyWith<$Res>
       String? sliverListType,
       double? itemExtent,
       Map<String, dynamic>? componentProps,
-      Map<String, dynamic>? computedComponentProps,
       Map<String, LayoutProps?>? components,
       bool? scrollable,
       T_DrawerProps? drawer,
@@ -1497,6 +1512,9 @@ abstract class _$$LayoutPropsImplCopyWith<$Res>
       bool? maintainState,
       bool? maintainAnimation,
       bool? maintainSize,
+      double? thickness,
+      double? endIndent,
+      double? indent,
       BottomNavigationProps? bottomNav,
       ImageProviderProps? image,
       Map<String, dynamic>? boxBorder,
@@ -1604,7 +1622,6 @@ class __$$LayoutPropsImplCopyWithImpl<$Res>
     Object? sliverListType = freezed,
     Object? itemExtent = freezed,
     Object? componentProps = freezed,
-    Object? computedComponentProps = freezed,
     Object? components = freezed,
     Object? scrollable = freezed,
     Object? drawer = freezed,
@@ -1686,6 +1703,9 @@ class __$$LayoutPropsImplCopyWithImpl<$Res>
     Object? maintainState = freezed,
     Object? maintainAnimation = freezed,
     Object? maintainSize = freezed,
+    Object? thickness = freezed,
+    Object? endIndent = freezed,
+    Object? indent = freezed,
     Object? bottomNav = freezed,
     Object? image = freezed,
     Object? boxBorder = freezed,
@@ -1891,10 +1911,6 @@ class __$$LayoutPropsImplCopyWithImpl<$Res>
       componentProps: freezed == componentProps
           ? _value._componentProps
           : componentProps // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      computedComponentProps: freezed == computedComponentProps
-          ? _value._computedComponentProps
-          : computedComponentProps // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
       components: freezed == components
           ? _value._components
@@ -2220,6 +2236,18 @@ class __$$LayoutPropsImplCopyWithImpl<$Res>
           ? _value.maintainSize
           : maintainSize // ignore: cast_nullable_to_non_nullable
               as bool?,
+      thickness: freezed == thickness
+          ? _value.thickness
+          : thickness // ignore: cast_nullable_to_non_nullable
+              as double?,
+      endIndent: freezed == endIndent
+          ? _value.endIndent
+          : endIndent // ignore: cast_nullable_to_non_nullable
+              as double?,
+      indent: freezed == indent
+          ? _value.indent
+          : indent // ignore: cast_nullable_to_non_nullable
+              as double?,
       bottomNav: freezed == bottomNav
           ? _value.bottomNav
           : bottomNav // ignore: cast_nullable_to_non_nullable
@@ -2309,7 +2337,6 @@ class _$LayoutPropsImpl implements _LayoutProps {
       this.sliverListType,
       this.itemExtent,
       final Map<String, dynamic>? componentProps,
-      final Map<String, dynamic>? computedComponentProps,
       final Map<String, LayoutProps?>? components,
       this.scrollable,
       this.drawer,
@@ -2391,6 +2418,9 @@ class _$LayoutPropsImpl implements _LayoutProps {
       this.maintainState,
       this.maintainAnimation,
       this.maintainSize,
+      this.thickness,
+      this.endIndent,
+      this.indent,
       this.bottomNav,
       this.image,
       final Map<String, dynamic>? boxBorder,
@@ -2401,7 +2431,6 @@ class _$LayoutPropsImpl implements _LayoutProps {
       this.gradient})
       : _positioned = positioned,
         _componentProps = componentProps,
-        _computedComponentProps = computedComponentProps,
         _components = components,
         _mediaScreenOnly = mediaScreenOnly,
         _validators = validators,
@@ -2559,27 +2588,18 @@ class _$LayoutPropsImpl implements _LayoutProps {
      * It has been bound all the binding value to context data value
      */
   /// ignored-compute
-  final Map<String, dynamic>? _computedComponentProps;
-/**
-     * This is the props passed from parent layout to t_component
-     * It has been bound all the binding value to context data value
-     */
-  /// ignored-compute
-  @override
-  Map<String, dynamic>? get computedComponentProps {
-    final value = _computedComponentProps;
-    if (value == null) return null;
-    if (_computedComponentProps is EqualUnmodifiableMapView)
-      return _computedComponentProps;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(value);
-  }
-
+// Map<String, dynamic>? computedComponentProps,
 /**
      * Contains json widget for internal layout.json use only
      */
   /// ignored-compute
   final Map<String, LayoutProps?>? _components;
+/**
+     * This is the props passed from parent layout to t_component
+     * It has been bound all the binding value to context data value
+     */
+  /// ignored-compute
+// Map<String, dynamic>? computedComponentProps,
 /**
      * Contains json widget for internal layout.json use only
      */
@@ -2958,6 +2978,14 @@ class _$LayoutPropsImpl implements _LayoutProps {
   @override
   final bool? maintainSize;
 // Visibility End==================================================
+// Divider Start===================================================
+  @override
+  final double? thickness;
+  @override
+  final double? endIndent;
+  @override
+  final double? indent;
+// Divider End=====================================================
   @override
   final BottomNavigationProps? bottomNav;
   @override
@@ -3072,7 +3100,6 @@ abstract class _LayoutProps implements LayoutProps {
       final String? sliverListType,
       final double? itemExtent,
       final Map<String, dynamic>? componentProps,
-      final Map<String, dynamic>? computedComponentProps,
       final Map<String, LayoutProps?>? components,
       final bool? scrollable,
       final T_DrawerProps? drawer,
@@ -3154,6 +3181,9 @@ abstract class _LayoutProps implements LayoutProps {
       final bool? maintainState,
       final bool? maintainAnimation,
       final bool? maintainSize,
+      final double? thickness,
+      final double? endIndent,
+      final double? indent,
       final BottomNavigationProps? bottomNav,
       final ImageProviderProps? image,
       final Map<String, dynamic>? boxBorder,
@@ -3279,9 +3309,8 @@ abstract class _LayoutProps implements LayoutProps {
      * It has been bound all the binding value to context data value
      */
   /// ignored-compute
-  Map<String, dynamic>? get computedComponentProps;
-  @override
-  /**
+// Map<String, dynamic>? computedComponentProps,
+/**
      * Contains json widget for internal layout.json use only
      */
   /// ignored-compute
@@ -3500,6 +3529,13 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   bool? get maintainSize;
   @override // Visibility End==================================================
+// Divider Start===================================================
+  double? get thickness;
+  @override
+  double? get endIndent;
+  @override
+  double? get indent;
+  @override // Divider End=====================================================
   BottomNavigationProps? get bottomNav;
   @override
   ImageProviderProps? get image;
