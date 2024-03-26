@@ -396,7 +396,7 @@ class ThemeProvider with ChangeNotifier {
     return baseColor == null ? null : baseColor![key];
   }
 
-  static dynamic transformColorFromCSS(dynamic inputValue) {
+  dynamic transformColorFromCSS(dynamic inputValue) {
     if (inputValue is Map) {
       return inputValue
           .map((key, value) => MapEntry(key, transformColorFromCSS(value)));
@@ -423,13 +423,12 @@ class ThemeProvider with ChangeNotifier {
     Map<String, dynamic> updatedMap = Map<String, dynamic>.from(map);
 
     map.forEach((key, value) {
-      if (key.toLowerCase().contains('color')) {
-        if (value is Map<String, dynamic>) {
-          updatedMap[key] = mergeBaseColorIntoMap(value);
-        } else if (value is String) {
-          if (baseColor!.containsKey(value)) {
-            updatedMap[key] = baseColor![value];
-          }
+      if (value is String && !key.toLowerCase().contains("color")) return;
+      if (value is Map<String, dynamic>) {
+        updatedMap[key] = mergeBaseColorIntoMap(value);
+      } else if (value is String) {
+        if (baseColor!.containsKey(value)) {
+          updatedMap[key] = baseColor![value];
         }
       }
     });

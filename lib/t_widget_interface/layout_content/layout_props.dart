@@ -83,7 +83,7 @@ class LayoutProps with _$LayoutProps {
      * It has been bound all the binding value to context data value
      */
     /// ignored-compute
-    Map<String, dynamic>? computedComponentProps,
+    // Map<String, dynamic>? computedComponentProps,
 
     /**
      * Contains json widget for internal layout.json use only

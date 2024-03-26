@@ -7,32 +7,26 @@ import 'package:the_tool/utils.dart';
 extension MergeLayoutProps on LayoutProps {
   LayoutProps parseCssColors(LayoutProps props) {
     var themeProvider = getIt<ThemeProvider>();
+    var layoutJson = themeProvider.mergeBaseColorIntoMap(props.toJson());
 
-    Map<String, dynamic> newProps = props.toJson().map((key, value) {
-      if (value == null || value is Color) return MapEntry(key, value);
-
-      if (key.toLowerCase().contains('color')) {
-        return MapEntry(
-          key,
-          ThemeProvider.transformColorFromCSS(
-            themeProvider.getBaseColorByKey(value),
-          ),
-        );
+    layoutJson.forEach((key, value) {
+      if (value == null || value is Color) {
+        return;
       }
 
-      if (key == 'computedComponentProps') {
-        return MapEntry(
-          key,
-          Map<String, dynamic>.from(
-            ThemeProvider.transformColorFromCSS(value),
-          ),
-        );
+      if (value is String && key.toLowerCase().contains('color')) {
+        layoutJson[key] = themeProvider.transformColorFromCSS(value);
+        return;
       }
 
-      return MapEntry(key, value);
+      if (key == 'componentProps') {
+        layoutJson[key] = Map<String, dynamic>.from(
+          themeProvider.transformColorFromCSS(value),
+        );
+      }
     });
 
-    return merge(LayoutProps.fromJson(newProps));
+    return merge(LayoutProps.fromJson(layoutJson));
   }
 
   List<LayoutProps>? _mergeChildren(
