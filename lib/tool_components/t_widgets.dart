@@ -87,6 +87,18 @@ class _TWidgetsState extends State<TWidgets> {
   Widget? tWidgets;
   String widgetUuid = UniqueKey().toString();
   var utils = getIt<UtilsManager>();
+  var isDisposed = false;
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    isDisposed = true;
+    super.dispose();
+  }
+
+  bool _isDisposed() {
+    return isDisposed;
+  }
 
   Future<Widget> _computeTWidgets(
     LayoutProps content,
@@ -256,14 +268,12 @@ class _TWidgetsState extends State<TWidgets> {
         "Unsupported widget. Type: ${content.type ?? content.component}");
   }
 
-  Future<void> _updateTWidgets(
-    BuildContext context,
-  ) async {
+  Future<void> _updateTWidgets(BuildContext context) async {
     if (tWidgets == null) {
       // Stopwatch stopwatch = Stopwatch()..start();
       // var contextData = context.read<ContextStateProvider>().contextData;
       var newTWidgets = await _getWidget(widget.childData);
-
+      if (_isDisposed()) return;
       setState(() {
         tWidgets = newTWidgets;
       });

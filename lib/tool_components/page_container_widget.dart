@@ -20,7 +20,7 @@ class PageContainer extends StatefulWidget {
 
 class _PageContainerState extends State<PageContainer> {
   final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
-
+  var isDisposed = false;
   ThemeData? _themeData;
   ThemeMode? _currentThemeMode;
 
@@ -29,6 +29,13 @@ class _PageContainerState extends State<PageContainer> {
     var utils = getIt<UtilsManager>();
     utils.evalJS!.addClientPage(utils.corePageId);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    isDisposed = true;
+    super.dispose();
   }
 
   @override
@@ -73,10 +80,10 @@ class _PageContainerState extends State<PageContainer> {
   }
 
   Future<void> _updateTheme() async {
+    if (isDisposed) return;
     var theme = await getIt<UtilsManager>().evalJS!.getClientTheme();
     var themeProvider = getIt<ThemeProvider>();
     var currentThemeData = await themeProvider.computeThemeData(theme);
-
     setState(() {
       _themeData = currentThemeData;
       themeProvider.refreshThemeData();
