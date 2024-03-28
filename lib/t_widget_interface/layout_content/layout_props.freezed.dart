@@ -26,7 +26,7 @@ mixin _$LayoutProps {
   String? get text => throw _privateConstructorUsedError;
   double? get fontSize => throw _privateConstructorUsedError;
   dynamic get hidden => throw _privateConstructorUsedError;
-  String? get icon => throw _privateConstructorUsedError;
+  dynamic get icon => throw _privateConstructorUsedError;
   String? get mainAxisAlignment => throw _privateConstructorUsedError;
   String? get crossAxisAlignment => throw _privateConstructorUsedError;
   String? get path => throw _privateConstructorUsedError;
@@ -128,7 +128,7 @@ mixin _$LayoutProps {
 
   /// ignored-compute
   LayoutProps? get suffixIcon => throw _privateConstructorUsedError;
-  String? get suffixIconColor => throw _privateConstructorUsedError;
+  dynamic get suffixIconColor => throw _privateConstructorUsedError;
   String? get suffixText => throw _privateConstructorUsedError;
 
   /// ignored-compute
@@ -277,7 +277,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? text,
       double? fontSize,
       dynamic hidden,
-      String? icon,
+      dynamic icon,
       String? mainAxisAlignment,
       String? crossAxisAlignment,
       String? path,
@@ -344,7 +344,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? fieldType,
       String? keyboardType,
       LayoutProps? suffixIcon,
-      String? suffixIconColor,
+      dynamic suffixIconColor,
       String? suffixText,
       LayoutProps? prefixIcon,
       dynamic prefixIconColor,
@@ -616,7 +616,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
       icon: freezed == icon
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as dynamic,
       mainAxisAlignment: freezed == mainAxisAlignment
           ? _value.mainAxisAlignment
           : mainAxisAlignment // ignore: cast_nullable_to_non_nullable
@@ -884,7 +884,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
       suffixIconColor: freezed == suffixIconColor
           ? _value.suffixIconColor
           : suffixIconColor // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as dynamic,
       suffixText: freezed == suffixText
           ? _value.suffixText
           : suffixText // ignore: cast_nullable_to_non_nullable
@@ -1388,7 +1388,7 @@ abstract class _$$LayoutPropsImplCopyWith<$Res>
       String? text,
       double? fontSize,
       dynamic hidden,
-      String? icon,
+      dynamic icon,
       String? mainAxisAlignment,
       String? crossAxisAlignment,
       String? path,
@@ -1455,7 +1455,7 @@ abstract class _$$LayoutPropsImplCopyWith<$Res>
       String? fieldType,
       String? keyboardType,
       LayoutProps? suffixIcon,
-      String? suffixIconColor,
+      dynamic suffixIconColor,
       String? suffixText,
       LayoutProps? prefixIcon,
       dynamic prefixIconColor,
@@ -1743,7 +1743,7 @@ class __$$LayoutPropsImplCopyWithImpl<$Res>
       icon: freezed == icon
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as dynamic,
       mainAxisAlignment: freezed == mainAxisAlignment
           ? _value.mainAxisAlignment
           : mainAxisAlignment // ignore: cast_nullable_to_non_nullable
@@ -2011,7 +2011,7 @@ class __$$LayoutPropsImplCopyWithImpl<$Res>
       suffixIconColor: freezed == suffixIconColor
           ? _value.suffixIconColor
           : suffixIconColor // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as dynamic,
       suffixText: freezed == suffixText
           ? _value.suffixText
           : suffixText // ignore: cast_nullable_to_non_nullable
@@ -2469,7 +2469,7 @@ class _$LayoutPropsImpl implements _LayoutProps {
   @override
   final dynamic hidden;
   @override
-  final String? icon;
+  final dynamic icon;
   @override
   final String? mainAxisAlignment;
   @override
@@ -2682,7 +2682,7 @@ class _$LayoutPropsImpl implements _LayoutProps {
   @override
   final LayoutProps? suffixIcon;
   @override
-  final String? suffixIconColor;
+  final dynamic suffixIconColor;
   @override
   final String? suffixText;
 
@@ -3057,7 +3057,7 @@ abstract class _LayoutProps implements LayoutProps {
       final String? text,
       final double? fontSize,
       final dynamic hidden,
-      final String? icon,
+      final dynamic icon,
       final String? mainAxisAlignment,
       final String? crossAxisAlignment,
       final String? path,
@@ -3124,7 +3124,7 @@ abstract class _LayoutProps implements LayoutProps {
       final String? fieldType,
       final String? keyboardType,
       final LayoutProps? suffixIcon,
-      final String? suffixIconColor,
+      final dynamic suffixIconColor,
       final String? suffixText,
       final LayoutProps? prefixIcon,
       final dynamic prefixIconColor,
@@ -3209,7 +3209,7 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   dynamic get hidden;
   @override
-  String? get icon;
+  dynamic get icon;
   @override
   String? get mainAxisAlignment;
   @override
@@ -3372,7 +3372,7 @@ abstract class _LayoutProps implements LayoutProps {
   /// ignored-compute
   LayoutProps? get suffixIcon;
   @override
-  String? get suffixIconColor;
+  dynamic get suffixIconColor;
   @override
   String? get suffixText;
   @override

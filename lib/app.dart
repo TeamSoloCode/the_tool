@@ -182,7 +182,9 @@ class _TheToolState extends State<TheTool> {
         }
       },
       onLoadStop: (webViewController, url) {
-        completer.complete(true);
+        if (!completer.isCompleted) {
+          completer.complete(true);
+        }
       },
       onLoadResource: (controller, resource) {
         

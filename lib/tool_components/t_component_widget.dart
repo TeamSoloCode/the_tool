@@ -71,10 +71,12 @@ class _TComponentState extends TStatefulWidget<TComponent> {
       return Exception(msg);
     }
 
-    getIt<ContextStateProvider>().addPageComponents(
-      pagePath: _componentId,
-      components: _pageLayout!.components!,
-    );
+    if (_pageLayout!.components != null) {
+      getIt<ContextStateProvider>().addPageComponents(
+        pagePath: _componentId,
+        components: _pageLayout!.components!,
+      );
+    }
 
     return null;
   }

@@ -24,7 +24,7 @@ class LayoutProps with _$LayoutProps {
     String? text,
     double? fontSize,
     dynamic hidden,
-    String? icon,
+    dynamic icon,
     String? mainAxisAlignment,
     String? crossAxisAlignment,
     String? path,
@@ -132,7 +132,7 @@ class LayoutProps with _$LayoutProps {
 
     /// ignored-compute
     LayoutProps? suffixIcon,
-    String? suffixIconColor,
+    dynamic suffixIconColor,
     String? suffixText,
 
     /// ignored-compute

@@ -14,7 +14,7 @@ _$LayoutPropsImpl _$$LayoutPropsImplFromJson(Map<String, dynamic> json) =>
       text: json['text'] as String?,
       fontSize: (json['fontSize'] as num?)?.toDouble(),
       hidden: json['hidden'],
-      icon: json['icon'] as String?,
+      icon: json['icon'],
       mainAxisAlignment: json['mainAxisAlignment'] as String?,
       crossAxisAlignment: json['crossAxisAlignment'] as String?,
       path: json['path'] as String?,
@@ -94,7 +94,7 @@ _$LayoutPropsImpl _$$LayoutPropsImplFromJson(Map<String, dynamic> json) =>
       suffixIcon: json['suffixIcon'] == null
           ? null
           : LayoutProps.fromJson(json['suffixIcon'] as Map<String, dynamic>),
-      suffixIconColor: json['suffixIconColor'] as String?,
+      suffixIconColor: json['suffixIconColor'],
       suffixText: json['suffixText'] as String?,
       prefixIcon: json['prefixIcon'] == null
           ? null

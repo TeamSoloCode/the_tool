@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/mixin_component/field_mixin.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
@@ -106,6 +107,14 @@ class _TSelectFieldState extends TStatefulWidget<TSelectField> with FieldMixin {
     return FormBuilderDropdown(
       key: _dropDownKey,
       name: name ?? "",
+      style: ThemeDecoder.decodeTextStyle(widgetProps?.style),
+      icon: widgetProps?.icon == null
+          ? null
+          : UtilsManager.computeTWidgets(
+              LayoutProps.fromJson(widgetProps?.icon),
+              pagePath: widget.pagePath,
+              childData: widget.childData,
+            ),
       decoration: computeFieldDecoration(
         widgetProps,
         thisWidget: widget,
