@@ -801,15 +801,20 @@ class UtilsManager {
     for (var dynamicProp in dynamicProps) {
       if (dynamicProp is Map<String, dynamic>) {
         var conditions = dynamicProp["conditions"];
+        final switchValue = dynamicProp["switch"];
 
-        if (conditions == null) {
-          throw Exception(
-            "conditions is required. Error in: $dynamicProp",
-          );
+        if (conditions != null) {
+          var result = computeDynamicProp(conditions, contextData);
+          dynamicPropsResults.add(dynamicProp[result.toString()] ?? {});
+        } else if (switchValue != null) {
+          final cases = dynamicProp["cases"] as Map<dynamic, dynamic>?;
+          if (cases != null) {
+            var parsedSwitchValue = isValueBinding(switchValue)
+                ? bindingValueToProp(contextData, switchValue)
+                : switchValue;
+            dynamicPropsResults.add(cases[parsedSwitchValue] ?? {});
+          }
         }
-
-        var result = computeDynamicProp(conditions, contextData);
-        dynamicPropsResults.add(dynamicProp[result.toString()] ?? {});
       } else {
         throw Exception(
           "Invalid dynamicProp: $dynamicProp . Only support Map or List of Map",
