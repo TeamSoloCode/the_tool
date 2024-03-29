@@ -1,5 +1,6 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/t_widget_interface/data_table_props/data_cell_props/data_cell_props.dart';
 import 'package:the_tool/t_widget_interface/data_table_props/data_row_props/data_row_props.dart';
 import 'package:the_tool/tool_components/t_widgets.dart';
@@ -62,6 +63,7 @@ class T_RowData extends AsyncDataTableSource {
         : _onlyUpdateData = false;
 
     var index = -1;
+    final rowConfig = rows[0];
     var row = AsyncRowsResponse(
       tableData.total,
       tableData.data.map((rowData) {
@@ -73,6 +75,13 @@ class T_RowData extends AsyncDataTableSource {
         return DataRow(
           key: rowKey,
           selected: isSelected,
+          color: rowConfig.color == null
+              ? null
+              : MaterialStateColor.resolveWith(
+                  (states) => ThemeDecoder.decodeColor(
+                    rowConfig.color,
+                  )!,
+                ),
           onSelectChanged: (value) {
             if (value == null) return;
             final selectedIndex = rowData["_index"];
@@ -85,7 +94,9 @@ class T_RowData extends AsyncDataTableSource {
             handleSelectRow(selectedIndex, value);
           },
           cells: _computeCells(
-              rows[0].cells, {UtilsManager.dataPath: "$tableName.$index"}),
+            rowConfig.cells,
+            {UtilsManager.dataPath: "$tableName.$index"},
+          ),
         );
       }).toList(),
     );

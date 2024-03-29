@@ -116,6 +116,15 @@ mixin _$LayoutProps {
   String? get textAlign => throw _privateConstructorUsedError;
   bool? get selectable =>
       throw _privateConstructorUsedError; // Text Start================================================
+// Table Start==================================================
+  bool? get wrapInCard => throw _privateConstructorUsedError;
+  dynamic get headingRowColor => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get headingRowDecoration =>
+      throw _privateConstructorUsedError;
+  dynamic get horizontalMargin => throw _privateConstructorUsedError;
+  dynamic get columnSpacing => throw _privateConstructorUsedError;
+  double? get dividerThickness =>
+      throw _privateConstructorUsedError; // Table End==================================================
 // Field Start==================================================
   String? get hintText => throw _privateConstructorUsedError;
   String? get labelText => throw _privateConstructorUsedError;
@@ -335,6 +344,12 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? onHover,
       String? textAlign,
       bool? selectable,
+      bool? wrapInCard,
+      dynamic headingRowColor,
+      Map<String, dynamic>? headingRowDecoration,
+      dynamic horizontalMargin,
+      dynamic columnSpacing,
+      double? dividerThickness,
       String? hintText,
       String? labelText,
       dynamic obscureText,
@@ -510,6 +525,12 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? onHover = freezed,
     Object? textAlign = freezed,
     Object? selectable = freezed,
+    Object? wrapInCard = freezed,
+    Object? headingRowColor = freezed,
+    Object? headingRowDecoration = freezed,
+    Object? horizontalMargin = freezed,
+    Object? columnSpacing = freezed,
+    Object? dividerThickness = freezed,
     Object? hintText = freezed,
     Object? labelText = freezed,
     Object? obscureText = freezed,
@@ -845,6 +866,30 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.selectable
           : selectable // ignore: cast_nullable_to_non_nullable
               as bool?,
+      wrapInCard: freezed == wrapInCard
+          ? _value.wrapInCard
+          : wrapInCard // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      headingRowColor: freezed == headingRowColor
+          ? _value.headingRowColor
+          : headingRowColor // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      headingRowDecoration: freezed == headingRowDecoration
+          ? _value.headingRowDecoration
+          : headingRowDecoration // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
+      horizontalMargin: freezed == horizontalMargin
+          ? _value.horizontalMargin
+          : horizontalMargin // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      columnSpacing: freezed == columnSpacing
+          ? _value.columnSpacing
+          : columnSpacing // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      dividerThickness: freezed == dividerThickness
+          ? _value.dividerThickness
+          : dividerThickness // ignore: cast_nullable_to_non_nullable
+              as double?,
       hintText: freezed == hintText
           ? _value.hintText
           : hintText // ignore: cast_nullable_to_non_nullable
@@ -1446,6 +1491,12 @@ abstract class _$$LayoutPropsImplCopyWith<$Res>
       String? onHover,
       String? textAlign,
       bool? selectable,
+      bool? wrapInCard,
+      dynamic headingRowColor,
+      Map<String, dynamic>? headingRowDecoration,
+      dynamic horizontalMargin,
+      dynamic columnSpacing,
+      double? dividerThickness,
       String? hintText,
       String? labelText,
       dynamic obscureText,
@@ -1637,6 +1688,12 @@ class __$$LayoutPropsImplCopyWithImpl<$Res>
     Object? onHover = freezed,
     Object? textAlign = freezed,
     Object? selectable = freezed,
+    Object? wrapInCard = freezed,
+    Object? headingRowColor = freezed,
+    Object? headingRowDecoration = freezed,
+    Object? horizontalMargin = freezed,
+    Object? columnSpacing = freezed,
+    Object? dividerThickness = freezed,
     Object? hintText = freezed,
     Object? labelText = freezed,
     Object? obscureText = freezed,
@@ -1972,6 +2029,30 @@ class __$$LayoutPropsImplCopyWithImpl<$Res>
           ? _value.selectable
           : selectable // ignore: cast_nullable_to_non_nullable
               as bool?,
+      wrapInCard: freezed == wrapInCard
+          ? _value.wrapInCard
+          : wrapInCard // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      headingRowColor: freezed == headingRowColor
+          ? _value.headingRowColor
+          : headingRowColor // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      headingRowDecoration: freezed == headingRowDecoration
+          ? _value._headingRowDecoration
+          : headingRowDecoration // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
+      horizontalMargin: freezed == horizontalMargin
+          ? _value.horizontalMargin
+          : horizontalMargin // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      columnSpacing: freezed == columnSpacing
+          ? _value.columnSpacing
+          : columnSpacing // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      dividerThickness: freezed == dividerThickness
+          ? _value.dividerThickness
+          : dividerThickness // ignore: cast_nullable_to_non_nullable
+              as double?,
       hintText: freezed == hintText
           ? _value.hintText
           : hintText // ignore: cast_nullable_to_non_nullable
@@ -2352,6 +2433,12 @@ class _$LayoutPropsImpl implements _LayoutProps {
       this.onHover,
       this.textAlign,
       this.selectable,
+      this.wrapInCard,
+      this.headingRowColor,
+      final Map<String, dynamic>? headingRowDecoration,
+      this.horizontalMargin,
+      this.columnSpacing,
+      this.dividerThickness,
       this.hintText,
       this.labelText,
       this.obscureText,
@@ -2433,6 +2520,7 @@ class _$LayoutPropsImpl implements _LayoutProps {
         _componentProps = componentProps,
         _components = components,
         _mediaScreenOnly = mediaScreenOnly,
+        _headingRowDecoration = headingRowDecoration,
         _validators = validators,
         _formatters = formatters,
         _enabledBorder = enabledBorder,
@@ -2660,6 +2748,29 @@ class _$LayoutPropsImpl implements _LayoutProps {
   @override
   final bool? selectable;
 // Text Start================================================
+// Table Start==================================================
+  @override
+  final bool? wrapInCard;
+  @override
+  final dynamic headingRowColor;
+  final Map<String, dynamic>? _headingRowDecoration;
+  @override
+  Map<String, dynamic>? get headingRowDecoration {
+    final value = _headingRowDecoration;
+    if (value == null) return null;
+    if (_headingRowDecoration is EqualUnmodifiableMapView)
+      return _headingRowDecoration;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
+  @override
+  final dynamic horizontalMargin;
+  @override
+  final dynamic columnSpacing;
+  @override
+  final double? dividerThickness;
+// Table End==================================================
 // Field Start==================================================
   @override
   final String? hintText;
@@ -3115,6 +3226,12 @@ abstract class _LayoutProps implements LayoutProps {
       final String? onHover,
       final String? textAlign,
       final bool? selectable,
+      final bool? wrapInCard,
+      final dynamic headingRowColor,
+      final Map<String, dynamic>? headingRowDecoration,
+      final dynamic horizontalMargin,
+      final dynamic columnSpacing,
+      final double? dividerThickness,
       final String? hintText,
       final String? labelText,
       final dynamic obscureText,
@@ -3351,6 +3468,19 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   bool? get selectable;
   @override // Text Start================================================
+// Table Start==================================================
+  bool? get wrapInCard;
+  @override
+  dynamic get headingRowColor;
+  @override
+  Map<String, dynamic>? get headingRowDecoration;
+  @override
+  dynamic get horizontalMargin;
+  @override
+  dynamic get columnSpacing;
+  @override
+  double? get dividerThickness;
+  @override // Table End==================================================
 // Field Start==================================================
   String? get hintText;
   @override

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/t_widget_interface/data_table_props/data_column_props/data_column_props.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/datatable/t_data_row_widget.dart';
@@ -34,8 +35,6 @@ class _TDataTableState extends TStatefulWidget<TDataTable> {
   final _sortTableDebounce = Debouncer(
     delay: const Duration(milliseconds: 100),
   );
-
-  final utils = getIt<UtilsManager>();
 
   @override
   void initState() {
@@ -143,7 +142,7 @@ class _TDataTableState extends TStatefulWidget<TDataTable> {
         .map(
           (column) => {
             computedColumns.add(DataColumn2(
-              fixedWidth: utils.computeSizeValue(
+              fixedWidth: widget.utils.computeSizeValue(
                 column.fixedWidth,
                 contextData,
               ),
@@ -153,7 +152,12 @@ class _TDataTableState extends TStatefulWidget<TDataTable> {
               numeric: column.numeric,
               tooltip: column.tooltip,
               onSort: (columnIndex, ascending) {
-                _sortByColumn(widgetProps, column, columnIndex, ascending);
+                _sortByColumn(
+                  widgetProps,
+                  column,
+                  columnIndex,
+                  ascending,
+                );
               },
             ))
           },
@@ -253,6 +257,20 @@ class _TDataTableState extends TStatefulWidget<TDataTable> {
             sortAscending: _sortAscending,
             sortArrowIcon: Icons.keyboard_arrow_up,
             columns: _computeColumns(props, contextData),
+            wrapInCard: props?.wrapInCard ?? false,
+            horizontalMargin: props?.horizontalMargin ?? 24,
+            columnSpacing: props?.columnSpacing,
+            headingRowColor: props?.color == null
+                ? null
+                : MaterialStateColor.resolveWith(
+                    (states) => ThemeDecoder.decodeColor(
+                      props?.color,
+                    )!,
+                  ),
+            headingRowDecoration: ThemeDecoder.decodeBoxDecoration(
+              props?.headingRowDecoration,
+            ),
+            dividerThickness: 0,
             source: _rowDataSource!,
             // loading: _prepareLoadingWidget(
             //   _rowDataSource?.onlyUpdateData ?? false,

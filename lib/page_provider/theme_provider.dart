@@ -137,6 +137,9 @@ class ThemeProvider with ChangeNotifier {
               computedThemeMap["outlinedButtonTheme"],
             ),
           ),
+          cardTheme: ThemeDecoder.decodeCardTheme(
+            computedThemeMap["cardTheme"],
+          ),
 
           // colorScheme: ColorScheme.fromSwatch(
           //   primarySwatch: MaterialColor(

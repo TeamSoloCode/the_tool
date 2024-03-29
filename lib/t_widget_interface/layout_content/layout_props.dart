@@ -120,6 +120,15 @@ class LayoutProps with _$LayoutProps {
     bool? selectable,
     // Text Start================================================
 
+    // Table Start==================================================
+    bool? wrapInCard,
+    dynamic headingRowColor,
+    Map<String, dynamic>? headingRowDecoration,
+    dynamic horizontalMargin,
+    dynamic columnSpacing,
+    double? dividerThickness,
+    // Table End==================================================
+
     // Field Start==================================================
     String? hintText,
     String? labelText,

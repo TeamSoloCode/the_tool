@@ -138,7 +138,21 @@ extension MergeLayoutProps on LayoutProps {
       backgroundColor: other.backgroundColor ?? backgroundColor,
       text: other.text ?? text,
       textAlign: other.textAlign ?? textAlign,
+
+      // Text Start================================================
       selectable: other.selectable ?? selectable,
+
+      // Text Start================================================
+
+      // Table Start================================================
+      wrapInCard: other.wrapInCard ?? wrapInCard,
+      headingRowColor: other.headingRowColor ?? headingRowColor,
+      headingRowDecoration: other.headingRowDecoration ?? headingRowDecoration,
+      horizontalMargin: other.horizontalMargin ?? horizontalMargin,
+      columnSpacing: other.columnSpacing ?? columnSpacing,
+      dividerThickness: other.dividerThickness ?? dividerThickness,
+      // Table Start================================================
+
       fontSize: other.fontSize ?? fontSize,
       hidden: other.hidden ?? hidden,
       icon: other.icon ?? icon,
