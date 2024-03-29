@@ -14,6 +14,7 @@ _$DataColumnPropsImpl _$$DataColumnPropsImplFromJson(
       fieldData: json['fieldData'] as String?,
       numeric: json['numeric'] as bool? ?? false,
       onSort: json['onSort'] as String?,
+      fixedWidth: json['fixedWidth'],
     );
 
 Map<String, dynamic> _$$DataColumnPropsImplToJson(
@@ -24,4 +25,5 @@ Map<String, dynamic> _$$DataColumnPropsImplToJson(
       'fieldData': instance.fieldData,
       'numeric': instance.numeric,
       'onSort': instance.onSort,
+      'fixedWidth': instance.fixedWidth,
     };

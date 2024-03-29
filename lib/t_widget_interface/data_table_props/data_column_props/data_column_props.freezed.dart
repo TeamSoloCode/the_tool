@@ -25,6 +25,7 @@ mixin _$DataColumnProps {
   String? get fieldData => throw _privateConstructorUsedError;
   bool get numeric => throw _privateConstructorUsedError;
   String? get onSort => throw _privateConstructorUsedError;
+  dynamic get fixedWidth => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,7 +44,8 @@ abstract class $DataColumnPropsCopyWith<$Res> {
       String? tooltip,
       String? fieldData,
       bool numeric,
-      String? onSort});
+      String? onSort,
+      dynamic fixedWidth});
 }
 
 /// @nodoc
@@ -64,6 +66,7 @@ class _$DataColumnPropsCopyWithImpl<$Res, $Val extends DataColumnProps>
     Object? fieldData = freezed,
     Object? numeric = null,
     Object? onSort = freezed,
+    Object? fixedWidth = freezed,
   }) {
     return _then(_value.copyWith(
       label: null == label
@@ -86,6 +89,10 @@ class _$DataColumnPropsCopyWithImpl<$Res, $Val extends DataColumnProps>
           ? _value.onSort
           : onSort // ignore: cast_nullable_to_non_nullable
               as String?,
+      fixedWidth: freezed == fixedWidth
+          ? _value.fixedWidth
+          : fixedWidth // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ) as $Val);
   }
 }
@@ -103,7 +110,8 @@ abstract class _$$DataColumnPropsImplCopyWith<$Res>
       String? tooltip,
       String? fieldData,
       bool numeric,
-      String? onSort});
+      String? onSort,
+      dynamic fixedWidth});
 }
 
 /// @nodoc
@@ -122,6 +130,7 @@ class __$$DataColumnPropsImplCopyWithImpl<$Res>
     Object? fieldData = freezed,
     Object? numeric = null,
     Object? onSort = freezed,
+    Object? fixedWidth = freezed,
   }) {
     return _then(_$DataColumnPropsImpl(
       label: null == label
@@ -144,6 +153,10 @@ class __$$DataColumnPropsImplCopyWithImpl<$Res>
           ? _value.onSort
           : onSort // ignore: cast_nullable_to_non_nullable
               as String?,
+      fixedWidth: freezed == fixedWidth
+          ? _value.fixedWidth
+          : fixedWidth // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ));
   }
 }
@@ -156,7 +169,8 @@ class _$DataColumnPropsImpl implements _DataColumnProps {
       this.tooltip,
       this.fieldData,
       this.numeric = false,
-      this.onSort});
+      this.onSort,
+      this.fixedWidth});
 
   factory _$DataColumnPropsImpl.fromJson(Map<String, dynamic> json) =>
       _$$DataColumnPropsImplFromJson(json);
@@ -172,6 +186,8 @@ class _$DataColumnPropsImpl implements _DataColumnProps {
   final bool numeric;
   @override
   final String? onSort;
+  @override
+  final dynamic fixedWidth;
 
   @JsonKey(ignore: true)
   @override
@@ -194,7 +210,8 @@ abstract class _DataColumnProps implements DataColumnProps {
       final String? tooltip,
       final String? fieldData,
       final bool numeric,
-      final String? onSort}) = _$DataColumnPropsImpl;
+      final String? onSort,
+      final dynamic fixedWidth}) = _$DataColumnPropsImpl;
 
   factory _DataColumnProps.fromJson(Map<String, dynamic> json) =
       _$DataColumnPropsImpl.fromJson;
@@ -209,6 +226,8 @@ abstract class _DataColumnProps implements DataColumnProps {
   bool get numeric;
   @override
   String? get onSort;
+  @override
+  dynamic get fixedWidth;
   @override
   @JsonKey(ignore: true)
   _$$DataColumnPropsImplCopyWith<_$DataColumnPropsImpl> get copyWith =>

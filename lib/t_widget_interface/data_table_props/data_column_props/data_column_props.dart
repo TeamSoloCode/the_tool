@@ -11,6 +11,7 @@ class DataColumnProps with _$DataColumnProps {
     String? fieldData,
     @Default(false) bool numeric,
     String? onSort,
+    dynamic fixedWidth,
   }) = _DataColumnProps;
 
   factory DataColumnProps.fromJson(Map<String, Object?> json) =>

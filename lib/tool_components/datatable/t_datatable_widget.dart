@@ -35,6 +35,8 @@ class _TDataTableState extends TStatefulWidget<TDataTable> {
     delay: const Duration(milliseconds: 100),
   );
 
+  final utils = getIt<UtilsManager>();
+
   @override
   void initState() {
     if (widget.widgetProps.name == null) {
@@ -141,6 +143,10 @@ class _TDataTableState extends TStatefulWidget<TDataTable> {
         .map(
           (column) => {
             computedColumns.add(DataColumn2(
+              fixedWidth: utils.computeSizeValue(
+                column.fixedWidth,
+                contextData,
+              ),
               label: Text(
                 column.label,
               ),
