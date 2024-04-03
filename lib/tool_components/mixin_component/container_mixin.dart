@@ -33,7 +33,7 @@ mixin ContainerMixin {
   BoxShadow? computeBoxShadow(LayoutProps? props) {
     return ThemeDecoder.decodeBoxShadow({
       "blurRadius": props?.boxShadow?["blurRadius"],
-      // "color": props?.boxShadowProps!.color,
+      "color": props?.boxShadow?["color"],
       "offset": props?.boxShadow?["offset"],
       "spreadRadius": props?.boxShadow?["spreadRadius"],
       "blurStyle": props?.boxShadow?["blurStyle"],

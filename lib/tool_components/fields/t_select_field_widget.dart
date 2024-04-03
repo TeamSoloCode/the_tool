@@ -45,16 +45,22 @@ class _TSelectFieldState extends TStatefulWidget<TSelectField> with FieldMixin {
     super.didChangeDependencies();
   }
 
-  List<DropdownMenuItem> _computeDropdownItems(dynamic items) {
+  List<DropdownMenuItem> _computeDropdownItems(
+      LayoutProps? itemLayout, dynamic items) {
     if (items is! List) return [];
-
     return items.map(
       (item) {
         var value = item is! List ? item : item[0];
         var label = item is! List ? item : item[1];
         return DropdownMenuItem(
           value: value,
-          child: Text('$label'),
+          child: itemLayout == null
+              ? Text('$label')
+              : UtilsManager.computeTWidgets(
+                  itemLayout,
+                  pagePath: widget.pagePath,
+                  childData: widget.childData,
+                )!,
         );
       },
     ).toList();
@@ -134,7 +140,7 @@ class _TSelectFieldState extends TStatefulWidget<TSelectField> with FieldMixin {
       onSaved: (dynamic value) {
         _runValidationFunction();
       },
-      items: _computeDropdownItems(items),
+      items: _computeDropdownItems(widgetProps?.itemLayout, items),
     );
   }
 

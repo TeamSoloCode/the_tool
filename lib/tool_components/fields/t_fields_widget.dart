@@ -32,6 +32,7 @@ class _TFieldsState extends TStatefulWidget<TFields> {
   final textFieldController = TextEditingController();
   dynamic value;
   dynamic prevValue;
+  bool _disposed = false;
 
   bool _loadedWidget = false;
 
@@ -44,8 +45,11 @@ class _TFieldsState extends TStatefulWidget<TFields> {
   @override
   void dispose() {
     textFieldController.dispose();
+    _disposed = true;
     super.dispose();
   }
+
+  bool get disposed => _disposed;
 
   Future<void> _loadLibrary(
     LayoutProps? widgetProps,
@@ -83,9 +87,11 @@ class _TFieldsState extends TStatefulWidget<TFields> {
         throw Exception("$fieldType field type is not supported!");
     }
 
-    setState(() {
-      _loadedWidget = true;
-    });
+    if (!disposed) {
+      setState(() {
+        _loadedWidget = true;
+      });
+    }
   }
 
   Widget _computeFields(
