@@ -259,7 +259,7 @@ class _TDataTableState extends TStatefulWidget<TDataTable> {
             columns: _computeColumns(props, contextData),
             wrapInCard: props?.wrapInCard ?? false,
             horizontalMargin: props?.horizontalMargin ?? 24,
-            columnSpacing: props?.columnSpacing,
+            columnSpacing: props?.columnSpacing ?? 56,
             headingRowColor: props?.color == null
                 ? null
                 : MaterialStateColor.resolveWith(

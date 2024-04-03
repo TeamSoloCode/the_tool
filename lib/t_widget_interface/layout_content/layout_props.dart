@@ -125,7 +125,7 @@ class LayoutProps with _$LayoutProps {
     dynamic headingRowColor,
     Map<String, dynamic>? headingRowDecoration,
     dynamic horizontalMargin,
-    dynamic columnSpacing,
+    double? columnSpacing,
     double? dividerThickness,
     // Table End==================================================
 

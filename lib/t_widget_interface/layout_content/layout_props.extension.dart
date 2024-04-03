@@ -88,6 +88,7 @@ extension MergeLayoutProps on LayoutProps {
       subtitle: other.subtitle ?? subtitle,
       shadowColor: other.shadowColor ?? shadowColor,
       clipBehavior: other.clipBehavior ?? clipBehavior,
+      boxShadow: other.boxShadow ?? boxShadow,
 
       image: other.image ?? image,
 

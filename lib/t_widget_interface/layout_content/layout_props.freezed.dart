@@ -122,7 +122,7 @@ mixin _$LayoutProps {
   Map<String, dynamic>? get headingRowDecoration =>
       throw _privateConstructorUsedError;
   dynamic get horizontalMargin => throw _privateConstructorUsedError;
-  dynamic get columnSpacing => throw _privateConstructorUsedError;
+  double? get columnSpacing => throw _privateConstructorUsedError;
   double? get dividerThickness =>
       throw _privateConstructorUsedError; // Table End==================================================
 // Field Start==================================================
@@ -348,7 +348,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       dynamic headingRowColor,
       Map<String, dynamic>? headingRowDecoration,
       dynamic horizontalMargin,
-      dynamic columnSpacing,
+      double? columnSpacing,
       double? dividerThickness,
       String? hintText,
       String? labelText,
@@ -885,7 +885,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
       columnSpacing: freezed == columnSpacing
           ? _value.columnSpacing
           : columnSpacing // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as double?,
       dividerThickness: freezed == dividerThickness
           ? _value.dividerThickness
           : dividerThickness // ignore: cast_nullable_to_non_nullable
@@ -1495,7 +1495,7 @@ abstract class _$$LayoutPropsImplCopyWith<$Res>
       dynamic headingRowColor,
       Map<String, dynamic>? headingRowDecoration,
       dynamic horizontalMargin,
-      dynamic columnSpacing,
+      double? columnSpacing,
       double? dividerThickness,
       String? hintText,
       String? labelText,
@@ -2048,7 +2048,7 @@ class __$$LayoutPropsImplCopyWithImpl<$Res>
       columnSpacing: freezed == columnSpacing
           ? _value.columnSpacing
           : columnSpacing // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as double?,
       dividerThickness: freezed == dividerThickness
           ? _value.dividerThickness
           : dividerThickness // ignore: cast_nullable_to_non_nullable
@@ -2767,7 +2767,7 @@ class _$LayoutPropsImpl implements _LayoutProps {
   @override
   final dynamic horizontalMargin;
   @override
-  final dynamic columnSpacing;
+  final double? columnSpacing;
   @override
   final double? dividerThickness;
 // Table End==================================================
@@ -3230,7 +3230,7 @@ abstract class _LayoutProps implements LayoutProps {
       final dynamic headingRowColor,
       final Map<String, dynamic>? headingRowDecoration,
       final dynamic horizontalMargin,
-      final dynamic columnSpacing,
+      final double? columnSpacing,
       final double? dividerThickness,
       final String? hintText,
       final String? labelText,
@@ -3477,7 +3477,7 @@ abstract class _LayoutProps implements LayoutProps {
   @override
   dynamic get horizontalMargin;
   @override
-  dynamic get columnSpacing;
+  double? get columnSpacing;
   @override
   double? get dividerThickness;
   @override // Table End==================================================

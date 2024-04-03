@@ -88,7 +88,7 @@ _$LayoutPropsImpl _$$LayoutPropsImplFromJson(Map<String, dynamic> json) =>
       headingRowDecoration:
           json['headingRowDecoration'] as Map<String, dynamic>?,
       horizontalMargin: json['horizontalMargin'],
-      columnSpacing: json['columnSpacing'],
+      columnSpacing: (json['columnSpacing'] as num?)?.toDouble(),
       dividerThickness: (json['dividerThickness'] as num?)?.toDouble(),
       hintText: json['hintText'] as String?,
       labelText: json['labelText'] as String?,

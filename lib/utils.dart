@@ -120,9 +120,8 @@ class UtilsManager {
   }
 
   dynamic bindingValueToProp(
-    Map<String, dynamic> contextData,
-    dynamic propValue,
-  ) {
+      Map<String, dynamic> contextData, dynamic propValue,
+      {bool isDynamicBoolProp = false}) {
     if (propValue is! String) return propValue;
 
     if (!isValueBinding(propValue)) return propValue;
@@ -165,8 +164,8 @@ class UtilsManager {
         var bindingData = UtilsManager.get(selectedData, bindingField);
 
         computedValue = bindingData;
-        if (isInverted || isBooleanCast) {
-          computedValue = isBooleanCast
+        if (isInverted || isBooleanCast || isDynamicBoolProp) {
+          computedValue = isBooleanCast || isDynamicBoolProp
               ? isTruthy(computedValue)
               : !isTruthy(computedValue);
         }
@@ -282,7 +281,11 @@ class UtilsManager {
       return bindingValueToText(contextData, value);
     }
 
-    return bindingValueToProp(contextData, value);
+    return bindingValueToProp(
+      contextData,
+      value,
+      isDynamicBoolProp: dynamicBoolProps.contains(key),
+    );
   }
 
   LayoutProps computeWidgetProps(
@@ -606,9 +609,10 @@ class UtilsManager {
           break;
         case "padding":
           result = Padding(
-            padding:
-                ThemeDecoder.decodeEdgeInsetsGeometry(wrapper["padding"]) ??
-                    const EdgeInsets.all(0),
+            padding: ThemeDecoder.decodeEdgeInsetsGeometry(
+                  wrapper["padding"],
+                ) ??
+                const EdgeInsets.all(0),
             child: result,
           );
           break;

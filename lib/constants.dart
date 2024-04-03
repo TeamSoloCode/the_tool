@@ -43,6 +43,16 @@ Map<String, bool> ignoredComputeProps = {
   "secondaryBackground": true,
 };
 
+/// props that is dynamic value that need to parse to boolean
+List<String> dynamicBoolProps = [
+  "visible",
+  "enabled",
+  "maintainState",
+  "maintainAnimation",
+  "maintainSize",
+  "isMultiSelectedField",
+];
+
 List<String> twidgetHasSizeProps = [
   "container",
   'sized_box',
