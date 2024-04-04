@@ -33,12 +33,12 @@ mixin FieldMixin {
       prefixIcon: generateIcon(props.prefixIcon, thisWidget),
       prefixIconColor: ThemeDecoder.decodeColor(props.prefixIconColor),
       fillColor: ThemeDecoder.decodeColor(props.fillColor),
-      border: _computeInputBorder(props, props.boxBorder),
-      enabledBorder: _computeInputBorder(props, props.enabledBorder),
-      focusedBorder: _computeInputBorder(props, props.focusedBorder),
-      errorBorder: _computeInputBorder(props, props.errorBorder),
-      focusedErrorBorder: _computeInputBorder(props, props.focusedErrorBorder),
-      disabledBorder: _computeInputBorder(props, props.disabledBorder),
+      border: _computeInputBorder(props.boxBorder),
+      enabledBorder: _computeInputBorder(props.enabledBorder),
+      focusedBorder: _computeInputBorder(props.focusedBorder),
+      errorBorder: _computeInputBorder(props.errorBorder),
+      focusedErrorBorder: _computeInputBorder(props.focusedErrorBorder),
+      disabledBorder: _computeInputBorder(props.disabledBorder),
       enabled: props.enabled ?? true,
       constraints: BoxConstraints(
         maxHeight: props.maxHeight,
@@ -241,8 +241,10 @@ mixin FieldMixin {
   }
 
   InputBorder? _computeInputBorder(
-      LayoutProps props, Map<String, dynamic>? rawBorder) {
-    return props.boxBorder?["type"] == "none"
+    Map<String, dynamic>? rawBorder,
+  ) {
+    if (rawBorder == null) return null;
+    return rawBorder["type"] == "none"
         ? InputBorder.none
         : ThemeDecoder.decodeInputBorder(rawBorder);
   }

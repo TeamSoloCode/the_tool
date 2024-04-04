@@ -59,11 +59,11 @@ class _TCheckboxState extends TStatefulWidget<TCheckbox> with FieldMixin {
       selected: UtilsManager.isTruthy(value),
       enabled: widgetProps?.enabled ?? true,
       title: CustomTitle(
-        child: TWidgets(
-          layout: widgetProps?.title ?? const LayoutProps(),
+        child: UtilsManager.computeTWidgets(
+          widgetProps?.title ?? const LayoutProps(),
           pagePath: widget.pagePath,
           childData: widget.childData,
-        ),
+        )!,
       ),
       decoration: computeFieldDecoration(
         widgetProps,

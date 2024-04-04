@@ -89,6 +89,7 @@ extension MergeLayoutProps on LayoutProps {
       shadowColor: other.shadowColor ?? shadowColor,
       clipBehavior: other.clipBehavior ?? clipBehavior,
       boxShadow: other.boxShadow ?? boxShadow,
+      boxBorder: other.boxBorder ?? boxBorder,
 
       image: other.image ?? image,
 
@@ -105,6 +106,13 @@ extension MergeLayoutProps on LayoutProps {
           ? prefixIcon
           : (prefixIcon?.merge(other.prefixIcon) ?? other.prefixIcon),
       prefixIconColor: other.prefixIconColor ?? prefixIconColor,
+      enabledBorder: other.enabledBorder ?? enabledBorder,
+      focusedBorder: other.focusedBorder ?? focusedBorder,
+      errorBorder: other.errorBorder ?? errorBorder,
+      focusedErrorBorder: other.focusedErrorBorder ?? focusedErrorBorder,
+      disabledBorder: other.disabledBorder ?? disabledBorder,
+      fillColor: other.fillColor ?? fillColor,
+
       // Field end======================================
 
       // Field Datetime Start =============================='
