@@ -41,6 +41,10 @@ class TButton extends TStatelessWidget {
       );
     }
 
+    final buttonTextStyle = themeProvider
+        .themeData?.elevatedButtonTheme.style?.textStyle
+        ?.resolve({MaterialState.disabled});
+
     switch (buttonType) {
       case "icon":
         return IconButton(
@@ -54,25 +58,25 @@ class TButton extends TStatelessWidget {
         return TextButton(
           onPressed: buttonOnClick,
           style: buttonStyle,
-          child: buttonContent ?? Text(text),
+          child: buttonContent ?? Text(text, style: buttonTextStyle),
         );
       case "outlined":
         return OutlinedButton(
           onPressed: buttonOnClick,
           style: buttonStyle,
-          child: buttonContent ?? Text(text),
+          child: buttonContent ?? Text(text, style: buttonTextStyle),
         );
       case "filled":
         return FilledButton(
           onPressed: buttonOnClick,
           style: buttonStyle,
-          child: buttonContent ?? Text(text),
+          child: buttonContent ?? Text(text, style: buttonTextStyle),
         );
       default:
         return ElevatedButton(
           onPressed: buttonOnClick,
           style: buttonStyle,
-          child: buttonContent ?? Text(text),
+          child: buttonContent ?? Text(text, style: buttonTextStyle),
         );
     }
   }
