@@ -150,6 +150,7 @@ class LayoutProps with _$LayoutProps {
     String? prefixText,
     String? format,
     dynamic fillColor,
+    bool? filled,
     /**
      * @summary This function will be eval for validating field value
      * - Return false if value is valid

@@ -22,6 +22,7 @@ mixin FieldMixin {
     );
 
     return InputDecoration(
+      filled: props.filled ?? false,
       contentPadding: ThemeDecoder.decodeEdgeInsetsGeometry(props.padding),
       prefixText: props.prefixText,
       suffixText: props.suffixText,

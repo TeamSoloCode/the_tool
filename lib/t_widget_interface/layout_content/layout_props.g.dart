@@ -110,6 +110,7 @@ _$LayoutPropsImpl _$$LayoutPropsImplFromJson(Map<String, dynamic> json) =>
       prefixText: json['prefixText'] as String?,
       format: json['format'] as String?,
       fillColor: json['fillColor'],
+      filled: json['filled'] as bool?,
       validationFunction: json['validationFunction'] as String?,
       autovalidate: json['autovalidate'] as bool?,
       validators: (json['validators'] as List<dynamic>?)
@@ -307,6 +308,7 @@ Map<String, dynamic> _$$LayoutPropsImplToJson(_$LayoutPropsImpl instance) =>
       'prefixText': instance.prefixText,
       'format': instance.format,
       'fillColor': instance.fillColor,
+      'filled': instance.filled,
       'validationFunction': instance.validationFunction,
       'autovalidate': instance.autovalidate,
       'validators': instance.validators,

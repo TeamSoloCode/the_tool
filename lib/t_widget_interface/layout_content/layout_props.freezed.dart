@@ -146,6 +146,7 @@ mixin _$LayoutProps {
   String? get prefixText => throw _privateConstructorUsedError;
   String? get format => throw _privateConstructorUsedError;
   dynamic get fillColor => throw _privateConstructorUsedError;
+  bool? get filled => throw _privateConstructorUsedError;
   /**
      * @summary This function will be eval for validating field value
      * - Return false if value is valid
@@ -366,6 +367,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       String? prefixText,
       String? format,
       dynamic fillColor,
+      bool? filled,
       String? validationFunction,
       bool? autovalidate,
       List<Map<String, dynamic>>? validators,
@@ -547,6 +549,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? prefixText = freezed,
     Object? format = freezed,
     Object? fillColor = freezed,
+    Object? filled = freezed,
     Object? validationFunction = freezed,
     Object? autovalidate = freezed,
     Object? validators = freezed,
@@ -954,6 +957,10 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
           ? _value.fillColor
           : fillColor // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      filled: freezed == filled
+          ? _value.filled
+          : filled // ignore: cast_nullable_to_non_nullable
+              as bool?,
       validationFunction: freezed == validationFunction
           ? _value.validationFunction
           : validationFunction // ignore: cast_nullable_to_non_nullable
@@ -1513,6 +1520,7 @@ abstract class _$$LayoutPropsImplCopyWith<$Res>
       String? prefixText,
       String? format,
       dynamic fillColor,
+      bool? filled,
       String? validationFunction,
       bool? autovalidate,
       List<Map<String, dynamic>>? validators,
@@ -1710,6 +1718,7 @@ class __$$LayoutPropsImplCopyWithImpl<$Res>
     Object? prefixText = freezed,
     Object? format = freezed,
     Object? fillColor = freezed,
+    Object? filled = freezed,
     Object? validationFunction = freezed,
     Object? autovalidate = freezed,
     Object? validators = freezed,
@@ -2117,6 +2126,10 @@ class __$$LayoutPropsImplCopyWithImpl<$Res>
           ? _value.fillColor
           : fillColor // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      filled: freezed == filled
+          ? _value.filled
+          : filled // ignore: cast_nullable_to_non_nullable
+              as bool?,
       validationFunction: freezed == validationFunction
           ? _value.validationFunction
           : validationFunction // ignore: cast_nullable_to_non_nullable
@@ -2455,6 +2468,7 @@ class _$LayoutPropsImpl implements _LayoutProps {
       this.prefixText,
       this.format,
       this.fillColor,
+      this.filled,
       this.validationFunction,
       this.autovalidate,
       final List<Map<String, dynamic>>? validators,
@@ -2808,6 +2822,8 @@ class _$LayoutPropsImpl implements _LayoutProps {
   final String? format;
   @override
   final dynamic fillColor;
+  @override
+  final bool? filled;
 /**
      * @summary This function will be eval for validating field value
      * - Return false if value is valid
@@ -3248,6 +3264,7 @@ abstract class _LayoutProps implements LayoutProps {
       final String? prefixText,
       final String? format,
       final dynamic fillColor,
+      final bool? filled,
       final String? validationFunction,
       final bool? autovalidate,
       final List<Map<String, dynamic>>? validators,
@@ -3517,6 +3534,8 @@ abstract class _LayoutProps implements LayoutProps {
   String? get format;
   @override
   dynamic get fillColor;
+  @override
+  bool? get filled;
   @override
   /**
      * @summary This function will be eval for validating field value
