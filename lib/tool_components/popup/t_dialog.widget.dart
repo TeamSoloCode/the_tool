@@ -13,6 +13,13 @@ class TAlertDialog extends TStatelessWidget {
   Widget _computeAlertDialog(BuildContext context, LayoutProps widgetProps) {
     return AlertDialog(
       key: getBindingKey(),
+      backgroundColor: widgetProps.backgroundColor,
+      elevation: widgetProps.elevation,
+      icon: UtilsManager.computeTWidgets(
+        widgetProps.icon,
+        pagePath: pagePath,
+        childData: childData,
+      ),
       title: UtilsManager.computeTWidgets(
         widgetProps.title,
         pagePath: pagePath,
@@ -62,7 +69,7 @@ class TAlertDialog extends TStatelessWidget {
 
     if (props != null) {
       if (showPopup) {
-        _showAlerDialog(context, props!);
+        if (_showing == false) _showAlerDialog(context, props!);
       } else if (_showing) {
         Modular.to.pop();
       }
