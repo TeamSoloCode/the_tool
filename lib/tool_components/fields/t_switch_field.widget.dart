@@ -8,28 +8,28 @@ import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/utils.dart';
 import 'package:the_tool/twidget_props.dart';
 
-class TCheckbox extends TWidget {
-  TCheckbox(TWidgetProps twidget) : super(twidget);
+class TSwitchField extends TWidget {
+  TSwitchField(TWidgetProps twidget) : super(twidget);
 
   @override
-  State<TCheckbox> createState() => _TCheckboxState();
+  State<TSwitchField> createState() => _TSwitchState();
 }
 
-class _TCheckboxState extends TStatefulWidget<TCheckbox> with FieldMixin {
-  final _checkboxKey = GlobalKey<FormBuilderFieldState>();
+class _TSwitchState extends TStatefulWidget<TSwitchField> with FieldMixin {
+  final _switchFieldKey = GlobalKey<FormBuilderFieldState>();
   String? _errorMessage;
   bool? selectedValue;
 
   @override
   void didChangeDependencies() {
     String? name = widget.widgetProps.name;
-    dynamic currentValue = _checkboxKey.currentState?.value;
+    dynamic currentValue = _switchFieldKey.currentState?.value;
 
     selectedValue = UtilsManager.isTruthy(widget.getContexData()[name]);
 
     if (selectedValue != currentValue && name != null) {
       Future.delayed(Duration.zero, () async {
-        _checkboxKey.currentState?.setValue(selectedValue);
+        _switchFieldKey.currentState?.setValue(selectedValue);
       });
     }
 
@@ -42,7 +42,7 @@ class _TCheckboxState extends TStatefulWidget<TCheckbox> with FieldMixin {
     selectedValue = UtilsManager.isTruthy(value);
   }
 
-  Widget _computeCheckboxField(
+  Widget _computeSwitchField(
     LayoutProps? widgetProps,
     Map<String, dynamic> contextData,
   ) {
@@ -52,14 +52,14 @@ class _TCheckboxState extends TStatefulWidget<TCheckbox> with FieldMixin {
 
     assert(name != null, "Missing \"name\" in field widget");
 
-    return FormBuilderCheckbox(
-      key: _checkboxKey,
+    return FormBuilderSwitch(
+      key: _switchFieldKey,
       name: name ?? "",
       selected: UtilsManager.isTruthy(value),
       enabled: widgetProps?.enabled ?? true,
       subtitle: CustomTitle(
         child: UtilsManager.computeTWidgets(
-          widgetProps?.title ?? const LayoutProps(),
+          widgetProps?.subtitle ?? const LayoutProps(),
           pagePath: widget.pagePath,
           childData: widget.childData,
         )!,
@@ -107,7 +107,7 @@ class _TCheckboxState extends TStatefulWidget<TCheckbox> with FieldMixin {
     LayoutProps? _props = widget.props;
 
     if (_props != null) {
-      snapshot = _computeCheckboxField(_props, widget.getContexData());
+      snapshot = _computeSwitchField(_props, widget.getContexData());
     }
     return snapshot;
   }

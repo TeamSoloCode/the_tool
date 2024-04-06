@@ -15,6 +15,8 @@ import 'package:the_tool/tool_components/fields/t_text_field_widget.dart'
     deferred as field_text;
 import 'package:the_tool/tool_components/fields/t_checkbox_field.dart'
     deferred as field_checkbox;
+import 'package:the_tool/tool_components/fields/t_switch_field.widget.dart'
+    deferred as field_switch;
 
 import 'package:the_tool/tool_components/fields/t_multiple_select.field.dart'
     deferred as field_multi_select;
@@ -83,6 +85,9 @@ class _TFieldsState extends TStatefulWidget<TFields> {
       case "multiple_select":
         await field_multi_select.loadLibrary();
         break;
+      case "switch":
+        await field_switch.loadLibrary();
+        break;
       default:
         throw Exception("$fieldType field type is not supported!");
     }
@@ -128,6 +133,8 @@ class _TFieldsState extends TStatefulWidget<TFields> {
         return field_custom.TCustomField(tWidgetProps);
       case "multiple_select":
         return field_multi_select.TMultiSelectField(tWidgetProps);
+      case "switch":
+        return field_switch.TSwitchField(tWidgetProps);
       default:
         throw Exception("$fieldType field type is not supported!");
     }
