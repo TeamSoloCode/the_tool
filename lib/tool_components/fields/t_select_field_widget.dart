@@ -46,7 +46,9 @@ class _TSelectFieldState extends TStatefulWidget<TSelectField> with FieldMixin {
   }
 
   List<DropdownMenuItem> _computeDropdownItems(
-      LayoutProps? itemLayout, dynamic items) {
+    LayoutProps? itemLayout,
+    dynamic items,
+  ) {
     if (items is! List) return [];
     return items.map(
       (item) {

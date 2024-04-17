@@ -14,6 +14,8 @@ import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.extension.dart';
 import 'package:the_tool/tool_components/t_visibility.widget.dart'
     deferred as t_visibility;
+import 'package:the_tool/tool_components/t_fitted_box.widget.dart'
+    deferred as t_fitted_box;
 import 'package:the_tool/tool_components/t_divider.widget.dart'
     deferred as t_divider;
 import 'package:the_tool/tool_components/list/t_list_tile.widget.dart'
@@ -211,6 +213,9 @@ class _TWidgetsState extends State<TWidgets> {
       case "divider":
         await t_divider.loadLibrary();
         return t_divider.TDivider(tWidgetProps);
+      case "fitted_box":
+        await t_fitted_box.loadLibrary();
+        return t_fitted_box.TFittedBox(tWidgetProps);
       default:
         throw Exception("Not found: \"${content.type}\" widget");
     }

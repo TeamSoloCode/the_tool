@@ -52,30 +52,16 @@ class _TSwitchState extends TStatefulWidget<TSwitchField> with FieldMixin {
 
     assert(name != null, "Missing \"name\" in field widget");
 
-    return FormBuilderSwitch(
+    return FormBuilderField(
       key: _switchFieldKey,
       name: name ?? "",
-      selected: UtilsManager.isTruthy(value),
       enabled: widgetProps?.enabled ?? true,
-      subtitle: CustomTitle(
-        child: UtilsManager.computeTWidgets(
-          widgetProps?.subtitle ?? const LayoutProps(),
-          pagePath: widget.pagePath,
-          childData: widget.childData,
-        )!,
-      ),
-      title: CustomTitle(
-        child: UtilsManager.computeTWidgets(
-          widgetProps?.title ?? const LayoutProps(),
-          pagePath: widget.pagePath,
-          childData: widget.childData,
-        )!,
-      ),
-      decoration: computeFieldDecoration(
-        widgetProps,
-        thisWidget: widget,
-        errorMessage: _errorMessage,
-      ),
+      builder: (field) {
+        return Switch(
+          value: UtilsManager.isTruthy(value),
+          onChanged: _onChangeValue,
+        );
+      },
       initialValue: UtilsManager.isTruthy(value),
       validator: FormBuilderValidators.compose([
         ...computeFieldValidators(widget.props, contextData),
@@ -87,7 +73,7 @@ class _TSwitchState extends TStatefulWidget<TSwitchField> with FieldMixin {
       onSaved: (dynamic value) {
         _runValidationFunction();
       },
-      onChanged: _onChangeValue,
+      // onChanged: _onChangeValue,
     );
   }
 
