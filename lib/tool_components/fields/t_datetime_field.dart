@@ -183,7 +183,12 @@ class _TDatetimeState extends TStatefulWidget<TDatetimeField> with FieldMixin {
     required DateTime? lastDate,
     required String errorValueName,
   }) {
-    var selectedDate = DateTime.tryParse(value ?? "") ?? lastDate;
+    DateTime? selectedDate;
+    if (value == 'today') {
+      selectedDate = DateTime.now();
+    } else {
+      selectedDate = DateTime.tryParse(value ?? "") ?? lastDate;
+    }
 
     if (selectedDate != null) {
       if (lastDate != null && selectedDate.isAfter(lastDate)) {
