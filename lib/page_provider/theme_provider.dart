@@ -137,8 +137,17 @@ class ThemeProvider with ChangeNotifier {
               computedThemeMap["outlinedButtonTheme"],
             ),
           ),
+
           cardTheme: ThemeDecoder.decodeCardTheme(
             computedThemeMap["cardTheme"],
+          ),
+
+          dialogTheme: ThemeDecoder.decodeDialogTheme(
+            computedThemeMap["dialogTheme"],
+          ),
+
+          switchTheme: ThemeDecoder.decodeSwitchThemeData(
+            computedThemeMap["switchTheme"],
           ),
 
           // colorScheme: ColorScheme.fromSwatch(
