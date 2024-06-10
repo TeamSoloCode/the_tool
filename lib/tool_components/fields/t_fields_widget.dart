@@ -7,6 +7,8 @@ import 'package:the_tool/tool_components/fields/t_custom_field.field.dart'
     deferred as field_custom;
 import 'package:the_tool/tool_components/fields/t_datetime_field.dart'
     deferred as field_datetime;
+import 'package:the_tool/tool_components/fields/t_datetime_range_field.widget.dart'
+    deferred as field_date_range;
 import 'package:the_tool/tool_components/fields/t_image_picker.field.dart'
     deferred as field_image;
 import 'package:the_tool/tool_components/fields/t_select_field_widget.dart'
@@ -73,6 +75,9 @@ class _TFieldsState extends TStatefulWidget<TFields> {
       case "time":
         await field_datetime.loadLibrary();
         break;
+      case "range":
+        await field_date_range.loadLibrary();
+        break;
       case "checkbox":
         await field_checkbox.loadLibrary();
         break;
@@ -125,6 +130,8 @@ class _TFieldsState extends TStatefulWidget<TFields> {
       case "date":
       case "time":
         return field_datetime.TDatetimeField(tWidgetProps);
+      case "range":
+        return field_date_range.TDateTimeRangeField(tWidgetProps);
       case "checkbox":
         return field_checkbox.TCheckbox(tWidgetProps);
       case "image":

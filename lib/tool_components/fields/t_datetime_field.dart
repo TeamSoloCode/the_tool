@@ -115,7 +115,7 @@ class _TDatetimeState extends TStatefulWidget<TDatetimeField> with FieldMixin {
     }
   }
 
-  Widget _computeDatetimeField(
+  Widget _computeDateTimeField(
     LayoutProps props,
     Map<String, dynamic> contextData,
   ) {
@@ -184,7 +184,7 @@ class _TDatetimeState extends TStatefulWidget<TDatetimeField> with FieldMixin {
     required String errorValueName,
   }) {
     DateTime? selectedDate;
-    if (value == 'today') {
+    if (value == 'now') {
       selectedDate = DateTime.now();
     } else {
       selectedDate = DateTime.tryParse(value ?? "") ?? lastDate;
@@ -221,7 +221,7 @@ class _TDatetimeState extends TStatefulWidget<TDatetimeField> with FieldMixin {
     LayoutProps? _props = widget.props;
 
     if (_props != null) {
-      snapshot = _computeDatetimeField(_props, widget.getContexData());
+      snapshot = _computeDateTimeField(_props, widget.getContexData());
     }
     return snapshot;
   }
