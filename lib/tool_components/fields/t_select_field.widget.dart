@@ -97,9 +97,9 @@ class _TSelectFieldState extends TStatefulWidget<TSelectField> with FieldMixin {
     Map<String, dynamic> contextData,
   ) {
     String? name = widgetProps?.name;
-    var value = contextData[name];
     items = widgetProps?.items ?? [];
     assert(name != null, "Missing \"name\" in field widget");
+    var value = contextData[name];
 
     if (items is! List) {
       return const Center(

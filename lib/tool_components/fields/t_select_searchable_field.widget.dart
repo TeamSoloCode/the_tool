@@ -49,6 +49,17 @@ class _TSearchableSelectFieldState
     return convertItemAsString;
   }
 
+  void _onChangeDate(dynamic value) {
+    String name = widget.widgetProps.name ?? "";
+    if (value == null) {
+      widget.setPageData({name: null});
+    } else {
+      widget.setPageData({name: value.toString()});
+    }
+
+    selectedValue = value;
+  }
+
   Widget _computeSelectField(
     LayoutProps? widgetProps,
     Map<String, dynamic> contextData,
@@ -56,6 +67,7 @@ class _TSearchableSelectFieldState
     String? name = widgetProps?.name;
     var items = widgetProps?.items ?? [];
     assert(name != null, "Missing \"name\" in field widget");
+    var value = contextData[name];
 
     if (items is! List) {
       return const Center(
@@ -76,21 +88,26 @@ class _TSearchableSelectFieldState
         var label = optionsMap[value].toString();
         return label.contains(filter);
       },
-      compareFn: (item1, item2) {
-        return true;
+      compareFn: (value1, value2) {
+        var label1 = optionsMap[value1].toString();
+        var label2 = optionsMap[value2].toString();
+        return label1 == label2;
       },
       popupProps: PopupProps.menu(
         showSelectedItems: true,
         // disabledItemFn: (s) => s.startsWith('C'),
+        // itemBuilder: _computeDropdownItems(widgetProps?.itemLayout, items),
         showSearchBox: true,
+
+        searchDelay: Duration(milliseconds: widgetProps?.duration ?? 1000),
         searchFieldProps: TextFieldProps(
           decoration: commonInputDecoration,
         ),
       ),
       itemAsString: _computeItemsLabel(optionsMap),
       items: _computeOptionValues(optionsMap),
-      // selectedItem: "1",
-      onChanged: print,
+      selectedItem: widget.props?.defaultValue ?? value,
+      onChanged: _onChangeDate,
       dropdownDecoratorProps: DropDownDecoratorProps(
         dropdownSearchDecoration: computeFieldDecoration(
           widgetProps,
