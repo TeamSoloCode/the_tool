@@ -132,6 +132,7 @@ mixin _$LayoutProps {
   dynamic get defaultValue => throw _privateConstructorUsedError;
   dynamic get items => throw _privateConstructorUsedError;
   bool? get allowClear => throw _privateConstructorUsedError;
+  bool? get searchable => throw _privateConstructorUsedError;
   String? get fieldType => throw _privateConstructorUsedError;
   String? get keyboardType => throw _privateConstructorUsedError;
 
@@ -357,6 +358,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       dynamic defaultValue,
       dynamic items,
       bool? allowClear,
+      bool? searchable,
       String? fieldType,
       String? keyboardType,
       LayoutProps? suffixIcon,
@@ -539,6 +541,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? defaultValue = freezed,
     Object? items = freezed,
     Object? allowClear = freezed,
+    Object? searchable = freezed,
     Object? fieldType = freezed,
     Object? keyboardType = freezed,
     Object? suffixIcon = freezed,
@@ -916,6 +919,10 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
       allowClear: freezed == allowClear
           ? _value.allowClear
           : allowClear // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      searchable: freezed == searchable
+          ? _value.searchable
+          : searchable // ignore: cast_nullable_to_non_nullable
               as bool?,
       fieldType: freezed == fieldType
           ? _value.fieldType
@@ -1510,6 +1517,7 @@ abstract class _$$LayoutPropsImplCopyWith<$Res>
       dynamic defaultValue,
       dynamic items,
       bool? allowClear,
+      bool? searchable,
       String? fieldType,
       String? keyboardType,
       LayoutProps? suffixIcon,
@@ -1708,6 +1716,7 @@ class __$$LayoutPropsImplCopyWithImpl<$Res>
     Object? defaultValue = freezed,
     Object? items = freezed,
     Object? allowClear = freezed,
+    Object? searchable = freezed,
     Object? fieldType = freezed,
     Object? keyboardType = freezed,
     Object? suffixIcon = freezed,
@@ -2086,6 +2095,10 @@ class __$$LayoutPropsImplCopyWithImpl<$Res>
           ? _value.allowClear
           : allowClear // ignore: cast_nullable_to_non_nullable
               as bool?,
+      searchable: freezed == searchable
+          ? _value.searchable
+          : searchable // ignore: cast_nullable_to_non_nullable
+              as bool?,
       fieldType: freezed == fieldType
           ? _value.fieldType
           : fieldType // ignore: cast_nullable_to_non_nullable
@@ -2458,6 +2471,7 @@ class _$LayoutPropsImpl implements _LayoutProps {
       this.defaultValue,
       this.items,
       this.allowClear,
+      this.searchable,
       this.fieldType,
       this.keyboardType,
       this.suffixIcon,
@@ -2798,6 +2812,8 @@ class _$LayoutPropsImpl implements _LayoutProps {
   final dynamic items;
   @override
   final bool? allowClear;
+  @override
+  final bool? searchable;
   @override
   final String? fieldType;
   @override
@@ -3254,6 +3270,7 @@ abstract class _LayoutProps implements LayoutProps {
       final dynamic defaultValue,
       final dynamic items,
       final bool? allowClear,
+      final bool? searchable,
       final String? fieldType,
       final String? keyboardType,
       final LayoutProps? suffixIcon,
@@ -3510,6 +3527,8 @@ abstract class _LayoutProps implements LayoutProps {
   dynamic get items;
   @override
   bool? get allowClear;
+  @override
+  bool? get searchable;
   @override
   String? get fieldType;
   @override

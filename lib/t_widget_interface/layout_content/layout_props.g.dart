@@ -96,6 +96,7 @@ _$LayoutPropsImpl _$$LayoutPropsImplFromJson(Map<String, dynamic> json) =>
       defaultValue: json['defaultValue'],
       items: json['items'],
       allowClear: json['allowClear'] as bool?,
+      searchable: json['searchable'] as bool?,
       fieldType: json['fieldType'] as String?,
       keyboardType: json['keyboardType'] as String?,
       suffixIcon: json['suffixIcon'] == null
@@ -298,6 +299,7 @@ Map<String, dynamic> _$$LayoutPropsImplToJson(_$LayoutPropsImpl instance) =>
       'defaultValue': instance.defaultValue,
       'items': instance.items,
       'allowClear': instance.allowClear,
+      'searchable': instance.searchable,
       'fieldType': instance.fieldType,
       'keyboardType': instance.keyboardType,
       'suffixIcon': instance.suffixIcon?.toJson(),

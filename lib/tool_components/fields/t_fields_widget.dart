@@ -13,6 +13,8 @@ import 'package:the_tool/tool_components/fields/t_image_picker.field.dart'
     deferred as field_image;
 import 'package:the_tool/tool_components/fields/t_select_field_widget.dart'
     deferred as field_select;
+import 'package:the_tool/tool_components/fields/t_select_searchable_field.widget.dart'
+    deferred as field_searchable_select;
 import 'package:the_tool/tool_components/fields/t_text_field_widget.dart'
     deferred as field_text;
 import 'package:the_tool/tool_components/fields/t_checkbox_field.dart'
@@ -68,6 +70,10 @@ class _TFieldsState extends TStatefulWidget<TFields> {
         await field_text.loadLibrary();
         break;
       case "select":
+        if (widgetProps?.searchable == true) {
+          await field_searchable_select.loadLibrary();
+          break;
+        }
         await field_select.loadLibrary();
         break;
       case "datetime":
@@ -125,6 +131,9 @@ class _TFieldsState extends TStatefulWidget<TFields> {
       case CurrencyFieldType:
         return field_text.TTextField(tWidgetProps);
       case "select":
+        if (widgetProps?.searchable == true) {
+          return field_searchable_select.TSearchableSelectField(tWidgetProps);
+        }
         return field_select.TSelectField(tWidgetProps);
       case "datetime":
       case "date":

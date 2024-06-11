@@ -136,6 +136,7 @@ class LayoutProps with _$LayoutProps {
     dynamic defaultValue,
     dynamic items,
     bool? allowClear,
+    bool? searchable,
     String? fieldType,
     String? keyboardType,
 

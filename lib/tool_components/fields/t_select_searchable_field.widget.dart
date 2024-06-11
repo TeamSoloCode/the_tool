@@ -25,8 +25,57 @@ class _TSearchableSelectFieldState
     LayoutProps? widgetProps,
     Map<String, dynamic> contextData,
   ) {
+    var commonInputDecoration = const InputDecoration(
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          width: 1,
+          color: Colors.grey,
+          style: BorderStyle.solid,
+        ),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          width: 1,
+          color: Colors.grey,
+          style: BorderStyle.solid,
+        ),
+      ),
+      border: OutlineInputBorder(
+        borderSide: BorderSide(
+          width: 1,
+          color: Colors.grey,
+          style: BorderStyle.solid,
+        ),
+      ),
+    );
+
     return DropdownSearch(
       key: _dropDownKey,
+      filterFn: (String item, filter) {
+        print("filterFn ${item} ${filter}");
+        return true;
+      },
+      popupProps: PopupProps.menu(
+        showSelectedItems: true,
+        disabledItemFn: (String s) => s.startsWith('C'),
+        showSearchBox: true,
+        searchFieldProps: TextFieldProps(
+          decoration: commonInputDecoration,
+        ),
+      ),
+
+      itemAsString: (String item) {
+        if (item == "1") {
+          return "C1";
+        } else if (item == "2") {
+          return "C2";
+        } else {
+          return "C3";
+        }
+      },
+      items: ["1", "2", "3"],
+      // selectedItem: "1",
+      onChanged: print,
       dropdownDecoratorProps: DropDownDecoratorProps(
         dropdownSearchDecoration: computeFieldDecoration(
           widgetProps,

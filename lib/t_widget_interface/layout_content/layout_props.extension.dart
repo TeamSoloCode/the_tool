@@ -112,6 +112,7 @@ extension MergeLayoutProps on LayoutProps {
       focusedErrorBorder: other.focusedErrorBorder ?? focusedErrorBorder,
       disabledBorder: other.disabledBorder ?? disabledBorder,
       fillColor: other.fillColor ?? fillColor,
+      searchable: other.searchable ?? searchable,
 
       // Field end======================================
 
