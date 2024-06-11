@@ -52,8 +52,8 @@ class _TSelectFieldState extends TStatefulWidget<TSelectField> with FieldMixin {
     if (items is! List) return [];
     return items.map(
       (item) {
-        var value = item is! List ? item : item[0];
-        var label = item is! List ? item : item[1];
+        var value = UtilsManager.computeOptionValue(item);
+        var label = UtilsManager.computeOptionLabel(item);
         return DropdownMenuItem(
           value: value,
           child: itemLayout == null

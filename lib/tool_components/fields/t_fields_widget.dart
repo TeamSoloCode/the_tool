@@ -11,7 +11,7 @@ import 'package:the_tool/tool_components/fields/t_datetime_range_field.widget.da
     deferred as field_date_range;
 import 'package:the_tool/tool_components/fields/t_image_picker.field.dart'
     deferred as field_image;
-import 'package:the_tool/tool_components/fields/t_select_field_widget.dart'
+import 'package:the_tool/tool_components/fields/t_select_field.widget.dart'
     deferred as field_select;
 import 'package:the_tool/tool_components/fields/t_select_searchable_field.widget.dart'
     deferred as field_searchable_select;
@@ -22,7 +22,7 @@ import 'package:the_tool/tool_components/fields/t_checkbox_field.dart'
 import 'package:the_tool/tool_components/fields/t_switch_field.widget.dart'
     deferred as field_switch;
 
-import 'package:the_tool/tool_components/fields/t_multiple_select.field.dart'
+import 'package:the_tool/tool_components/fields/t_select_multiple_field.widget.dart'
     deferred as field_multi_select;
 import 'package:the_tool/tool_components/t_widget.dart';
 import 'package:the_tool/twidget_props.dart';

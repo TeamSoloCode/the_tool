@@ -21,59 +21,74 @@ class _TSearchableSelectFieldState
   final _dropDownKey = GlobalKey<FormBuilderFieldState>();
   String? selectedValue;
 
+  Map<dynamic, dynamic> _castOptionsToMap(dynamic items) {
+    if (items is! List) return {};
+    Map<dynamic, dynamic> result = {};
+
+    for (var item in items) {
+      var value = UtilsManager.computeOptionValue(item);
+      var label = UtilsManager.computeOptionLabel(item);
+
+      result[value] = label;
+    }
+
+    return result;
+  }
+
+  List<dynamic> _computeOptionValues(Map<dynamic, dynamic> mapOfOptions) {
+    return List.from(mapOfOptions.keys);
+  }
+
+  String Function(dynamic)? _computeItemsLabel(
+    Map<dynamic, dynamic> mapOfOptions,
+  ) {
+    String convertItemAsString(dynamic currentItem) {
+      return mapOfOptions[currentItem];
+    }
+
+    return convertItemAsString;
+  }
+
   Widget _computeSelectField(
     LayoutProps? widgetProps,
     Map<String, dynamic> contextData,
   ) {
-    var commonInputDecoration = const InputDecoration(
-      enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          width: 1,
-          color: Colors.grey,
-          style: BorderStyle.solid,
-        ),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          width: 1,
-          color: Colors.grey,
-          style: BorderStyle.solid,
-        ),
-      ),
-      border: OutlineInputBorder(
-        borderSide: BorderSide(
-          width: 1,
-          color: Colors.grey,
-          style: BorderStyle.solid,
-        ),
-      ),
-    );
+    String? name = widgetProps?.name;
+    var items = widgetProps?.items ?? [];
+    assert(name != null, "Missing \"name\" in field widget");
 
-    return DropdownSearch(
+    if (items is! List) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+    /** "items" property might be a string, that's mean it's a databinding */
+    if (items is String) {
+      items = contextData[items] ?? [];
+    }
+
+    var optionsMap = _castOptionsToMap(items);
+
+    return DropdownSearch<dynamic>(
       key: _dropDownKey,
-      filterFn: (String item, filter) {
-        print("filterFn ${item} ${filter}");
+      filterFn: (value, filter) {
+        var label = optionsMap[value].toString();
+        return label.contains(filter);
+      },
+      compareFn: (item1, item2) {
         return true;
       },
       popupProps: PopupProps.menu(
         showSelectedItems: true,
-        disabledItemFn: (String s) => s.startsWith('C'),
+        // disabledItemFn: (s) => s.startsWith('C'),
         showSearchBox: true,
         searchFieldProps: TextFieldProps(
           decoration: commonInputDecoration,
         ),
       ),
-
-      itemAsString: (String item) {
-        if (item == "1") {
-          return "C1";
-        } else if (item == "2") {
-          return "C2";
-        } else {
-          return "C3";
-        }
-      },
-      items: ["1", "2", "3"],
+      itemAsString: _computeItemsLabel(optionsMap),
+      items: _computeOptionValues(optionsMap),
       // selectedItem: "1",
       onChanged: print,
       dropdownDecoratorProps: DropDownDecoratorProps(
@@ -137,3 +152,27 @@ class _TSearchableSelectFieldState
     });
   }
 }
+
+var commonInputDecoration = const InputDecoration(
+  enabledBorder: OutlineInputBorder(
+    borderSide: BorderSide(
+      width: 1,
+      color: Colors.grey,
+      style: BorderStyle.solid,
+    ),
+  ),
+  focusedBorder: OutlineInputBorder(
+    borderSide: BorderSide(
+      width: 1,
+      color: Colors.grey,
+      style: BorderStyle.solid,
+    ),
+  ),
+  border: OutlineInputBorder(
+    borderSide: BorderSide(
+      width: 1,
+      color: Colors.grey,
+      style: BorderStyle.solid,
+    ),
+  ),
+);

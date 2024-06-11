@@ -836,4 +836,24 @@ class UtilsManager {
 
     return mergedProps;
   }
+
+  static dynamic computeOptionValue(dynamic item) {
+    if (item is Map) {
+      return item["value"];
+    } else if (item is List) {
+      return item[0];
+    } else {
+      return item;
+    }
+  }
+
+  static dynamic computeOptionLabel(dynamic item) {
+    if (item is Map) {
+      return item["label"];
+    } else if (item is List) {
+      return item[1];
+    } else {
+      return item;
+    }
+  }
 }
