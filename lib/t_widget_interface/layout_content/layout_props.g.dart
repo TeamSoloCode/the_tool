@@ -125,6 +125,8 @@ _$LayoutPropsImpl _$$LayoutPropsImplFromJson(Map<String, dynamic> json) =>
       disabledBorder: json['disabledBorder'] as Map<String, dynamic>?,
       focusedErrorBorder: json['focusedErrorBorder'] as Map<String, dynamic>?,
       errorBorder: json['errorBorder'] as Map<String, dynamic>?,
+      searchInputFieldDecoration:
+          json['searchInputFieldDecoration'] as Map<String, dynamic>?,
       firstDate: json['firstDate'] as String?,
       lastDate: json['lastDate'] as String?,
       initialDate: json['initialDate'] as String?,
@@ -322,6 +324,7 @@ Map<String, dynamic> _$$LayoutPropsImplToJson(_$LayoutPropsImpl instance) =>
       'disabledBorder': instance.disabledBorder,
       'focusedErrorBorder': instance.focusedErrorBorder,
       'errorBorder': instance.errorBorder,
+      'searchInputFieldDecoration': instance.searchInputFieldDecoration,
       'firstDate': instance.firstDate,
       'lastDate': instance.lastDate,
       'initialDate': instance.initialDate,

@@ -171,6 +171,7 @@ class LayoutProps with _$LayoutProps {
     Map<String, dynamic>? disabledBorder,
     Map<String, dynamic>? focusedErrorBorder,
     Map<String, dynamic>? errorBorder,
+    Map<String, dynamic>? searchInputFieldDecoration,
     // Field End==================================================
 
     // Datetime Field Start==================================================

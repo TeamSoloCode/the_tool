@@ -98,10 +98,19 @@ class _TSearchableSelectFieldState
         // disabledItemFn: (s) => s.startsWith('C'),
         // itemBuilder: _computeDropdownItems(widgetProps?.itemLayout, items),
         showSearchBox: true,
-
         searchDelay: Duration(milliseconds: widgetProps?.duration ?? 1000),
         searchFieldProps: TextFieldProps(
-          decoration: commonInputDecoration,
+          decoration: widgetProps?.searchInputFieldDecoration == null
+              ? commonInputDecoration
+              : computeFieldDecoration(
+                  LayoutProps.fromJson(
+                    widgetProps?.searchInputFieldDecoration
+                        as Map<String, Object?>,
+                  ),
+                  thisWidget: widget,
+                  // errorMessage: _errorMessage,
+                  // suffixIcon: _getSuffixIcon(),
+                ),
         ),
       ),
       itemAsString: _computeItemsLabel(optionsMap),

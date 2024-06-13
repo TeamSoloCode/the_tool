@@ -169,7 +169,8 @@ mixin _$LayoutProps {
       throw _privateConstructorUsedError;
   Map<String, dynamic>? get focusedErrorBorder =>
       throw _privateConstructorUsedError;
-  Map<String, dynamic>? get errorBorder =>
+  Map<String, dynamic>? get errorBorder => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get searchInputFieldDecoration =>
       throw _privateConstructorUsedError; // Field End==================================================
 // Datetime Field Start==================================================
   String? get firstDate => throw _privateConstructorUsedError;
@@ -381,6 +382,7 @@ abstract class $LayoutPropsCopyWith<$Res> {
       Map<String, dynamic>? disabledBorder,
       Map<String, dynamic>? focusedErrorBorder,
       Map<String, dynamic>? errorBorder,
+      Map<String, dynamic>? searchInputFieldDecoration,
       String? firstDate,
       String? lastDate,
       String? initialDate,
@@ -564,6 +566,7 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
     Object? disabledBorder = freezed,
     Object? focusedErrorBorder = freezed,
     Object? errorBorder = freezed,
+    Object? searchInputFieldDecoration = freezed,
     Object? firstDate = freezed,
     Object? lastDate = freezed,
     Object? initialDate = freezed,
@@ -1011,6 +1014,10 @@ class _$LayoutPropsCopyWithImpl<$Res, $Val extends LayoutProps>
       errorBorder: freezed == errorBorder
           ? _value.errorBorder
           : errorBorder // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
+      searchInputFieldDecoration: freezed == searchInputFieldDecoration
+          ? _value.searchInputFieldDecoration
+          : searchInputFieldDecoration // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
       firstDate: freezed == firstDate
           ? _value.firstDate
@@ -1540,6 +1547,7 @@ abstract class _$$LayoutPropsImplCopyWith<$Res>
       Map<String, dynamic>? disabledBorder,
       Map<String, dynamic>? focusedErrorBorder,
       Map<String, dynamic>? errorBorder,
+      Map<String, dynamic>? searchInputFieldDecoration,
       String? firstDate,
       String? lastDate,
       String? initialDate,
@@ -1739,6 +1747,7 @@ class __$$LayoutPropsImplCopyWithImpl<$Res>
     Object? disabledBorder = freezed,
     Object? focusedErrorBorder = freezed,
     Object? errorBorder = freezed,
+    Object? searchInputFieldDecoration = freezed,
     Object? firstDate = freezed,
     Object? lastDate = freezed,
     Object? initialDate = freezed,
@@ -2187,6 +2196,10 @@ class __$$LayoutPropsImplCopyWithImpl<$Res>
           ? _value._errorBorder
           : errorBorder // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
+      searchInputFieldDecoration: freezed == searchInputFieldDecoration
+          ? _value._searchInputFieldDecoration
+          : searchInputFieldDecoration // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
       firstDate: freezed == firstDate
           ? _value.firstDate
           : firstDate // ignore: cast_nullable_to_non_nullable
@@ -2494,6 +2507,7 @@ class _$LayoutPropsImpl implements _LayoutProps {
       final Map<String, dynamic>? disabledBorder,
       final Map<String, dynamic>? focusedErrorBorder,
       final Map<String, dynamic>? errorBorder,
+      final Map<String, dynamic>? searchInputFieldDecoration,
       this.firstDate,
       this.lastDate,
       this.initialDate,
@@ -2556,6 +2570,7 @@ class _$LayoutPropsImpl implements _LayoutProps {
         _disabledBorder = disabledBorder,
         _focusedErrorBorder = focusedErrorBorder,
         _errorBorder = errorBorder,
+        _searchInputFieldDecoration = searchInputFieldDecoration,
         _validateOrder = validateOrder,
         _columns = columns,
         _rows = rows,
@@ -2927,6 +2942,17 @@ class _$LayoutPropsImpl implements _LayoutProps {
     return EqualUnmodifiableMapView(value);
   }
 
+  final Map<String, dynamic>? _searchInputFieldDecoration;
+  @override
+  Map<String, dynamic>? get searchInputFieldDecoration {
+    final value = _searchInputFieldDecoration;
+    if (value == null) return null;
+    if (_searchInputFieldDecoration is EqualUnmodifiableMapView)
+      return _searchInputFieldDecoration;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
 // Field End==================================================
 // Datetime Field Start==================================================
   @override
@@ -3293,6 +3319,7 @@ abstract class _LayoutProps implements LayoutProps {
       final Map<String, dynamic>? disabledBorder,
       final Map<String, dynamic>? focusedErrorBorder,
       final Map<String, dynamic>? errorBorder,
+      final Map<String, dynamic>? searchInputFieldDecoration,
       final String? firstDate,
       final String? lastDate,
       final String? initialDate,
@@ -3585,6 +3612,8 @@ abstract class _LayoutProps implements LayoutProps {
   Map<String, dynamic>? get focusedErrorBorder;
   @override
   Map<String, dynamic>? get errorBorder;
+  @override
+  Map<String, dynamic>? get searchInputFieldDecoration;
   @override // Field End==================================================
 // Datetime Field Start==================================================
   String? get firstDate;
