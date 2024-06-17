@@ -2,6 +2,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:json_theme/json_theme.dart';
 import 'package:the_tool/t_widget_interface/layout_content/layout_props.dart';
 import 'package:the_tool/tool_components/mixin_component/field_mixin.dart';
 import 'package:the_tool/tool_components/t_widget.dart';
@@ -41,6 +42,9 @@ class _TMultiSelectFieldState extends TStatefulWidget<TMultiSelectField>
       builder: (FormFieldState<Object> field) {
         return _multiSelect(widgetProps!, field, contextData, widgetProps);
       },
+      autovalidateMode: ThemeDecoder.decodeAutovalidateMode(
+        widgetProps?.autovalidateMode,
+      ),
       enabled: widgetProps?.enabled ?? true,
       onChanged: _onChangeOption,
       initialValue: widget.props?.defaultValue ?? value,

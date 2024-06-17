@@ -113,6 +113,8 @@ extension MergeLayoutProps on LayoutProps {
       disabledBorder: other.disabledBorder ?? disabledBorder,
       fillColor: other.fillColor ?? fillColor,
       searchable: other.searchable ?? searchable,
+      searchInputFieldDecoration:
+          other.searchInputFieldDecoration ?? searchInputFieldDecoration,
 
       // Field end======================================
 
